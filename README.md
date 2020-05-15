@@ -13,7 +13,7 @@
 * `npm start` - Runs the app in the development mode.
 * `npm run build` - Builds the app for production to the `build` folder.
 * `npm run lint` - Linting code. Check for errors and warnings.
-* `npm run fix` - Linting code and fix most errors. Output is unresolved errors.
+* `npm run fix` - Linting code and fix most errors. Output - unresolved errors.
 
 ### .env
 In development...
