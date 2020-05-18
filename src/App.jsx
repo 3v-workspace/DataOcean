@@ -1,9 +1,9 @@
 import React from 'react';
-import './App.scss';
-import ReactLogo from './components/ReactLogo';
+// import ReactLogo from './components/ReactLogo';
+import RootRoutes from './components/RootRoutes';
 
 const App = () => (
-  <ReactLogo text="Data Ocean" />
+  <RootRoutes />
 );
 
 export default App;

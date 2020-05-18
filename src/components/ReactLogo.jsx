@@ -1,23 +1,21 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import logo from '../logo.svg';
+import './ReactLogo.scss';
 
 
-const ReactLogo = (props) => {
-  const { text } = props;
+const ReactLogo = () => (
+  <div className="App">
+    <header className="App-header">
+      <img src={logo} className="App-logo" alt="logo" />
+      <h1>Data ocean</h1>
+      <Link to="/login/">
+        <h3>Login</h3>
+      </Link>
+    </header>
+  </div>
+);
 
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <h1>{text}</h1>
-      </header>
-    </div>
-  );
-};
-
-ReactLogo.propTypes = {
-  text: PropTypes.string.isRequired,
-};
+ReactLogo.propTypes = {};
 
 export default ReactLogo;
