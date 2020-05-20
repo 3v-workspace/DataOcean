@@ -20,12 +20,10 @@
     }
   },
   "rules": {
-    "operator-linebreak": [
-      "warn",
-      "after"
-    ],
+    "operator-linebreak": ["warn", "after"],
     "spaced-comment": "off",
     "no-param-reassign": "off",
+    "object-curly-newline": "off",
 
     "react/forbid-prop-types": "off",
     "react/jsx-props-no-spreading": "off",
@@ -36,36 +34,39 @@
     "jsx-a11y/click-events-have-key-events": "off",
     "jsx-a11y/no-static-element-interactions": "off",
 
-    // "no-underscore-dangle": "warn",
-    // "prefer-destructuring": "warn",
-    // "max-classes-per-file": ["warn", 2],
-    "no-shadow": "warn",
-    "max-len": "warn",
-    "no-prototype-builtins": "warn",
-    "no-debugger": "warn",
     "no-unused-vars": "warn",
-    "semi": "warn",
     "no-trailing-spaces": "warn",
-    "no-empty": "warn",
-    "space-before-blocks": "warn",
-    "arrow-body-style": "warn",
-    "quotes": "warn",
-    "prefer-const": "warn",
-    "comma-dangle": "warn",
-    "no-else-return": "warn",
-    "dot-notation": "warn",
-    "object-curly-newline": "warn",
-    "arrow-spacing": "warn",
-    "no-unreachable": "warn",
-    "arrow-parens": "warn",
-    "import/no-cycle": "warn",
+
     "import/prefer-default-export": "warn",
 
     "react/no-did-update-set-state": "warn",
     "react/jsx-curly-brace-presence": "warn",
-    "react/self-closing-comp": "warn",
     "react/no-array-index-key": "warn",
 
+    "arrow-body-style": ["error", "as-needed"],
+
     "jsx-a11y/mouse-events-have-key-events": "warn"
+
+    //"no-shadow": "warn",
+    //"react/self-closing-comp": "warn",
+    //"no-underscore-dangle": "warn",
+    //"prefer-destructuring": "warn",
+    //"max-classes-per-file": ["warn", 2],
+    //"max-len": "warn",
+    //"semi": "warn",
+    //"no-prototype-builtins": "warn",
+    //"no-debugger": "warn",
+
+    //"no-empty": "warn",
+    //"space-before-blocks": "warn",
+    //"quotes": "warn",
+    //"prefer-const": "warn",
+    //"comma-dangle": "warn",
+    //"no-else-return": "warn",
+    //"dot-notation": "warn",
+    //"arrow-spacing": "warn",
+    //"no-unreachable": "warn",
+    //"arrow-parens": "warn",
+    //"import/no-cycle": "warn",
   }
 }
