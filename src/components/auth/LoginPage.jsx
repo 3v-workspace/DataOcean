@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 // import PropTypes from 'prop-types';
 import ReactRouterPropTypes from 'utils/react-router-prop-types';
 import { Route, Switch } from 'react-router-dom';
-import LoginForm from 'components/auth/LoginForm';
-import RegisterForm from 'components/auth/RegisterForm';
+import SignInForm from 'components/auth/SignInForm';
+import SignUpForm from 'components/auth/SignUpForm';
 
 
 const LoginPage = ({ match }) => {
@@ -41,12 +41,12 @@ const LoginPage = ({ match }) => {
           <Route
             exact
             path={`${match.path}login/`}
-            component={LoginForm}
+            component={SignInForm}
           />
           <Route
             exact
             path={`${match.path}register/`}
-            component={RegisterForm}
+            component={SignUpForm}
           />
         </Switch>
       </div>

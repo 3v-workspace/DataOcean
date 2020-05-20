@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactRouterPropTypes from 'utils/react-router-prop-types';
 
-const RegisterForm = () => (
+const SignUpForm = () => (
   <div className="h-screen xl:h-auto flex py-5 xl:py-0 my-10 xl:my-0">
     <div
       className="my-auto mx-auto xl:ml-20 bg-white xl:bg-transparent px-5 sm:px-8 py-8 xl:p-0 rounded-md shadow-md xl:shadow-none w-full sm:w-3/4 lg:w-2/4 xl:w-auto"
@@ -14,8 +14,8 @@ const RegisterForm = () => (
   </div>
 );
 
-RegisterForm.propTypes = {
+SignUpForm.propTypes = {
   ...ReactRouterPropTypes,
 };
 
-export default RegisterForm;
+export default SignUpForm;
