@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-// import PropTypes from 'prop-types';
-import ReactRouterPropTypes from '../../utils/react-router-prop-types';
 import './login-page.scss';
+import ReactRouterPropTypes from 'utils/react-router-prop-types';
+
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -9,8 +9,8 @@ const LoginPage = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(email);
-    console.log(password);
+    // console.log(email);
+    // console.log(password);
   };
 
   return (

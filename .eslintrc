@@ -10,6 +10,15 @@
     "browser": true,
     "node": true
   },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "paths": [
+          "src"
+        ]
+      }
+    }
+  },
   "rules": {
     "operator-linebreak": [
       "warn",
@@ -27,9 +36,9 @@
     "jsx-a11y/click-events-have-key-events": "off",
     "jsx-a11y/no-static-element-interactions": "off",
 
-//    "no-underscore-dangle": "warn",
-//    "prefer-destructuring": "warn",
-//    "max-classes-per-file": ["warn", 2],
+    // "no-underscore-dangle": "warn",
+    // "prefer-destructuring": "warn",
+    // "max-classes-per-file": ["warn", 2],
     "no-shadow": "warn",
     "max-len": "warn",
     "no-prototype-builtins": "warn",
