@@ -14,9 +14,8 @@ const RootRoutes = () => (
       component={ReactLogo}
     />
     <Route
-      exact
-      path="/login/"
-      component={LoginPage}
+      path="/auth/"
+      render={(props) => <LoginPage {...props} type="login" />}
     />
     <Route
       exact

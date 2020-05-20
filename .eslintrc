@@ -45,7 +45,12 @@
 
     "arrow-body-style": ["error", "as-needed"],
 
-    "jsx-a11y/mouse-events-have-key-events": "warn"
+    "jsx-a11y/mouse-events-have-key-events": "warn",
+
+    "react/prop-types": ["error", {
+      "ignore": ["children"]
+    }]
+
 
     //"no-shadow": "warn",
     //"react/self-closing-comp": "warn",

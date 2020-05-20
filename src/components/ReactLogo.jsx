@@ -9,7 +9,7 @@ const ReactLogo = () => (
     <header className="App-header">
       <img src={logo} className="App-logo" alt="logo" />
       <h1>Data ocean</h1>
-      <Link to="/login/">
+      <Link to="/auth/login/">
         <h3>Login</h3>
       </Link>
     </header>
