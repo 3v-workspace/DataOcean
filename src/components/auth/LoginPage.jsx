@@ -1,39 +1,55 @@
-import React, { useState } from 'react';
-import './login-page.scss';
+import React, { useEffect } from 'react';
+// import PropTypes from 'prop-types';
 import ReactRouterPropTypes from 'utils/react-router-prop-types';
+import { Route, Switch } from 'react-router-dom';
+import LoginForm from 'components/auth/LoginForm';
+import RegisterForm from 'components/auth/RegisterForm';
 
 
-const LoginPage = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
-  const onSubmit = (e) => {
-    e.preventDefault();
-    // console.log(email);
-    // console.log(password);
-  };
-
+const LoginPage = ({ match }) => {
+  useEffect(() => {
+    document.body.classList.add('login');
+    return () => {
+      document.body.classList.remove('login');
+    };
+  }, []);
   return (
-    <div className="login-page">
-      <form className="login-container" onSubmit={onSubmit}>
-        <label>Email</label>
-        <input
-          type="email"
-          onChange={({ target: { value } }) => setEmail(value)}
-          name="email"
-          value={email}
-        />
-        <label>Password</label>
-        <input
-          type="password"
-          onChange={({ target: { value } }) => setPassword(value)}
-          name="password"
-          value={password}
-        />
-        <button type="submit">
-          Вхід
-        </button>
-      </form>
+    <div className="container sm:px-10">
+      <div className="block xl:grid grid-cols-2 gap-4">
+        <div className="hidden xl:flex flex-col min-h-screen">
+          <a href="#?" className="-intro-x flex items-center pt-5">
+            <img alt="Midone Tailwind HTML Admin Template" className="w-6" src="/images/logo.svg" />
+            <span className="text-white text-lg ml-3">
+              <span className="font-medium">Data Ocean</span>
+            </span>
+          </a>
+          <div className="my-auto">
+            <img
+              alt="Midone Tailwind HTML Admin Template"
+              className="-intro-x w-1/2 -mt-16"
+              src="/images/illustration.svg"
+            />
+            <div className="-intro-x text-white font-medium text-4xl leading-tight mt-10">
+              A few more clicks to
+              <br />
+              sign in to your account.
+            </div>
+            <div className="-intro-x mt-5 text-lg text-white">Manage all your e-commerce accounts in one place</div>
+          </div>
+        </div>
+        <Switch>
+          <Route
+            exact
+            path={`${match.path}login/`}
+            component={LoginForm}
+          />
+          <Route
+            exact
+            path={`${match.path}register/`}
+            component={RegisterForm}
+          />
+        </Switch>
+      </div>
     </div>
   );
 };
