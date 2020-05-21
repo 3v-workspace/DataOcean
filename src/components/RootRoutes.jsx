@@ -1,20 +1,17 @@
 import React from 'react';
 // import PropTypes from 'prop-types';
-import { Switch, Route } from 'react-router-dom';
-import ReactLogo from './ReactLogo';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import LoginPage from './auth/LoginPage';
 
 
 const RootRoutes = () => (
   <Switch>
     <Route
-      exact
-      path="/"
-      component={ReactLogo}
+      path="/auth/"
+      component={LoginPage}
     />
     <Route
-      path="/auth/"
-      render={(props) => <LoginPage {...props} type="login" />}
+      render={() => <Redirect to="/auth/login/" />}
     />
   </Switch>
 );
