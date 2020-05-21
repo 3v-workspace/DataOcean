@@ -40,12 +40,12 @@ const LoginPage = ({ match }) => {
         <Switch>
           <Route
             exact
-            path={`${match.path}login/`}
+            path={`${match.path}sign-in/`}
             component={SignInForm}
           />
           <Route
             exact
-            path={`${match.path}register/`}
+            path={`${match.path}sign-up/`}
             component={SignUpForm}
           />
         </Switch>
