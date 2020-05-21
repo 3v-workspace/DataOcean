@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import ReactRouterPropTypes from 'utils/react-router-prop-types';
+import BooleanInput from 'components/form-components/BooleanInput';
+import Button from 'components/form-components/Button';
+import TextInput from 'components/form-components/TextInput';
 
 const SignUpForm = () => {
+
   const [lastname, setLastname] = useState('');
   const [firstname, setFirstname] = useState('');
   const [surname, setSurname] = useState('');
@@ -28,75 +32,67 @@ const SignUpForm = () => {
         </h2>
         <div className="login-page">
           <form className="login-container">
-            <input
+            <TextInput
               type="text"
-              className="input w-full border mt-2"
               onChange={({ target: { value } }) => setLastname(value)}
               placeholder="Прізвище"
               name="lastname"
               value={lastname}
             />
-            <input
+            <TextInput
               type="text"
-              className="input w-full border mt-2"
               onChange={({ target: { value } }) => setFirstname(value)}
               placeholder="Ім'я"
               name="firstname"
               value={firstname}
             />
-            <input
+            <TextInput
               type="text"
-              className="input w-full border mt-2"
               onChange={({ target: { value } }) => setSurname(value)}
               placeholder="По-батькові (не обов'язково)"
               name="surname"
               value={surname}
             />
-            <input
+            <TextInput
               type="text"
-              className="input w-full border mt-2"
               onChange={({ target: { value } }) => setCompany(value)}
               placeholder="Назва компанії"
               name="company"
               value={company}
             />
-            <input
+            <TextInput
               type="email"
-              className="input w-full border mt-2"
               onChange={({ target: { value } }) => setEmail(value)}
               placeholder="Електронна пошта"
               name="email"
               value={email}
             />
-            <input
+            <TextInput
               type="password"
-              className="input w-full border mt-2"
               onChange={({ target: { value } }) => setPassword(value)}
               placeholder="Пароль"
               name="password"
               value={password}
             />
-            <input
+            <TextInput
               type="password"
-              className="input w-full border mt-2"
               onChange={({ target: { value } }) => setPassword2(value)}
               placeholder="Повторіть пароль"
               name="password2"
               value={password2}
             />
             <div className="flex items-center text-gray-700 mt-5">
-              <label className="cursor-pointer select-none">
-                <input type="checkbox" className="input border mr-2" id="vertical-remember-me" />
-                Реєструючись, Ви погоджуєтесь із призначеною для користувача угодою
-              </label>
+                <BooleanInput
+                  label="Реєструючись, Ви погоджуєтесь із призначеною для користувача угодою"
+                />
             </div>
-            <button
+            <Button
               type="button"
-              className="button bg-theme-1 text-white mt-5"
               onClick={onSubmit}
+              width="mt-8"
             >
               Зареєструватись
-            </button>
+            </Button>
           </form>
         </div>
       </div>
