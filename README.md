@@ -17,3 +17,49 @@
 
 ### .env
 In development...
+
+## Deploy manual
+_I recommend using **github deploy keys**_
+
+##### Install node.js
+```shell script
+sudo apt update
+sudo apt -y upgrade
+sudo apt -y install curl dirmngr apt-transport-https lsb-release ca-certificates
+curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+sudo apt -y install nodejs
+sudo apt -y install gcc g++ make
+
+# check installation
+node --version
+npm --version
+```
+
+##### Clone project and install node packages
+```shell script
+git clone git@github.com:3v-workspace/DataOcean.git
+cd DataOcean
+npm install
+```
+
+##### Nginx configs
+```
+server {
+
+    server_name <here_domain_name>;
+
+    root /<path_to_project>/DataOcean/build;
+
+    index index.html;
+
+    location / {
+        try_files $uri /index.html = 404;
+    }
+}
+```
+
+##### Upgrade
+For upgrade you need run only [upgrade.sh](upgrade.sh)
+```
+sh upgrade.sh
+```
