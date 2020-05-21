@@ -11,7 +11,7 @@ const RootRoutes = () => (
       component={LoginPage}
     />
     <Route
-      render={() => <Redirect to="/auth/login/" />}
+      render={() => <Redirect to="/auth/sign-in/" />}
     />
   </Switch>
 );

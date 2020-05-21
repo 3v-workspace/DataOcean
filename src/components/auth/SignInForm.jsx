@@ -52,7 +52,7 @@ const SignInForm = () => (
           variant="secondary"
           size="lg"
           width="w-full"
-          link="/auth/register/"
+          link="/auth/sign-up/"
         >
           Sign up
         </Button>
