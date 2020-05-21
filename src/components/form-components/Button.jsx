@@ -13,7 +13,8 @@ const buttonTypes = {
 
 const Button = (props) => {
   const {
-    size, children, width, variant, className, onClick, link,
+    size, children, width, variant, className,
+    onClick, link, toggleModal,
   } = props;
 
   const classList = [];
@@ -30,23 +31,24 @@ const Button = (props) => {
   classList.push(buttonTypes[variant]);
   classList.push('mr-1 mb-2');
 
-  let Component;
-  const linkProps = {};
+  let Component = 'button';
 
+  const extraProps = {};
   if (link) {
     Component = Link;
-    linkProps.to = link;
-  } else {
-    Component = 'button';
+    extraProps.to = link;
+  } else if (toggleModal) {
+    Component = 'a';
+    extraProps['data-toggle'] = 'modal';
+    extraProps['data-target'] = toggleModal;
   }
-
 
   return (
     <Component
       type="button"
       onClick={onClick}
       className={classList.join(' ')}
-      {...linkProps}
+      {...extraProps}
     >
       {children}
     </Component>
@@ -60,15 +62,17 @@ Button.propTypes = {
   width: PropTypes.string,
   variant: PropTypes.oneOf(Object.keys(buttonTypes)),
   onClick: PropTypes.func,
+  toggleModal: PropTypes.string,
 };
 
 Button.defaultProps = {
   link: '',
   className: '',
   size: null,
-  width: 'w-24',
+  width: 'w-100',
   variant: 'primary',
   onClick: () => undefined,
+  toggleModal: '',
 };
 
 export default Button;
