@@ -1,7 +1,8 @@
 import React from 'react';
 // import PropTypes from 'prop-types';
+import Route404, { Page404 } from 'components/pages/Route404';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import LoginPage from './auth/LoginPage';
+import LoginPage from './pages/auth/LoginPage';
 
 
 const RootRoutes = () => (
@@ -11,8 +12,15 @@ const RootRoutes = () => (
       component={LoginPage}
     />
     <Route
+      path="/404/"
+      component={Page404}
+    />
+    <Route
+      exact
+      path="/"
       render={() => <Redirect to="/auth/sign-in/" />}
     />
+    <Route404 />
   </Switch>
 );
 

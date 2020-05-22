@@ -9,6 +9,8 @@ const buttonTypes = {
   warning: 'bg-theme-12 text-white',
   danger: 'bg-theme-6 text-white',
   dark: 'bg-gray-200 text-gray-600',
+
+  'outline-white': 'border border-white',
 };
 
 const Button = (props) => {
