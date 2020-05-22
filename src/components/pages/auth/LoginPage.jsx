@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
-// import PropTypes from 'prop-types';
 import ReactRouterPropTypes from 'utils/react-router-prop-types';
 import { Route, Switch } from 'react-router-dom';
-import SignInForm from 'components/auth/SignInForm';
-import SignUpForm from 'components/auth/SignUpForm';
+import SignInForm from 'components/pages/auth/SignInForm';
+import SignUpForm from 'components/pages/auth/SignUpForm';
+import Route404 from 'components/pages/Route404';
+import RestorePassword from 'components/pages/auth/RestorePassword';
 
 
 const LoginPage = ({ match }) => {
@@ -13,6 +14,7 @@ const LoginPage = ({ match }) => {
       document.body.classList.remove('login');
     };
   }, []);
+
   return (
     <div className="container sm:px-10">
       <div className="block xl:grid grid-cols-2 gap-4">
@@ -37,18 +39,30 @@ const LoginPage = ({ match }) => {
             <div className="-intro-x mt-5 text-lg text-white">Manage all your e-commerce accounts in one place</div>
           </div>
         </div>
-        <Switch>
-          <Route
-            exact
-            path={`${match.path}sign-in/`}
-            component={SignInForm}
-          />
-          <Route
-            exact
-            path={`${match.path}sign-up/`}
-            component={SignUpForm}
-          />
-        </Switch>
+        <div className="h-screen xl:h-auto flex py-5 xl:py-0 my-10 xl:my-0">
+          <div
+            className="my-auto mx-auto xl:ml-20 bg-white xl:bg-transparent px-5 sm:px-8 py-8 xl:p-0 rounded-md shadow-md xl:shadow-none w-full sm:w-3/4 lg:w-2/4 xl:w-auto"
+          >
+            <Switch>
+              <Route
+                exact
+                path={`${match.path}sign-in/`}
+                component={SignInForm}
+              />
+              <Route
+                exact
+                path={`${match.path}sign-up/`}
+                component={SignUpForm}
+              />
+              <Route
+                exact
+                path={`${match.path}restore-pass/`}
+                component={RestorePassword}
+              />
+              <Route404 />
+            </Switch>
+          </div>
+        </div>
       </div>
     </div>
   );
