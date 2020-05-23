@@ -43,7 +43,7 @@
     "react/jsx-curly-brace-presence": "warn",
     "react/no-array-index-key": "warn",
 
-    "arrow-body-style": ["error", "as-needed"],
+    "arrow-body-style": ["warn", "as-needed"],
 
     "jsx-a11y/mouse-events-have-key-events": "warn",
 
