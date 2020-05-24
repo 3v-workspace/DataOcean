@@ -3,6 +3,9 @@
     "src/serviceWorker.js"
   ],
   "parser": "babel-eslint",
+  "plugins": [
+    "react-hooks"
+  ],
   "extends": [
     "airbnb"
   ],
