@@ -20,12 +20,12 @@ const EmailForm = ({ setStage }) => {
     },
     validationSchema: Yup.object({
       email: Yup.string()
-        .required('Поле не може бути пусте.')
-        .email('Не коректний Email.'),
+        .required('Поле не може бути пусте')
+        .email('Не коректний Email'),
     }),
     onSubmit: () => {
       // TODO:
-      setStage(stages.RESTORE);
+      setStage(stages.CODE);
     },
   });
 
@@ -61,7 +61,9 @@ const CodeForm = ({ setStage }) => {
       code: '',
     },
     validationSchema: Yup.object({
-      code: Yup.string().length(4, 'Поле має містити 4 символи.'),
+      code: Yup.string()
+        .required('Поле не може бути пусте')
+        .length(4, 'Поле має містити 4 символи'),
     }),
     onSubmit: () => {
       // TODO:
@@ -110,8 +112,8 @@ const RestoreForm = ({ setStage }) => {
       return errors;
     },
     validationSchema: Yup.object({
-      password: Yup.string().required('Поле не може бути пусте.'),
-      password2: Yup.string().required('Поле не може бути пусте.'),
+      password: Yup.string().required('Поле не може бути пусте'),
+      password2: Yup.string().required('Поле не може бути пусте'),
     }),
     onSubmit: () => {
       // TODO:
