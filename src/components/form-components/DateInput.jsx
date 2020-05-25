@@ -2,11 +2,12 @@
 import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import FormikPropType from 'utils/formik-prop-types';
+import moment from 'moment';
 
 // TODO: finish this
 const DateInput = (props) => {
   const {
-    name, formik, onChange,
+    name, formik, onChange, value,
   } = props;
 
   const datepickerRef = useRef();
@@ -14,7 +15,27 @@ const DateInput = (props) => {
   useEffect(() => {
     $(datepickerRef.current).daterangepicker({
       timePicker: true,
+      timePicker24Hour: true,
+      autoApply: true,
+      autoUpdateInput: true,
       singleDatePicker: true,
+      startDate: moment().startOf('hour'),
+      endDate: moment().endOf('hour'),
+      locale: {
+        format: 'DD.MM.YYYY HH:mm',
+        applyLabel: 'Oк',
+        cancelLabel: 'Відміна',
+        fromLabel: 'Від',
+        toLabel: 'До',
+        // customRangeLabel: 'Користувацька',
+        weekLabel: 'Тиж.',
+        daysOfWeek: ['Нд', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
+        monthNames: [
+          'Січень', 'Лютий', 'Березень', 'Квітень', 'Травень', 'Червень',
+          'Липень', 'Серпень', 'Вересень', 'Жовтень', 'Листопад', 'Грудень',
+        ],
+        firstDay: 1,
+      },
     });
     if (onChange) {
       $(datepickerRef.current).on('change', onChange);
@@ -35,7 +56,8 @@ const DateInput = (props) => {
       <input
         ref={datepickerRef}
         name={name}
-        data-timepicker="true"
+        value={value || (formik && formik.values[name])}
+        onBlur={formik && formik.handleBlur}
         className="input w-56 border block"
       />
     </div>
@@ -44,10 +66,12 @@ const DateInput = (props) => {
 
 DateInput.propTypes = {
   name: PropTypes.string.isRequired,
+  value: PropTypes.any,
   onChange: PropTypes.func,
   formik: FormikPropType,
 };
 DateInput.defaultProps = {
+  value: undefined,
   onChange: undefined,
   formik: null,
 };
