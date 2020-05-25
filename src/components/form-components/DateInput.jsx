@@ -73,7 +73,7 @@ DateInput.propTypes = {
 DateInput.defaultProps = {
   value: undefined,
   onChange: undefined,
-  formik: null,
+  formik: undefined,
 };
 
 
