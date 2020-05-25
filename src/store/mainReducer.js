@@ -1,7 +1,8 @@
 import { combineReducers } from 'redux';
+import userReducer from 'store/user/reducer';
 
 const mainReducer = combineReducers({
-  // TODO: make first reducer
+  userReducer,
 });
 
 export default mainReducer;
