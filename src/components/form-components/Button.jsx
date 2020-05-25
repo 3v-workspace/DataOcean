@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import LoadingIcon from 'components/LoadingIcon';
 
 const buttonTypes = {
   primary: 'bg-theme-1 text-white',
@@ -13,9 +14,52 @@ const buttonTypes = {
   'outline-white': 'border border-white',
 };
 
+const loadingColors = {
+  primary: 'white',
+  secondary: 'white',
+  success: 'white',
+  warning: 'white',
+  danger: 'white',
+  dark: 'white',
+
+  'outline-white': 'white',
+};
+
+const Loading = (props) => {
+  const { size, variant } = props;
+
+  const classList = ['ml-1'];
+
+  switch (size) {
+    case 'sm':
+      classList.push('w-4 h-4');
+      break;
+    case 'md':
+      classList.push('w-4 h-4');
+      break;
+    case 'lg':
+      classList.push('w-5 h-5');
+      break;
+    default:
+      break;
+  }
+
+  return (
+    <LoadingIcon icon="oval" color={loadingColors[variant]} className={classList.join(' ')} />
+  );
+};
+Loading.propTypes = {
+  size: PropTypes.oneOf(['sm', 'md', 'lg']),
+  variant: PropTypes.oneOf(Object.keys(buttonTypes)).isRequired,
+};
+Loading.defaultProps = {
+  size: 'md',
+};
+
+// TODO: disabled effect
 const Button = (props) => {
   const {
-    size, children, width, variant, className,
+    size, children, width, variant, className, isLoading,
     onClick, link, toggleModal, type, disabled,
   } = props;
 
@@ -32,6 +76,7 @@ const Button = (props) => {
   }
   classList.push(buttonTypes[variant]);
   classList.push('mr-1 mb-2');
+  classList.push('inline-flex items-center justify-center');
 
   let Component = 'button';
 
@@ -54,6 +99,9 @@ const Button = (props) => {
       {...extraProps}
     >
       {children}
+      {isLoading && (
+        <Loading size={size} variant={variant} />
+      )}
     </Component>
   );
 };
@@ -68,6 +116,7 @@ Button.propTypes = {
   variant: PropTypes.oneOf(Object.keys(buttonTypes)),
   onClick: PropTypes.func,
   toggleModal: PropTypes.string,
+  isLoading: PropTypes.bool,
 };
 
 Button.defaultProps = {
@@ -75,11 +124,12 @@ Button.defaultProps = {
   type: 'button',
   link: '',
   className: '',
-  size: null,
+  size: undefined,
   width: 'w-100',
   variant: 'primary',
   onClick: () => undefined,
   toggleModal: '',
+  isLoading: false,
 };
 
 export default Button;
