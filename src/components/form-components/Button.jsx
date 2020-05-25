@@ -16,7 +16,7 @@ const buttonTypes = {
 const Button = (props) => {
   const {
     size, children, width, variant, className,
-    onClick, link, toggleModal, type,
+    onClick, link, toggleModal, type, disabled,
   } = props;
 
   const classList = [];
@@ -48,6 +48,7 @@ const Button = (props) => {
   return (
     <Component
       type={type}
+      disabled={disabled}
       onClick={onClick}
       className={classList.join(' ')}
       {...extraProps}
@@ -58,6 +59,7 @@ const Button = (props) => {
 };
 
 Button.propTypes = {
+  disabled: PropTypes.bool,
   type: PropTypes.oneOf(['button', 'submit', 'reset']),
   link: PropTypes.string,
   className: PropTypes.string,
@@ -69,6 +71,7 @@ Button.propTypes = {
 };
 
 Button.defaultProps = {
+  disabled: false,
   type: 'button',
   link: '',
   className: '',
