@@ -7,9 +7,14 @@ import { Link } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import Form from 'components/form-components/Form';
+import { useDispatch } from 'react-redux';
+import { setUserData } from 'store/user/actionCreators';
+import Api from 'api';
 
 // TODO: finish LoginForm
 const SignInForm = () => {
+  const dispatch = useDispatch();
+
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -26,7 +31,23 @@ const SignInForm = () => {
     onSubmit: (values, actions) => {
       setTimeout(() => {
         // TODO: ajax login request
-        actions.setFieldError('password', 'Невірний логін або пароль');
+        // next code only for testing
+        const success = true;
+
+        if (success) {
+          const testToken = 'asdasdqrqtslsdkmof.fsjdfosie.splgmoejplvmslkapd';
+          window.localStorage.setItem('token', testToken);
+          // Api.get('hello/');
+          dispatch(setUserData({
+            isLoggedIn: true,
+            email: 'admin@admin.com',
+            firstName: 'Roman',
+            lastName: 'Tiukh',
+            role: 'admin',
+          }));
+        } else {
+          actions.setFieldError('password', 'Невірний логін або пароль');
+        }
         actions.setSubmitting(false);
       }, 2000);
     },
