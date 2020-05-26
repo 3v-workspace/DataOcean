@@ -1,6 +1,11 @@
-import { SET_USER_DATA } from 'store/user/actions';
+import {
+  SET_USER_DATA,
+  USER_LOGIN,
+  USER_LOGOUT,
+} from 'store/user/actions';
 
 const initialState = {
+  isLoggedIn: false,
   email: '',
   firstName: '',
   lastName: '',
@@ -13,6 +18,17 @@ const userReducer = (state = initialState, action) => {
       return {
         ...state,
         ...action.payload,
+      };
+    case USER_LOGIN:
+      return {
+        ...state,
+        ...action.payload,
+        isLoggedIn: true,
+      };
+    case USER_LOGOUT:
+      return {
+        ...initialState,
+        isLoggedIn: false,
       };
     default:
       return state;
