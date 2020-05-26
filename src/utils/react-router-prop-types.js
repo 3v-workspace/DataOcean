@@ -8,6 +8,7 @@ const ReactRouterPropTypes = {
     params: PropTypes.objectOf(PropTypes.string),
   }),
   history: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired,
 };
 
 export default ReactRouterPropTypes;
