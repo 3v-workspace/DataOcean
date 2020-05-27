@@ -94,11 +94,11 @@ SelectInput.defaultProps = {
   multiple: false,
   onChange: undefined,
   hideSearch: false,
-  value: null,
+  value: undefined,
   label: '',
-  placeholder: null,
+  placeholder: undefined,
   width: 'w-full',
-  formik: null,
+  formik: undefined,
 };
 
 export default SelectInput;

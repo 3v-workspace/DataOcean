@@ -35,10 +35,10 @@ Form.propTypes = {
   noValidate: PropTypes.bool,
 };
 Form.defaultProps = {
-  onSubmit: null,
+  onSubmit: undefined,
   className: '',
   noValidate: false,
-  formik: null,
+  formik: undefined,
 };
 
 export default Form;
