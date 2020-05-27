@@ -20,6 +20,8 @@ const LoginPage = ({ match }) => {
     if (user.isLoggedIn) {
       history.replace(from);
     }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user.isLoggedIn]);
 
   useEffect(() => {
