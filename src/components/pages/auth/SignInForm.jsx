@@ -5,7 +5,7 @@ import Button from 'components/form-components/Button';
 import ReactRouterPropTypes from 'utils/react-router-prop-types';
 import { Link } from 'react-router-dom';
 import { useFormik } from 'formik';
-import * as Yup from 'yup';
+import Yup from 'utils/yup';
 import Form from 'components/form-components/Form';
 import { useDispatch } from 'react-redux';
 import { setUserData } from 'store/user/actionCreators';
@@ -22,10 +22,8 @@ const SignInForm = () => {
       remember_me: false,
     },
     validationSchema: Yup.object({
-      email: Yup.string()
-        .required('Поле не може бути пусте')
-        .email('Некоректний Email'),
-      password: Yup.string().required('Поле не може бути пусте'),
+      email: Yup.string().required().email(),
+      password: Yup.string().required(),
       remember_me: Yup.bool(),
     }),
     onSubmit: (values, actions) => {
