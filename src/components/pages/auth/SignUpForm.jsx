@@ -40,7 +40,7 @@ const SignUpForm = () => {
     initialValues: {
       first_name: '',
       last_name: '',
-      email: 'admin@admin.com',
+      email: '',
       password: '',
       password2: '',
       accept_policy: false,
