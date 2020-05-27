@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import Form from 'components/form-components/Form';
 import { useFormik } from 'formik';
-import * as Yup from 'yup';
+import Yup from 'utils/yup';
 
 const stages = {
   START: 'START',
@@ -19,9 +19,7 @@ const EmailForm = ({ setStage }) => {
       email: '',
     },
     validationSchema: Yup.object({
-      email: Yup.string()
-        .required('Поле не може бути пусте')
-        .email('Не коректний Email'),
+      email: Yup.string().required().email(),
     }),
     onSubmit: () => {
       // TODO:
@@ -36,6 +34,7 @@ const EmailForm = ({ setStage }) => {
           className="intro-x login__input border-gray-300 block"
           name="email"
           type="email"
+          size="lg"
           placeholder="Email"
           formik={formik}
         />
@@ -44,7 +43,7 @@ const EmailForm = ({ setStage }) => {
         <Button
           type="submit"
           className="xl:w-1/2 xl:mr-3"
-          size="lg"
+          // size="lg"
           width="w-full"
         >
           Відновити пароль
@@ -61,9 +60,7 @@ const CodeForm = ({ setStage }) => {
       code: '',
     },
     validationSchema: Yup.object({
-      code: Yup.string()
-        .required('Поле не може бути пусте')
-        .length(4, 'Поле має містити 4 символи'),
+      code: Yup.string().required().length(4),
     }),
     onSubmit: () => {
       // TODO:
@@ -78,6 +75,7 @@ const CodeForm = ({ setStage }) => {
           className="intro-x login__input border-gray-300 block"
           name="code"
           type="text"
+          size="lg"
           placeholder="Код з email листа"
           formik={formik}
         />
@@ -86,7 +84,7 @@ const CodeForm = ({ setStage }) => {
         <Button
           type="submit"
           className="xl:w-1/2 xl:mr-3"
-          size="lg"
+          // size="lg"
           width="w-full"
         >
           Далі
@@ -112,8 +110,8 @@ const RestoreForm = ({ setStage }) => {
       return errors;
     },
     validationSchema: Yup.object({
-      password: Yup.string().required('Поле не може бути пусте'),
-      password2: Yup.string().required('Поле не може бути пусте'),
+      password: Yup.string().required(),
+      password2: Yup.string().required(),
     }),
     onSubmit: () => {
       // TODO:
@@ -128,6 +126,7 @@ const RestoreForm = ({ setStage }) => {
           className="intro-x login__input border-gray-300 block"
           type="password"
           name="password"
+          size="lg"
           placeholder="Пароль"
           formik={formik}
         />
@@ -135,6 +134,7 @@ const RestoreForm = ({ setStage }) => {
           className="intro-x login__input border-gray-300 block"
           type="password"
           name="password2"
+          size="lg"
           placeholder="Підтвердження паролю"
           formik={formik}
         />
@@ -143,7 +143,7 @@ const RestoreForm = ({ setStage }) => {
         <Button
           type="submit"
           className="xl:w-1/2 xl:mr-3"
-          size="lg"
+          // size="lg"
           width="w-full"
         >
           Далі
@@ -176,6 +176,24 @@ const RestorePassword = () => {
       <FormComponent
         setStage={setStage}
       />
+      <div className="intro-x mt-5 xl:mt-8 text-center xl:text-left">
+        <Button
+          className="xl:w-32 xl:mr-3"
+          variant="secondary"
+          width="w-full"
+          link="/auth/sign-in/"
+        >
+          Вхід
+        </Button>
+        <Button
+          className="xl:w-32 xl:mr-3"
+          variant="secondary"
+          width="w-full"
+          link="/auth/sign-up/"
+        >
+          Реєстрація
+        </Button>
+      </div>
     </>
   );
 };
