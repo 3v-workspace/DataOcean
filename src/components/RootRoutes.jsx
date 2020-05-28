@@ -4,6 +4,7 @@ import Route404, { Page404 } from 'components/pages/Route404';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import useIsLogin from 'hooks/loginHooks';
 import HomePage from 'components/pages/HomePage';
+import DatasetsList from 'components/pages/DatasetsList';
 import LoginPage from './pages/auth/LoginPage';
 
 
@@ -24,6 +25,11 @@ const RootRoutes = () => {
         exact
         path="/404/"
         component={Page404}
+      />
+      <Route
+        exact
+        path="/list/"
+        component={DatasetsList}
       />
       <Route
         exact
