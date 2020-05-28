@@ -26,7 +26,7 @@ const HomePage = ({ location }) => {
 
 
 HomePage.propTypes = {
-  ...ReactRouterPropTypes,
+  location: ReactRouterPropTypes.location.isRequired,
 };
 
 export default HomePage;

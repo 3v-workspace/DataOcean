@@ -10,10 +10,10 @@ import RestorePassword from 'components/pages/auth/RestorePassword';
 import { useSelector } from 'react-redux';
 
 
-const LoginPage = ({ match }) => {
+const LoginPage = ({ match, history, location }) => {
   const user = useSelector((state) => state.user);
-  const history = useHistory();
-  const location = useLocation();
+  // const history = useHistory();
+  // const location = useLocation();
   const { from } = location.state || { from: { pathname: '/home/' } };
 
   useEffect(() => {
@@ -85,7 +85,9 @@ const LoginPage = ({ match }) => {
 };
 
 LoginPage.propTypes = {
-  ...ReactRouterPropTypes,
+  match: ReactRouterPropTypes.match.isRequired,
+  history: ReactRouterPropTypes.history.isRequired,
+  location: ReactRouterPropTypes.location.isRequired,
 };
 
 export default LoginPage;

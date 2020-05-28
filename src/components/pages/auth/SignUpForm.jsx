@@ -185,8 +185,6 @@ const SignUpForm = () => {
   );
 };
 
-SignUpForm.propTypes = {
-  ...ReactRouterPropTypes,
-};
+SignUpForm.propTypes = {};
 
 export default SignUpForm;
