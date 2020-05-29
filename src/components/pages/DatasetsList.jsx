@@ -2,6 +2,8 @@ import React from 'react';
 import ReactRouterPropTypes from 'utils/react-router-prop-types';
 import PropTypes from 'prop-types';
 import { Search, Eye } from 'react-feather';
+import Button from 'components/form-components/Button';
+import TextInput from 'components/form-components/TextInput';
 
 const DatasetItem = (props) => {
   const {
@@ -16,30 +18,17 @@ const DatasetItem = (props) => {
         </h2>
         {description}
       </td>
-      <td className="w-1/5 align-middle">
-        <div className="text-center">
-          <button type="button" className="button button--md w-full flex items-center lg:justify-around md:justify-center sm:justify-center mr-1 mb-2 bg-theme-1 text-white">
-            <span className="md:hidden sm:hidden lg:inline-block">Переглянути</span><span><Eye /></span>
-          </button>
-        </div>
+      <td className="w-1/5 align-middle text-center">
+        <Button
+          className="w-full flex items-center lg:justify-around md:justify-center sm:justify-center"
+          variant="secondary"
+        >
+          <span className="md:hidden sm:hidden lg:inline-block">Переглянути</span>
+          <span><Eye /></span>
+        </Button>
       </td>
     </tr>
   );
-//   return (
-//     <div className="grid grid-cols-10">
-//       <div className="col-span-8 border-solid border-2 border-gray400">
-//         <h2 className="font-semibold mb-4">
-//           dfgdf dfhdfghdfgh dfhdgh dgh dg
-//         </h2>
-//         <h2>
-//           dfgdf dfgdfg dgdfgdf
-//         </h2>
-//       </div>
-//       <div className="col-span-2 flex items-center justify-center">
-//         <span>asd</span>
-//       </div>
-//     </div>
-//   );
 };
 
 DatasetItem.propTypes = {
@@ -63,17 +52,20 @@ const DatasetsList = () => {
       <h2 className="intro-y text-lg font-medium mt-10">
         Перелік наборів даних
       </h2>
-      <div className="flex items-center justify-between intro-y col-span-12 flex-wrap sm:flex-no-wrap mt-2 mb-4">
-        <div className="text-gray-600">Показано: з 1 по 10 з 150 елементів
+      <div
+        className="
+          flex items-center justify-between intro-y
+          col-span-12 flex-wrap sm:flex-no-wrap mt-2 mb-4"
+      >
+        <div className="text-gray-600">
+          Показано: з 1 по 10 з 150 елементів
         </div>
-        <div className="sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">
-          <div className="w-56 relative text-gray-700">
-            <input type="text" className="input w-56 box pr-10 placeholder-theme-13" placeholder=" Пошук..." />
-            <i className="w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0 flex items-center">
-              <Search />
-            </i>
-          </div>
-        </div>
+        <TextInput
+          placeholder=" Пошук..."
+        />
+        <i className="w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0 flex items-center">
+          <Search />
+        </i>
       </div>
       <table className="table table-report -mt-2 white-space w-full sm:w-full">
         <tbody>
