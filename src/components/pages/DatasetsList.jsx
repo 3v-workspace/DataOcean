@@ -12,7 +12,7 @@ const DatasetItem = (props) => {
   } = props;
 
   return (
-    <tr className="intro-x w-full">
+    <tr className="intro-x">
       <td className="w-4/5">
         <h2 className="text-xl font-medium whitespace-no-wrap">
           {name}
@@ -63,7 +63,7 @@ const DatasetsList = () => {
         </div>
         <SearchInput width="w-1/2 md:w-1/3" />
       </div>
-      <table className="table table-report -mt-2 white-space w-full sm:w-full">
+      <table className="table table-report intro-y -mt-2 white-space w-full">
         <tbody>
           {datasetArray.map((item, number) => (
             <DatasetItem
