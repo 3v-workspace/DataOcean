@@ -1,13 +1,14 @@
 import React from 'react';
 import ReactRouterPropTypes from 'utils/react-router-prop-types';
 import PropTypes from 'prop-types';
-import { Search, Eye } from 'react-feather';
+import { Eye } from 'react-feather';
 import Button from 'components/form-components/Button';
-import TextInput from 'components/form-components/TextInput';
+import SearchInput from 'components/form-components/SearchInput';
 
 const DatasetItem = (props) => {
   const {
-    name, description,
+    name,
+    description,
   } = props;
 
   return (
@@ -23,8 +24,8 @@ const DatasetItem = (props) => {
           className="w-full flex items-center lg:justify-around md:justify-center sm:justify-center"
           variant="secondary"
         >
-          <span className="md:hidden sm:hidden lg:inline-block">Переглянути</span>
           <span><Eye /></span>
+          <span className="md:hidden sm:hidden lg:inline-block">Переглянути</span>
         </Button>
       </td>
     </tr>
@@ -60,19 +61,15 @@ const DatasetsList = () => {
         <div className="text-gray-600">
           Показано: з 1 по 10 з 150 елементів
         </div>
-        <TextInput
-          placeholder=" Пошук..."
-        />
-        <i className="w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0 flex items-center">
-          <Search />
-        </i>
+        <SearchInput width="w-1/2 md:w-1/3" />
       </div>
       <table className="table table-report -mt-2 white-space w-full sm:w-full">
         <tbody>
-          {datasetArray.map((item) => (
+          {datasetArray.map((item, number) => (
             <DatasetItem
               name={item.name}
               description={item.description}
+              key={`dataset${number}`}
             />
           ))}
         </tbody>
