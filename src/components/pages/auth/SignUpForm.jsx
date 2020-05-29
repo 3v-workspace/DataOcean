@@ -138,6 +138,7 @@ const SignUpForm = () => {
           <TextInput
             type="password"
             name="password2"
+            size="lg"
             className="intro-x login__input border-gray-300 block mt-4"
             placeholder="Підтвердження паролю"
             formik={formik}
