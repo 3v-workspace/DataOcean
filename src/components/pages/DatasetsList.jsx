@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactRouterPropTypes from 'utils/react-router-prop-types';
 import PropTypes from 'prop-types';
+import { Search, Eye } from 'react-feather';
 
 const DatasetItem = (props) => {
   const {
@@ -9,16 +10,16 @@ const DatasetItem = (props) => {
 
   return (
     <tr className="intro-x w-full">
-      <td>
+      <td className="w-4/5">
         <h2 className="text-xl font-medium whitespace-no-wrap">
           {name}
         </h2>
         {description}
       </td>
-      <td className="w-1/6 align-middle">
+      <td className="w-1/5 align-middle">
         <div className="text-center">
-          <button type="button" className="button button--md w-26 mr-1 mb-2 bg-theme-1 text-white">
-            Переглянути
+          <button type="button" className="button button--md w-full flex items-center lg:justify-around md:justify-center sm:justify-center mr-1 mb-2 bg-theme-1 text-white">
+            <span className="md:hidden sm:hidden lg:inline-block">Переглянути</span><span><Eye /></span>
           </button>
         </div>
       </td>
@@ -68,7 +69,9 @@ const DatasetsList = () => {
         <div className="sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">
           <div className="w-56 relative text-gray-700">
             <input type="text" className="input w-56 box pr-10 placeholder-theme-13" placeholder=" Пошук..." />
-            <i className="w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0" data-feather="search" />
+            <i className="w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0 flex items-center">
+              <Search />
+            </i>
           </div>
         </div>
       </div>
