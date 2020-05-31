@@ -4,38 +4,39 @@ import { Activity, BookOpen, Edit, FileText, Home, Trello } from 'react-feather'
 export default [
   {
     title: 'Домівка',
-    route: '/home/',
+    path: '/home/dashboard/',
     icon: <Home />,
   },
   {
     title: 'Конструктори даних',
+    path: '/home/constructors/',
     icon: <Edit />,
     items: [
       {
         title: 'Набори даних',
-        route: '/home/datasets/',
+        path: '/home/constructors/datasets/',
         icon: <Activity />,
       },
       {
         title: 'Мої дані',
-        route: '/home/my-data/',
+        path: '/home/constructors/my-data/',
         icon: <Activity />,
       },
     ],
   },
   {
     title: 'Нормативно-довідкова інформація',
-    route: '/home/documents/',
+    path: '/home/documents/',
     icon: <FileText />,
   },
   {
     title: 'Аналітика',
-    route: '/home/analytics/',
+    path: '/home/analytics/',
     icon: <Trello />,
   },
   {
     title: 'Контакти',
-    route: '/home/contacts/',
+    path: '/home/contacts/',
     icon: <BookOpen />,
   },
 ];

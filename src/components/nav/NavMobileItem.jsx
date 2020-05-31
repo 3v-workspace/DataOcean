@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 const NavMobileItem = ({ item }) => (
   <li>
-    <Link to={item.route} className="menu menu--active">
+    <Link to={item.path} className="menu menu--active">
       <div className="menu__icon">
         {item.icon || <Activity />}
       </div>

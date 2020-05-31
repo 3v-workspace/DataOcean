@@ -53,7 +53,7 @@ const HomePage = ({ location }) => {
           {
             menuItems.map((item) => (
               item.items ? (
-                <NavDropdown item={item}>
+                <NavDropdown item={item} pathname={location && location.pathname}>
                   {
                     item.items.map((i) => (
                       <NavItem item={i} />
@@ -70,8 +70,12 @@ const HomePage = ({ location }) => {
             <Route exact path={paths.DOCUMENTS} component={DocumentsPage} />
             <Route exact path={paths.CONTACTS} component={ContactsPage} />
             <Route exact path={paths.ANALYTICS} component={AnalyticsPage} />
+            <Route exact path={paths.DATASETS} component={ConstructorPage} />
+            <Route exact path={paths.MY_DATA} component={ConstructorPage} />
+            <Route exact path={paths.HOME} component={() => <div>Home Page </div>} />
+            <Route exact path={paths.DASHBOARD} component={() => <div>Home Page </div>} />
             <Route path={paths.LOGIN} render={() => <Redirect to="/auth/sign-in/" />} />
-            <Route path="*" component={() => <div>Home Page </div>} />
+            <Route exact path="*" render={() => <Redirect to="/404/" />} />
           </Switch>
         </div>
       </div>

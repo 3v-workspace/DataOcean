@@ -1,15 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Activity, ChevronDown } from 'react-feather';
 import PropTypes from 'prop-types';
 
 // todo: add slideUp/slideDown animation
-const NavDropdown = ({ item, children }) => {
+const NavDropdown = ({ item, children, pathname }) => {
   const [isOpen, setOpened] = useState(false);
+  const [isActive, setActivated] = useState(false);
+  useEffect(() => {
+    // Update the document title using the browser API
+    if (pathname.search(item.path) === 0) {
+      setActivated(true);
+    } else if (isActive) {
+      setActivated(false);
+    }
+  }, [pathname, item.path, isActive]);
   return (
     <li>
       <a
         href="#?"
-        className={`side-menu ${isOpen && 'side-menu--open'}`}
+        className={`side-menu ${isOpen && 'side-menu--open'} ${isActive && 'side-menu--active'}`}
         onClick={() => {
           setOpened(!isOpen);
         }}
@@ -28,6 +37,7 @@ const NavDropdown = ({ item, children }) => {
 
 NavDropdown.propTypes = {
   item: PropTypes.object.isRequired,
+  pathname: PropTypes.string.isRequired,
 };
 
 export default NavDropdown;
