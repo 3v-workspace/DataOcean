@@ -28,7 +28,18 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "lint": "eslint --ext js,jsx src/ || true",
-    "fix": "eslint --ext js,jsx src/ --fix"
+    "fix": "eslint --ext js,jsx --fix src/"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.(js|jsx)": [
+      "npm run fix",
+      "git add"
+    ]
   },
   "eslintConfig": {
     "extends": "react-app"
