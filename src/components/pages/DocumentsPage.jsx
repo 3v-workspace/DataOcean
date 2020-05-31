@@ -1,23 +1,11 @@
-import React, { useEffect } from 'react';
-import ReactRouterPropTypes from 'utils/react-router-prop-types';
+import React from 'react';
 
-const DocumentsPage = ({ match }) => {
-  useEffect(() => {
-    document.body.classList.add('documents');
-    return () => {
-      document.body.classList.remove('documents');
-    };
-  }, []);
+const DocumentsPage = () => (
+  <div>
+    Documents Page
+  </div>
+);
 
-  return (
-    <div>
-      Documents Page
-    </div>
-  );
-};
-
-DocumentsPage.propTypes = {
-  ...ReactRouterPropTypes,
-};
+DocumentsPage.propTypes = {};
 
 export default DocumentsPage;

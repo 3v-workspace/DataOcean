@@ -1,23 +1,11 @@
-import React, { useEffect } from 'react';
-import ReactRouterPropTypes from 'utils/react-router-prop-types';
+import React from 'react';
 
-const ContactsPage = ({ match }) => {
-  useEffect(() => {
-    document.body.classList.add('documents');
-    return () => {
-      document.body.classList.remove('documents');
-    };
-  }, []);
+const ContactsPage = () => (
+  <div>
+    Contacts Page
+  </div>
+);
 
-  return (
-    <div>
-      Contacts Page
-    </div>
-  );
-};
-
-ContactsPage.propTypes = {
-  ...ReactRouterPropTypes,
-};
+ContactsPage.propTypes = {};
 
 export default ContactsPage;

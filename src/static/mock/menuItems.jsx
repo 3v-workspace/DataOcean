@@ -1,47 +1,41 @@
 import React from 'react';
-import { Activity, Edit, FileText, Home, Trello } from 'react-feather';
+import { Activity, BookOpen, Edit, FileText, Home, Trello } from 'react-feather';
 
 export default [
   {
     title: 'Домівка',
-    route: '/',
+    route: '/home/',
     icon: <Home />,
   },
   {
     title: 'Конструктори даних',
-    route: '/endpoints',
     icon: <Edit />,
     items: [
       {
         title: 'Набори даних',
-        route: '/datasets',
+        route: '/home/datasets/',
         icon: <Activity />,
       },
       {
         title: 'Мої дані',
-        route: '/my-data',
+        route: '/home/my-data/',
         icon: <Activity />,
       },
     ],
   },
   {
     title: 'Нормативно-довідкова інформація',
-    route: '/documents',
+    route: '/home/documents/',
     icon: <FileText />,
   },
   {
     title: 'Аналітика',
-    route: '/analytics',
+    route: '/home/analytics/',
     icon: <Trello />,
   },
   {
     title: 'Контакти',
-    route: '/contacts',
-    icon: <Activity />,
-  },
-  {
-    title: 'Увійти',
-    route: '/auth/',
-    icon: <Activity />,
+    route: '/home/contacts/',
+    icon: <BookOpen />,
   },
 ];

@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { Activity, ChevronDown } from 'react-feather';
-import ReactRouterPropTypes from 'utils/react-router-prop-types';
-import NavDropdownItem from 'components/nav/NavDropdownItem';
+import PropTypes from 'prop-types';
 
-const NavDropdown = ({ item }) => {
+const NavDropdown = ({ item, children }) => {
   const [isOpen, setOpened] = useState(false);
   return (
     <li>
@@ -21,13 +20,13 @@ const NavDropdown = ({ item }) => {
           <ChevronDown className={`side-menu__sub-icon ${isOpen && 'transform rotate-180'}`} />
         </div>
       </a>
-      <ul className={isOpen && 'side-menu__sub-open'}>{item.items.map((i) => <NavDropdownItem item={i} isOpen={isOpen} />)}</ul>
+      <ul className={isOpen && 'side-menu__sub-open'}>{children}</ul>
     </li>
   );
 };
 
 NavDropdown.propTypes = {
-  ...ReactRouterPropTypes,
+  item: PropTypes.object.isRequired,
 };
 
 export default NavDropdown;

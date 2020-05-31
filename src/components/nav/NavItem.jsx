@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactRouterPropTypes from 'utils/react-router-prop-types';
+import PropTypes from 'prop-types';
 import { Activity } from 'react-feather';
 import { Link } from 'react-router-dom';
 
@@ -15,7 +15,7 @@ const NavItem = ({ item }) => (
 );
 
 NavItem.propTypes = {
-  ...ReactRouterPropTypes,
+  item: PropTypes.object.isRequired,
 };
 
 export default NavItem;

@@ -1,8 +1,8 @@
 export default {
-  HOME: '/',
+  HOME: '/home/',
   LOGIN: '/auth/',
-  CONSTRUCTOR: '/constructor',
-  DOCUMENTS: '/documents',
-  ANALYTICS: '/analytics',
-  CONTACTS: '/contacts',
+  CONSTRUCTOR: '/home/constructor/',
+  DOCUMENTS: '/home/documents/',
+  ANALYTICS: '/home/analytics/',
+  CONTACTS: '/home/contacts/',
 };

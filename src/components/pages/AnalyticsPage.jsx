@@ -1,23 +1,11 @@
-import React, { useEffect } from 'react';
-import ReactRouterPropTypes from 'utils/react-router-prop-types';
+import React from 'react';
 
-const AnalyticsPage = ({ match }) => {
-  useEffect(() => {
-    document.body.classList.add('analytics');
-    return () => {
-      document.body.classList.remove('analytics');
-    };
-  }, []);
+const AnalyticsPage = () => (
+  <div>
+    Analytics Page
+  </div>
+);
 
-  return (
-    <div>
-      Analytics Page
-    </div>
-  );
-};
-
-AnalyticsPage.propTypes = {
-  ...ReactRouterPropTypes,
-};
+AnalyticsPage.propTypes = { };
 
 export default AnalyticsPage;
