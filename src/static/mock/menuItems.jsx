@@ -4,7 +4,7 @@ import { Activity, BookOpen, Edit, FileText, Home, Trello } from 'react-feather'
 export default [
   {
     title: 'Домівка',
-    path: '/home/dashboard/',
+    path: '/home/',
     icon: <Home />,
   },
   {

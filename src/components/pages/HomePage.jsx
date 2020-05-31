@@ -74,7 +74,6 @@ const HomePage = ({ location }) => {
             <Route exact path={paths.DATASETS} component={ConstructorPage} />
             <Route exact path={paths.MY_DATA} component={ConstructorPage} />
             <Route exact path={paths.HOME} component={() => <div>Home Page </div>} />
-            <Route exact path={paths.DASHBOARD} component={() => <div>Home Page </div>} />
             <Route path={paths.LOGIN} render={() => <Redirect to="/auth/sign-in/" />} />
             <Route exact path="*" render={() => <Redirect to="/404/" />} />
           </Switch>

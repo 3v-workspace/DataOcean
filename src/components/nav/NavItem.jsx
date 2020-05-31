@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 
 const NavItem = ({ item }) => (
   <li>
-    <NavLink to={item.path} className="side-menu" activeClassName="side-menu--active">
+    <NavLink exact to={item.path} className="side-menu" activeClassName="side-menu--active">
       <div className="side-menu__icon">
         {item.icon || <Activity />}
       </div>
