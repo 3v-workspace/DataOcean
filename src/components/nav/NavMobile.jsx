@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { BarChart2 } from 'react-feather';
 
 // todo: add slideUp/slideDown animation
@@ -7,9 +8,9 @@ const NavMobile = ({ children }) => {
   return (
     <div className="mobile-menu md:hidden">
       <div className="mobile-menu-bar">
-        <a href="/home/" className="flex mr-auto">
+        <Link to="/home/" className="flex mr-auto">
           <img alt="Data Ocean" className="w-6" src="/images/logo.svg" />
-        </a>
+        </Link>
         <a href="#?" id="mobile-menu-toggler" onClick={() => setOpened(!isOpen)}>
           <BarChart2 className="w-8 h-8 text-white transform -rotate-90" />
         </a>
