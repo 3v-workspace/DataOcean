@@ -1,22 +1,32 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+import { Redirect } from 'react-router-dom';
 import ReactRouterPropTypes from 'utils/react-router-prop-types';
-import Nav from 'components/nav/Nav';
+import useIsLogin from 'hooks/loginHooks';
+// import PropTypes from 'prop-types';
 
-const HomePage = ({ match }) => {
-  useEffect(() => {
-    document.body.classList.add('home');
-    return () => {
-      document.body.classList.remove('home');
-    };
-  }, []);
+const HomePage = ({ location }) => {
+  const isLogin = useIsLogin();
+  if (!isLogin) {
+    return (
+      <Redirect
+        to={{
+          pathname: '/auth/sign-in/',
+          state: { from: location },
+        }}
+      />
+    );
+  }
 
   return (
-    <Nav match={match} />
+    <div>
+      <h1 className="text-white">Home Page</h1>
+    </div>
   );
 };
 
+
 HomePage.propTypes = {
-  ...ReactRouterPropTypes,
+  location: ReactRouterPropTypes.location.isRequired,
 };
 
 export default HomePage;

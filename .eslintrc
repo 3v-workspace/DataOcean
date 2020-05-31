@@ -3,6 +3,9 @@
     "src/serviceWorker.js"
   ],
   "parser": "babel-eslint",
+  "plugins": [
+    "react-hooks"
+  ],
   "extends": [
     "airbnb"
   ],
@@ -37,13 +40,16 @@
     "no-unused-vars": "warn",
     "no-trailing-spaces": "warn",
 
-    "import/prefer-default-export": "warn",
+    "react-hooks/exhaustive-deps": "warn",
+
+    "import/prefer-default-export": "off",
+//    "no-template-curly-in-string": "off",
 
     "react/no-did-update-set-state": "warn",
     "react/jsx-curly-brace-presence": "warn",
     "react/no-array-index-key": "warn",
 
-    "arrow-body-style": ["error", "as-needed"],
+    "arrow-body-style": ["warn", "as-needed"],
 
     "jsx-a11y/mouse-events-have-key-events": "warn",
 
