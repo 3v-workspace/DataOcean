@@ -17,7 +17,7 @@ const LoginPage = ({ match }) => {
     <div className="container sm:px-10">
       <div className="block xl:grid grid-cols-2 gap-4">
         <div className="hidden xl:flex flex-col min-h-screen">
-          <a href="#?" className="-intro-x flex items-center pt-5">
+          <a href="/" className="-intro-x flex items-center pt-5">
             <img alt="Midone Tailwind HTML Admin Template" className="w-6" src="/images/logo.svg" />
             <span className="text-white text-lg ml-3">
               <span className="font-medium">Data Ocean</span>
