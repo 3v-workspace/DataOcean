@@ -9,19 +9,19 @@ const NavDropdown = ({ item, children }) => {
     <li>
       <a
         href="#?"
-        className={`side-menu ${isOpen && 'side-menu--open'}`}
+        className="menu"
         onClick={() => {
           setOpened(!isOpen);
         }}
       >
-        <div className="side-menu__icon">
+        <div className="menu__icon">
           {item.icon || <Activity />}
         </div>
-        <div className="side-menu__title">{item.title}
-          <ChevronDown className={`side-menu__sub-icon ${isOpen && 'transform rotate-180'}`} />
+        <div className="menu__title">{item.title}
+          <ChevronDown className={`menu__sub-icon ${isOpen && 'transform rotate-180'}`} />
         </div>
       </a>
-      <ul className={isOpen && 'side-menu__sub-open'}>{children}</ul>
+      <ul className={isOpen && 'menu__sub-open'}>{children}</ul>
     </li>
   );
 };
