@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import ReactRouterPropTypes from 'utils/react-router-prop-types';
 import useIsLogin from 'hooks/loginHooks';
@@ -20,6 +20,7 @@ import paths from 'const/paths';
 
 const HomePage = ({ location }) => {
   const isLogin = useIsLogin();
+  const [isMobileMenuOpen, setMobileMenuOpened] = useState(false);
   if (!isLogin) {
     return (
       <Redirect
@@ -33,19 +34,19 @@ const HomePage = ({ location }) => {
 
   return (
     <>
-      <NavMobile>
+      <NavMobile isOpen={isMobileMenuOpen} setOpened={setMobileMenuOpened}>
         {
             menuItems.map((item) => (
               item.items ? (
                 <NavMobileDropdown item={item}>
                   {
                     item.items.map((i) => (
-                      <NavMobileItem item={i} />
+                      <NavMobileItem item={i} onActivateItem={() => setMobileMenuOpened(false)} />
                     ))
                   }
                 </NavMobileDropdown>
               ) :
-                <NavMobileItem item={item} />))
+                <NavMobileItem item={item} onActivateItem={() => setMobileMenuOpened(false)} />))
           }
       </NavMobile>
       <div className="flex">

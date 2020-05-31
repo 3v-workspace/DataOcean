@@ -7,7 +7,6 @@ const NavDropdown = ({ item, children, pathname }) => {
   const [isOpen, setOpened] = useState(false);
   const [isActive, setActivated] = useState(false);
   useEffect(() => {
-    // Update the document title using the browser API
     if (pathname.search(item.path) === 0) {
       setActivated(true);
     } else if (isActive) {

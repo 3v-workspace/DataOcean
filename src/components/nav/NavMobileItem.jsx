@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { Activity } from 'react-feather';
 import { Link } from 'react-router-dom';
 
-const NavMobileItem = ({ item }) => (
+const NavMobileItem = ({ item, onActivateItem }) => (
   <li>
-    <Link to={item.path} className="menu menu--active">
+    <Link to={item.path} className="menu menu--active" onClick={onActivateItem}>
       <div className="menu__icon">
         {item.icon || <Activity />}
       </div>
@@ -16,6 +16,7 @@ const NavMobileItem = ({ item }) => (
 
 NavMobileItem.propTypes = {
   item: PropTypes.object.isRequired,
+  onActivateItem: PropTypes.func.isRequired,
 };
 
 export default NavMobileItem;
