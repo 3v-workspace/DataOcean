@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import ReactRouterPropTypes from 'utils/react-router-prop-types';
 import AnalyticsPage from 'components/pages/system/AnalyticsPage';
@@ -12,6 +12,14 @@ import HomePage from 'components/pages/system/HomePage';
 
 const SystemRoutes = (props) => {
   const { match } = props;
+
+  useEffect(() => {
+    document.body.classList.add('app');
+    return () => {
+      document.body.classList.remove('app');
+    };
+  }, []);
+
   return (
     <Switch>
       {/* TODO: make constructor routes */}
