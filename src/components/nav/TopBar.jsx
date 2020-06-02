@@ -1,12 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import {
   ChevronRight, Search, Inbox, Users, CreditCard, Bell,
   User, Edit, HelpCircle, Lock, ToggleRight,
 } from 'react-feather';
 
 // TODO: finish this
-const TopBar = (props) => (
+const TopBar = () => (
   <div className="top-bar">
     <div className="-intro-x breadcrumb mr-auto hidden sm:flex">
       <a href="#?" className="">System</a>

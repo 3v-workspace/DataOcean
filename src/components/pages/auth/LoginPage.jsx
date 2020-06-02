@@ -1,8 +1,6 @@
 import React, { useEffect } from 'react';
 import ReactRouterPropTypes from 'utils/react-router-prop-types';
-import {
-  Route, Switch, useHistory, useLocation,
-} from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import SignInForm from 'components/pages/auth/SignInForm';
 import SignUpForm from 'components/pages/auth/SignUpForm';
 import Route404 from 'components/pages/Route404';
@@ -12,16 +10,12 @@ import { useSelector } from 'react-redux';
 
 const LoginPage = ({ match, history, location }) => {
   const user = useSelector((state) => state.user);
-  // const history = useHistory();
-  // const location = useLocation();
   const { from } = location.state || { from: { pathname: '/home/' } };
 
   useEffect(() => {
     if (user.isLoggedIn) {
       history.replace(from);
     }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user.isLoggedIn]);
 
   useEffect(() => {
