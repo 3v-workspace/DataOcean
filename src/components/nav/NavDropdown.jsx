@@ -1,42 +1,92 @@
-import React, { useState, useEffect } from 'react';
-import { Activity, ChevronDown } from 'react-feather';
+/* global $ */
+import React, { useContext, useEffect, useRef, useState } from 'react';
+import { ChevronDown } from 'react-feather';
 import PropTypes from 'prop-types';
+import { NavContext } from 'components/nav/Nav';
+import { useLocation } from 'react-router-dom';
 
-// todo: add slideUp/slideDown animation
-const NavDropdown = ({ item, children, pathname }) => {
-  const [isOpen, setOpened] = useState(false);
-  const [isActive, setActivated] = useState(false);
+export const DropdownContext = React.createContext(null);
+
+const NavDropdown = ({ label, icon: Icon, children }) => {
+  const [isOpen, setOpen] = useState(false);
+  const [isActive, setActive] = useState(false);
+
+  const { isMobile } = useContext(NavContext);
+  const links = useRef([]);
+  const { pathname } = useLocation();
+  const itemsListRef = useRef();
+
+  const menuClass = isMobile ? 'menu' : 'side-menu';
+
+  const className = [menuClass];
+  if (isOpen) {
+    className.push(`${menuClass}--open`);
+  }
+  if (isActive) {
+    className.push(`${menuClass}--active`);
+  }
+
   useEffect(() => {
-    if (pathname.search(item.path) === 0) {
-      setActivated(true);
-    } else if (isActive) {
-      setActivated(false);
+    if (Array.isArray(children)) {
+      links.current = children.map((child) => child.props.link);
+    } else {
+      links.current = [children.props.link];
     }
-  }, [pathname, item.path, isActive]);
+  }, []);
+
+  useEffect(() => {
+    const match = links.current.find((link) => pathname.startsWith(link));
+    setActive(!!match);
+  }, [pathname]);
+
+  const toggle = () => {
+    const $ul = $(itemsListRef.current);
+    setOpen(!isOpen);
+    const subOpenClass = `${menuClass}__sub-open`;
+    if (!isOpen) {
+      $ul.slideDown({
+        done: () => {
+          $ul.addClass(subOpenClass);
+        },
+      });
+    } else {
+      $ul.slideUp({
+        done: () => {
+          $ul.removeClass(subOpenClass);
+        },
+      });
+    }
+  };
+
   return (
     <li>
       <a
         href="#?"
-        className={`side-menu ${isOpen && 'side-menu--open'} ${isActive && 'side-menu--active'}`}
-        onClick={() => {
-          setOpened(!isOpen);
-        }}
+        className={className.join(' ')}
+        onClick={toggle}
       >
-        <div className="side-menu__icon">
-          {item.icon || <Activity />}
+        <div className={`${menuClass}__icon`}>
+          <Icon />
         </div>
-        <div className="side-menu__title">{item.title}
-          <ChevronDown className={`side-menu__sub-icon ${isOpen && 'transform rotate-180'}`} />
+        <div className={`${menuClass}__title`}>
+          {label}
+          <ChevronDown className={`${menuClass}__sub-icon ${isOpen && 'transform rotate-180'}`} />
         </div>
       </a>
-      <ul className={isOpen && 'side-menu__sub-open'}>{children}</ul>
+      <ul ref={itemsListRef}>
+        <DropdownContext.Provider
+          value={{ isOpen, setOpen, isActive, setActive }}
+        >
+          {children}
+        </DropdownContext.Provider>
+      </ul>
     </li>
   );
 };
 
 NavDropdown.propTypes = {
-  item: PropTypes.object.isRequired,
-  pathname: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  icon: PropTypes.elementType.isRequired,
 };
 
 export default NavDropdown;

@@ -1,21 +1,53 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Activity } from 'react-feather';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
+import { NavContext } from 'components/nav/Nav';
+import { DropdownContext } from 'components/nav/NavDropdown';
+import { ChevronRight } from 'react-feather';
 
-const NavItem = ({ item }) => (
-  <li>
-    <NavLink exact to={item.path} className="side-menu" activeClassName="side-menu--active">
-      <div className="side-menu__icon">
-        {item.icon || <Activity />}
-      </div>
-      <div className="side-menu__title">{item.title}</div>
-    </NavLink>
-  </li>
-);
+
+const NavItem = (props) => {
+  const ddContext = useContext(DropdownContext);
+  const { isMobile, isOpen, toggleMobile } = useContext(NavContext);
+
+  const { pathname } = useLocation();
+
+  const { link, icon: Icon, children } = props;
+  const menuClass = isMobile ? 'menu' : 'side-menu';
+
+  const handleClick = () => {
+    // if (ddContext) {
+    //   ddContext.setOpen(false);
+    // }
+    if (isMobile && isOpen) {
+      toggleMobile();
+    }
+  };
+
+  useEffect(() => {
+    if (ddContext) {
+      ddContext.setActive(pathname.startsWith(link));
+    }
+  }, [pathname]);
+
+  return (
+    <li onClick={handleClick}>
+      <NavLink exact to={link} className={menuClass} activeClassName={`${menuClass}--active`}>
+        <div className={`${menuClass}__icon`}>
+          <Icon />
+        </div>
+        <div className={`${menuClass}__title`}> {children}</div>
+      </NavLink>
+    </li>
+  );
+};
 
 NavItem.propTypes = {
-  item: PropTypes.object.isRequired,
+  link: PropTypes.string.isRequired,
+  icon: PropTypes.elementType,
+};
+NavItem.defaultProps = {
+  icon: ChevronRight,
 };
 
 export default NavItem;

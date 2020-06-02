@@ -1,11 +1,11 @@
 import React from 'react';
 
 const ContactsPage = () => (
-  <div>
+  <h2 className="intro-y text-lg font-medium mt-10">
     Contacts Page
-  </div>
+  </h2>
 );
 
-ContactsPage.propTypes = {};
+// ContactsPage.propTypes = {};
 
 export default ContactsPage;

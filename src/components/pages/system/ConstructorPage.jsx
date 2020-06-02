@@ -1,11 +1,11 @@
 import React from 'react';
 
 const ConstructorPage = () => (
-  <div>
+  <h2 className="intro-y text-lg font-medium mt-10">
     Constructor Page
-  </div>
+  </h2>
 );
 
-ConstructorPage.propTypes = {};
+// ConstructorPage.propTypes = {};
 
 export default ConstructorPage;

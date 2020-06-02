@@ -1,11 +1,11 @@
 import React from 'react';
 
 const DocumentsPage = () => (
-  <div>
+  <h2 className="intro-y text-lg font-medium mt-10">
     Documents Page
-  </div>
+  </h2>
 );
 
-DocumentsPage.propTypes = {};
+// DocumentsPage.propTypes = {};
 
 export default DocumentsPage;

@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 
-
 const ReactRouterPropTypes = {
   match: PropTypes.shape({
     url: PropTypes.string.isRequired,
