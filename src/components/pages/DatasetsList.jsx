@@ -2,31 +2,55 @@ import React from 'react';
 import ReactRouterPropTypes from 'utils/react-router-prop-types';
 import PropTypes from 'prop-types';
 import { Eye } from 'react-feather';
-import Button from 'components/form-components/Button';
 import SearchInput from 'components/form-components/SearchInput';
+
+const DatasetPagination = (props) => {
+  const {
+    first,
+    last,
+    total,
+  } = props;
+  return (
+    <div className="text-gray-600">
+      Показано: з {first} по {last} з {total} елементів
+    </div>
+  );
+};
+
+DatasetPagination.propTypes = {
+  first: PropTypes.string.isRequired,
+  last: PropTypes.string.isRequired,
+  total: PropTypes.string.isRequired,
+};
 
 const DatasetItem = (props) => {
   const {
     name,
-    description,
+    date,
   } = props;
 
   return (
     <tr className="intro-x">
-      <td className="w-4/5">
-        <h2 className="text-xl font-medium whitespace-no-wrap">
-          {name}
-        </h2>
-        {description}
+      <td>
+        <h2 className="font-medium whitespace-no-wrap">{name}</h2>
       </td>
-      <td className="w-1/5 align-middle text-center">
-        <Button
-          className="w-full flex items-center lg:justify-around md:justify-center sm:justify-center"
-          variant="secondary"
-        >
-          <span><Eye /></span>
-          <span className="md:hidden sm:hidden lg:inline-block">Переглянути</span>
-        </Button>
+      <td className="text-center">{date}</td>
+      <td className="table-report__action w-56">
+        <div className="flex justify-center items-center">
+          <a
+            className="flex items-center mr-3"
+            href="/"
+            onClick={
+            (event) => {
+              event.preventDefault();
+              console.log(event);
+            }
+            }
+          >
+            <Eye />
+            <span className="ml-2">Переглянути</span>
+          </a>
+        </div>
       </td>
     </tr>
   );
@@ -34,17 +58,17 @@ const DatasetItem = (props) => {
 
 DatasetItem.propTypes = {
   name: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
+  date: PropTypes.string.isRequired,
 };
 
 const DatasetsList = () => {
   const datasetArray = [
     { name: 'Реєстр адміністративно-територіального устрою',
-      description: 'Реєстр адміністративно-територіального устрою, що містить назву області, назву району, назву населеного пункту, актуальну назву вулиць, площ, провулків тощо відповідного...' },
+      date: '12/05/2020' },
     { name: 'Довідник адміністративно-територіальних одиниць України',
-      description: 'Довідник адміністративно-територіальних одиниць України' },
+      date: '15/05/2020' },
     { name: "Довідник 'Адміністративно-територіальні одиниці України'",
-      description: 'Набір даних містить відомості про адміністративно-територіальні одиниці України, у складі наступних реквізитів: Перелік атрибутів адміністративно-територіальної одиниці (АТО);...' },
+      date: '17/05/2020' },
   ];
 
   return (
@@ -58,22 +82,28 @@ const DatasetsList = () => {
           flex items-center justify-between intro-y
           col-span-12 flex-wrap sm:flex-no-wrap mt-2 mb-4"
       >
-        <div className="text-gray-600">
-          Показано: з 1 по 10 з 150 елементів
-        </div>
+        <DatasetPagination first="1" last="3" total="200" />
         <SearchInput width="w-1/2 md:w-1/3" />
       </div>
-      <table className="table table-report intro-y -mt-2 white-space w-full">
-        <tbody>
-          {datasetArray.map((item, number) => (
-            <DatasetItem
-              name={item.name}
-              description={item.description}
-              key={`dataset${number}`}
-            />
-          ))}
-        </tbody>
-      </table>
+      <div className="intro-y col-span-12 overflow-auto lg:overflow-visible">
+        <table className="table table-report intro-y -mt-2 white-space w-full">
+          <thead>
+            <tr>
+              <th className="whitespace-no-wrap">Набір даних</th>
+              <th className="text-center whitespace-no-wrap">Дата оновлення</th>
+            </tr>
+          </thead>
+          <tbody>
+            {datasetArray.map((item, number) => (
+              <DatasetItem
+                name={item.name}
+                date={item.date}
+                key={`dataset${number}`}
+              />
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
