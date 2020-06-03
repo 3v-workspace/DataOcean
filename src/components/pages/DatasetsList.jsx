@@ -27,6 +27,7 @@ const DatasetItem = (props) => {
   const {
     name,
     date,
+    id,
   } = props;
 
   return (
@@ -43,7 +44,7 @@ const DatasetItem = (props) => {
             onClick={
             (event) => {
               event.preventDefault();
-              console.log(event);
+              console.log(id);
             }
             }
           >
@@ -59,16 +60,20 @@ const DatasetItem = (props) => {
 DatasetItem.propTypes = {
   name: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
 };
 
 const DatasetsList = () => {
   const datasetArray = [
     { name: 'Реєстр адміністративно-територіального устрою',
-      date: '12/05/2020' },
+      date: '12/05/2020',
+      id: '01' },
     { name: 'Довідник адміністративно-територіальних одиниць України',
-      date: '15/05/2020' },
+      date: '15/05/2020',
+      id: '02' },
     { name: "Довідник 'Адміністративно-територіальні одиниці України'",
-      date: '17/05/2020' },
+      date: '17/05/2020',
+      id: '03' },
   ];
 
   return (
@@ -98,7 +103,8 @@ const DatasetsList = () => {
               <DatasetItem
                 name={item.name}
                 date={item.date}
-                key={`dataset${number}`}
+                id={item.id}
+                key={`datasetItem${number}`}
               />
             ))}
           </tbody>
