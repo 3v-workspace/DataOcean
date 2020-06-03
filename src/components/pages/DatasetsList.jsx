@@ -2,7 +2,7 @@ import React from 'react';
 import ReactRouterPropTypes from 'utils/react-router-prop-types';
 import PropTypes from 'prop-types';
 import { Eye } from 'react-feather';
-import SearchInput from 'components/form-components/SearchInput';
+import SearchBox from 'components/form-components/SearchBox';
 
 const DatasetPagination = (props) => {
   const {
@@ -48,8 +48,8 @@ const DatasetItem = (props) => {
             }
             }
           >
-            <Eye />
-            <span className="ml-2">Переглянути</span>
+            <Eye className="text-theme-1 w-4" />
+            <span className="ml-2 text-theme-1">Переглянути</span>
           </a>
         </div>
       </td>
@@ -78,7 +78,6 @@ const DatasetsList = () => {
 
   return (
     <div className="content">
-      <div className="top-bar" />
       <h2 className="intro-y text-lg font-medium mt-10">
         Перелік наборів даних
       </h2>
@@ -88,7 +87,7 @@ const DatasetsList = () => {
           col-span-12 flex-wrap sm:flex-no-wrap mt-2 mb-4"
       >
         <DatasetPagination first="1" last="3" total="200" />
-        <SearchInput width="w-1/2 md:w-1/3" />
+        <SearchBox />
       </div>
       <div className="intro-y col-span-12 overflow-auto lg:overflow-visible">
         <table className="table table-report intro-y -mt-2 white-space w-full">

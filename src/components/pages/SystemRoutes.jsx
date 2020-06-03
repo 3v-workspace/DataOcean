@@ -9,6 +9,7 @@ import Route404 from 'components/pages/Route404';
 import HelpPage from 'components/pages/system/HelpPage';
 import DashboardPage from 'components/pages/system/DashboardPage';
 import HomePage from 'components/pages/system/HomePage';
+import DatasetsList from 'components/pages/DatasetsList';
 
 const SystemRoutes = (props) => {
   const { match } = props;
@@ -31,7 +32,7 @@ const SystemRoutes = (props) => {
       <Route
         exact
         path={`${match.path}constructor/datasets/`}
-        component={ConstructorPage}
+        component={DatasetsList}
       />
       <Route
         exact

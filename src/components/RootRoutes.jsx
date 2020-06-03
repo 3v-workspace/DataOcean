@@ -28,11 +28,6 @@ const RootRoutes = () => {
       />
       <Route
         exact
-        path="/list/"
-        component={DatasetsList}
-      />
-      <Route
-        exact
         path="/"
         render={() => {
           const redirectTo = isLogin ? '/system/' : '/auth/sign-in/';
