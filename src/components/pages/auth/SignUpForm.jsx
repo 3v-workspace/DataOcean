@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import ReactRouterPropTypes from 'utils/react-router-prop-types';
 import Button from 'components/form-components/Button';
 import TextInput from 'components/form-components/TextInput';
 import PropTypes from 'prop-types';
@@ -138,6 +137,7 @@ const SignUpForm = () => {
           <TextInput
             type="password"
             name="password2"
+            size="lg"
             className="intro-x login__input border-gray-300 block mt-4"
             placeholder="Підтвердження паролю"
             formik={formik}
@@ -185,8 +185,6 @@ const SignUpForm = () => {
   );
 };
 
-SignUpForm.propTypes = {
-  ...ReactRouterPropTypes,
-};
+SignUpForm.propTypes = {};
 
 export default SignUpForm;

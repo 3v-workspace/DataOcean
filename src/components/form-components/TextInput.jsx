@@ -5,7 +5,7 @@ import FormikPropType from 'utils/formik-prop-types';
 const TextInput = (props) => {
   const {
     label, value, onChange, name, id, type, placeholder,
-    className, width, size, formik, onBlur,
+    className, width, size, formik, onBlur, isRounded, containerClass,
   } = props;
 
   const classList = [];
@@ -14,6 +14,9 @@ const TextInput = (props) => {
   }
   if (size) {
     classList.push(`input--${size}`);
+  }
+  if (isRounded) {
+    classList.push('rounded-full');
   }
   classList.push('input border mt-2');
   classList.push(width);
@@ -25,7 +28,7 @@ const TextInput = (props) => {
   const endId = id || `id_${name}`;
 
   return (
-    <div className="mb-3">
+    <div className={`${containerClass} mb-3`}>
       {label && (
         <label htmlFor={endId}>{label}</label>
       )}
@@ -49,6 +52,7 @@ const TextInput = (props) => {
 TextInput.propTypes = {
   id: PropTypes.string,
   className: PropTypes.string,
+  containerClass: PropTypes.string,
   label: PropTypes.string,
   width: PropTypes.string,
   size: PropTypes.oneOf(['sm', 'lg']),
@@ -58,21 +62,23 @@ TextInput.propTypes = {
   onChange: PropTypes.func,
   onBlur: PropTypes.func,
   placeholder: PropTypes.string,
-
+  isRounded: PropTypes.bool,
   formik: FormikPropType,
 };
 
 TextInput.defaultProps = {
-  id: null,
   className: '',
+  containerClass: '',
   label: '',
   width: 'w-full',
   type: 'text',
+  id: undefined,
   size: undefined,
   placeholder: undefined,
   value: undefined,
   onChange: undefined,
   onBlur: undefined,
+  isRounded: false,
   formik: undefined,
 };
 

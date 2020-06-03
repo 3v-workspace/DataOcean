@@ -2,14 +2,13 @@ import React from 'react';
 import TextInput from 'components/form-components/TextInput';
 import BooleanInput from 'components/form-components/BooleanInput';
 import Button from 'components/form-components/Button';
-import ReactRouterPropTypes from 'utils/react-router-prop-types';
 import { Link } from 'react-router-dom';
 import { useFormik } from 'formik';
 import Yup from 'utils/yup';
 import Form from 'components/form-components/Form';
 import { useDispatch } from 'react-redux';
 import { setUserData } from 'store/user/actionCreators';
-import Api from 'api';
+// import Api from 'api';
 
 // TODO: finish LoginForm
 const SignInForm = () => {
@@ -124,8 +123,6 @@ const SignInForm = () => {
   );
 };
 
-SignInForm.propTypes = {
-  ...ReactRouterPropTypes,
-};
+SignInForm.propTypes = {};
 
 export default SignInForm;
