@@ -60,7 +60,7 @@ Loading.defaultProps = {
 const Button = (props) => {
   const {
     size, children, width, variant, className, isLoading,
-    onClick, link, toggleModal, type, disabled,
+    onClick, link, toggleModal, type, disabled, isRounded,
   } = props;
 
   const classList = [];
@@ -73,6 +73,9 @@ const Button = (props) => {
 
   if (size) {
     classList.push(`button--${size}`);
+  }
+  if (isRounded) {
+    classList.push('rounded-full');
   }
   classList.push(buttonTypes[variant]);
   classList.push('mr-1 mb-2');
@@ -117,6 +120,7 @@ Button.propTypes = {
   onClick: PropTypes.func,
   toggleModal: PropTypes.string,
   isLoading: PropTypes.bool,
+  isRounded: PropTypes.bool,
 };
 
 Button.defaultProps = {
@@ -130,6 +134,7 @@ Button.defaultProps = {
   onClick: () => undefined,
   toggleModal: '',
   isLoading: false,
+  isRounded: false,
 };
 
 export default Button;
