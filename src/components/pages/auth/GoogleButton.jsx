@@ -9,6 +9,7 @@ const GoogleButton = ({ children }) => (
     <Button
       className="px-8"
       isRounded
+      isElevated
       variant="dark"
     >
       <div className="pr-2 mr-2 border-r-1 border-gray-600">
