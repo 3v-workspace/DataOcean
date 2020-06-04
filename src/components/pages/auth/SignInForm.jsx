@@ -8,6 +8,7 @@ import Yup from 'utils/yup';
 import Form from 'components/form-components/Form';
 import { useDispatch } from 'react-redux';
 import { setUserData } from 'store/user/actionCreators';
+import GoogleButton from 'components/pages/auth/GoogleButton';
 // import Api from 'api';
 
 // TODO: finish LoginForm
@@ -105,7 +106,8 @@ const SignInForm = () => {
           Реєстрація
         </Button>
       </div>
-      <div className="intro-x mt-10 xl:mt-24 text-gray-700 text-center xl:text-left">
+      <GoogleButton>Продовжити з Google</GoogleButton>
+      <div className="intro-x mt-10 xl:mt-18 text-gray-700 text-center xl:text-left">
         By signin up, you agree to our
         <br />
         <a

@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { useFormik } from 'formik';
 import Yup from 'utils/yup';
 import Form from 'components/form-components/Form';
+import GoogleButton from 'components/pages/auth/GoogleButton';
 
 const PasswordSecure = (props) => {
   const { level } = props;
@@ -180,6 +181,7 @@ const SignUpForm = () => {
             Вхід
           </Button>
         </div>
+        <GoogleButton>Продовжити з Google</GoogleButton>
       </Form>
     </>
   );
