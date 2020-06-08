@@ -22,6 +22,16 @@ const SystemRoutes = (props) => {
 
   return (
     <Switch>
+      <Route
+        exact
+        path={`${match.path}home/`}
+        component={HomePage}
+      />
+      <Route
+        exact
+        path={`${match.path}dashboard/`}
+        component={DashboardPage}
+      />
       {/* TODO: make constructor routes */}
       <Route
         exact
@@ -35,6 +45,11 @@ const SystemRoutes = (props) => {
       />
       <Route
         exact
+        path={`${match.path}analytics/`}
+        component={AnalyticsPage}
+      />
+      <Route
+        exact
         path={`${match.path}documents/`}
         component={DocumentsPage}
       />
@@ -45,28 +60,13 @@ const SystemRoutes = (props) => {
       />
       <Route
         exact
-        path={`${match.path}analytics/`}
-        component={AnalyticsPage}
-      />
-      <Route
-        exact
         path={`${match.path}help/`}
         component={HelpPage}
       />
       <Route
         exact
-        path={`${match.path}dashboard/`}
-        component={DashboardPage}
-      />
-      <Route
-        exact
-        path={`${match.path}home/`}
-        component={HomePage}
-      />
-      <Route
-        exact
         path={match.path}
-        render={() => <Redirect to={`${match.path}help/`} />}
+        render={() => <Redirect to={`${match.path}home/`} />}
       />
       <Route404 />
     </Switch>

@@ -10,7 +10,7 @@ import { useSelector } from 'react-redux';
 
 const LoginPage = ({ match, history, location }) => {
   const user = useSelector((state) => state.user);
-  const { from } = location.state || { from: { pathname: '/home/' } };
+  const { from } = location.state || { from: { pathname: '/system/' } };
 
   useEffect(() => {
     if (user.isLoggedIn) {
