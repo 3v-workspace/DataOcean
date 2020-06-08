@@ -5,3 +5,11 @@ body.login {
   padding-top: 0;
   padding-bottom: 0;
 }
+
+// todo: is it possible not to use !important here?
+// todo: add --webkit props (ask/read about it) 
+.no-animation {
+  opacity: 1 !important;
+  animation: none !important;
+  transform: none !important;
+}
