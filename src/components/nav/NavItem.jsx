@@ -11,9 +11,9 @@ const NavItem = (props) => {
   const {
     isMobile,
     isOpen,
+    toggleMobile,
     isInitialAnimationShown,
     setInitialAnimationShown,
-    toggleMobile,
   } = useContext(NavContext);
 
   const { pathname } = useLocation();
@@ -25,9 +25,11 @@ const NavItem = (props) => {
     // if (ddContext) {
     //   ddContext.setOpen(false);
     // }
-    if (isMobile && isOpen) {
-      toggleMobile();
-    } else if (!isMobile && !isInitialAnimationShown) {
+    if (isMobile) {
+      if (isOpen) {
+        toggleMobile();
+      }
+    } else if (!isInitialAnimationShown) {
       setInitialAnimationShown(true);
     }
   };

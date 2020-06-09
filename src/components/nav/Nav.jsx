@@ -52,13 +52,14 @@ const Nav = (props) => {
       </Link>
       <div className="side-nav__devider my-6" />
       <ul>
-        <NavContext.Provider value={{
-          isMobile,
-          isOpen,
-          toggleMobile,
-          isInitialAnimationShown,
-          setInitialAnimationShown,
-        }}
+        <NavContext.Provider
+          value={{
+            isMobile,
+            isOpen,
+            toggleMobile,
+            isInitialAnimationShown,
+            setInitialAnimationShown,
+          }}
         >
           {children}
         </NavContext.Provider>
