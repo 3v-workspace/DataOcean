@@ -4,19 +4,20 @@ import PropTypes from 'prop-types';
 import { Eye } from 'react-feather';
 import SearchBox from 'components/form-components/SearchBox';
 
-const DatasetPagination = (props) => {
-  const { first, last, total } = props;
+const DatasetTopPagination = (props) => {
+  const { currentPage, pageSize, totalElems } = props;
   return (
     <div className="text-gray-600">
-      Показано: з {first} по {last} з {total} елементів
+      Показано: з {(currentPage - 1) * pageSize + 1} по&nbsp;
+      {currentPage * pageSize} з {totalElems} елементів
     </div>
   );
 };
 
-DatasetPagination.propTypes = {
-  first: PropTypes.number.isRequired,
-  last: PropTypes.number.isRequired,
-  total: PropTypes.number.isRequired,
+DatasetTopPagination.propTypes = {
+  currentPage: PropTypes.number.isRequired,
+  pageSize: PropTypes.number.isRequired,
+  totalElems: PropTypes.number.isRequired,
 };
 
 const DatasetItem = (props) => {
@@ -82,15 +83,16 @@ const DatasetsList = () => {
           'col-span-12 flex-wrap sm:flex-no-wrap mt-2 mb-4'
         }
       >
-        <DatasetPagination first="1" last="3" total="200" />
+        <DatasetTopPagination currentPage="1" pageSize="8" totalElems="100" />
         <SearchBox />
       </div>
       <div className="intro-y col-span-12 overflow-auto lg:overflow-visible">
         <table className="table table-report intro-y -mt-2 white-space w-full">
           <thead>
             <tr>
-              <th className="whitespace-no-wrap">Набір даних</th>
-              <th className="text-center whitespace-no-wrap">Дата оновлення</th>
+              <th className="whitespace-no-wrap">НАБІР ДАНИХ</th>
+              <th className="text-center whitespace-no-wrap">ДАТА ОНОВЛЕННЯ</th>
+              <th className="text-center whitespace-no-wrap">ДІЇ</th>
             </tr>
           </thead>
           <tbody>
@@ -105,10 +107,107 @@ const DatasetsList = () => {
           </tbody>
         </table>
       </div>
+      <DatasetPagination currentPage="1" pageSize="10" totalElems="11" />
     </div>
   );
 };
 
+const DatasetPagination = (props) => {
+  const { currentPage, pageSize, totalElems } = props;
+  const maxPage = totalElems % pageSize ?
+    Math.floor(totalElems / pageSize) + 1 : totalElems / pageSize;
+  const pagesVisible = 3;
+  let newPage;
+  const pageClick = (event) => {
+    event.preventDefault();
+    newPage = +currentPage;
+    switch (event.currentTarget.name) {
+      default: break;
+      case 'home':
+        newPage = 1;
+        break;
+      case 'previous': newPage = newPage > 1 ? newPage - 1 : 1;
+        break;
+      case 'next': newPage = newPage < maxPage ? newPage + 1 : maxPage;
+        break;
+      case 'end': newPage = maxPage;
+        break;
+    }
+    console.log(+currentPage, newPage);
+    if (newPage !== +currentPage) console.log('HTTP request:');
+  };
+  if (maxPage === 1) return ('');
+  return (
+    <div className="qqq intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-no-wrap items-center">
+      <ul className="pagination">
+        <li>
+          <a
+            className="pagination__link"
+            href="/"
+            onClick={pageClick}
+            name="home"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="feather feather-chevrons-left w-4 h-4"><polyline points="11 17 6 12 11 7" /><polyline points="18 17 13 12 18 7" /></svg>
+          </a>
+        </li>
+        <li>
+          <a
+            className="pagination__link"
+            href="/"
+            onClick={pageClick}
+            name="previous"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="feather feather-chevron-left w-4 h-4"><polyline points="15 18 9 12 15 6" /></svg>
+          </a>
+        </li>
+        <li> <a className="pagination__link" href="/">...</a> </li>
+        <li> <a className="pagination__link" href="/">1</a> </li>
+        <li> <a className="pagination__link pagination__link--active" href="/">2</a> </li>
+        <li> <a className="pagination__link" href="/">3</a> </li>
+        <li> <a className="pagination__link" href="/">...</a> </li>
+        <li>
+          <a
+            className="pagination__link"
+            href="next"
+            onClick={pageClick}
+            name="next"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="feather feather-chevron-right w-4 h-4"><polyline points="9 18 15 12 9 6" /></svg>
+          </a>
+        </li>
+        <li>
+          <a
+            className="pagination__link"
+            href="end"
+            onClick={pageClick}
+            name="end"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="feather feather-chevrons-right w-4 h-4"><polyline points="13 17 18 12 13 7" /><polyline points="6 17 11 12 6 7" /></svg>
+          </a>
+        </li>
+      </ul>
+      <select
+        className="w-20 input box mt-3 sm:mt-0 cursor-pointer"
+        value={pageSize}
+        onChange={(event) => {
+          console.log('HTTP request:');
+          console.log(`dataocean.ua/api/datasetslist?first_record=&${(currentPage - 1) * pageSize + 1}page_size=${event.target.value}`);
+        }}
+      >
+        <option value="10">10</option>
+        <option value="25">25</option>
+        <option value="35">35</option>
+        <option value="50">50</option>
+      </select>
+    </div>
+  );
+};
+
+DatasetPagination.propTypes = {
+  currentPage: PropTypes.number.isRequired,
+  pageSize: PropTypes.number.isRequired,
+  totalElems: PropTypes.number.isRequired,
+};
 
 DatasetsList.propTypes = {
   ...ReactRouterPropTypes,
