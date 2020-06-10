@@ -5,11 +5,7 @@ import { Eye } from 'react-feather';
 import SearchBox from 'components/form-components/SearchBox';
 
 const DatasetPagination = (props) => {
-  const {
-    first,
-    last,
-    total,
-  } = props;
+  const { first, last, total } = props;
   return (
     <div className="text-gray-600">
       Показано: з {first} по {last} з {total} елементів
@@ -18,18 +14,13 @@ const DatasetPagination = (props) => {
 };
 
 DatasetPagination.propTypes = {
-  first: PropTypes.string.isRequired,
-  last: PropTypes.string.isRequired,
-  total: PropTypes.string.isRequired,
+  first: PropTypes.number.isRequired,
+  last: PropTypes.number.isRequired,
+  total: PropTypes.number.isRequired,
 };
 
 const DatasetItem = (props) => {
-  const {
-    name,
-    date,
-    id,
-  } = props;
-
+  const { name, date, id } = props;
   return (
     <tr className="intro-x">
       <td>
@@ -41,12 +32,10 @@ const DatasetItem = (props) => {
           <a
             className="flex items-center mr-3"
             href="/"
-            onClick={
-            (event) => {
+            onClick={(event) => {
               event.preventDefault();
               console.log(id);
-            }
-            }
+            }}
           >
             <Eye className="text-theme-1 w-4" />
             <span className="ml-2 text-theme-1">Переглянути</span>
@@ -60,20 +49,26 @@ const DatasetItem = (props) => {
 DatasetItem.propTypes = {
   name: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
 };
 
 const DatasetsList = () => {
   const datasetArray = [
-    { name: 'Реєстр адміністративно-територіального устрою',
+    {
+      name: 'Реєстр адміністративно-територіального устрою',
       date: '12/05/2020',
-      id: '01' },
-    { name: 'Довідник адміністративно-територіальних одиниць України',
+      id: '01',
+    },
+    {
+      name: 'Довідник адміністративно-територіальних одиниць України',
       date: '15/05/2020',
-      id: '02' },
-    { name: "Довідник 'Адміністративно-територіальні одиниці України'",
+      id: '02',
+    },
+    {
+      name: "Довідник 'Адміністративно-територіальні одиниці України'",
       date: '17/05/2020',
-      id: '03' },
+      id: '03',
+    },
   ];
 
   return (
@@ -82,9 +77,10 @@ const DatasetsList = () => {
         Перелік наборів даних
       </h2>
       <div
-        className="
-          flex items-center justify-between intro-y
-          col-span-12 flex-wrap sm:flex-no-wrap mt-2 mb-4"
+        className={
+          'flex items-center justify-between intro-y' +
+          'col-span-12 flex-wrap sm:flex-no-wrap mt-2 mb-4'
+        }
       >
         <DatasetPagination first="1" last="3" total="200" />
         <SearchBox />
@@ -98,12 +94,12 @@ const DatasetsList = () => {
             </tr>
           </thead>
           <tbody>
-            {datasetArray.map((item, number) => (
+            {datasetArray.map((item) => (
               <DatasetItem
                 name={item.name}
                 date={item.date}
                 id={item.id}
-                key={`datasetItem${number}`}
+                key={`${item.id}`}
               />
             ))}
           </tbody>

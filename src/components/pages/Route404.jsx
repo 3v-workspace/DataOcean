@@ -14,7 +14,9 @@ export const Page404 = () => (
     <div className="text-white mt-10 lg:mt-0">
       <div className="intro-x text-6xl font-medium">404</div>
       <div className="intro-x text-xl lg:text-3xl font-medium">Ой. Ця сторінка зникла.</div>
-      <div className="intro-x text-lg mt-3">Можливо, ви помилилися при введенні адреси або сторінка перемістилася.</div>
+      <div className="intro-x text-lg mt-3">
+        Можливо, ви помилилися при введенні адреси або сторінка перемістилася.
+      </div>
       <Button
         size="lg"
         variant="outline-white"

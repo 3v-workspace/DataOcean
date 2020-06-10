@@ -4,7 +4,6 @@ import Route404, { Page404 } from 'components/pages/Route404';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import SystemPage from 'components/pages/SystemPage';
 import useIsLogin from 'hooks/loginHooks';
-import DatasetsList from 'components/pages/DatasetsList';
 import LoginPage from './pages/auth/LoginPage';
 
 

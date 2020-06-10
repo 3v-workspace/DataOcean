@@ -8,7 +8,13 @@ import { ChevronRight } from 'react-feather';
 
 const NavItem = (props) => {
   const ddContext = useContext(DropdownContext);
-  const { isMobile, isOpen, toggleMobile } = useContext(NavContext);
+  const {
+    isMobile,
+    isOpen,
+    toggleMobile,
+    isInitialAnimationShown,
+    setInitialAnimationShown,
+  } = useContext(NavContext);
 
   const { pathname } = useLocation();
 
@@ -19,8 +25,12 @@ const NavItem = (props) => {
     // if (ddContext) {
     //   ddContext.setOpen(false);
     // }
-    if (isMobile && isOpen) {
-      toggleMobile();
+    if (isMobile) {
+      if (isOpen) {
+        toggleMobile();
+      }
+    } else if (!isInitialAnimationShown) {
+      setInitialAnimationShown(true);
     }
   };
 
@@ -32,7 +42,12 @@ const NavItem = (props) => {
 
   return (
     <li onClick={handleClick}>
-      <NavLink exact to={link} className={menuClass} activeClassName={`${menuClass}--active`}>
+      <NavLink
+        exact
+        to={link}
+        className={`${menuClass} ${isInitialAnimationShown ? 'no-animation' : ''}`}
+        activeClassName={`${menuClass}--active`}
+      >
         <div className={`${menuClass}__icon`}>
           <Icon />
         </div>

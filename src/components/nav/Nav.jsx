@@ -9,6 +9,7 @@ export const NavContext = React.createContext(false);
 const Nav = (props) => {
   const { children, isMobile } = props;
   const [isOpen, setOpen] = useState(false);
+  const [isInitialAnimationShown, setInitialAnimationShown] = useState(false);
   const itemsListRef = useRef();
 
   const toggleMobile = () => {
@@ -51,7 +52,15 @@ const Nav = (props) => {
       </Link>
       <div className="side-nav__devider my-6" />
       <ul>
-        <NavContext.Provider value={{ isMobile, isOpen, toggleMobile }}>
+        <NavContext.Provider
+          value={{
+            isMobile,
+            isOpen,
+            toggleMobile,
+            isInitialAnimationShown,
+            setInitialAnimationShown,
+          }}
+        >
           {children}
         </NavContext.Provider>
       </ul>
