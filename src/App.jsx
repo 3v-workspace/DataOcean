@@ -7,7 +7,6 @@ import { useDispatch } from 'react-redux';
 const App = () => {
   const [isInit, setIsInit] = useState(false);
   const dispatch = useDispatch();
-  console.log(process.env);
 
   useEffect(() => {
     Api.get('rest-auth/profile/')
