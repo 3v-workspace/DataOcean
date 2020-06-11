@@ -12,8 +12,6 @@ const NavItem = (props) => {
     isMobile,
     isOpen,
     toggleMobile,
-    isInitialAnimationShown,
-    setInitialAnimationShown,
   } = useContext(NavContext);
 
   const { pathname } = useLocation();
@@ -25,12 +23,8 @@ const NavItem = (props) => {
     // if (ddContext) {
     //   ddContext.setOpen(false);
     // }
-    if (isMobile) {
-      if (isOpen) {
-        toggleMobile();
-      }
-    } else if (!isInitialAnimationShown) {
-      setInitialAnimationShown(true);
+    if (isMobile && isOpen) {
+      toggleMobile();
     }
   };
 
@@ -45,7 +39,7 @@ const NavItem = (props) => {
       <NavLink
         exact
         to={link}
-        className={`${menuClass} ${isInitialAnimationShown ? 'no-animation' : ''}`}
+        className={menuClass}
         activeClassName={`${menuClass}--active`}
       >
         <div className={`${menuClass}__icon`}>

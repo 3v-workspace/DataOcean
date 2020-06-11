@@ -11,7 +11,7 @@ const NavDropdown = ({ label, icon: Icon, children }) => {
   const [isOpen, setOpen] = useState(false);
   const [isActive, setActive] = useState(false);
 
-  const { isMobile, isInitialAnimationShown, setInitialAnimationShown } = useContext(NavContext);
+  const { isMobile } = useContext(NavContext);
   const links = useRef([]);
   const { pathname } = useLocation();
   const itemsListRef = useRef();
@@ -56,16 +56,13 @@ const NavDropdown = ({ label, icon: Icon, children }) => {
         },
       });
     }
-    if (!isMobile && !isInitialAnimationShown) {
-      setInitialAnimationShown(true);
-    }
   };
 
   return (
     <li>
       <a
         href="#?"
-        className={`${isInitialAnimationShown ? 'no-animation' : ''} ${className.join(' ')}`}
+        className={className.join(' ')}
         onClick={toggle}
       >
         <div className={`${menuClass}__icon`}>

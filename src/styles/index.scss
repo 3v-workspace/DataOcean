@@ -7,8 +7,8 @@ body.login {
 }
 
 // todo: is it possible not to use !important here?
-// todo: add --webkit props (ask/read about it) 
-.no-animation {
+// todo: add --webkit props (ask/read about it)
+.side-nav.no-animation .side-menu {
   opacity: 1 !important;
   animation: none !important;
   transform: none !important;
