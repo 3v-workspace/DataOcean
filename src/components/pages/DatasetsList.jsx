@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactRouterPropTypes from 'utils/react-router-prop-types';
 import PropTypes from 'prop-types';
 import { Eye } from 'react-feather';
@@ -53,22 +53,26 @@ DatasetItem.propTypes = {
   id: PropTypes.number.isRequired,
 };
 
-const DatasetsList = () => {
+const DatasetsList = (props) => {
+  const { propsCurrentPage, propsPageSize, propsTotalElems } = props;
+  const [currentPage, setCurrentPage] = useState(propsCurrentPage);
+  const [pageSize, setPageSize] = useState(propsPageSize);
+  const [totalElems, setTotalElems] = useState(propsTotalElems);
   const datasetArray = [
     {
       name: 'Реєстр адміністративно-територіального устрою',
       date: '12/05/2020',
-      id: '01',
+      id: 101,
     },
     {
       name: 'Довідник адміністративно-територіальних одиниць України',
       date: '15/05/2020',
-      id: '02',
+      id: 102,
     },
     {
       name: "Довідник 'Адміністративно-територіальні одиниці України'",
       date: '17/05/2020',
-      id: '03',
+      id: 103,
     },
   ];
 
@@ -83,7 +87,11 @@ const DatasetsList = () => {
           'col-span-12 flex-wrap sm:flex-no-wrap mt-2 mb-4'
         }
       >
-        <DatasetTopPagination currentPage="1" pageSize="8" totalElems="100" />
+        <DatasetTopPagination
+          currentPage={currentPage}
+          pageSize={pageSize}
+          totalElems={totalElems}
+        />
         <SearchBox />
       </div>
       <div className="intro-y col-span-12 overflow-auto lg:overflow-visible">
@@ -107,17 +115,44 @@ const DatasetsList = () => {
           </tbody>
         </table>
       </div>
-      <DatasetPagination currentPage="1" pageSize="10" totalElems="101" />
+      <DatasetPagination
+        currentPage={currentPage}
+        pageSize={pageSize}
+        totalElems={totalElems}
+        setCurrentPage={setCurrentPage}
+      />
     </div>
   );
 };
 
+DatasetsList.propTypes = {
+  propsCurrentPage: PropTypes.number,
+  propsPageSize: PropTypes.number,
+  propsTotalElems: PropTypes.number,
+};
+
+DatasetsList.defaultProps = {
+  propsCurrentPage: 1,
+  propsPageSize: 10,
+  propsTotalElems: 105,
+};
+
 const DatasetPagination = (props) => {
-  const { currentPage, pageSize, totalElems } = props;
+  const { currentPage, pageSize, totalElems, setCurrentPage } = props;
   const maxPage = totalElems % pageSize ?
     Math.floor(totalElems / pageSize) + 1 : totalElems / pageSize;
-  const pagesVisible = 3;
   let newPage = +currentPage;
+  let indexFrom = newPage - 1;
+  indexFrom = indexFrom < 1 ? 1 : indexFrom;
+  let maxIndex = indexFrom + 2;
+  maxIndex = maxIndex > maxPage ? maxPage : maxIndex;
+
+  const pageNumberClick = (event) => {
+    event.preventDefault();
+    newPage = +event.currentTarget.name;
+    console.log(`HTTP request: dataocean.ua/api/datasetslist?first_record=&${(newPage - 1) * pageSize + 1}page_size=${pageSize}`);
+    setCurrentPage(newPage);
+  };
   const pageClick = (event) => {
     event.preventDefault();
     switch (event.currentTarget.name) {
@@ -125,22 +160,35 @@ const DatasetPagination = (props) => {
       case 'home':
         newPage = 1;
         break;
-      case 'previous': newPage = newPage > 1 ? newPage - 1 : 1;
+      case 'previous':
+        newPage = newPage > 1 ? newPage - 1 : 1;
         break;
-      case 'next': newPage = newPage < maxPage ? newPage + 1 : maxPage;
+      case 'next':
+        newPage = newPage < maxPage ? newPage + 1 : maxPage;
         break;
       case 'end': newPage = maxPage;
         break;
     }
-    console.log('Page: ', newPage);
-    if (newPage !== +currentPage) console.log('HTTP request:');
+    if (newPage !== +currentPage) console.log(`HTTP request: dataocean.ua/api/datasetslist?first_record=&${(newPage - 1) * pageSize + 1}page_size=${pageSize}`);
+    setCurrentPage(newPage);
   };
   if (maxPage === 1) return ('');
   const pageButtons = [];
-  const maxIndex = maxPage > pagesVisible ? pagesVisible : maxPage;
-  for (let index = 1; index <= maxIndex; index += 1) {
+  for (let index = indexFrom; index <= maxIndex; index += 1) {
     const active = index === +currentPage ? ' pagination__link--active' : '';
-    pageButtons.push(<li> <a className={`pagination__link ${active}`} href="/" onClick={pageClick}>{index}</a> </li>);
+    pageButtons.push(
+      <li>
+        <a
+          className={`pagination__link ${active}`}
+          href="/"
+          onClick={pageNumberClick}
+          key={index}
+          name={index}
+        >
+          {index}
+        </a>
+      </li>,
+    );
   }
   return (
     <div className="intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-no-wrap items-center">
@@ -228,6 +276,7 @@ DatasetPagination.propTypes = {
   currentPage: PropTypes.number.isRequired,
   pageSize: PropTypes.number.isRequired,
   totalElems: PropTypes.number.isRequired,
+  setCurrentPage: PropTypes.func.isRequired,
 };
 
 DatasetsList.propTypes = {
