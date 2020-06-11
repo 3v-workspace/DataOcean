@@ -14,6 +14,9 @@ const App = () => {
       .then((resp) => {
         dispatch(userLogin(resp.data));
       })
+      .catch(() => {
+        window.localStorage.removeItem('token');
+      })
       .finally(() => {
         setIsInit(true);
       });
