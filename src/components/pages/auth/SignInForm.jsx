@@ -7,9 +7,9 @@ import { useFormik } from 'formik';
 import Yup from 'utils/yup';
 import Form from 'components/form-components/Form';
 import { useDispatch } from 'react-redux';
-import { setUserData } from 'store/user/actionCreators';
+import { userLogin } from 'store/user/actionCreators';
 import GoogleButton from 'components/pages/auth/GoogleButton';
-// import Api from 'api';
+import Api from 'api';
 
 // TODO: finish LoginForm
 const SignInForm = () => {
@@ -27,27 +27,21 @@ const SignInForm = () => {
       remember_me: Yup.bool(),
     }),
     onSubmit: (values, actions) => {
-      setTimeout(() => {
-        // TODO: ajax login request
-        // next code only for testing
-        const success = true;
-
-        if (success) {
-          const testToken = 'asdasdqrqtslsdkmof.fsjdfosie.splgmoejplvmslkapd';
-          window.localStorage.setItem('token', testToken);
-          // Api.get('hello/');
-          dispatch(setUserData({
-            isLoggedIn: true,
-            email: 'admin@admin.com',
-            firstName: 'Roman',
-            lastName: 'Tiukh',
-            role: 'admin',
-          }));
-        } else {
-          actions.setFieldError('password', 'Невірний логін або пароль');
-        }
-        actions.setSubmitting(false);
-      }, 2000);
+      Api.post('rest-auth/login/', values)
+        .then((resp) => {
+          const { user, key } = resp.data;
+          window.localStorage.setItem('token', key);
+          dispatch(userLogin(user));
+        })
+        .catch(({ response }) => {
+          if (response && response.data && response.data.non_field_errors) {
+            actions.setFieldError('password', 'Невірний логін або пароль');
+          }
+        })
+        .finally(() => {
+          actions.setSubmitting(false);
+        });
+      // actions.setFieldError('password', 'Невірний логін або пароль');
     },
   });
 

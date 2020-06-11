@@ -6,10 +6,10 @@ import {
 
 const initialState = {
   isLoggedIn: false,
+  id: null,
   email: '',
-  firstName: '',
-  lastName: '',
-  role: '',
+  first_name: '',
+  last_name: '',
 };
 
 const userReducer = (state = initialState, action) => {

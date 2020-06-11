@@ -6,6 +6,9 @@ import { useFormik } from 'formik';
 import Yup from 'utils/yup';
 import Form from 'components/form-components/Form';
 import GoogleButton from 'components/pages/auth/GoogleButton';
+import Api from 'api';
+import { useDispatch } from 'react-redux';
+import { userLogin } from 'store/user/actionCreators';
 
 const PasswordSecure = (props) => {
   const { level } = props;
@@ -35,19 +38,20 @@ PasswordSecure.propTypes = {
 
 const SignUpForm = () => {
   const [psswdSec, setPsswdSec] = useState(0);
+  const dispatch = useDispatch();
 
   const formik = useFormik({
     initialValues: {
       first_name: '',
       last_name: '',
       email: '',
-      password: '',
+      password1: '',
       password2: '',
       accept_policy: false,
     },
     validate: (values) => {
       const errors = {};
-      const { password } = values;
+      const { password1: password } = values;
       if (password) {
         let level = -1;
         if (password.length >= 8) {
@@ -73,7 +77,8 @@ const SignUpForm = () => {
         setPsswdSec(0);
       }
       if (!values.accept_policy) {
-        errors.accept_policy = 'Для реєстрації ви повинні підтвердити згоду з політикою конфіденційності';
+        errors.accept_policy = 'Для реєстрації ви повинні підтвердити ' +
+          'згоду з політикою конфіденційності';
       }
       return errors;
     },
@@ -81,12 +86,27 @@ const SignUpForm = () => {
       first_name: Yup.string().required(),
       last_name: Yup.string().required(),
       email: Yup.string().required().email(),
-      password: Yup.string().required().min(6),
+      password1: Yup.string().required().min(6),
       password2: Yup.string().required().min(6),
       accept_policy: Yup.boolean(),
     }),
-    onSubmit: () => {
-      // TODO:
+    onSubmit: (values, actions) => {
+      Api.post('rest-auth/registration/', values)
+        .then((resp) => {
+          const { user } = resp.data;
+          window.localStorage.setItem('token', resp.data.key);
+          dispatch(userLogin(user));
+        })
+        .catch(({ response }) => {
+          if (response && response.data) {
+            Object.entries(response.data).forEach(([field, errors]) => {
+              actions.setFieldError(field, errors[0]);
+            });
+          }
+        })
+        .finally(() => {
+          actions.setSubmitting(false);
+        });
     },
   });
 
@@ -126,7 +146,7 @@ const SignUpForm = () => {
           <TextInput
             type="password"
             size="lg"
-            name="password"
+            name="password1"
             className="intro-x login__input border-gray-300 block"
             placeholder="Пароль"
             formik={formik}
