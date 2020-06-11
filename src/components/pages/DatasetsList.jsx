@@ -107,7 +107,7 @@ const DatasetsList = () => {
           </tbody>
         </table>
       </div>
-      <DatasetPagination currentPage="1" pageSize="10" totalElems="11" />
+      <DatasetPagination currentPage="1" pageSize="10" totalElems="101" />
     </div>
   );
 };
@@ -133,10 +133,16 @@ const DatasetPagination = (props) => {
       case 'end': newPage = maxPage;
         break;
     }
-    console.log(+currentPage, newPage);
+    console.log('Page: ', newPage);
     if (newPage !== +currentPage) console.log('HTTP request:');
   };
   if (maxPage === 1) return ('');
+  const pageButtons = [];
+  const maxIndex = maxPage > pagesVisible ? pagesVisible : maxPage;
+  for (let index = 1; index <= maxIndex; index += 1) {
+    const active = index === +currentPage ? ' pagination__link--active' : '';
+    pageButtons.push(<li> <a className={`pagination__link ${active}`} href="/">{index}</a> </li>);
+  }
   return (
     <div className="qqq intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-no-wrap items-center">
       <ul className="pagination">
@@ -160,11 +166,27 @@ const DatasetPagination = (props) => {
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="feather feather-chevron-left w-4 h-4"><polyline points="15 18 9 12 15 6" /></svg>
           </a>
         </li>
-        <li> <a className="pagination__link" href="/">...</a> </li>
-        <li> <a className="pagination__link" href="/">1</a> </li>
-        <li> <a className="pagination__link pagination__link--active" href="/">2</a> </li>
-        <li> <a className="pagination__link" href="/">3</a> </li>
-        <li> <a className="pagination__link" href="/">...</a> </li>
+        <li>
+          <a
+            className="pagination__link"
+            style={{ cursor: 'default' }}
+            href="/"
+            onClick={pageClick}
+          >
+            ...
+          </a>
+        </li>
+        {pageButtons}
+        <li>
+          <a
+            className="pagination__link"
+            style={{ cursor: 'default' }}
+            href="/"
+            onClick={pageClick}
+          >
+            ...
+          </a>
+        </li>
         <li>
           <a
             className="pagination__link"
