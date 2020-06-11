@@ -117,10 +117,9 @@ const DatasetPagination = (props) => {
   const maxPage = totalElems % pageSize ?
     Math.floor(totalElems / pageSize) + 1 : totalElems / pageSize;
   const pagesVisible = 3;
-  let newPage;
+  let newPage = +currentPage;
   const pageClick = (event) => {
     event.preventDefault();
-    newPage = +currentPage;
     switch (event.currentTarget.name) {
       default: break;
       case 'home':
@@ -141,10 +140,10 @@ const DatasetPagination = (props) => {
   const maxIndex = maxPage > pagesVisible ? pagesVisible : maxPage;
   for (let index = 1; index <= maxIndex; index += 1) {
     const active = index === +currentPage ? ' pagination__link--active' : '';
-    pageButtons.push(<li> <a className={`pagination__link ${active}`} href="/">{index}</a> </li>);
+    pageButtons.push(<li> <a className={`pagination__link ${active}`} href="/" onClick={pageClick}>{index}</a> </li>);
   }
   return (
-    <div className="qqq intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-no-wrap items-center">
+    <div className="intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-no-wrap items-center">
       <ul className="pagination">
         <li>
           <a
@@ -190,7 +189,7 @@ const DatasetPagination = (props) => {
         <li>
           <a
             className="pagination__link"
-            href="next"
+            href="/"
             onClick={pageClick}
             name="next"
           >
@@ -200,7 +199,7 @@ const DatasetPagination = (props) => {
         <li>
           <a
             className="pagination__link"
-            href="end"
+            href="/"
             onClick={pageClick}
             name="end"
           >
