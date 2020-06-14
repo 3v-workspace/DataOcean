@@ -11,6 +11,7 @@ const ChangePassword = () => (
       <Button
         type="submit"
         className="xl:w-1/2 xl:mr-3"
+        width="w-full"
       >
         Отримати посилання
       </Button>

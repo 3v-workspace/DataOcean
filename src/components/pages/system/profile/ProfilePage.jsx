@@ -21,13 +21,13 @@ const ProfilePage = ({ match }) => {
       <div className="intro-y box px-5 pt-5 mt-5">
         <div className="flex flex-col lg:flex-row border-b border-gray-200 pb-5 -mx-5">
           <div className="flex flex-1 px-5 items-center justify-center lg:justify-start">
-            <div className="w-18 h-18 sm:w-20 sm:h-20 flex-none lg:w-24 lg:h-24 image-fit relative">
+            <div className="w-10 h-10 sm:w-20 sm:h-20 flex-none lg:w-24 lg:h-24 image-fit relative">
               <div className="rounded-full overflow-hidden shadow-lg">
                 <User width="100%" height="100%" />
               </div>
             </div>
             <div className="ml-5">
-              <div className="w-24 sm:w-40 truncate sm:whitespace-normal font-medium text-lg">{user.first_name} {user.last_name}</div>
+              <div className="sm:w-40 truncate sm:whitespace-normal font-medium text-lg">{user.first_name} {user.last_name}</div>
               {user.company_name && <div className="text-gray-600">{user.company_name}</div>}
             </div>
           </div>
