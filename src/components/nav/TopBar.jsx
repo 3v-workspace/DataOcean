@@ -2,8 +2,9 @@ import React from 'react';
 // import PropTypes from 'prop-types';
 import {
   ChevronRight, Search, Inbox, Users, CreditCard, Bell,
-  User, Edit, HelpCircle, Lock, ToggleRight,
+  User, Shield, HelpCircle, Lock, ToggleRight,
 } from 'react-feather';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { userLogout } from 'store/user/actionCreators';
 
@@ -270,7 +271,7 @@ const TopBar = () => {
       </div>
       <div className="intro-x dropdown w-8 h-8 relative">
         <div className="dropdown-toggle w-8 h-8 rounded-full overflow-hidden shadow-lg image-fit zoom-in">
-          <img alt="Midone Tailwind HTML Admin Template" src="/images/profile-10.jpg" />
+          <User width="100%" height="100%" />
         </div>
         <div className="dropdown-box mt-10 absolute w-56 top-0 right-0 z-20">
           <div className="dropdown-box__content box bg-theme-38 text-white">
@@ -278,32 +279,32 @@ const TopBar = () => {
               <div className="font-medium">
                 {user.first_name} {user.last_name}
               </div>
-              <div className="text-xs text-theme-41">Software Engineer</div>
+              <div className="text-xs text-theme-41">{user.company_name}</div>
             </div>
             <div className="p-2">
+              <Link
+                to="/system/profile/details"
+                className="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 rounded-md"
+              >
+                <User className="w-4 h-4 mr-2" /> Профіль
+              </Link>
+              <Link
+                to="/system/profile/subscription"
+                className="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 rounded-md"
+              >
+                <Shield className="w-4 h-4 mr-2" /> Підписка
+              </Link>
+              <Link
+                to="/system/profile/change-pass"
+                className="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 rounded-md"
+              >
+                <Lock className="w-4 h-4 mr-2" /> Змінити пароль
+              </Link>
               <a
                 href="#?"
                 className="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 rounded-md"
               >
-                <User className="w-4 h-4 mr-2" /> Profile
-              </a>
-              <a
-                href="#?"
-                className="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 rounded-md"
-              >
-                <Edit className="w-4 h-4 mr-2" /> Add Account
-              </a>
-              <a
-                href="#?"
-                className="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 rounded-md"
-              >
-                <Lock className="w-4 h-4 mr-2" /> Reset Password
-              </a>
-              <a
-                href="#?"
-                className="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 rounded-md"
-              >
-                <HelpCircle className="w-4 h-4 mr-2" /> Help
+                <HelpCircle className="w-4 h-4 mr-2" /> Допомога
               </a>
             </div>
             <div className="p-2 border-t border-theme-40">
@@ -312,7 +313,7 @@ const TopBar = () => {
                 onClick={logout}
                 className="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 rounded-md"
               >
-                <ToggleRight className="w-4 h-4 mr-2" /> Logout
+                <ToggleRight className="w-4 h-4 mr-2" /> Вийти
               </a>
             </div>
           </div>

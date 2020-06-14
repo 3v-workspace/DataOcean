@@ -9,6 +9,7 @@ import Route404 from 'components/pages/Route404';
 import HelpPage from 'components/pages/system/HelpPage';
 import DashboardPage from 'components/pages/system/DashboardPage';
 import HomePage from 'components/pages/system/HomePage';
+import ProfilePage from 'components/pages/system/profile/ProfilePage';
 
 const SystemRoutes = (props) => {
   const { match } = props;
@@ -62,6 +63,11 @@ const SystemRoutes = (props) => {
         exact
         path={`${match.path}help/`}
         component={HelpPage}
+      />
+      <Route
+        exact
+        path={`${match.path}profile/*`}
+        component={ProfilePage}
       />
       <Route
         exact
