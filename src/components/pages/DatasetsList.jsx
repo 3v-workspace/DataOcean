@@ -3,6 +3,7 @@ import ReactRouterPropTypes from 'utils/react-router-prop-types';
 import PropTypes from 'prop-types';
 import { Eye } from 'react-feather';
 import SearchBox from 'components/form-components/SearchBox';
+import axios from 'axios';
 
 const DatasetTopPagination = (props) => {
   const { currentPage, pageSize, totalElems } = props;
@@ -169,7 +170,14 @@ const DatasetPagination = (props) => {
       case 'end': newPage = maxPage;
         break;
     }
-    if (newPage !== +currentPage) console.log(`HTTP request: dataocean.ua/api/datasetslist?first_record=&${(newPage - 1) * pageSize + 1}page_size=${pageSize}`);
+    if (newPage !== +currentPage) {
+      axios.get('http://127.0.0.1:8000/api/rfop/')
+        .then((response) => {
+          console.log(response.data);
+          console.log(response.json);
+          console.log(response.status);
+        });
+    }
     setCurrentPage(newPage);
   };
   if (maxPage === 1) return ('');
