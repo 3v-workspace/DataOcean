@@ -1,31 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import RootRoutes from 'components/RootRoutes';
-// import { useDispatch, useSelector } from 'react-redux';
-// import { useHistory } from 'react-router-dom';
-// import { userLogin } from 'store/user/actionCreators';
+import Api from 'api';
+import { userLogin } from 'store/user/actionCreators';
+import { useDispatch } from 'react-redux';
 
 const App = () => {
-  // const user = useSelector((state) => state.user);
-  // const dispatch = useDispatch();
   const [isInit, setIsInit] = useState(false);
-
-  // if (!user.isLoggedIn) {
-  //   setTimeout(() => {
-  //     dispatch(userLogin({
-  //       email: 'admin@admin.com',
-  //     }));
-  //     setIsInit(true);
-  //   }, 500);
-  // }
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    // TODO: auth/profile/
-    setTimeout(() => {
-      // dispatch(userLogin({
-      //   email: 'admin@admin.com',
-      // }));
-      setIsInit(true);
-    }, 500);
+    Api.get('rest-auth/profile/')
+      .then((resp) => {
+        dispatch(userLogin(resp.data));
+      })
+      .catch(() => {
+        window.localStorage.removeItem('token');
+      })
+      .finally(() => {
+        setIsInit(true);
+      });
   }, []);
 
   if (isInit) {

@@ -18,6 +18,9 @@ export const userLogin = (user) => ({
   },
 });
 
-export const userLogout = () => ({
-  type: USER_LOGOUT,
-});
+export const userLogout = () => {
+  window.localStorage.removeItem('token');
+  return {
+    type: USER_LOGOUT,
+  };
+};

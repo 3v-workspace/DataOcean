@@ -1,7 +1,9 @@
 import axios from 'axios';
 
+const baseUrl = process.env.REACT_APP_API_BASE_URL.replace(/\/$/, '');
+
 const Api = axios.create({
-  baseURL: '/api/',
+  baseURL: `${baseUrl}/api/`,
   // withCredentials: true,
   // timeout: 5000,
   // headers: {
@@ -14,7 +16,7 @@ const Api = axios.create({
 Api.interceptors.request.use((config) => {
   const token = window.localStorage.getItem('token');
   if (token) {
-    config.headers.Authorization = `JWT ${token}`;
+    config.headers.Authorization = `Token ${token}`;
   }
   return config;
 }, (error) => Promise.reject(error));
