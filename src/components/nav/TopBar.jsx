@@ -283,7 +283,7 @@ const TopBar = () => {
             </div>
             <div className="p-2">
               <Link
-                to="/system/profile/details"
+                to="/system/profile/edit"
                 className="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 rounded-md"
               >
                 <User className="w-4 h-4 mr-2" /> Профіль

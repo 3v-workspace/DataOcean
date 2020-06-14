@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactRouterPropTypes from 'utils/react-router-prop-types';
 import { Instagram, Lock, Mail, Settings, Shield, Twitter, User } from 'react-feather';
-import { Link, Route, Switch } from 'react-router-dom';
+import { NavLink, Route, Switch } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import ChangePassword from './ChangePassword';
-import ProfileDetails from './ProfileDetails';
+import ProfileEdit from './ProfileEdit';
 import ProfileSettings from './ProfileSettings';
 import Subscription from './Subscription';
 
@@ -52,12 +52,17 @@ const ProfilePage = ({ match }) => {
           </div>
         </div>
         <div className="nav-tabs flex flex-col sm:flex-row justify-center lg:justify-start">
-          <Link to="/system/profile/" data-toggle="tab" data-target="#profile" className="py-4 sm:mr-8 flex items-center active"> <User className="w-4 h-4 mr-2" /> Профіль </Link>
-          <Link to="/system/profile/subscription/" data-toggle="tab" data-target="#account" className="py-4 sm:mr-8 flex items-center"> <Shield className="w-4 h-4 mr-2" /> Підписка </Link>
-          <Link to="/system/profile/change-pass/" data-toggle="tab" data-target="#change-password" className="py-4 sm:mr-8 flex items-center"> <Lock className="w-4 h-4 mr-2" /> Змінити пароль </Link>
-          <Link to="/system/profile/profile-settings/" data-toggle="tab" data-target="#settings" className="py-4 sm:mr-8 flex items-center"> <Settings className="w-4 h-4 mr-2" /> Налаштування </Link>
+          <NavLink to="/system/profile/edit" data-toggle="tab" className="py-4 sm:mr-8 flex items-center" activeClassName="active"> <User className="w-4 h-4 mr-2" /> Профіль </NavLink>
+          <NavLink to="/system/profile/subscription/" data-toggle="tab" className="py-4 sm:mr-8 flex items-center" activeClassName="active"> <Shield className="w-4 h-4 mr-2" /> Підписка </NavLink>
+          <NavLink to="/system/profile/change-pass/" data-toggle="tab" className="py-4 sm:mr-8 flex items-center" activeClassName="active"> <Lock className="w-4 h-4 mr-2" /> Змінити пароль </NavLink>
+          <NavLink to="/system/profile/settings/" data-toggle="tab" className="py-4 sm:mr-8 flex items-center" activeClassName="active"> <Settings className="w-4 h-4 mr-2" /> Налаштування </NavLink>
         </div>
         <Switch>
+          <Route
+            exact
+            path={`${match.path}edit/`}
+            component={ProfileEdit}
+          />
           <Route
             exact
             path={`${match.path}subscription/`}
@@ -70,12 +75,12 @@ const ProfilePage = ({ match }) => {
           />
           <Route
             exact
-            path={`${match.path}profile-settings/`}
+            path={`${match.path}settings/`}
             component={ProfileSettings}
           />
           <Route
             exact
-            component={ProfileDetails}
+            component={ProfileEdit}
           />
         </Switch>
       </div>
