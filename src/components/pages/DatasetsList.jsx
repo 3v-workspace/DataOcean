@@ -170,6 +170,7 @@ const DatasetPagination = (props) => {
       case 'end': newPage = maxPage;
         break;
     }
+
     if (newPage !== +currentPage) {
       axios.get('http://127.0.0.1:8000/api/rfop/')
         .then((response) => {
