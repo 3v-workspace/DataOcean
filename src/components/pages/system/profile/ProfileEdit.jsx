@@ -23,7 +23,7 @@ const ProfileEdit = () => {
       twitter: Yup.string(),
     }),
     onSubmit: (values, actions) => {
-      // todo: post data to the backend and save to state from response
+      // TODO: post data to the backend and save to state from response
       dispatch(setUserData(values));
       actions.setSubmitting(false);
     },
