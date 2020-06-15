@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-// const baseUrl = 'https://ipa.dataocean.us/';
 const baseUrl = process.env.REACT_APP_API_BASE_URL.replace(/\/$/, '');
 
 const Api = axios.create({

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactRouterPropTypes from 'utils/react-router-prop-types';
-import { Instagram, Lock, Mail, Settings, Shield, Twitter, User } from 'react-feather';
-import { NavLink, Route, Switch } from 'react-router-dom';
+import { Lock, Mail, Settings, Shield, User } from 'react-feather';
+import { NavLink, Redirect, Route, Switch } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import ChangePassword from './ChangePassword';
@@ -31,10 +31,11 @@ const ProfilePage = ({ match }) => {
               {user.company_name && <div className="text-gray-600">{user.company_name}</div>}
             </div>
           </div>
-          <div className="flex mt-6 lg:mt-0 items-center lg:items-start flex-1 flex-col justify-center text-gray-600 px-5 border-l border-r border-gray-200 border-t lg:border-t-0 pt-5 lg:pt-0">
+          <div
+            className="flex mt-6 lg:mt-0 items-center lg:items-start flex-1 flex-col justify-center
+              text-gray-600 px-5 border-l border-r border-gray-200 border-t lg:border-t-0 pt-5 lg:pt-0"
+          >
             <div className="truncate sm:whitespace-normal flex items-center"> <Mail className="w-4 h-4 mr-2" /> {user.email} </div>
-            {user.instagram && <div className="truncate sm:whitespace-normal flex items-center mt-3"> <Instagram className="w-4 h-4 mr-2" /> Instagram {user.instagram} </div>}
-            {user.twitter && <div className="truncate sm:whitespace-normal flex items-center mt-3"> <Twitter className="w-4 h-4 mr-2" /> Twitter {user.twitter} </div>}
           </div>
           <div className="mt-6 lg:mt-0 flex-1 flex items-center justify-center px-5 border-t lg:border-0 border-gray-200 pt-5 lg:pt-0">
             <div className="text-center rounded-md w-20 py-3">
@@ -52,10 +53,18 @@ const ProfilePage = ({ match }) => {
           </div>
         </div>
         <div className="nav-tabs flex flex-col sm:flex-row justify-center lg:justify-start">
-          <NavLink to="/system/profile/edit" data-toggle="tab" className="py-4 sm:mr-8 flex items-center" activeClassName="active"> <User className="w-4 h-4 mr-2" /> Профіль </NavLink>
-          <NavLink to="/system/profile/subscription/" data-toggle="tab" className="py-4 sm:mr-8 flex items-center" activeClassName="active"> <Shield className="w-4 h-4 mr-2" /> Підписка </NavLink>
-          <NavLink to="/system/profile/change-pass/" data-toggle="tab" className="py-4 sm:mr-8 flex items-center" activeClassName="active"> <Lock className="w-4 h-4 mr-2" /> Змінити пароль </NavLink>
-          <NavLink to="/system/profile/settings/" data-toggle="tab" className="py-4 sm:mr-8 flex items-center" activeClassName="active"> <Settings className="w-4 h-4 mr-2" /> Налаштування </NavLink>
+          <NavLink to="/system/profile/edit" data-toggle="tab" className="py-4 sm:mr-8 flex items-center" activeClassName="active">
+            <User className="w-4 h-4 mr-2" /> Профіль
+          </NavLink>
+          <NavLink to="/system/profile/subscription/" data-toggle="tab" className="py-4 sm:mr-8 flex items-center" activeClassName="active">
+            <Shield className="w-4 h-4 mr-2" /> Підписка
+          </NavLink>
+          <NavLink to="/system/profile/change-pass/" data-toggle="tab" className="py-4 sm:mr-8 flex items-center" activeClassName="active">
+            <Lock className="w-4 h-4 mr-2" /> Змінити пароль
+          </NavLink>
+          <NavLink to="/system/profile/settings/" data-toggle="tab" className="py-4 sm:mr-8 flex items-center" activeClassName="active">
+            <Settings className="w-4 h-4 mr-2" /> Налаштування
+          </NavLink>
         </div>
         <Switch>
           <Route
@@ -80,7 +89,7 @@ const ProfilePage = ({ match }) => {
           />
           <Route
             exact
-            component={ProfileEdit}
+            render={() => <Redirect to="/system/profile/edit/" />}
           />
         </Switch>
       </div>

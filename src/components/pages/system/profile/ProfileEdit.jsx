@@ -13,14 +13,17 @@ const ProfileEdit = () => {
   const dispatch = useDispatch();
 
   const formik = useFormik({
-    initialValues: user,
+    initialValues: {
+      first_name: user.first_name,
+      last_name: user.last_name,
+      company_name: user.company_name,
+      email: user.email,
+    },
     validationSchema: Yup.object({
       first_name: Yup.string().required(),
       last_name: Yup.string().required(),
       company_name: Yup.string(),
       email: Yup.string().required().email(),
-      instagram: Yup.string(),
-      twitter: Yup.string(),
     }),
     onSubmit: (values, actions) => {
       // todo: post data to the backend and save to state from response
@@ -30,8 +33,8 @@ const ProfileEdit = () => {
   });
 
   return (
-    <Form formik={formik} className="grid grid-cols-12 gap-6 mt-5">
-      <div className="intro-x col-span-12 lg:col-span-6">
+    <Form formik={formik} className="intro-x mt-8 xl:max-w-xs">
+      <div className="intro-x mt-8">
         <TextInput
           label="Ім'я"
           size="sm"
@@ -56,8 +59,6 @@ const ProfileEdit = () => {
           placeholder="Компанія"
           formik={formik}
         />
-      </div>
-      <div className="intro-x col-span-12 lg:col-span-6">
         <TextInput
           label="Email"
           type="email"
@@ -65,22 +66,6 @@ const ProfileEdit = () => {
           name="email"
           className="intro-x login__input border-gray-300 block"
           placeholder="Email"
-          formik={formik}
-        />
-        <TextInput
-          label="Instagram"
-          size="sm"
-          name="instagram"
-          className="intro-x login__input border-gray-300 block"
-          placeholder="Instagram"
-          formik={formik}
-        />
-        <TextInput
-          label="Twitter"
-          size="sm"
-          name="twitter"
-          className="intro-x login__input border-gray-300 block"
-          placeholder="Twitter"
           formik={formik}
         />
       </div>
