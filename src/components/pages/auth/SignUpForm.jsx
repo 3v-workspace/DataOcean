@@ -51,26 +51,26 @@ const SignUpForm = () => {
     },
     validate: (values) => {
       const errors = {};
-      const { password1: password } = values;
-      if (password) {
+      const { password1 } = values;
+      if (password1) {
         let level = -1;
-        if (password.length >= 8) {
+        if (password1.length >= 8) {
           level += 1;
         }
-        if (/[A-Z]/.test(password)) {
+        if (/[A-Z]/.test(password1)) {
           level += 1;
         }
-        if (/[a-z]/.test(password)) {
+        if (/[a-z]/.test(password1)) {
           level += 1;
         }
-        if (/[0-9]/.test(password)) {
+        if (/[0-9]/.test(password1)) {
           level += 1;
         }
-        if (/[$@!%*#?&._/\\()[\]{}~=+-]/.test(password)) {
+        if (/[$@!%*#?&._/\\()[\]{}~=+-]/.test(password1)) {
           level += 1;
         }
         if (level < 2) {
-          errors.password = 'Пароль занадто простий';
+          errors.password1 = 'Пароль занадто простий';
         }
         setPsswdSec(level);
       } else {
