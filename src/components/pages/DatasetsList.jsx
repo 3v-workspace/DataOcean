@@ -3,7 +3,16 @@ import ReactRouterPropTypes from 'utils/react-router-prop-types';
 import PropTypes from 'prop-types';
 import { Eye } from 'react-feather';
 import SearchBox from 'components/form-components/SearchBox';
-import axios from 'axios';
+import Api from 'api';
+
+const dataGet = () => {
+  Api.post('register/')
+    .then((response) => {
+      console.log(response.data.results);
+    }).catch((response) => {
+      console.log('Error http request, status: ', response);
+    });
+};
 
 const DatasetTopPagination = (props) => {
   const { currentPage, pageSize, totalElems } = props;
@@ -172,12 +181,7 @@ const DatasetPagination = (props) => {
     }
 
     if (newPage !== +currentPage) {
-      axios.get('http://127.0.0.1:8000/api/rfop/')
-        .then((response) => {
-          console.log(response.data);
-          console.log(response.json);
-          console.log(response.status);
-        });
+      dataGet();
     }
     setCurrentPage(newPage);
   };
