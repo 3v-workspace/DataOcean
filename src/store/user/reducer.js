@@ -5,12 +5,15 @@ import {
 } from 'store/user/actions';
 
 const initialState = {
-  company_name: '',
+  // base
+  id: null,
   email: '',
   first_name: '',
-  id: null,
-  isLoggedIn: false,
   last_name: '',
+  company_name: '',
+
+  // system
+  isLoggedIn: false,
 };
 
 const userReducer = (state = initialState, action) => {
