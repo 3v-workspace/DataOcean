@@ -5,10 +5,11 @@ import {
 } from 'store/user/actions';
 
 const initialState = {
-  isLoggedIn: false,
-  id: null,
+  company_name: '',
   email: '',
   first_name: '',
+  id: null,
+  isLoggedIn: false,
   last_name: '',
 };
 
