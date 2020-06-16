@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 // import PropTypes from 'prop-types';
 import {
   ChevronRight, Search, Inbox, Users, CreditCard, Bell,
@@ -12,8 +12,15 @@ import { userLogout } from 'store/user/actionCreators';
 const TopBar = () => {
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
+
+  const userDropdownRef = useRef();
+
   const logout = () => {
     dispatch(userLogout());
+  };
+
+  const closeDropdown = () => {
+    userDropdownRef.current.classList.remove('show');
   };
 
   return (
@@ -273,7 +280,7 @@ const TopBar = () => {
         <div className="dropdown-toggle w-8 h-8 rounded-full overflow-hidden shadow-lg image-fit zoom-in">
           <User width="100%" height="100%" />
         </div>
-        <div className="dropdown-box mt-10 absolute w-56 top-0 right-0 z-20">
+        <div ref={userDropdownRef} className="dropdown-box mt-10 absolute w-56 top-0 right-0 z-20">
           <div className="dropdown-box__content box bg-theme-38 text-white">
             <div className="p-4 border-b border-theme-40">
               <div className="font-medium">
@@ -283,18 +290,21 @@ const TopBar = () => {
             </div>
             <div className="p-2">
               <Link
+                onClick={closeDropdown}
                 to="/system/profile/edit"
                 className="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 rounded-md"
               >
                 <User className="w-4 h-4 mr-2" /> Профіль
               </Link>
               <Link
+                onClick={closeDropdown}
                 to="/system/profile/subscription"
                 className="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 rounded-md"
               >
                 <Shield className="w-4 h-4 mr-2" /> Підписка
               </Link>
               <Link
+                onClick={closeDropdown}
                 to="/system/profile/change-pass"
                 className="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 rounded-md"
               >
@@ -302,6 +312,7 @@ const TopBar = () => {
               </Link>
               <a
                 href="#?"
+                onClick={closeDropdown}
                 className="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 rounded-md"
               >
                 <HelpCircle className="w-4 h-4 mr-2" /> Допомога

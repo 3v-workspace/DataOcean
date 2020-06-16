@@ -36,6 +36,15 @@ const ProfileEdit = () => {
     <Form formik={formik} className="intro-x mt-8 xl:max-w-xs">
       <div className="intro-x mt-8">
         <TextInput
+          label="Email"
+          type="email"
+          size="sm"
+          name="email"
+          className="intro-x login__input border-gray-300 block"
+          placeholder="Email"
+          formik={formik}
+        />
+        <TextInput
           label="Ім'я"
           size="sm"
           name="first_name"
@@ -57,15 +66,6 @@ const ProfileEdit = () => {
           name="company_name"
           className="intro-x login__input border-gray-300 block"
           placeholder="Компанія"
-          formik={formik}
-        />
-        <TextInput
-          label="Email"
-          type="email"
-          size="sm"
-          name="email"
-          className="intro-x login__input border-gray-300 block"
-          placeholder="Email"
           formik={formik}
         />
       </div>
