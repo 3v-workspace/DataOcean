@@ -3,7 +3,7 @@ import Button from 'components/form-components/Button';
 import TextInput from 'components/form-components/TextInput';
 import PropTypes from 'prop-types';
 import { useFormik } from 'formik';
-import Yup from 'utils/yup';
+import Yup, { getPasswordLevel } from 'utils/yup';
 import Form from 'components/form-components/Form';
 import GoogleButton from 'components/pages/auth/GoogleButton';
 import Api from 'api';
@@ -16,7 +16,11 @@ const PasswordSecure = (props) => {
   const getClassForLevel = (currLevel) => {
     let className = 'col-span-3 h-full rounded';
     if (level >= currLevel) {
-      className += ' bg-theme-9';
+      if (level < 2) {
+        className += ' bg-theme-12';
+      } else if (level >= 2) {
+        className += ' bg-theme-9';
+      }
     } else {
       className += ' bg-gray-200';
     }
@@ -51,30 +55,18 @@ const SignUpForm = () => {
     },
     validate: (values) => {
       const errors = {};
-      const { password1 } = values;
+      const { password1, password2 } = values;
       if (password1) {
-        let level = -1;
-        if (password1.length >= 8) {
-          level += 1;
-        }
-        if (/[A-Z]/.test(password1)) {
-          level += 1;
-        }
-        if (/[a-z]/.test(password1)) {
-          level += 1;
-        }
-        if (/[0-9]/.test(password1)) {
-          level += 1;
-        }
-        if (/[$@!%*#?&._/\\()[\]{}~=+-]/.test(password1)) {
-          level += 1;
-        }
+        const level = getPasswordLevel(password1);
         if (level < 2) {
           errors.password1 = 'Пароль занадто простий';
         }
         setPsswdSec(level);
       } else {
         setPsswdSec(0);
+      }
+      if (password1 !== password2) {
+        errors.password2 = 'Паролі не співпадають';
       }
       if (!values.accept_policy) {
         errors.accept_policy = 'Для реєстрації ви повинні підтвердити ' +

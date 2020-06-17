@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 // import PropTypes from 'prop-types';
 import {
   ChevronRight, Search, Inbox, Users, CreditCard, Bell,
-  User, Shield, HelpCircle, Lock, ToggleRight,
+  User, Settings, HelpCircle, ToggleRight,
 } from 'react-feather';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -291,24 +291,17 @@ const TopBar = () => {
             <div className="p-2">
               <Link
                 onClick={closeDropdown}
-                to="/system/profile/edit"
+                to="/system/profile/"
                 className="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 rounded-md"
               >
                 <User className="w-4 h-4 mr-2" /> Профіль
               </Link>
               <Link
                 onClick={closeDropdown}
-                to="/system/profile/subscription"
+                to="/system/profile/settings/"
                 className="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 rounded-md"
               >
-                <Shield className="w-4 h-4 mr-2" /> Підписка
-              </Link>
-              <Link
-                onClick={closeDropdown}
-                to="/system/profile/change-pass"
-                className="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 rounded-md"
-              >
-                <Lock className="w-4 h-4 mr-2" /> Змінити пароль
+                <Settings className="w-4 h-4 mr-2" /> Налаштування
               </Link>
               <a
                 href="#?"

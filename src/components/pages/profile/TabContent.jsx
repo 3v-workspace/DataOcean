@@ -11,6 +11,7 @@ const TabContent = ({ children }) => (
   </div>
 );
 
+
 // TabContent.propTypes = {};
 
 export default TabContent;

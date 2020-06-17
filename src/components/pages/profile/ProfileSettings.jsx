@@ -1,9 +1,13 @@
 import React from 'react';
+import ChangeInfoBlock from 'components/pages/profile/ChangeInfoBlock';
+import ChangePasswordBlock from 'components/pages/profile/ChangePasswordBlock';
+import TabContent from './TabContent';
 
 const ProfileSettings = () => (
-  <h2 className="intro-x text-lg font-medium mt-10">
-    Налаштування
-  </h2>
+  <TabContent>
+    <ChangeInfoBlock />
+    <ChangePasswordBlock />
+  </TabContent>
 );
 
 export default ProfileSettings;

@@ -22,4 +22,24 @@ Yup.setLocale({
   },
 });
 
+export const getPasswordLevel = (password) => {
+  let level = -1;
+  if (password.length >= 8) {
+    level += 1;
+  }
+  if (/[A-Z]/.test(password)) {
+    level += 1;
+  }
+  if (/[a-z]/.test(password)) {
+    level += 1;
+  }
+  if (/[0-9]/.test(password)) {
+    level += 1;
+  }
+  if (/[$@!%*#?&._/\\()[\]{}~=+-]/.test(password)) {
+    level += 1;
+  }
+  return level;
+};
+
 export default Yup;
