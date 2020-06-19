@@ -56,8 +56,9 @@
 
     "react/prop-types": ["error", {
       "ignore": ["children"]
-    }]
+    }],
 
+    "camelcase": "off"
 
     //"no-shadow": "warn",
     //"react/self-closing-comp": "warn",

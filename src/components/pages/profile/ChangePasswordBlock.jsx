@@ -5,34 +5,47 @@ import { useFormik } from 'formik';
 import Yup, { getPasswordLevel } from 'utils/yup';
 import Form from 'components/form-components/Form';
 import TextInput from 'components/form-components/TextInput';
+import Api, { passErrorsToFormik } from 'api';
+import { setUserData } from 'store/user/actionCreators';
+import { useDispatch } from 'react-redux';
 
 const ChangePasswordBlock = () => {
+  const dispatch = useDispatch();
+
   const formik = useFormik({
     initialValues: {
       old_password: '',
-      password1: '',
-      password2: '',
+      new_password1: '',
+      new_password2: '',
     },
     validate: (values) => {
       const errors = {};
-      const { password1, password2 } = values;
-      const level = getPasswordLevel(password1);
+      const { new_password1, new_password2 } = values;
+      const level = getPasswordLevel(new_password1);
       if (level < 2) {
-        errors.password1 = 'Пароль занадто простий';
+        errors.new_password1 = 'Пароль занадто простий';
       }
-      if (password1 !== password2) {
-        errors.password2 = 'Паролі не співпадають';
+      if (new_password1 !== new_password2) {
+        errors.new_password2 = 'Паролі не співпадають';
       }
       return errors;
     },
     validationSchema: Yup.object({
       old_password: Yup.string().required(),
-      password1: Yup.string().required().min(6),
-      password2: Yup.string().required().min(6),
+      new_password1: Yup.string().required().min(6),
+      new_password2: Yup.string().required().min(6),
     }),
     onSubmit: (values, actions) => {
-      // TODO: post data to the backend and save to state from response
-      actions.setSubmitting(false);
+      Api.post('rest-auth/password/change/', values)
+        .then((response) => {
+          dispatch(setUserData(response.data));
+        })
+        .catch((error) => {
+          passErrorsToFormik(error, formik);
+        })
+        .finally(() => {
+          actions.setSubmitting(false);
+        });
     },
   });
 
@@ -40,24 +53,27 @@ const ChangePasswordBlock = () => {
     <TabContentBlock title="Змінити пароль">
       <Form formik={formik}>
         <TextInput
+          autoComplete="on"
           label="Старий пароль"
           type="password"
           name="old_password"
           formik={formik}
         />
         <TextInput
+          autoComplete="on"
           label="Новий пароль"
           type="password"
-          name="password1"
+          name="new_password1"
           formik={formik}
         />
         <TextInput
+          autoComplete="on"
           label="Підтвердження паролю"
           type="password"
-          name="password2"
+          name="new_password2"
           formik={formik}
         />
-        <div className="mt-5 xl:mt-8 text-center xl:text-left">
+        <div className="mt-5 xl:mt-8 xl:text-left">
           <Button
             type="submit"
             disabled={formik.isSubmitting}

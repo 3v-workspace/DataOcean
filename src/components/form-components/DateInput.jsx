@@ -7,73 +7,153 @@ import moment from 'moment';
 // TODO: finish this
 const DateInput = (props) => {
   const {
-    name, formik, onChange, value,
+    name, formik, onChange, value, timePicker, timePicker24Hour,
+    autoApply, singleDatePicker, startDate, endDate, autoUpdateInput,
+    minDate, maxDate, drops, id, label, containerClass, className,
   } = props;
 
   const datepickerRef = useRef();
+  const isoFormat = timePicker ? 'YYYY-MM-DD HH:mm' : 'YYYY-MM-DD';
+  const format = timePicker ? 'DD.MM.YYYY HH:mm' : 'DD.MM.YYYY';
+  const val = value || (formik && formik.values[name]);
 
   useEffect(() => {
-    $(datepickerRef.current).daterangepicker({
-      timePicker: true,
-      timePicker24Hour: true,
-      autoApply: true,
-      autoUpdateInput: true,
-      singleDatePicker: true,
-      startDate: moment().startOf('hour'),
-      endDate: moment().endOf('hour'),
-      locale: {
-        format: 'DD.MM.YYYY HH:mm',
-        applyLabel: 'Oк',
-        cancelLabel: 'Відміна',
-        fromLabel: 'Від',
-        toLabel: 'До',
-        // customRangeLabel: 'Користувацька',
-        weekLabel: 'Тиж.',
-        daysOfWeek: ['Нд', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
-        monthNames: [
-          'Січень', 'Лютий', 'Березень', 'Квітень', 'Травень', 'Червень',
-          'Липень', 'Серпень', 'Вересень', 'Жовтень', 'Листопад', 'Грудень',
-        ],
-        firstDay: 1,
+    const val2 = val ? moment(val, isoFormat).format(format) : '';
+    $(datepickerRef.current).val(val2);
+  }, [val]);
+
+  useEffect(() => {
+    $(datepickerRef.current).daterangepicker(
+      {
+        timePicker,
+        timePicker24Hour,
+        autoApply,
+        singleDatePicker,
+        startDate,
+        endDate,
+        minDate,
+        maxDate,
+        autoUpdateInput,
+        drops,
+        locale: {
+          format,
+          applyLabel: 'Oк',
+          cancelLabel: 'Відміна',
+          fromLabel: 'Від',
+          toLabel: 'До',
+          // customRangeLabel: 'Користувацька',
+          weekLabel: 'Тиж.',
+          daysOfWeek: ['Нд', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
+          monthNames: [
+            'Січень', 'Лютий', 'Березень', 'Квітень', 'Травень', 'Червень',
+            'Липень', 'Серпень', 'Вересень', 'Жовтень', 'Листопад', 'Грудень',
+          ],
+          firstDay: 1,
+        },
       },
-    });
-    if (onChange) {
-      $(datepickerRef.current).on('change', onChange);
-    } else if (formik) {
-      $(datepickerRef.current).on('change', (e) => {
-        if (!formik.touched[name]) {
-          formik.setFieldTouched(name, true);
+      (start) => {
+        const event = {
+          target: {
+            value: start.format(isoFormat),
+            name,
+          },
+        };
+        if (onChange) {
+          onChange(event);
+        } else {
+          formik.handleChange(event);
         }
-        formik.handleChange(e);
-      });
-    }
+      },
+    );
+    $(datepickerRef.current).on('apply.daterangepicker', (e, picker) => {
+      if (!e.target.value) {
+        $(e.target).val('');
+      } else if (singleDatePicker) {
+        $(e.target).val(picker.startDate.format(format));
+      } else {
+        $(e.target).val(`${picker.startDate.format(format)} - ${picker.endDate.format(format)}`);
+      }
+    });
+    $(datepickerRef.current).on('change', (e) => {
+      if (e.target.value) {
+        $(e.target).val($(e.target).data('daterangepicker').startDate.format(format));
+      }
+    });
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [name]);
 
+  const endId = id || `id_${name}`;
+
   return (
-    <div>
+    <div className={`${containerClass} mb-3`}>
+      {label && (
+        <label htmlFor={endId}>{label}</label>
+      )}
       <input
+        id={endId}
         ref={datepickerRef}
+        autoComplete="off"
+        className={`${className} input border mt-2`}
         name={name}
-        value={value || (formik && formik.values[name])}
+        // value={value || (formik && formik.values[name])}
         onBlur={formik && formik.handleBlur}
-        className="input w-56 border block"
       />
+      {formik && formik.touched[name] && formik.errors[name] && (
+        <label className="error" htmlFor={endId}>{formik.errors[name]}</label>
+      )}
     </div>
   );
 };
 
 DateInput.propTypes = {
+  id: PropTypes.string,
   name: PropTypes.string.isRequired,
   value: PropTypes.any,
+  label: PropTypes.string,
+  className: PropTypes.string,
+  containerClass: PropTypes.string,
   onChange: PropTypes.func,
+  timePicker: PropTypes.bool,
+  timePicker24Hour: PropTypes.bool,
+  autoApply: PropTypes.bool,
+  autoUpdateInput: PropTypes.bool,
+  singleDatePicker: PropTypes.bool,
+  startDate: PropTypes.oneOfType([
+    PropTypes.string, PropTypes.instanceOf(moment),
+  ]),
+  endDate: PropTypes.oneOfType([
+    PropTypes.string, PropTypes.instanceOf(moment),
+  ]),
+  minDate: PropTypes.oneOfType([
+    PropTypes.string, PropTypes.instanceOf(moment),
+  ]),
+  maxDate: PropTypes.oneOfType([
+    PropTypes.string, PropTypes.instanceOf(moment),
+  ]),
+  drops: PropTypes.oneOf(['down', 'up', 'auto']),
+
   formik: FormikPropType,
 };
 DateInput.defaultProps = {
-  value: undefined,
+  id: null,
+  value: '',
   onChange: undefined,
   formik: undefined,
+  label: '',
+  className: 'w-full',
+  containerClass: '',
+
+  timePicker: false,
+  timePicker24Hour: false,
+  autoApply: true,
+  autoUpdateInput: false,
+  singleDatePicker: true,
+  startDate: moment().startOf('day'),
+  endDate: moment().endOf('day'),
+  minDate: undefined,
+  maxDate: undefined,
+  drops: 'auto',
 };
 
 

@@ -5,7 +5,8 @@ import FormikPropType from 'utils/formik-prop-types';
 const TextInput = (props) => {
   const {
     label, value, onChange, name, id, type, placeholder,
-    className, width, size, formik, onBlur, isRounded, containerClass,
+    className, width, size, formik, onBlur, isRounded,
+    containerClass, autoComplete,
   } = props;
 
   const classList = [];
@@ -36,6 +37,7 @@ const TextInput = (props) => {
         className={classList.join(' ')}
         id={endId}
         type={type}
+        autoComplete={autoComplete}
         placeholder={placeholder}
         value={value || (formik && formik.values[name])}
         onChange={onChange || (formik && formik.handleChange)}
@@ -54,6 +56,7 @@ TextInput.propTypes = {
   className: PropTypes.string,
   containerClass: PropTypes.string,
   label: PropTypes.string,
+  autoComplete: PropTypes.oneOf(['on', 'off']),
   width: PropTypes.string,
   size: PropTypes.oneOf(['sm', 'lg']),
   name: PropTypes.string.isRequired,
@@ -74,6 +77,7 @@ TextInput.defaultProps = {
   type: 'text',
   id: undefined,
   size: undefined,
+  autoComplete: undefined,
   placeholder: undefined,
   value: undefined,
   onChange: undefined,

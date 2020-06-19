@@ -29,7 +29,8 @@ const ProfilePage = ({ match }) => {
               <div className="sm:w-40 truncate sm:whitespace-normal font-medium text-lg">
                 {user.first_name} {user.last_name}
               </div>
-              {user.company_name && <div className="text-gray-600">{user.company_name}</div>}
+              {user.organization && <div className="text-gray-600">{user.organization}</div>}
+              {user.position && <div className="text-gray-600">{user.position}</div>}
             </div>
           </div>
           <div

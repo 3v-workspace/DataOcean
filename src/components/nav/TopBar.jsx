@@ -286,7 +286,12 @@ const TopBar = () => {
               <div className="font-medium">
                 {user.first_name} {user.last_name}
               </div>
-              <div className="text-xs text-theme-41">{user.company_name}</div>
+              {user.organization && (
+                <div className="text-xs text-theme-41">{user.organization}</div>
+              )}
+              {user.position && (
+                <div className="text-xs text-theme-41">{user.position}</div>
+              )}
             </div>
             <div className="p-2">
               <Link

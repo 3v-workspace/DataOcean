@@ -9,7 +9,7 @@ const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    Api.get('rest-auth/profile/')
+    Api.get('rest-auth/user/')
       .then((resp) => {
         dispatch(userLogin(resp.data));
       })

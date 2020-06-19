@@ -27,5 +27,13 @@ Api.interceptors.request.use((config) => {
 //   return Promise.reject(error);
 // });
 
+export const passErrorsToFormik = (error, formik) => {
+  if (error.response && error.response.data) {
+    Object.entries(error.response.data).forEach(([field, errors]) => {
+      formik.setFieldError(field, errors[0]);
+    });
+  }
+};
+
 
 export default Api;

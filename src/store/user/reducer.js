@@ -10,7 +10,9 @@ const initialState = {
   email: '',
   first_name: '',
   last_name: '',
-  company_name: '',
+  organization: '',
+  position: '',
+  date_of_birth: '',
 
   // system
   isLoggedIn: false,
