@@ -58,7 +58,9 @@
       "ignore": ["children"]
     }],
 
-    "camelcase": "off"
+    "camelcase": "off",
+    "no-console": "warn",
+    "no-debugger": "warn"
 
     //"no-shadow": "warn",
     //"react/self-closing-comp": "warn",
