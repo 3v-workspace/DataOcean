@@ -3,8 +3,8 @@
 ### For development
 * clone repo to local
 * go to project root directory
-* clone `.env.local.example` to `.env.local` (`cp .env.local.example .env.local`)
-* change `.env.local` for your environment
+* create `.env.local` file
+* override `.env` variables in `.env.local` for your environment
 * run `npm install`
 * run `npm start`
 * start hacking
