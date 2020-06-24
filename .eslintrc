@@ -7,6 +7,7 @@
     "react-hooks"
   ],
   "extends": [
+    "react-app",
     "airbnb"
   ],
   "env": {
@@ -61,27 +62,5 @@
     "camelcase": "off",
     "no-console": "warn",
     "no-debugger": "warn"
-
-    //"no-shadow": "warn",
-    //"react/self-closing-comp": "warn",
-    //"no-underscore-dangle": "warn",
-    //"prefer-destructuring": "warn",
-    //"max-classes-per-file": ["warn", 2],
-    //"max-len": "warn",
-    //"semi": "warn",
-    //"no-prototype-builtins": "warn",
-    //"no-debugger": "warn",
-
-    //"no-empty": "warn",
-    //"space-before-blocks": "warn",
-    //"quotes": "warn",
-    //"prefer-const": "warn",
-    //"comma-dangle": "warn",
-    //"no-else-return": "warn",
-    //"dot-notation": "warn",
-    //"arrow-spacing": "warn",
-    //"no-unreachable": "warn",
-    //"arrow-parens": "warn",
-    //"import/no-cycle": "warn",
   }
 }

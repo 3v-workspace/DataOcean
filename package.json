@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^7.2.1",
     "axios": "^0.19.2",
     "eslint-config-airbnb": "^18.1.0",
+    "eslint-config-react-app": "^5.2.1",
     "formik": "^2.1.4",
     "husky": "^4.2.5",
     "lint-staged": "^10.2.4",
