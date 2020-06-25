@@ -23,18 +23,18 @@ const PageBox = (props) => {
             </Button>
             <div className="dropdown-box mt-10 absolute w-40 top-0 right-0 z-20">
               <div className="dropdown-box__content box p-2">
-                <a
-                  href=""
+                <button
+                  type="button"
                   className="flex items-center block p-2 transition duration-300 ease-in-out bg-white hover:bg-gray-200 rounded-md"
                 >
                   <File className="w-4 h-4 mr-2" /> Export Word
-                </a>
-                <a
-                  href=""
+                </button>
+                <button
+                  type="button"
                   className="flex items-center block p-2 transition duration-300 ease-in-out bg-white hover:bg-gray-200 rounded-md"
                 >
                   <File className="w-4 h-4 mr-2" /> Export PDF
-                </a>
+                </button>
               </div>
             </div>
           </div>

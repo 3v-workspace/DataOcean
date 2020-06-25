@@ -8,7 +8,6 @@ import moment from 'moment';
 import { DATETIME_FORMAT } from 'const/const';
 import { Link } from 'react-router-dom';
 import { ReactRouterPropTypes } from 'utils/prop-types';
-// import PropTypes from 'prop-types';
 
 const DatasetsList = ({ match }) => {
   const tc = useTableController({
