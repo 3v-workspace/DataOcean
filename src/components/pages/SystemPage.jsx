@@ -1,7 +1,7 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
-import ReactRouterPropTypes from 'utils/react-router-prop-types';
-import useIsLogin from 'hooks/loginHooks';
+import { ReactRouterPropTypes } from 'utils/prop-types';
+import { useIsLogin } from 'hooks';
 import Nav from 'components/nav/Nav';
 import NavDropdown from 'components/nav/NavDropdown';
 import NavItem from 'components/nav/NavItem';

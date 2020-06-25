@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactRouterPropTypes from 'utils/react-router-prop-types';
+import { ReactRouterPropTypes } from 'utils/prop-types';
 import {
   Mail, Settings, User,
 } from 'react-feather';

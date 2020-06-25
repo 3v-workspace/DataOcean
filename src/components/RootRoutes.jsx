@@ -3,7 +3,7 @@ import React from 'react';
 import Route404, { Page404 } from 'components/pages/Route404';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import SystemPage from 'components/pages/SystemPage';
-import useIsLogin from 'hooks/loginHooks';
+import { useIsLogin } from 'hooks';
 import LoginPage from './pages/auth/LoginPage';
 
 

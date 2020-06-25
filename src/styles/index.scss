@@ -13,3 +13,7 @@ body.login {
   animation: none !important;
   transform: none !important;
 }
+
+.pagination li .pagination__link:focus {
+  outline: none;
+}

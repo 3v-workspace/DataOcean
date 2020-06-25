@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import ReactRouterPropTypes from 'utils/react-router-prop-types';
+import { ReactRouterPropTypes } from 'utils/prop-types';
 import { Route, Switch } from 'react-router-dom';
 import SignInForm from 'components/pages/auth/SignInForm';
 import SignUpForm from 'components/pages/auth/SignUpForm';

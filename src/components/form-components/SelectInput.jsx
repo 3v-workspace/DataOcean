@@ -1,7 +1,7 @@
 /* global $ */
 import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
-import FormikPropType from 'utils/formik-prop-types';
+import { FormikPropType } from 'utils/prop-types';
 
 // TODO: finish this
 const SelectInput = (props) => {

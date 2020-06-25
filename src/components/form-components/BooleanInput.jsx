@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import FormikPropType from 'utils/formik-prop-types';
+import { FormikPropType } from 'utils/prop-types';
 
 const BooleanInput = (props) => {
   const {

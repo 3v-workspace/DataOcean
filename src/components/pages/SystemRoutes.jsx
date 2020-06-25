@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import ReactRouterPropTypes from 'utils/react-router-prop-types';
+import { ReactRouterPropTypes } from 'utils/prop-types';
 import AnalyticsPage from 'components/pages/system/AnalyticsPage';
 import ConstructorPage from 'components/pages/system/ConstructorPage';
 import ContactsPage from 'components/pages/system/ContactsPage';
@@ -10,6 +10,8 @@ import HelpPage from 'components/pages/system/HelpPage';
 import DashboardPage from 'components/pages/system/DashboardPage';
 import HomePage from 'components/pages/system/HomePage';
 import ProfilePage from 'components/pages/profile/ProfilePage';
+import DatasetsList from 'components/pages/datasets/DatasetsList';
+import DatasetDetail from 'components/pages/datasets/DatasetDetail';
 
 const SystemRoutes = (props) => {
   const { match } = props;
@@ -41,8 +43,13 @@ const SystemRoutes = (props) => {
       />
       <Route
         exact
+        path={`${match.path}constructor/datasets/:id/`}
+        component={DatasetDetail}
+      />
+      <Route
+        exact
         path={`${match.path}constructor/datasets/`}
-        component={ConstructorPage}
+        component={DatasetsList}
       />
       <Route
         exact
