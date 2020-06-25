@@ -1,8 +1,9 @@
 /* global $ */
 import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
-import FormikPropType from 'utils/formik-prop-types';
+import { FormikPropType } from 'utils/prop-types';
 import moment from 'moment';
+import { DATE_FORMAT, DATETIME_FORMAT } from 'const/const';
 
 // TODO: finish this
 const DateInput = (props) => {
@@ -13,8 +14,8 @@ const DateInput = (props) => {
   } = props;
 
   const datepickerRef = useRef();
-  const isoFormat = timePicker ? 'YYYY-MM-DD HH:mm' : 'YYYY-MM-DD';
-  const format = timePicker ? 'DD.MM.YYYY HH:mm' : 'DD.MM.YYYY';
+  const isoFormat = timePicker ? 'YYYY-MM-DDTHH:mm' : 'YYYY-MM-DD';
+  const format = timePicker ? DATETIME_FORMAT : DATE_FORMAT;
   const val = value || (formik && formik.values[name]);
 
   useEffect(() => {
