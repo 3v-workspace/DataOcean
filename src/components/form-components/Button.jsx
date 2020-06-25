@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import LoadingIcon from 'components/LoadingIcon';
 
 const buttonTypes = {
+  blank: '',
   primary: 'bg-theme-1 text-white',
   secondary: 'border text-gray-700',
   success: 'bg-theme-9 text-white',
@@ -81,8 +82,9 @@ const Button = (props) => {
   if (isElevated) {
     classList.push('shadow-md');
   }
-  classList.push(buttonTypes[variant]);
-  classList.push('mr-1 mb-2');
+  if (variant !== 'blank') {
+    classList.push(buttonTypes[variant]);
+  }
   classList.push('inline-flex items-center justify-center');
 
   let Component = 'button';
