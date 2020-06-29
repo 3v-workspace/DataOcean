@@ -17,3 +17,10 @@ body.login {
 .pagination li .pagination__link:focus {
   outline: none;
 }
+
+.show-modal {
+  margin-top: 0px; 
+  margin-left: 0px; 
+  padding-left: 0px; 
+  z-index: 51;
+}

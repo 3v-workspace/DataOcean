@@ -1,22 +1,18 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import BaseModal from './BaseModal';
 
-// TODO: finish this...
 const BlankModal = (props) => {
-  const { id, children } = props;
+  const { children } = props;
 
   return (
-    <div className="modal" id={id}>
-      <div className="modal__content p-10 text-center">
+    <BaseModal
+      {...props}
+    >
+      <div className=" p-10 text-center">
         {children}
       </div>
-    </div>
+    </BaseModal>
   );
 };
-
-BlankModal.propTypes = {
-  id: PropTypes.string.isRequired,
-};
-
 
 export default BlankModal;
