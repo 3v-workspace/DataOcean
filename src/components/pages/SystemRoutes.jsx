@@ -12,7 +12,6 @@ import HomePage from 'components/pages/system/HomePage';
 import ProfilePage from 'components/pages/profile/ProfilePage';
 import DatasetsList from 'components/pages/datasets/DatasetsList';
 import DatasetDetail from 'components/pages/datasets/DatasetDetail';
-import ModalExamplesPage from 'components/pages/system/ModalExamplesPage';
 
 const SystemRoutes = (props) => {
   const { match } = props;
@@ -76,11 +75,6 @@ const SystemRoutes = (props) => {
         exact
         path={`${match.path}profile/*`}
         component={ProfilePage}
-      />
-      <Route
-        exact
-        path={`${match.path}modals/`}
-        component={ModalExamplesPage}
       />
       <Route
         exact

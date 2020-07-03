@@ -39,9 +39,6 @@ const menu = (
     <NavItem link="/system/help/" icon={HelpCircle}>
       Нормативно довідкова інформація
     </NavItem>
-    <NavItem link="/system/modals/" icon={FileText}>
-      Приклад використання
-    </NavItem>
   </>
 );
 
