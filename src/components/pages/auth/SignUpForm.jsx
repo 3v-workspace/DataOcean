@@ -7,8 +7,6 @@ import Yup, { getPasswordLevel } from 'utils/yup';
 import Form from 'components/form-components/Form';
 import GoogleButton from 'components/pages/auth/GoogleButton';
 import Api from 'api';
-import { useDispatch } from 'react-redux';
-import { userLogin } from 'store/user/actionCreators';
 
 const PasswordSecure = (props) => {
   const { level } = props;
@@ -42,7 +40,8 @@ PasswordSecure.propTypes = {
 
 const SignUpForm = () => {
   const [psswdSec, setPsswdSec] = useState(0);
-  const dispatch = useDispatch();
+  const [sent, setSent] = useState(false);
+  // const dispatch = useDispatch();
 
   const formik = useFormik({
     initialValues: {
@@ -84,10 +83,8 @@ const SignUpForm = () => {
     }),
     onSubmit: (values, actions) => {
       Api.post('rest-auth/registration/', values)
-        .then((resp) => {
-          const { user } = resp.data;
-          window.localStorage.setItem('token', resp.data.key);
-          dispatch(userLogin(user));
+        .then(() => {
+          setSent(true);
         })
         .catch(({ response }) => {
           if (response && response.data) {
@@ -101,6 +98,19 @@ const SignUpForm = () => {
         });
     },
   });
+
+  if (sent) {
+    return (
+      <div>
+        <h2 className="intro-x font-bold text-2xl xl:text-3xl text-center xl:text-left">
+          Перевірьте пошту
+        </h2>
+        <div className="intro-x mt-2 text-gray-500 text-center">
+          На ваш email було надіслано повідомлення з інструкціями для підтвердження реєстрації.
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -179,14 +189,14 @@ const SignUpForm = () => {
             disabled={formik.isSubmitting}
             isLoading={formik.isSubmitting}
             className="text-white bg-theme-1 mr-3"
-            size="lg"
+            // size="lg"
             variant="primary"
           >
             Зареєструватись
           </Button>
           <Button
             className="xl:w-32 border-gray-300 mt-3 xl:mt-0"
-            size="lg"
+            // size="lg"
             variant="secondary"
             link="/auth/sign-in/"
           >

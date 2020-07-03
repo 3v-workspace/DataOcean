@@ -6,6 +6,7 @@ import SignUpForm from 'components/pages/auth/SignUpForm';
 import Route404 from 'components/pages/Route404';
 import RestorePassword from 'components/pages/auth/RestorePassword';
 import { useSelector } from 'react-redux';
+import SignUpConfirm from 'components/pages/auth/SignUpConfirm';
 
 
 const LoginPage = ({ match, history, location }) => {
@@ -61,8 +62,18 @@ const LoginPage = ({ match, history, location }) => {
               />
               <Route
                 exact
+                path={`${match.path}sign-up/confirmation/:uid/:token/`}
+                component={SignUpConfirm}
+              />
+              <Route
+                exact
                 path={`${match.path}sign-up/`}
                 component={SignUpForm}
+              />
+              <Route
+                exact
+                path={`${match.path}restore-pass/confirmation/:uid/:token/`}
+                component={RestorePassword}
               />
               <Route
                 exact
