@@ -5,20 +5,13 @@ import { X } from 'react-feather';
 const Modal = (props) => {
   const { id, children, onHide, size, closeButton } = props;
 
-  const closeModal = () => {
-    // wait for executing hide animation
-    setTimeout(() => {
-      onHide();
-    }, 200);
-  };
-
   return (
     <div
       className="modal"
       id={id}
       onClick={({ target }) => {
         if (target.classList.contains('modal')) {
-          closeModal();
+          onHide();
         }
       }}
     >
@@ -32,7 +25,7 @@ const Modal = (props) => {
             href="#?"
             className="absolute right-0 top-0 mt-3 mr-3"
             data-dismiss="modal"
-            onClick={closeModal}
+            onClick={onHide}
           >
             <X className="w-8 h-8 text-gray-500" />
           </a>
