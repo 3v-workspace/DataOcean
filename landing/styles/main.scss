@@ -1,0 +1,257 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto&display=swap');
+
+@import './reset.scss';
+@import './variables.scss';
+@import './common.scss';
+
+@import './header.scss';
+@import './footer.scss';
+
+.do-info-section {
+    .do-section-image {
+        .section-image-content {
+            background: url('./images/do-info-image.png');
+        }
+    }
+    
+}
+
+.benefits-section {
+    .do-benefits-container {
+        display: flex;
+        flex-direction: row;
+
+        .do-benefit-item {
+            width: 235px;
+            padding: 15px;
+            margin: 100px;
+            text-align: center;
+
+            .do-benefit-image {
+                width: 200px;
+                height: 200px;
+                margin: 0 auto;
+            }
+
+            .do-benefit-description {
+                font-family: 'Roboto';
+
+                .do-benefit-name {
+                    color: $color-darkest-blue;
+                    font-weight: bold;
+                    font-size: 20px;
+                    line-height: 24px;
+                    margin: 25px 0;
+                }
+
+                .do-benefit-text {
+                    margin: 25px 0;
+                    font-size: 16px;
+                    line-height: 20px;
+                    color: $color-dark-text;
+                }
+            }
+
+            &.benefit-flexible {
+                .do-benefit-image {
+                    background: url('./images/do-benefit-1.png') no-repeat;
+                }
+            }
+            &.benefit-interface {
+                .do-benefit-image {
+                    background: url('./images/do-benefit-2.png') no-repeat;
+                }
+            }
+            &.benefit-relevant {
+                .do-benefit-image {
+                    background: url('./images/do-benefit-3.png') no-repeat;
+                }
+            }
+        }
+    }
+}
+
+.about-us-section {
+    padding-left: 0;
+    padding-right: 0;
+    padding-bottom: 15%;
+    .do-section-content-container {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        .do-section-text {
+            strong {
+                font-weight: bold;
+            }
+        }
+
+        .do-team-image {
+            flex-grow: 1;
+            width: 50%;
+            background: url('./images/do-team.png') no-repeat;
+            width: 700px;
+            height: 480px;
+        }
+
+        .do-section {
+            padding-right: 10%;
+            width: 50%;
+            flex-grow: 1;
+            padding-left: 60px;
+        }
+    }
+}
+
+.team-section {
+    height: auto;
+
+    .do-team-members-list {
+        display: flex;
+        flex-flow: wrap;
+        justify-content: space-evenly;
+
+        .do-grid-section {
+            width: 100%;
+            height: auto;
+        }
+
+        .do-team-member-unit {
+            border: 1px solid $color-grid-item-boder;
+            border-radius: 4px;
+            width: 250px;
+            height: 280px;
+            margin-top: 15px;
+            margin-bottom: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Roboto';
+            color: $color-dark-text;
+
+            .do-team-member-image {
+                position: relative;
+                top: -20px;
+                width: 100px;
+                height: 100px;
+                border-radius: 50%;
+                background-color: $color-lightest-blue;
+            }
+
+            .do-team-member-name {
+                font-size: 20px;
+                padding: 10px 0;
+            }
+
+            .do-team-member-title {
+                font-weight: 100;
+            }
+        }
+    }
+}
+
+.contact-section {
+    height: auto;
+    padding-bottom: 30px;
+
+    .do-section-title-container {
+        text-align: center;
+        margin-bottom: 50px;
+
+        .main-subtitle {
+            margin-bottom: 29px;
+        }
+        .main-subtitle-description {
+            font-family: 'Roboto';
+            font-size: 24px;
+            line-height: 36px;
+            opacity: .6;
+        }
+    }
+
+    .contact-form-container {
+        display: flex;
+        flex-direction: row;
+
+        .contact-form {
+            padding: 80px 50px;
+            width: 550px;
+            height: 440px;
+            background-color: $color-white;
+            border-radius: 10px 0 0 10px;
+        }
+
+        .email-info {
+            margin-left: 7px;
+            background-color: $color-darkest-blue;
+            width: 250px;
+            height: 440px;
+            border-radius: 0 10px 10px 0;
+            padding: 80px 100px;
+
+            .email-info-text {
+                color: $color-white;
+                font-family: 'Roboto';
+                font-size: 24px;
+                line-height: 36px;
+                width: 250px;
+            }
+            
+            .email-link-container {
+                margin-top: 40px;
+                display: flex;
+                
+                .email-info-link {
+                    color: $color-white;
+                    text-decoration: none;
+                    font-family: 'Roboto';
+                    &:visited {
+                        color: $color-white;
+                        text-decoration: none;
+                    }
+                }
+
+                .email-icon {
+                    width: 20px;
+                    height: 16px;
+                    background: url('./images/email-icon.png') no-repeat;
+                    display: inline-block;
+                    margin-right: 20px;
+                }
+            }
+
+        }
+
+        .submit-btn-container {
+            justify-content: flex-start;
+            padding-left: 40px;
+            margin-top: 30px;
+        }
+    }
+}
+
+.product1-section {
+    .section-image-content {
+        width: 640px;
+        height: 390px;
+        position: relative;
+        top: 80px;
+        background: url('./images/do-laptop.png') no-repeat;
+    }
+}
+
+.product2-section {
+    .section-image-content {
+        width: 535px;
+        height: 430px;
+        background: url('./images/do-imac.png') no-repeat;
+    }
+}
+
+.do-welcome-section {
+    .do-section-description {
+        padding: 45px;
+        background-color: rgba(255, 255, 255, .8);
+    }
+}

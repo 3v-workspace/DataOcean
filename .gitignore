@@ -6,6 +6,7 @@
 
 # dependencies
 /node_modules
+/landing/node_modules
 /.pnp
 .pnp.js
 
@@ -14,6 +15,7 @@
 
 # production
 /build
+/landing/dist
 
 # misc
 .DS_Store
