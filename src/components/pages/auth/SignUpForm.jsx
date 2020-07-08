@@ -114,7 +114,7 @@ const SignUpForm = () => {
 
   return (
     <>
-      <Form formik={formik} className="intro-x mt-8 xl:max-w-xs">
+      <Form formik={formik}>
         <h2 className="intro-x font-bold text-2xl xl:text-3xl text-center xl:text-left">
           Реєстрація
         </h2>
@@ -183,21 +183,21 @@ const SignUpForm = () => {
         {formik.touched.accept_policy && formik.errors.accept_policy && (
           <label className="error" htmlFor="accept_policy">{formik.errors.accept_policy}</label>
         )}
-        <div className="intro-x mt-5 xl:mt-8 text-center xl:text-left">
+        <div className="xl:flex intro-x mt-5 xl:mt-8 text-center xl:text-left">
           <Button
             type="submit"
             disabled={formik.isSubmitting}
             isLoading={formik.isSubmitting}
-            className="text-white bg-theme-1 mr-3"
+            className="xl:flex-1 w-full xl:w-none text-white bg-theme-1 mr-3"
             // size="lg"
             variant="primary"
           >
             Зареєструватись
           </Button>
           <Button
-            className="xl:w-32 border-gray-300 mt-3 xl:mt-0"
+            className="xl:flex-1 w-full xl:w-none xl:w-32 border-gray-300 mt-3 xl:mt-0"
             // size="lg"
-            variant="secondary"
+            // variant="secondary"
             link="/auth/sign-in/"
           >
             Вхід

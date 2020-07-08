@@ -17,3 +17,8 @@ body.login {
 .pagination li .pagination__link:focus {
   outline: none;
 }
+
+
+.login .error {
+  max-width: 24rem;
+}

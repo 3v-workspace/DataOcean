@@ -7,6 +7,8 @@ import Route404 from 'components/pages/Route404';
 import RestorePassword from 'components/pages/auth/RestorePassword';
 import { useSelector } from 'react-redux';
 import SignUpConfirm from 'components/pages/auth/SignUpConfirm';
+import logo from 'images/whitelogo.png';
+import surfer from './surfer.png';
 
 
 const LoginPage = ({ match, history, location }) => {
@@ -30,24 +32,26 @@ const LoginPage = ({ match, history, location }) => {
     <div className="container sm:px-10">
       <div className="block xl:grid grid-cols-2 gap-4">
         <div className="hidden xl:flex flex-col min-h-screen">
-          <a href="#?" className="-intro-x flex items-center pt-5">
-            <img alt="Midone Tailwind HTML Admin Template" className="w-6" src="/images/logo.svg" />
+          <a href="#?" className="-intro-x flex items-center pt-8">
+            <img alt="Data Ocean Logo" className="w-10 -mt-3" src={logo} />
             <span className="text-white text-lg ml-3">
               <span className="font-medium">Data Ocean</span>
             </span>
           </a>
           <div className="my-auto">
             <img
-              alt="Midone Tailwind HTML Admin Template"
+              alt="Data Ocean surfer"
               className="-intro-x w-1/2 -mt-16"
-              src="/images/illustration.svg"
+              src={surfer}
             />
             <div className="-intro-x text-white font-medium text-4xl leading-tight mt-10">
-              A few more clicks to
+              Ще декілька простих кроків
               <br />
-              sign in to your account.
+              і ви у системі
             </div>
-            <div className="-intro-x mt-5 text-lg text-white">Manage all your e-commerce accounts in one place</div>
+            {/* <div className="-intro-x mt-5 text-lg text-white hidden"> */}
+            {/*  Manage all your e-commerce accounts in one place */}
+            {/* </div> */}
           </div>
         </div>
         <div className="h-screen xl:h-auto flex py-5 xl:py-0 my-10 xl:my-0">

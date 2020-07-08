@@ -76,24 +76,24 @@ const SignInForm = () => {
         <BooleanInput
           className="mr-auto"
           name="remember_me"
-          label="Remember me"
+          label="Запам'ятати мене"
           formik={formik}
         />
         <Link to="/auth/restore-pass/">Забули пароль?</Link>
       </div>
-      <div className="intro-x mt-5 xl:mt-8 text-center xl:text-left">
+      <div className="intro-x xl:flex mt-5 xl:mt-8 text-center xl:text-left">
         <Button
           type="submit"
           disabled={formik.isSubmitting}
           isLoading={formik.isSubmitting}
-          className="xl:w-32 xl:mr-3"
+          className="flex-1 xl:w-2/5 xl:mr-3"
           width="w-full"
         >
           Вхід
         </Button>
         <Button
-          className="xl:w-32 xl:mr-3"
-          variant="secondary"
+          className="flex-1 xl:w-2/5 mt-3 xl:mt-0"
+          // variant="secondary"
           width="w-full"
           link="/auth/sign-up/"
         >
