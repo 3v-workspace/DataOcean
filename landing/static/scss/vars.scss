@@ -22,6 +22,7 @@ $primary-2:       #0041A7 !default;
 $primary-3:       #005BB9 !default;
 $primary-4:       #0074CB !default;
 $primary-5:       #008EDD !default;
+$secondary:         scale-color($primary-5, $lightness: 90%) !default;
 $success:         green !default;
 $info:            cyan !default;
 $warning:         yellow !default;
@@ -57,7 +58,7 @@ $line-height-sm:              1.2 !default;
 $line-height-lg:              1.5 !default;
 
 $border-width:                1px !default;
-$border-color:                $gray-300 !default;
+$border-color:                $secondary !default;
 
 $border-radius-sm:            4px !default;
 $border-radius:               8px !default;

@@ -36,6 +36,7 @@
   },
   "dependencies": {
     "bootstrap": "^4.5.0",
+    "ionicons": "^5.1.2",
     "jquery": "^3.5.1",
     "reset-css": "^5.0.1",
     "three": "^0.118.3",
