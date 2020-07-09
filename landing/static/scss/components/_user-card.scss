@@ -1,0 +1,16 @@
+.user-card {
+    border: $border-width solid $border-color;
+    border-radius: $border-radius;
+    padding: $spacer * 6;
+    text-align: center;
+
+    &__image {
+        border-radius: 100%;
+        width: $spacer * 14;
+        height: $spacer * 14;
+    }
+
+    &__name {
+        margin: $spacer * 2 0;
+    }
+}

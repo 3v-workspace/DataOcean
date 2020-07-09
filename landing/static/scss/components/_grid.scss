@@ -1,0 +1,11 @@
+.grid {
+    display: flex;
+
+    &__item {
+        flex: 1;
+
+        & + & {
+            margin-left: $spacer * 4;
+        }
+    }
+}
