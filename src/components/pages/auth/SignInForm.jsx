@@ -79,7 +79,7 @@ const SignInForm = () => {
           label="Запам'ятати мене"
           formik={formik}
         />
-        <Link to="/auth/restore-pass/">Забули пароль?</Link>
+        <Link to="/auth/restore-pass/" class="text-theme-1">Забули пароль?</Link>
       </div>
       <div className="intro-x xl:flex mt-5 xl:mt-8 text-center xl:text-left">
         <Button
@@ -89,7 +89,7 @@ const SignInForm = () => {
           className="flex-1 xl:w-2/5 xl:mr-3"
           width="w-full"
         >
-          Вхід
+          Увійти
         </Button>
         <Button
           className="flex-1 xl:w-2/5 mt-3 xl:mt-0"
@@ -102,17 +102,17 @@ const SignInForm = () => {
       </div>
       <GoogleButton>Продовжити з Google</GoogleButton>
       <div className="intro-x mt-10 xl:mt-18 text-gray-700 text-center xl:text-left">
-        By signin up, you agree to our
+        Зареєструвавшись, ви погоджуєтесь з нашими
         <br />
         <a
           className="text-theme-1"
           href="#?"
         >
-          Terms and Conditions
+          Правилами та умовами
         </a>
         {' & '}
         <a className="text-theme-1" href="#?">
-          Privacy Policy
+          Політикою конфіденційності
         </a>
       </div>
     </Form>

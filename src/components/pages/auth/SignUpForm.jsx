@@ -7,6 +7,7 @@ import Yup, { getPasswordLevel } from 'utils/yup';
 import Form from 'components/form-components/Form';
 import GoogleButton from 'components/pages/auth/GoogleButton';
 import Api from 'api';
+import Tooltip from 'components/Tooltip';
 
 const PasswordSecure = (props) => {
   const { level } = props;
@@ -154,9 +155,9 @@ const SignUpForm = () => {
             formik={formik}
           />
           <PasswordSecure level={psswdSec} />
-          <a href="#?" className="intro-x text-gray-600 block mt-2 text-xs sm:text-sm">
-            What is a secure password?
-          </a>
+          <div className="intro-x text-gray-600 block mt-2 text-xs sm:text-sm cursor-pointer">
+            Що таке безпечний пароль?
+          </div>
           <TextInput
             type="password"
             name="password2"
@@ -176,9 +177,9 @@ const SignUpForm = () => {
             onChange={formik.handleChange}
           />
           <label className="cursor-pointer select-none" htmlFor="accept_policy">
-            I agree to the Envato
+            Я згідний з
           </label>
-          <a className="text-theme-1 ml-1" href="#?">Privacy Policy</a>.
+          <a className="text-theme-1 ml-1" href="#?">Політикою конфіденційності</a>.
         </div>
         {formik.touched.accept_policy && formik.errors.accept_policy && (
           <label className="error" htmlFor="accept_policy">{formik.errors.accept_policy}</label>
@@ -197,13 +198,13 @@ const SignUpForm = () => {
           <Button
             className="xl:flex-1 w-full xl:w-none xl:w-32 border-gray-300 mt-3 xl:mt-0"
             // size="lg"
-            // variant="secondary"
+            variant="secondary"
             link="/auth/sign-in/"
           >
-            Вхід
+            Повернутись
           </Button>
         </div>
-        <GoogleButton>Продовжити з Google</GoogleButton>
+        {/* <GoogleButton>Продовжити з Google</GoogleButton> */}
       </Form>
     </>
   );
