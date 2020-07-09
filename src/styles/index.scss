@@ -1,9 +1,10 @@
 @import "utils";
 
-
-body.login {
-  padding-top: 0;
-  padding-bottom: 0;
+@media (min-width: 1279px) {
+  body.login {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
 }
 
 // TODO: is it possible not to use !important here?
