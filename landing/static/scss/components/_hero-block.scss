@@ -1,0 +1,20 @@
+.hero-block {
+    position: relative;
+    z-index: 1;
+    background-color: rgba(255, 255, 255, 0.9);   
+    padding: $spacer * 10;
+    margin-left: $spacer * -10;
+    width: auto;
+
+    &__header {
+        margin-bottom: $spacer * 3;
+    }
+
+    &__text {
+        font-size: $font-size-lg;
+    }
+
+    @media (min-width: #{map-get($grid-breakpoints, 'lg')}) {
+        width: 70%;
+    }
+}

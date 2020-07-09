@@ -1,0 +1,13 @@
+.landing-teams-container {
+    &__img {
+        margin-left: $spacer * -20;
+        max-width: 720px;
+    }
+}
+
+.landing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-column-gap: $spacer * 4;
+    grid-row-gap: $spacer * 4;
+}

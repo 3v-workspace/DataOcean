@@ -1,0 +1,13 @@
+.input {
+    border-radius: $border-radius;
+    border: $border-width solid $border-color;
+    
+    &:focus {
+        border: $border-width solid $primary-1;
+    }
+
+
+    &_large {
+        padding: $spacer * 1.75 $spacer * 2;
+    }
+}
