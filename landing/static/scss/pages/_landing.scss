@@ -11,3 +11,39 @@
     grid-column-gap: $spacer * 4;
     grid-row-gap: $spacer * 4;
 }
+
+.landing-feedback {
+    display: flex;
+    flex-direction: row;
+    border-radius: $border-radius;
+    min-height: 500px;
+    
+    &__left,
+    &__right {
+        padding: $spacer * 10;
+    }
+    
+    &__left {
+        flex: 1 1 66.66%;
+        background-color: white;
+        border-top-left-radius: $border-radius;
+        border-bottom-left-radius: $border-radius;
+    }
+    
+    &__right {
+        color: white;
+        flex: 1 1 33.33%;
+        margin-left: $spacer;
+        background-color: $primary-1;
+
+        border-top-right-radius: $border-radius;
+        border-bottom-right-radius: $border-radius;
+
+    }
+
+    &__right-text {
+        font-size: $font-size-lg;
+        margin-bottom: $spacer * 6;
+        display: block;
+    }
+}
