@@ -156,7 +156,18 @@ const SignUpForm = () => {
           />
           <PasswordSecure level={psswdSec} />
           <div className="intro-x text-gray-600 block mt-2 text-xs sm:text-sm cursor-pointer">
-            Що таке безпечний пароль?
+            <Tooltip
+              content={(
+                <ul>
+                  <li>Хоча б одна велика літера</li>
+                  <li>Довжина паролю не меньше 8 символів</li>
+                  <li>Хоча б одна цифра</li>
+                  <li>Хоча б один спец-символ</li>
+                </ul>
+              )}
+            >
+              Що таке безпечний пароль?
+            </Tooltip>
           </div>
           <TextInput
             type="password"
