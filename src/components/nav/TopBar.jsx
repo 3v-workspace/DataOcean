@@ -34,7 +34,7 @@ const TopBar = () => {
       {/* SEARCH */}
       <div className="intro-x relative mr-3 sm:mr-6">
         <div className="search hidden sm:block">
-          <input type="text" className="search__input input placeholder-theme-13" placeholder="Search..." />
+          <input type="text" className="search__input input placeholder-theme-13" placeholder="Пошук наборів даних..." />
           <Search className="search__icon" />
         </div>
         <a className="notification sm:hidden" href="#?">
@@ -161,21 +161,15 @@ const TopBar = () => {
       </div>
 
       <div className="intro-x dropdown relative mr-auto sm:mr-6">
-        <div className="dropdown-toggle notification notification--bullet cursor-pointer">
-          <Bell className="notification__icon" />
-        </div>
+
         <div
           className="notification-content dropdown-box mt-8 absolute top-0 left-0 sm:left-auto sm:right-0 z-20 -ml-10 sm:ml-0"
         >
           <div className="notification-content__box dropdown-box__content box">
-            <div className="notification-content__title">Notifications</div>
+
             <div className="cursor-pointer relative flex items-center ">
               <div className="w-12 h-12 flex-none image-fit mr-1">
-                <img
-                  alt="Midone Tailwind HTML Admin Template"
-                  className="rounded-full"
-                  src="/images/profile-2.jpg"
-                />
+
                 <div className="w-3 h-3 bg-theme-9 absolute right-0 bottom-0 rounded-full border-2 border-white" />
               </div>
               <div className="ml-2 overflow-hidden">
