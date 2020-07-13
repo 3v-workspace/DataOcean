@@ -46,7 +46,7 @@ const Nav = (props) => {
   }
   return (
     <nav className={`side-nav ${isAnimDisabled ? 'no-animation' : ''}`}>
-      <Link to="/home/" className="intro-x flex items-center pl-5 pt-4">
+      <Link to="/" className="intro-x flex items-center pl-5 pt-4">
         <img alt="Data Ocean Logo" className="w-6" src="/images/logo.svg" />
         <span className="hidden xl:block text-white font-medium text-lg ml-3">Data Ocean</span>
       </Link>

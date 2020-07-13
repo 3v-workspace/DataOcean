@@ -3,7 +3,7 @@ import React from 'react';
 const HomePage = () => (
   <div>
     <h2 className="intro-y text-lg font-medium mt-10">
-      Home Page
+      Головна
     </h2>
   </div>
 );

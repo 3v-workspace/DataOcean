@@ -24,7 +24,7 @@ const DatasetsList = ({ match }) => {
           <Button
             className="shadow-md mr-2"
           >
-            Add New Product
+            Мої набори даних
           </Button>
           <div className="dropdown relative">
             <button type="button" className="dropdown-toggle button px-2 box text-gray-700">
@@ -32,28 +32,7 @@ const DatasetsList = ({ match }) => {
                 <Plus className="w-4 h-4" />
               </span>
             </button>
-            <div className="dropdown-box mt-10 absolute w-40 top-0 left-0 z-20">
-              <div className="dropdown-box__content box p-2">
-                <button
-                  type="button"
-                  className="flex items-center block p-2 transition duration-300 ease-in-out bg-white hover:bg-gray-200 rounded-md"
-                >
-                  <Printer className="w-4 h-4 mr-2" /> Print
-                </button>
-                <button
-                  type="button"
-                  className="flex items-center block p-2 transition duration-300 ease-in-out bg-white hover:bg-gray-200 rounded-md"
-                >
-                  <FileText className="w-4 h-4 mr-2" /> Export to Excel
-                </button>
-                <button
-                  type="button"
-                  className="flex items-center block p-2 transition duration-300 ease-in-out bg-white hover:bg-gray-200 rounded-md"
-                >
-                  <FileText className="w-4 h-4 mr-2" /> Export to PDF
-                </button>
-              </div>
-            </div>
+
           </div>
           <div className="hidden md:block mx-auto text-gray-600">
             Показано від {tc.itemsIndexes.first} до {tc.itemsIndexes.last} із {tc.count} записів
@@ -68,9 +47,9 @@ const DatasetsList = ({ match }) => {
             <thead>
               <tr>
                 <th className="whitespace-no-wrap">ID</th>
-                <th className="whitespace-no-wrap">ІМ&#39;Я</th>
-                <th className="text-center whitespace-no-wrap">ДАТА ОНОВЛЕННЯ</th>
-                <th className="text-center whitespace-no-wrap">ДІЇ</th>
+                <th className="whitespace-no-wrap">Назва набору даних</th>
+                <th className="text-center whitespace-no-wrap">Оновлення</th>
+                <th className="text-center whitespace-no-wrap">Інструменти</th>
               </tr>
             </thead>
             <tbody>

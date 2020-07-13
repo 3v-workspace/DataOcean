@@ -16,28 +16,20 @@ const menu = (
     <NavItem link="/system/home/" icon={Home}>
       Домівка
     </NavItem>
-    <NavItem link="/system/dashboard/" icon={Trello}>
-      Дашбоард
+    <NavItem link="/system/constructor/datasets/" icon={Trello}>
+      Набори даних
     </NavItem>
-    <NavDropdown label="Конструктори даних" icon={Edit}>
-      <NavItem link="/system/constructor/datasets/">
-        Набори даних
-      </NavItem>
-      <NavItem link="/system/constructor/my-data/">
-        Мої дані
-      </NavItem>
-    </NavDropdown>
     <NavItem link="/system/analytics/" icon={Activity}>
-      Аналіз даних
+      Конструктор звітів
     </NavItem>
     <NavItem link="/system/documents/" icon={FileText}>
-      Документи
+      Констурктор даних
     </NavItem>
     <NavItem link="/system/contacts/" icon={BookOpen}>
       Контакти
     </NavItem>
     <NavItem link="/system/help/" icon={HelpCircle}>
-      Нормативно довідкова інформація
+      Допомога
     </NavItem>
   </>
 );
