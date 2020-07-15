@@ -1,0 +1,11 @@
+// Use BEM methodology
+// Please read https://ru.bem.info/methodology/css/ first!
+@import '~reset-css/sass/reset';
+
+
+@import "./vars.scss";
+@import "./base/main.scss";
+@import "./layout/main.scss";
+@import "./components/main.scss";
+@import "./pages/main.scss";
+

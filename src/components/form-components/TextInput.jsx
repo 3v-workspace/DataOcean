@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FormikPropType } from 'utils/prop-types';
 
 const TextInput = (props) => {
   const {
     label, value, onChange, name, id, type, placeholder,
-    className, width, size,
+    className, width, size, formik, onBlur, isRounded,
+    containerClass, autoComplete,
   } = props;
 
   const classList = [];
@@ -14,23 +16,37 @@ const TextInput = (props) => {
   if (size) {
     classList.push(`input--${size}`);
   }
+  if (isRounded) {
+    classList.push('rounded-full');
+  }
   classList.push('input border mt-2');
   classList.push(width);
 
+  if (formik && formik.touched[name] && formik.errors[name]) {
+    classList.push('error');
+  }
+
+  const endId = id || `id_${name}`;
+
   return (
-    <div className="mb-3">
+    <div className={`${containerClass} mb-3`}>
       {label && (
-        <label>{label}</label>
+        <label htmlFor={endId}>{label}</label>
       )}
       <input
         className={classList.join(' ')}
-        id={id}
+        id={endId}
         type={type}
+        autoComplete={autoComplete}
         placeholder={placeholder}
-        value={value}
-        onChange={onChange}
+        value={value || (formik && formik.values[name])}
+        onChange={onChange || (formik && formik.handleChange)}
+        onBlur={onBlur || (formik && formik.handleBlur)}
         name={name}
       />
+      {formik && formik.touched[name] && formik.errors[name] && (
+        <label className="error" htmlFor={endId}>{formik.errors[name]}</label>
+      )}
     </div>
   );
 };
@@ -38,27 +54,36 @@ const TextInput = (props) => {
 TextInput.propTypes = {
   id: PropTypes.string,
   className: PropTypes.string,
+  containerClass: PropTypes.string,
   label: PropTypes.string,
+  autoComplete: PropTypes.oneOf(['on', 'off']),
   width: PropTypes.string,
   size: PropTypes.oneOf(['sm', 'lg']),
-  name: PropTypes.string,
+  name: PropTypes.string.isRequired,
   type: PropTypes.string,
   value: PropTypes.string,
   onChange: PropTypes.func,
+  onBlur: PropTypes.func,
   placeholder: PropTypes.string,
+  isRounded: PropTypes.bool,
+  formik: FormikPropType,
 };
 
 TextInput.defaultProps = {
-  id: null,
   className: '',
+  containerClass: '',
   label: '',
   width: 'w-full',
-  name: null,
-  size: null,
   type: 'text',
-  placeholder: null,
+  id: undefined,
+  size: undefined,
+  autoComplete: undefined,
+  placeholder: undefined,
   value: undefined,
   onChange: undefined,
+  onBlur: undefined,
+  isRounded: false,
+  formik: undefined,
 };
 
 export default TextInput;

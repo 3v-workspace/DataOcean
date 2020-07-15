@@ -1,0 +1,23 @@
+.form {
+    &__row {
+        & + & {
+            margin-top: $spacer * 3;
+        }
+    }
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+
+
+    &__label {
+        margin-bottom: $spacer;
+        display: inline-block;
+
+        &_required::after {
+            content: "*";
+            color: $danger;
+        }
+    }
+}

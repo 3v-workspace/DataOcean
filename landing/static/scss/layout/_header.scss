@@ -1,0 +1,12 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: $spacer * 5;
+    font-size: $font-size-sm;
+}
+
+.header-logo {
+    width: 200px;
+    object-fit: contain;
+}

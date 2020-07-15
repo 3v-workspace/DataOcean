@@ -1,0 +1,49 @@
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: $spacer * 2;
+}
+
+.section {
+    padding: $spacer * 10 0;
+    position: relative;
+    z-index: 1;
+    
+    &_background {
+        background-color: $secondary;
+    }
+    
+    &_flying-pixels {
+        &::before {
+            z-index: -1;
+            content: "";
+            position: absolute;
+            top: $spacer * 6;
+            right: $spacer * 6;
+            background-image: url('~static/img/flying-pixels.svg');
+            width: 300px;
+            height: 200px;
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+    }
+
+    &__header {
+        text-align: center;
+        margin-bottom: $spacer * 6;
+    }
+
+    &__subtitle {
+        margin-top: $spacer * 4;
+        color: $gray-500;
+        font-size: $font-size-lg;
+    }
+
+    @media (min-width: #{map-get($grid-breakpoints, 'lg')}) {
+        padding: $spacer * 16 0;
+    }
+}
+
+@import 'footer';
+@import 'header';
+@import 'navigation';

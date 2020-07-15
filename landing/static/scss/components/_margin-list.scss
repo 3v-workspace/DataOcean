@@ -1,0 +1,7 @@
+.margin-list {
+    &__item {
+        & + & {
+            margin-top: $spacer * 4;
+        }
+    }
+}

@@ -3,6 +3,8 @@
 ### For development
 * clone repo to local
 * go to project root directory
+* create `.env.local` file
+* override `.env` variables in `.env.local` for your environment
 * run `npm install`
 * run `npm start`
 * start hacking
@@ -15,8 +17,8 @@
 * `npm run lint` - Linting code. Check for errors and warnings.
 * `npm run fix` - Linting code and fix most errors. Output - unresolved errors.
 
-### .env
-In development...
+### .env.local
+* `REACT_APP_API_BASE_URL` - backend host name. For example: `https://ipa.dataocean.us`
 
 ## Deploy manual
 _I recommend using **github deploy keys**_

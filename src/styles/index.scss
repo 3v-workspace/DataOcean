@@ -1,7 +1,25 @@
 @import "utils";
 
+@media (min-width: 1279px) {
+  body.login {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+}
 
-body.login {
-  padding-top: 0;
-  padding-bottom: 0;
+// TODO: is it possible not to use !important here?
+// TODO: add --webkit props (ask/read about it)
+.side-nav.no-animation .side-menu {
+  opacity: 1 !important;
+  animation: none !important;
+  transform: none !important;
+}
+
+.pagination li .pagination__link:focus {
+  outline: none;
+}
+
+
+.login .error {
+  max-width: 24rem;
 }
