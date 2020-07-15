@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import { useFormik } from 'formik';
 import Yup, { getPasswordLevel } from 'utils/yup';
 import Form from 'components/form-components/Form';
-import GoogleButton from 'components/pages/auth/GoogleButton';
 import Api from 'api';
 import Tooltip from 'components/Tooltip';
 

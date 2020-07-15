@@ -1,4 +1,4 @@
-/* global $, chart, helper */
+/* global $, Chart, helper */
 import React, { useEffect } from 'react';
 import {
   Calendar,
@@ -16,27 +16,29 @@ const HomePage = () => {
   useEffect(() => {
     if ($('#report-line-chart').length) {
       const ctx = $('#report-line-chart')[0].getContext('2d');
-      const myChart = new chart(ctx, {
+      new Chart(ctx, {
         type: 'line',
         data: {
           labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-          datasets: [{
-            label: '# of Votes',
-            data: [0, 200, 250, 200, 500, 450, 850, 1050, 950, 1100, 900, 1200],
-            borderWidth: 2,
-            borderColor: '#3160D8',
-            backgroundColor: 'transparent',
-            pointBorderColor: 'transparent',
-          },
-          {
-            label: '# of Votes',
-            data: [0, 300, 400, 560, 320, 600, 720, 850, 690, 805, 1200, 1010],
-            borderWidth: 2,
-            borderDash: [2, 2],
-            borderColor: '#BCBABA',
-            backgroundColor: 'transparent',
-            pointBorderColor: 'transparent',
-          }],
+          datasets: [
+            {
+              label: '# of Votes',
+              data: [0, 200, 250, 200, 500, 450, 850, 1050, 950, 1100, 900, 1200],
+              borderWidth: 2,
+              borderColor: '#3160D8',
+              backgroundColor: 'transparent',
+              pointBorderColor: 'transparent',
+            },
+            {
+              label: '# of Votes',
+              data: [0, 300, 400, 560, 320, 600, 720, 850, 690, 805, 1200, 1010],
+              borderWidth: 2,
+              borderDash: [2, 2],
+              borderColor: '#BCBABA',
+              backgroundColor: 'transparent',
+              pointBorderColor: 'transparent',
+            },
+          ],
         },
         options: {
           legend: {
@@ -56,7 +58,7 @@ const HomePage = () => {
               ticks: {
                 fontSize: '12',
                 fontColor: '#777777',
-                callback(value, index, values) {
+                callback(value) {
                   return `$${value}`;
                 },
               },
@@ -75,7 +77,7 @@ const HomePage = () => {
 
     if ($('#report-pie-chart').length) {
       const ctx = $('#report-pie-chart')[0].getContext('2d');
-      const myPieChart = new chart(ctx, {
+      new Chart(ctx, {
         type: 'pie',
         data: {
           labels: ['Yellow', 'Dark'],
@@ -97,7 +99,7 @@ const HomePage = () => {
 
     if ($('#report-donut-chart').length) {
       const ctx = $('#report-donut-chart')[0].getContext('2d');
-      const myDoughnutChart = new chart(ctx, {
+      new Chart(ctx, {
         type: 'doughnut',
         data: {
           labels: ['Yellow', 'Dark'],
@@ -120,7 +122,7 @@ const HomePage = () => {
 
     if ($('#report-donut-chart-1').length) {
       const ctx = $('#report-donut-chart-1')[0].getContext('2d');
-      const myDoughnutChart = new chart(ctx, {
+      new Chart(ctx, {
         type: 'doughnut',
         data: {
           labels: ['Yellow', 'Dark'],
@@ -143,7 +145,7 @@ const HomePage = () => {
 
     if ($('#report-donut-chart-2').length) {
       const ctx = $('#report-donut-chart-2')[0].getContext('2d');
-      const myDoughnutChart = new chart(ctx, {
+      new Chart(ctx, {
         type: 'doughnut',
         data: {
           labels: ['Yellow', 'Dark'],
@@ -167,7 +169,7 @@ const HomePage = () => {
     if ($('.simple-line-chart-1').length) {
       $('.simple-line-chart-1').each(function () {
         const ctx = $(this)[0].getContext('2d');
-        const myChart = new chart(ctx, {
+        new Chart(ctx, {
           type: 'line',
           data: {
             labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
@@ -215,7 +217,7 @@ const HomePage = () => {
     if ($('.simple-line-chart-2').length) {
       $('.simple-line-chart-2').each(function () {
         const ctx = $(this)[0].getContext('2d');
-        const myChart = new chart(ctx, {
+        new Chart(ctx, {
           type: 'line',
           data: {
             labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
@@ -261,28 +263,30 @@ const HomePage = () => {
     // Chart widget page
     if ($('#vertical-bar-chart-widget').length) {
       const ctx = $('#vertical-bar-chart-widget')[0].getContext('2d');
-      const myChart = new chart(ctx, {
+      new Chart(ctx, {
         type: 'bar',
         data: {
           labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
-          datasets: [{
-            label: 'Html Template',
-            barPercentage: 0.5,
-            barThickness: 6,
-            maxBarThickness: 8,
-            minBarLength: 2,
-            data: [0, 200, 250, 200, 500, 450, 850, 1050],
-            backgroundColor: '#3160D8',
-          },
-          {
-            label: 'VueJs Template',
-            barPercentage: 0.5,
-            barThickness: 6,
-            maxBarThickness: 8,
-            minBarLength: 2,
-            data: [0, 300, 400, 560, 320, 600, 720, 850],
-            backgroundColor: '#BCBABA',
-          }],
+          datasets: [
+            {
+              label: 'Html Template',
+              barPercentage: 0.5,
+              barThickness: 6,
+              maxBarThickness: 8,
+              minBarLength: 2,
+              data: [0, 200, 250, 200, 500, 450, 850, 1050],
+              backgroundColor: '#3160D8',
+            },
+            {
+              label: 'VueJs Template',
+              barPercentage: 0.5,
+              barThickness: 6,
+              maxBarThickness: 8,
+              minBarLength: 2,
+              data: [0, 300, 400, 560, 320, 600, 720, 850],
+              backgroundColor: '#BCBABA',
+            },
+          ],
         },
         options: {
           scales: {
@@ -299,7 +303,7 @@ const HomePage = () => {
               ticks: {
                 fontSize: '12',
                 fontColor: '#777777',
-                callback(value, index, values) {
+                callback(value) {
                   return `$${value}`;
                 },
               },
@@ -318,28 +322,30 @@ const HomePage = () => {
 
     if ($('#horizontal-bar-chart-widget').length) {
       const ctx = $('#horizontal-bar-chart-widget')[0].getContext('2d');
-      const myChart = new chart(ctx, {
+      new Chart(ctx, {
         type: 'horizontalBar',
         data: {
           labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
-          datasets: [{
-            label: 'Html Template',
-            barPercentage: 0.5,
-            barThickness: 6,
-            maxBarThickness: 8,
-            minBarLength: 2,
-            data: [0, 200, 250, 200, 500, 450, 850, 1050],
-            backgroundColor: '#3160D8',
-          },
-          {
-            label: 'VueJs Template',
-            barPercentage: 0.5,
-            barThickness: 6,
-            maxBarThickness: 8,
-            minBarLength: 2,
-            data: [0, 300, 400, 560, 320, 600, 720, 850],
-            backgroundColor: '#BCBABA',
-          }],
+          datasets: [
+            {
+              label: 'Html Template',
+              barPercentage: 0.5,
+              barThickness: 6,
+              maxBarThickness: 8,
+              minBarLength: 2,
+              data: [0, 200, 250, 200, 500, 450, 850, 1050],
+              backgroundColor: '#3160D8',
+            },
+            {
+              label: 'VueJs Template',
+              barPercentage: 0.5,
+              barThickness: 6,
+              maxBarThickness: 8,
+              minBarLength: 2,
+              data: [0, 300, 400, 560, 320, 600, 720, 850],
+              backgroundColor: '#BCBABA',
+            },
+          ],
         },
         options: {
           scales: {
@@ -347,7 +353,7 @@ const HomePage = () => {
               ticks: {
                 fontSize: '12',
                 fontColor: '#777777',
-                callback(value, index, values) {
+                callback(value) {
                   return `$${value}`;
                 },
               },
@@ -375,7 +381,7 @@ const HomePage = () => {
 
     if ($('#stacked-bar-chart-widget').length) {
       const ctx = $('#stacked-bar-chart-widget')[0].getContext('2d');
-      const myChart = new chart(ctx, {
+      new Chart(ctx, {
         type: 'bar',
         data: {
           labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
@@ -399,33 +405,37 @@ const HomePage = () => {
         },
         options: {
           scales: {
-            xAxes: [{
-              stacked: true,
-              ticks: {
-                fontSize: '12',
-                fontColor: '#777777',
-              },
-              gridLines: {
-                display: false,
-              },
-            }],
-            yAxes: [{
-              stacked: true,
-              ticks: {
-                fontSize: '12',
-                fontColor: '#777777',
-                callback(value, index, values) {
-                  return `$${value}`;
+            xAxes: [
+              {
+                stacked: true,
+                ticks: {
+                  fontSize: '12',
+                  fontColor: '#777777',
+                },
+                gridLines: {
+                  display: false,
                 },
               },
-              gridLines: {
-                color: '#D8D8D8',
-                zeroLineColor: '#D8D8D8',
-                borderDash: [2, 2],
-                zeroLineBorderDash: [2, 2],
-                drawBorder: false,
+            ],
+            yAxes: [
+              {
+                stacked: true,
+                ticks: {
+                  fontSize: '12',
+                  fontColor: '#777777',
+                  callback(value) {
+                    return `$${value}`;
+                  },
+                },
+                gridLines: {
+                  color: '#D8D8D8',
+                  zeroLineColor: '#D8D8D8',
+                  borderDash: [2, 2],
+                  zeroLineBorderDash: [2, 2],
+                  drawBorder: false,
+                },
               },
-            }],
+            ],
           },
         },
       });
@@ -433,27 +443,29 @@ const HomePage = () => {
 
     if ($('#line-chart-widget').length) {
       const ctx = $('#line-chart-widget')[0].getContext('2d');
-      const myChart = new chart(ctx, {
+      new Chart(ctx, {
         type: 'line',
         data: {
           labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-          datasets: [{
-            label: 'Html Template',
-            data: [0, 200, 250, 200, 500, 450, 850, 1050, 950, 1100, 900, 1200],
-            borderWidth: 2,
-            borderColor: '#3160D8',
-            backgroundColor: 'transparent',
-            pointBorderColor: 'transparent',
-          },
-          {
-            label: 'VueJs Template',
-            data: [0, 300, 400, 560, 320, 600, 720, 850, 690, 805, 1200, 1010],
-            borderWidth: 2,
-            borderDash: [2, 2],
-            borderColor: '#BCBABA',
-            backgroundColor: 'transparent',
-            pointBorderColor: 'transparent',
-          }],
+          datasets: [
+            {
+              label: 'Html Template',
+              data: [0, 200, 250, 200, 500, 450, 850, 1050, 950, 1100, 900, 1200],
+              borderWidth: 2,
+              borderColor: '#3160D8',
+              backgroundColor: 'transparent',
+              pointBorderColor: 'transparent',
+            },
+            {
+              label: 'VueJs Template',
+              data: [0, 300, 400, 560, 320, 600, 720, 850, 690, 805, 1200, 1010],
+              borderWidth: 2,
+              borderDash: [2, 2],
+              borderColor: '#BCBABA',
+              backgroundColor: 'transparent',
+              pointBorderColor: 'transparent',
+            },
+          ],
         },
         options: {
           scales: {
@@ -470,7 +482,7 @@ const HomePage = () => {
               ticks: {
                 fontSize: '12',
                 fontColor: '#777777',
-                callback(value, index, values) {
+                callback(value) {
                   return `$${value}`;
                 },
               },
@@ -489,7 +501,7 @@ const HomePage = () => {
 
     if ($('#donut-chart-widget').length) {
       const ctx = $('#donut-chart-widget')[0].getContext('2d');
-      const myDoughnutChart = new chart(ctx, {
+      new Chart(ctx, {
         type: 'doughnut',
         data: {
           labels: ['Html', 'Vuejs', 'Laravel'],
@@ -509,7 +521,7 @@ const HomePage = () => {
 
     if ($('#pie-chart-widget').length) {
       const ctx = $('#pie-chart-widget')[0].getContext('2d');
-      const myPieChart = new chart(ctx, {
+      new Chart(ctx, {
         type: 'pie',
         data: {
           labels: ['Html', 'Vuejs', 'Laravel'],
@@ -1546,7 +1558,6 @@ const HomePage = () => {
               </div>
             </div>
           </div>
-
         </div>
       </div>
     </div>

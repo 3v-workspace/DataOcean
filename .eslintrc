@@ -65,6 +65,7 @@
     "no-console": "warn",
     "no-debugger": "warn",
     "react/no-unescaped-entities": "off",
-    "new-cap": "warn"
+    "no-new": "off",
+    "func-names": "off"
   }
 }
