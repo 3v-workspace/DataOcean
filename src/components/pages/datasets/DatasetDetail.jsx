@@ -44,6 +44,14 @@ const DatasetDetail = (props) => {
               <td className="font-medium">Source name:</td>
               <td>{data.source_name}</td>
             </tr>
+            <tr>
+              <td className="font-medium">Data ocean list:</td>
+              <td>{data.data_ocean_list}</td>
+            </tr>
+            <tr>
+              <td className="font-medium">Data ocean retrieve:</td>
+              <td>{data.data_ocean_retrieve}</td>
+            </tr>
           </tbody>
         </table>
       </div>
