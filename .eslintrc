@@ -1,6 +1,8 @@
 {
   "ignorePatterns": [
-    "src/serviceWorker.js"
+    "src/serviceWorker.js",
+    "antac_graph/",
+    "landing/"
   ],
   "parser": "babel-eslint",
   "plugins": [

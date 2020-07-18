@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="static/css/styles.css">
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container-fluid p-4">
+      <div class="row">
+        <div class="col-lg-3">
+          <div class="search">
+            <div class="search__input">
+              <input id="company-search" type="text" class="form-control" placeholder="Введіть ЄДРПОУ">
+              <button id="company-search-btn" class="btn btn-green ml-2">
+                <img src="static/icons/search.svg" alt="Пошук">
+              </button>
+            </div>
+          </div>
+          <div id="company-detail" class="detail mt-4">
+            <div class="detail__header">
+              Деталі
+            </div>
+            <div class="detail__name">
+              ТОВ "ШОСЬ ТАМ"
+            </div>
+            <div class="detail__prop">
+              Статус: активна
+            </div>
+            <div class="detail__prop">
+              ЄДПРОУ 18578
+            </div>
+            <div class="detail__prop">
+              Підства: Діє на підставі установчих документів, затверджених засновниками (учасниками)
+            </div>
+            <div class="detail__prop">
+              Реєстрація: Департамент реєстраційних послуг Запорізької міської ради
+            </div>
+            <div class="detail__prop">
+              Власники / бенифіціари
+            </div>
+            <div class="detail__prop">
+              Ім’я По-батькові Прізвище 1
+            </div>
+            <div class="detail__prop">
+              Ім’я По-батькові Прізвище 2
+            </div>
+            <div class="detail__prop">
+              ТОВ ”Смерека-Захід”
+            </div>
+          </div>
+        </div>
+        <div id="graph" class="col-lg-6 col-xl-7">
+        </div>
+        <div class="col-xl-2 col-lg-3">
+          <div class="detail">
+            <div class="detail__header">
+              Фільтр
+            </div>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="customCheck1">
+              <label class="custom-control-label" for="customCheck1">
+                Родині зв’язки
+              </label>
+            </div>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="customCheck2">
+              <label class="custom-control-label" for="customCheck2">
+                Особисті зв’язки
+              </label>
+            </div>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="customCheck3">
+              <label class="custom-control-label" for="customCheck3">
+                Ділові зв’язки
+              </label>
+            </div>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="customCheck4">
+              <label class="custom-control-label" for="customCheck4">
+                Посада
+              </label>
+            </div>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="customCheck5">
+              <label class="custom-control-label" for="customCheck5">
+                Публічні особи
+              </label>
+            </div>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="customCheck6">
+              <label class="custom-control-label" for="customCheck6">
+                Власність
+              </label>
+            </div>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="customCheck7">
+              <label class="custom-control-label" for="customCheck7">
+                Партії
+              </label>
+            </div>
+          </div>
+          <div class="detail mt-3">
+            <div class="detail__header">
+              Легенда
+            </div>
+            <div class="detail__prop">
+              В розробці...
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="static/js/jquery-3.5.1.min.js"></script>
+    <script src="static/js/popper.min.js"></script>
+    <script src="static/js/bootstrap.min.js"></script>
+    <script src="static/js/d3.v5.min.js"></script>
+
+    <script src="static/js/index.js"></script>
+  </body>
+</html>
