@@ -177,6 +177,8 @@ let additionalData1 = [
   },
 ];
 
+let nodes = [];
+let links = [];
 
 function parseNodesLinks(data) {
   let nodes = [];
@@ -190,8 +192,8 @@ function parseNodesLinks(data) {
       node._root = true;
       first = false;
     }
-    if (node.children) {
-      node.children.forEach((item) => {
+    if (node.founder_of) {
+      node.founder_of.forEach((item) => {
         item._opened = false;
         recursive(item);
         links.push({
@@ -201,7 +203,7 @@ function parseNodesLinks(data) {
         });
       });
     }
-    delete node.children;
+    delete node.founder_of;
     nodes.push(node);
   }
 
@@ -222,17 +224,17 @@ function pushIfNotExists(array, newItem) {
 
 
 $('#company-search-btn').on('click', function () {
-  const edrpou = $('input#company-search').val()
-  const params = new URLSearchParams()
+  const edrpou = $('input#company-search').val();
+  const params = new URLSearchParams();
   params.set('edrpou', edrpou);
   fetch(`https://ipa.dataocean.us/api/company/?${params.toString()}`)
     .then((response) => {
-      debugger
-    })
-    // .catch((error) => {
-    //
-    // })
-})
+      response.json().then(function (data) {
+        [nodes, links] = parseNodesLinks(data.results[0]);
+        update();
+      });
+    });
+});
 
 
 const width = 1000;
@@ -289,7 +291,7 @@ const simulation = d3.forceSimulation()
 
 
 // const root = d3.hierarchy(data, );
-const [nodes, links] = parseNodesLinks(data);
+// let [nodes, links] = parseNodesLinks(data);
 
 function update(source) {
   // const nodes = flatten(root);
@@ -395,7 +397,7 @@ function update(source) {
   nodeEnter.append('text')
     .attr('hidden', hideCount)
     // TODO: replace text hardcode
-    .text('32')
+    .text((d) => d.founder_of_count || 0)
     .attr('class', 'child-count')
     .attr('x', 0)
     .attr('y', -22)
@@ -406,7 +408,6 @@ function update(source) {
     .style('font-size', 10)
     .style('cursor', 'pointer')
     .on('click', countClick);
-
 
   svg.selectAll('.child-count')
     .style('display', (d) => d.children && d.children.length ? "none" : undefined);
@@ -501,25 +502,35 @@ function nodeClick(d) {
     });
 
   const $data = $('#company-detail');
-  $data.find('.detail__name, .detail__prop').remove()
-
+  $data.find('.detail__name, .detail__prop').remove();
 
   fetch(`https://ipa.dataocean.us/api/company/${d.id}/`)
     .then((response) => {
+      if (response.status !== 200) {
+        console.log('Error ', response.status);
+        return;
+      }
+      response.json().then((data) => {
+        const d_elem = (text, css_class = 'detail__prop') => {
+          if (!text) {
+            return ''
+          }
+          return `<div class="${css_class}">${text}</div>`;
+        };
 
-      const d_elem = (text, css_class = 'detail__prop') => {
-        return `<div class="${css_class}">${text}</div>`;
-      };
-
-      $data.append([
-        d_elem(d.name, 'detail__name'),
-        d_elem(d.short_name),
-        d_elem(`Статус ${d.status}`),
-        d_elem(`ЄДРПОУ ${d.edrpou}`),
-        d_elem(`Адреса ${d.address || ''}`),
-        d_elem(d.bylaw),
-      ]);
+        $data.append([
+          d_elem(data.name, 'detail__name'),
+          d_elem(data.short_name),
+          d_elem(`Статус ${data.status}`),
+          d_elem(`ЄДРПОУ ${data.edrpou}`),
+          d_elem(`Адреса ${data.address || ''}`),
+          d_elem(data.bylaw),
+        ]);
+      });
     })
+    .catch((error) => {
+      debugger
+    });
 
   // Object.entries(d).forEach(([key, value]) => {
   //   if (key === 'children') return;
@@ -572,7 +583,7 @@ function countClick(d) {
       return;
     }
     simulation.alpha(a);
-    a += 0.1
+    a += 0.1;
   }, 100);
 
   if (!d3.event.defaultPrevented) {

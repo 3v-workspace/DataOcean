@@ -49,7 +49,9 @@ path.link {
     margin-bottom: 16px;
     border-bottom: 1px solid #C4C4C4;
 }
-
+.detail__name {
+    text-transform: capitalize;
+}
 .detail__prop {
     color: #959595;
     font-size: 14px;
