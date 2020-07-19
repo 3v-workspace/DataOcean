@@ -513,7 +513,7 @@ function nodeClick(d) {
       response.json().then((data) => {
         const d_elem = (text, css_class = 'detail__prop') => {
           if (!text) {
-            return ''
+            return '';
           }
           return `<div class="${css_class}">${text}</div>`;
         };
@@ -605,28 +605,50 @@ function countClick(d) {
     //   return newNode;
     // });
 
-    let newNodes = additionalData1.map((newNode) => {
-      newNode._opened = false;
-      const isNew = pushIfNotExists(nodes, newNode);
-      if (isNew) {
-        newNode.x = d.x;
-        newNode.y = d.y;
-      }
-      links.push({
-        source: d.id,
-        target: newNode.id,
-        id: `${d.id}-${newNode.id}`
-      });
-      // node._opened = true;
-    });
-    let node = nodes.find((item) => item.id === d.id);
-    node._opened = true;
-    svg.selectAll('.child-count')
-      .attr('hidden', hideCount);
+    fetch(`https://ipa.dataocean.us/api/company/${d.id}/`)
+      .then((response) => {
+        response.json().then((data) => {
+          data.founder_of.forEach((newNode) => {
+            newNode._opened = false;
+            const isNew = pushIfNotExists(nodes, newNode);
+            if (isNew) {
+              newNode.x = d.x;
+              newNode.y = d.y;
+            }
+            links.push({
+              source: d.id,
+              target: newNode.id,
+              id: `${d.id}-${newNode.id}`
+            });
 
-    // d.children = newNodes;
-    // d.data.children = newNodes.data;
-    update(d);
+            let node = nodes.find((item) => item.id === d.id);
+            node._opened = true;
+            svg.selectAll('.child-count')
+              .attr('hidden', hideCount);
+
+            update(d);
+          });
+        });
+      });
+
+    // let newNodes = additionalData1.map((newNode) => {
+    //   newNode._opened = false;
+    //   const isNew = pushIfNotExists(nodes, newNode);
+    //   if (isNew) {
+    //     newNode.x = d.x;
+    //     newNode.y = d.y;
+    //   }
+    //   links.push({
+    //     source: d.id,
+    //     target: newNode.id,
+    //     id: `${d.id}-${newNode.id}`
+    //   });
+    //   // node._opened = true;
+    // });
+    //
+    // // d.children = newNodes;
+    // // d.data.children = newNodes.data;
+    // update(d);
   }
 }
 
