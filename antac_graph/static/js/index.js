@@ -224,15 +224,21 @@ function pushIfNotExists(array, newItem) {
 
 
 $('#company-search-btn').on('click', function () {
+  const $button = $(this);
+  $button.prop('disabled', true);
   const edrpou = $('input#company-search').val();
   const params = new URLSearchParams();
   params.set('edrpou', edrpou);
   fetch(`https://ipa.dataocean.us/api/company/?${params.toString()}`)
     .then((response) => {
+      $button.prop('disabled', false);
       response.json().then(function (data) {
         [nodes, links] = parseNodesLinks(data.results[0]);
         update();
       });
+    })
+    .catch((err) => {
+      $button.attr('disable', false);
     });
 });
 
@@ -501,8 +507,6 @@ function nodeClick(d) {
       return d_link.source.id === d.id ? 2 : 1;
     });
 
-  const $data = $('#company-detail');
-  $data.find('.detail__name, .detail__prop').remove();
 
   fetch(`https://ipa.dataocean.us/api/company/${d.id}/`)
     .then((response) => {
@@ -511,6 +515,9 @@ function nodeClick(d) {
         return;
       }
       response.json().then((data) => {
+        const $data = $('#company-detail');
+        $data.find('.detail__name, .detail__prop').remove();
+
         const d_elem = (text, css_class = 'detail__prop') => {
           if (!text) {
             return '';
@@ -574,7 +581,8 @@ function lineBlur(d) {
   }
 }
 
-function countClick(d) {
+
+function increaseSimulationSpeed() {
   simulation.alpha(0.01);
   let a = 0.1;
   let int = setInterval(() => {
@@ -585,6 +593,11 @@ function countClick(d) {
     simulation.alpha(a);
     a += 0.1;
   }, 100);
+
+}
+
+
+function countClick(d) {
 
   if (!d3.event.defaultPrevented) {
     // if (d.children) {
@@ -608,6 +621,7 @@ function countClick(d) {
     fetch(`https://ipa.dataocean.us/api/company/${d.id}/`)
       .then((response) => {
         response.json().then((data) => {
+          increaseSimulationSpeed();
           data.founder_of.forEach((newNode) => {
             newNode._opened = false;
             const isNew = pushIfNotExists(nodes, newNode);
