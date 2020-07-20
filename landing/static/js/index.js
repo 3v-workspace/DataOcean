@@ -1,10 +1,11 @@
 // import * as THREE from 'three';
 import DOTS from 'vanta/dist/vanta.dots.min';
+import $ from 'jquery';
 
 
 $(document).ready(() => {
   DOTS({
-    el: ".landing-dots",
+    el: '.landing-dots__inner',
     mouseControls: true,
     touchControls: true,
     minHeight: 200.0,
@@ -15,7 +16,7 @@ $(document).ready(() => {
     color2: 0xffffff,
     backgroundColor: 0xffffff,
     size: 3,
-    spacing: 12.0,
+    spacing: 15,
     // THREE: THREE,
   });
 });

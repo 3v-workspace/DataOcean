@@ -1,0 +1,13 @@
+.landing-dots {
+    position: relative;
+    overflow: hidden;
+
+    &__inner {
+        position: absolute;
+        content: "";
+        top: -60%;
+        left: -50%;
+        height: 200%;
+        width: 200%;
+    }
+}
