@@ -4,6 +4,8 @@
     align-items: center;
     padding-top: $spacer * 5;
     font-size: $font-size-sm;
+    z-index: 2;
+    position: relative;
 }
 
 .header-logo {
