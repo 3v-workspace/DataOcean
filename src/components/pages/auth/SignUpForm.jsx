@@ -5,8 +5,8 @@ import PropTypes from 'prop-types';
 import { useFormik } from 'formik';
 import Yup, { getPasswordLevel } from 'utils/yup';
 import Form from 'components/form-components/Form';
-import GoogleButton from 'components/pages/auth/GoogleButton';
 import Api from 'api';
+import Tooltip from 'components/Tooltip';
 
 const PasswordSecure = (props) => {
   const { level } = props;
@@ -114,7 +114,7 @@ const SignUpForm = () => {
 
   return (
     <>
-      <Form formik={formik} className="intro-x mt-8 xl:max-w-xs">
+      <Form formik={formik}>
         <h2 className="intro-x font-bold text-2xl xl:text-3xl text-center xl:text-left">
           Реєстрація
         </h2>
@@ -154,9 +154,20 @@ const SignUpForm = () => {
             formik={formik}
           />
           <PasswordSecure level={psswdSec} />
-          <a href="#?" className="intro-x text-gray-600 block mt-2 text-xs sm:text-sm">
-            What is a secure password?
-          </a>
+          <div className="intro-x text-gray-600 block mt-2 text-xs sm:text-sm cursor-pointer">
+            <Tooltip
+              content={(
+                <ul>
+                  <li>Хоча б одна велика літера</li>
+                  <li>Довжина паролю не меньше 8 символів</li>
+                  <li>Хоча б одна цифра</li>
+                  <li>Хоча б один спец-символ</li>
+                </ul>
+              )}
+            >
+              Що таке безпечний пароль?
+            </Tooltip>
+          </div>
           <TextInput
             type="password"
             name="password2"
@@ -176,34 +187,34 @@ const SignUpForm = () => {
             onChange={formik.handleChange}
           />
           <label className="cursor-pointer select-none" htmlFor="accept_policy">
-            I agree to the Envato
+            Я згідний з
           </label>
-          <a className="text-theme-1 ml-1" href="#?">Privacy Policy</a>.
+          <a className="text-theme-1 ml-1" href="#?">Політикою конфіденційності</a>.
         </div>
         {formik.touched.accept_policy && formik.errors.accept_policy && (
           <label className="error" htmlFor="accept_policy">{formik.errors.accept_policy}</label>
         )}
-        <div className="intro-x mt-5 xl:mt-8 text-center xl:text-left">
+        <div className="xl:flex intro-x mt-5 xl:mt-8 text-center xl:text-left">
           <Button
             type="submit"
             disabled={formik.isSubmitting}
             isLoading={formik.isSubmitting}
-            className="text-white bg-theme-1 mr-3"
+            className="xl:flex-1 w-full xl:w-none text-white bg-theme-1 mr-3"
             // size="lg"
             variant="primary"
           >
             Зареєструватись
           </Button>
           <Button
-            className="xl:w-32 border-gray-300 mt-3 xl:mt-0"
+            className="xl:flex-1 w-full xl:w-none xl:w-32 border-gray-300 mt-3 xl:mt-0"
             // size="lg"
             variant="secondary"
             link="/auth/sign-in/"
           >
-            Вхід
+            Повернутись
           </Button>
         </div>
-        <GoogleButton>Продовжити з Google</GoogleButton>
+        {/* <GoogleButton>Продовжити з Google</GoogleButton> */}
       </Form>
     </>
   );

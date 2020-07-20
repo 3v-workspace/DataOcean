@@ -1,6 +1,8 @@
 {
   "ignorePatterns": [
-    "src/serviceWorker.js"
+    "src/serviceWorker.js",
+    "antac_graph/",
+    "landing/"
   ],
   "parser": "babel-eslint",
   "plugins": [
@@ -40,7 +42,7 @@
     "jsx-a11y/no-static-element-interactions": "off",
     "jsx-a11y/no-noninteractive-element-interactions": "off",
     "jsx-a11y/mouse-events-have-key-events": "warn",
-    "jsx-a11y/anchor-is-valid": "warn",
+    "jsx-a11y/anchor-is-valid": "off",
 
     "no-unused-vars": "warn",
     "no-trailing-spaces": "warn",
@@ -63,6 +65,9 @@
 
     "camelcase": "off",
     "no-console": "warn",
-    "no-debugger": "warn"
+    "no-debugger": "warn",
+    "react/no-unescaped-entities": "off",
+    "no-new": "off",
+    "func-names": "off"
   }
 }
