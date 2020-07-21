@@ -197,6 +197,7 @@ const animationHtml = `
 </div>
 `;
 
+const searchFormS = '#company-search-form';
 const searchButtonS = '#company-search-btn';
 const searchInputS = 'input#company-search';
 const graphContainerS = '#graph';
@@ -272,7 +273,8 @@ function endLoading() {
   $(searchButtonS).prop('disabled', false);
 }
 
-$(searchButtonS).on('click', function () {
+$(searchFormS).on('submit', function (e) {
+  e.preventDefault();
   startLoading();
   const edrpou = $(searchInputS).val();
   $.ajax('https://ipa.dataocean.us/api/company/', {

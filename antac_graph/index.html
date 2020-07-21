@@ -12,12 +12,18 @@
       <div class="row">
         <div class="col-lg-3">
           <div class="search">
-            <div class="search__input">
-              <input value="30346563" id="company-search" type="text" class="form-control" placeholder="Введіть ЄДРПОУ">
+            <form id="company-search-form" class="search__input">
+              <input
+                  id="company-search"
+                  type="text"
+                  class="form-control"
+                  placeholder="Введіть ЄДРПОУ"
+                  pattern="^\d{8}$"
+              >
               <button id="company-search-btn" class="btn btn-green ml-2">
                 <img src="static/icons/search.svg" alt="Пошук">
               </button>
-            </div>
+            </form>
           </div>
           <div id="company-detail" class="detail mt-4">
             <div class="detail__header">
