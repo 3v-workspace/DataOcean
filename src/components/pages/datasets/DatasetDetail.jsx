@@ -18,7 +18,7 @@ const DatasetDetail = (props) => {
 
   return (
     <PageBox header="Перегляд реєстру">
-      <div className="flex flex-col lg:flex-row pt-10 px-5 sm:px-20 sm:pt-20 lg:pb-20 text-center sm:text-left">
+      <div className="flex flex-col lg:flex-row pt-10 px-5 sm:px-20 sm:pt-20 lg:pb-10 text-center sm:text-left">
         <div className="font-semibold text-3xl">{data.name}</div>
       </div>
       <div className="pt-5 px-3 sm:px-10 sm:pt-10 lg:pb-10">
@@ -51,6 +51,10 @@ const DatasetDetail = (props) => {
             <tr>
               <td className="font-medium">Data ocean retrieve:</td>
               <td>{data.data_ocean_retrieve}</td>
+            </tr>
+            <tr>
+              <td className="font-medium">Your token:</td>
+              <td>{window.localStorage.getItem('token')}</td>
             </tr>
           </tbody>
         </table>
