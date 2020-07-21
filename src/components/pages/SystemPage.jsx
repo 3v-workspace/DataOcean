@@ -16,7 +16,7 @@ const menu = (
     <NavItem link="/system/home/" icon={Home}>
       Домівка
     </NavItem>
-    <NavItem link="/system/constructor/datasets/" icon={Trello}>
+    <NavItem link="/system/datasets/" icon={Trello}>
       Набори даних
     </NavItem>
     <NavItem link="/system/analytics/" icon={Activity}>

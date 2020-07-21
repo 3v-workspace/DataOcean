@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import Api from 'api';
 
 const useTableController = (options) => {
+  const { url, params, afterFetch } = options;
+
   const [data, setData] = useState([]);
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
@@ -16,6 +18,13 @@ const useTableController = (options) => {
     const urlParams = new URLSearchParams();
     urlParams.set('page', page.toString());
     urlParams.set('page_size', pageSize.toString());
+    if (params) {
+      Object.entries(params).forEach(([key, value]) => {
+        if (value) {
+          urlParams.set(key, value.toString());
+        }
+      });
+    }
     return urlParams.toString();
   };
 
@@ -29,22 +38,22 @@ const useTableController = (options) => {
   };
 
   const fetchData = () => {
-    Api.get(`${options.url}?${getUrlParams()}`)
+    Api.get(`${url}?${getUrlParams()}`)
       .then((resp) => {
         setData(resp.data.results);
         setCount(resp.data.count);
         setMaxPage(resp.data.last_page);
         setDataReady(true);
         calculateIndexes(resp.data.results.length);
-        if (options.afterFetch) {
-          options.afterFetch();
+        if (afterFetch) {
+          afterFetch();
         }
       });
   };
 
   useEffect(() => {
     fetchData();
-  }, [page, pageSize]);
+  }, [page, pageSize, JSON.stringify(params), url]);
 
   return {
     page,

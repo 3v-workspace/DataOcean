@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { ReactRouterPropTypes } from 'utils/prop-types';
 import PageBox from 'components/pages/PageBox';
 import Api from 'api';
+import datasets from 'const/datasets';
+import { Database } from 'react-feather';
 
 const DatasetDetail = (props) => {
-  const { match } = props;
+  const { match, history } = props;
   const { id } = match.params;
 
   const [data, setData] = useState({});
@@ -16,8 +18,23 @@ const DatasetDetail = (props) => {
       });
   }, []);
 
+  if (!Object.keys(data)) {
+    return null;
+  }
+
+  const actions = [];
+  if (data.data_ocean_list in datasets) {
+    actions.push({
+      label: 'Дані реєстру',
+      icon: Database,
+      onClick: () => {
+        history.push(`/system/datasets/${id}/${datasets[data.data_ocean_list].urlEnding}`);
+      },
+    });
+  }
+
   return (
-    <PageBox header="Перегляд реєстру">
+    <PageBox header="Перегляд реєстру" actions={actions}>
       <div className="flex flex-col lg:flex-row pt-10 px-5 sm:px-20 sm:pt-20 lg:pb-10 text-center sm:text-left">
         <div className="font-semibold text-3xl">{data.name}</div>
       </div>
@@ -65,6 +82,7 @@ const DatasetDetail = (props) => {
 
 DatasetDetail.propTypes = {
   match: ReactRouterPropTypes.match.isRequired,
+  history: ReactRouterPropTypes.history.isRequired,
 };
 
 export default DatasetDetail;

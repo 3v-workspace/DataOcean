@@ -32,7 +32,6 @@ const DatasetsList = ({ match }) => {
                 <Plus className="w-4 h-4" />
               </span>
             </button>
-
           </div>
           <div className="hidden md:block mx-auto text-gray-600">
             Показано від {tc.itemsIndexes.first} до {tc.itemsIndexes.last} із {tc.count} записів
