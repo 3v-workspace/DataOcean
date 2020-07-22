@@ -1,8 +1,7 @@
 import React, { useRef } from 'react';
 // import PropTypes from 'prop-types';
 import {
-  ChevronRight, Search, Inbox, Users, CreditCard, Bell,
-  User, Settings, HelpCircle, ToggleRight,
+  ChevronRight, User, Settings, HelpCircle, ToggleRight,
 } from 'react-feather';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';

@@ -3,11 +3,10 @@ import { Redirect } from 'react-router-dom';
 import { ReactRouterPropTypes } from 'utils/prop-types';
 import { useIsLogin } from 'hooks';
 import Nav from 'components/nav/Nav';
-import NavDropdown from 'components/nav/NavDropdown';
 import NavItem from 'components/nav/NavItem';
 import SystemRoutes from 'components/pages/SystemRoutes';
 import {
-  Activity, Edit, Home, FileText, Trello, BookOpen, HelpCircle,
+  Activity, Home, FileText, Trello, BookOpen, HelpCircle,
 } from 'react-feather';
 import TopBar from 'components/nav/TopBar';
 

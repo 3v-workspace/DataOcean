@@ -34,7 +34,7 @@ SearchResult.defaultProps = {
 };
 
 
-const TopBarSearch = (props) => {
+const TopBarSearch = () => {
   const [data, setData] = useState([]);
   const [show, setShow] = useState(false);
 

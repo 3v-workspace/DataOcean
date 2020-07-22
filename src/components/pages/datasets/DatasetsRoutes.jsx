@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import { ReactRouterPropTypes } from 'utils/prop-types';
 import Route404 from 'components/pages/Route404';
 import DatasetsList from 'components/pages/datasets/DatasetsList';
