@@ -10,10 +10,6 @@ const Table = (props) => {
   const [search, setSearch] = useState('');
   const tc = useTableController({ url, params: { search } });
 
-  if (!tc.data.length) {
-    return null;
-  }
-
   const onSearch = (e) => {
     setSearch(e.target.value);
   };

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Link, NavLink, useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { NavContext } from 'components/nav/Nav';
 import { DropdownContext } from 'components/nav/NavDropdown';
 import { ChevronRight } from 'react-feather';
