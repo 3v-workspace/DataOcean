@@ -22,7 +22,7 @@ const menu = (
       Конструктор звітів
     </NavItem>
     <NavItem link="/system/documents/" icon={FileText}>
-      Констурктор даних
+      Конструктор даних
     </NavItem>
     <NavItem link="/system/contacts/" icon={BookOpen}>
       Контакти
