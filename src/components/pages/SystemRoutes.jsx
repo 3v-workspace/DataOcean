@@ -29,11 +29,11 @@ const SystemRoutes = (props) => {
         path={`${match.path}home/`}
         component={HomePage}
       />
-      <Route
-        exact
-        path={`${match.path}dashboard/`}
-        component={DashboardPage}
-      />
+      {/*<Route*/}
+      {/*  exact*/}
+      {/*  path={`${match.path}dashboard/`}*/}
+      {/*  component={DashboardPage}*/}
+      {/*/>*/}
       {/*<Route*/}
       {/*  exact*/}
       {/*  path={`${match.path}datasets/:id/`}*/}

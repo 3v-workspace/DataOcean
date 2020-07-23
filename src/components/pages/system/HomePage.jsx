@@ -1,16 +1,18 @@
 /* global $, Chart, helper */
 import React, { useEffect } from 'react';
 import {
+  Briefcase,
   Calendar,
   CheckSquare,
   ChevronDown,
   ChevronLeft, ChevronRight,
-  ChevronUp, CreditCard,
+  ChevronUp, CreditCard, Database, File,
   FileText,
   MapPin, Monitor, Plus,
-  RefreshCcw,
+  RefreshCcw, ShoppingCart,
   Trash2, User,
 } from 'react-feather';
+import ReportBox from 'components/pages/dashboard/ReportBox';
 
 const HomePage = () => {
   useEffect(() => {
@@ -19,25 +21,28 @@ const HomePage = () => {
       new Chart(ctx, {
         type: 'line',
         data: {
-          labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+          labels: [
+            'Січень', 'Лютий', 'Березень', 'Квітень', 'Травень', 'Червень',
+            'Липень', 'Серпень', 'Вересень', 'Жовтень', 'Листопад', 'Грудень',
+          ],
           datasets: [
             {
-              label: '# of Votes',
+              label: 'API Запити',
               data: [0, 200, 250, 200, 500, 450, 850, 1050, 950, 1100, 900, 1200],
               borderWidth: 2,
               borderColor: '#3160D8',
               backgroundColor: 'transparent',
               pointBorderColor: 'transparent',
             },
-            {
-              label: '# of Votes',
-              data: [0, 300, 400, 560, 320, 600, 720, 850, 690, 805, 1200, 1010],
-              borderWidth: 2,
-              borderDash: [2, 2],
-              borderColor: '#BCBABA',
-              backgroundColor: 'transparent',
-              pointBorderColor: 'transparent',
-            },
+            // {
+            //   label: '# of Votes',
+            //   data: [0, 300, 400, 560, 320, 600, 720, 850, 690, 805, 1200, 1010],
+            //   borderWidth: 2,
+            //   borderDash: [2, 2],
+            //   borderColor: '#BCBABA',
+            //   backgroundColor: 'transparent',
+            //   pointBorderColor: 'transparent',
+            // },
           ],
         },
         options: {
@@ -58,9 +63,9 @@ const HomePage = () => {
               ticks: {
                 fontSize: '12',
                 fontColor: '#777777',
-                callback(value) {
-                  return `$${value}`;
-                },
+                // callback(value) {
+                //   return `$${value}`;
+                // },
               },
               gridLines: {
                 color: '#D8D8D8',
@@ -80,12 +85,18 @@ const HomePage = () => {
       new Chart(ctx, {
         type: 'pie',
         data: {
-          labels: ['Yellow', 'Dark'],
+          labels: [
+            '52.01', '62.01', '62.01', '62.02', '62.03',
+            '52.02', '62.04', '62.05', '62.05', '62.04',
+          ],
           datasets: [{
-            data: [15, 10, 65],
-            backgroundColor: ['#FF8B26', '#FFC533', '#285FD3'],
+            data: [350, 256, 458, 41, 145, 478, 124, 478],
+            backgroundColor: [
+              '#FF8B26', '#FFC533', '#285FD3', '#003c5c', '#33477a',
+              '#6a4d8d', '#6a4d8d', '#d54e82', '#f85c66', '#ff7c41',
+            ],
             hoverBackgroundColor: ['#FF8B26', '#FFC533', '#285FD3'],
-            borderWidth: 5,
+            borderWidth: 2,
             borderColor: '#fff',
           }],
         },
@@ -102,10 +113,20 @@ const HomePage = () => {
       new Chart(ctx, {
         type: 'doughnut',
         data: {
-          labels: ['Yellow', 'Dark'],
+          labels: [
+            'Дочірнє підприємство', 'Закрите акціонерне товариство',
+            'Інші організаційно-правові форми', 'товариство з обмеженою відповідальністю',
+            'Виробничий кооператив', 'Державна організація (установа, заклад)',
+            'Приватне підприємство', 'Релігійна організація',
+          ],
           datasets: [{
-            data: [15, 10, 65],
-            backgroundColor: ['#FF8B26', '#FFC533', '#285FD3'],
+            data: [
+              120, 101, 321, 86, 84, 230, 150, 96,
+            ],
+            backgroundColor: [
+              '#FF8B26', '#FFC533', '#285FD3', '#285FD3',
+              '#33477a', '#d54e82', '#f85c66', '#003c5c',
+            ],
             hoverBackgroundColor: ['#FF8B26', '#FFC533', '#285FD3'],
             borderWidth: 5,
             borderColor: '#fff',
@@ -115,7 +136,7 @@ const HomePage = () => {
           legend: {
             display: false,
           },
-          cutoutPercentage: 80,
+          cutoutPercentage: 60,
         },
       });
     }
@@ -539,101 +560,53 @@ const HomePage = () => {
 
   return (
     <div>
-      <h2 className="intro-y text-lg font-medium mt-10">
-        Головна
-      </h2>
       <div className="grid grid-cols-12 gap-6">
         <div className="col-span-12 xxl:col-span-9 grid grid-cols-12 gap-6">
           <div className="col-span-12 mt-8">
             <div className="intro-y flex items-center h-10">
               <h2 className="text-lg font-medium truncate mr-5">
-                General Report
+                Загальний звіт
               </h2>
-              <a href="" className="ml-auto flex text-theme-1 dark:text-theme-10">
-                <RefreshCcw className="w-4 h-4 mr-3" />
-                Reload Data
+              <a href="#" className="ml-auto flex text-theme-1 dark:text-theme-10">
+                <RefreshCcw className="w-4 h-4 mr-3" /> Оновити
               </a>
             </div>
             <div className="grid grid-cols-12 gap-6 mt-5">
               <div className="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
-                <div className="report-box zoom-in">
-                  <div className="box p-5">
-                    <div className="flex">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="feather feather-shopping-cart report-box__icon text-theme-10"
-                      >
-                        <circle cx="9" cy="21" r="1" />
-                        <circle cx="20" cy="21" r="1" />
-                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
-                      </svg>
-                      <div className="ml-auto">
-                        <div className="report-box__indicator bg-theme-9 tooltip cursor-pointer tooltipstered">
-                          33% <ChevronUp className="w-4 h-4" />
-                        </div>
-                      </div>
-                    </div>
-                    <div className="text-3xl font-bold leading-8 mt-6">4.510</div>
-                    <div className="text-base text-gray-600 mt-1">Item Sales</div>
-                  </div>
-                </div>
+                <ReportBox
+                  label="Реєстрація підприємств"
+                  value="264"
+                  subText="18%"
+                  subTextDirection="up"
+                  icon={<File className="report-box__icon text-theme-10" />}
+                />
               </div>
               <div className="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
-                <div className="report-box zoom-in">
-                  <div className="box p-5">
-                    <div className="flex">
-                      <CreditCard className="report-box__icon text-theme-11" />
-                      <div className="ml-auto">
-                        <div className="report-box__indicator bg-theme-6 tooltip cursor-pointer tooltipstered">
-                          2% <ChevronDown className="w-4 h-4" />
-                        </div>
-                      </div>
-                    </div>
-                    <div className="text-3xl font-bold leading-8 mt-6">3.521</div>
-                    <div className="text-base text-gray-600 mt-1">New Orders</div>
-                  </div>
-                </div>
+                <ReportBox
+                  label="Нові ФОП"
+                  value="176"
+                  subText="16%"
+                  subTextDirection="up"
+                  icon={<Briefcase className="report-box__icon text-theme-11" />}
+                />
               </div>
               <div className="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
-                <div className="report-box zoom-in">
-                  <div className="box p-5">
-                    <div className="flex">
-                      <Monitor className="report-box__icon text-theme-12" />
-                      <div className="ml-auto">
-                        <div className="report-box__indicator bg-theme-9 tooltip cursor-pointer tooltipstered">
-                          12%
-                          <ChevronUp className="feather feather-chevron-up w-4 h-4" />
-                        </div>
-                      </div>
-                    </div>
-                    <div className="text-3xl font-bold leading-8 mt-6">2.145</div>
-                    <div className="text-base text-gray-600 mt-1">Total Products</div>
-                  </div>
-                </div>
+                <ReportBox
+                  label="Всього наборів даних"
+                  value="5"
+                  subText="+5"
+                  subTextDirection="up"
+                  icon={<Database className="report-box__icon text-theme-12" />}
+                />
               </div>
               <div className="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
-                <div className="report-box zoom-in">
-                  <div className="box p-5">
-                    <div className="flex">
-                      <User className="feather feather-user report-box__icon text-theme-9" />
-                      <div className="ml-auto">
-                        <div className="report-box__indicator bg-theme-9 tooltip cursor-pointer tooltipstered">
-                          22% <ChevronUp className="feather feather-chevron-up w-4 h-4" />
-                        </div>
-                      </div>
-                    </div>
-                    <div className="text-3xl font-bold leading-8 mt-6">152.000</div>
-                    <div className="text-base text-gray-600 mt-1">Unique Visitor</div>
-                  </div>
-                </div>
+                <ReportBox
+                  label="Кількість користувачів"
+                  value="10"
+                  subText="+7"
+                  subTextDirection="up"
+                  icon={<User className="report-box__icon text-theme-9" />}
+                />
               </div>
             </div>
           </div>
@@ -641,7 +614,7 @@ const HomePage = () => {
           <div className="col-span-12 lg:col-span-6 mt-8">
             <div className="intro-y block sm:flex items-center h-10">
               <h2 className="text-lg font-medium truncate mr-5">
-                Sales Report
+                Використання API
               </h2>
               <div className="sm:ml-auto mt-3 sm:mt-0 relative text-gray-700">
                 <Calendar className="w-4 h-4 z-10 absolute my-auto inset-y-0 ml-3 left-0" />
@@ -652,59 +625,17 @@ const HomePage = () => {
               <div className="flex flex-col xl:flex-row xl:items-center">
                 <div className="flex">
                   <div>
-                    <div className="text-theme-20 text-lg xl:text-xl font-bold">$15,000</div>
-                    <div className="text-gray-600">This Month</div>
+                    <div className="text-theme-20 text-lg xl:text-xl font-bold">9 458</div>
+                    <div className="text-gray-600">Цей місяць</div>
                   </div>
                   <div className="w-px h-12 border border-r border-dashed border-gray-300 mx-4 xl:mx-6" />
                   <div>
-                    <div className="text-gray-600 text-lg xl:text-xl font-medium">$10,000</div>
-                    <div className="text-gray-600">Last Month</div>
-                  </div>
-                </div>
-                <div className="dropdown relative xl:ml-auto mt-5 xl:mt-0">
-                  <button
-                    type="button"
-                    className="dropdown-toggle button font-normal border text-white relative flex items-center text-gray-700"
-                  >
-                    Filter by Category <ChevronDown className="w-4 h-4 ml-2" />
-                  </button>
-                  <div className="dropdown-box mt-10 absolute w-40 top-0 xl:right-0 z-20">
-                    <div className="dropdown-box__content box p-2 overflow-y-auto h-32">
-                      <a
-                        href=""
-                        className="flex items-center block p-2 transition duration-300 ease-in-out bg-white hover:bg-gray-200 rounded-md"
-                      >
-                        PC & Laptop
-                      </a>
-                      <a
-                        href=""
-                        className="flex items-center block p-2 transition duration-300 ease-in-out bg-white hover:bg-gray-200 rounded-md"
-                      >
-                        Smartphone
-                      </a>
-                      <a
-                        href=""
-                        className="flex items-center block p-2 transition duration-300 ease-in-out bg-white hover:bg-gray-200 rounded-md"
-                      >
-                        Electronic
-                      </a>
-                      <a
-                        href=""
-                        className="flex items-center block p-2 transition duration-300 ease-in-out bg-white hover:bg-gray-200 rounded-md"
-                      >
-                        Photography
-                      </a>
-                      <a
-                        href=""
-                        className="flex items-center block p-2 transition duration-300 ease-in-out bg-white hover:bg-gray-200 rounded-md"
-                      >
-                        Sport
-                      </a>
-                    </div>
+                    <div className="text-gray-600 text-lg xl:text-xl font-medium">5 423</div>
+                    <div className="text-gray-600">Попередній місяць</div>
                   </div>
                 </div>
               </div>
-              <div className="report-chart">
+              <div> {/* className="report-chart"> */}
                 <canvas id="report-line-chart" height="160" className="mt-6" />
               </div>
             </div>
@@ -714,31 +645,30 @@ const HomePage = () => {
           <div className="col-span-12 sm:col-span-6 lg:col-span-3 mt-8">
             <div className="intro-y flex items-center h-10">
               <h2 className="text-lg font-medium truncate mr-5">
-                Weekly Top Seller
+                ТОП КВЕДів
               </h2>
-              <a href="" className="ml-auto text-theme-1 truncate">See all</a>
+              <a href="#" className="ml-auto text-theme-1 truncate">Всі</a>
             </div>
             <div className="intro-y box p-5 mt-5">
               <canvas className="mt-3" id="report-pie-chart" height="280" />
               <div className="mt-8">
                 <div className="flex items-center">
                   <div className="w-2 h-2 bg-theme-11 rounded-full mr-3" />
-                  <span className="truncate">17 - 30 Years old</span>
+                  <span className="truncate">KVED 1</span>
                   <div className="h-px flex-1 border border-r border-dashed border-gray-300 mx-3 xl:hidden" />
-                  <span className="font-medium xl:ml-auto">62%</span>
+                  <span className="font-medium xl:ml-auto">30%</span>
                 </div>
                 <div className="flex items-center mt-4">
                   <div className="w-2 h-2 bg-theme-1 rounded-full mr-3" />
-                  <span className="truncate">31 - 50 Years old</span>
+                  <span className="truncate">KVED 2</span>
                   <div className="h-px flex-1 border border-r border-dashed border-gray-300 mx-3 xl:hidden" />
-                  <span className="font-medium xl:ml-auto">33%</span>
+                  <span className="font-medium xl:ml-auto">29%</span>
                 </div>
                 <div className="flex items-center mt-4">
                   <div className="w-2 h-2 bg-theme-12 rounded-full mr-3" />
-                  {/* eslint-disable-next-line react/no-unescaped-entities */}
-                  <span className="truncate">>= 50 Years old</span>
+                  <span className="truncate">KVED 3</span>
                   <div className="h-px flex-1 border border-r border-dashed border-gray-300 mx-3 xl:hidden" />
-                  <span className="font-medium xl:ml-auto">10%</span>
+                  <span className="font-medium xl:ml-auto">25%</span>
                 </div>
               </div>
             </div>
@@ -748,31 +678,30 @@ const HomePage = () => {
           <div className="col-span-12 sm:col-span-6 lg:col-span-3 mt-8">
             <div className="intro-y flex items-center h-10">
               <h2 className="text-lg font-medium truncate mr-5">
-                Sales Report
+                Типи компаній
               </h2>
-              <a href="" className="ml-auto text-theme-1 truncate">See all</a>
+              <a href="#" className="ml-auto text-theme-1 truncate">Всі</a>
             </div>
             <div className="intro-y box p-5 mt-5">
               <canvas className="mt-3" id="report-donut-chart" height="280" />
               <div className="mt-8">
                 <div className="flex items-center">
                   <div className="w-2 h-2 bg-theme-11 rounded-full mr-3" />
-                  <span className="truncate">17 - 30 Years old</span>
+                  <span className="truncate">Інші організаційно-правові форми</span>
                   <div className="h-px flex-1 border border-r border-dashed border-gray-300 mx-3 xl:hidden" />
-                  <span className="font-medium xl:ml-auto">62%</span>
+                  <span className="font-medium xl:ml-auto">30%</span>
                 </div>
                 <div className="flex items-center mt-4">
                   <div className="w-2 h-2 bg-theme-1 rounded-full mr-3" />
-                  <span className="truncate">31 - 50 Years old</span>
+                  <span className="truncate">Державна організація (установа, заклад)</span>
                   <div className="h-px flex-1 border border-r border-dashed border-gray-300 mx-3 xl:hidden" />
-                  <span className="font-medium xl:ml-auto">33%</span>
+                  <span className="font-medium xl:ml-auto">26%</span>
                 </div>
                 <div className="flex items-center mt-4">
                   <div className="w-2 h-2 bg-theme-12 rounded-full mr-3" />
-                  {/* eslint-disable-next-line react/no-unescaped-entities */}
-                  <span className="truncate">>= 50 Years old</span>
+                  <span className="truncate">Приватне підприємство</span>
                   <div className="h-px flex-1 border border-r border-dashed border-gray-300 mx-3 xl:hidden" />
-                  <span className="font-medium xl:ml-auto">10%</span>
+                  <span className="font-medium xl:ml-auto">20%</span>
                 </div>
               </div>
             </div>
@@ -866,7 +795,7 @@ const HomePage = () => {
                 </div>
               </div>
               <a
-                href=""
+                href="#"
                 className="intro-y w-full block text-center rounded-md py-4 border border-dotted border-theme-15 text-theme-16"
               >
                 View More
@@ -997,7 +926,7 @@ const HomePage = () => {
                       </div>
                     </td>
                     <td>
-                      <a href="" className="font-medium whitespace-no-wrap">Samsung Galaxy S20 Ultra</a>
+                      <a href="#" className="font-medium whitespace-no-wrap">Samsung Galaxy S20 Ultra</a>
                       <div className="text-gray-600 text-xs whitespace-no-wrap">Smartphone &amp; Tablet</div>
                     </td>
                     <td className="text-center">158</td>
@@ -1008,10 +937,10 @@ const HomePage = () => {
                     </td>
                     <td className="table-report__action w-56">
                       <div className="flex justify-center items-center">
-                        <a className="flex items-center mr-3" href="">
+                        <a className="flex items-center mr-3" href="#">
                           <CheckSquare className="w-4 h-4 mr-1" /> Edit
                         </a>
-                        <a className="flex items-center text-theme-6" href="">
+                        <a className="flex items-center text-theme-6" href="#">
                           <Trash2 className="w-4 h-4 mr-1" /> Delete
                         </a>
                       </div>
@@ -1047,7 +976,7 @@ const HomePage = () => {
                       </div>
                     </td>
                     <td>
-                      <a href="" className="font-medium whitespace-no-wrap">Sony Master Series A9G</a>
+                      <a href="#" className="font-medium whitespace-no-wrap">Sony Master Series A9G</a>
                       <div className="text-gray-600 text-xs whitespace-no-wrap">Electronic</div>
                     </td>
                     <td className="text-center">50</td>
@@ -1058,10 +987,10 @@ const HomePage = () => {
                     </td>
                     <td className="table-report__action w-56">
                       <div className="flex justify-center items-center">
-                        <a className="flex items-center mr-3" href="">
+                        <a className="flex items-center mr-3" href="#">
                           <CheckSquare className="w-4 h-4 mr-1" /> Edit
                         </a>
-                        <a className="flex items-center text-theme-6" href="">
+                        <a className="flex items-center text-theme-6" href="#">
                           <Trash2 className="w-4 h-4 mr-1" /> Delete
                         </a>
                       </div>
@@ -1097,7 +1026,7 @@ const HomePage = () => {
                       </div>
                     </td>
                     <td>
-                      <a href="" className="font-medium whitespace-no-wrap">Sony Master Series A9G</a>
+                      <a href="#" className="font-medium whitespace-no-wrap">Sony Master Series A9G</a>
                       <div className="text-gray-600 text-xs whitespace-no-wrap">Electronic</div>
                     </td>
                     <td className="text-center">99</td>
@@ -1108,10 +1037,10 @@ const HomePage = () => {
                     </td>
                     <td className="table-report__action w-56">
                       <div className="flex justify-center items-center">
-                        <a className="flex items-center mr-3" href="">
+                        <a className="flex items-center mr-3" href="#">
                           <CheckSquare className="w-4 h-4 mr-1" /> Edit
                         </a>
-                        <a className="flex items-center text-theme-6" href="">
+                        <a className="flex items-center text-theme-6" href="#">
                           <Trash2 className="w-4 h-4 mr-1" /> Delete
                         </a>
                       </div>
@@ -1147,7 +1076,7 @@ const HomePage = () => {
                       </div>
                     </td>
                     <td>
-                      <a href="" className="font-medium whitespace-no-wrap">Dell XPS 13</a>
+                      <a href="#" className="font-medium whitespace-no-wrap">Dell XPS 13</a>
                       <div className="text-gray-600 text-xs whitespace-no-wrap">PC &amp; Laptop</div>
                     </td>
                     <td className="text-center">50</td>
@@ -1158,10 +1087,10 @@ const HomePage = () => {
                     </td>
                     <td className="table-report__action w-56">
                       <div className="flex justify-center items-center">
-                        <a className="flex items-center mr-3" href="">
+                        <a className="flex items-center mr-3" href="#">
                           <CheckSquare className="w-4 h-4 mr-1" /> Edit
                         </a>
-                        <a className="flex items-center text-theme-6" href="">
+                        <a className="flex items-center text-theme-6" href="#">
                           <Trash2 className="w-4 h-4 mr-1" /> Delete
                         </a>
                       </div>
@@ -1173,21 +1102,21 @@ const HomePage = () => {
             <div className="intro-y flex flex-wrap sm:flex-row sm:flex-no-wrap items-center mt-3">
               <ul className="pagination">
                 <li>
-                  <a className="pagination__link" href=""> <ChevronLeft className="w-4 h-4" /> </a>
+                  <a className="pagination__link" href="#"> <ChevronLeft className="w-4 h-4" /> </a>
                 </li>
                 <li>
-                  <a className="pagination__link" href=""> <ChevronLeft className="w-4 h-4" /> </a>
+                  <a className="pagination__link" href="#"> <ChevronLeft className="w-4 h-4" /> </a>
                 </li>
-                <li><a className="pagination__link" href="">...</a></li>
-                <li><a className="pagination__link" href="">1</a></li>
-                <li><a className="pagination__link pagination__link--active" href="">2</a></li>
-                <li><a className="pagination__link" href="">3</a></li>
-                <li><a className="pagination__link" href="">...</a></li>
+                <li><a className="pagination__link" href="#">...</a></li>
+                <li><a className="pagination__link" href="#">1</a></li>
+                <li><a className="pagination__link pagination__link--active" href="#">2</a></li>
+                <li><a className="pagination__link" href="#">3</a></li>
+                <li><a className="pagination__link" href="#">...</a></li>
                 <li>
-                  <a className="pagination__link" href=""> <i className="w-4 h-4" data-feather="chevron-right" /> </a>
+                  <a className="pagination__link" href="#"> <i className="w-4 h-4" data-feather="chevron-right" /> </a>
                 </li>
                 <li>
-                  <a className="pagination__link" href=""> <i className="w-4 h-4" data-feather="chevrons-right" /> </a>
+                  <a className="pagination__link" href="#"> <i className="w-4 h-4" data-feather="chevrons-right" /> </a>
                 </li>
               </ul>
               <select className="w-20 input box mt-3 sm:mt-0">
@@ -1271,7 +1200,7 @@ const HomePage = () => {
                   </div>
                 </div>
                 <a
-                  href=""
+                  href="#"
                   className="intro-x w-full block text-center rounded-md py-3 border border-dotted border-theme-15 text-theme-16"
                 >
                   View More
@@ -1285,7 +1214,7 @@ const HomePage = () => {
                 <h2 className="text-lg font-medium truncate mr-5">
                   Recent Activities
                 </h2>
-                <a href="" className="ml-auto text-theme-1 truncate">See all</a>
+                <a href="#" className="ml-auto text-theme-1 truncate">See all</a>
               </div>
               <div className="report-timeline mt-5 relative">
                 <div className="intro-x relative flex items-center mb-3">
@@ -1370,7 +1299,7 @@ const HomePage = () => {
                       <div className="text-xs text-gray-500 ml-auto">07:00 PM</div>
                     </div>
                     <div className="text-gray-600 mt-1">
-                      Has changed <a className="text-theme-1" href="">Apple MacBook Pro 13</a> description
+                      Has changed <a className="text-theme-1" href="#">Apple MacBook Pro 13</a> description
                     </div>
                   </div>
                 </div>
@@ -1470,7 +1399,7 @@ const HomePage = () => {
                 <h2 className="text-lg font-medium truncate mr-5">
                   Schedules
                 </h2>
-                <a href="" className="ml-auto text-theme-1 truncate flex items-center">
+                <a href="#" className="ml-auto text-theme-1 truncate flex items-center">
                   <Plus className="w-4 h-4 mr-1" /> Add New Schedules
                 </a>
               </div>
