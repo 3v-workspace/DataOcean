@@ -1,6 +1,6 @@
 .footer-wrapper {
     background-color: #002895;
-    padding: $spacer * 6;
+    padding: $spacer * 6 0;
     position: relative;
 
     &::before {
@@ -31,19 +31,47 @@
     align-items: center;
     font-size: $font-size-sm;
     color: white;
+    flex-direction: column;
+    align-items: flex-start;
+
+    &__item {
+        & + & {
+            margin-top: $spacer * 2;
+        }
+    }
+    
+    @media (min-width: $md) {
+        flex-direction: row;
+        
+        &__item {
+            & + & {
+                margin-top: 0;
+            }
+        }
+    }
 }
 
 .footer-copyright {
     color: white;
     display: flex;
     justify-content: space-between;
-    align-items: flex-end;
+    align-items: flex-start;
     margin-top: $spacer * 5;
     font-size: $font-size-sm;
-
+    flex-direction: column;
+    
     &__slogan {
     }
     &__copyright {
+        margin-top: $spacer * 2;
+    }
+    
+    @media (min-width: $md) {
+        align-items: flex-end;
+        flex-direction: row;
 
+        &__copyright {
+            margin-top: 0;
+        }
     }
 }
