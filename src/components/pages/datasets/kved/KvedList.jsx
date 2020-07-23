@@ -13,7 +13,7 @@ const columns = [
 ];
 
 
-const KvedList = (props) => (
+const KvedList = () => (
   <PageBox header="Перегляд реєстру" noBox>
     <Table
       columns={columns}

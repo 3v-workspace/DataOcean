@@ -16,7 +16,7 @@ const DatasetDetail = (props) => {
       .then((resp) => {
         setData(resp.data);
       });
-  }, []);
+  }, [id]);
 
   if (!Object.keys(data)) {
     return null;

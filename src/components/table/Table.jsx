@@ -2,20 +2,27 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useTableController } from 'components/table/index';
 import Pagination from 'components/table/Pagination';
-import { Button, SearchBox } from 'components/form-components';
-import { Plus } from 'react-feather';
+import { SearchBox } from 'components/form-components';
+import { ChevronDown, ChevronUp } from 'react-feather';
+
+
+const orderingIcons = {
+  asc: <ChevronDown className="w-4 h-4" />,
+  desc: <ChevronUp className="w-4 h-4" />,
+};
+
 
 const Table = (props) => {
   const { columns, url } = props;
   const [search, setSearch] = useState('');
   const tc = useTableController({ url, params: { search } });
 
-  if (!tc.data.length) {
-    return null;
-  }
-
   const onSearch = (e) => {
     setSearch(e.target.value);
+  };
+
+  const handleHeaderClick = (col) => {
+    tc.setOrdering(col.prop);
   };
 
   return (
@@ -38,11 +45,28 @@ const Table = (props) => {
           <thead>
             <tr>
               {columns.map((col) => (
-                <th key={col.prop} className="border-b-2 whitespace-no-wrap">{col.header}</th>
+                <th
+                  key={col.prop}
+                  className="border-b-2 whitespace-no-wrap cursor-pointer"
+                >
+                  <div className="flex items-center justify-between" onClick={() => handleHeaderClick(col)}>
+                    {col.header}
+                    {tc.orderProp === col.prop && (
+                      orderingIcons[tc.getOrderingDirection()]
+                    )}
+                  </div>
+                </th>
               ))}
             </tr>
           </thead>
           <tbody>
+            {/*{tc.isLoading ? (*/}
+            {/*  <tr>*/}
+            {/*    <td colSpan="100%" align="center">*/}
+            {/*      <LoadingIcon icon="three-dots" className="w-12 h-12" />*/}
+            {/*    </td>*/}
+            {/*  </tr>*/}
+            {/*) : (*/}
             {tc.data.map((row, i) => (
               <tr key={row.id || i}>
                 {columns.map((col) => (
@@ -50,6 +74,7 @@ const Table = (props) => {
                 ))}
               </tr>
             ))}
+            {/*)}*/}
           </tbody>
         </table>
       </div>
