@@ -4,6 +4,7 @@ import { useTableController } from 'components/table/index';
 import Pagination from 'components/table/Pagination';
 import { SearchBox } from 'components/form-components';
 import { ChevronDown, ChevronUp } from 'react-feather';
+import LoadingIcon from 'components/LoadingIcon';
 
 
 const orderingIcons = {
@@ -41,6 +42,11 @@ const Table = (props) => {
         </div>
       </div>
       <div className="overflow-x-auto box">
+        {tc.isLoading && (
+          <div className="w-full h-full bg-gray-700 bg-opacity-25 absolute flex items-center justify-center">
+            <LoadingIcon icon="three-dots" className="w-16 h-16" />
+          </div>
+        )}
         <table className="table">
           <thead>
             <tr>
@@ -60,13 +66,6 @@ const Table = (props) => {
             </tr>
           </thead>
           <tbody>
-            {/*{tc.isLoading ? (*/}
-            {/*  <tr>*/}
-            {/*    <td colSpan="100%" align="center">*/}
-            {/*      <LoadingIcon icon="three-dots" className="w-12 h-12" />*/}
-            {/*    </td>*/}
-            {/*  </tr>*/}
-            {/*) : (*/}
             {tc.data.map((row, i) => (
               <tr key={row.id || i}>
                 {columns.map((col) => (
