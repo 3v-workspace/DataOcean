@@ -1,8 +1,8 @@
 .hero-block {
     position: relative;
     z-index: 1;
-    background-color: rgba(255, 255, 255, 0.9);   
-    padding: $spacer * 10;
+    background-color: rgba(255, 255, 255, 0.8);   
+    padding: $spacer * 10 $spacer * 5 $spacer * 10 $spacer * 10;
     margin-left: $spacer * -10;
     width: auto;
 
@@ -14,7 +14,15 @@
         font-size: $font-size-lg;
     }
 
-    @media (min-width: #{map-get($grid-breakpoints, 'lg')}) {
+    @media (min-width: $md) {
+        padding-right: $spacer * 10;
+
+        &__text {
+            font-size: $font-size-xxl;
+        }
+    }
+
+    @media (min-width: $lg) {
         width: 70%;
     }
 }

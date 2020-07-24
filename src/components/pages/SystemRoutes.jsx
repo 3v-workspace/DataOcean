@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { ReactRouterPropTypes } from 'utils/prop-types';
 import AnalyticsPage from 'components/pages/system/AnalyticsPage';
-import ConstructorPage from 'components/pages/system/ConstructorPage';
 import ContactsPage from 'components/pages/system/ContactsPage';
 import DocumentsPage from 'components/pages/system/DocumentsPage';
 import Route404 from 'components/pages/Route404';
@@ -10,8 +9,8 @@ import HelpPage from 'components/pages/system/HelpPage';
 import DashboardPage from 'components/pages/system/DashboardPage';
 import HomePage from 'components/pages/system/HomePage';
 import ProfilePage from 'components/pages/profile/ProfilePage';
-import DatasetsList from 'components/pages/datasets/DatasetsList';
-import DatasetDetail from 'components/pages/datasets/DatasetDetail';
+import DatasetsRoutes from 'components/pages/datasets/DatasetsRoutes';
+
 
 const SystemRoutes = (props) => {
   const { match } = props;
@@ -30,26 +29,19 @@ const SystemRoutes = (props) => {
         path={`${match.path}home/`}
         component={HomePage}
       />
+      {/*<Route*/}
+      {/*  exact*/}
+      {/*  path={`${match.path}dashboard/`}*/}
+      {/*  component={DashboardPage}*/}
+      {/*/>*/}
+      {/*<Route*/}
+      {/*  exact*/}
+      {/*  path={`${match.path}datasets/:id/`}*/}
+      {/*  component={DatasetDetail}*/}
+      {/*/>*/}
       <Route
-        exact
-        path={`${match.path}dashboard/`}
-        component={DashboardPage}
-      />
-      {/* TODO: make constructor routes */}
-      <Route
-        exact
-        path={`${match.path}constructor/my-data/`}
-        component={ConstructorPage}
-      />
-      <Route
-        exact
-        path={`${match.path}constructor/datasets/:id/`}
-        component={DatasetDetail}
-      />
-      <Route
-        exact
-        path={`${match.path}constructor/datasets/`}
-        component={DatasetsList}
+        path={`${match.path}datasets/`}
+        component={DatasetsRoutes}
       />
       <Route
         exact

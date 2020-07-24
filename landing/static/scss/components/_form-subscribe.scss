@@ -1,0 +1,17 @@
+.form-subscribe {
+    display: flex;
+    flex-direction: column;
+
+    &__action {
+        margin-top: $spacer * 2;
+    }
+
+    @media screen and (min-width: $sm) {
+        flex-direction: row;
+
+        &__action {
+            margin-top: 0;
+            margin-left: $spacer * 2;
+        }
+    }
+}

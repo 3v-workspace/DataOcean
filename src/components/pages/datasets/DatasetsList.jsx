@@ -1,7 +1,5 @@
-import React from 'react';
-import {
-  Eye, FileText, Plus, Printer,
-} from 'react-feather';
+import React, { useState } from 'react';
+import { Eye, Plus } from 'react-feather';
 import { Button, SearchBox } from 'components/form-components';
 import { Pagination, useTableController } from 'components/table';
 import moment from 'moment';
@@ -10,9 +8,16 @@ import { Link } from 'react-router-dom';
 import { ReactRouterPropTypes } from 'utils/prop-types';
 
 const DatasetsList = ({ match }) => {
+  const [search, setSearch] = useState('');
+
   const tc = useTableController({
     url: 'register/',
+    params: { search },
   });
+
+  const onSearch = (e) => {
+    setSearch(e.target.value);
+  };
 
   return (
     <>
@@ -32,13 +37,12 @@ const DatasetsList = ({ match }) => {
                 <Plus className="w-4 h-4" />
               </span>
             </button>
-
           </div>
           <div className="hidden md:block mx-auto text-gray-600">
             Показано від {tc.itemsIndexes.first} до {tc.itemsIndexes.last} із {tc.count} записів
           </div>
           <div className="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">
-            <SearchBox containerClass="w-56 relative text-gray-700" />
+            <SearchBox containerClass="w-56 relative text-gray-700" onSearch={onSearch} />
           </div>
         </div>
         {/*BEGIN: Data List*/}

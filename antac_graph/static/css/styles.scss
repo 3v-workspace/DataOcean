@@ -54,6 +54,9 @@ path.link {
   text-transform: uppercase;
 }
 
+.detail__header2 {
+}
+
 .detail__prop {
   color: #959595;
   font-size: 14px;
@@ -78,17 +81,21 @@ path.link {
 .legend-item {
   display: flex;
   align-items: center;
-}
-.legend-item > img {
-  padding: 6px 6px 6px 6px;
-  margin-right: 6px;
-}
-.legend-item.legend-text {
-  font-size: 14px;
-  color: #333;
+
+  > img {
+    padding: 6px 6px 6px 6px;
+    margin-right: 6px;
+  }
+
+  &.legend-text {
+    font-size: 14px;
+    color: #333;
+  }
 }
 
+
 /* LOADING ANIMATION */
+
 .loading-container {
   height: 600px;
   display: flex;
@@ -113,18 +120,24 @@ path.link {
   position: absolute;
   border: 0 solid #fff;
   border-radius: 50px;
-}
-.l-dot-container:nth-child(2) {
-  transform: rotate(40deg);
-}
-.l-dot-container:nth-child(2) .dot {
-  animation-delay: -0.5s;
-}
-.l-dot-container:nth-child(3) {
-  transform: rotate(80deg);
-}
-.l-dot-container:nth-child(3) .dot {
-  animation-delay: -1s;
+
+  &:nth-child(2) {
+    transform: rotate(40deg);
+
+    .dot {
+      //animation-delay: -0.35s;
+      animation-delay: -0.5s;
+    }
+  }
+
+  &:nth-child(3) {
+    transform: rotate(80deg);
+
+    .dot {
+      //animation-delay: -0.35s;
+      animation-delay: -1s;
+    }
+  }
 }
 
 .l-dot {
@@ -134,21 +147,24 @@ path.link {
   background: #868686;
   border-radius: 5px;
   transform: translate(0, 0);
-}
-.l-dot:nth-child(1) {
-  top: 0;
-  left: calc(50% - 5px);
-  animation: ani1 2s infinite;
-}
-.l-dot:nth-child(2) {
-  bottom: calc(28% - 5px);
-  left: calc(11% - 5px);
-  animation: ani2 2s infinite;
-}
-.l-dot:nth-child(3) {
-  bottom: calc(28% - 5px);
-  right: calc(11% - 5px);
-  animation: ani3 2s infinite;
+
+  &:nth-child(1) {
+    top: 0;
+    left: calc(50% - 5px);
+    animation: ani1 2s infinite;
+  }
+
+  &:nth-child(2) {
+    bottom: calc(28% - 5px);
+    left: calc(11% - 5px);
+    animation: ani2 2s infinite;
+  }
+
+  &:nth-child(3) {
+    bottom: calc(28% - 5px);
+    right: calc(11% - 5px);
+    animation: ani3 2s infinite;
+  }
 }
 
 [hidden] {
@@ -163,6 +179,7 @@ path.link {
     transform: rotate(-359deg);
   }
 }
+
 @keyframes ani1 {
   0% {
     transform: translate(0, 0);
@@ -171,6 +188,7 @@ path.link {
     transform: translate(-40px, 67px);
   }
 }
+
 @keyframes ani2 {
   0% {
     transform: translate(0, 0);
@@ -179,6 +197,7 @@ path.link {
     transform: translate(77px, 0);
   }
 }
+
 @keyframes ani3 {
   0% {
     transform: translate(0, 0);
@@ -187,6 +206,5 @@ path.link {
     transform: translate(-39px, -67px);
   }
 }
-/* END */
 
-/*# sourceMappingURL=styles.css.map */
+/* END */

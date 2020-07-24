@@ -103,7 +103,7 @@ const SignUpForm = () => {
     return (
       <div>
         <h2 className="intro-x font-bold text-2xl xl:text-3xl text-center xl:text-left">
-          Перевірьте пошту
+          Перевірте пошту
         </h2>
         <div className="intro-x mt-2 text-gray-500 text-center">
           На ваш email було надіслано повідомлення з інструкціями для підтвердження реєстрації.
