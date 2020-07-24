@@ -516,8 +516,8 @@ function drawSimulation() {
         html: true,
         content: `<div class="company-name">${d.short_name || d.name}</div>` +
           `<div>${d.company_type || ''}</div>` +
-          `<div>ЄДРПОУ ${d.edrpou || ''}</div>` +
-          `<div>Статус: ${d.status || ''}</div>`,
+          `<div><b>ЄДРПОУ:</b> ${d.edrpou || ''}</div>` +
+          `<div><b>Статус:</b> ${d.status || ''}</div>`,
         template: '<div class="popover" role="tooltip">' +
           // '<div class="arrow"></div>' +
           // '<h3 class="popover-header"></h3>' +
@@ -632,13 +632,14 @@ function drawSimulation() {
         $detail.append([
           d_elem(data.name, 'detail__name'),
           d_elem(data.short_name),
-          d_elem(`Статус ${data.status}`),
-          d_elem(`ЄДРПОУ ${data.edrpou}`),
-          d_elem(`Адреса ${data.address || ''}`),
-          d_elem(data.bylaw),
-          d_elem('Засновники:', 'detail__header2'),
+          d_elem(`<span class="detail__prop-name">Статус:</span> ${data.status}`),
+          d_elem(`<span class="detail__prop-name">ЄДРПОУ:</span> ${data.edrpou}`),
+          d_elem(`<span class="detail__prop-name">Адреса:</span> ${data.address || ''}`),
+          d_elem(`<span class="detail__prop-name">Статутний капітал:</span> ${data.authorized_capital || 'невідомо'}`),
+          // d_elem(data.bylaw),
+          d_elem('Засновники:', 'detail__prop-name'),
           d_elem(`<ul style="padding-left: 20px">${founders.join('')}</ul>`),
-          d_elem('Є засновником:', 'detail__header2'),
+          d_elem('Є засновником:', 'detail__prop-name'),
           d_elem(`<ul style="padding-left: 20px">${founder_of.join('')}</ul>`),
         ]);
       }

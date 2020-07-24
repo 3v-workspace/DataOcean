@@ -54,6 +54,11 @@ path.link {
   text-transform: uppercase;
 }
 
+.detail__prop-name {
+  color: black;
+  font-size: 14px;
+  font-weight: bold;
+}
 .detail__prop {
   color: #959595;
   font-size: 14px;
