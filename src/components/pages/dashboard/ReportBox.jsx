@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { ChevronDown, ChevronUp } from 'react-feather';
+import LoadingIcon from 'components/LoadingIcon';
 
 
 const dirIcons = {
@@ -29,7 +30,7 @@ const ReportBox = (props) => {
           </div>
         </div>
         <div className="text-3xl font-bold leading-8 mt-6">
-          {value}
+          {value === null ? <LoadingIcon icon="tail-spin" /> : value}
         </div>
         <div className="text-base text-gray-600 mt-1">
           {label}
@@ -41,10 +42,14 @@ const ReportBox = (props) => {
 
 ReportBox.propTypes = {
   label: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
+  value: PropTypes.string,
   subText: PropTypes.string.isRequired,
   subTextDirection: PropTypes.oneOf(['up', 'down']).isRequired,
-  icon: PropTypes.elementType.isRequired,
+  icon: PropTypes.node.isRequired,
+};
+
+ReportBox.defaultProps = {
+  value: null,
 };
 
 export default ReportBox;

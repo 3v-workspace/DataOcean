@@ -1,13 +1,29 @@
 /* global $, Chart */
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Briefcase, Calendar, Database, File, RefreshCcw, User,
 } from 'react-feather';
 import ReportBox from 'components/pages/dashboard/ReportBox';
+import Api from 'api';
 
 
 const HomePage = () => {
+  const [registersCount, setRegistersCount] = useState();
+  const [usersCount, setUsersCount] = useState();
+
+
+  const fetchData = () => {
+    Api.get('register/')
+      .then((resp) => {
+        setRegistersCount(resp.data.count);
+      });
+    Api.get('users/')
+      .then((resp) => {
+        setUsersCount(resp.data.count);
+      });
+  };
+
   useEffect(() => {
     if ($('#report-line-chart').length) {
       const ctx = $('#report-line-chart')[0].getContext('2d');
@@ -135,6 +151,7 @@ const HomePage = () => {
     }
 
     // initAllCharts();
+    fetchData();
   }, []);
 
   return (
@@ -172,7 +189,7 @@ const HomePage = () => {
               <div className="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
                 <ReportBox
                   label="Всього наборів даних"
-                  value="5"
+                  value={registersCount}
                   subText="+5"
                   subTextDirection="up"
                   icon={<Database className="report-box__icon text-theme-12" />}
@@ -181,7 +198,7 @@ const HomePage = () => {
               <div className="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
                 <ReportBox
                   label="Кількість користувачів"
-                  value="10"
+                  value={usersCount}
                   subText="+7"
                   subTextDirection="up"
                   icon={<User className="report-box__icon text-theme-9" />}
