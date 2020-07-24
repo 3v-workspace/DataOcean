@@ -26,9 +26,9 @@ const TopBar = () => {
   return (
     <div className="top-bar">
       <div className="-intro-x breadcrumb mr-auto hidden sm:flex">
-        <a href="#?" className="">System</a>
+        <a href="#?" className="">Система</a>
         <ChevronRight className="breadcrumb__icon" />
-        <a href="#?" className="breadcrumb--active">Dashboard</a>
+        <a href="#?" className="breadcrumb--active">Панель інструментів</a>
       </div>
 
       {/* SEARCH */}
