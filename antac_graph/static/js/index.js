@@ -376,7 +376,7 @@ function drawSimulation() {
 // const root = d3.hierarchy(data, );
 // let [nodes, links] = parseNodesLinks(data);
 
-  function update(d = {id: null}) {
+  function update(d = { id: null }) {
     // const nodes = flatten(root);
     // const links = root.links();
     // debugger
@@ -404,8 +404,8 @@ function drawSimulation() {
       .style('stroke-width', (d_link) => {
         return d_link.source === d.id ? 2 : 1;
       });
-      // .on('mouseenter', lineHover)
-      // .on('mouseleave', lineBlur);
+    // .on('mouseenter', lineHover)
+    // .on('mouseleave', lineBlur);
 
     addTransition(linkEnter, 1000);
 
@@ -426,6 +426,8 @@ function drawSimulation() {
       .style('fill', nodeDefaultColor)
       .on('mouseenter', nodeHover)
       .on('mouseleave', nodeBlur)
+      .on('click', nodeClick)
+      .on('contextmenu', nodeRightClick)
       .call(d3.drag()
         .on('start', dragstarted)
         .on('drag', dragged)
@@ -439,8 +441,8 @@ function drawSimulation() {
       .style('cursor', 'pointer')
       // .style('stroke', )
       .style('stroke-width', 2)
-      .style('fill', '#fff')
-      .on('click', nodeClick);
+      .style('fill', '#fff');
+    // .on('click', nodeClick);
 
     nodeEnter.append('rect')
       .attr('hidden', hideCount)
@@ -453,8 +455,8 @@ function drawSimulation() {
       .attr('class', 'child-count')
       .style('stroke-width', 0)
       // .style('fill', '#3FA2F7')
-      .style('cursor', 'pointer')
-      .on('click', nodeClick);
+      .style('cursor', 'pointer');
+    // .on('click', nodeClick);
 
     // nodeEnter.append('image')
     //   .attr('xlink:href', 'static/icons/build1.svg')
@@ -465,7 +467,7 @@ function drawSimulation() {
       .attr('x', (d) => d._root ? -22 : -16)
       .attr('y', (d) => d._root ? -24 : -18)
       .style('cursor', 'pointer')
-      .on('click', nodeClick)
+      // .on('click', nodeClick)
       .append('g')
       // .attr('width', (d) => d._root ? 40 : 32)
       // .attr('heigth', (d) => d._root ? 40 : 32)
@@ -498,11 +500,11 @@ function drawSimulation() {
       .style('fill', '#fff')
       .style('text-anchor', 'middle')
       .style('font-size', 10)
-      .style('cursor', 'pointer')
-      .on('click', nodeClick);
+      .style('cursor', 'pointer');
+    // .on('click', nodeClick);
 
-    svg.selectAll('.child-count')
-      .style('display', (d) => d.children && d.children.length ? "none" : undefined);
+    // svg.selectAll('.child-count')
+    //   .style('display', (d) => d.children && d.children.length ? "none" : undefined);
 
     node = nodeEnter.merge(node);
     simulation.nodes(nodes);
@@ -579,6 +581,10 @@ function drawSimulation() {
   }
 
   function nodeClick(d) {
+    if (d3.event.defaultPrevented) {
+      return;
+    }
+
     svg.selectAll('.node')
       .style('stroke', nodeDefaultColor)
       .style('fill', nodeDefaultColor);
@@ -653,6 +659,32 @@ function drawSimulation() {
     // });
   }
 
+  function nodeRightClick(d) {
+    d3.event.preventDefault();
+    if (d._root) return;
+
+    function removeChildNodes(d_node) {
+      const children = [];
+      links = links.filter((link) => d_node.id !== link._parent);
+      nodes = nodes.filter((node) => {
+        if (d_node.id === node._parent) {
+          children.push(node);
+          return false;
+        }
+        return true;
+      });
+      children.forEach((node) => removeChildNodes(node))
+    }
+
+    removeChildNodes(d)
+
+    d._opened = false;
+    svg.selectAll('.child-count')
+      .attr('hidden', hideCount);
+
+    update(d);
+  }
+
   function nodeDefaultColor(d) {
     return d._root ? colors.root : colors.secondary;
   }
@@ -709,11 +741,13 @@ function drawSimulation() {
       if (isNew) {
         newNode.x = d.x;
         newNode.y = d.y;
+        newNode._parent = d.id;
       }
       links.push({
         source: d.id,
         target: newNode.id,
-        id: `${d.id}-${newNode.id}`
+        id: `${d.id}-${newNode.id}`,
+        _parent: d.id,
       });
 
       let node = nodes.find((item) => item.id === d.id);
