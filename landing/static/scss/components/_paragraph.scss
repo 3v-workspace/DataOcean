@@ -4,4 +4,11 @@
     &_large {
         font-size: $font-size-lg;
     }
+
+    @media screen and (min-width: $md) {
+        
+        &_large {
+            font-size: $font-size-xxl;
+        }
+    }
 }

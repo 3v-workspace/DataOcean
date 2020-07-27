@@ -10,6 +10,7 @@ import { useDispatch } from 'react-redux';
 import { userLogin } from 'store/user/actionCreators';
 import GoogleButton from 'components/pages/auth/GoogleButton';
 import Api from 'api';
+import terms from './Публічна оферта.pdf';
 
 // TODO: finish LoginForm
 const SignInForm = () => {
@@ -106,7 +107,7 @@ const SignInForm = () => {
         <br />
         <a
           className="text-theme-1"
-          href="#?"
+          href={terms}
         >
           Правилами та умовами
         </a>

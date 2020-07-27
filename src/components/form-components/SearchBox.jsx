@@ -18,7 +18,7 @@ const SearchBox = (props) => {
   if (isRounded) {
     classList.push('rounded-full');
   }
-  classList.push('input pr-10 placeholder-theme-13');
+  classList.push('input pr-8 placeholder-theme-13');
 
   const endId = id || `id_${name}`;
 

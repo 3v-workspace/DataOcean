@@ -5,8 +5,13 @@
     text-align: center;
 
     &__item {
+        &_img {
+            width: 120px;
+            height: 120px;
+        }
+
         & + & {
-            margin-top: $spacer * 2;
+            margin-top: $spacer * 3;
         }
     }
 }

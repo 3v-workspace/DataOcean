@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { NavLink, useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { NavContext } from 'components/nav/Nav';
 import { DropdownContext } from 'components/nav/NavDropdown';
 import { ChevronRight } from 'react-feather';
@@ -34,19 +34,22 @@ const NavItem = (props) => {
     }
   }, [pathname]);
 
+  const linkClass = [menuClass];
+  if (pathname.startsWith(link)) {
+    linkClass.push(`${menuClass}--active`);
+  }
+
   return (
     <li onClick={handleClick}>
-      <NavLink
-        exact
+      <Link
         to={link}
-        className={menuClass}
-        activeClassName={`${menuClass}--active`}
+        className={linkClass.join(' ')}
       >
         <div className={`${menuClass}__icon`}>
           <Icon />
         </div>
         <div className={`${menuClass}__title`}> {children}</div>
-      </NavLink>
+      </Link>
     </li>
   );
 };
