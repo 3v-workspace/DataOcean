@@ -7,11 +7,53 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { userLogout } from 'store/user/actionCreators';
 import TopBarSearch from 'components/nav/TopBarSearch';
+import { ReactRouterPropTypes } from 'utils/prop-types';
+
 
 // TODO: finish this
-const TopBar = () => {
+const TopBar = (props) => {
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
+
+  const { breadcrumbs } = props;
+
+  const patharray = breadcrumbs.split('/');
+  const clearpatharray = [];
+
+  const pathname = [];
+  const paths = [];
+
+  function getPath() {
+    for (let i = 0; i < breadcrumbs.length; i += 1) {
+      if (breadcrumbs[i] === '/') {
+        if (i !== 0) {
+          paths.push(breadcrumbs.slice(0, i));
+        }
+      }
+    }
+  }
+
+  function delTab() {
+    for (let i = 0; i <= patharray.length - 1; i += 1) {
+      if (patharray[i] !== '') {
+        clearpatharray.push(patharray[i]);
+      }
+    }
+  }
+
+  function getPathCount() {
+    for (let i = 0; i < clearpatharray.length - 1; i += 1) {
+      if (clearpatharray[i] !== '') {
+        pathname.push(<Link to={`${paths[i]}/`} className="">{clearpatharray[i]}</Link>);
+        pathname.push(<ChevronRight className="breadcrumb__icon" />);
+      }
+    }
+    pathname.push(<Link to={`${paths[paths.length - 1]}/`} className="breadcrumb--active">{clearpatharray[clearpatharray.length - 1]}</Link>);
+  }
+
+  getPath();
+  delTab();
+  getPathCount();
 
   const userDropdownRef = useRef();
 
@@ -26,9 +68,7 @@ const TopBar = () => {
   return (
     <div className="top-bar">
       <div className="-intro-x breadcrumb mr-auto hidden sm:flex">
-        <a href="#?" className="">Система</a>
-        <ChevronRight className="breadcrumb__icon" />
-        <a href="#?" className="breadcrumb--active">Панель інструментів</a>
+        {pathname}
       </div>
 
       {/* SEARCH */}
@@ -93,6 +133,8 @@ const TopBar = () => {
   );
 };
 
-TopBar.propTypes = {};
+TopBar.propTypes = {
+  breadcrumbs: ReactRouterPropTypes.match.isRequired,
+};
 
 export default TopBar;

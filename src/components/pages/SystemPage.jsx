@@ -58,7 +58,7 @@ const SystemPage = (props) => {
           {menu}
         </Nav>
         <div className="content">
-          <TopBar />
+          <TopBar breadcrumbs={location.pathname} />
           <SystemRoutes {...props} />
         </div>
       </div>
