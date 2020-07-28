@@ -23,31 +23,29 @@ const TopBar = () => {
   const breadcrumbList = [];
   const paths = [];
 
-  (function () {
-    for (let i = 0; i < breadcrumbsPath.length; i += 1) {
-      if (breadcrumbsPath[i] === '/') {
-        if (i !== 0) {
-          paths.push(breadcrumbsPath.slice(0, i));
-        }
+  for (let i = 0; i < breadcrumbsPath.length; i += 1) {
+    if (breadcrumbsPath[i] === '/') {
+      if (i !== 0) {
+        paths.push(breadcrumbsPath.slice(0, i));
       }
     }
+  }
 
-    for (let i = 0; i < patharray.length - 1; i += 1) {
-      if (patharray[i] !== '') {
-        if (breadcrumbsName[paths[i]] === undefined) {
-          breadcrumbList.push(<Link to={`${paths[i]}/`} className="">{patharray[i]}</Link>);
-        } else {
-          breadcrumbList.push(<Link to={`${paths[i]}/`} className="">{breadcrumbsName[paths[i]]}</Link>);
-        }
-        breadcrumbList.push(<ChevronRight className="breadcrumb__icon" />);
+  for (let i = 0; i < patharray.length - 1; i += 1) {
+    if (patharray[i] !== '') {
+      if (breadcrumbsName[paths[i]] === undefined) {
+        breadcrumbList.push(<Link to={`${paths[i]}/`} className="">{patharray[i]}</Link>);
+      } else {
+        breadcrumbList.push(<Link to={`${paths[i]}/`} className="">{breadcrumbsName[paths[i]]}</Link>);
       }
+      breadcrumbList.push(<ChevronRight className="breadcrumb__icon" />);
     }
-    if (breadcrumbsName[paths[paths.length - 1]] === undefined) {
-      breadcrumbList.push(<Link to={`${paths[paths.length - 1]}/`} className="breadcrumb--active">{patharray[patharray.length - 1]}</Link>);
-    } else {
-      breadcrumbList.push(<Link to={`${paths[paths.length - 1]}/`} className="breadcrumb--active">{breadcrumbsName[paths[paths.length - 1]]}</Link>);
-    }
-  }());
+  }
+  if (breadcrumbsName[paths[paths.length - 1]] === undefined) {
+    breadcrumbList.push(<Link to={`${paths[paths.length - 1]}/`} className="breadcrumb--active">{patharray[patharray.length - 1]}</Link>);
+  } else {
+    breadcrumbList.push(<Link to={`${paths[paths.length - 1]}/`} className="breadcrumb--active">{breadcrumbsName[paths[paths.length - 1]]}</Link>);
+  }
 
   const userDropdownRef = useRef();
 
