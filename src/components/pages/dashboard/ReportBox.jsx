@@ -42,7 +42,7 @@ const ReportBox = (props) => {
 
 ReportBox.propTypes = {
   label: PropTypes.string.isRequired,
-  value: PropTypes.string,
+  value: PropTypes.node,
   subText: PropTypes.string.isRequired,
   subTextDirection: PropTypes.oneOf(['up', 'down']).isRequired,
   icon: PropTypes.node.isRequired,

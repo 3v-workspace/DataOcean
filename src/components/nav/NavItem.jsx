@@ -23,7 +23,7 @@ const NavItem = (props) => {
     // if (ddContext) {
     //   ddContext.setOpen(false);
     // }
-    //
+
     if (isMobile && isOpen) {
       toggleMobile();
     }

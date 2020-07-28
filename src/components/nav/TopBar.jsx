@@ -7,7 +7,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { userLogout } from 'store/user/actionCreators';
 import TopBarSearch from 'components/nav/TopBarSearch';
-import breadcrumbsName from 'const/breadcrumbsname';
+import breadcrumbsNames from 'const/breadcrumbsNames';
 
 
 // TODO: finish this
@@ -15,37 +15,26 @@ const TopBar = () => {
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
 
-  const { pathname: breadcrumbsPath } = useLocation();
+  const { pathname } = useLocation();
 
-  let patharray = breadcrumbsPath.split('/');
-  patharray = patharray.filter((path) => path !== '');
-
-  const breadcrumbList = [];
-  const paths = [];
-
-  for (let i = 0; i < breadcrumbsPath.length; i += 1) {
-    if (breadcrumbsPath[i] === '/') {
-      if (i !== 0) {
-        paths.push(breadcrumbsPath.slice(0, i));
-      }
-    }
-  }
-
-  for (let i = 0; i < patharray.length - 1; i += 1) {
-    if (patharray[i] !== '') {
-      if (breadcrumbsName[paths[i]] === undefined) {
-        breadcrumbList.push(<Link to={`${paths[i]}/`} className="">{patharray[i]}</Link>);
-      } else {
-        breadcrumbList.push(<Link to={`${paths[i]}/`} className="">{breadcrumbsName[paths[i]]}</Link>);
-      }
-      breadcrumbList.push(<ChevronRight className="breadcrumb__icon" />);
-    }
-  }
-  if (breadcrumbsName[paths[paths.length - 1]] === undefined) {
-    breadcrumbList.push(<Link to={`${paths[paths.length - 1]}/`} className="breadcrumb--active">{patharray[patharray.length - 1]}</Link>);
-  } else {
-    breadcrumbList.push(<Link to={`${paths[paths.length - 1]}/`} className="breadcrumb--active">{breadcrumbsName[paths[paths.length - 1]]}</Link>);
-  }
+  const breadcrumbsNodes = pathname.split('/')
+    .filter((path) => !!path)
+    .map((name, i, array) => {
+      const path = `/${array.slice(0, i + 1).join('/')}/`;
+      return (
+        <Link
+          key={path}
+          to={path}
+          className={i === array.length - 1 ? 'breadcrumb--active' : undefined}
+        >
+          {breadcrumbsNames[name] || name}
+        </Link>
+      );
+    })
+    .reduce((r, el) => r.concat(
+      <ChevronRight key={`${el.props.to}-sep`} className="breadcrumb__icon" />, el,
+    ), [])
+    .slice(1);
 
   const userDropdownRef = useRef();
 
@@ -60,7 +49,7 @@ const TopBar = () => {
   return (
     <div className="top-bar">
       <div className="-intro-x breadcrumb mr-auto hidden sm:flex">
-        {breadcrumbList}
+        {breadcrumbsNodes}
       </div>
 
       {/* SEARCH */}
