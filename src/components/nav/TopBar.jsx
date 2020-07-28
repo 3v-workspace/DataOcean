@@ -16,53 +16,39 @@ const TopBar = (props) => {
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
 
-  const { breadcrumbs } = props;
+  const { breadcrumbsPath } = props;
 
-  const patharray = breadcrumbs.split('/');
-  const clearpatharray = [];
+  let patharray = breadcrumbsPath.split('/');
+  patharray = patharray.filter((path) => path !== '');
 
-  const pathname = [];
+  const breadcrumbList = [];
   const paths = [];
 
-  function getPath() {
-    for (let i = 0; i < breadcrumbs.length; i += 1) {
-      if (breadcrumbs[i] === '/') {
+  (function () {
+    for (let i = 0; i < breadcrumbsPath.length; i += 1) {
+      if (breadcrumbsPath[i] === '/') {
         if (i !== 0) {
-          paths.push(breadcrumbs.slice(0, i));
+          paths.push(breadcrumbsPath.slice(0, i));
         }
       }
     }
-  }
 
-  function delTab() {
-    for (let i = 0; i <= patharray.length - 1; i += 1) {
+    for (let i = 0; i < patharray.length - 1; i += 1) {
       if (patharray[i] !== '') {
-        clearpatharray.push(patharray[i]);
-      }
-    }
-  }
-
-  function getPathCount() {
-    for (let i = 0; i < clearpatharray.length - 1; i += 1) {
-      if (clearpatharray[i] !== '') {
         if (breadcrumbsname[paths[i]] === undefined) {
-          pathname.push(<Link to={`${paths[i]}/`} className="">{clearpatharray[i]}</Link>);
+          breadcrumbList.push(<Link to={`${paths[i]}/`} className="">{patharray[i]}</Link>);
         } else {
-          pathname.push(<Link to={`${paths[i]}/`} className="">{breadcrumbsname[paths[i]]}</Link>);
+          breadcrumbList.push(<Link to={`${paths[i]}/`} className="">{breadcrumbsname[paths[i]]}</Link>);
         }
-        pathname.push(<ChevronRight className="breadcrumb__icon" />);
+        breadcrumbList.push(<ChevronRight className="breadcrumb__icon" />);
       }
     }
     if (breadcrumbsname[paths[paths.length - 1]] === undefined) {
-      pathname.push(<Link to={`${paths[paths.length - 1]}/`} className="breadcrumb--active">{clearpatharray[clearpatharray.length - 1]}</Link>);
+      breadcrumbList.push(<Link to={`${paths[paths.length - 1]}/`} className="breadcrumb--active">{patharray[patharray.length - 1]}</Link>);
     } else {
-      pathname.push(<Link to={`${paths[paths.length - 1]}/`} className="breadcrumb--active">{breadcrumbsname[paths[paths.length - 1]]}</Link>);
+      breadcrumbList.push(<Link to={`${paths[paths.length - 1]}/`} className="breadcrumb--active">{breadcrumbsname[paths[paths.length - 1]]}</Link>);
     }
-  }
-
-  getPath();
-  delTab();
-  getPathCount();
+  }());
 
   const userDropdownRef = useRef();
 
@@ -77,7 +63,7 @@ const TopBar = (props) => {
   return (
     <div className="top-bar">
       <div className="-intro-x breadcrumb mr-auto hidden sm:flex">
-        {pathname}
+        {breadcrumbList}
       </div>
 
       {/* SEARCH */}
@@ -143,7 +129,7 @@ const TopBar = (props) => {
 };
 
 TopBar.propTypes = {
-  breadcrumbs: ReactRouterPropTypes.match.isRequired,
+  breadcrumbsPath: ReactRouterPropTypes.match.isRequired,
 };
 
 export default TopBar;
