@@ -1,4 +1,4 @@
-const breadcrumbsname = {
+const breadcrumbsName = {
   '/system': 'Система',
   '/system/home': 'Домівка',
   '/system/datasets': 'Набори даних',
@@ -8,4 +8,4 @@ const breadcrumbsname = {
   '/system/help': 'Допомога',
 };
 
-export default breadcrumbsname;
+export default breadcrumbsName;

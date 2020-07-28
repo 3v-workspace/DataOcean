@@ -3,20 +3,19 @@ import React, { useRef } from 'react';
 import {
   ChevronRight, User, Settings, HelpCircle, ToggleRight,
 } from 'react-feather';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { userLogout } from 'store/user/actionCreators';
 import TopBarSearch from 'components/nav/TopBarSearch';
-import { ReactRouterPropTypes } from 'utils/prop-types';
-import breadcrumbsname from 'const/breadcrumbsname';
+import breadcrumbsName from 'const/breadcrumbsname';
 
 
 // TODO: finish this
-const TopBar = (props) => {
+const TopBar = () => {
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
 
-  const { breadcrumbsPath } = props;
+  const { pathname: breadcrumbsPath } = useLocation();
 
   let patharray = breadcrumbsPath.split('/');
   patharray = patharray.filter((path) => path !== '');
@@ -35,18 +34,18 @@ const TopBar = (props) => {
 
     for (let i = 0; i < patharray.length - 1; i += 1) {
       if (patharray[i] !== '') {
-        if (breadcrumbsname[paths[i]] === undefined) {
+        if (breadcrumbsName[paths[i]] === undefined) {
           breadcrumbList.push(<Link to={`${paths[i]}/`} className="">{patharray[i]}</Link>);
         } else {
-          breadcrumbList.push(<Link to={`${paths[i]}/`} className="">{breadcrumbsname[paths[i]]}</Link>);
+          breadcrumbList.push(<Link to={`${paths[i]}/`} className="">{breadcrumbsName[paths[i]]}</Link>);
         }
         breadcrumbList.push(<ChevronRight className="breadcrumb__icon" />);
       }
     }
-    if (breadcrumbsname[paths[paths.length - 1]] === undefined) {
+    if (breadcrumbsName[paths[paths.length - 1]] === undefined) {
       breadcrumbList.push(<Link to={`${paths[paths.length - 1]}/`} className="breadcrumb--active">{patharray[patharray.length - 1]}</Link>);
     } else {
-      breadcrumbList.push(<Link to={`${paths[paths.length - 1]}/`} className="breadcrumb--active">{breadcrumbsname[paths[paths.length - 1]]}</Link>);
+      breadcrumbList.push(<Link to={`${paths[paths.length - 1]}/`} className="breadcrumb--active">{breadcrumbsName[paths[paths.length - 1]]}</Link>);
     }
   }());
 
@@ -126,10 +125,6 @@ const TopBar = (props) => {
       </div>
     </div>
   );
-};
-
-TopBar.propTypes = {
-  breadcrumbsPath: ReactRouterPropTypes.match.isRequired,
 };
 
 export default TopBar;
