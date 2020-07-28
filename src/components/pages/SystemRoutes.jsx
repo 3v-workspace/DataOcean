@@ -6,7 +6,6 @@ import ContactsPage from 'components/pages/system/ContactsPage';
 import DocumentsPage from 'components/pages/system/DocumentsPage';
 import Route404 from 'components/pages/Route404';
 import HelpPage from 'components/pages/system/HelpPage';
-import DashboardPage from 'components/pages/system/DashboardPage';
 import HomePage from 'components/pages/system/HomePage';
 import ProfilePage from 'components/pages/profile/ProfilePage';
 import DatasetsRoutes from 'components/pages/datasets/DatasetsRoutes';

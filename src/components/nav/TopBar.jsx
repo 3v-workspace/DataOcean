@@ -3,15 +3,49 @@ import React, { useRef } from 'react';
 import {
   ChevronRight, User, Settings, HelpCircle, ToggleRight,
 } from 'react-feather';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { userLogout } from 'store/user/actionCreators';
 import TopBarSearch from 'components/nav/TopBarSearch';
+import breadcrumbsName from 'const/breadcrumbsname';
+
 
 // TODO: finish this
 const TopBar = () => {
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
+
+  const { pathname: breadcrumbsPath } = useLocation();
+
+  let patharray = breadcrumbsPath.split('/');
+  patharray = patharray.filter((path) => path !== '');
+
+  const breadcrumbList = [];
+  const paths = [];
+
+  for (let i = 0; i < breadcrumbsPath.length; i += 1) {
+    if (breadcrumbsPath[i] === '/') {
+      if (i !== 0) {
+        paths.push(breadcrumbsPath.slice(0, i));
+      }
+    }
+  }
+
+  for (let i = 0; i < patharray.length - 1; i += 1) {
+    if (patharray[i] !== '') {
+      if (breadcrumbsName[paths[i]] === undefined) {
+        breadcrumbList.push(<Link to={`${paths[i]}/`} className="">{patharray[i]}</Link>);
+      } else {
+        breadcrumbList.push(<Link to={`${paths[i]}/`} className="">{breadcrumbsName[paths[i]]}</Link>);
+      }
+      breadcrumbList.push(<ChevronRight className="breadcrumb__icon" />);
+    }
+  }
+  if (breadcrumbsName[paths[paths.length - 1]] === undefined) {
+    breadcrumbList.push(<Link to={`${paths[paths.length - 1]}/`} className="breadcrumb--active">{patharray[patharray.length - 1]}</Link>);
+  } else {
+    breadcrumbList.push(<Link to={`${paths[paths.length - 1]}/`} className="breadcrumb--active">{breadcrumbsName[paths[paths.length - 1]]}</Link>);
+  }
 
   const userDropdownRef = useRef();
 
@@ -26,9 +60,7 @@ const TopBar = () => {
   return (
     <div className="top-bar">
       <div className="-intro-x breadcrumb mr-auto hidden sm:flex">
-        <a href="#?" className="">Система</a>
-        <ChevronRight className="breadcrumb__icon" />
-        <a href="#?" className="breadcrumb--active">Панель інструментів</a>
+        {breadcrumbList}
       </div>
 
       {/* SEARCH */}
@@ -92,7 +124,5 @@ const TopBar = () => {
     </div>
   );
 };
-
-TopBar.propTypes = {};
 
 export default TopBar;
