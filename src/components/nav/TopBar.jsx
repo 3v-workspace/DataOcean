@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { userLogout } from 'store/user/actionCreators';
 import TopBarSearch from 'components/nav/TopBarSearch';
 import { ReactRouterPropTypes } from 'utils/prop-types';
+import breadcrumbsname from 'const/breadcrumbsname';
 
 
 // TODO: finish this
@@ -44,11 +45,19 @@ const TopBar = (props) => {
   function getPathCount() {
     for (let i = 0; i < clearpatharray.length - 1; i += 1) {
       if (clearpatharray[i] !== '') {
-        pathname.push(<Link to={`${paths[i]}/`} className="">{clearpatharray[i]}</Link>);
+        if (breadcrumbsname[paths[i]] === undefined) {
+          pathname.push(<Link to={`${paths[i]}/`} className="">{clearpatharray[i]}</Link>);
+        } else {
+          pathname.push(<Link to={`${paths[i]}/`} className="">{breadcrumbsname[paths[i]]}</Link>);
+        }
         pathname.push(<ChevronRight className="breadcrumb__icon" />);
       }
     }
-    pathname.push(<Link to={`${paths[paths.length - 1]}/`} className="breadcrumb--active">{clearpatharray[clearpatharray.length - 1]}</Link>);
+    if (breadcrumbsname[paths[paths.length - 1]] === undefined) {
+      pathname.push(<Link to={`${paths[paths.length - 1]}/`} className="breadcrumb--active">{clearpatharray[clearpatharray.length - 1]}</Link>);
+    } else {
+      pathname.push(<Link to={`${paths[paths.length - 1]}/`} className="breadcrumb--active">{breadcrumbsname[paths[paths.length - 1]]}</Link>);
+    }
   }
 
   getPath();
