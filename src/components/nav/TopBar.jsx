@@ -31,7 +31,6 @@ const TopBar = () => {
         </Link>
       );
     })
-    // eslint-disable-next-line react/no-array-index-key
     .reduce((r, el) => r.concat(
       <ChevronRight key={`${el.props.to}-sep`} className="breadcrumb__icon" />, el,
     ), [])
