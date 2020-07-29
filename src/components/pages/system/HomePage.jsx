@@ -7,12 +7,15 @@ import {
 import ReportBox from 'components/pages/dashboard/ReportBox';
 import Api from 'api';
 import moment from 'moment';
+import PieChartLegendItem from 'components/pages/dashboard/PieChartLegendItem';
+import PieChartLegend from 'components/pages/dashboard/PieChartLegend';
 
 
 const HomePage = () => {
   const [registersCount, setRegistersCount] = useState();
   const [usersCount, setUsersCount] = useState();
   const [apiUsageData, setApiUsageData] = useState({});
+  const [topKvedData, setTopKvedData] = useState([]);
 
   const initApiUsageChart = () => {
     const labels = apiUsageData.days.map((el) => moment(el.timestamp).format('DD.MM'));
@@ -70,24 +73,18 @@ const HomePage = () => {
     }
   };
 
-  useEffect(() => {
-    if (Object.keys(apiUsageData).length) {
-      initApiUsageChart();
-    }
-  }, [apiUsageData]);
+  const initTopKvedPie = () => {
+    const labels = topKvedData.map((el) => el.kved.code);
+    const data = topKvedData.map((el) => el.count_kved);
 
-  const initCharts = () => {
     if ($('#report-pie-chart').length) {
       const ctx = $('#report-pie-chart')[0].getContext('2d');
       new Chart(ctx, {
         type: 'pie',
         data: {
-          labels: [
-            '52.01', '62.01', '62.01', '62.02', '62.03',
-            '52.02', '62.04', '62.05', '62.05', '62.04',
-          ],
+          labels,
           datasets: [{
-            data: [350, 256, 458, 41, 145, 478, 124, 478],
+            data,
             backgroundColor: [
               '#FF8B26', '#FFC533', '#285FD3', '#003c5c', '#33477a',
               '#6a4d8d', '#6a4d8d', '#d54e82', '#f85c66', '#ff7c41',
@@ -104,7 +101,21 @@ const HomePage = () => {
         },
       });
     }
+  };
 
+  useEffect(() => {
+    if (topKvedData.length) {
+      initTopKvedPie();
+    }
+  }, [topKvedData]);
+
+  useEffect(() => {
+    if (Object.keys(apiUsageData).length) {
+      initApiUsageChart();
+    }
+  }, [apiUsageData]);
+
+  const initCharts = () => {
     if ($('#report-donut-chart').length) {
       const ctx = $('#report-donut-chart')[0].getContext('2d');
       new Chart(ctx, {
@@ -152,12 +163,15 @@ const HomePage = () => {
       .then((resp) => {
         setApiUsageData(resp.data);
       });
-
-    initCharts();
+    Api.get('stats/top-kved/')
+      .then((resp) => {
+        setTopKvedData(resp.data.filter((el) => el.kved.code !== 'not_valid'));
+      });
   };
 
   useEffect(() => {
     fetchData();
+    initCharts();
   }, []);
 
   return (
@@ -257,30 +271,14 @@ const HomePage = () => {
             </div>
             <div className="intro-y box p-5 mt-5">
               <canvas className="mt-3" id="report-pie-chart" height="280" />
-              <div className="mt-8">
-                <div className="flex items-center">
-                  <div className="w-2 h-2 bg-theme-11 rounded-full mr-3" />
-                  <span className="truncate">KVED 1</span>
-                  <div className="h-px flex-1 border border-r border-dashed border-gray-300 mx-3 xl:hidden" />
-                  <span className="font-medium xl:ml-auto">30%</span>
-                </div>
-                <div className="flex items-center mt-4">
-                  <div className="w-2 h-2 bg-theme-1 rounded-full mr-3" />
-                  <span className="truncate">KVED 2</span>
-                  <div className="h-px flex-1 border border-r border-dashed border-gray-300 mx-3 xl:hidden" />
-                  <span className="font-medium xl:ml-auto">29%</span>
-                </div>
-                <div className="flex items-center mt-4">
-                  <div className="w-2 h-2 bg-theme-12 rounded-full mr-3" />
-                  <span className="truncate">KVED 3</span>
-                  <div className="h-px flex-1 border border-r border-dashed border-gray-300 mx-3 xl:hidden" />
-                  <span className="font-medium xl:ml-auto">25%</span>
-                </div>
-              </div>
+              <PieChartLegend
+                items={topKvedData.map((el) => ({
+                  label: el.kved.code,
+                  value: el.count_kved,
+                }))}
+              />
             </div>
           </div>
-
-
           <div className="col-span-12 sm:col-span-6 lg:col-span-3 mt-8">
             <div className="intro-y flex items-center h-10">
               <h2 className="text-lg font-medium truncate mr-5">
@@ -291,28 +289,26 @@ const HomePage = () => {
             <div className="intro-y box p-5 mt-5">
               <canvas className="mt-3" id="report-donut-chart" height="280" />
               <div className="mt-8">
-                <div className="flex items-center">
-                  <div className="w-2 h-2 bg-theme-11 rounded-full mr-3" />
-                  <span className="truncate">Інші організаційно-правові форми</span>
-                  <div className="h-px flex-1 border border-r border-dashed border-gray-300 mx-3 xl:hidden" />
-                  <span className="font-medium xl:ml-auto">30%</span>
-                </div>
-                <div className="flex items-center mt-4">
-                  <div className="w-2 h-2 bg-theme-1 rounded-full mr-3" />
-                  <span className="truncate">Державна організація (установа, заклад)</span>
-                  <div className="h-px flex-1 border border-r border-dashed border-gray-300 mx-3 xl:hidden" />
-                  <span className="font-medium xl:ml-auto">26%</span>
-                </div>
-                <div className="flex items-center mt-4">
-                  <div className="w-2 h-2 bg-theme-12 rounded-full mr-3" />
-                  <span className="truncate">Приватне підприємство</span>
-                  <div className="h-px flex-1 border border-r border-dashed border-gray-300 mx-3 xl:hidden" />
-                  <span className="font-medium xl:ml-auto">20%</span>
-                </div>
+                <PieChartLegendItem
+                  bgColor="#FF8B26"
+                  label="Інші організаційно-правові форми"
+                  value="30%"
+                />
+                <PieChartLegendItem
+                  mt
+                  bgColor="#FFC533"
+                  label="Державна організація (установа, заклад)"
+                  value="26%"
+                />
+                <PieChartLegendItem
+                  mt
+                  bgColor="#285FD3"
+                  label="Приватне підприємство"
+                  value="20%"
+                />
               </div>
             </div>
           </div>
-
           {/*<UnusedSections />*/}
         </div>
         {/*<Transactions />*/}
