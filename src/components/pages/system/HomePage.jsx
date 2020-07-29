@@ -6,52 +6,32 @@ import {
 } from 'react-feather';
 import ReportBox from 'components/pages/dashboard/ReportBox';
 import Api from 'api';
+import moment from 'moment';
 
 
 const HomePage = () => {
   const [registersCount, setRegistersCount] = useState();
   const [usersCount, setUsersCount] = useState();
+  const [apiUsageData, setApiUsageData] = useState({});
 
-
-  const fetchData = () => {
-    Api.get('register/')
-      .then((resp) => {
-        setRegistersCount(resp.data.count);
-      });
-    Api.get('users/')
-      .then((resp) => {
-        setUsersCount(resp.data.count);
-      });
-  };
-
-  useEffect(() => {
-    if ($('#report-line-chart').length) {
-      const ctx = $('#report-line-chart')[0].getContext('2d');
+  const initApiUsageChart = () => {
+    const labels = apiUsageData.days.map((el) => moment(el.timestamp).format('DD.MM'));
+    const data = apiUsageData.days.map((el) => el.count);
+    if ($('#api-usage-chart').length) {
+      const ctx = $('#api-usage-chart')[0].getContext('2d');
       new Chart(ctx, {
         type: 'line',
         data: {
-          labels: [
-            'Січень', 'Лютий', 'Березень', 'Квітень', 'Травень', 'Червень',
-            'Липень', 'Серпень', 'Вересень', 'Жовтень', 'Листопад', 'Грудень',
-          ],
+          labels,
           datasets: [
             {
               label: 'API Запити',
-              data: [0, 200, 250, 200, 500, 450, 850, 1050, 950, 1100, 900, 1200],
+              data,
               borderWidth: 2,
               borderColor: '#3160D8',
               backgroundColor: 'transparent',
               pointBorderColor: 'transparent',
             },
-            // {
-            //   label: '# of Votes',
-            //   data: [0, 300, 400, 560, 320, 600, 720, 850, 690, 805, 1200, 1010],
-            //   borderWidth: 2,
-            //   borderDash: [2, 2],
-            //   borderColor: '#BCBABA',
-            //   backgroundColor: 'transparent',
-            //   pointBorderColor: 'transparent',
-            // },
           ],
         },
         options: {
@@ -88,7 +68,15 @@ const HomePage = () => {
         },
       });
     }
+  };
 
+  useEffect(() => {
+    if (Object.keys(apiUsageData).length) {
+      initApiUsageChart();
+    }
+  }, [apiUsageData]);
+
+  const initCharts = () => {
     if ($('#report-pie-chart').length) {
       const ctx = $('#report-pie-chart')[0].getContext('2d');
       new Chart(ctx, {
@@ -149,8 +137,26 @@ const HomePage = () => {
         },
       });
     }
+  };
 
-    // initAllCharts();
+  const fetchData = () => {
+    Api.get('register/')
+      .then((resp) => {
+        setRegistersCount(resp.data.count);
+      });
+    Api.get('users/')
+      .then((resp) => {
+        setUsersCount(resp.data.count);
+      });
+    Api.get('stats/api-usage/me/')
+      .then((resp) => {
+        setApiUsageData(resp.data);
+      });
+
+    initCharts();
+  };
+
+  useEffect(() => {
     fetchData();
   }, []);
 
@@ -221,18 +227,22 @@ const HomePage = () => {
               <div className="flex flex-col xl:flex-row xl:items-center">
                 <div className="flex">
                   <div>
-                    <div className="text-theme-20 text-lg xl:text-xl font-bold">9 458</div>
+                    <div className="text-theme-20 text-lg xl:text-xl font-bold">
+                      {apiUsageData.current_month || 0}
+                    </div>
                     <div className="text-gray-600">Цей місяць</div>
                   </div>
                   <div className="w-px h-12 border border-r border-dashed border-gray-300 mx-4 xl:mx-6" />
                   <div>
-                    <div className="text-gray-600 text-lg xl:text-xl font-medium">5 423</div>
+                    <div className="text-gray-600 text-lg xl:text-xl font-medium">
+                      {apiUsageData.prev_month || 0}
+                    </div>
                     <div className="text-gray-600">Попередній місяць</div>
                   </div>
                 </div>
               </div>
               <div> {/* className="report-chart"> */}
-                <canvas id="report-line-chart" height="160" className="mt-6" />
+                <canvas id="api-usage-chart" height="160" className="mt-6" />
               </div>
             </div>
           </div>
