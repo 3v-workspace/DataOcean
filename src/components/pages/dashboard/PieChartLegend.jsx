@@ -21,6 +21,7 @@ const PieChartLegend = (props) => {
     <div className="mt-8">
       {calculated.map((el, i) => (
         <PieChartLegendItem
+          key={el.label}
           mt={i !== 0}
           value={`${el.value}%`}
           label={el.label}

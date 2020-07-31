@@ -12,8 +12,10 @@ import PieChartLegend from 'components/pages/dashboard/PieChartLegend';
 
 
 const HomePage = () => {
-  const [registersCount, setRegistersCount] = useState();
-  const [usersCount, setUsersCount] = useState();
+  const [registersCount, setRegistersCount] = useState('');
+  const [usersCount, setUsersCount] = useState('');
+  const [fopCount, setFopCount] = useState('');
+  const [companyCount, setCompanyCount] = useState('');
   const [apiUsageData, setApiUsageData] = useState({});
   const [topKvedData, setTopKvedData] = useState([]);
 
@@ -159,6 +161,14 @@ const HomePage = () => {
       .then((resp) => {
         setUsersCount(resp.data.count);
       });
+    Api.get('stats/registered-companies/')
+      .then((resp) => {
+        setCompanyCount(resp.data.company_count);
+      });
+    Api.get('stats/registered-fops/')
+      .then((resp) => {
+        setFopCount(resp.data.company_count);
+      });
     Api.get('stats/api-usage/me/')
       .then((resp) => {
         setApiUsageData(resp.data);
@@ -190,8 +200,8 @@ const HomePage = () => {
             <div className="grid grid-cols-12 gap-6 mt-5">
               <div className="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
                 <ReportBox
-                  label="Реєстрація підприємств"
-                  value="264"
+                  label="Кількість підприємств"
+                  value={companyCount.toLocaleString()}
                   subText="18%"
                   subTextDirection="up"
                   icon={<File className="report-box__icon text-theme-10" />}
@@ -199,8 +209,8 @@ const HomePage = () => {
               </div>
               <div className="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
                 <ReportBox
-                  label="Нові ФОП"
-                  value="176"
+                  label="Кількість ФОП"
+                  value={fopCount.toLocaleString()}
                   subText="16%"
                   subTextDirection="up"
                   icon={<Briefcase className="report-box__icon text-theme-11" />}
@@ -209,7 +219,7 @@ const HomePage = () => {
               <div className="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
                 <ReportBox
                   label="Всього наборів даних"
-                  value={registersCount}
+                  value={registersCount.toLocaleString()}
                   subText="+5"
                   subTextDirection="up"
                   icon={<Database className="report-box__icon text-theme-12" />}
@@ -218,7 +228,7 @@ const HomePage = () => {
               <div className="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
                 <ReportBox
                   label="Кількість користувачів"
-                  value={usersCount}
+                  value={usersCount.toLocaleString()}
                   subText="+7"
                   subTextDirection="up"
                   icon={<User className="report-box__icon text-theme-9" />}
