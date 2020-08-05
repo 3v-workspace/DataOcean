@@ -2,12 +2,11 @@
 
 import React, { useEffect, useState } from 'react';
 import {
-  Briefcase, Calendar, Database, File, RefreshCcw, User,
+  Briefcase, Database, File, RefreshCcw, User,
 } from 'react-feather';
 import ReportBox from 'components/pages/dashboard/ReportBox';
 import Api from 'api';
 import moment from 'moment';
-import PieChartLegendItem from 'components/pages/dashboard/PieChartLegendItem';
 import PieChartLegend from 'components/pages/dashboard/PieChartLegend';
 
 
@@ -18,6 +17,7 @@ const HomePage = () => {
   const [companyCount, setCompanyCount] = useState('');
   const [apiUsageData, setApiUsageData] = useState({});
   const [topKvedData, setTopKvedData] = useState([]);
+  const [topCompanyTypeData, setTopCompanyTypeData] = useState([]);
 
   const initApiUsageChart = () => {
     const labels = apiUsageData.days.map((el) => moment(el.timestamp).format('DD.MM'));
@@ -77,7 +77,7 @@ const HomePage = () => {
 
   const initTopKvedPie = () => {
     const labels = topKvedData.map((el) => el.kved.code);
-    const data = topKvedData.map((el) => el.count_kved);
+    const data = topKvedData.map((el) => el.count_companies_with_kved);
 
     if ($('#report-pie-chart').length) {
       const ctx = $('#report-pie-chart')[0].getContext('2d');
@@ -105,37 +105,21 @@ const HomePage = () => {
     }
   };
 
-  useEffect(() => {
-    if (topKvedData.length) {
-      initTopKvedPie();
-    }
-  }, [topKvedData]);
+  const initTopCompanyTypesPie = () => {
+    const labels = topCompanyTypeData.map((el) => el.name);
+    const data = topCompanyTypeData.map((el) => el.count_companies);
 
-  useEffect(() => {
-    if (Object.keys(apiUsageData).length) {
-      initApiUsageChart();
-    }
-  }, [apiUsageData]);
-
-  const initCharts = () => {
     if ($('#report-donut-chart').length) {
       const ctx = $('#report-donut-chart')[0].getContext('2d');
       new Chart(ctx, {
         type: 'doughnut',
         data: {
-          labels: [
-            'Дочірнє підприємство', 'Закрите акціонерне товариство',
-            'Інші організаційно-правові форми', 'товариство з обмеженою відповідальністю',
-            'Виробничий кооператив', 'Державна організація (установа, заклад)',
-            'Приватне підприємство', 'Релігійна організація',
-          ],
+          labels,
           datasets: [{
-            data: [
-              120, 101, 321, 86, 84, 230, 150, 96,
-            ],
+            data,
             backgroundColor: [
-              '#FF8B26', '#FFC533', '#285FD3', '#285FD3',
-              '#33477a', '#d54e82', '#f85c66', '#003c5c',
+              '#FF8B26', '#FFC533', '#285FD3', '#003c5c', '#33477a',
+              '#6a4d8d', '#6a4d8d', '#d54e82', '#f85c66', '#ff7c41',
             ],
             hoverBackgroundColor: ['#FF8B26', '#FFC533', '#285FD3'],
             borderWidth: 5,
@@ -151,6 +135,24 @@ const HomePage = () => {
       });
     }
   };
+
+  useEffect(() => {
+    if (topCompanyTypeData.length) {
+      initTopCompanyTypesPie();
+    }
+  }, [topCompanyTypeData]);
+
+  useEffect(() => {
+    if (topKvedData.length) {
+      initTopKvedPie();
+    }
+  }, [topKvedData]);
+
+  useEffect(() => {
+    if (Object.keys(apiUsageData).length) {
+      initApiUsageChart();
+    }
+  }, [apiUsageData]);
 
   const fetchData = () => {
     Api.get('register/')
@@ -177,11 +179,14 @@ const HomePage = () => {
       .then((resp) => {
         setTopKvedData(resp.data.filter((el) => el.kved.code !== 'not_valid'));
       });
+    Api.get('stats/company-type/')
+      .then((resp) => {
+        setTopCompanyTypeData(resp.data.slice(0, 10));
+      });
   };
 
   useEffect(() => {
     fetchData();
-    initCharts();
   }, []);
 
   return (
@@ -242,10 +247,14 @@ const HomePage = () => {
               <h2 className="text-lg font-medium truncate mr-5">
                 Використання API
               </h2>
-              <div className="sm:ml-auto mt-3 sm:mt-0 relative text-gray-700">
-                <Calendar className="w-4 h-4 z-10 absolute my-auto inset-y-0 ml-3 left-0" />
-                <input type="text" data-daterange="true" className="datepicker input w-full sm:w-56 box pl-10" />
-              </div>
+              {/*<div className="sm:ml-auto mt-3 sm:mt-0 relative text-gray-700">*/}
+              {/*  <Calendar className="w-4 h-4 z-10 absolute my-auto inset-y-0 ml-3 left-0" />*/}
+              {/*  <input*/}
+              {/*    type="text"*/}
+              {/*    data-daterange="true"*/}
+              {/*    className="datepicker input w-full sm:w-56 box pl-10"*/}
+              {/*  />*/}
+              {/*</div>*/}
             </div>
             <div className="intro-y box p-5 mt-12 sm:mt-5">
               <div className="flex flex-col xl:flex-row xl:items-center">
@@ -284,7 +293,7 @@ const HomePage = () => {
               <PieChartLegend
                 items={topKvedData.map((el) => ({
                   label: el.kved.code,
-                  value: el.count_kved,
+                  value: el.count_companies_with_kved,
                 }))}
               />
             </div>
@@ -298,25 +307,12 @@ const HomePage = () => {
             </div>
             <div className="intro-y box p-5 mt-5">
               <canvas className="mt-3" id="report-donut-chart" height="280" />
-              <div className="mt-8">
-                <PieChartLegendItem
-                  bgColor="#FF8B26"
-                  label="Інші організаційно-правові форми"
-                  value="30%"
-                />
-                <PieChartLegendItem
-                  mt
-                  bgColor="#FFC533"
-                  label="Державна організація (установа, заклад)"
-                  value="26%"
-                />
-                <PieChartLegendItem
-                  mt
-                  bgColor="#285FD3"
-                  label="Приватне підприємство"
-                  value="20%"
-                />
-              </div>
+              <PieChartLegend
+                items={topCompanyTypeData.map((el) => ({
+                  label: el.name,
+                  value: el.count_companies,
+                }))}
+              />
             </div>
           </div>
           {/*<UnusedSections />*/}
