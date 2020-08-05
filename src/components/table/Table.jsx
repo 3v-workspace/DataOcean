@@ -69,7 +69,9 @@ const Table = (props) => {
             {tc.data.map((row, i) => (
               <tr key={row.id || i}>
                 {columns.map((col) => (
-                  <td key={col.prop} className="border-b">{row[col.prop]}</td>
+                  <td key={col.prop} className="border-b">
+                    {col.render ? col.render(row[col.prop]) : row[col.prop]}
+                  </td>
                 ))}
               </tr>
             ))}

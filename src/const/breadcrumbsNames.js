@@ -9,6 +9,8 @@ const breadcrumbsNames = {
   kved: 'КВЕД',
   settings: 'Налаштування',
   profile: 'Профіль',
+  company: 'Компанії',
+  street: 'Вулиці',
 };
 
 export default breadcrumbsNames;

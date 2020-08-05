@@ -5,6 +5,8 @@ import Route404 from 'components/pages/Route404';
 import DatasetsList from 'components/pages/datasets/DatasetsList';
 import DatasetDetail from 'components/pages/datasets/DatasetDetail';
 import KvedList from 'components/pages/datasets/kved/KvedList';
+import CompanyList from 'components/pages/datasets/company/CompanyList';
+import StreetList from 'components/pages/datasets/street/StreetList';
 
 const DatasetsRoutes = (props) => {
   const { match } = props;
@@ -15,6 +17,16 @@ const DatasetsRoutes = (props) => {
         exact
         path={`${match.path}:id/kved/`}
         component={KvedList}
+      />
+      <Route
+        exact
+        path={`${match.path}:id/company/`}
+        component={CompanyList}
+      />
+      <Route
+        exact
+        path={`${match.path}:id/street/`}
+        component={StreetList}
       />
       <Route
         exact
