@@ -463,7 +463,7 @@ function drawSimulation() {
     //   .attr('x', -16)
     //   .attr('y', -18)
 
-    nodeEnter.append('svg')
+    let nodeIconGroup = nodeEnter.append('svg')
       .attr('x', (d) => d._root ? -22 : -16)
       .attr('y', (d) => d._root ? -24 : -18)
       .style('cursor', 'pointer')
@@ -472,8 +472,9 @@ function drawSimulation() {
       // .attr('width', (d) => d._root ? 40 : 32)
       // .attr('heigth', (d) => d._root ? 40 : 32)
       // .attr('viewBox', '0 0 40 40')
-      .attr('transform', (d) => d._root ? 'scale(1.4)' : null)
-      .append('path')
+      .attr('transform', (d) => d._root ? 'scale(1.4)' : null);
+
+    nodeIconGroup.append('path')
       .attr('fill-rule', "evenodd")
       .attr('clip-rule', "evenodd")
       .attr('d', (d) => {
@@ -487,6 +488,14 @@ function drawSimulation() {
       })
       // .attr('fill', '#3FA2F7')
       .attr('stroke-width', 0);
+
+    nodeIconGroup.append('image')
+      .attr('x', -1)
+      .attr('y', 18)
+      .style('display', (d) => {
+        return d.is_closed ? undefined : 'none'
+      })
+      .attr('xlink:href', 'static/icons/closed.svg')
 
     nodeEnter.append('text')
       .attr('hidden', hideCount)
