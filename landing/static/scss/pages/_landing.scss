@@ -9,8 +9,8 @@
     @media screen and (min-width: $md) {
         &__img {
             width: auto;
-            margin-left: $spacer * -20;
-            max-width: 720px;
+            //margin-left: $spacer * -20;
+            max-width: 600px;
         }
     }
 }

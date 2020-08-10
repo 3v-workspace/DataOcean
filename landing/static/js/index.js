@@ -1,6 +1,8 @@
 // import * as THREE from 'three';
 import DOTS from 'vanta/dist/vanta.dots.min';
 import $ from 'jquery';
+import 'jquery-validation';
+import 'jquery-modal';
 
 
 $(document).ready(() => {
@@ -43,3 +45,44 @@ $(document).ready(() => {
   //   };
   // });
 });
+
+$(document).ready(function () {
+	$('#contact-form').validate( {
+		rules: {
+			username: {
+				required: true,
+				minlength: 2,
+			},
+			surname: {
+				required: true,
+				minlength: 3,
+			},
+			email: {
+				required: true,
+				email: true,
+			},
+		    //phone: {
+            //   required: true,
+            //    minlength: 11
+            //},
+		},
+		messages: {
+			username: {
+				required: 'Будь ласка, введіть Ваше ім\'я',
+				minlength: 'Замала кількість символів',
+			},
+			surname: {
+				required: "Будь ласка, введіть Ваше прізвище",
+				minlength: 'Замала кількість символів',
+			},
+			email: {
+				required: "Будь ласка, введіть адресу",
+				email: "Будь ласка, введіть коректно адресу"
+			},
+			//phone: {
+            //    required: "Будь ласка, введіть коректний номер телефону",
+            //},
+		},
+    });
+});
+
