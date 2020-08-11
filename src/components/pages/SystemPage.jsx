@@ -9,31 +9,11 @@ import {
   Activity, Home, FileText, Trello, BookOpen, HelpCircle,
 } from 'react-feather';
 import TopBar from 'components/nav/TopBar';
+import { useTranslation } from 'react-i18next';
 
-const menu = (
-  <>
-    <NavItem link="/system/home/" icon={Home}>
-      Домівка
-    </NavItem>
-    <NavItem link="/system/datasets/" icon={Trello}>
-      Набори даних
-    </NavItem>
-    <NavItem link="/system/analytics/" icon={Activity}>
-      Конструктор звітів
-    </NavItem>
-    <NavItem link="/system/documents/" icon={FileText}>
-      Конструктор даних
-    </NavItem>
-    <NavItem link="/system/contacts/" icon={BookOpen}>
-      Контакти
-    </NavItem>
-    <NavItem link="/system/help/" icon={HelpCircle}>
-      Допомога
-    </NavItem>
-  </>
-);
 
 const SystemPage = (props) => {
+  const { t } = useTranslation();
   const { location } = props;
   const isLogin = useIsLogin();
 
@@ -47,6 +27,29 @@ const SystemPage = (props) => {
       />
     );
   }
+
+  const menu = (
+    <>
+      <NavItem link="/system/home/" icon={Home}>
+        {t('home')}
+      </NavItem>
+      <NavItem link="/system/datasets/" icon={Trello}>
+        {t('datasets')}
+      </NavItem>
+      <NavItem link="/system/report-constructor/" icon={Activity}>
+        {t('reportConstructor')}
+      </NavItem>
+      <NavItem link="/system/data-constructor/" icon={FileText}>
+        {t('dataConstructor')}
+      </NavItem>
+      <NavItem link="/system/contacts/" icon={BookOpen}>
+        {t('contacts')}
+      </NavItem>
+      <NavItem link="/system/help/" icon={HelpCircle}>
+        {t('help')}
+      </NavItem>
+    </>
+  );
 
   return (
     <>

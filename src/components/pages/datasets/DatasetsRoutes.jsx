@@ -20,12 +20,12 @@ const DatasetsRoutes = (props) => {
       />
       <Route
         exact
-        path={`${match.path}:id/company/`}
+        path={`${match.path}:id/companies/`}
         component={CompanyList}
       />
       <Route
         exact
-        path={`${match.path}:id/street/`}
+        path={`${match.path}:id/streets/`}
         component={StreetList}
       />
       <Route

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Database, Search } from 'react-feather';
 import Api from 'api';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 
 const SearchResult = (props) => {
@@ -35,6 +36,7 @@ SearchResult.defaultProps = {
 
 
 const TopBarSearch = () => {
+  const { t } = useTranslation();
   const [data, setData] = useState([]);
   const [show, setShow] = useState(false);
 
@@ -73,7 +75,7 @@ const TopBarSearch = () => {
         <input
           type="text"
           className="search__input input placeholder-theme-13"
-          placeholder="Пошук наборів даних..."
+          placeholder={`${t('datasetsSearch')}...`}
           onChange={handleSearch}
           onBlur={handleBlur}
           onFocus={handleFocus}
@@ -86,7 +88,7 @@ const TopBarSearch = () => {
       <div className={`search-result ${show ? 'show' : ''}`}>
         <div className="search-result__content">
           <div className="search-result__content__title">
-            Набори даних
+            {t('datasets')}
           </div>
           <div>
             {data.map((ds) => (

@@ -1,11 +1,11 @@
 import React from 'react';
 
-const AnalyticsPage = () => (
+const ReportConstructorPage = () => (
   <h2 className="intro-y text-lg font-medium mt-10">
-    Analytics Page
+    ReportConstructorPage
   </h2>
 );
 
 // AnalyticsPage.propTypes = {};
 
-export default AnalyticsPage;
+export default ReportConstructorPage;

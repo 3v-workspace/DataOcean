@@ -8,9 +8,11 @@ import ReportBox from 'components/pages/dashboard/ReportBox';
 import Api from 'api';
 import moment from 'moment';
 import PieChartLegend from 'components/pages/dashboard/PieChartLegend';
+import { useTranslation } from 'react-i18next';
 
 
 const HomePage = () => {
+  const { t } = useTranslation();
   const [registersCount, setRegistersCount] = useState('');
   const [usersCount, setUsersCount] = useState('');
   const [fopCount, setFopCount] = useState('');
@@ -30,7 +32,7 @@ const HomePage = () => {
           labels,
           datasets: [
             {
-              label: 'API Запити',
+              label: t('apiRequests'),
               data,
               borderWidth: 2,
               borderColor: '#3160D8',
@@ -196,16 +198,16 @@ const HomePage = () => {
           <div className="col-span-12 mt-8">
             <div className="intro-y flex items-center h-10">
               <h2 className="text-lg font-medium truncate mr-5">
-                Загальний звіт
+                {t('generalReport')}
               </h2>
               <a href="#" className="ml-auto flex text-theme-1 dark:text-theme-10">
-                <RefreshCcw className="w-4 h-4 mr-3" /> Оновити
+                <RefreshCcw className="w-4 h-4 mr-3" /> {t('refresh')}
               </a>
             </div>
             <div className="grid grid-cols-12 gap-6 mt-5">
               <div className="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
                 <ReportBox
-                  label="Кількість підприємств"
+                  label={t('companiesCount')}
                   value={companyCount.toLocaleString()}
                   subText="18%"
                   subTextDirection="up"
@@ -214,7 +216,7 @@ const HomePage = () => {
               </div>
               <div className="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
                 <ReportBox
-                  label="Кількість ФОП"
+                  label={t('fopCount')}
                   value={fopCount.toLocaleString()}
                   subText="16%"
                   subTextDirection="up"
@@ -223,7 +225,7 @@ const HomePage = () => {
               </div>
               <div className="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
                 <ReportBox
-                  label="Всього наборів даних"
+                  label={t('datasetsCount')}
                   value={registersCount.toLocaleString()}
                   subText="+5"
                   subTextDirection="up"
@@ -232,7 +234,7 @@ const HomePage = () => {
               </div>
               <div className="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
                 <ReportBox
-                  label="Кількість користувачів"
+                  label={t('usersCount')}
                   value={usersCount.toLocaleString()}
                   subText="+7"
                   subTextDirection="up"
@@ -245,7 +247,7 @@ const HomePage = () => {
           <div className="col-span-12 lg:col-span-6 mt-8">
             <div className="intro-y block sm:flex items-center h-10">
               <h2 className="text-lg font-medium truncate mr-5">
-                Використання API
+                {t('apiUsage')}
               </h2>
               {/*<div className="sm:ml-auto mt-3 sm:mt-0 relative text-gray-700">*/}
               {/*  <Calendar className="w-4 h-4 z-10 absolute my-auto inset-y-0 ml-3 left-0" />*/}
@@ -263,14 +265,14 @@ const HomePage = () => {
                     <div className="text-theme-20 text-lg xl:text-xl font-bold">
                       {apiUsageData.current_month || 0}
                     </div>
-                    <div className="text-gray-600">Цей місяць</div>
+                    <div className="text-gray-600">{t('thisMonth')}</div>
                   </div>
                   <div className="w-px h-12 border border-r border-dashed border-gray-300 mx-4 xl:mx-6" />
                   <div>
                     <div className="text-gray-600 text-lg xl:text-xl font-medium">
                       {apiUsageData.prev_month || 0}
                     </div>
-                    <div className="text-gray-600">Попередній місяць</div>
+                    <div className="text-gray-600">{t('previousMonth')}</div>
                   </div>
                 </div>
               </div>
@@ -284,7 +286,7 @@ const HomePage = () => {
           <div className="col-span-12 sm:col-span-6 lg:col-span-3 mt-8">
             <div className="intro-y flex items-center h-10">
               <h2 className="text-lg font-medium truncate mr-5">
-                ТОП КВЕДів
+                {t('topKveds')}
               </h2>
               <a href="#" className="ml-auto text-theme-1 truncate">Всі</a>
             </div>
@@ -301,7 +303,7 @@ const HomePage = () => {
           <div className="col-span-12 sm:col-span-6 lg:col-span-3 mt-8">
             <div className="intro-y flex items-center h-10">
               <h2 className="text-lg font-medium truncate mr-5">
-                Типи компаній
+                {t('companyTypes')}
               </h2>
               <a href="#" className="ml-auto text-theme-1 truncate">Всі</a>
             </div>

@@ -5,6 +5,7 @@ import Pagination from 'components/table/Pagination';
 import { SearchBox } from 'components/form-components';
 import { ChevronDown, ChevronUp } from 'react-feather';
 import LoadingIcon from 'components/LoadingIcon';
+import { useTranslation } from 'react-i18next';
 
 
 const orderingIcons = {
@@ -14,6 +15,7 @@ const orderingIcons = {
 
 
 const Table = (props) => {
+  const { t } = useTranslation();
   const { columns, url } = props;
   const [search, setSearch] = useState('');
   const tc = useTableController({ url, params: { search } });
@@ -35,7 +37,11 @@ const Table = (props) => {
         {/*  Фільтр*/}
         {/*</Button>*/}
         <div className="hidden md:block mx-auto text-gray-600">
-          Показано від {tc.itemsIndexes.first} до {tc.itemsIndexes.last} із {tc.count} записів
+          {t('showingToOfEntries', {
+            first: tc.itemsIndexes.first,
+            last: tc.itemsIndexes.last,
+            count: tc.count,
+          })}
         </div>
         <div className="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">
           <SearchBox containerClass="w-56 relative text-gray-700" onSearch={onSearch} />

@@ -15,9 +15,11 @@ const Api = axios.create({
 
 Api.interceptors.request.use((config) => {
   const token = window.localStorage.getItem('token');
+  const lang = window.localStorage.getItem('i18nextLng');
   if (token) {
     config.headers.Authorization = `Token ${token}`;
   }
+  config.headers['Accept-Language'] = lang || 'uk';
   return config;
 }, (error) => Promise.reject(error));
 

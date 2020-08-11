@@ -39,13 +39,13 @@ const SelectInput = (props) => {
   }, [placeholder, multiple, disabled, onChange, hideSearch, name]);
 
   useEffect(() => {
-    $(selectRef.current).val(value || (formik && formik.values[name]));
+    $(selectRef.current).val(value || (formik && formik.values[name])).trigger('change');
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [JSON.stringify(formik.values[name]), name]);
 
   return (
-    <>
+    <div className="mb-3">
       {label && (
         <label htmlFor={`id_${name}`}>{label}</label>
       )}
@@ -64,7 +64,7 @@ const SelectInput = (props) => {
       {formik && formik.touched[name] && formik.errors[name] && (
         <label className="error" htmlFor={`id_${name}`}>{formik.errors[name]}</label>
       )}
-    </>
+    </div>
   );
 };
 

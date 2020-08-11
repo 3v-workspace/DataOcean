@@ -7,11 +7,13 @@ import { Link, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { userLogout } from 'store/user/actionCreators';
 import TopBarSearch from 'components/nav/TopBarSearch';
-import breadcrumbsNames from 'const/breadcrumbsNames';
+import getBreadcrumbName from 'const/breadcrumbsNames';
+import { useTranslation } from 'react-i18next';
 
 
 // TODO: finish this
 const TopBar = () => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
 
@@ -27,7 +29,7 @@ const TopBar = () => {
           to={path}
           className={i === array.length - 1 ? 'breadcrumb--active' : undefined}
         >
-          {breadcrumbsNames[name] || name}
+          {getBreadcrumbName(name) || name}
         </Link>
       );
     })
@@ -81,21 +83,21 @@ const TopBar = () => {
                 to="/system/profile/"
                 className="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 rounded-md"
               >
-                <User className="w-4 h-4 mr-2" /> Профіль
+                <User className="w-4 h-4 mr-2" /> {t('profile')}
               </Link>
               <Link
                 onClick={closeDropdown}
                 to="/system/profile/settings/"
                 className="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 rounded-md"
               >
-                <Settings className="w-4 h-4 mr-2" /> Налаштування
+                <Settings className="w-4 h-4 mr-2" /> {t('settings')}
               </Link>
               <a
                 href="#?"
                 onClick={closeDropdown}
                 className="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 rounded-md"
               >
-                <HelpCircle className="w-4 h-4 mr-2" /> Допомога
+                <HelpCircle className="w-4 h-4 mr-2" /> {t('help')}
               </a>
             </div>
             <div className="p-2 border-t border-theme-40">
@@ -104,7 +106,7 @@ const TopBar = () => {
                 onClick={logout}
                 className="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 rounded-md"
               >
-                <ToggleRight className="w-4 h-4 mr-2" /> Вийти
+                <ToggleRight className="w-4 h-4 mr-2" /> {t('logout')}
               </a>
             </div>
           </div>

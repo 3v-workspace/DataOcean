@@ -1,16 +1,33 @@
+import i18next from 'i18next';
+
 const breadcrumbsNames = {
-  system: 'Система',
-  home: 'Домівка',
-  datasets: 'Набори даних',
-  analytics: 'Конструктор звітів',
-  documents: 'Конструктор даних',
-  contacts: 'Контакти',
-  help: 'Допомога',
   kved: 'КВЕД',
-  settings: 'Налаштування',
-  profile: 'Профіль',
-  company: 'Компанії',
-  street: 'Вулиці',
+  // 'report-constructor': 'Конструктор звітів',
+  // 'data-constructor': 'Конструктор даних',
+  // system: 'Система',
+  // home: 'Домівка',
+  // datasets: 'Набори даних',
+  // contacts: 'Контакти',
+  // help: 'Допомога',
+  // settings: 'Налаштування',
+  // profile: 'Профіль',
+  // companies: 'Компанії',
+  // streets: 'Вулиці',
 };
 
-export default breadcrumbsNames;
+const translations = {
+  'report-constructor': 'reportConstructor',
+  'data-constructor': 'dataConstructor',
+};
+
+const getBreadcrumbName = (key) => {
+  if (i18next.exists(key)) {
+    return i18next.t(key);
+  }
+  if (key in translations) {
+    return i18next.t(translations[key]);
+  }
+  return breadcrumbsNames[key];
+};
+
+export default getBreadcrumbName;

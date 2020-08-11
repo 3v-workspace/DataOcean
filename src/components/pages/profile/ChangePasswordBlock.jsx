@@ -8,9 +8,12 @@ import TextInput from 'components/form-components/TextInput';
 import Api, { passErrorsToFormik } from 'api';
 import { setUserData } from 'store/user/actionCreators';
 import { useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+
 
 const ChangePasswordBlock = () => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   const formik = useFormik({
     initialValues: {
@@ -23,10 +26,10 @@ const ChangePasswordBlock = () => {
       const { new_password1, new_password2 } = values;
       const level = getPasswordLevel(new_password1);
       if (level < 2) {
-        errors.new_password1 = 'Пароль занадто простий';
+        errors.new_password1 = t('passwordIsTooSimple');
       }
       if (new_password1 !== new_password2) {
-        errors.new_password2 = 'Паролі не співпадають';
+        errors.new_password2 = t('passwordsDoNotMatch');
       }
       return errors;
     },
@@ -50,25 +53,25 @@ const ChangePasswordBlock = () => {
   });
 
   return (
-    <TabContentBlock title="Змінити пароль">
+    <TabContentBlock title={t('changePassword')}>
       <Form formik={formik}>
         <TextInput
           autoComplete="on"
-          label="Старий пароль"
+          label={t('oldPassword')}
           type="password"
           name="old_password"
           formik={formik}
         />
         <TextInput
           autoComplete="on"
-          label="Новий пароль"
+          label={t('newPassword')}
           type="password"
           name="new_password1"
           formik={formik}
         />
         <TextInput
           autoComplete="on"
-          label="Підтвердження паролю"
+          label={t('passwordConfirmation')}
           type="password"
           name="new_password2"
           formik={formik}
@@ -82,7 +85,7 @@ const ChangePasswordBlock = () => {
             // size="lg"
             variant="primary"
           >
-            Зберегти
+            {t('save')}
           </Button>
         </div>
       </Form>

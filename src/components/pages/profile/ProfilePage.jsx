@@ -5,16 +5,18 @@ import {
 } from 'react-feather';
 import { NavLink, Route, Switch } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import ProfileSettings from './ProfileSettings';
 import ProfileInfo from './ProfileInfo';
 
 const ProfilePage = ({ match }) => {
+  const { t } = useTranslation();
   const user = useSelector((store) => store.user);
   return (
     <>
       <div className="intro-y flex items-center mt-8">
         <h2 className="text-lg font-medium mr-auto">
-          Профіль
+          {t('profile')}
         </h2>
       </div>
       <div className="intro-y box px-5 pt-5 mt-5">
@@ -51,15 +53,15 @@ const ProfilePage = ({ match }) => {
           >
             <div className="text-center rounded-md w-20 py-3">
               <div className="font-semibold text-theme-1 text-lg">150</div>
-              <div className="text-gray-600">Ендпоінти</div>
+              <div className="text-gray-600">{t('endpoints')}</div>
             </div>
             <div className="text-center rounded-md w-20 py-3">
               <div className="font-semibold text-theme-1 text-lg">1 k</div>
-              <div className="text-gray-600">Запити</div>
+              <div className="text-gray-600">{t('requests')}</div>
             </div>
             <div className="text-center rounded-md w-20 py-3">
               <div className="font-semibold text-theme-1 text-lg">63</div>
-              <div className="text-gray-600">Звіти</div>
+              <div className="text-gray-600">{t('reports')}</div>
             </div>
           </div>
         </div>
@@ -71,7 +73,7 @@ const ProfilePage = ({ match }) => {
             className="py-4 sm:mr-8 flex items-center"
             activeClassName="active"
           >
-            <User className="w-4 h-4 mr-2" /> Профіль
+            <User className="w-4 h-4 mr-2" /> {t('profile')}
           </NavLink>
           <NavLink
             exact
@@ -80,7 +82,7 @@ const ProfilePage = ({ match }) => {
             className="py-4 sm:mr-8 flex items-center"
             activeClassName="active"
           >
-            <Settings className="w-4 h-4 mr-2" /> Налаштування
+            <Settings className="w-4 h-4 mr-2" /> {t('settings')}
           </NavLink>
         </div>
       </div>

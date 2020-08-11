@@ -3,6 +3,8 @@ import React, { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { BarChart2 } from 'react-feather';
+import whiteLogo from 'images/whitelogo.png';
+// import whiteLogo from 'images/w';
 
 export const NavContext = React.createContext(false);
 
@@ -27,7 +29,7 @@ const Nav = (props) => {
       <div className="mobile-menu md:hidden">
         <div className="mobile-menu-bar">
           <Link to="/system/" className="flex mr-auto">
-            <img alt="Data Ocean" className="w-6" src="/images/logo.svg" />
+            <img alt="Data Ocean" className="w-8 -mt-2" src={whiteLogo} />
           </Link>
           <a href="#?" id="mobile-menu-toggler" onClick={toggleMobile}>
             <BarChart2 className="w-8 h-8 text-white transform -rotate-90" />
@@ -47,7 +49,7 @@ const Nav = (props) => {
   return (
     <nav className={`side-nav ${isAnimDisabled ? 'no-animation' : ''}`}>
       <Link to="/" className="intro-x flex items-center pl-5 pt-4">
-        <img alt="Data Ocean Logo" className="w-6" src="/images/logo.svg" />
+        <img alt="Data Ocean" className="w-8 -mt-2" src={whiteLogo} />
         <span className="hidden xl:block text-white font-medium text-lg ml-3">Data Ocean</span>
       </Link>
       <div className="side-nav__devider my-6" />

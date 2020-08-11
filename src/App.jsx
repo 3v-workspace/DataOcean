@@ -3,6 +3,7 @@ import RootRoutes from 'components/RootRoutes';
 import Api from 'api';
 import { userLogin } from 'store/user/actionCreators';
 import { useDispatch } from 'react-redux';
+import setLanguage from 'utils/setLanguage';
 
 const App = () => {
   const [isInit, setIsInit] = useState(false);
@@ -14,6 +15,7 @@ const App = () => {
         dispatch(userLogin(resp.data));
       })
       .catch(() => {
+        setLanguage();
         window.localStorage.removeItem('token');
       })
       .finally(() => {
