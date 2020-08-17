@@ -1,182 +1,3 @@
-let data = {
-  "id": 1857809,
-  "name": "ГАГАРІНСЬКА РАЙОННА У М. СЕВАСТОПОЛІ ОРГАНІЗАЦІЯ ПОЛІТИЧНОЇ ПАРТІЇ \"НОВА ДЕМОКРАТІЯ\"",
-  "edrpou": '1235546',
-  "short_name": "ПАРТІЯ \"НОВА ДЕМОКРАТІЯ\"",
-  "company_type": "ПОЛІТИЧНА ПАРТІЯ",
-  "bylaw": "діє на підставі установчих документів, затверджених засновниками (учасниками)",
-  "status": "зареєстровано",
-  "authority": "Відділ державної реєстрації юридичних осіб та фізичних осіб - підприємців Ленінського району реєстраційної служби Головного управління юстиції у місті Севастополі",
-  "children": [
-    {
-      "id": 1857810,
-      "name": "ПРИВАТНЕ ПІДПРИЄМСТВО \"ШЕЛЬФ\"",
-      "edrpou": '1235546',
-      "short_name": "ПП\"ШЕЛЬФ\"",
-      "company_type": "ПРИВАТНЕ ПІДПРИЄМСТВО",
-      "bylaw": "діє на підставі установчих документів, затверджених засновниками (учасниками)",
-      "status": "зареєстровано",
-      "authority": "Відділ державної реєстрації юридичних осіб та фізичних осіб - підприємців Ленінського району реєстраційної служби Головного управління юстиції у місті Севастополі",
-    },
-    {
-      "id": 1857811,
-      "name": "СЕВАСТОПОЛЬСЬКА МІСЬКА ПАРТІЙНА ОРГАНІЗАЦІЯ ВСЕУКРАЇНСЬКОЇ ПАРТІЇ ТРУДЯЩИХ",
-      "edrpou": '1235546',
-      "short_name": "ПП\"СПТ\"",
-      "company_type": "ПОЛІТИЧНА ПАРТІЯ",
-      "bylaw": "діє на підставі установчих документів, затверджених засновниками (учасниками)",
-      "status": "зареєстровано",
-      "authority": "Відділ державної реєстрації юридичних осіб та фізичних осіб - підприємців Ленінського району реєстраційної служби Головного управління юстиції у місті Севастополі",
-    },
-    {
-      "id": 1857812,
-      "name": "ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ \"БУДВЕРТИКАЛЬ\"",
-      "edrpou": '1235546',
-
-      "short_name": "ТОВ \"БУДВЕРТИКАЛЬ\"",
-      "company_type": "ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ",
-      "bylaw": "діє на підставі установчих документів, затверджених засновниками (учасниками)",
-      "status": "припинено",
-      "authority": "Відділ державної реєстрації юридичних осіб та фізичних осіб - підприємців Ленінського району реєстраційної служби Головного управління юстиції у місті Севастополі",
-    },
-    {
-      "id": 1857813,
-      "name": "ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ \"ТЕХПРОМ\"",
-      "edrpou": '1235546',
-      "short_name": "ТОВ \"ТЕХПРОМ\"",
-      "company_type": "ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ",
-      "bylaw": "діє на підставі установчих документів, затверджених засновниками (учасниками)",
-      "status": "припинено",
-      "authority": "Відділ державної реєстрації юридичних осіб та фізичних осіб - підприємців Ленінського району реєстраційної служби Головного управління юстиції у місті Севастополі",
-    },
-    {
-      "id": 1857814,
-      "name": "ПРИВАТНЕ ПІДПРИЄМСТВО \"РЕЗОНАНС\"",
-      "edrpou": '1235546',
-      "short_name": "ПП \"РЕЗОНАНС\"",
-      "company_type": "ПРИВАТНЕ ПІДПРИЄМСТВО",
-      "bylaw": "діє на підставі установчих документів, затверджених засновниками (учасниками)",
-      "status": "припинено",
-      "authority": "Відділ державної реєстрації юридичних осіб та фізичних осіб - підприємців Ленінського району реєстраційної служби Головного управління юстиції у місті Севастополі",
-    },
-    {
-      "id": 1857815,
-      "name": "ПРИВАТНЕ ПІДПРИЄМСТВО \"НАУКОВО - ВИРОБНИЧА КОМЕРЦІЙНА КОМПАНІЯ \" МЕЦЕНАТ\"",
-      "edrpou": '1235546',
-      "short_name": "ПП \"НВКК \"МЕЦЕНАТ\"",
-      "company_type": "ПРИВАТНЕ ПІДПРИЄМСТВО",
-      "bylaw": "діє на підставі установчих документів, затверджених засновниками (учасниками)",
-      "status": "припинено",
-      "authority": "Відділ державної реєстрації юридичних осіб та фізичних осіб - підприємців Гагарінського району реєстраційної служби Головного управління юстиції у місті Севастополі",
-    },
-    {
-      "id": 1857816,
-      "name": "ПРИВАТНЕ ПІДПРИЄМСТВО \"БИОС\"",
-      "edrpou": '1235546',
-
-      "short_name": "ПП \"БИОС\"",
-      "company_type": "ПРИВАТНЕ ПІДПРИЄМСТВО",
-      "bylaw": "діє на підставі установчих документів, затверджених засновниками (учасниками)",
-      "status": "припинено",
-      "authority": "Відділ державної реєстрації юридичних осіб та фізичних осіб - підприємців Ленінського району реєстраційної служби Головного управління юстиції у місті Севастополі",
-    },
-    {
-      "id": 1857817,
-      "name": "УПРАВЛІННЯ ВОДНОГО ГОСПОДАРСТВА СЕВАСТОПОЛЬСЬКОЇ МІСЬКОЇ АДМІНІСТРАЦІЇ",
-      "edrpou": '1235546',
-      "short_name": "УВГ СМДА",
-      "company_type": "ОРГАН ДЕРЖАВНОЇ ВЛАДИ",
-      "bylaw": "діє на підставі установчих документів, затверджених засновниками (учасниками)",
-      "status": "припинено",
-      "authority": "Відділ державної реєстрації юридичних осіб та фізичних осіб - підприємців Ленінського району реєстраційної служби Головного управління юстиції у місті Севастополі",
-    },
-    {
-      "id": 1857818,
-      "name": "\"ТЕЛЕКОМІНВЕСТ-ТАВРІЯ\"",
-      "edrpou": '1235546',
-      "short_name": "ЗАТ \"ТЕЛЕКОМІНВЕСТ-ТАВРІЯ\"",
-      "company_type": "ЗАКРИТЕ АКЦІОНЕРНЕ ТОВАРИСТВО",
-      "bylaw": "діє на підставі установчих документів, затверджених засновниками (учасниками)",
-      "status": "припинено",
-      "authority": "Департамент реєстраційних послуг Запорізької міської ради",
-    },
-  ],
-};
-
-
-let additionalData1 = [
-  {
-    "id": 1857819,
-    "name": "ЖОВТНЕВЕ РАЙОННЕ УПРАВЛІННЯ ЮСТИЦІЇ М.ЗАПОРІЖЖЯ",
-    "edrpou": '1235546',
-    "short_name": "ЖОВТНЕВЕ РУЮ М.ЗАПОРІЖЖЯ",
-    "company_type": "ДЕРЖАВНА ОРГАНІЗАЦІЯ (УСТАНОВА, ЗАКЛАД)",
-    "bylaw": "діє на підставі установчих документів, затверджених засновниками (учасниками)",
-    "status": "припинено",
-    "authority": "Департамент реєстраційних послуг Запорізької міської ради",
-  },
-  {
-    "id": 1857820,
-    "name": "ЗАПОРІЗЬКА ГРОМАДСЬКА ОРГАНІЗАЦІЯ \"ПО ЗАХИСТУ ПРАВ ТВАРИН\" - КІНОЛОГІЧНИЙ ЦЕНТР",
-    "edrpou": '1235546',
-    "short_name": "ЗГО КІНОЛОГІЧНИЙ ЦЕНТР",
-    "company_type": "ГРОМАДСЬКА ОРГАНІЗАЦІЯ",
-    "bylaw": "діє на підставі установчих документів, затверджених засновниками (учасниками)",
-    "status": "припинено",
-    "authority": "Департамент реєстраційних послуг Запорізької міської ради",
-  },
-  {
-    "id": 1857821,
-    "name": "ГРОМАДСЬКА ОРГАНІЗАЦІЯ ІНВАЛІДІВ ДИТИНСТВА І ЗАГАЛЬНОГО ЗАХВОРЮВАННЯ \"ПРОГРЕС\"",
-    "edrpou": '1235546',
-    "short_name": "ГОІДІЗЗ \"ПРОГРЕС\"",
-    "company_type": "ГРОМАДСЬКА ОРГАНІЗАЦІЯ",
-    "bylaw": "діє на підставі установчих документів, затверджених засновниками (учасниками)",
-    "status": "зареєстровано",
-    "authority": "Департамент реєстраційних послуг Запорізької міської ради",
-  },
-  {
-    "id": 1857822,
-    "name": "ПРИВАТНЕ ПІДПРИЄМСТВО \"ЮМА\"",
-    "edrpou": '1235546',
-    "short_name": null,
-    "company_type": "ПРИВАТНЕ ПІДПРИЄМСТВО",
-    "bylaw": "діє на підставі установчих документів, затверджених засновниками (учасниками)",
-    "status": "припинено",
-    "authority": "Департамент реєстраційних послуг Запорізької міської ради",
-  },
-  {
-    "id": 1857823,
-    "name": "ПРИВАТНЕ ПІДПРИЄМСТВО \"КАРОЛІНА\"",
-    "edrpou": '1235546',
-    "short_name": null,
-    "company_type": "ПРИВАТНЕ ПІДПРИЄМСТВО",
-    "bylaw": "діє на підставі установчих документів, затверджених засновниками (учасниками)",
-    "status": "припинено",
-    "authority": "Департамент реєстраційних послуг Запорізької міської ради",
-  },
-  {
-    "id": 1857824,
-    "name": "ПРИВАТНЕ ПІДПРИЄМСТВО \"ПЕРФЕКТ\"",
-    "edrpou": '1235546',
-    "short_name": null,
-    "company_type": "ПРИВАТНЕ ПІДПРИЄМСТВО",
-    "bylaw": "діє на підставі установчих документів, затверджених засновниками (учасниками)",
-    "status": "припинено",
-    "authority": "Департамент реєстраційних послуг Запорізької міської ради",
-  },
-  {
-    "id": 1857825,
-    "name": "ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ \"АРТ ДЕКОР\"",
-    "edrpou": '1235546',
-    "short_name": "ТОВ \"АРТ ДЕКОР\"",
-    "company_type": "ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ",
-    "bylaw": "діє на підставі установчих документів, затверджених засновниками (учасниками)",
-    "status": "припинено",
-    "authority": "Департамент реєстраційних послуг Запорізької міської ради",
-  },
-];
-
 const animationHtml = `
 <div class="l-container">
   <div class="l-dot-container">
@@ -197,42 +18,112 @@ const animationHtml = `
 </div>
 `;
 
+const getUrl = (endpoint, id) => {
+  if (id) {
+    return `https://ipa.dataocean.us/api/${endpoint}${id}/`;
+  }
+  return `https://ipa.dataocean.us/api/${endpoint}`;
+};
+
 const searchFormS = '#company-search-form';
 const searchButtonS = '#company-search-btn';
 const searchInputS = 'input#company-search';
 const graphContainerS = '#graph';
 
+const nodeTypes = {
+  pep: {
+    icon: 'pep/pep_active.svg',
+    getValue: (obj) => obj.fullname,
+    url: getUrl('pep/'),
+  },
+  company: {
+    icon: 'build2.svg',
+    getValue: (obj) => `${obj.edrpou} - ${obj.name}`,
+    url: getUrl('company/'),
+  },
+};
+
+const icons = {
+  company: {
+    active: 'static/icons/company/company_active.svg',
+    inactive: 'static/icons/company/company_inactive.svg',
+    root: 'static/icons/company/company_root.svg',
+  },
+  pep: {
+    active: 'static/icons/pep/pep_active.svg',
+    inactive: 'static/icons/pep/pep_inactive.svg',
+  },
+};
+const width = 1000;
+const height = 800;
+const colors = {
+  primary: '#3FA2F7',
+  secondary: '#ADBCD9',
+  root: '#4F4F4F',
+};
+const center = {
+  x: width / 2,
+  y: height / 3,
+};
 let nodes = [];
 let links = [];
+let selectedNode;
 
-function parseNodesLinks(data) {
+function parseNodesLinks(data, type) {
   let nodes = [];
   let links = [];
 
-  let first = true;
-
-  function recursive(node) {
-    if (first) {
-      node._opened = true;
-      node._root = true;
-      first = false;
-    }
-    if (node.founder_of) {
-      node.founder_of.forEach((item) => {
-        item._opened = false;
-        recursive(item);
-        links.push({
-          source: node.id,
-          target: item.id,
-          id: `${node.id}-${item.id}`,
-        });
-      });
-    }
-    delete node.founder_of;
-    nodes.push(node);
+  function addChildNode(item, type) {
+    item._opened = false;
+    links.push({
+      source: data.id,
+      target: item.id,
+      id: `${data.id}-${item.id}`,
+    });
+    nodes.push({
+      ...item,
+      _type: type,
+      _opened: false,
+      _root: false,
+    });
   }
 
-  recursive(data);
+  function parseCompany() {
+    nodes.push({
+      ...data,
+      _type: type,
+      _opened: true,
+      _root: true,
+      related_peps: undefined,
+      founder_of: undefined,
+    });
+
+    data.founder_of.forEach((item) => {
+      addChildNode(item, 'company');
+    });
+    (data.related_peps || []).forEach((item) => {
+      addChildNode(item, 'pep');
+    });
+  }
+
+  function parsePep() {
+    nodes.push({
+      ...data,
+      _type: type,
+      _opened: true,
+      _root: true,
+      related_companies: undefined,
+      related_persons: undefined,
+    });
+    data.related_companies.forEach((item) => {
+      addChildNode(item.company, 'company');
+    });
+    data.related_persons.forEach((item) => {
+      addChildNode(item, 'pep');
+    });
+  }
+
+  type === 'company' ? parseCompany() : parsePep();
 
   return [nodes, links];
 }
@@ -258,7 +149,50 @@ function showMessage(message) {
   `);
 }
 
-showMessage('Скористайтесь пошуком по ЄДРПОУ');
+showMessage('Щоб розпочати роботу скористайтесь пошуком');
+
+function showSearchResults(data, type) {
+  const searchDropdown = $('.search-dropdown');
+  const searchResults = searchDropdown.find('ul');
+  searchResults.find('li.search-result').remove();
+
+  $(document).one('click', function () {
+    searchDropdown.removeClass('show');
+  });
+
+  const nodeType = nodeTypes[type];
+
+  data.forEach((item) => {
+    searchResults.append(`
+      <li class="list-group-item p-1 list-group-item-action search-result"
+          data-id="${item.id}"
+          data-type="${type}"
+      >
+        <img class="pr-3 p-2" src="static/icons/${nodeType.icon}" alt="">
+        <div class="search-result__text ${type === 'pep' ? 'text-capitalize' : ''}">
+          ${nodeType.getValue(item)}
+        </div>
+      </li>
+    `);
+  });
+  searchDropdown.addClass('show');
+}
+
+function startSearchLoading() {
+  $(searchButtonS).prop('disabled', true);
+  $(searchInputS).prop('disabled', true);
+  $(searchButtonS).html(`
+    <div class="spinner-border spinner-border-sm" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  `);
+}
+
+function endSearchLoading() {
+  $(searchButtonS).prop('disabled', false);
+  $(searchInputS).prop('disabled', false);
+  $(searchButtonS).html('<img src="static/icons/search.svg" alt="Пошук">');
+}
 
 function startLoading() {
   $(graphContainerS).empty();
@@ -275,19 +209,41 @@ function endLoading() {
 
 $(searchFormS).on('submit', function (e) {
   e.preventDefault();
-  startLoading();
-  const edrpou = $(searchInputS).val();
-  $.ajax('https://ipa.dataocean.us/api/company/', {
-    data: { edrpou },
-    success: (data) => {
+  startSearchLoading();
+  const value = $(searchInputS).val();
 
+  // let type = 'pep';
+  // let data = { search: value };
+  // if (/^\d{8}$/.test(value)) {
+  //   type = 'company';
+  //   data = { edrpou: value };
+  // }
+  let type = 'company';
+  let data = { edrpou: value };
+
+  $.ajax(nodeTypes[type].url, {
+    data,
+    success: (data) => {
+      showSearchResults(data.results, type);
+      endSearchLoading();
+    },
+    error: () => {
+      endSearchLoading();
+      showMessage('Сталась непередбачувана помилка');
+    }
+  });
+});
+
+$(document).on('click', '.search-result', function () {
+  const type = $(this).data('type');
+  const id = $(this).data('id');
+
+  startLoading();
+  $.ajax(`${nodeTypes[type].url}${id}/`, {
+    success: (data) => {
       endLoading();
-      if (!data.results.length) {
-        showMessage('Немає результатів');
-      } else {
-        [nodes, links] = parseNodesLinks(data.results[0]);
-        drawSimulation();
-      }
+      [nodes, links] = parseNodesLinks(data, type);
+      drawSimulation();
     },
     error: () => {
       endLoading();
@@ -296,19 +252,11 @@ $(searchFormS).on('submit', function (e) {
   });
 });
 
-
 function drawSimulation() {
-  const width = 1000;
-  const height = 800;
-  const colors = {
-    primary: '#3FA2F7',
-    secondary: '#ADBCD9',
-    root: '#4F4F4F',
-  };
-
   let i = 0;
 
-  const transform = d3.zoomIdentity;
+  // const transform = d3.zoomIdentity;
+
   let node, link;
   $('#graph').empty();
   const svg = d3.select(graphContainerS).append('svg')
@@ -362,27 +310,32 @@ function drawSimulation() {
 
   const linksG = svg.append("g").attr("class", "links");
   const nodesG = svg.append("g").attr("class", "nodes");
-// .attr('transform', 'translate(40,0)');
-
 
   const simulation = d3.forceSimulation()
-    .force('link', d3.forceLink().id((d) => d.id).distance(150))
-    .force('charge', d3.forceManyBody().strength(-100))
-    .force('center', d3.forceCenter(width / 2, height / 3))
+    .force('link', d3.forceLink()
+      .id((d) => d.id)//.distance(150)
+      .distance((d) => {
+        if (!d.distance) {
+          d.distance = Math.floor(Math.random() * (250 - 150)) + 150;
+        }
+        return d.distance;
+      })
+    )
+    .force('charge', d3.forceManyBody().strength(-70))
+    .force('center', d3.forceCenter(center.x, center.y))
+    .force('collision', d3.forceCollide((d) => d._root ? 32 : 24))
     .alphaDecay(0.001)
     .on('tick', ticked);
 
-
-// const root = d3.hierarchy(data, );
-// let [nodes, links] = parseNodesLinks(data);
+  // const root = d3.hierarchy(data, );
+  // let [nodes, links] = parseNodesLinks(data);
 
   function update(d = { id: null }) {
     // const nodes = flatten(root);
     // const links = root.links();
-    // debugger
     link = linksG
       .selectAll('.link')
-      .data(links, function (d) { return d.id; });
+      .data(links, (d) => d.id);
 
     link.exit().remove();
 
@@ -420,6 +373,7 @@ function drawSimulation() {
     const nodeEnter = node
       .enter()
       .append('g')
+      .attr('id', (d) => `company-${d.id}`)
       .attr('class', 'node')
       .style('opacity', 0)
       .style('stroke', nodeDefaultColor)
@@ -445,7 +399,7 @@ function drawSimulation() {
     // .on('click', nodeClick);
 
     nodeEnter.append('rect')
-      .attr('hidden', hideCount)
+      // .attr('hidden', hideCount)
       .attr('x', -7)
       .attr('y', -32)
       .attr('width', 14)
@@ -474,31 +428,37 @@ function drawSimulation() {
       // .attr('viewBox', '0 0 40 40')
       .attr('transform', (d) => d._root ? 'scale(1.4)' : null);
 
-    nodeIconGroup.append('path')
-      .attr('fill-rule', "evenodd")
-      .attr('clip-rule', "evenodd")
-      .attr('d', (d) => {
-        // return 'M15.5 1H16.7V1.59998H20.9L19.7 3.09998L20.9 4.59998H16.7V6.16H15.5V4.59998V1.59998V1ZM3 ' +
-        //   '14C4.3 10.134 11.4203 7 16 7C20.5797 7 27.7 10.134 29 14H3ZM7.5 16H3.5V28H7.5V16ZM9.5 ' +
-        //   '16H12.5V24H9.5V16ZM24.5 16H28.5V28H24.5V16ZM14.5 24V16H17.5V24H14.5ZM22.5 ' +
-        //   '16H19.5V24H22.5V16ZM9.5 28V26H22.5V28H9.5Z'
-        return 'M20 3H12V5H8V7H6V29H13V24H19V29H26V7H24V5H20V3ZM15 ' +
-          '9H10V12H15V9ZM10 14H15V17H10V14ZM15 19H10V22H15V19ZM22 ' +
-          '9H17V12H22V9ZM17 14H22V17H17V14ZM22 19H17V22H22V19Z';
-      })
-      // .attr('fill', '#3FA2F7')
-      .attr('stroke-width', 0);
+    nodeIconGroup.append('image')
+      .attr('class', 'node-image')
+      .attr('x', 0)
+      .attr('y', 1)
+      .attr('xlink:href', nodeDefaultImage);
+
+    // nodeIconGroup.append('path')
+    //   .attr('fill-rule', "evenodd")
+    //   .attr('clip-rule', "evenodd")
+    //   .attr('d', (d) => {
+    //     // return 'M15.5 1H16.7V1.59998H20.9L19.7 3.09998L20.9 4.59998H16.7V6.16H15.5V4.59998V1.59998V1ZM3 ' +
+    //     //   '14C4.3 10.134 11.4203 7 16 7C20.5797 7 27.7 10.134 29 14H3ZM7.5 16H3.5V28H7.5V16ZM9.5 ' +
+    //     //   '16H12.5V24H9.5V16ZM24.5 16H28.5V28H24.5V16ZM14.5 24V16H17.5V24H14.5ZM22.5 ' +
+    //     //   '16H19.5V24H22.5V16ZM9.5 28V26H22.5V28H9.5Z'
+    //     return 'M20 3H12V5H8V7H6V29H13V24H19V29H26V7H24V5H20V3ZM15 ' +
+    //       '9H10V12H15V9ZM10 14H15V17H10V14ZM15 19H10V22H15V19ZM22 ' +
+    //       '9H17V12H22V9ZM17 14H22V17H17V14ZM22 19H17V22H22V19Z';
+    //   })
+    //   // .attr('fill', '#3FA2F7')
+    //   .attr('stroke-width', 0);
 
     nodeIconGroup.append('image')
       .attr('x', -1)
       .attr('y', 18)
       .style('display', (d) => {
-        return d.is_closed ? undefined : 'none'
+        return d.is_closed ? undefined : 'none';
       })
-      .attr('xlink:href', 'static/icons/closed.svg')
+      .attr('xlink:href', 'static/icons/closed.svg');
 
     nodeEnter.append('text')
-      .attr('hidden', hideCount)
+      // .attr('hidden', hideCount)
       // TODO: replace text hardcode
       .text((d) => d.founder_of_count || 0)
       .attr('class', 'child-count')
@@ -536,6 +496,8 @@ function drawSimulation() {
           '</div>'
       });
     });
+    svg.selectAll('.child-count')
+      .attr('hidden', hideCount);
   }
 
   function addTransition(d, delay = 0) {
@@ -547,7 +509,7 @@ function drawSimulation() {
   }
 
   function hideCount(d) {
-    return d._opened ? true : null;
+    return !d.founder_of_count || d._opened ? true : null;
   }
 
   function sizeContain(num) {
@@ -589,11 +551,110 @@ function drawSimulation() {
       });
   }
 
+  function renderCompanyDetail(company) {
+    const $detail = $('#detail-block');
+    $detail.empty();
+
+    const founders = company.founders.map((founder) => {
+      if (founder.id_if_company) {
+        const isNodeExists = nodes.find((node) => founder.id_if_company === node.id);
+        const isLinkExists = isNodeExists && links.find((link) => (
+          link.source.id === founder.id_if_company && link.target.id === company.id
+        ));
+        if (isLinkExists) {
+          return `<li>${founder.name} ${founder.edrpou || ''}</li>`;
+        }
+        return (
+          `<li>
+            <a href="${getUrl('company/', founder.id_if_company)}" class="js-open-company">
+              ${founder.name} ${founder.edrpou || ''}
+            </a>
+          </li>`
+        );
+      }
+      return `<li class="text-capitalize">${founder.name}</li>`;
+    });
+
+    const founder_of = company.founder_of.map((comp) => {
+      return `<li>${comp.name}</li>`;
+    });
+
+    const getHeadSigner = (company) => {
+      const head = company.signers.find((person) => / - керівник$/.test(person));
+      if (head) {
+        return head.split(' - ')[0];
+      } else {
+        return 'невідомо';
+      }
+    };
+    $detail.append(`
+      <div class="detail__name">${company.name}</div>
+      <div class="detail__prop">${company.short_name}</div>
+      <div class="detail__prop">
+        <span class="detail__prop-name">Статус:</span> ${company.status}
+      </div>
+      <div class="detail__prop">
+        <span class="detail__prop-name">ЄДРПОУ:</span> ${company.edrpou}
+      </div>
+      <div class="detail__prop">
+        <span class="detail__prop-name">Адреса:</span> ${company.address || ''}
+      </div>
+      <div class="detail__prop">
+        <span class="detail__prop-name">Статутний капітал:</span> ${company.authorized_capital || 'невідомо'}
+      </div>
+      <div class="detail__prop">
+        <span class="detail__prop-name">Керівник:</span> 
+        <span class="text-capitalize">${getHeadSigner(company)}</span>
+      </div>
+      <div class="detail__prop-name">Засновники:</div>
+      <div class="detail__prop">
+        <ul style="padding-left: 20px">${founders.join('')}</ul>
+      </div>
+      <div class="detail__prop-name">Є засновником:</div>
+      <div class="detail__prop">
+        <ul style="padding-left: 20px">${founder_of.join('')}</ul>
+      </div>
+    `);
+  }
+
+  function renderPepDetail(pep) {
+    const $detail = $('#detail-block');
+    $detail.empty();
+    $detail.append(`
+      <div class="detail__name">${pep.fullname}</div>
+    `);
+  }
+
+  function addNewCompanies(d, newNodes, isNewD) {
+    increaseSimulationSpeed();
+    newNodes.forEach((newNode) => {
+      newNode._opened = false;
+      newNode._type = 'company';
+      const isNew = pushIfNotExists(nodes, newNode);
+      if (isNew) {
+        newNode.x = d.x;
+        newNode.y = d.y;
+        newNode._parent = d.id;
+      }
+      links.push({
+        source: d.id,
+        target: newNode.id,
+        id: `${d.id}-${newNode.id}`,
+        _parent: d.id,
+      });
+      d._opened = true;
+    });
+
+    svg.selectAll('.child-count')
+      .attr('hidden', hideCount);
+    update(d);
+  }
+
   function nodeClick(d) {
     if (d3.event.defaultPrevented) {
       return;
     }
-
+    selectedNode = d;
     svg.selectAll('.node')
       .style('stroke', nodeDefaultColor)
       .style('fill', nodeDefaultColor);
@@ -601,6 +662,14 @@ function drawSimulation() {
     d3.select(this.closest('g'))
       .style('fill', colors.primary)
       .style('stroke', colors.primary);
+
+    svg.selectAll('image.node-image')
+      .attr('xlink:href', nodeDefaultImage);
+
+    d3.select(this.querySelector('image.node-image'))
+      .attr('xlink:href', (d) => {
+        return d._type === 'pep' ? icons.pep.active : icons.company.active;
+      });
 
     // svg.selectAll('.link').exit().remove();
     svg.selectAll('.link')
@@ -619,44 +688,16 @@ function drawSimulation() {
       `<div class="w-100 d-flex justify-content-center">${animationHtml}</div>`
     );
 
-    $.ajax(`https://ipa.dataocean.us/api/company/${d.id}/`, {
+    $.ajax(`${nodeTypes[d._type].url}${d.id}/`, {
       success: (data) => {
         if (d.founder_of_count && !d._opened) {
           addNewCompanies(d, data.founder_of);
         }
-        $detail.empty();
-
-        const d_elem = (text, css_class = 'detail__prop') => {
-          if (!text) {
-            return '';
-          }
-          return `<div class="${css_class}">${text}</div>`;
-        };
-
-        const founders = data.founders.map((founder) => {
-          if (founder.id_if_company) {
-            return `<li>${founder.name} ${founder.edrpou || ''}</li>`;
-          }
-          return `<li class="text-capitalize">${founder.name}</li>`;
-        });
-
-        const founder_of = data.founder_of.map((comp) => {
-          return `<li>${comp.name}</li>`;
-        });
-
-        $detail.append([
-          d_elem(data.name, 'detail__name'),
-          d_elem(data.short_name),
-          d_elem(`<span class="detail__prop-name">Статус:</span> ${data.status}`),
-          d_elem(`<span class="detail__prop-name">ЄДРПОУ:</span> ${data.edrpou}`),
-          d_elem(`<span class="detail__prop-name">Адреса:</span> ${data.address || ''}`),
-          d_elem(`<span class="detail__prop-name">Статутний капітал:</span> ${data.authorized_capital || 'невідомо'}`),
-          // d_elem(data.bylaw),
-          d_elem('Засновники:', 'detail__prop-name'),
-          d_elem(`<ul style="padding-left: 20px">${founders.join('')}</ul>`),
-          d_elem('Є засновником:', 'detail__prop-name'),
-          d_elem(`<ul style="padding-left: 20px">${founder_of.join('')}</ul>`),
-        ]);
+        if (d._type === 'company') {
+          renderCompanyDetail(data);
+        } else {
+          renderPepDetail(data);
+        }
       }
     });
 
@@ -682,10 +723,10 @@ function drawSimulation() {
         }
         return true;
       });
-      children.forEach((node) => removeChildNodes(node))
+      children.forEach((node) => removeChildNodes(node));
     }
 
-    removeChildNodes(d)
+    removeChildNodes(d);
 
     d._opened = false;
     svg.selectAll('.child-count')
@@ -696,6 +737,14 @@ function drawSimulation() {
 
   function nodeDefaultColor(d) {
     return d._root ? colors.root : colors.secondary;
+  }
+
+  function nodeDefaultImage(d) {
+    if (d._type === 'company') {
+      return d._root ? icons.company.root : icons.company.inactive;
+    } else {
+      return icons.pep.inactive;
+    }
   }
 
   function nodeHover(d) {
@@ -740,32 +789,6 @@ function drawSimulation() {
       simulation.alpha(a);
       a += 0.1;
     }, 100);
-  }
-
-  function addNewCompanies(d, newNodes) {
-    increaseSimulationSpeed();
-    newNodes.forEach((newNode) => {
-      newNode._opened = false;
-      const isNew = pushIfNotExists(nodes, newNode);
-      if (isNew) {
-        newNode.x = d.x;
-        newNode.y = d.y;
-        newNode._parent = d.id;
-      }
-      links.push({
-        source: d.id,
-        target: newNode.id,
-        id: `${d.id}-${newNode.id}`,
-        _parent: d.id,
-      });
-
-      let node = nodes.find((item) => item.id === d.id);
-      node._opened = true;
-      svg.selectAll('.child-count')
-        .attr('hidden', hideCount);
-
-      update(d);
-    });
   }
 
 
@@ -847,4 +870,37 @@ function drawSimulation() {
   }
 
   update();
+
+  $(document).on('click', 'a.js-open-company', function (e) {
+    e.preventDefault();
+    $(this).closest('li').html($(this).text());
+    $.ajax(this.href, {
+      success: (data) => {
+        const newNodes = data.founder_of;
+        delete data.founder_of;
+        data._opened = false;
+        data._type = 'company';
+        const isNew = pushIfNotExists(nodes, data);
+        if (isNew) {
+          data.x = selectedNode.x;
+          data.y = selectedNode.y;
+          data._parent = selectedNode.id;
+        }
+        links.push({
+          source: data.id,
+          target: selectedNode.id,
+          id: `${data.id}-${selectedNode.id}`,
+          _parent: data.id,
+        });
+        data._opened = true;
+
+        addNewCompanies(data, newNodes);
+        $(`#company-${data.id}`)[0].dispatchEvent(new MouseEvent('click'));
+      },
+      // error: () => {
+      //   // endSearchLoading();
+      //   // showMessage('Сталась непередбачувана помилка');
+      // }
+    });
+  });
 }

@@ -4,37 +4,53 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="static/css/bootstrap.min.css">
-    <link rel="stylesheet" href="static/css/styles.css?v=4">
+    <link rel="stylesheet" href="static/css/styles.css?v=6">
     <title>DataOcean PEP Scheme</title>
   </head>
   <body>
     <div class="container-fluid p-4">
-      <div class="row">
-        <div class="col-lg-3">
-          <div class="search">
-            <form id="company-search-form" class="search__input">
-              <input
-                  id="company-search"
-                  type="text"
-                  class="form-control"
-                  placeholder="Введіть ЄДРПОУ"
-                  pattern="^\d{8}$"
-              >
-              <button id="company-search-btn" class="btn btn-green ml-2">
-                <img src="static/icons/search.svg" alt="Пошук">
-              </button>
-            </form>
-          </div>
-          <div id="company-detail" class="detail mt-4">
-            <div class="detail__header">
-              Деталі
+      <div class="row justify-content-between">
+        <div class="col-xl-10 col-lg-9">
+          <div class="row">
+            <div class="col-lg-8 col-xl-6">
+              <div class="search">
+                <form id="company-search-form" class="d-flex">
+                  <input
+                      required
+                      id="company-search"
+                      type="text"
+                      class="form-control"
+                      placeholder="Введіть ЄДРПОУ"
+                      pattern="^\d{8}$"
+                  >
+                  <button type="submit" id="company-search-btn" class="btn btn-green ml-2">
+                    <!--<button class="btn btn-green ml-2">-->
+                    <img src="static/icons/search.svg" alt="Пошук">
+                  </button>
+                  <div class="dropdown-menu search-dropdown">
+                    <div class="px-2">
+                      <ul class="list-group list-group-flush">
+                      </ul>
+                    </div>
+                  </div>
+                </form>
+              </div>
             </div>
-            <div id="detail-block">
+          </div>
+          <div class="row">
+            <div class="col-lg-5 col-xl-4">
+              <div id="company-detail" class="detail mt-4">
+                <div class="detail__header">
+                  Деталі
+                </div>
+                <div id="detail-block">
 
+                </div>
+              </div>
+            </div>
+            <div id="graph" class="col-lg-7 col-xl-8">
             </div>
           </div>
-        </div>
-        <div id="graph" class="col-lg-6 col-xl-7">
         </div>
         <div class="col-xl-2 col-lg-3">
           <div class="detail">
@@ -131,9 +147,21 @@
               </div>
             </div>
             <div class="legend-item">
-              <img src="static/icons/ua_person.svg" alt="ua_person">
+              <img src="static/icons/pep/pep_active.svg" alt="ua_person">
               <div class="legend-text">
                 Публічна особа
+              </div>
+            </div>
+            <div class="legend-item">
+              <img src="static/icons/top_manager.svg" alt="ua_person">
+              <div class="legend-text">
+                Керівник
+              </div>
+            </div>
+            <div class="legend-item">
+              <img src="static/icons/beneficiary.svg" alt="ua_person">
+              <div class="legend-text">
+                Беніфіціар
               </div>
             </div>
           </div>
@@ -145,7 +173,6 @@
     <script src="static/js/popper.min.js"></script>
     <script src="static/js/bootstrap.min.js"></script>
     <script src="static/js/d3.v5.min.js"></script>
-
-    <script src="static/js/index.js?v=7"></script>
+    <script src="static/js/index.js?v=8"></script>
   </body>
 </html>
