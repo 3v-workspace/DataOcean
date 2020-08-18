@@ -895,7 +895,14 @@ function drawSimulation() {
         data._opened = true;
 
         addNewCompanies(data, newNodes);
-        $(`#company-${data.id}`)[0].dispatchEvent(new MouseEvent('click'));
+
+        const interval = setInterval(() => {
+          const el = $(`#company-${data.id}`)
+          if (el.length) {
+            clearInterval(interval);
+            el[0].dispatchEvent(new MouseEvent('click'));
+          }
+        }, 100)
       },
       // error: () => {
       //   // endSearchLoading();
