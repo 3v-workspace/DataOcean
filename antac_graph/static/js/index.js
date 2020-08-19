@@ -580,7 +580,7 @@ function drawSimulation() {
     });
 
     const getHeadSigner = (company) => {
-      const head = company.signers.find((person) => / - керівник$/.test(person));
+      const head = company.signers.find((person) => / - керівник/.test(person));
       if (head) {
         return head.split(' - ')[0];
       } else {
