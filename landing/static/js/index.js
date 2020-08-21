@@ -48,6 +48,7 @@ $(document).ready(() => {
 
 $(document).ready(function () {
 	$('#contact-form').validate( {
+	    errorClass: "input input_error",
 		rules: {
 			username: {
 				required: true,
@@ -61,10 +62,14 @@ $(document).ready(function () {
 				required: true,
 				email: true,
 			},
-		    //phone: {
-            //   required: true,
-            //    minlength: 11
-            //},
+		    phone: {
+                required: true,
+                minlength: 10,
+                maxlength: 15
+            },
+            question: {
+                required: true,
+            },
 		},
 		messages: {
 			username: {
@@ -79,10 +84,49 @@ $(document).ready(function () {
 				required: "Будь ласка, введіть адресу",
 				email: "Будь ласка, введіть коректно адресу"
 			},
-			//phone: {
-            //    required: "Будь ласка, введіть коректний номер телефону",
-            //},
+			phone: {
+                required: "Будь ласка, введіть коректний номер телефону",
+                minlength: "Замала кількість символів",
+                maxlength: "Завелика кількість символів"
+            },
+            question: {
+                required: "Будь ласка, поставте своє запитання"
+            }
 		},
     });
 });
 
+$('#contact-form').submit(function(event){
+        event.preventDefault();
+
+		let form = $('#contact-form');
+        let data = {
+                name: form.find('[name="username"]').val() + ' ' + form.find('[name="surname"]').val(),
+                email: form.find('[name="email"]').val(),
+                subject: form.find('[name="phone"]').val(),
+                message: form.find('[name="question"]').val(),
+        }
+
+		$.ajax({
+		    url:     "https://ipa.dataocean.us/api/landing_mail/",
+            type:    "POST",
+            dataType: "json",
+            data: data,
+            success: function(Response) {
+                result = $.parseJSON(Response);
+                if (result.status === 200) {
+                    var modal = $.modal.show({
+                        content: '<p>Тепер Ви будете в курсі всіх новин про DataOcean</p>',
+                    });
+                };
+                return false;
+            },
+
+            error: function() {
+                if (result.status ===  400 || result.status === 503) {
+                    return "Помилка. Дані не відправлені.";
+                }
+                else return "Невідома помилка.";
+        }
+    });
+});
