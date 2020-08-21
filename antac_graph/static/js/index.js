@@ -33,12 +33,12 @@ const graphContainerS = '#graph';
 const nodeTypes = {
   pep: {
     icon: 'pep/pep_active.svg',
-    getValue: (obj) => obj.fullname,
+    getSearchText: (obj) => obj.fullname,
     url: getUrl('pep/'),
   },
   company: {
     icon: 'build2.svg',
-    getValue: (obj) => `${obj.edrpou} - ${obj.name}`,
+    getSearchText: (obj) => `${obj.edrpou} - ${obj.name}`,
     url: getUrl('company/'),
   },
 };
@@ -53,7 +53,84 @@ const icons = {
     active: 'static/icons/pep/pep_active.svg',
     inactive: 'static/icons/pep/pep_inactive.svg',
   },
+  peoples: {
+    active: 'static/icons/peoples/peoples_active.svg',
+    inactive: 'static/icons/peoples/peoples_inactive.svg',
+  },
+  hearth: {
+    active: 'static/icons/hearth/hearth_active.svg',
+    inactive: 'static/icons/hearth/hearth_inactive.svg',
+  },
+  briefcase: {
+    active: 'static/icons/briefcase/briefcase_active.svg',
+    inactive: 'static/icons/briefcase/briefcase_inactive.svg',
+  },
+  beneficiary: {
+    active: 'static/icons/beneficiary/beneficiary_active.svg',
+    inactive: 'static/icons/beneficiary/beneficiary_inactive.svg',
+  },
+  top_manager: {
+    active: 'static/icons/top_manager/top_manager_active.svg',
+    inactive: 'static/icons/top_manager/top_manager_inactive.svg',
+  },
 };
+
+const relatedPersonIcons = {
+  family: {
+    types: [
+      'усиновлювач',
+      'падчерка',
+      'дід',
+      'рідний брат',
+      'мати',
+      'син',
+      'невістка',
+      'внук',
+      'мачуха',
+      'особа, яка перебуває під опікою або піклуванням',
+      'усиновлений',
+      'внучка',
+      'батько',
+      'рідна сестра',
+      'зять',
+      'чоловік',
+      'опікун чи піклувальник',
+      'дочка',
+      'свекор',
+      'тесть',
+      'теща',
+      'баба',
+      'пасинок',
+      'вітчим',
+      'дружина',
+      'свекруха',
+    ],
+    icons: icons.hearth,
+  },
+  work: {
+    types: [
+      'ділові зв\'язки',
+    ],
+    icons: icons.briefcase,
+  },
+  personal: {
+    types: [
+      'особисті зв\'язки',
+      'особи, які спільно проживають',
+      'пов\'язані спільним побутом і мають взаємні права та обов\'язки',
+    ],
+    icons: icons.peoples,
+  },
+};
+
+function getIconsForRelationType(relType) {
+  for (let relations of Object.values(relatedPersonIcons)) {
+    if (relations.types.find((relationType) => relType.includes(relationType))) {
+      return relations.icons;
+    }
+  }
+}
+
 const width = 1000;
 const height = 800;
 const colors = {
@@ -70,62 +147,75 @@ let links = [];
 let selectedNode;
 
 function parseNodesLinks(data, type) {
-  let nodes = [];
-  let links = [];
+  let newRootNode;
 
-  function addChildNode(item, type) {
-    item._opened = false;
-    links.push({
-      source: data.id,
-      target: item.id,
-      id: `${data.id}-${item.id}`,
-    });
-    nodes.push({
+  function addChildNode(item, type, isRelatedPerson = false) {
+    const newNode = {
       ...item,
       _type: type,
       _opened: false,
       _root: false,
-    });
+    };
+    if (type === 'pep' && isRelatedPerson) {
+      newNode._isRelatedPerson = true;
+    }
+    newNode.id = getIdForNode(newNode);
+    tryPushChildNode(newRootNode, newNode);
+    // if (newRootNode.id === newNode.id) {
+    //   return;
+    // }
+    // links.push({
+    //   source: newRootNode.id,
+    //   target: newNode.id,
+    //   id: `${newRootNode.id}-${newNode.id}`,
+    // });
+    // nodes.push(newNode);
   }
 
   function parseCompany() {
-    nodes.push({
+    newRootNode = {
       ...data,
       _type: type,
       _opened: true,
       _root: true,
-      related_peps: undefined,
+      relationships_with_peps: undefined,
       founder_of: undefined,
-    });
+    };
+    newRootNode.id = getIdForNode(newRootNode);
+    nodes.push(newRootNode);
 
     data.founder_of.forEach((item) => {
       addChildNode(item, 'company');
     });
-    (data.related_peps || []).forEach((item) => {
-      addChildNode(item, 'pep');
+    data.relationships_with_peps.forEach((item) => {
+      addChildNode(item.pep, 'pep');
     });
   }
 
   function parsePep() {
-    nodes.push({
+    newRootNode = {
       ...data,
       _type: type,
       _opened: true,
       _root: true,
       related_companies: undefined,
       related_persons: undefined,
-    });
+      check_companies: undefined,
+    };
+    newRootNode.id = getIdForNode(newRootNode);
+    nodes.push(newRootNode);
     data.related_companies.forEach((item) => {
       addChildNode(item.company, 'company');
     });
     data.related_persons.forEach((item) => {
-      addChildNode(item, 'pep');
+      addChildNode(item, 'pep', true);
+    });
+    data.check_companies.forEach((item) => {
+      addChildNode(item, 'company');
     });
   }
 
   type === 'company' ? parseCompany() : parsePep();
-
-  return [nodes, links];
 }
 
 
@@ -136,6 +226,38 @@ function pushIfNotExists(array, newItem) {
     return true;
   }
   return false;
+}
+
+function tryPushChildNode(d, newNode, reverse_link = false) {
+  if (d.id === newNode.id) {
+    return;
+  }
+  const isNew = pushIfNotExists(nodes, newNode);
+  if (isNew) {
+    newNode.x = d.x;
+    newNode.y = d.y;
+    newNode._parent = d.id;
+    newNode._opened = false;
+  } else {
+    const existingLink = links.find((link) => {
+      const ids = [link.source.id, link.target.id];
+      return ids.includes(d.id) && ids.includes(newNode.id);
+    });
+    if (existingLink) {
+      return;
+    }
+  }
+  const newLink = {
+    source: d.id,
+    target: newNode.id,
+    id: `${d.id}-${newNode.id}`,
+    _parent: d.id,
+  };
+  if (reverse_link) {
+    newLink.source = newNode.id;
+    newLink.target = d.id;
+  }
+  links.push(newLink);
 }
 
 function showMessage(message) {
@@ -170,7 +292,7 @@ function showSearchResults(data, type) {
       >
         <img class="pr-3 p-2" src="static/icons/${nodeType.icon}" alt="">
         <div class="search-result__text ${type === 'pep' ? 'text-capitalize' : ''}">
-          ${nodeType.getValue(item)}
+          ${nodeType.getSearchText(item)}
         </div>
       </li>
     `);
@@ -212,14 +334,14 @@ $(searchFormS).on('submit', function (e) {
   startSearchLoading();
   const value = $(searchInputS).val();
 
-  // let type = 'pep';
-  // let data = { search: value };
-  // if (/^\d{8}$/.test(value)) {
-  //   type = 'company';
-  //   data = { edrpou: value };
-  // }
-  let type = 'company';
-  let data = { edrpou: value };
+  let type = 'pep';
+  let data = { search: value };
+  if (/^\d{8}$/.test(value)) {
+    type = 'company';
+    data = { edrpou: value };
+  }
+  // let type = 'company';
+  // let data = { edrpou: value };
 
   $.ajax(nodeTypes[type].url, {
     data,
@@ -242,7 +364,9 @@ $(document).on('click', '.search-result', function () {
   $.ajax(`${nodeTypes[type].url}${id}/`, {
     success: (data) => {
       endLoading();
-      [nodes, links] = parseNodesLinks(data, type);
+      nodes = [];
+      links = [];
+      parseNodesLinks(data, type);
       drawSimulation();
     },
     error: () => {
@@ -251,6 +375,22 @@ $(document).on('click', '.search-result', function () {
     }
   });
 });
+
+function getIdForNode(d) {
+  let prefix;
+  if (d._type === 'company') {
+    prefix = 'company-';
+  } else if (d._type === 'pep') {
+    prefix = d._isRelatedPerson ? 'rp-' : 'pep-';
+  } else {
+    throw new Error(`wrong type ${type}`);
+  }
+  return `${prefix}${d.id}`;
+}
+
+function getIdFromNode(d) {
+  return d.id.match(/-(\d+)$/)[1];
+}
 
 function drawSimulation() {
   let i = 0;
@@ -373,7 +513,7 @@ function drawSimulation() {
     const nodeEnter = node
       .enter()
       .append('g')
-      .attr('id', (d) => `company-${d.id}`)
+      .attr('id', (d) => d.id)
       .attr('class', 'node')
       .style('opacity', 0)
       .style('stroke', nodeDefaultColor)
@@ -480,15 +620,27 @@ function drawSimulation() {
     simulation.force('link').links(links);
 
     d3.selectAll('svg .node').each(function (d, i) {
+      let content;
+      if (d._type === 'pep') {
+        content = `<div class="company-name text-capitalize">${d.fullname}</div>` +
+          `<div>${d.is_pep ? 'Є публічним діячем' : 'Не є публічним діячем'}</div>` +
+          `<div><b>Тип:</b> ${d.pep_type || ' --- '}</div>` +
+          `<div><b>Посада:</b> ${d.last_job_title || ' --- '}</div>`;
+      } else if (d._type === 'company') {
+        content = `<div class="company-name">${d.short_name || d.name}</div>` +
+          `<div>${d.company_type || ' --- '}</div>` +
+          `<div><b>ЄДРПОУ:</b> ${d.edrpou || ' --- '}</div>` +
+          `<div><b>Статус:</b> ${d.status || ' --- '}</div>`;
+      }
+      if (!(d.name || d.fullname)) {
+        debugger;
+      }
       $(this).popover({
         trigger: 'hover',
-        title: d.name,
+        title: d.name || d.fullname,
         placement: 'top',
         html: true,
-        content: `<div class="company-name">${d.short_name || d.name}</div>` +
-          `<div>${d.company_type || ''}</div>` +
-          `<div><b>ЄДРПОУ:</b> ${d.edrpou || ''}</div>` +
-          `<div><b>Статус:</b> ${d.status || ''}</div>`,
+        content: content,
         template: '<div class="popover" role="tooltip">' +
           // '<div class="arrow"></div>' +
           // '<h3 class="popover-header"></h3>' +
@@ -557,9 +709,11 @@ function drawSimulation() {
 
     const founders = company.founders.map((founder) => {
       if (founder.id_if_company) {
-        const isNodeExists = nodes.find((node) => founder.id_if_company === node.id);
+        const founderNodeId = getIdForNode({ id: founder.id_if_company, _type: 'company' });
+        const companyNodeId = getIdForNode({ id: company.id, _type: 'company' });
+        const isNodeExists = nodes.find((node) => founderNodeId === node.id);
         const isLinkExists = isNodeExists && links.find((link) => (
-          link.source.id === founder.id_if_company && link.target.id === company.id
+          link.source.id === founderNodeId && link.target.id === companyNodeId
         ));
         if (isLinkExists) {
           return `<li>${founder.name} ${founder.edrpou || ''}</li>`;
@@ -572,7 +726,10 @@ function drawSimulation() {
           </li>`
         );
       }
-      return `<li class="text-capitalize">${founder.name}</li>`;
+      if (founder.name.split(' ').length === 3) {
+        return `<li class="text-capitalize">${founder.name}</li>`;
+      }
+      return `<li>${founder.name}</li>`;
     });
 
     const founder_of = company.founder_of.map((comp) => {
@@ -600,7 +757,8 @@ function drawSimulation() {
         <span class="detail__prop-name">Адреса:</span> ${company.address || ''}
       </div>
       <div class="detail__prop">
-        <span class="detail__prop-name">Статутний капітал:</span> ${company.authorized_capital || 'невідомо'}
+        <span class="detail__prop-name">Статутний капітал:</span>
+        ${company.authorized_capital ? company.authorized_capital.toLocaleString() : 'невідомо'}
       </div>
       <div class="detail__prop">
         <span class="detail__prop-name">Керівник:</span> 
@@ -625,30 +783,48 @@ function drawSimulation() {
     `);
   }
 
-  function addNewCompanies(d, newNodes, isNewD) {
-    increaseSimulationSpeed();
-    newNodes.forEach((newNode) => {
-      newNode._opened = false;
-      newNode._type = 'company';
-      const isNew = pushIfNotExists(nodes, newNode);
-      if (isNew) {
-        newNode.x = d.x;
-        newNode.y = d.y;
-        newNode._parent = d.id;
+  function addNewChildNodes(d, objects, type, isRelatedPerson = false, obj_prop = null) {
+    objects.forEach((obj) => {
+      if (obj_prop) {
+        obj = obj[obj_prop];
       }
-      links.push({
-        source: d.id,
-        target: newNode.id,
-        id: `${d.id}-${newNode.id}`,
-        _parent: d.id,
-      });
+      const newNode = {
+        ...obj,
+        _type: type,
+      };
+      if (type === 'pep' && isRelatedPerson) {
+        newNode._isRelatedPerson = true;
+      }
+      newNode.id = getIdForNode(newNode);
+      tryPushChildNode(d, newNode);
       d._opened = true;
     });
-
-    svg.selectAll('.child-count')
-      .attr('hidden', hideCount);
-    update(d);
   }
+
+  // function addNewCompanies(d, newNodes) {
+  //   increaseSimulationSpeed();
+  //   newNodes.forEach((newNode) => {
+  //     newNode._opened = false;
+  //     newNode._type = 'company';
+  //     const isNew = pushIfNotExists(nodes, newNode);
+  //     if (isNew) {
+  //       newNode.x = d.x;
+  //       newNode.y = d.y;
+  //       newNode._parent = d.id;
+  //     }
+  //     links.push({
+  //       source: d.id,
+  //       target: newNode.id,
+  //       id: `${d.id}-${newNode.id}`,
+  //       _parent: d.id,
+  //     });
+  //     d._opened = true;
+  //   });
+  //
+  //   svg.selectAll('.child-count')
+  //     .attr('hidden', hideCount);
+  //   update(d);
+  // }
 
   function nodeClick(d) {
     if (d3.event.defaultPrevented) {
@@ -664,12 +840,26 @@ function drawSimulation() {
       .style('stroke', colors.primary);
 
     svg.selectAll('image.node-image')
-      .attr('xlink:href', nodeDefaultImage);
-
-    d3.select(this.querySelector('image.node-image'))
-      .attr('xlink:href', (d) => {
-        return d._type === 'pep' ? icons.pep.active : icons.company.active;
+      .attr('xlink:href', (d_node) => {
+        if (d_node === d) {
+          if (d._type === 'pep') {
+            if (d._isRelatedPerson) {
+              const icons = getIconsForRelationType(d.relationship_type);
+              if (icons) {
+                return icons.active;
+              }
+            }
+            return icons.pep.active;
+          }
+          return icons.company.active;
+        }
+        return nodeDefaultImage(d_node);
       });
+
+    // d3.select(this.querySelector('image.node-image'))
+    //   .attr('xlink:href', (d) => {
+    //     return d._type === 'pep' ? icons.pep.active : icons.company.active;
+    //   });
 
     // svg.selectAll('.link').exit().remove();
     svg.selectAll('.link')
@@ -687,26 +877,35 @@ function drawSimulation() {
     $detail.append(
       `<div class="w-100 d-flex justify-content-center">${animationHtml}</div>`
     );
-
-    $.ajax(`${nodeTypes[d._type].url}${d.id}/`, {
+    if (d._type === 'pep' && d._isRelatedPerson) {
+      renderPepDetail(d);
+      return;
+    }
+    $.ajax(`${nodeTypes[d._type].url}${getIdFromNode(d)}/`, {
       success: (data) => {
-        if (d.founder_of_count && !d._opened) {
-          addNewCompanies(d, data.founder_of);
-        }
         if (d._type === 'company') {
+          if (!d._opened) {
+            increaseSimulationSpeed();
+            addNewChildNodes(d, data.founder_of, 'company');
+            addNewChildNodes(d, data.relationships_with_peps, 'pep', false, 'pep');
+          }
           renderCompanyDetail(data);
-        } else {
+        } else if (d._type === 'pep') {
+          if (!d._opened) {
+            increaseSimulationSpeed();
+            addNewChildNodes(d, data.related_persons, 'pep', true);
+            addNewChildNodes(d, data.related_companies, 'company', false, 'company');
+            addNewChildNodes(d, data.check_companies, 'company');
+          }
           renderPepDetail(data);
+        } else {
+          throw new Error(`wrong type ${d._type}`);
         }
+        svg.selectAll('.child-count')
+          .attr('hidden', hideCount);
+        update(d);
       }
     });
-
-    // Object.entries(d).forEach(([key, value]) => {
-    //   if (key === 'children') return;
-    //   $data.append(
-    //     `<tr><td>${key}</td><td>${value}</td></tr>`
-    //   );
-    // });
   }
 
   function nodeRightClick(d) {
@@ -742,7 +941,14 @@ function drawSimulation() {
   function nodeDefaultImage(d) {
     if (d._type === 'company') {
       return d._root ? icons.company.root : icons.company.inactive;
-    } else {
+    }
+    if (d._type === 'pep') {
+      if (d._isRelatedPerson) {
+        const icons = getIconsForRelationType(d.relationship_type);
+        if (icons) {
+          return icons.inactive;
+        }
+      }
       return icons.pep.inactive;
     }
   }
@@ -791,49 +997,6 @@ function drawSimulation() {
     }, 100);
   }
 
-
-  function countClick(d) {
-    if (!d3.event.defaultPrevented) {
-      // if (d.children) {
-      //   d._children = d.children;
-      //   d.children = null;
-      // } else {
-      //   d.children = d._children;
-      //   d._children = null;
-      // }
-      // let newNode = d3.hierarchy(additionalData1);
-      // let newNodes = additionalData1.map((item) => {
-      //   let newNode = d3.hierarchy(item);
-      //   newNode.depth = d.depth + 1;
-      //   newNode.height = d.height - 1;
-      //   newNode.parent = d;
-      //   newNode.x = d.x;
-      //   newNode.y = d.y;
-      //   return newNode;
-      // });
-
-      // let newNodes = additionalData1.map((newNode) => {
-      //   newNode._opened = false;
-      //   const isNew = pushIfNotExists(nodes, newNode);
-      //   if (isNew) {
-      //     newNode.x = d.x;
-      //     newNode.y = d.y;
-      //   }
-      //   links.push({
-      //     source: d.id,
-      //     target: newNode.id,
-      //     id: `${d.id}-${newNode.id}`
-      //   });
-      //   // node._opened = true;
-      // });
-      //
-      // // d.children = newNodes;
-      // // d.data.children = newNodes.data;
-      // update(d);
-    }
-  }
-
-
   function dragstarted(d) {
     if (!d3.event.active) simulation.alphaTarget(0.3).restart();
     d.fx = d.x;
@@ -876,33 +1039,30 @@ function drawSimulation() {
     $(this).closest('li').html($(this).text());
     $.ajax(this.href, {
       success: (data) => {
+        increaseSimulationSpeed();
         const newNodes = data.founder_of;
         delete data.founder_of;
-        data._opened = false;
-        data._type = 'company';
-        const isNew = pushIfNotExists(nodes, data);
-        if (isNew) {
-          data.x = selectedNode.x;
-          data.y = selectedNode.y;
-          data._parent = selectedNode.id;
-        }
-        links.push({
-          source: data.id,
-          target: selectedNode.id,
-          id: `${data.id}-${selectedNode.id}`,
-          _parent: data.id,
-        });
         data._opened = true;
-
-        addNewCompanies(data, newNodes);
-
+        data._type = 'company';
+        data.id = getIdForNode(data);
+        if (selectedNode.id !== data.id) {
+          const isNew = pushIfNotExists(nodes, data);
+          if (isNew) {
+            data.x = selectedNode.x;
+            data.y = selectedNode.y;
+            // data._parent = selectedNode.id;
+          }
+        }
+        // tryPushChildNode(selectedNode, data);
+        addNewChildNodes(data, newNodes, 'company');
+        update(data);
         const interval = setInterval(() => {
-          const el = $(`#company-${data.id}`)
+          const el = $(`#${data.id}`);
           if (el.length) {
             clearInterval(interval);
             el[0].dispatchEvent(new MouseEvent('click'));
           }
-        }, 100)
+        }, 100);
       },
       // error: () => {
       //   // endSearchLoading();
