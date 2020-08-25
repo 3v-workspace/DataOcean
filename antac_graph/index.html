@@ -4,15 +4,17 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="static/css/bootstrap.min.css">
-    <link rel="stylesheet" href="static/css/styles.css?v=6">
+    <link rel="stylesheet" href="static/css/styles.css?v=7">
     <title>DataOcean PEP Scheme</title>
   </head>
   <body>
+    <div id="graph">
+    </div>
     <div class="container-fluid p-4">
       <div class="row justify-content-between">
         <div class="col-xl-10 col-lg-9">
           <div class="row">
-            <div class="col-lg-8 col-xl-6">
+            <div class="col-lg-8 col-xl-6 z-4">
               <div class="search">
                 <form id="company-search-form" class="d-flex">
                   <input
@@ -22,7 +24,7 @@
                       class="form-control"
                       placeholder="Введіть ЄДРПОУ або прізвище"
                   >
-<!--                      pattern="^\d{8}$"-->
+                  <!--                      pattern="^\d{8}$"-->
                   <button type="submit" id="company-search-btn" class="btn btn-green ml-2">
                     <!--<button class="btn btn-green ml-2">-->
                     <img src="static/icons/search.svg" alt="Пошук">
@@ -38,130 +40,136 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-lg-5 col-xl-4">
-              <div id="company-detail" class="detail mt-4">
-                <div class="detail__header">
+            <div class="col-lg-5 col-xl-4 z-3">
+              <div id="company-detail" class="side-block mt-4">
+                <div class="side-block-header">
                   Деталі
+                  <div class="slide slide-up"></div>
                 </div>
-                <div id="detail-block">
-
+                <div id="detail-block" class="side-block-body show">
                 </div>
               </div>
             </div>
-            <div id="graph" class="col-lg-7 col-xl-8">
+            <div id="graph-space" class="col-lg-7 col-xl-8">
             </div>
           </div>
         </div>
-        <div class="col-xl-2 col-lg-3">
-          <div class="detail">
-            <div class="detail__header">
+        <div class="col-xl-2 col-lg-3 z-3">
+          <div class="side-block">
+            <div class="side-block-header side-block-body show">
               Фільтр
+              <div class="slide slide-up"></div>
             </div>
-            <div class="custom-control custom-checkbox">
-              <input type="checkbox" class="custom-control-input" id="customCheck1">
-              <label class="custom-control-label" for="customCheck1">
-                Родині зв’язки
-              </label>
-            </div>
-            <div class="custom-control custom-checkbox">
-              <input type="checkbox" class="custom-control-input" id="customCheck2">
-              <label class="custom-control-label" for="customCheck2">
-                Особисті зв’язки
-              </label>
-            </div>
-            <div class="custom-control custom-checkbox">
-              <input type="checkbox" class="custom-control-input" id="customCheck3">
-              <label class="custom-control-label" for="customCheck3">
-                Ділові зв’язки
-              </label>
-            </div>
-            <div class="custom-control custom-checkbox">
-              <input type="checkbox" class="custom-control-input" id="customCheck4">
-              <label class="custom-control-label" for="customCheck4">
-                Директор
-              </label>
-            </div>
-            <div class="custom-control custom-checkbox">
-              <input type="checkbox" class="custom-control-input" id="customCheck5">
-              <label class="custom-control-label" for="customCheck5">
-                Бенефіціар
-              </label>
-            </div>
-            <div class="custom-control custom-checkbox">
-              <input type="checkbox" class="custom-control-input" id="customCheck6">
-              <label class="custom-control-label" for="customCheck6">
-                Власник
-              </label>
-            </div>
-            <div class="custom-control custom-checkbox">
-              <input type="checkbox" class="custom-control-input" id="customCheck7">
-              <label class="custom-control-label" for="customCheck7">
-                Публічні особи
-              </label>
-            </div>
-            <div class="custom-control custom-checkbox">
-              <input type="checkbox" class="custom-control-input" id="customCheck8">
-              <label class="custom-control-label" for="customCheck8">
-                Власність
-              </label>
-            </div>
-            <div class="custom-control custom-checkbox">
-              <input type="checkbox" class="custom-control-input" id="customCheck9">
-              <label class="custom-control-label" for="customCheck9">
-                Партії
-              </label>
+            <div class="side-block-body show">
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="customCheck1">
+                <label class="custom-control-label" for="customCheck1">
+                  Родині зв’язки
+                </label>
+              </div>
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="customCheck2">
+                <label class="custom-control-label" for="customCheck2">
+                  Особисті зв’язки
+                </label>
+              </div>
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="customCheck3">
+                <label class="custom-control-label" for="customCheck3">
+                  Ділові зв’язки
+                </label>
+              </div>
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="customCheck4">
+                <label class="custom-control-label" for="customCheck4">
+                  Директор
+                </label>
+              </div>
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="customCheck5">
+                <label class="custom-control-label" for="customCheck5">
+                  Бенефіціар
+                </label>
+              </div>
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="customCheck6">
+                <label class="custom-control-label" for="customCheck6">
+                  Власник
+                </label>
+              </div>
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="customCheck7">
+                <label class="custom-control-label" for="customCheck7">
+                  Публічні особи
+                </label>
+              </div>
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="customCheck8">
+                <label class="custom-control-label" for="customCheck8">
+                  Власність
+                </label>
+              </div>
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="customCheck9">
+                <label class="custom-control-label" for="customCheck9">
+                  Партії
+                </label>
+              </div>
             </div>
           </div>
-          <div class="detail mt-4">
-            <div class="detail__header">
+          <div class="side-block mt-4">
+            <div class="side-block-header side-block-body show">
               Легенда
+              <div class="slide slide-up"></div>
             </div>
-            <div class="legend-item">
-              <img src="static/icons/build2.svg" alt="Build2">
-              <div class="legend-text">
-                Підприємство
+            <div class="side-block-body show">
+              <div class="legend-item">
+                <img src="static/icons/build2.svg" alt="Build2">
+                <div class="legend-text">
+                  Підприємство
+                </div>
               </div>
-            </div>
-            <div class="legend-item">
-              <img src="static/icons/build1.svg" alt="Build1">
-              <div class="legend-text">
-                Державний орган
+              <div class="legend-item">
+                <img src="static/icons/build1.svg" alt="Build1">
+                <div class="legend-text">
+                  Державний орган
+                </div>
               </div>
-            </div>
-            <div class="legend-item">
-              <img src="static/icons/briefcase/briefcase_active.svg" alt="briefcase">
-              <div class="legend-text">
-                Ділові зв’язки
+              <div class="legend-item">
+                <img src="static/icons/briefcase/briefcase_active.svg" alt="briefcase">
+                <div class="legend-text">
+                  Ділові зв’язки
+                </div>
               </div>
-            </div>
-            <div class="legend-item">
-              <img src="static/icons/hearth/hearth_active.svg" alt="hearth">
-              <div class="legend-text">
-                Родина
+              <div class="legend-item">
+                <img src="static/icons/hearth/hearth_active.svg" alt="hearth">
+                <div class="legend-text">
+                  Родина
+                </div>
               </div>
-            </div>
-            <div class="legend-item">
-              <img src="static/icons/peoples/peoples_active.svg" alt="peoples">
-              <div class="legend-text">
-                Особисті зв’язки
+              <div class="legend-item">
+                <img src="static/icons/peoples/peoples_active.svg" alt="peoples">
+                <div class="legend-text">
+                  Особисті зв’язки
+                </div>
               </div>
-            </div>
-            <div class="legend-item">
-              <img src="static/icons/pep/pep_active.svg" alt="ua_person">
-              <div class="legend-text">
-                Публічна особа
+              <div class="legend-item">
+                <img src="static/icons/pep/pep_active.svg" alt="ua_person">
+                <div class="legend-text">
+                  Публічна особа
+                </div>
               </div>
-            </div>
-            <div class="legend-item">
-              <img src="static/icons/top_manager/top_manager_active.svg" alt="ua_person">
-              <div class="legend-text">
-                Керівник
+              <div class="legend-item">
+                <img src="static/icons/top_manager/top_manager_active.svg" alt="ua_person">
+                <div class="legend-text">
+                  Керівник
+                </div>
               </div>
-            </div>
-            <div class="legend-item">
-              <img src="static/icons/beneficiary/beneficiary_active.svg" alt="ua_person">
-              <div class="legend-text">
-                Беніфіціар
+              <div class="legend-item">
+                <img src="static/icons/beneficiary/beneficiary_active.svg" alt="ua_person">
+                <div class="legend-text">
+                  Беніфіціар
+                </div>
               </div>
             </div>
           </div>
@@ -173,6 +181,6 @@
     <script src="static/js/popper.min.js"></script>
     <script src="static/js/bootstrap.min.js"></script>
     <script src="static/js/d3.v5.min.js"></script>
-    <script src="static/js/index.js?v=8"></script>
+    <script src="static/js/index.js?v=9"></script>
   </body>
 </html>

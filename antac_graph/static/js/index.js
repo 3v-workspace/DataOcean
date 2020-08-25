@@ -25,6 +25,10 @@ const getUrl = (endpoint, id) => {
   return `https://ipa.dataocean.us/api/${endpoint}`;
 };
 
+function randomInRange(min, max) {
+  return Math.floor(Math.random() * (max - min)) + min;
+}
+
 const searchFormS = '#company-search-form';
 const searchButtonS = '#company-search-btn';
 const searchInputS = 'input#company-search';
@@ -131,8 +135,8 @@ function getIconsForRelationType(relType) {
   }
 }
 
-const width = 1000;
-const height = 800;
+const width = 1900;
+const height = 900;
 const colors = {
   primary: '#3FA2F7',
   secondary: '#ADBCD9',
@@ -145,6 +149,7 @@ const center = {
 let nodes = [];
 let links = [];
 let selectedNode;
+let rootNodeId;
 
 function parseNodesLinks(data, type) {
   let newRootNode;
@@ -260,6 +265,31 @@ function tryPushChildNode(d, newNode, reverse_link = false) {
   links.push(newLink);
 }
 
+function slideIcon($iconEl) {
+  if ($iconEl.hasClass('slide-up')) {
+    $iconEl.removeClass('slide-up');
+    $iconEl.addClass('slide-down');
+  } else if ($iconEl.hasClass('slide-down')) {
+    $iconEl.removeClass('slide-down');
+    $iconEl.addClass('slide-up');
+  }
+}
+
+$('.side-block-header').on('click', function () {
+  const el = $(this);
+  const detailBody = el.siblings('.side-block-body');
+  slideIcon(el.find('.slide'));
+  if (detailBody.length) {
+    if (detailBody.hasClass('show')) {
+      detailBody.removeClass('show');
+      detailBody.slideUp();
+    } else {
+      detailBody.addClass('show');
+      detailBody.slideDown();
+    }
+  }
+});
+
 function showMessage(message) {
   $(graphContainerS).empty();
   $(graphContainerS).append(`
@@ -359,7 +389,7 @@ $(searchFormS).on('submit', function (e) {
 $(document).on('click', '.search-result', function () {
   const type = $(this).data('type');
   const id = $(this).data('id');
-
+  rootNodeId = getIdForNode({ _type: type, id });
   startLoading();
   $.ajax(`${nodeTypes[type].url}${id}/`, {
     success: (data) => {
@@ -394,19 +424,13 @@ function getIdFromNode(d) {
 
 function drawSimulation() {
   let i = 0;
-
-  // const transform = d3.zoomIdentity;
-
   let node, link;
+
   $('#graph').empty();
   const svg = d3.select(graphContainerS).append('svg')
-    .attr('height', height)
-    // .attr('width', width)
-    // .attr('height', '100%')
+    .attr('height', '100%')
     .attr('width', '100%')
-    .attr('viewBox', '0 0 1000 600')
-    // .style('border', '1px solid #666')
-    // .style('border-radius', '10px')
+    .attr('viewBox', `0 0 ${width} ${height}`)
     .call(d3.zoom()
       // .scaleExtent([1 / 2, 8])
       .on('zoom', zoomed)
@@ -414,27 +438,42 @@ function drawSimulation() {
     .append('g');
 
   svg.append("defs").selectAll("marker")
-    .data(["end-secondary", 'end-primary'])      // Different link/path types can be defined here
+    .data([
+      { variant: 'secondary', root: false },
+      { variant: 'primary', root: false },
+      { variant: 'secondary', root: true },
+      { variant: 'primary', root: true },
+    ])      // Different link/path types can be defined here
     .enter().append("svg:marker")    // This section adds in the arrows
-    .attr("id", String)
+    .attr("id", (d) => `arrow-${d.variant}-${d.root ? 'r' : 's'}`)
     .attr("viewBox", "2 -5 9 10")
     .attr("refX", (d) => {
-      if (d === 'end-secondary')
-        return 42;
-      if (d === 'end-primary')
-        return 31;
+      if (d.variant === 'secondary') {
+        if (d.root) {
+          return 52;
+        } else {
+          return 42;
+        }
+      }
+      if (d.variant === 'primary') {
+        if (d.root) {
+          return 38;
+        } else {
+          return 31;
+        }
+      }
     })
     .attr("refY", 0)
     .attr("markerWidth", (d) => {
-      if (d === 'end-secondary')
+      if (d.variant === 'secondary')
         return 8;
-      if (d === 'end-primary')
+      if (d.variant === 'primary')
         return 12;
     })
     .attr("markerHeight", (d) => {
-      if (d === 'end-secondary')
+      if (d.variant === 'secondary')
         return 8;
-      if (d === 'end-primary')
+      if (d.variant === 'primary')
         return 12;
     })
     .attr("markerUnits", 'userSpaceOnUse')
@@ -442,9 +481,9 @@ function drawSimulation() {
     .append("svg:path")
     .attr("d", "M0,-5L12,0L0,5")
     .attr('fill', (d) => {
-      if (d === 'end-secondary')
+      if (d.variant === 'secondary')
         return colors.secondary;
-      if (d === 'end-primary')
+      if (d.variant === 'primary')
         return colors.primary;
     });
 
@@ -456,7 +495,7 @@ function drawSimulation() {
       .id((d) => d.id)//.distance(150)
       .distance((d) => {
         if (!d.distance) {
-          d.distance = Math.floor(Math.random() * (250 - 150)) + 150;
+          d.distance = randomInRange(250, 150);
         }
         return d.distance;
       })
@@ -481,16 +520,10 @@ function drawSimulation() {
 
     const linkEnter = link
       .enter()
-      // .attr("class", "link")
       .append('line')
-      // .attr("marker-end", "url(#end-secondary)")
-      .attr("marker-end", (d_link) => {
-        return d_link.source === d.id ? "url(#end-primary)" : "url(#end-secondary)";
-      })
+      .attr("marker-end", (d_link) => markerEnd(d_link, d))
       .attr('class', 'link')
-      // .style('stroke', colors.secondary)
       .style('opacity', 0)
-      // .style('stroke-width', 1)
       .style('stroke', (d_link) => {
         return d_link.source === d.id ? colors.primary : colors.secondary;
       })
@@ -622,10 +655,16 @@ function drawSimulation() {
     d3.selectAll('svg .node').each(function (d, i) {
       let content;
       if (d._type === 'pep') {
-        content = `<div class="company-name text-capitalize">${d.fullname}</div>` +
-          `<div>${d.is_pep ? 'Є публічним діячем' : 'Не є публічним діячем'}</div>` +
-          `<div><b>Тип:</b> ${d.pep_type || ' --- '}</div>` +
-          `<div><b>Посада:</b> ${d.last_job_title || ' --- '}</div>`;
+        if (d._isRelatedPerson) {
+          content = `<div class="company-name text-capitalize">${d.fullname}</div>` +
+            `<div>${d.is_pep ? 'Є публічним діячем' : 'Не є публічним діячем'}</div>` +
+            `<div><b>Тип звязку:</b> ${d.relationship_type || ' --- '}</div>`;
+        } else {
+          content = `<div class="company-name text-capitalize">${d.fullname}</div>` +
+            `<div>${d.is_pep ? 'Є публічним діячем' : 'Не є публічним діячем'}</div>` +
+            `<div><b>Тип:</b> ${d.pep_type || ' --- '}</div>` +
+            `<div><b>Посада:</b> ${d.last_job_title || ' --- '}</div>`;
+        }
       } else if (d._type === 'company') {
         content = `<div class="company-name">${d.short_name || d.name}</div>` +
           `<div>${d.company_type || ' --- '}</div>` +
@@ -664,16 +703,28 @@ function drawSimulation() {
     return !d.founder_of_count || d._opened ? true : null;
   }
 
-  function sizeContain(num) {
-    num = num > 1000 ? num / 1000 : num / 100;
-    if (num < 4) num = 4;
-    return num;
-  }
-
-  function radius(d) {
-    return d._children ? 8
-      : d.children ? 8
-        : 4;
+  function markerEnd(link, selectedNode) {
+    let arrowId;
+    let srcId;
+    let dstId;
+    if (typeof link.source === 'string') {
+      srcId = link.source;
+      dstId = link.target;
+    } else {
+      srcId = link.source.id;
+      dstId = link.target.id;
+    }
+    if (srcId === selectedNode.id) {
+      arrowId = 'arrow-primary-';
+    } else {
+      arrowId = 'arrow-secondary-';
+    }
+    if (dstId === rootNodeId) {
+      arrowId += 'r';
+    } else {
+      arrowId += 's';
+    }
+    return `url(#${arrowId})`;
   }
 
   function ticked() {
@@ -745,30 +796,30 @@ function drawSimulation() {
       }
     };
     $detail.append(`
-      <div class="detail__name">${company.name}</div>
+      <div class="node-name">${company.name}</div>
       <div class="detail__prop">${company.short_name}</div>
       <div class="detail__prop">
-        <span class="detail__prop-name">Статус:</span> ${company.status}
+        <span class="prop-name">Статус:</span> ${company.status}
       </div>
       <div class="detail__prop">
-        <span class="detail__prop-name">ЄДРПОУ:</span> ${company.edrpou}
+        <span class="prop-name">ЄДРПОУ:</span> ${company.edrpou}
       </div>
       <div class="detail__prop">
-        <span class="detail__prop-name">Адреса:</span> ${company.address || ''}
+        <span class="prop-name">Адреса:</span> ${company.address || ''}
       </div>
       <div class="detail__prop">
-        <span class="detail__prop-name">Статутний капітал:</span>
+        <span class="prop-name">Статутний капітал:</span>
         ${company.authorized_capital ? company.authorized_capital.toLocaleString() : 'невідомо'}
       </div>
       <div class="detail__prop">
-        <span class="detail__prop-name">Керівник:</span> 
+        <span class="prop-name">Керівник:</span> 
         <span class="text-capitalize">${getHeadSigner(company)}</span>
       </div>
-      <div class="detail__prop-name">Засновники:</div>
+      <div class="prop-name">Засновники:</div>
       <div class="detail__prop">
         <ul style="padding-left: 20px">${founders.join('')}</ul>
       </div>
-      <div class="detail__prop-name">Є засновником:</div>
+      <div class="prop-name">Є засновником:</div>
       <div class="detail__prop">
         <ul style="padding-left: 20px">${founder_of.join('')}</ul>
       </div>
@@ -778,9 +829,58 @@ function drawSimulation() {
   function renderPepDetail(pep) {
     const $detail = $('#detail-block');
     $detail.empty();
-    $detail.append(`
-      <div class="detail__name">${pep.fullname}</div>
-    `);
+    if (pep._isRelatedPerson) {
+      $detail.append(`
+        <div class="node-name">${pep.fullname}</div>
+        <div>${pep.is_pep ? 'Є публічним діячем' : 'Не є публічним діячем'}</div>
+        <div class="detail__prop">
+          <span class="prop-name">Тип звязку:</span> ${pep.relationship_type}
+        </div>
+      `);
+    } else {
+      let related_companies = pep.related_companies.map((rel_company) => {
+        return `<li>
+           <div><u>${rel_company.relationship_type}</u></div>
+           <div>${rel_company.company.name} (${rel_company.company.edrpou})</div>
+        </li>`;
+      });
+      let related_persons = pep.related_persons.map((rel_person) => {
+        return `<li>
+           <div><u>${rel_person.relationship_type}</u></div>
+           <div class="text-capitalize">${rel_person.fullname}</div>
+        </li>`;
+      });
+      let check_companies = pep.check_companies.map((company) => {
+        return `<li>
+           ${company.name} (${company.edrpou})
+        </li>`;
+      });
+      $detail.append(`
+        <div class="node-name">${pep.fullname}</div>
+        <div>${pep.is_pep ? 'Є публічним діячем' : 'Не є публічним діячем'}</div>
+        <div class="detail__prop">
+          <span class="prop-name">Остання посада:</span> ${pep.last_job_title}
+        </div>
+        <div class="detail__prop">
+          <span class="prop-name">Останнє місце роботи:</span> ${pep.last_employer}
+        </div>
+        <div class="detail__prop">
+          <span class="prop-name">Тип:</span> ${pep.pep_type}
+        </div>
+        <div class="prop-name">Пов'язані компанії:</div>
+        <div class="detail__prop">
+          <ul style="padding-left: 20px">${related_companies.join('')}</ul>
+        </div>
+        <div class="prop-name">Пов'язані особи:</div>
+        <div class="detail__prop">
+          <ul style="padding-left: 20px">${related_persons.join('')}</ul>
+        </div>
+        <div class="prop-name">Можливі зв'язки з компаніями:</div>
+        <div class="detail__prop">
+          <ul style="padding-left: 20px">${check_companies.join('')}</ul>
+        </div>
+      `);
+    }
   }
 
   function addNewChildNodes(d, objects, type, isRelatedPerson = false, obj_prop = null) {
@@ -800,31 +900,6 @@ function drawSimulation() {
       d._opened = true;
     });
   }
-
-  // function addNewCompanies(d, newNodes) {
-  //   increaseSimulationSpeed();
-  //   newNodes.forEach((newNode) => {
-  //     newNode._opened = false;
-  //     newNode._type = 'company';
-  //     const isNew = pushIfNotExists(nodes, newNode);
-  //     if (isNew) {
-  //       newNode.x = d.x;
-  //       newNode.y = d.y;
-  //       newNode._parent = d.id;
-  //     }
-  //     links.push({
-  //       source: d.id,
-  //       target: newNode.id,
-  //       id: `${d.id}-${newNode.id}`,
-  //       _parent: d.id,
-  //     });
-  //     d._opened = true;
-  //   });
-  //
-  //   svg.selectAll('.child-count')
-  //     .attr('hidden', hideCount);
-  //   update(d);
-  // }
 
   function nodeClick(d) {
     if (d3.event.defaultPrevented) {
@@ -856,16 +931,10 @@ function drawSimulation() {
         return nodeDefaultImage(d_node);
       });
 
-    // d3.select(this.querySelector('image.node-image'))
-    //   .attr('xlink:href', (d) => {
-    //     return d._type === 'pep' ? icons.pep.active : icons.company.active;
-    //   });
 
     // svg.selectAll('.link').exit().remove();
     svg.selectAll('.link')
-      .attr("marker-end", (d_link) => {
-        return d_link.source.id === d.id ? "url(#end-primary)" : "url(#end-secondary)";
-      })
+      .attr("marker-end", (d_link) => markerEnd(d_link, d))
       .style('stroke', (d_link) => {
         return d_link.source.id === d.id ? colors.primary : colors.secondary;
       })
@@ -875,7 +944,7 @@ function drawSimulation() {
     const $detail = $('#detail-block');
     $detail.empty();
     $detail.append(
-      `<div class="w-100 d-flex justify-content-center">${animationHtml}</div>`
+      `<div class="side-block-l-container">${animationHtml}</div>`
     );
     if (d._type === 'pep' && d._isRelatedPerson) {
       renderPepDetail(d);
