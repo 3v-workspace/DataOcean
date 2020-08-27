@@ -1,3 +1,10 @@
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './styles.scss';
+import * as d3 from 'd3';
+import $ from 'jquery';
+
+
 const animationHtml = `
 <div class="l-container">
   <div class="l-dot-container">
@@ -915,8 +922,9 @@ function drawSimulation() {
     });
   }
 
-  function nodeClick(d) {
-    if (d3.event.defaultPrevented) {
+  function nodeClick(e, d) {
+    // debugger;
+    if (e.defaultPrevented) {
       return;
     }
     selectedNode = d;
@@ -992,8 +1000,8 @@ function drawSimulation() {
     });
   }
 
-  function nodeRightClick(d) {
-    d3.event.preventDefault();
+  function nodeRightClick(e, d) {
+    e.preventDefault();
     if (d._root) return;
 
     const removeLinks = [];
@@ -1046,36 +1054,35 @@ function drawSimulation() {
     }
   }
 
-  function nodeHover(d) {
-    if (!d3.event.defaultPrevented) {
+  function nodeHover(e, d) {
+    if (!e.defaultPrevented) {
       d3.select(this).select('circle')
         .style('fill', '#EBF6FE');
     }
   }
 
-  function nodeBlur(d) {
-    if (!d3.event.defaultPrevented) {
+  function nodeBlur(e, d) {
+    if (!e.defaultPrevented) {
       d3.select(this).select('circle')
         .style('fill', '#fff');
     }
   }
 
-  function lineHover(d) {
-    if (!d3.event.defaultPrevented) {
+  function lineHover(e, d) {
+    if (!e.defaultPrevented) {
       d3.select(this)
         .style('stroke-width', 2)
         .style('stroke', colors.primary);
     }
   }
 
-  function lineBlur(d) {
-    if (!d3.event.defaultPrevented) {
+  function lineBlur(e, d) {
+    if (!e.defaultPrevented) {
       d3.select(this)
         .style('stroke-width', 1)
         .style('stroke', colors.secondary);
     }
   }
-
 
   function increaseSimulationSpeed() {
     simulation.alpha(0.01);
@@ -1090,19 +1097,19 @@ function drawSimulation() {
     }, 100);
   }
 
-  function dragstarted(d) {
-    if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+  function dragstarted(e, d) {
+    if (!e.active) simulation.alphaTarget(0.3).restart();
     d.fx = d.x;
     d.fy = d.y;
   }
 
-  function dragged(d) {
-    d.fx = d3.event.x;
-    d.fy = d3.event.y;
+  function dragged(e, d) {
+    d.fx = e.x;
+    d.fy = e.y;
   }
 
-  function dragended(d) {
-    if (!d3.event.active) simulation.alphaTarget(0);
+  function dragended(e, d) {
+    if (!e.active) simulation.alphaTarget(0);
     d.fx = null;
     d.fy = null;
   }
@@ -1121,8 +1128,8 @@ function drawSimulation() {
     return nodes;
   }
 
-  function zoomed() {
-    svg.attr('transform', d3.event.transform);
+  function zoomed(e) {
+    svg.attr('transform', e.transform);
   }
 
   update();
