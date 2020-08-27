@@ -20,7 +20,7 @@ const cssConfig = [
       plugins: [
         autoprefixer()
       ]
-    } 
+    }
   },
 ]
 
