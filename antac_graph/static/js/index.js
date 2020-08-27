@@ -8,12 +8,12 @@ const animationHtml = `
   <div class="l-dot-container">
     <div class="l-dot"></div>
     <div class="l-dot"></div>
-    <div class="l-dot"></div>  
+    <div class="l-dot"></div>
   </div>
   <div class="l-dot-container">
     <div class="l-dot"></div>
     <div class="l-dot"></div>
-    <div class="l-dot"></div>  
+    <div class="l-dot"></div>
   </div>
 </div>
 `;
@@ -185,6 +185,7 @@ function parseNodesLinks(data, type) {
       _root: true,
       relationships_with_peps: undefined,
       founder_of: undefined,
+      founders: undefined,
     };
     newRootNode.id = getIdForNode(newRootNode);
     nodes.push(newRootNode);
@@ -252,17 +253,18 @@ function tryPushChildNode(d, newNode, reverse_link = false) {
       return;
     }
   }
-  const newLink = {
+  const newLink = reverse_link ? {
+    source: newNode.id,
+    target: d.id,
+    id: `${newNode.id}-${d.id}`,
+    _parent: newNode.id,
+  } : {
     source: d.id,
     target: newNode.id,
     id: `${d.id}-${newNode.id}`,
     _parent: d.id,
   };
-  if (reverse_link) {
-    newLink.source = newNode.id;
-    newLink.target = d.id;
-  }
-  links.push(newLink);
+  pushIfNotExists(links, newLink);
 }
 
 function slideIcon($iconEl) {
@@ -503,7 +505,8 @@ function drawSimulation() {
     .force('charge', d3.forceManyBody().strength(-70))
     .force('center', d3.forceCenter(center.x, center.y))
     .force('collision', d3.forceCollide((d) => d._root ? 32 : 24))
-    .alphaDecay(0.001)
+    // .alphaDecay(0.001)
+    .alphaDecay(0.01)
     .on('tick', ticked);
 
   // const root = d3.hierarchy(data, );
@@ -651,6 +654,18 @@ function drawSimulation() {
     node = nodeEnter.merge(node);
     simulation.nodes(nodes);
     simulation.force('link').links(links);
+
+    nodes.forEach((d) => {
+      let count = 0;
+      links.forEach((link) => {
+        if ([link.source.id, link.target.id].includes(d.id)) {
+          if (d.id === 'company-5997585')
+            debugger;
+          count += 1;
+        }
+      });
+      d._linksCount = count;
+    });
 
     d3.selectAll('svg .node').each(function (d, i) {
       let content;
@@ -897,7 +912,6 @@ function drawSimulation() {
       }
       newNode.id = getIdForNode(newNode);
       tryPushChildNode(d, newNode);
-      d._opened = true;
     });
   }
 
@@ -970,6 +984,7 @@ function drawSimulation() {
         } else {
           throw new Error(`wrong type ${d._type}`);
         }
+        d._opened = true;
         svg.selectAll('.child-count')
           .attr('hidden', hideCount);
         update(d);
@@ -981,20 +996,29 @@ function drawSimulation() {
     d3.event.preventDefault();
     if (d._root) return;
 
+    const removeLinks = [];
+    const removeNodes = [];
     function removeChildNodes(d_node) {
-      const children = [];
-      links = links.filter((link) => d_node.id !== link._parent);
-      nodes = nodes.filter((node) => {
-        if (d_node.id === node._parent) {
-          children.push(node);
-          return false;
+      links.forEach((link) => {
+        if (d_node === link.source) {
+          if (link.target._linksCount < 2) {
+            removeChildNodes(link.target);
+            removeNodes.push(link.target);
+          }
+          removeLinks.push(link);
+          d_node._linksCount -= 1;
+          if (d_node._linksCount < 1) {
+            removeNodes.push(d_node);
+          }
         }
-        return true;
       });
-      children.forEach((node) => removeChildNodes(node));
     }
-
     removeChildNodes(d);
+
+    links = links.filter((link) => !removeLinks.includes(link));
+    nodes = nodes.filter((node) => !removeNodes.includes(node));
+
+    $('.popover').remove();
 
     d._opened = false;
     svg.selectAll('.child-count')
