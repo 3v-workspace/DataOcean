@@ -113,15 +113,16 @@ $('#contact-form').submit(function(event){
             dataType: "json",
             data: data,
             success: function(data, status, xhr) {
-                console.log(data, status, xhr);
-                if (xhr.status === 200) {
-                    alert('Тепер Ви будете в курсі всіх новин про DataOcean');
+                if (!xhr.status === 200) {
+                    return
                 }
-                else if (xhr.status === 400 || xhr.status === 503) {
+                alert('Тепер Ви будете в курсі всіх новин про DataOcean!');
+            },
+            error: function (jqXhr, textStatus, errorMessage) {
+                if (jqXhr.status === 400 || jqXhr.status === 503) {
                     alert('Помилка. Дані не відправлені');
                 }
-                else {alert('Невідома помилка')};
-                return false;
-            },
+                else {alert('Невідома помилка:' + errorMessage)};
+            }
         });
 });
