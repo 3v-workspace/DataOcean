@@ -46,9 +46,8 @@ $(document).ready(() => {
   // });
 });
 
-$(document).ready(function () {
-	$('#contact-form').validate( {
-	    errorClass: "input input_error",
+let contactFormScheme = {
+	    errorClass: "input_error",
 		rules: {
 			username: {
 				required: true,
@@ -56,7 +55,7 @@ $(document).ready(function () {
 			},
 			surname: {
 				required: true,
-				minlength: 3,
+				minlength: 2,
 			},
 			email: {
 				required: true,
@@ -93,40 +92,36 @@ $(document).ready(function () {
                 required: "Будь ласка, поставте своє запитання"
             }
 		},
-    });
-});
+}
 
 $('#contact-form').submit(function(event){
         event.preventDefault();
-
+        if (!$(this).validate(contactFormScheme)) {
+            return
+        }
 		let form = $('#contact-form');
         let data = {
-                name: form.find('[name="username"]').val() + ' ' + form.find('[name="surname"]').val(),
-                email: form.find('[name="email"]').val(),
-                subject: form.find('[name="phone"]').val(),
-                message: form.find('[name="question"]').val(),
+               name: this.username.value + ' ' + this.surname.value,
+               email: this.email.value,
+               subject: this.phone.value,
+               message: this.question.value,
         }
 
 		$.ajax({
-		    url:     "https://ipa.dataocean.us/api/landing_mail/",
-            type:    "POST",
+		    url: "https://ipa.dataocean.us/api/landing_mail/",
+            type: "POST",
             dataType: "json",
             data: data,
-            success: function(Response) {
-                result = $.parseJSON(Response);
-                if (result.status === 200) {
-                    var modal = $.modal.show({
-                        content: '<p>Тепер Ви будете в курсі всіх новин про DataOcean</p>',
-                    });
-                };
+            success: function(data, status, xhr) {
+                console.log(data, status, xhr);
+                if (xhr.status === 200) {
+                    alert('Тепер Ви будете в курсі всіх новин про DataOcean');
+                }
+                else if (xhr.status === 400 || xhr.status === 503) {
+                    alert('Помилка. Дані не відправлені');
+                }
+                else {alert('Невідома помилка')};
                 return false;
             },
-
-            error: function() {
-                if (result.status ===  400 || result.status === 503) {
-                    return "Помилка. Дані не відправлені.";
-                }
-                else return "Невідома помилка.";
-        }
-    });
+        });
 });
