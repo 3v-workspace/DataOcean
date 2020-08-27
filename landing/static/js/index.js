@@ -99,7 +99,7 @@ $('#contact-form').submit(function(event){
         if (!$(this).validate(contactFormScheme)) {
             return
         }
-		let form = $('#contact-form');
+        let form = $('#contact-form');
         let data = {
                name: this.username.value + ' ' + this.surname.value,
                email: this.email.value,
@@ -107,8 +107,8 @@ $('#contact-form').submit(function(event){
                message: this.question.value,
         }
 
-		$.ajax({
-		    url: "https://ipa.dataocean.us/api/landing_mail/",
+        $.ajax({
+            url: "https://ipa.dataocean.us/api/landing_mail/",
             type: "POST",
             dataType: "json",
             data: data,
