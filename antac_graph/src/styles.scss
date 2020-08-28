@@ -28,7 +28,7 @@ path.link {
   padding: 12px;
 }
 
-#company-detail {
+#node-detail {
   max-height: calc(100vh - 175px);
   overflow-y: auto;
 }
@@ -57,12 +57,12 @@ path.link {
   cursor: pointer;
 }
 
-#company-detail .node-name {
+#node-detail .node-name {
   text-transform: uppercase;
   color: black;
 }
 
-#company-detail .side-block-body {
+#node-detail .side-block-body {
   color: #959595;
   font-size: 14px;
 }

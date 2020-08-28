@@ -231,6 +231,15 @@ function parseNodesLinks(data, type) {
   type === 'company' ? parseCompany() : parsePep();
 }
 
+function waitElementAndClick(selector) {
+  const interval = setInterval(() => {
+    const element = $(selector);
+    if (element.length) {
+      clearInterval(interval);
+      element[0].dispatchEvent(new MouseEvent('click'));
+    }
+  }, 100);
+}
 
 function pushIfNotExists(array, newItem) {
   const res = array.find(item => item.id === newItem.id);
@@ -407,6 +416,8 @@ $(document).on('click', '.search-result', function () {
       links = [];
       parseNodesLinks(data, type);
       drawSimulation();
+      waitElementAndClick(`#${rootNodeId}`);
+      $('#node-detail').removeClass('d-none');
     },
     error: () => {
       endLoading();
@@ -666,8 +677,6 @@ function drawSimulation() {
       let count = 0;
       links.forEach((link) => {
         if ([link.source.id, link.target.id].includes(d.id)) {
-          if (d.id === 'company-5997585')
-            debugger;
           count += 1;
         }
       });
@@ -1006,6 +1015,7 @@ function drawSimulation() {
 
     const removeLinks = [];
     const removeNodes = [];
+
     function removeChildNodes(d_node) {
       links.forEach((link) => {
         if (d_node === link.source) {
@@ -1021,6 +1031,7 @@ function drawSimulation() {
         }
       });
     }
+
     removeChildNodes(d);
 
     links = links.filter((link) => !removeLinks.includes(link));
@@ -1156,13 +1167,7 @@ function drawSimulation() {
         // tryPushChildNode(selectedNode, data);
         addNewChildNodes(data, newNodes, 'company');
         update(data);
-        const interval = setInterval(() => {
-          const el = $(`#${data.id}`);
-          if (el.length) {
-            clearInterval(interval);
-            el[0].dispatchEvent(new MouseEvent('click'));
-          }
-        }, 100);
+        waitElementAndClick(`#${data.id}`);
       },
       // error: () => {
       //   // endSearchLoading();
