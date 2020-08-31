@@ -8,13 +8,16 @@ import Yup from 'utils/yup';
 import Form from 'components/form-components/Form';
 import { useDispatch } from 'react-redux';
 import { userLogin } from 'store/user/actionCreators';
+import { useTranslation } from 'react-i18next';
 import GoogleButton from 'components/pages/auth/GoogleButton';
 import Api from 'api';
+import setLanguage from 'utils/setLanguage';
 import terms from './Публічна оферта.pdf';
 
 // TODO: finish LoginForm
 const SignInForm = () => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   const formik = useFormik({
     initialValues: {
@@ -30,16 +33,16 @@ const SignInForm = () => {
     onSubmit: (values, actions) => {
       Api.post('rest-auth/login/', values)
         .then((resp) => {
+          actions.setSubmitting(false);
           const { user, key } = resp.data;
           window.localStorage.setItem('token', key);
           dispatch(userLogin(user));
+          setLanguage(user.language);
         })
         .catch(({ response }) => {
           if (response && response.data && response.data.non_field_errors) {
-            actions.setFieldError('password', 'Невірний логін або пароль');
+            actions.setFieldError('password', t('invalidLoginOrPassword'));
           }
-        })
-        .finally(() => {
           actions.setSubmitting(false);
         });
       // actions.setFieldError('password', 'Невірний логін або пароль');
@@ -49,11 +52,10 @@ const SignInForm = () => {
   return (
     <Form formik={formik}>
       <h2 className="intro-x font-bold text-2xl xl:text-3xl text-center xl:text-left">
-        Вхід
+        {t('signIn')}
       </h2>
       <div className="intro-x mt-2 text-gray-500 xl:hidden text-center">
-        A few more clicks to sign in to your
-        account. Manage all your e-commerce accounts in one place
+        {t('fewMoreSteps')}
       </div>
       <div className="intro-x mt-8">
         <TextInput
@@ -67,9 +69,10 @@ const SignInForm = () => {
         <TextInput
           type="password"
           name="password"
+          autoComplete="on"
           className="intro-x login__input border-gray-300 block mt-4"
           size="lg"
-          placeholder="Пароль"
+          placeholder={t('password')}
           formik={formik}
         />
       </div>
@@ -77,10 +80,10 @@ const SignInForm = () => {
         <BooleanInput
           className="mr-auto"
           name="remember_me"
-          label="Запам'ятати мене"
+          label={t('rememberMe')}
           formik={formik}
         />
-        <Link to="/auth/restore-pass/" class="text-theme-1">Забули пароль?</Link>
+        <Link to="/auth/restore-pass/" className="text-theme-1">{t('forgotPassword')}</Link>
       </div>
       <div className="intro-x xl:flex mt-5 xl:mt-8 text-center xl:text-left">
         <Button
@@ -90,7 +93,7 @@ const SignInForm = () => {
           className="flex-1 xl:w-2/5 xl:mr-3"
           width="w-full"
         >
-          Увійти
+          {t('login')}
         </Button>
         <Button
           className="flex-1 xl:w-2/5 mt-3 xl:mt-0"
@@ -98,22 +101,22 @@ const SignInForm = () => {
           width="w-full"
           link="/auth/sign-up/"
         >
-          Реєстрація
+          {t('registration')}
         </Button>
       </div>
-      <GoogleButton>Продовжити з Google</GoogleButton>
+      <GoogleButton>{t('continueWith')} Google</GoogleButton>
       <div className="intro-x mt-10 xl:mt-18 text-gray-700 text-center xl:text-left">
-        Зареєструвавшись, ви погоджуєтесь з нашими
+        {t('bySigninUpYouAgreeWith')}
         <br />
         <a
           className="text-theme-1"
           href={terms}
         >
-          Правилами та умовами
+          {t('termsAndConditions')}
         </a>
         {' & '}
         <a className="text-theme-1" href="#?">
-          Політикою конфіденційності
+          {t('privacyPolicy')}
         </a>
       </div>
     </Form>

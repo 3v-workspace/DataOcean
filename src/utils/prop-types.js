@@ -27,7 +27,7 @@ export const ReactRouterPropTypes = {
     hash: PropTypes.string,
     pathname: PropTypes.string,
     search: PropTypes.string,
-    state: PropTypes.string,
+    state: PropTypes.object,
     key: PropTypes.string,
   }),
 };

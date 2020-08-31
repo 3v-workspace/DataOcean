@@ -9,10 +9,12 @@ import { setUserData } from 'store/user/actionCreators';
 import TabContentBlock from 'components/pages/profile/TabContentBlock';
 import DateInput from 'components/form-components/DateInput';
 import Api, { passErrorsToFormik } from 'api';
+import { useTranslation } from 'react-i18next';
 
 const ChangeInfoBlock = () => {
   const user = useSelector((store) => store.user);
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   const formik = useFormik({
     initialValues: {
@@ -46,7 +48,7 @@ const ChangeInfoBlock = () => {
   });
 
   return (
-    <TabContentBlock title="Змінити інформацію користувача">
+    <TabContentBlock title={t('changeUserInfo')}>
       <Form formik={formik}>
         <TextInput
           label="Email"
@@ -55,28 +57,27 @@ const ChangeInfoBlock = () => {
           formik={formik}
         />
         <TextInput
-          label="Ім'я"
+          label={t('firstName')}
           name="first_name"
           formik={formik}
         />
         <TextInput
-          label="Прізвище"
+          label={t('lastName')}
           name="last_name"
           formik={formik}
         />
         <TextInput
-          label="Компанія"
+          label={t('organization')}
           name="organization"
           formik={formik}
         />
         <TextInput
-          label="Посада"
+          label={t('position')}
           name="position"
-          drops="up"
           formik={formik}
         />
         <DateInput
-          label="Дата народження"
+          label={t('dateOfBirth')}
           name="date_of_birth"
           drops="up"
           formik={formik}
@@ -90,7 +91,7 @@ const ChangeInfoBlock = () => {
             // size="lg"
             variant="primary"
           >
-            Зберегти
+            {t('save')}
           </Button>
         </div>
       </Form>

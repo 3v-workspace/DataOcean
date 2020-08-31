@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { ReactRouterPropTypes } from 'utils/prop-types';
-import AnalyticsPage from 'components/pages/system/AnalyticsPage';
+import ReportConstructorPage from 'components/pages/system/ReportConstructorPage';
 import ContactsPage from 'components/pages/system/ContactsPage';
-import DocumentsPage from 'components/pages/system/DocumentsPage';
+import DataConstructorPage from 'components/pages/system/DataConstructorPage';
 import Route404 from 'components/pages/Route404';
 import HelpPage from 'components/pages/system/HelpPage';
-import DashboardPage from 'components/pages/system/DashboardPage';
 import HomePage from 'components/pages/system/HomePage';
 import ProfilePage from 'components/pages/profile/ProfilePage';
 import DatasetsRoutes from 'components/pages/datasets/DatasetsRoutes';
@@ -29,29 +28,19 @@ const SystemRoutes = (props) => {
         path={`${match.path}home/`}
         component={HomePage}
       />
-      {/*<Route*/}
-      {/*  exact*/}
-      {/*  path={`${match.path}dashboard/`}*/}
-      {/*  component={DashboardPage}*/}
-      {/*/>*/}
-      {/*<Route*/}
-      {/*  exact*/}
-      {/*  path={`${match.path}datasets/:id/`}*/}
-      {/*  component={DatasetDetail}*/}
-      {/*/>*/}
       <Route
         path={`${match.path}datasets/`}
         component={DatasetsRoutes}
       />
       <Route
         exact
-        path={`${match.path}analytics/`}
-        component={AnalyticsPage}
+        path={`${match.path}report-constructor/`}
+        component={ReportConstructorPage}
       />
       <Route
         exact
-        path={`${match.path}documents/`}
-        component={DocumentsPage}
+        path={`${match.path}data-constructor/`}
+        component={DataConstructorPage}
       />
       <Route
         exact

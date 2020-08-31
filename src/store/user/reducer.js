@@ -3,6 +3,7 @@ import {
   USER_LOGIN,
   USER_LOGOUT,
 } from 'store/user/actions';
+import setLanguage from 'utils/setLanguage';
 
 const initialState = {
   // base
@@ -13,6 +14,7 @@ const initialState = {
   organization: '',
   position: '',
   date_of_birth: '',
+  language: 'uk',
 
   // system
   isLoggedIn: false,
@@ -32,6 +34,7 @@ const userReducer = (state = initialState, action) => {
         isLoggedIn: true,
       };
     case USER_LOGOUT:
+      setLanguage();
       return {
         ...initialState,
         isLoggedIn: false,

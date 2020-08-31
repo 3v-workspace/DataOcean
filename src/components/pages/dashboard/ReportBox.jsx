@@ -30,7 +30,7 @@ const ReportBox = (props) => {
           </div>
         </div>
         <div className="text-3xl font-bold leading-8 mt-6">
-          {value === null ? <LoadingIcon icon="tail-spin" /> : value}
+          {!value ? <LoadingIcon icon="tail-spin" /> : value}
         </div>
         <div className="text-base text-gray-600 mt-1">
           {label}
@@ -42,7 +42,7 @@ const ReportBox = (props) => {
 
 ReportBox.propTypes = {
   label: PropTypes.string.isRequired,
-  value: PropTypes.string,
+  value: PropTypes.node,
   subText: PropTypes.string.isRequired,
   subTextDirection: PropTypes.oneOf(['up', 'down']).isRequired,
   icon: PropTypes.node.isRequired,

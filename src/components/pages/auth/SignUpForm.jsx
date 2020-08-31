@@ -7,6 +7,7 @@ import Yup, { getPasswordLevel } from 'utils/yup';
 import Form from 'components/form-components/Form';
 import Api from 'api';
 import Tooltip from 'components/Tooltip';
+import { useTranslation } from 'react-i18next';
 
 const PasswordSecure = (props) => {
   const { level } = props;
@@ -39,6 +40,7 @@ PasswordSecure.propTypes = {
 };
 
 const SignUpForm = () => {
+  const { t } = useTranslation();
   const [psswdSec, setPsswdSec] = useState(0);
   const [sent, setSent] = useState(false);
   // const dispatch = useDispatch();
@@ -58,18 +60,17 @@ const SignUpForm = () => {
       if (password1) {
         const level = getPasswordLevel(password1);
         if (level < 2) {
-          errors.password1 = 'Пароль занадто простий';
+          errors.password1 = t('passwordIsTooSimple');
         }
         setPsswdSec(level);
       } else {
         setPsswdSec(0);
       }
       if (password1 !== password2) {
-        errors.password2 = 'Паролі не співпадають';
+        errors.password2 = t('passwordsDoNotMatch');
       }
       if (!values.accept_policy) {
-        errors.accept_policy = 'Для реєстрації ви повинні підтвердити ' +
-          'згоду з політикою конфіденційності';
+        errors.accept_policy = t('acceptPolicyError');
       }
       return errors;
     },
@@ -103,10 +104,10 @@ const SignUpForm = () => {
     return (
       <div>
         <h2 className="intro-x font-bold text-2xl xl:text-3xl text-center xl:text-left">
-          Перевірте пошту
+          {t('checkYourMail')}
         </h2>
         <div className="intro-x mt-2 text-gray-500 text-center">
-          На ваш email було надіслано повідомлення з інструкціями для підтвердження реєстрації.
+          {t('registerConfirmEmailSent')}.
         </div>
       </div>
     );
@@ -116,25 +117,24 @@ const SignUpForm = () => {
     <>
       <Form formik={formik}>
         <h2 className="intro-x font-bold text-2xl xl:text-3xl text-center xl:text-left">
-          Реєстрація
+          {t('registration')}
         </h2>
         <div className="intro-x mt-2 text-gray-500 xl:hidden text-center">
-          A few more clicks to sign in to your account.
-          Manage all your e-commerce accounts in one place
+          {t('fewMoreSteps')}.
         </div>
         <div className="intro-x mt-8">
           <TextInput
             size="lg"
             name="first_name"
             className="intro-x login__input border-gray-300 block"
-            placeholder="Ім'я"
+            placeholder={t('firstName')}
             formik={formik}
           />
           <TextInput
             size="lg"
             name="last_name"
             className="intro-x login__input border-gray-300 block"
-            placeholder="Прізвище"
+            placeholder={t('lastName')}
             formik={formik}
           />
           <TextInput
@@ -149,8 +149,9 @@ const SignUpForm = () => {
             type="password"
             size="lg"
             name="password1"
+            autoComplete="on"
             className="intro-x login__input border-gray-300 block"
-            placeholder="Пароль"
+            placeholder={t('password')}
             formik={formik}
           />
           <PasswordSecure level={psswdSec} />
@@ -158,22 +159,23 @@ const SignUpForm = () => {
             <Tooltip
               content={(
                 <ul>
-                  <li>Хоча б одна велика літера</li>
-                  <li>Довжина паролю не меньше 8 символів</li>
-                  <li>Хоча б одна цифра</li>
-                  <li>Хоча б один спец-символ</li>
+                  <li>{t('pass.oneCapitalLetter')}</li>
+                  <li>{t('pass.minLength')}</li>
+                  <li>{t('pass.oneNumber')}</li>
+                  <li>{t('pass.oneSymbol')}</li>
                 </ul>
               )}
             >
-              Що таке безпечний пароль?
+              {t('pass.whatIsSecurePassword')}
             </Tooltip>
           </div>
           <TextInput
             type="password"
             name="password2"
             size="lg"
+            autoComplete="on"
             className="intro-x login__input border-gray-300 block mt-4"
-            placeholder="Підтвердження паролю"
+            placeholder={t('passwordConfirmation')}
             formik={formik}
           />
         </div>
@@ -187,9 +189,9 @@ const SignUpForm = () => {
             onChange={formik.handleChange}
           />
           <label className="cursor-pointer select-none" htmlFor="accept_policy">
-            Я згідний з
+            {t('iAgreeWith')}
           </label>
-          <a className="text-theme-1 ml-1" href="#?">Політикою конфіденційності</a>.
+          <a className="text-theme-1 ml-1" href="#?">{t('privacyPolicy')}</a>.
         </div>
         {formik.touched.accept_policy && formik.errors.accept_policy && (
           <label className="error" htmlFor="accept_policy">{formik.errors.accept_policy}</label>
@@ -203,7 +205,7 @@ const SignUpForm = () => {
             // size="lg"
             variant="primary"
           >
-            Зареєструватись
+            {t('register')}
           </Button>
           <Button
             className="xl:flex-1 w-full xl:w-none xl:w-32 border-gray-300 mt-3 xl:mt-0"
@@ -211,7 +213,7 @@ const SignUpForm = () => {
             variant="secondary"
             link="/auth/sign-in/"
           >
-            Повернутись
+            {t('back')}
           </Button>
         </div>
         {/* <GoogleButton>Продовжити з Google</GoogleButton> */}

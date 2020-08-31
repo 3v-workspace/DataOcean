@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { FormikPropType } from 'utils/prop-types';
 import moment from 'moment';
 import { DATE_FORMAT, DATETIME_FORMAT } from 'const/const';
+import { useTranslation } from 'react-i18next';
 
 // TODO: finish this
 const DateInput = (props) => {
@@ -13,6 +14,7 @@ const DateInput = (props) => {
     minDate, maxDate, drops, id, label, containerClass, className,
   } = props;
 
+  const { i18n } = useTranslation();
   const datepickerRef = useRef();
   const isoFormat = timePicker ? 'YYYY-MM-DDTHH:mm' : 'YYYY-MM-DD';
   const format = timePicker ? DATETIME_FORMAT : DATE_FORMAT;
@@ -24,48 +26,51 @@ const DateInput = (props) => {
   }, [val]);
 
   useEffect(() => {
-    $(datepickerRef.current).daterangepicker(
-      {
-        timePicker,
-        timePicker24Hour,
-        autoApply,
-        singleDatePicker,
-        startDate,
-        endDate,
-        minDate,
-        maxDate,
-        autoUpdateInput,
-        drops,
-        locale: {
-          format,
-          applyLabel: 'Oк',
-          cancelLabel: 'Відміна',
-          fromLabel: 'Від',
-          toLabel: 'До',
-          // customRangeLabel: 'Користувацька',
-          weekLabel: 'Тиж.',
-          daysOfWeek: ['Нд', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
-          monthNames: [
-            'Січень', 'Лютий', 'Березень', 'Квітень', 'Травень', 'Червень',
-            'Липень', 'Серпень', 'Вересень', 'Жовтень', 'Листопад', 'Грудень',
-          ],
-          firstDay: 1,
+    const opt = {
+      timePicker,
+      timePicker24Hour,
+      autoApply,
+      singleDatePicker,
+      startDate,
+      endDate,
+      minDate,
+      maxDate,
+      autoUpdateInput,
+      drops,
+      locale: {
+        format,
+        firstDay: 1,
+      },
+    };
+    if (i18n.language !== 'en') {
+      opt.locale = {
+        ...opt.locale,
+        applyLabel: 'Oк',
+        cancelLabel: 'Відміна',
+        fromLabel: 'Від',
+        toLabel: 'До',
+        // customRangeLabel: 'Користувацька',
+        weekLabel: 'Тиж.',
+        daysOfWeek: ['Нд', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
+        monthNames: [
+          'Січень', 'Лютий', 'Березень', 'Квітень', 'Травень', 'Червень',
+          'Липень', 'Серпень', 'Вересень', 'Жовтень', 'Листопад', 'Грудень',
+        ],
+      };
+    }
+    $(datepickerRef.current).daterangepicker(opt, (start) => {
+      const event = {
+        target: {
+          value: start.format(isoFormat),
+          name,
         },
-      },
-      (start) => {
-        const event = {
-          target: {
-            value: start.format(isoFormat),
-            name,
-          },
-        };
-        if (onChange) {
-          onChange(event);
-        } else {
-          formik.handleChange(event);
-        }
-      },
-    );
+      };
+      if (onChange) {
+        onChange(event);
+      } else {
+        formik.handleChange(event);
+      }
+    });
     $(datepickerRef.current).on('apply.daterangepicker', (e, picker) => {
       if (!e.target.value) {
         $(e.target).val('');

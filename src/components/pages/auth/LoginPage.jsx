@@ -6,9 +6,13 @@ import SignUpForm from 'components/pages/auth/SignUpForm';
 import Route404 from 'components/pages/Route404';
 import RestorePassword from 'components/pages/auth/RestorePassword';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import SignUpConfirm from 'components/pages/auth/SignUpConfirm';
+import surfer from 'images/surfer.png';
 import logo from 'images/whitelogo.png';
-import surfer from './surfer.png';
+import english from 'images/english.png';
+import ukrainian from 'images/ukrainian.png';
+import { setYupLanguage } from 'utils/setLanguage';
 
 
 const LoginPage = ({ match, history, location }) => {
@@ -21,12 +25,24 @@ const LoginPage = ({ match, history, location }) => {
     }
   }, [user.isLoggedIn]);
 
+  const { t, i18n } = useTranslation();
+
   useEffect(() => {
     document.body.classList.add('login');
     return () => {
       document.body.classList.remove('login');
     };
   }, []);
+
+  const switchLanguage = () => {
+    if (i18n.language === 'uk') {
+      i18n.changeLanguage('en');
+      setYupLanguage('en');
+    } else {
+      i18n.changeLanguage('uk');
+      setYupLanguage('uk');
+    }
+  };
 
   return (
     <div className="container sm:px-10">
@@ -47,10 +63,8 @@ const LoginPage = ({ match, history, location }) => {
               className="-intro-x w-1/2 -mt-16"
               src={surfer}
             />
-            <div className="-intro-x text-white font-medium text-4xl leading-tight mt-10">
-              Ще декілька простих кроків
-              <br />
-              і ви у системі
+            <div className="-intro-x whitespace-pre-line text-white font-medium text-4xl leading-tight mt-10">
+              {t('fewMoreSteps')}
             </div>
             {/* <div className="-intro-x mt-5 text-lg text-white hidden"> */}
             {/*  Manage all your e-commerce accounts in one place */}
@@ -92,6 +106,21 @@ const LoginPage = ({ match, history, location }) => {
           </div>
         </div>
       </div>
+      <button
+        type="button"
+        className="dark-mode-switcher shadow-md fixed bottom-0 right-0 box dark:bg-dark-2 border rounded-full px-4 py-2 flex items-center justify-center z-50 mb-10 mr-10"
+        onClick={switchLanguage}
+      >
+        <img
+          src={i18n.language === 'en' ? ukrainian : english}
+          alt="English"
+          className="w-6 h-6 mr-2"
+        />
+        <div className="text-gray-700 dark:text-gray-300">
+          {i18n.language === 'en' ? 'Українська' : 'English'}
+        </div>
+        {/*<input className="input input--switch border" type="checkbox" value="1" />*/}
+      </button>
     </div>
   );
 };

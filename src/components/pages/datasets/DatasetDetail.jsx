@@ -4,10 +4,12 @@ import PageBox from 'components/pages/PageBox';
 import Api from 'api';
 import datasets from 'const/datasets';
 import { Database } from 'react-feather';
+import { useTranslation } from 'react-i18next';
 
 const DatasetDetail = (props) => {
   const { match, history } = props;
   const { id } = match.params;
+  const { t } = useTranslation();
 
   const [data, setData] = useState({});
 
@@ -25,7 +27,7 @@ const DatasetDetail = (props) => {
   const actions = [];
   if (data.data_ocean_list in datasets) {
     actions.push({
-      label: 'Дані реєстру',
+      label: t('registryData'),
       icon: Database,
       onClick: () => {
         history.push(`/system/datasets/${id}/${datasets[data.data_ocean_list].urlEnding}`);
@@ -34,7 +36,7 @@ const DatasetDetail = (props) => {
   }
 
   return (
-    <PageBox header="Перегляд реєстру" actions={actions}>
+    <PageBox header={t('viewTheRegistry')} actions={actions}>
       <div className="flex flex-col lg:flex-row pt-10 px-5 sm:px-20 sm:pt-20 lg:pb-10 text-center sm:text-left">
         <div className="font-semibold text-3xl">{data.name}</div>
       </div>

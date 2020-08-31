@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Search } from 'react-feather';
+import { useTranslation } from 'react-i18next';
 
 const SearchBox = (props) => {
   const {
     value, onChange, name, id, placeholder, containerClass,
     className, size, onBlur, onSearch, isRounded,
   } = props;
-
+  const { t } = useTranslation();
   const classList = [];
   if (className) {
     classList.push(className);
@@ -28,7 +29,7 @@ const SearchBox = (props) => {
         className={classList.join(' ')}
         id={endId}
         type="text"
-        placeholder={placeholder}
+        placeholder={placeholder || `${t('search')}...`}
         value={value}
         onChange={onChange}
         onKeyPress={(e) => {
@@ -64,7 +65,7 @@ SearchBox.defaultProps = {
   id: undefined,
   name: undefined,
   size: undefined,
-  placeholder: 'Пошук...',
+  placeholder: undefined,
   value: undefined,
   onChange: undefined,
   onBlur: undefined,

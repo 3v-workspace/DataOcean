@@ -8,6 +8,7 @@ import { useFormik } from 'formik';
 import Yup, { getPasswordLevel } from 'utils/yup';
 import Api, { passErrorsToFormik } from 'api';
 import { ReactRouterPropTypes } from 'utils/prop-types';
+import { useTranslation } from 'react-i18next';
 
 const stages = {
   START: 'START',
@@ -16,6 +17,7 @@ const stages = {
 
 const EmailForm = () => {
   const [sent, setSent] = useState(false);
+  const { t } = useTranslation();
 
   const formik = useFormik({
     initialValues: {
@@ -45,10 +47,10 @@ const EmailForm = () => {
     return (
       <div>
         <h2 className="intro-x font-bold text-2xl xl:text-3xl text-center xl:text-left">
-          Перевірте пошту
+          {t('checkYourMail')}
         </h2>
         <div className="intro-x mt-2 text-gray-500 text-center">
-          На ваш email було надіслано повідомлення з інструкціями для відновлення паролю.
+          {t('recoverPasswordEmailSent')}.
         </div>
       </div>
     );
@@ -74,7 +76,7 @@ const EmailForm = () => {
           // size="lg"
           width="w-full"
         >
-          Відновити пароль
+          {t('recoverPassword')}
         </Button>
       </div>
     </Form>
@@ -85,6 +87,7 @@ const EmailForm = () => {
 const RestoreForm = ({ uid, token }) => {
   const history = useHistory();
   const [success, setSuccess] = useState(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (success) {
@@ -105,11 +108,11 @@ const RestoreForm = ({ uid, token }) => {
       if (password1) {
         const level = getPasswordLevel(password1);
         if (level < 2) {
-          errors.password1 = 'Пароль занадто простий';
+          errors.password1 = t('passwordIsTooSimple');
         }
       }
       if (password1 !== password2) {
-        errors.password2 = 'Паролі не співпадають';
+        errors.password2 = t('passwordsDoNotMatch');
       }
       return errors;
     },
@@ -143,10 +146,10 @@ const RestoreForm = ({ uid, token }) => {
     return (
       <div>
         <h2 className="intro-x font-bold text-2xl xl:text-3xl text-center xl:text-left">
-          Успішно!
+          {t('successfully')}!
         </h2>
         <div className="intro-x mt-2 text-gray-500 text-center">
-          Через декілька секунд вас буде перенаправлено на сторінку входу.
+          {t('inAFewSecondsYouWillRedirected')}.
         </div>
       </div>
     );
@@ -160,7 +163,7 @@ const RestoreForm = ({ uid, token }) => {
           type="password"
           name="password1"
           size="lg"
-          placeholder="Пароль"
+          placeholder={t('password')}
           formik={formik}
         />
         <TextInput
@@ -168,7 +171,7 @@ const RestoreForm = ({ uid, token }) => {
           type="password"
           name="password2"
           size="lg"
-          placeholder="Підтвердження паролю"
+          placeholder={t('passwordConfirmation')}
           formik={formik}
         />
       </div>
@@ -179,7 +182,7 @@ const RestoreForm = ({ uid, token }) => {
           // size="lg"
           width="w-full"
         >
-          Далі
+          {t('next')}
         </Button>
       </div>
     </Form>
@@ -196,6 +199,7 @@ const forms = {
 };
 
 const RestorePassword = ({ match }) => {
+  const { t } = useTranslation();
   const { uid, token } = match.params;
   let start_stage = stages.START;
   if (uid && token) {
@@ -211,7 +215,7 @@ const RestorePassword = ({ match }) => {
   return (
     <>
       <h2 className="intro-x font-bold text-2xl xl:text-3xl text-center xl:text-left">
-        Відновлення паролю
+        {t('passwordRecovery')}
       </h2>
       <FormComponent
         uid={uid}
@@ -224,7 +228,7 @@ const RestorePassword = ({ match }) => {
           width="w-full"
           link="/auth/sign-in/"
         >
-          Вхід
+          {t('signIn')}
         </Button>
         <Button
           className="xl:w-32 xl:mr-3"
@@ -232,7 +236,7 @@ const RestorePassword = ({ match }) => {
           width="w-full"
           link="/auth/sign-up/"
         >
-          Реєстрація
+          {t('registration')}
         </Button>
       </div>
     </>
