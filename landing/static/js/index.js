@@ -122,7 +122,9 @@ $('#contact-form').submit(function(event){
                 if (jqXhr.status === 400 || jqXhr.status === 503) {
                     alert('Помилка. Дані не відправлені');
                 }
-                else {alert('Невідома помилка:' + errorMessage)};
+                else {
+                    alert('Невідома помилка: ' + errorMessage)
+                };
             }
         });
 });
