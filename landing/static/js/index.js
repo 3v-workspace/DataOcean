@@ -49,10 +49,10 @@ $(document).ready(() => {
 let contactFormScheme = {
 	    errorClass: "input_error",
 		rules: {
-		    username: {
-		        required: true,
+            username: {
+                required: true,
 		        minlength: 2,
-			},
+            },
 			surname: {
 			    required: true,
 			    minlength: 2,
@@ -72,7 +72,6 @@ let contactFormScheme = {
 	    },
 		messages: {
 			username: {
-
 				required: 'Будь ласка, введіть Ваше ім\'я',
 				minlength: 'Замала кількість символів',
 			},
@@ -84,7 +83,7 @@ let contactFormScheme = {
 				required: "Будь ласка, введіть адресу",
 				email: "Будь ласка, введіть коректно адресу"
 			},
-			phone: {
+            phone: {
 			    required: "Будь ласка, введіть коректний номер телефону",
 			    minlength: "Замала кількість символів",
 			    maxlength: "Завелика кількість символів"
