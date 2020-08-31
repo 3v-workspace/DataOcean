@@ -113,7 +113,7 @@ $('#contact-form').submit(function(event){
             dataType: "json",
             data: data,
             success: function(data, status, xhr) {
-                if (!xhr.status === 200) {
+                if (xhr.status !== 200) {
                     return
                 }
                 alert('Тепер Ви будете в курсі всіх новин про DataOcean!');
