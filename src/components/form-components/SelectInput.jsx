@@ -47,7 +47,7 @@ const SelectInput = (props) => {
   return (
     <div className="mb-3">
       {label && (
-        <label htmlFor={`id_${name}`}>{label}</label>
+        <label htmlFor={`id_${name}`} className="mb-2 inline-block">{label}</label>
       )}
       <select
         ref={selectRef}
