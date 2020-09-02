@@ -207,7 +207,7 @@ const HomePage = () => {
             <div className="grid grid-cols-12 gap-6 mt-5">
               <div className="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
                 <ReportBox
-                  label={t('companiesCount')}
+                  label={t('numberOfCompanies')}
                   value={companyCount.toLocaleString()}
                   subText="18%"
                   subTextDirection="up"
@@ -216,7 +216,7 @@ const HomePage = () => {
               </div>
               <div className="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
                 <ReportBox
-                  label={t('fopCount')}
+                  label={t('numberOfSoleProprietors')}
                   value={fopCount.toLocaleString()}
                   subText="16%"
                   subTextDirection="up"
@@ -225,7 +225,7 @@ const HomePage = () => {
               </div>
               <div className="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
                 <ReportBox
-                  label={t('datasetsCount')}
+                  label={t('numberOfDatasets')}
                   value={registersCount.toLocaleString()}
                   subText="+5"
                   subTextDirection="up"
@@ -234,7 +234,7 @@ const HomePage = () => {
               </div>
               <div className="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
                 <ReportBox
-                  label={t('usersCount')}
+                  label={t('numberOfUsers')}
                   value={usersCount.toLocaleString()}
                   subText="+7"
                   subTextDirection="up"
@@ -288,7 +288,7 @@ const HomePage = () => {
               <h2 className="text-lg font-medium truncate mr-5">
                 {t('topKveds')}
               </h2>
-              <a href="#" className="ml-auto text-theme-1 truncate">Всі</a>
+              <a href="#" className="ml-auto text-theme-1 truncate">{t('all')}</a>
             </div>
             <div className="intro-y box p-5 mt-5">
               <canvas className="mt-3" id="report-pie-chart" height="280" />
@@ -305,7 +305,7 @@ const HomePage = () => {
               <h2 className="text-lg font-medium truncate mr-5">
                 {t('companyTypes')}
               </h2>
-              <a href="#" className="ml-auto text-theme-1 truncate">Всі</a>
+              <a href="#" className="ml-auto text-theme-1 truncate">{t('all')}</a>
             </div>
             <div className="intro-y box p-5 mt-5">
               <canvas className="mt-3" id="report-donut-chart" height="280" />
