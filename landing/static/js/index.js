@@ -47,42 +47,42 @@ $(document).ready(() => {
 });
 
 let contactFormScheme = {
-	    errorClass: "input_error",
-		rules: {
+        errorClass: "input_error",
+        rules: {
             username: {
                 required: true,
-		        minlength: 2,
+                minlength: 2,
             },
-			surname: {
-			    required: true,
-			    minlength: 2,
-			},
-			email: {
-			    required: true,
-			    email: true,
-			},
-			phone: {
-			    required: true,
-			    minlength: 10,
-			    maxlength: 15
+            surname: {
+                required: true,
+                minlength: 2,
+            },
+            email: {
+                required: true,
+                email: true,
+            },
+            phone: {
+                required: true,
+                minlength: 10,
+                maxlength: 15
             },
             question: {
                 required: true,
             },
-	    },
-		messages: {
-			username: {
-				required: 'Будь ласка, введіть Ваше ім\'я',
-				minlength: 'Замала кількість символів',
-			},
-			surname: {
-				required: "Будь ласка, введіть Ваше прізвище",
-				minlength: 'Замала кількість символів',
-			},
-			email: {
-				required: "Будь ласка, введіть адресу",
-				email: "Будь ласка, введіть коректно адресу"
-			},
+        },
+        messages: {
+            username: {
+                required: 'Будь ласка, введіть Ваше ім\'я',
+                minlength: 'Замала кількість символів',
+            },
+            surname: {
+                required: "Будь ласка, введіть Ваше прізвище",
+                minlength: 'Замала кількість символів',
+            },
+            email: {
+                required: "Будь ласка, введіть адресу",
+                email: "Будь ласка, введіть коректно адресу"
+            },
             phone: {
                 required: "Будь ласка, введіть коректний номер телефону",
                 minlength: "Замала кількість символів",
@@ -91,7 +91,7 @@ let contactFormScheme = {
             question: {
                 required: "Будь ласка, поставте своє запитання"
             }
-		},
+        },
 }
 
 $('#contact-form').submit(function(event){
