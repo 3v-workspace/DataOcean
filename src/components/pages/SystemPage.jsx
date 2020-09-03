@@ -6,7 +6,7 @@ import Nav from 'components/nav/Nav';
 import NavItem from 'components/nav/NavItem';
 import SystemRoutes from 'components/pages/SystemRoutes';
 import {
-  Activity, Home, FileText, Trello, BookOpen, HelpCircle,
+  Activity, Home, FileText, Trello, BookOpen, HelpCircle, GitBranch,
 } from 'react-feather';
 import TopBar from 'components/nav/TopBar';
 import { useTranslation } from 'react-i18next';
@@ -41,6 +41,9 @@ const SystemPage = (props) => {
       </NavItem>
       <NavItem link="/system/data-constructor/" icon={FileText}>
         {t('dataConstructor')}
+      </NavItem>
+      <NavItem link="/system/pep-scheme/" icon={GitBranch}>
+        {t('pepScheme')}
       </NavItem>
       <NavItem link="/system/contacts/" icon={BookOpen}>
         {t('contacts')}

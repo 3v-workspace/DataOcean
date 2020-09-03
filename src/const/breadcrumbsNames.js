@@ -18,6 +18,7 @@ const breadcrumbsNames = {
 const translations = {
   'report-constructor': 'reportConstructor',
   'data-constructor': 'dataConstructor',
+  'pep-scheme': 'pepScheme',
 };
 
 const getBreadcrumbName = (key) => {
