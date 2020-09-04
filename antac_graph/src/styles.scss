@@ -74,15 +74,15 @@ path.link {
   font-weight: bold;
 }
 
-.custom-control-input:checked ~ .custom-control-label::before {
-  color: #fff;
-  border-color: #219653;
-  background-color: #219653;
-}
-
-.custom-control-label::before {
-  border: rgba(0, 0, 0, 0.54) solid 2px;
-}
+//.custom-control-input:checked ~ .custom-control-label::before {
+//  color: #fff;
+//  border-color: #219653;
+//  background-color: #219653;
+//}
+//
+//.custom-control-label::before {
+//  border: rgba(0, 0, 0, 0.54) solid 2px;
+//}
 
 .btn-green {
   color: #fff;
@@ -251,6 +251,7 @@ path.link {
 /* END */
 
 #graph {
+  background-color: #fff;
   position: absolute;
   top: 0;
   bottom: 0;

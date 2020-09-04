@@ -13,6 +13,11 @@ const buttonTypes = {
   dark: 'bg-gray-200 text-gray-600',
 
   'outline-white': 'border border-white',
+  'outline-primary': 'border border-theme-1 text-theme-1',
+  'outline-secondary': 'border text-gray-700',
+  'outline-success': 'border border-theme-9 text-theme-9',
+  'outline-warning': 'border border-theme-12 text-theme-12',
+  'outline-danger': 'border border-theme-6 text-theme-6',
 };
 
 const loadingColors = {

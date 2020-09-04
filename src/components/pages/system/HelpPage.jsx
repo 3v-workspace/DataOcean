@@ -1,10 +1,14 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
-const HelpPage = () => (
-  <h2 className="intro-y text-lg font-medium mt-10">
-    Help Page
-  </h2>
-);
+const HelpPage = () => {
+  const { t } = useTranslation();
+  return (
+    <h2 className="intro-y text-lg font-medium mt-10">
+      {t('help')}
+    </h2>
+  );
+};
 
 // HelpPage.propTypes = {};
 
