@@ -1,79 +1,66 @@
-/* global Chart */
 import React, { useEffect, useRef, useState } from 'react';
-import PropTypes from 'prop-types';
-import { Button, DateInput, SelectInput } from 'components/form-components';
-import { useFormik } from 'formik';
-import Yup from 'utils/yup';
+// import PropTypes from 'prop-types';
+import { Button } from 'components/form-components';
+import { Dropdown, DropdownItem } from 'components/dropdown';
+import { Plus, X } from 'react-feather';
+import RBGroupBy from 'components/report-builder/RBGroupBy';
 
-const chartTypes = {
+const chartSet = {
   LINE: 'line',
   BAR: 'bar',
   PIE: 'pie',
 };
 
-const registers = [
-  { label: 'ФОПи', value: 'fop' },
-  { label: 'Компанії', value: 'company' },
-  { label: 'КВЕДи', value: 'kved' },
-];
+const registerSet = {
+  FOP: 'fop',
+  COMPANY: 'company',
+  KVED: 'kved',
+};
 
-const metrics = [
+const metricTypes = {
+  DATE: 'date',
+  KVED: 'kved',
+};
+
+const registerLabels = {
+  [registerSet.FOP]: 'ФОПи',
+  [registerSet.COMPANY]: 'Компанії',
+  [registerSet.KVED]: 'КВЕДи',
+};
+
+const metricsSet = [
   {
     name: 'fopRegistration',
     label: 'Реєстрація ФОП',
-    register: 'fop',
-    type: 'date',
+    register: registerSet.FOP,
+    type: metricTypes.DATE,
   },
   {
     name: 'companyRegistration',
     label: 'Реєстрація компаній',
-    register: 'company',
-    type: 'date',
+    register: registerSet.COMPANY,
+    type: metricTypes.DATE,
   },
   {
     name: 'fopKved',
     label: 'Кількість ФОПів з Кведом',
-    register: 'kved',
-    type: 'kved',
+    register: registerSet.KVED,
+    type: metricTypes.KVED,
   },
   {
     name: 'companyKved',
     label: 'Кількість компаній з Кведом',
-    register: 'kved',
-    type: 'kved',
+    register: registerSet.KVED,
+    type: metricTypes.KVED,
   },
 ];
 
-const aggregations = [
-  { label: 'Рік', value: 'year' },
-  { label: 'Місяць', value: 'month' },
-  { label: 'День', value: 'day' },
-];
-
-const ReportConstructor = (props) => {
-  // const [chartType, setChartType] = useState(chartTypes.LINE);
-  // const [timeRange, setTimeRange] = useState('');
-  // const [selectedMetrics, setSelectedMetrics] = useState([metrics.FOP_REGISTRATION]);
-
-  const formik = useFormik({
-    initialValues: {
-      chartType: chartTypes.LINE,
-      timeRange: '',
-      aggregation: null,
-      metrics: [],
-      registers: [],
-    },
-    validationSchema: Yup.object({
-      chart_type: Yup.string().oneOf(Object.values(chartTypes)).required(),
-      timeRange: Yup.string().required(),
-      aggregation: Yup.string(),
-      metrics: Yup.array(),
-      registers: Yup.array(),
-    }),
-    onSubmit: (values) => {
-      console.log(values);
-    },
-  });
+const ReportConstructor = () => {
+  const [chartType, setChartType] = useState(chartSet.LINE);
+  const [metrics, setMetrics] = useState(new Set());
+  const [registers, setRegisters] = useState(new Set());
+  const [currentType, setCurrentType] = useState(null);
+  const [options, setOptions] = useState({});
 
   const chartRef = useRef();
 
@@ -86,41 +73,13 @@ const ReportConstructor = (props) => {
     chartRef.current.update();
   };
 
-  const getMetricsOptions = () => {
-    const selected = formik.values.metrics[0];
-    const selectedRegisters = formik.values.registers;
-    let metricsFiltered = [...metrics];
-    if (selected) {
-      const { type } = metrics.find((x) => x.name === selected);
-      metricsFiltered = metricsFiltered.filter((m) => m.type === type);
-    }
-    if (selectedRegisters.length) {
-      metricsFiltered = metricsFiltered.filter((m) => selectedRegisters.includes(m.register));
-    }
-    return metricsFiltered.map((metric) => (
-      { label: metric.label, value: metric.name }
-    ));
-  };
-
-  // const getAggregationOptions = () => {
-  //   let aggrFiltered = Object.entries(aggregations);
-  //   const selectedMetric = formik.values.metrics[0];
-  //   if (selectedMetric) {
-  //     const allowedAggr = getAggregationsFromMetric(selectedMetric);
-  //     aggrFiltered = aggrFiltered.filter(([name]) => allowedAggr.includes(name));
-  //   }
-  //   return [{ label: '---', value: '' }].concat(aggrFiltered.map(([name, options]) => (
-  //     { label: options.label, value: name }
-  //   )));
-  // };
-
   useEffect(() => {
     const ctx = document.getElementById('report-chart').getContext('2d');
     if (chartRef.current) {
       chartRef.current.destroy();
     }
     chartRef.current = new Chart(ctx, {
-      type: formik.values.chartType,
+      type: chartType,
       data: {
         labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
         datasets: [
@@ -178,80 +137,150 @@ const ReportConstructor = (props) => {
       //   },
       // },
     });
-  }, [formik.values.chartType]);
+  }, [chartType]);
 
+  const addRegister = (value) => {
+    const newRegs = new Set(registers);
+    newRegs.add(value);
+    setRegisters(newRegs);
+  };
+
+  const removeRegister = (value) => {
+    const newRegs = new Set(registers);
+    newRegs.delete(value);
+    setRegisters(newRegs);
+  };
+
+  const addMetric = (value) => {
+    const newMetrics = new Set(metrics);
+    newMetrics.add(value);
+    setMetrics(newMetrics);
+    const metric = metricsSet.find((m) => m.name === value);
+    setCurrentType(metric.type);
+  };
+
+  const removeMetric = (value) => {
+    const newMetrics = new Set(metrics);
+    newMetrics.delete(value);
+    setMetrics(newMetrics);
+    if (newMetrics.size === 0) {
+      setCurrentType(null);
+    }
+  };
+
+  const dropdownMetrics = metricsSet.filter((m) => {
+    let res = true;
+    if (currentType && m.type !== currentType) {
+      res = false;
+    }
+    return registers.has(m.register) && res && !metrics.has(m.name);
+  });
 
   return (
-    <div className="grid grid-cols-12 gap-4">
-      <div className="col-span-4">
-        <div className="pb-2 font-bold">Тип</div>
-        <div>
-          <Button
-            size="sm"
-            variant={formik.values.chartType === chartTypes.LINE ? 'primary' : 'dark'}
-            className="mr-2 w-24"
-            onClick={() => formik.setFieldValue('chartType', chartTypes.LINE)}
-          >
-            Лінія
-          </Button>
-          <Button
-            size="sm"
-            variant={formik.values.chartType === chartTypes.BAR ? 'primary' : 'dark'}
-            className="mr-2 w-24"
-            onClick={() => formik.setFieldValue('chartType', chartTypes.BAR)}
-          >
-            Бари
-          </Button>
-          <Button
-            size="sm"
-            variant={formik.values.chartType === chartTypes.PIE ? 'primary' : 'dark'}
-            className="w-24"
-            onClick={() => formik.setFieldValue('chartType', chartTypes.PIE)}
-          >
-            Пиріг
-          </Button>
+    <div className="grid grid-cols-12">
+      <div className="col-span-9 p-2 border-r-1">
+        <div className="grid grid-cols-12 gap-4 mt-2">
+          <div className="col-span-6">
+            <Button
+              // size="sm"
+              variant={chartType === chartSet.LINE ? 'primary' : 'dark'}
+              className="mr-2 w-24"
+              onClick={() => setChartType(chartSet.LINE)}
+            >
+              Лінія
+            </Button>
+            <Button
+              // size="sm"
+              variant={chartType === chartSet.BAR ? 'primary' : 'dark'}
+              className="mr-2 w-24"
+              onClick={() => setChartType(chartSet.BAR)}
+            >
+              Бари
+            </Button>
+            <Button
+              // size="sm"
+              variant={chartType === chartSet.PIE ? 'primary' : 'dark'}
+              className="w-24"
+              onClick={() => setChartType(chartSet.PIE)}
+            >
+              Пиріг
+            </Button>
+          </div>
+          <div className="col-span-6">
+            <RBGroupBy currentType={currentType} onGroupByChange={setOptions} />
+          </div>
+          <div className="col-span-12">
+            <canvas className="mt-3" id="report-chart" height="150" />
+          </div>
         </div>
-      </div>
-      <div className="col-span-2">
-        <div className="pb-2 font-bold">Дії</div>
         <Button size="sm" className="mr-2 w-24" onClick={refreshData}>Оновити</Button>
       </div>
-      <div className="col-span-2">
-        <div className="pb-2 font-bold">Агрегація</div>
-        <SelectInput
-          name="aggregation"
-          options={aggregations}
-          formik={formik}
-        />
-      </div>
-      <div className="col-span-4">
-        <div className="pb-2 font-bold">Time range</div>
-        <DateInput
-          singleDatePicker={false}
-          name="timeRange"
-          formik={formik}
-        />
-      </div>
-      <div className="col-span-6">
-        <div className="pb-2 font-bold">Реєстри</div>
-        <SelectInput
-          multiple
-          name="registers"
-          options={registers}
-          formik={formik}
-        />
-      </div>
-      <div className="col-span-6">
-        <div className="pb-2 font-bold">Метрики</div>
-        <SelectInput
-          multiple
-          name="metrics"
-          options={getMetricsOptions()}
-          formik={formik}
-        />
-      </div>
-      <div className="col-span-12">
-        <canvas className="mt-3" id="report-chart" height="100" />
+      <div className="col-span-3 p-2">
+        <div>
+          <div className="pb-2 font-bold">Реєстри</div>
+          <div className="flex flex-wrap">
+            {[...registers].map((regName) => (
+              <Button
+                key={regName}
+                size="sm"
+                className="mr-2 mb-2"
+                onClick={() => removeRegister(regName)}
+              >
+                {registerLabels[regName]} <X className="w-3 h-3 ml-2" />
+              </Button>
+            ))}
+          </div>
+          <div className="flex justify-center mb-4">
+            {registers.size !== Object.keys(registerSet).length && (
+              <Dropdown
+                align="right"
+                dropdownComponent={(
+                  <Button size="sm" variant="secondary" className="dropdown-toggle">
+                    Додати реєстр <Plus className="w-3 h-3 ml-2" />
+                  </Button>
+                )}
+              >
+                {Object.values(registerSet)
+                  .filter((r) => !registers.has(r))
+                  .map((regName) => (
+                    <DropdownItem key={regName} onClick={() => addRegister(regName)}>
+                      {registerLabels[regName]}
+                    </DropdownItem>
+                  ))}
+              </Dropdown>
+            )}
+          </div>
+        </div>
+        <div>
+          <div className="pb-2 font-bold">Метрики</div>
+          <div className="flex justify-center mb-4">
+            {dropdownMetrics.length > 0 && (
+              <Dropdown
+                align="right"
+                dropdownComponent={(
+                  <Button size="sm" variant="secondary" className="dropdown-toggle">
+                    Додати метрику <Plus className="w-3 h-3 ml-2" />
+                  </Button>
+                )}
+              >
+                {dropdownMetrics.map((metric) => (
+                  <DropdownItem key={metric.name} onClick={() => addMetric(metric.name)}>
+                    {metric.label}
+                  </DropdownItem>
+                ))}
+              </Dropdown>
+            )}
+          </div>
+          {[...metrics].map((metricName) => {
+            const metric = metricsSet.find((m) => m.name === metricName);
+            return (
+              <div key={metricName} className="text-grey-600 flex justify-between">
+                {metric.label}
+                <X className="w-5 h-5 cursor-pointer" onClick={() => removeMetric(metricName)} />
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );
