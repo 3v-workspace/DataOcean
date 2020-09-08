@@ -1,7 +1,7 @@
 .landing-teams-container {
     display: flex;
     justify-content: center;
-    
+
     &__img {
         margin-left: 0;
         max-width: 400px;
@@ -29,12 +29,18 @@
 
     &__image {
         max-width: 400px;
+        max-height: 500px;
     }
 
     @media screen and (min-width: $md) {
         &__image {
             max-width: 700px;
-            max-height: 500px;
+        }
+    }
+
+    @media screen and (min-width: $lg) {
+        &__image {
+            max-width: 800px;
         }
     }
 }
