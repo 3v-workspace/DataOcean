@@ -19,7 +19,7 @@ const TextInput = (props) => {
   if (isRounded) {
     classList.push('rounded-full');
   }
-  classList.push('input border mt-2');
+  classList.push('input border');
   classList.push(width);
 
   if (formik && formik.touched[name] && formik.errors[name]) {
@@ -31,7 +31,7 @@ const TextInput = (props) => {
   return (
     <div className={`${containerClass} mb-3`}>
       {label && (
-        <label htmlFor={endId}>{label}</label>
+        <label htmlFor={endId} className="inline-block mb-2">{label}</label>
       )}
       <input
         className={classList.join(' ')}
