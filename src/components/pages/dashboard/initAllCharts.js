@@ -1,5 +1,3 @@
-/* global $, Chart, helper */
-
 const initAllCharts = () => {
   if ($('#report-donut-chart-1').length) {
     const ctx = $('#report-donut-chart-1')[0].getContext('2d');

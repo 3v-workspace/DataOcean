@@ -1,4 +1,3 @@
-/* global $ */
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { ChevronDown } from 'react-feather';
 import PropTypes from 'prop-types';

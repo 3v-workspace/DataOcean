@@ -14,7 +14,12 @@
   ],
   "env": {
     "browser": true,
-    "node": true
+    "node": true,
+    "jquery": true
+  },
+  "globals": {
+    "Chart": true,
+    "helper": true
   },
   "settings": {
     "import/resolver": {
