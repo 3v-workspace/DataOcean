@@ -1,5 +1,3 @@
-/* global $, Chart */
-
 import React, { useEffect, useState } from 'react';
 import {
   Briefcase, Database, File, RefreshCcw, User,

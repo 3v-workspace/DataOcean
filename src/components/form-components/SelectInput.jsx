@@ -1,4 +1,3 @@
-/* global $ */
 import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { FormikPropType } from 'utils/prop-types';
@@ -42,7 +41,7 @@ const SelectInput = (props) => {
     $(selectRef.current).val(value || (formik && formik.values[name])).trigger('change');
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [JSON.stringify(formik.values[name]), name]);
+  }, [JSON.stringify(formik ? formik.values[name] : value), name]);
 
   return (
     <div className="mb-3">
