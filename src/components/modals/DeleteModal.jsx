@@ -1,52 +1,30 @@
 import React from 'react';
-import { XCircle, CheckCircle } from 'react-feather';
+import { XCircle } from 'react-feather';
 import PropTypes from 'prop-types';
-import BlankModal from './BlankModal';
-
+import YesNoModal from 'components/modals/YesNoModal';
+import { useTranslation } from 'react-i18next';
 
 const DeleteModal = React.forwardRef((props, ref) => {
   const {
     header, message, id, className, onDelete, onHide, closeButton,
   } = props;
+  const { t } = useTranslation();
 
   return (
-    <BlankModal
-      ref={ref}
+    <YesNoModal
       id={id}
+      ref={ref}
       className={className}
+      header={header}
+      message={message}
+      noLabel={t('cancel')}
+      yesLabel={t('delete')}
+      onYes={onDelete}
+      icon={XCircle}
+      variant="danger"
       onHide={onHide}
       closeButton={closeButton}
-      // size="sm"
-      // footerContent={(
-      //   <div className="p-5 text-center border-t border-gray-200">
-      //     <a href="" className="text-theme-1">
-      //       Why do I have this issue?
-      //     </a>
-      //   </div>
-      // )}
-    >
-      <div className="p-5 text-center">
-        <XCircle className="w-16 h-16 mx-auto mt-3 text-theme-6" />
-        <div className="text-3xl mt-5">{header}</div>
-        <div className="text-gray-600 mt-2">{message}</div>
-      </div>
-      <div className="px-5 pb-8 text-center">
-        <button
-          type="button"
-          data-dismiss="modal"
-          className="button w-24 border text-gray-700 mr-1"
-        >
-          Cancel
-        </button>
-        <button
-          type="button"
-          className="button w-24 bg-theme-6 text-white"
-          onClick={onDelete}
-        >
-          Delete
-        </button>
-      </div>
-    </BlankModal>
+    />
   );
 });
 

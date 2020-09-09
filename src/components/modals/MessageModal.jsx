@@ -1,5 +1,5 @@
 import React from 'react';
-import { XCircle, CheckCircle } from 'react-feather';
+import { XCircle, CheckCircle, Info } from 'react-feather';
 import PropTypes from 'prop-types';
 import BlankModal from './BlankModal';
 
@@ -15,6 +15,10 @@ const types = {
   success: {
     colorClass: 'text-theme-9',
     icon: CheckCircle,
+  },
+  info: {
+    colorClass: 'text-theme-1',
+    icon: Info,
   },
 };
 
@@ -32,14 +36,6 @@ const MessageModal = React.forwardRef((props, ref) => {
       className={className}
       onHide={onHide}
       closeButton={closeButton}
-      // size="sm"
-      // footerContent={(
-      //   <div className="p-5 text-center border-t border-gray-200">
-      //     <a href="" className="text-theme-1">
-      //       Why do I have this issue?
-      //     </a>
-      //   </div>
-      // )}
     >
       <div className="p-5 text-center">
         <Icon className={`w-16 h-16 mx-auto mt-3 ${colorClass}`} />
@@ -64,7 +60,7 @@ MessageModal.propTypes = {
   className: PropTypes.string,
   header: PropTypes.string.isRequired,
   message: PropTypes.string.isRequired,
-  type: PropTypes.oneOf(['warning', 'error', 'success']),
+  type: PropTypes.oneOf(['warning', 'error', 'success', 'info']),
   onHide: PropTypes.func,
   closeButton: PropTypes.bool,
 };

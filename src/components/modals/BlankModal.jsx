@@ -51,14 +51,6 @@ class BlankModal extends Component {
     return show;
   };
 
-  // useEffect(() => {
-  //   if (show) {
-  //     modalRef.current.classList.add('show');
-  //   } else {
-  //     modalRef.current.classList.remove('show');
-  //   }
-  // }, [show]);
-
   backHide = (e) => {
     e.stopPropagation();
     e.preventDefault();

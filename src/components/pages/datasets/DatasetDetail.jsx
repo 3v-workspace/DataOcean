@@ -25,12 +25,12 @@ const DatasetDetail = (props) => {
   }
 
   const actions = [];
-  if (data.data_ocean_list in datasets) {
+  if (data.list in datasets) {
     actions.push({
       label: t('registryData'),
       icon: Database,
       onClick: () => {
-        history.push(`/system/datasets/${id}/${datasets[data.data_ocean_list].urlEnding}`);
+        history.push(`/system/datasets/${id}/${datasets[data.list].urlEnding}`);
       },
     });
   }
@@ -64,12 +64,12 @@ const DatasetDetail = (props) => {
               <td>{data.source_name}</td>
             </tr>
             <tr>
-              <td className="font-medium">Data ocean list:</td>
-              <td>{data.data_ocean_list}</td>
+              <td className="font-medium">List endpoint:</td>
+              <td>{data.list}</td>
             </tr>
             <tr>
-              <td className="font-medium">Data ocean retrieve:</td>
-              <td>{data.data_ocean_retrieve}</td>
+              <td className="font-medium">Retrieve endpoint:</td>
+              <td>{data.retrieve}</td>
             </tr>
             <tr>
               <td className="font-medium">Your token:</td>

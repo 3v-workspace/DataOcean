@@ -2,9 +2,11 @@
   "acceptPolicyError": "To register, you must confirm your agreement to the privacy policy",
   "accessToken": "Access token",
   "address": "Address",
+  "afterRefreshTokenYouLoseAccess": "After the refreshing, you will lose access to the system with the current token.",
   "all": "All",
   "apiRequests": "API Requests",
   "apiUsage": "API usage",
+  "areYouSure": "Are you sure?",
   "authorizedCapital": "Authorized capital",
   "back": "Back",
   "backToHome": "Back to Home",
@@ -27,6 +29,7 @@
   "datasetsCount": "Datasets count",
   "datasetsSearch": "Datasets search",
   "dateOfBirth": "Date of birth",
+  "delete": "Delete",
   "district": "District",
   "division": "Division",
   "edrpou": "EDRPOU",
@@ -54,6 +57,7 @@
   "name": "Name",
   "newPassword": "New password",
   "next": "Next",
+  "no": "No",
   "numberOfCompanies": "Number of companies",
   "numberOfDatasets": "Number of datasets",
   "numberOfSoleProprietors": "Number of sole proprietors",
@@ -82,6 +86,7 @@
   "recoverPassword": "Recover password",
   "recoverPasswordEmailSent": "A password reset message has been sent to your email",
   "refresh": "Refresh",
+  "refreshToken": "Refresh token",
   "region": "Region",
   "register": "Register",
   "registerConfirmEmailSent": "An email has been sent to you with instructions to confirm registration",
@@ -110,5 +115,6 @@
   "userInformation": "User information",
   "usersCount": "Users count",
   "view": "View",
-  "viewTheRegistry": "View the registry"
+  "viewTheRegistry": "View the registry",
+  "yes": "Yes"
 }
