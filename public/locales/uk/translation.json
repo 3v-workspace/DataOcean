@@ -33,6 +33,7 @@
   "district": "Район",
   "division": "Розділ",
   "edrpou": "ЄДРПОУ",
+  "endpoint": "Ендпоінт",
   "endpoints": "Ендпоінти",
   "error": "Помилка",
   "fewMoreSteps": "Ще декілька простих кроків\nі ви у системі",
@@ -112,9 +113,11 @@
   "toAccessRESTAddHeader": "Для доступу до REST API добавте в HTTP-запит наступний заголовок",
   "tools": "Інструменти",
   "topKveds": "ТОП КВЕДів",
+  "type": "Тип",
   "userInformation": "Інформація про користувача",
   "usersCount": "Кількість користувачів",
   "view": "Переглянути",
+  "viewInProfile": "Переглянути в профілі",
   "viewTheRegistry": "Перегляд реєстру",
   "yes": "Так"
 }
