@@ -30,25 +30,25 @@ const registerLabels = {
 
 const metricsSet = [
   {
-    name: 'fopRegistration',
+    name: 'fop_registration',
     label: 'Реєстрація ФОП',
     register: registerSet.FOP,
     type: metricTypes.DATE,
   },
   {
-    name: 'companyRegistration',
+    name: 'company_registration',
     label: 'Реєстрація компаній',
     register: registerSet.COMPANY,
     type: metricTypes.DATE,
   },
   {
-    name: 'fopKved',
+    name: 'fop_kved',
     label: 'Кількість ФОПів з Кведом',
     register: registerSet.KVED,
     type: metricTypes.KVED,
   },
   {
-    name: 'companyKved',
+    name: 'company_kved',
     label: 'Кількість компаній з Кведом',
     register: registerSet.KVED,
     type: metricTypes.KVED,

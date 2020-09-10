@@ -1,20 +1,25 @@
 const request = {
-  group_by: 'day', // day, week, month, year
-  date_from: '2020-01-20', // ISO
-  date_to: '2020-12-12', // ISO
-  metrics: [ // list of metrics
-    {
-      name: 'fopRegistration',
-      filter: {
-        status: 'припинено',
-      },
-    },
-    {
-      name: 'companyRegistration',
-      filter: {
-        type: 'товариство з обмеженою відповідальністю',
-      },
-    },
+  type: 'date',
+  options: {
+    group_by: 'day',
+    date_from: '2020-02-02',
+    date_to: '2020-03-02',
+  },
+  metrics: [
+    'fop_registration',
+    'company_registration',
+    // {
+    //   name: 'fopRegistration',
+    //   filter: {
+    //     status: 'припинено',
+    //   },
+    // },
+    // {
+    //   name: 'companyRegistration',
+    //   filter: {
+    //     type: 'товариство з обмеженою відповідальністю',
+    //   },
+    // },
   ],
 };
 

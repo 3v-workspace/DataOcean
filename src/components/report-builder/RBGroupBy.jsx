@@ -7,14 +7,10 @@ const RBGroupBy = (props) => {
   const { currentType, onGroupByChange } = props;
 
   if (currentType === 'date') {
-    return (
-      <DateGroupBy onGroupByChange={onGroupByChange} />
-    );
+    return <DateGroupBy onGroupByChange={onGroupByChange} />;
   }
   if (currentType === 'kved') {
-    return (
-      <KvedGroupBy onGroupByChange={onGroupByChange} />
-    );
+    return <KvedGroupBy onGroupByChange={onGroupByChange} />;
   }
   return null;
 };
