@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next';
 
 const DatasetsList = ({ match }) => {
   const [search, setSearch] = useState('');
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const tc = useTableController({
     url: 'register/',
@@ -69,7 +69,7 @@ const DatasetsList = ({ match }) => {
                     {item.id}
                   </td>
                   <td>
-                    {item.name}
+                    {i18n.language === 'en' ? item.name_eng : item.name}
                   </td>
                   <td className="text-center">
                     {moment(item.source_last_update).format(DATETIME_FORMAT)}

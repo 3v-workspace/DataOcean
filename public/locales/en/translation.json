@@ -33,6 +33,7 @@
   "district": "District",
   "division": "Division",
   "edrpou": "EDRPOU",
+  "endpoint": "Endpoint",
   "endpoints": "Endpoints",
   "error": "Error",
   "fewMoreSteps": "A few more simple steps\nand you are in the system",
@@ -112,9 +113,11 @@
   "toAccessRESTAddHeader": "To access the REST API, add the following header to the HTTP request",
   "tools": "Tools",
   "topKveds": "TOP NACE",
+  "type": "Type",
   "userInformation": "User information",
   "usersCount": "Users count",
   "view": "View",
+  "viewInProfile": "View in profile",
   "viewTheRegistry": "View the registry",
   "yes": "Yes"
 }
