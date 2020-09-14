@@ -6,7 +6,7 @@ const TextInput = (props) => {
   const {
     label, value, onChange, name, id, type, placeholder,
     className, width, size, formik, onBlur, isRounded,
-    containerClass, autoComplete,
+    containerClass, autoComplete, error, pattern, required,
   } = props;
 
   const classList = [];
@@ -37,15 +37,17 @@ const TextInput = (props) => {
         className={classList.join(' ')}
         id={endId}
         type={type}
+        required={required}
         autoComplete={autoComplete}
+        pattern={pattern}
         placeholder={placeholder}
         value={value || (formik && formik.values[name])}
         onChange={onChange || (formik && formik.handleChange)}
         onBlur={onBlur || (formik && formik.handleBlur)}
         name={name}
       />
-      {formik && formik.touched[name] && formik.errors[name] && (
-        <label className="error" htmlFor={endId}>{formik.errors[name]}</label>
+      {(error || (formik && formik.touched[name] && formik.errors[name])) && (
+        <label className="error text-theme-6" htmlFor={endId}>{error || formik.errors[name]}</label>
       )}
     </div>
   );
@@ -60,6 +62,7 @@ TextInput.propTypes = {
   width: PropTypes.string,
   size: PropTypes.oneOf(['sm', 'lg']),
   name: PropTypes.string.isRequired,
+  pattern: PropTypes.string,
   type: PropTypes.string,
   value: PropTypes.string,
   onChange: PropTypes.func,
@@ -67,6 +70,8 @@ TextInput.propTypes = {
   placeholder: PropTypes.string,
   isRounded: PropTypes.bool,
   formik: FormikPropType,
+  error: PropTypes.string,
+  required: PropTypes.bool,
 };
 
 TextInput.defaultProps = {
@@ -75,6 +80,7 @@ TextInput.defaultProps = {
   label: '',
   width: 'w-full',
   type: 'text',
+  pattern: undefined,
   id: undefined,
   size: undefined,
   autoComplete: undefined,
@@ -84,6 +90,8 @@ TextInput.defaultProps = {
   onBlur: undefined,
   isRounded: false,
   formik: undefined,
+  error: undefined,
+  required: false,
 };
 
 export default TextInput;
