@@ -1,26 +1,32 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { DateInput, SelectInput } from 'components/form-components';
+import { useTranslation } from 'react-i18next';
 
-const groupByChoices = [
-  { label: 'Рік', value: 'year' },
-  { label: 'Місяць', value: 'month' },
-  { label: 'День', value: 'day' },
-];
 
 const DateGroupBy = (props) => {
   const { onGroupByChange } = props;
   const [timeRange, setTimeRange] = useState('');
   const [groupBy, setGroupBy] = useState(null);
 
+  const { t } = useTranslation();
+
+  const groupByChoices = [
+    { label: t('year'), value: 'year' },
+    { label: t('month'), value: 'month' },
+    { label: t('day'), value: 'day' },
+  ];
+
   useEffect(() => {
-    onGroupByChange({ timeRange, groupBy });
+    const [date_from, date_to] = timeRange.split(' - ');
+    onGroupByChange({ date_from, date_to, group_by: groupBy });
   }, [timeRange, groupBy]);
 
   return (
     <div className="grid grid-cols-12 gap-2">
       <div className="col-span-4">
         <SelectInput
+          required
           name="aggregation"
           options={groupByChoices}
           // formik={formik}
@@ -31,6 +37,7 @@ const DateGroupBy = (props) => {
       </div>
       <div className="col-span-8">
         <DateInput
+          required
           singleDatePicker={false}
           name="timeRange"
           // formik={formik}

@@ -11,6 +11,7 @@ const DateInput = (props) => {
     name, formik, onChange, value, timePicker, timePicker24Hour,
     autoApply, singleDatePicker, startDate, endDate, autoUpdateInput,
     minDate, maxDate, drops, id, label, containerClass, className,
+    required,
   } = props;
 
   const { i18n } = useTranslation();
@@ -119,6 +120,7 @@ const DateInput = (props) => {
         autoComplete="off"
         className={`${className} input border`}
         name={name}
+        required={required}
         // value={value || (formik && formik.values[name])}
         onBlur={formik && formik.handleBlur}
       />
@@ -157,6 +159,7 @@ DateInput.propTypes = {
   drops: PropTypes.oneOf(['down', 'up', 'auto']),
 
   formik: FormikPropType,
+  required: PropTypes.bool,
 };
 DateInput.defaultProps = {
   id: null,
@@ -177,6 +180,7 @@ DateInput.defaultProps = {
   minDate: undefined,
   maxDate: undefined,
   drops: 'auto',
+  required: false,
 };
 
 
