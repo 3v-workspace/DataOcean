@@ -6,7 +6,7 @@ import { FormikPropType } from 'utils/prop-types';
 const SelectInput = (props) => {
   const {
     options, width, hideSearch, multiple, placeholder, value,
-    disabled, onChange, className, formik, name, label,
+    disabled, onChange, className, formik, name, label, required,
   } = props;
 
   const selectRef = useRef();
@@ -44,7 +44,7 @@ const SelectInput = (props) => {
   }, [JSON.stringify(formik ? formik.values[name] : value), name]);
 
   return (
-    <div className="mb-3">
+    <div className="mb-3 relative">
       {label && (
         <label htmlFor={`id_${name}`} className="mb-2 inline-block">{label}</label>
       )}
@@ -53,6 +53,7 @@ const SelectInput = (props) => {
         id={`id_${name}`}
         name={name}
         className={classList.join(' ')}
+        required={required}
       >
         {options.map((option) => (
           <option value={option.value} key={option.value}>
@@ -84,6 +85,7 @@ SelectInput.propTypes = {
   })).isRequired,
   width: PropTypes.string,
   formik: FormikPropType,
+  required: PropTypes.bool,
 };
 
 SelectInput.defaultProps = {
@@ -98,6 +100,7 @@ SelectInput.defaultProps = {
   placeholder: undefined,
   width: 'w-full',
   formik: undefined,
+  required: false,
 };
 
 export default SelectInput;
