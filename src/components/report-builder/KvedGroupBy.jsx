@@ -30,7 +30,7 @@ const KvedGroupBy = (props) => {
       required
       name="kveds"
       placeholder="25.02, 03.12, 10.58"
-      pattern="^\d\d\.\d\d$"
+      pattern="^(\d\d\.\d\d\s*,?\s*)+$"
       onChange={(e) => setKveds(e.target.value)}
       value={kveds}
       error={error}
