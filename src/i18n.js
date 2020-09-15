@@ -9,6 +9,9 @@ i18n
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
+    backend: {
+      loadPath: '/locales/{{lng}}/{{ns}}.json?v=1',
+    },
     detection: {
       order: [
         'localStorage', 'querystring', 'cookie', 'sessionStorage',
