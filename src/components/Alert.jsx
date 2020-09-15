@@ -17,6 +17,14 @@ const variants = {
   'outline-success': 'border border-theme-9 text-theme-9',
   'outline-warning': 'border border-theme-12 text-theme-12',
   'outline-danger': 'border border-theme-6 text-theme-6',
+
+
+  'soft-primary': 'bg-theme-14 text-theme-10',
+  'soft-secondary': 'border text-gray-700',
+  'soft-success': 'bg-theme-18 text-theme-9',
+  'soft-warning': 'bg-theme-17 text-theme-11',
+  'soft-danger': 'bg-theme-31 text-theme-6',
+  'soft-dark': 'bg-gray-200 text-gray-600',
 };
 
 
