@@ -383,7 +383,7 @@ $(searchFormS).on('submit', function (e) {
   const value = $(searchInputS).val();
 
   let type = 'pep';
-  let data = { search: value };
+  let data = { name_search: value };
   if (/^\d{8}$/.test(value)) {
     type = 'company';
     data = { edrpou: value };
