@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { ReactRouterPropTypes } from 'utils/prop-types';
 import PageBox from 'components/pages/PageBox';
 import Api from 'api';
-import datasets from 'const/datasets';
 import { Eye } from 'react-feather';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import Tooltip from 'components/Tooltip';
+import datasets from './datasets';
 
 const DatasetDetail = (props) => {
   const { match } = props;
