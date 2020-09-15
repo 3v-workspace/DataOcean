@@ -7,6 +7,7 @@ import { DATETIME_FORMAT } from 'const/const';
 import { Link } from 'react-router-dom';
 import { ReactRouterPropTypes } from 'utils/prop-types';
 import { useTranslation } from 'react-i18next';
+import Tooltip from 'components/Tooltip';
 
 const DatasetsList = ({ match }) => {
   const [search, setSearch] = useState('');
@@ -28,13 +29,15 @@ const DatasetsList = ({ match }) => {
       </h2>
       <div className="grid grid-cols-12 gap-6 mt-5">
         <div className="intro-y col-span-12 flex flex-wrap sm:flex-no-wrap items-center mt-2">
-          <Button
-            className="shadow-md mr-2"
-          >
-            {t('myDatasets')}
-          </Button>
+          <Tooltip content={`${t('inDevelopment')}...`}>
+            <Button
+              className="shadow-md mr-2 disabled"
+            >
+              {t('myDatasets')}
+            </Button>
+          </Tooltip>
           <div className="dropdown relative">
-            <button type="button" className="dropdown-toggle button px-2 box text-gray-700">
+            <button type="button" className="dropdown-toggle button px-2 box text-gray-700 disabled">
               <span className="w-5 h-5 flex items-center justify-center">
                 <Plus className="w-4 h-4" />
               </span>

@@ -198,9 +198,9 @@ const HomePage = () => {
               <h2 className="text-lg font-medium truncate mr-5">
                 {t('generalReport')}
               </h2>
-              <a href="#" className="ml-auto flex text-theme-1 dark:text-theme-10">
-                <RefreshCcw className="w-4 h-4 mr-3" /> {t('refresh')}
-              </a>
+              {/*<a href="#" className="ml-auto flex text-theme-1 dark:text-theme-10">*/}
+              {/*  <RefreshCcw className="w-4 h-4 mr-3" /> {t('refresh')}*/}
+              {/*</a>*/}
             </div>
             <div className="grid grid-cols-12 gap-6 mt-5">
               <div className="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
@@ -286,7 +286,7 @@ const HomePage = () => {
               <h2 className="text-lg font-medium truncate mr-5">
                 {t('topKveds')}
               </h2>
-              <a href="#" className="ml-auto text-theme-1 truncate">{t('all')}</a>
+              {/*<a href="#" className="ml-auto text-theme-1 truncate">{t('all')}</a>*/}
             </div>
             <div className="intro-y box p-5 mt-5">
               <canvas className="mt-3" id="report-pie-chart" height="280" />
@@ -303,7 +303,7 @@ const HomePage = () => {
               <h2 className="text-lg font-medium truncate mr-5">
                 {t('companyTypes')}
               </h2>
-              <a href="#" className="ml-auto text-theme-1 truncate">{t('all')}</a>
+              {/*<a href="#" className="ml-auto text-theme-1 truncate">{t('all')}</a>*/}
             </div>
             <div className="intro-y box p-5 mt-5">
               <canvas className="mt-3" id="report-donut-chart" height="280" />

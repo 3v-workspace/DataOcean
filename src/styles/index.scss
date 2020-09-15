@@ -33,3 +33,9 @@
   left: 47%;
   top: 100%;
 }
+
+.button{
+  &.disabled, &:disabled {
+    opacity: 0.8;
+  }
+}
