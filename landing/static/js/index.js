@@ -46,43 +46,85 @@ $(document).ready(() => {
   // });
 });
 
-$(document).ready(function () {
-	$('#contact-form').validate( {
-		rules: {
-			username: {
-				required: true,
-				minlength: 2,
-			},
-			surname: {
-				required: true,
-				minlength: 3,
-			},
-			email: {
-				required: true,
-				email: true,
-			},
-		    //phone: {
-            //   required: true,
-            //    minlength: 11
-            //},
-		},
-		messages: {
-			username: {
-				required: 'Будь ласка, введіть Ваше ім\'я',
-				minlength: 'Замала кількість символів',
-			},
-			surname: {
-				required: "Будь ласка, введіть Ваше прізвище",
-				minlength: 'Замала кількість символів',
-			},
-			email: {
-				required: "Будь ласка, введіть адресу",
-				email: "Будь ласка, введіть коректно адресу"
-			},
-			//phone: {
-            //    required: "Будь ласка, введіть коректний номер телефону",
-            //},
-		},
+let contactFormScheme = {
+    errorClass: "input_error",
+    rules: {
+        username: {
+            required: true,
+            minlength: 2,
+        },
+        surname: {
+            required: true,
+            minlength: 2,
+        },
+        email: {
+            required: true,
+            email: true,
+        },
+        phone: {
+            required: true,
+            minlength: 10,
+            maxlength: 15
+        },
+        question: {
+            required: true,
+        },
+    },
+    messages: {
+        username: {
+            required: 'Будь ласка, введіть Ваше ім\'я',
+            minlength: 'Замала кількість символів',
+        },
+        surname: {
+            required: "Будь ласка, введіть Ваше прізвище",
+            minlength: 'Замала кількість символів',
+        },
+        email: {
+            required: "Будь ласка, введіть адресу",
+            email: "Будь ласка, введіть коректно адресу"
+        },
+        phone: {
+            required: "Будь ласка, введіть коректний номер телефону",
+            minlength: "Замала кількість символів",
+            maxlength: "Завелика кількість символів"
+        },
+        question: {
+            required: "Будь ласка, поставте своє запитання"
+        }
+    },
+}
+
+$('#contact-form').submit(function(event){
+    event.preventDefault();
+    if (!$(this).validate(contactFormScheme)) {
+        return
+    }
+    let form = $('#contact-form');
+    let data = {
+            name: this.username.value + ' ' + this.surname.value,
+            email: this.email.value,
+            subject: this.phone.value,
+            message: this.question.value,
+    }
+
+    $.ajax({
+        url: "https://ipa.dataocean.us/api/landing_mail/",
+        type: "POST",
+        dataType: "json",
+        data: data,
+        success: function(data, status, xhr) {
+            if (xhr.status !== 200) {
+                return
+            }
+            alert('Тепер Ви будете в курсі всіх новин про DataOcean!');
+        },
+        error: function (jqXhr, textStatus, errorMessage) {
+            if (jqXhr.status === 400 || jqXhr.status === 503) {
+                alert('Помилка. Дані не відправлені');
+            }
+            else {
+                alert('Невідома помилка: ' + errorMessage)
+            };
+        }
     });
 });
-
