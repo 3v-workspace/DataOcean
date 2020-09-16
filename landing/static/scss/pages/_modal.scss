@@ -1,0 +1,86 @@
+.modal:target {
+    position: absolute;
+    width: 600px;
+    height: 365px;
+    left: 420px;
+    top: 313px;
+
+    background: #FFFFFF;
+}
+
+.modal-close {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+}
+
+.modal-title {
+    position: absolute;
+    width: 729px;
+    height: 48px;
+    left: 354px;
+    top: 359px;
+
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 32px;
+    line-height: 48px;
+
+    /* identical to box height, or 150% */
+    text-align: center;
+
+    color: #000000;
+
+    opacity: 0.8;
+}
+
+.modal-content {
+    position: absolute;
+    width: 729px;
+    height: 108px;
+    left: 354px;
+    top: 447px;
+
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 36px;
+
+    /* or 150% */
+    text-align: center;
+
+    color: #000000;
+
+    opacity: 0.8;
+}
+
+.modal-btn {
+    position: absolute;
+    width: 128px;
+    height: 48px;
+    left: 656px;
+    top: 587px;
+
+    background: #002895;
+    border-radius: 8px;
+}
+
+.modal-btn-text {
+    position: absolute;
+    width: 116.76px;
+    height: 24px;
+
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 21px;
+
+    /* or 150% */
+    display: flex;
+    align-items: center;
+
+    color: #FFFFFF;
+}

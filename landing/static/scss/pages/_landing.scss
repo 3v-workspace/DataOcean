@@ -1,15 +1,15 @@
 .landing-teams-container {
+    display: flex;
+    justify-content: center;
+
     &__img {
         margin-left: 0;
-        max-width: 720px;
-        width: 100%;
+        max-width: 400px;
     }
-    
     
     @media screen and (min-width: $md) {
         &__img {
             width: auto;
-            //margin-left: $spacer * -20;
             max-width: 600px;
         }
     }
@@ -20,19 +20,27 @@
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     grid-column-gap: $spacer * 4;
     grid-row-gap: $spacer * 4;
+    
 }
 
 .landing-image {
     display: flex;
     justify-content: center;
-    
+
     &__image {
-        max-width: 300px;
+        max-width: 400px;
+        max-height: 500px;
     }
-    
+
+    @media screen and (min-width: $md) {
+        &__image {
+            max-width: 700px;
+        }
+    }
+
     @media screen and (min-width: $lg) {
         &__image {
-            max-width: 100%;
+            max-width: 800px;
         }
     }
 }

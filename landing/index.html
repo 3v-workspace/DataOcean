@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data ocean</title>
+    <title>Data Ocean</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,700;1,400&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="static/dist/main.css">
@@ -62,7 +62,9 @@
                     <img class="margin-list__item" src="static/img/ui-pixels.png">
                 
                         <h2 class="h2 margin-list__item">
-                            Open Data Platform
+                            <a href="https://dp.dataocean.us/system/home/" target="_blank">
+                                Open Data Platform
+                            </a>
                         </h2>
                 
                         <div class="margin-list__item paragraph paragraph_large">
@@ -78,9 +80,7 @@
                 </div>
 
                 <div class="col-lg-6 landing-image">
-                    <a href="https://dp.dataocean.us/system/home/" target="_blank">
-                        <img  class="landing-image__image" src="static/img/dashboard1.png">
-                    </a>
+                    <img  class="landing-image__image" src="static/img/dashboard_new.png">
                 </div>
             </div>
         </div>
@@ -276,31 +276,31 @@
                         <div class="form__row row row_vertical-spaces">
                             <div class="form-group col-lg-6">
                                 <label for="name" class="form-group__label form-group__label_required">Ім’я</label>
-                                <input type="text" name="username" required class="input input_large" minlength="3" id="name" placeholder="Петро">
+                                <input type="text" name="username" required class="input input_large" minlength="2" id="name" placeholder="Петро">
                             </div>
                             <div class="form-group col-lg-6">
                                 <label for="surname" class="form-group__label form-group__label_required">Прізвище</label>
-                                <input type="text" name="surname" required class="input input_large" minlength="3" id="surname" placeholder="Іваненко">
+                                <input type="text" name="surname" required class="input input_large" minlength="2" id="surname" placeholder="Іваненко">
                             </div>
                         </div>
                         <div class="form__row row row_vertical-spaces">
                             <div class="form-group col-lg-6">
-                                <label for="email" class="form-group__label form-group__label_required">E-mail</label>
+                                <label for="email" class="form-group__label form-group__label_required">Пошта</label>
                                 <input type="email" name="email" required class="input input_large" id="email" placeholder="user@email.com">
                             </div>
                             <div class="form-group col-lg-6">
-                                <label for="phone" class="form-group__label">Phone</label>
-                                <input type="tel" name="phone" class="input input_large" id="phone" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" placeholder="(0__)___-__-__" value="+38">
+                                <label for="phone" class="form-group__label form-group__label_required">Телефон</label>
+                                <input type="tel" name="phone" class="input input_large" id="phone" placeholder="(0__)___-__-__">
                             </div>
                         </div>
                         <div class="form__row">
                             <div class="form-group">
-                                <label for="question" class="form-group__label">Напишіть своє запитання</label>
-                                <textarea class="input" rows="4" id="question" placeholder="Привіт, Data Ocean!&#10;Я хотів запитати..."></textarea>
+                                <label for="question" class="form-group__label form-group__label_required">Напишіть своє запитання</label>
+                                <textarea class="input" rows="4" name="question" id="question" placeholder="Привіт, Data Ocean!&#10;Я хотів запитати..."></textarea>
                             </div>
                         </div>
                         <div class="form__row">
-                            <button class="btn-primary btn-primary_large" type="button" data-toggle="modal" data-target="#myModal">Дізнатися більше</button>
+                            <button class="btn-primary btn-primary_large" type="submit" id="form_send" rel="modal:open">Дізнатися більше</button>
                         </div>
                     </form>
                 </div>
@@ -338,11 +338,15 @@
                     Data Ocean — провайдер зручного <br>доступу до відкритих даних. 
                 </div>
                 <div class="footer-copyright__copyright">
-                    ©2020 – Data Ocean. All rights reserved.
+                    ©2020 – Data Ocean. Всі права захищені.
                 </div>
             </div>
         </div>
     </footer>
+
+    <!--<div class="modal-footer">
+              <button class="btn-modal btn-close" data-dismiss="modal">Гаразд</button>
+    </div> -->
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r118/three.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
