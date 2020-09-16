@@ -4,6 +4,17 @@ import './styles.scss';
 import * as d3 from 'd3';
 import $ from 'jquery';
 
+let apiHost = '';
+let ajaxHeaders = {};
+
+$.ajax('/static/meta.json', {
+  async: false,
+  cache: false,
+  success: function (data) {
+    apiHost = data.apiHost.replace(/\/$/, '');
+    ajaxHeaders.Authorization = `Token ${data.t}`;
+  },
+});
 
 const animationHtml = `
 <div class="l-container">
@@ -27,9 +38,9 @@ const animationHtml = `
 
 const getUrl = (endpoint, id) => {
   if (id) {
-    return `https://ipa.dataocean.us/api/${endpoint}${id}/`;
+    return `${apiHost}/api/${endpoint}${id}/`;
   }
-  return `https://ipa.dataocean.us/api/${endpoint}`;
+  return `${apiHost}/api/${endpoint}`;
 };
 
 function randomInRange(min, max) {
@@ -392,6 +403,7 @@ $(searchFormS).on('submit', function (e) {
   // let data = { edrpou: value };
 
   $.ajax(nodeTypes[type].url, {
+    headers: ajaxHeaders,
     data,
     success: (data) => {
       showSearchResults(data.results, type);
@@ -410,6 +422,7 @@ $(document).on('click', '.search-result', function () {
   rootNodeId = getIdForNode({ _type: type, id });
   startLoading();
   $.ajax(`${nodeTypes[type].url}${id}/`, {
+    headers: ajaxHeaders,
     success: (data) => {
       endLoading();
       nodes = [];
@@ -982,6 +995,7 @@ function drawSimulation() {
       return;
     }
     $.ajax(`${nodeTypes[d._type].url}${getIdFromNode(d)}/`, {
+      headers: ajaxHeaders,
       success: (data) => {
         if (d._type === 'company') {
           if (!d._opened) {
@@ -1149,6 +1163,7 @@ function drawSimulation() {
     e.preventDefault();
     $(this).closest('li').html($(this).text());
     $.ajax(this.href, {
+      headers: ajaxHeaders,
       success: (data) => {
         increaseSimulationSpeed();
         const newNodes = data.founder_of;
