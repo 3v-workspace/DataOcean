@@ -7,7 +7,7 @@ import $ from 'jquery';
 let apiHost = '';
 let ajaxHeaders = {};
 
-$.ajax('/static/meta.json', {
+$.ajax('static/meta.json', {
   async: false,
   cache: false,
   success: function (data) {
