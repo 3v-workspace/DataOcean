@@ -10,7 +10,7 @@ i18n
   .use(initReactI18next)
   .init({
     backend: {
-      loadPath: '/locales/{{lng}}/{{ns}}.json?v=1',
+      loadPath: '/locales/{{lng}}/{{ns}}.json?v=2',
     },
     detection: {
       order: [

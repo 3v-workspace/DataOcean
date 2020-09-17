@@ -36,13 +36,16 @@ const DatasetsList = ({ match }) => {
               {t('myDatasets')}
             </Button>
           </Tooltip>
-          <div className="dropdown relative">
-            <button type="button" className="dropdown-toggle button px-2 box text-gray-700 disabled">
-              <span className="w-5 h-5 flex items-center justify-center">
-                <Plus className="w-4 h-4" />
-              </span>
-            </button>
-          </div>
+          {/*<div className="dropdown relative">*/}
+          {/*  <button*/}
+          {/*    type="button"*/}
+          {/*    className="dropdown-toggle button px-2 box text-gray-700 disabled"*/}
+          {/*  >*/}
+          {/*    <span className="w-5 h-5 flex items-center justify-center">*/}
+          {/*      <Plus className="w-4 h-4" />*/}
+          {/*    </span>*/}
+          {/*  </button>*/}
+          {/*</div>*/}
           <div className="hidden md:block mx-auto text-gray-600">
             {t('showingToOfEntries', {
               first: tc.itemsIndexes.first,

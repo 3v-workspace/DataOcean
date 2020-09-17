@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import Api from 'api';
 import { ReactRouterPropTypes } from 'utils/prop-types';
 import {
   Mail, Settings, User,
@@ -11,7 +12,17 @@ import ProfileInfo from './ProfileInfo';
 
 const ProfilePage = ({ match }) => {
   const { t } = useTranslation();
+  const [stats, setStats] = useState({ api_requests: '---', endpoints: '---' });
+
   const user = useSelector((store) => store.user);
+
+  useEffect(() => {
+    Api.get('stats/profile/')
+      .then((resp) => {
+        setStats(resp.data);
+      });
+  }, []);
+
   return (
     <>
       <div className="intro-y flex items-center mt-8">
@@ -52,15 +63,15 @@ const ProfilePage = ({ match }) => {
             }
           >
             <div className="text-center rounded-md w-20 py-3">
-              <div className="font-semibold text-theme-1 text-lg">150</div>
+              <div className="font-semibold text-theme-1 text-lg">{stats.endpoints}</div>
               <div className="text-gray-600">{t('endpoints')}</div>
             </div>
             <div className="text-center rounded-md w-20 py-3">
-              <div className="font-semibold text-theme-1 text-lg">1 k</div>
+              <div className="font-semibold text-theme-1 text-lg">{stats.api_requests}</div>
               <div className="text-gray-600">{t('requests')}</div>
             </div>
             <div className="text-center rounded-md w-20 py-3">
-              <div className="font-semibold text-theme-1 text-lg">63</div>
+              <div className="font-semibold text-theme-1 text-lg">0</div>
               <div className="text-gray-600">{t('reports')}</div>
             </div>
           </div>
