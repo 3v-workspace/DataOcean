@@ -7,10 +7,11 @@ import Api from 'api';
 import moment from 'moment';
 import PieChartLegend from 'components/pages/dashboard/PieChartLegend';
 import { useTranslation } from 'react-i18next';
+import { upFirstLetter } from 'utils';
 
 
 const HomePage = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [registersCount, setRegistersCount] = useState('');
   const [usersCount, setUsersCount] = useState('');
   const [fopCount, setFopCount] = useState('');
@@ -18,6 +19,16 @@ const HomePage = () => {
   const [apiUsageData, setApiUsageData] = useState({});
   const [topKvedData, setTopKvedData] = useState([]);
   const [topCompanyTypeData, setTopCompanyTypeData] = useState([]);
+
+  const getName = (item) => {
+    if (i18n.language === 'uk') {
+      return upFirstLetter(item.name || item.name_eng);
+    }
+    if (i18n.language === 'en') {
+      return upFirstLetter(item.name_eng || item.name);
+    }
+    return '---';
+  };
 
   const initApiUsageChart = () => {
     const labels = apiUsageData.days.map((el) => moment(el.timestamp).format('DD.MM'));
@@ -106,7 +117,7 @@ const HomePage = () => {
   };
 
   const initTopCompanyTypesPie = () => {
-    const labels = topCompanyTypeData.map((el) => el.name);
+    const labels = topCompanyTypeData.map((el) => getName(el));
     const data = topCompanyTypeData.map((el) => el.count_companies);
 
     if ($('#report-donut-chart').length) {
@@ -309,7 +320,7 @@ const HomePage = () => {
               <canvas className="mt-3" id="report-donut-chart" height="280" />
               <PieChartLegend
                 items={topCompanyTypeData.map((el) => ({
-                  label: el.name,
+                  label: getName(el),
                   value: el.count_companies,
                 }))}
               />
