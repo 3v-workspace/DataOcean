@@ -8,7 +8,8 @@
     z-index: 2;
     position: relative;
     flex-direction: column;
-    background-color: transparent;
+
+    font-weight: 600;
 
     &__item {
         & + & {
@@ -30,4 +31,6 @@
 .header-logo {
     width: 200px;
     object-fit: contain;
+    margin-top: $spacer * 2;
+    margin-left: $spacer * 10;
 }

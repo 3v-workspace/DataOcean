@@ -3,14 +3,22 @@
     justify-content: center;
 
     &__img {
-        margin-left: 0;
         max-width: 400px;
+        border-radius: 20px;
+        max-height: 300px;
     }
     
-    @media screen and (min-width: $md) {
+    @media screen and (max-width: $md) {
         &__img {
-            width: auto;
+            flex-direction: row;
+            max-width: 100%;
+        }
+    }
+
+    @media screen and (min-width: $lg) {
+        &__img {
             max-width: 600px;
+            max-height: 400px;
         }
     }
 }
@@ -20,7 +28,6 @@
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     grid-column-gap: $spacer * 4;
     grid-row-gap: $spacer * 4;
-    
 }
 
 .landing-image {
@@ -45,11 +52,54 @@
     }
 }
 
+.landing-image-dashboard {
+    position: relative;
+
+    @media (max-width: $md) {
+        justify-content: center;
+        order: 1;
+        max-width: 90%; 
+    }
+}
+
+.landing-image-dashboard-1 {
+    position: absolute;
+    z-index: 1;
+}
+.landing-image-dashboard-2 {
+    position: absolute;
+    z-index: 2;
+    margin-top: -5%;
+    margin-left: 200px;
+}
+
+.landing-image-grafic {
+    justify-content: center;
+    position: relative;
+    
+    @media (max-width: $md) {
+        order: 1;
+        max-width: 90%;
+    }
+}
+
+.landing-image-grafic-1 {
+    position: absolute;
+    z-index: 1;
+}
+.landing-image-grafic-2 {
+    position: absolute;
+    z-index: 2;
+    margin-top: -5%;
+    margin-left: 200px;
+}
+
 .landing-feedback {
     display: flex;
     flex-direction: column;
     border-radius: $border-radius;
     min-height: 500px;
+    justify-content: center;
     
     &__left,
     &__right {
