@@ -1,169 +1,159 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uk">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Data Ocean</title>
-
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,700;1,400&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
     <link rel="stylesheet" href="static/dist/main.css">
-    <link rel="shortcut icon" href="static/img/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="static/img/favicon.ico" type="image/x-icon">
 </head>
 <body>
-    <header id="header" class="container header">
-        <img src="static/img/logo.png" class="header-logo header__item">
-        <ul class="navigation header__item">
-            <!-- <a class="navigation__item link" href="#product1">Dashboard</a> -->
-            <a class="navigation__item link" href="#product">Data Platform</a>
-            <a class="navigation__item link" href="#about">Про нас</a>
-            <a class="navigation__item link" href="#contact">Контакти</a>
-            <a class="navigation__item btn-primary" href="#contact-form">Напишіть нам</a>
-        </ul>
-    </header>
+    <div class="landing-dots">
+        <header id="header" class="container header">
+            <img src="static/img/logo.png" class="header-logo header__item">
+            <ul class="navigation header__item">
+                <a class="navigation__item link" href="#product">про Data Platform</a>
+                <a class="navigation__item link" href="#about">Про нас</a>
+                <a class="navigation__item link" href="#contact">Контакти</a>
+                <a class="navigation__item btn-primary" href="#contact-form">Напишіть нам</a>
+            </ul>
+        </header>
 
-    <section class="landing-dots section">
-        <div class="landing-dots__inner"></div>
-        <div class="container">
-            <div class="hero-block">
-                <h1 class="h1 h1_light hero-block__header">Привіт! <br> Ми &mdash; Data Ocean.</br> </h1>
-                <div class="hero-block__text">
-                    Наша мета проста та амбітна — надати громадянам зручний доступ до державних даних.<br>Open Data є основою для прийняття бізнес та державних рішень, адже завдяки відкритим даним, кожен може з легкістю подивитися інформацію, навіть якщо вона важкодоступна.
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="section section_background">
-        <div class="container">
-            <div class="row row_vertical-spaces">
-                <div class="col-lg-6 landing-image">
-                    <img class="landing-image__image" src="static/img/intro.png">
-                </div>
+        <section class="header section section_head">
+            <div class="container">
+                <div class="row row_vertical-spaces">
+                    <div class="col-lg-6 landing-image">
+                        <div class="hero-block hero-block__left">
+                            <h1 class="h1_top">Explore.</h1>
+                            <h1 class="h1_build">Build.</h1>
+                            <h1 class="h1_top h1_top_develop">Develop.</h1>
+                            <form action="https://dp.dataocean.us/system/home/" target="_blank">
+                                <button class="btn-primary btn-primary_dataocean">
+                                    Data Platform
+                                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
                 
-                <div class="col-lg-6 margin-list">
-                    <img class="margin-list__item" src="static/img/ui-pixels.png">
-    
-                    <h2 class="h2 margin-list__item">
-                        Майбутнє за відкритими даними
-                    </h2>
-                    
-                    <div class="margin-list__item paragraph paragraph_large">
-                        Data Ocean — провайдер зручного доступу до відкритих даних. <br>Ми розробляємо спеціальний сервіс, де Ви зможете отримати доступ до всіх важливих та існуючих регістрів, даних та звітностей.
+                    <div class="col-lg-6 margin-list">
+                        <div class="hero-block__right"> 
+                            <h1 class="h1 h1_light hero-block__right hero-block__right__hello">Привіт! <br> Ми &mdash; Data Ocean.</br> </h1>
+                            <div class="hero-block__right hero-block__right__text">
+                                Наша мета проста та амбітна — надати громадянам зручний доступ до державних даних.<br>Open Data є основою для прийняття бізнес та державних рішень, адже завдяки відкритим даним, кожен може з легкістю подивитися інформацію, навіть якщо вона важкодоступна.
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+
+        <!--<section class="header section">
+            <div class="container">
+                <br><br><br>
+            </div>
+        </section>-->
+    
+        <section class="section section_background">
+            <div class="container">
+                <div class="row row_vertical-spaces">
+                    <div class="col-lg-6 landing-image">
+                        <img class="landing-image__image" src="static/img/intro.png">
+                    </div>
+                    <div class="col-lg-6 margin-list">
+                        <img class="margin-list__item" src="static/img/image 8.svg">
+                        <h2 class="h2 margin-list__item">
+                            Майбутнє за відкритими даними
+                        </h2>
+                        <div class="margin-list__item paragraph paragraph_large">
+                            Data Ocean — провайдер зручного доступу до відкритих даних. <br>Ми розробляємо спеціальний сервіс, де Ви зможете отримати доступ до всіх важливих та існуючих регістрів, даних та звітностей.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
 
     <section id="product" class="section section_flying-pixels">
         <div class="container">
             <div class="row row_vertical-spaces">
                 <div class="col-lg-6 margin-list">
-                    <img class="margin-list__item" src="static/img/ui-pixels.png">
-                
-                        <h2 class="h2 margin-list__item">
-                            <a href="https://dp.dataocean.us/system/home/" target="_blank">
-                                Open Data Platform
-                            </a>
-                        </h2>
-                
-                        <div class="margin-list__item paragraph paragraph_large">
-                            Open Data Platform — не про сухі дані.
-                            Це візуалізований конструктор даних для доступу до статистичної інформації, необхідної бізнесу для прийняття рішень.
-                            Також, платформа є сервісом зручного доступу до даних за допомогою Rest API для розробників програмного забезпечення.
-                        </div>
-
-                        <div class="margin-list__item form-subscribe">
-                            <input class="input input_large form-subscribe__input" placeholder="user@email.com">
-                            <button class="btn-primary btn-primary_large form-subscribe__action">Підписатися на оновлення</button>
-                        </div>
+                    <img class="margin-list__item" src="static/img/Group_134.svg">
+                    <h2 class="h2 margin-list__item">
+                        <a href="https://dp.dataocean.us/system/home/" target="_blank">
+                            Data Platform
+                            <img src="static/img/arrow_blue.svg">
+                        </a>                           
+                    </h2>
+                    <div class="margin-list__item paragraph paragraph_large">
+                        Data Platform — не про сухі дані.
+                        Це візуалізований конструктор даних для доступу до статистичної інформації, необхідної бізнесу для прийняття рішень.
+                        Також, платформа є сервісом зручного доступу до даних за допомогою Rest API для розробників програмного забезпечення.
+                    </div>
                 </div>
-
                 <div class="col-lg-6 landing-image">
-                    <img  class="landing-image__image" src="static/img/dashboard_new.png">
+                    <img  class="landing-image__image" src="static/img/Group_132.svg">
                 </div>
             </div>
         </div>
     </section>
 
-
-    <!-- <section id="product2" class="section section_background">
-
-        <div class="container">
-            <div class="row row_vertical-spaces">
-                <div class="col-lg-6 landing-image">
-                    <img class="landing-image__image" src="static/img/imac.png">
-                </div>
-    
-                <div class="col-lg-6 margin-list">
-                    <img class="margin-list__item" src="static/img/ui-pixels.png">
-                    
-                    <h2 class="h2 margin-list__item">
-                        Конструктор
-                    </h2>
-                    
-                    <div class="margin-list__item paragraph paragraph_large">
-                        Другим нашим продуктом є конструктор даних та звітів
-                    </div>
-    
-                    <div class="margin-list__item form-subscribe">
-                        <input class="input input_large form-subscribe__input" placeholder="user@email.com">
-                        <button class="btn-primary btn-primary_large form-subscribe__action">Підписатися</button>
-                    </div>
-                
-            </div>
-        </div>
-    </section> -->
-
     <section class="section">
         <div class="container">
-            <div class="section__header">
-                <h1 class="h1 h1_light">Наші переваги</h1>
-            </div>
             <div class="row row_vertical-spaces">
-                <div class="col-lg-4 advantage_card">
-                    <img class="advantage_card__item advantage_card__item_img" src="static/img/advantage-1.svg">
+                <div class="col-lg-6 landing-image landing-image-dashboard">    
+                    <img class="landing-image-dashboard landing-image-dashboard-1" src="static/img/dashboard_2.svg"> 
+                    <img class="landing-image-dashboard landing-image-dashboard-2" src="static/img/dashboard_1.svg">
+                </div>
 
-                    <h4 class="h4 advantage_card__item">Гнучкі налаштування</h4>
+                <div class="col-lg-6 margin-list">
+                    <img class="margin-list__item" src="static/img/Group_134.svg">
+                    <h2 class="h2 margin-list__item">
+                        Зрозумілий інтерфейс   
+                    </h2>
+                    <div class="margin-list__item paragraph paragraph_large">
+                        Зручний  інтерфейс навіть для тих, хто ніколи не користувався такими системами
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-                    <div class="advantage_card__item">Швидкий пошук завдяки фільтрам  та тегам. Легке скачування файлів у популярних дата-форматах</div>
+    <section class="section section_flying-pixels">
+        <div class="container">
+            <div class="row row_vertical-spaces">
+                <div class="col-lg-6 margin-list">
+                    <img class="margin-list__item" src="static/img/Group_134.svg">
+                    <h2 class="h2 margin-list__item">
+                        Гнучкі налаштування  
+                    </h2>
+                    <div class="margin-list__item paragraph paragraph_large">
+                        Швидкий пошук завдяки фільтрам  та тегам. Легке скачування файлів у популярних дата-форматах
+                    </div>
                 </div>
-    
-                <div class="col-lg-4 advantage_card">
-                    <img class="advantage_card__item advantage_card__item_img" src="static/img/advantage-2.svg">
-    
-                    <h4 class="h4 advantage_card__item">Зрозумілий інтерфейс</h4>
-    
-                    <div class="advantage_card__item">Зручний  інтерфейс навіть для тих, хто ніколи не користувався такими системами</div>
-                </div>
-    
-                <div class="col-lg-4 advantage_card">
-                    <img class="advantage_card__item advantage_card__item_img" src="static/img/advantage-3.svg">
-    
-                    <h4 class="h4 advantage_card__item">Актуальні дані</h4>
-    
-                    <div class="advantage_card__item">Постійно оновлювана інформація, лише перевірені дані та прозорість </div>
-                </div>
+                <div class="col-lg-6 landing-image landing-image-grafic">
+                    <img class="landing-image-grafic landing-image-grafic-1" src="static/img/grafic_1.svg">
+                    <img class="landing-image-grafic landing-image-grafic-2" src="static/img/grafic_2.svg">
+                </div>     
             </div>
         </div>
     </section>
 
     <section id="about" class="section section_background section_flying-pixels">
-     
         <div class="container">
-            <div class="section__header">
-                <h1 class="h1">Про нас</h1>
-            </div>
-            <div class="row row_vertical-spaces">
-                <div class="col-lg-6 landing-teams-container">
-                    <img class="landing-teams-container__img" src="static/img/team_i.png">
-                </div>
-    
+            <div class="row row_vertical-spaces">    
                 <div class="col-lg-6 paragraph paragraph_large">
-                    Ми віримо, що кожен має право на прозорий доступ до інформації. 
+                    <h1 class="h1">
+                        Про нас
+                    </h1>
                     <br>
+                        Ми віримо, що кожен має право на прозорий доступ до інформації. 
                     <br>
                     <b>Наша мета</b> — відкрити Вам світ відкритих даних, який допоможе Вам, коли інформаційна середа стає повсякденною необхідністю.
+                </div>
+                <div class="col-lg-6 landing-teams-container">
+                    <img class="landing-teams-container__img" src="static/img/team_i.png">
                 </div>
             </div>
         </div>
@@ -171,7 +161,6 @@
 
     <section id="about" class="section">
         <div class="container">
-
             <div class="section__header">
                 <h1 class="h1">Команда</h1>
             </div>
@@ -259,7 +248,6 @@
                     <div class="user-card__name h6">Олександр Безобчук</div>
                     <div class="user-card__title">Product designer</div>
                 </div>
-                
             </div>
         </div>
     </section>
@@ -318,16 +306,13 @@
         </div>
     </section>
 
-
     <footer class="footer-wrapper">
         <div class="container">
             <div class="footer">
                 <img class="footer__item" src="static/img/logo-white.svg" class="header-logo">
     
                 <ul class="footer__item navigation navigation_align-left navigation_white">
-
-                    <!-- <a class="navigation__item link" href="#product1">Dashboard</a> -->
-                    <a class="navigation__item link" href="#product">Data Platform</a>
+                    <a class="navigation__item link" href="#product">про Data Platform</a>
                     <a class="navigation__item link" href="#about">Про нас</a>
                     <a class="navigation__item link" href="#contact">Контакти</a>
                     <a class="navigation__item btn-primary btn-primary_color-5" href="#contact-form">Напишіть нам</a>
@@ -343,10 +328,6 @@
             </div>
         </div>
     </footer>
-
-    <!--<div class="modal-footer">
-              <button class="btn-modal btn-close" data-dismiss="modal">Гаразд</button>
-    </div> -->
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r118/three.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>

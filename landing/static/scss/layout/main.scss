@@ -11,27 +11,20 @@
 }
 
 .section {
-    padding: $spacer * 10 0;
+    padding: $spacer * 5;
     position: relative;
     z-index: 1;
     
     &_background {
-        background-color: $secondary;
+        background: $gradient-color-2;
     }
     
     &_flying-pixels {
-        &::before {
-            z-index: -1;
-            content: "";
-            position: absolute;
-            top: $spacer * 3;
-            right: $spacer * 3;
-            background-image: url('~static/img/flying-pixels.svg');
-            width: 100px;
-            height: 66px;
-            background-size: contain;
-            background-repeat: no-repeat;
-        }
+        background: $gradient-color;
+    }
+
+    &_head {
+        margin-bottom: $spacer * 20;
     }
 
     &__header {
@@ -47,16 +40,7 @@
 
     @media (min-width: $lg) {
         padding: $spacer * 16 0;
-
-        &_flying-pixels {
-            &::before {
-                width: 300px;
-                height: 200px;
-                top: $spacer * 6;
-                right: $spacer * 6;
-            }
-        }
-
+        
         &__subtitle {
             margin-top: $spacer * 4;
             color: $gray-500;

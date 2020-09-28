@@ -1,10 +1,11 @@
 .btn-primary {
+    border: none;
     border-radius: $border-radius;
     background-color: $primary-1;
     color: white;
     padding:  $spacer * 1.2 $spacer * 3;
     font-size: $font-size-sm;
-    border: none;
+    font-weight: 600;
     
     &_color-1 {
         background-color: $primary-1;
@@ -29,4 +30,18 @@
     &_large {
         padding: $spacer * 1.75 $spacer * 4;
     }
+
+    &_dataocean {
+        position: absolute;
+        width: 70%;
+        font-size: 22px;
+    } 
+}
+
+.btn-primary:hover {
+    border: none;
+}
+
+.btn-primary:active {
+    border: none;
 }
