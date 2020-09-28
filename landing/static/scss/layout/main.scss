@@ -23,6 +23,10 @@
         background: $gradient-color;
     }
 
+    &_head {
+        margin-bottom: $spacer * 20;
+    }
+
     &__header {
         text-align: center;
         margin-bottom: $spacer * 6;
