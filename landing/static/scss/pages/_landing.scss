@@ -59,18 +59,23 @@
         justify-content: center;
         order: 1;
         max-width: 90%; 
+        position: relative;
     }
 }
 
 .landing-image-dashboard-1 {
     position: absolute;
     z-index: 1;
+    padding: 20px 0px 0px 0px;
 }
 .landing-image-dashboard-2 {
     position: absolute;
     z-index: 2;
-    margin-top: -5%;
-    margin-left: 200px;
+    padding: 0px 0px 0px 200px;
+    
+    @media (max-width: $md) {
+        position: relative;
+    }
 }
 
 .landing-image-grafic {
@@ -92,6 +97,9 @@
     z-index: 2;
     margin-top: -5%;
     margin-left: 200px;
+    @media (max-width: $md) {
+        position: relative;
+    }
 }
 
 .landing-feedback {
