@@ -11,6 +11,8 @@
 
     font-weight: 600;
 
+    margin-right: $spacer * 7;
+
     &__item {
         & + & {
             margin-top: $spacer * 4;
@@ -29,8 +31,8 @@
 }
 
 .header-logo {
-    width: 200px;
+    width: 15%; //200px;
     object-fit: contain;
-    margin-top: $spacer * 2;
-    margin-left: $spacer * 10;
+    margin-top: $spacer * 3;
+    margin-left: 7%; //margin-left: $spacer * 11;
 }
