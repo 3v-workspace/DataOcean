@@ -12,24 +12,7 @@
 
 .h1 {
     font-size: $h1-font-size * 0.75;
-    &_top {
-        color:rgba(24, 35, 68, 1);
-        font-size: 70px;
-        line-height: 85.33px;
-        font-weight: bolder;  
-        &_develop {
-            margin-bottom: $spacer * 7;
-        }
-    }
-    &_build {
-        background: linear-gradient(to right, rgba(200, 78, 137, 1) 0%, rgba(241, 95, 121, 1) 100%);
-        -webkit-text-fill-color: transparent; 
-        background-clip: text; 
 
-        font-size: 70px;
-        line-height: 85.33px;
-        font-weight: bolder;
-    }
 }
 
 .h2 {
@@ -55,10 +38,29 @@
 @media (min-width: $md) {
     .h1 {
         font-size: $h1-font-size;
+        &_top {
+            color:rgba(24, 35, 68, 1);
+            font-size: 70px;
+            line-height: 85.33px;
+            font-weight: bolder;  
+            &_develop {
+                    margin-bottom: $spacer * 7;
+            }
+        }
+        &_build {
+            background: linear-gradient(to right, rgba(200, 78, 137, 1) 0%, rgba(241, 95, 121, 1) 100%);
+            -webkit-text-fill-color: transparent; 
+            background-clip: text; 
+
+            font-size: 70px;
+            line-height: 85.33px;
+            font-weight: bolder;
+        }
     }
     
     .h2 {
         font-size: $h2-font-size;
+        padding: 0px 60px 0px 0px;
     }
     
     .h3 {

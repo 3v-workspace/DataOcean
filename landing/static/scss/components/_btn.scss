@@ -4,7 +4,7 @@
     background-color: $primary-1;
     color: white;
     padding:  $spacer * 1.2 $spacer * 3;
-    font-size: $font-size-base;
+    font-size: 16px;
     font-family: $font-family-base;
     font-weight: 600;
     
@@ -36,17 +36,21 @@
         position: absolute;
         width: 60%;
         line-height: 150%;
-        margin-left: 2%;
 
-        font-size: 22px;
         font-weight: bolder;
-        text-indent: 10%;
+        
         ion-icon {
             margin-left: 10%;
             vertical-align: middle;
             font-size: 28px;
         }
     } 
+    @media screen and (min-width: $lg) {
+        &_dataocean {
+            font-size: 22px;
+            text-indent: 10%;
+        }
+    }
 }
 
 .btn-primary:hover {

@@ -11,13 +11,13 @@
     @media screen and (max-width: $md) {
         &__img {
             flex-direction: row;
-            max-width: 100%;
+            max-width: 70%;
         }
     }
 
     @media screen and (min-width: $lg) {
         &__img {
-            max-width: 600px;
+            max-width: 540px;
             max-height: 400px;
         }
     }
@@ -72,6 +72,7 @@
     position: absolute;
     z-index: 2;
     padding: 0px 0px 0px 200px;
+    margin-top: -30px;
     
     @media (max-width: $md) {
         position: relative;
@@ -93,7 +94,7 @@
     z-index: 1;
 }
 .landing-image-grafic-2 {
-    position: absolute;
+    position: relative;
     z-index: 2;
     margin-top: -5%;
     margin-left: 200px;
