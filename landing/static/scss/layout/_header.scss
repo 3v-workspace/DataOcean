@@ -10,9 +10,6 @@
     flex-direction: column;
 
     font-weight: 600;
-
-    margin-right: $spacer * 7;
-
     &__item {
         & + & {
             margin-top: $spacer * 4;

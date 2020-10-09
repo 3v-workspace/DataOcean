@@ -37,13 +37,20 @@
 
     @media (min-width: $md) {
         padding-right: $spacer * 10;
+        width: 70%;
 
         &__text {
             font-size: $font-size-xxl;
         }
     }
 
-    @media (min-width: $lg) {
-        width: 70%;
+    @media (max-width: $sm) {
+        &__left {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            align-items: flex-start;
+            padding: 0px 20px 0px 0px;
+        }
     }
 }

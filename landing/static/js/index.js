@@ -4,23 +4,29 @@ import $ from 'jquery';
 import 'jquery-validation';
 import 'jquery-modal';
 
-
 $(document).ready(() => {
-  DOTS({
-    el: '.landing-dots__inner',
-    mouseControls: true,
-    touchControls: true,
-    minHeight: 200.0,
-    minWidth: 200.0,
-    scale: 1,
-    scaleMobile: 1.0,
-    color: 0x2dff,
-    color2: 0xffffff,
-    backgroundColor: 0xffffff,
-    size: 3,
-    spacing: 15,
-    // THREE: THREE,
-  });
+    setInterval(() => {
+        setTimeout(() => {
+            $('#explore').addClass('transparency')
+            setTimeout(() => {
+                $('#explore').removeClass('transparency')
+            }, 1500)
+        }, 1000);
+        
+        setTimeout(() => {
+            $('#build').addClass('transparency')
+            setTimeout(() => {
+                $('#build').removeClass('transparency')
+            }, 1500)
+        }, 2500);
+    
+        setTimeout(() => {
+            $('#develop').addClass('transparency')
+            setTimeout(() => {
+                $('#develop').removeClass('transparency')
+            }, 1500)
+        }, 4500);
+    }, 5000);
 });
 
 
@@ -127,4 +133,27 @@ $('#contact-form').submit(function(event){
             };
         }
     });
+});
+
+function changeLanguage (langCode) {
+    if (langCode === "uk" || langCode === "en") {
+        $("[lang]").each(function () {
+            if ($(this).attr("lang") === langCode)
+                $(this).show();
+            else
+                $(this).hide();
+        });
+    } else {
+        throw new Error("LangCode " + langCode + " not supported");
+        }
+}
+
+$('#select_language').on("change", function() {
+    const language = $(this).val();
+    const userlang = window.localStorage.setItem('lang', language); 
+    changeLanguage(language);
+});
+
+$(document).ready(() => {
+    changeLanguage("uk");
 });

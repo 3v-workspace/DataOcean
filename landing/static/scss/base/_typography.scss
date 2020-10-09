@@ -12,7 +12,45 @@
 
 .h1 {
     font-size: $h1-font-size * 0.75;
+        &_top {
+            position: relative;
+            color: rgba(15, 22, 44, 1);
+            transition: color 1s ease-in 0.5s;
 
+            background-image: linear-gradient(to right, rgba(232, 165, 65, 1) 0%, rgba(232, 115, 65, 1) 100%);
+            background-clip: text;
+
+            font-size: 70px;
+            line-height: 85.33px;
+            font-weight: bolder;  
+            letter-spacing: -.05em;
+        }
+        &_build {
+            color: rgba(15, 22, 44, 1);
+            transition: color 1s ease-in 0.5s;
+
+            background-image: linear-gradient(to right, rgba(200, 78, 137, 1) 0%, rgba(241, 95, 121, 1) 100%);
+            background-clip: text;
+
+            font-size: 70px;
+            line-height: 85.33px;
+            font-weight: bolder;
+            letter-spacing: -.05em;
+        }
+        &_develop {
+            margin-bottom: $spacer * 7;
+
+            color: rgba(15, 22, 44, 1);
+            transition: color 1s ease-in 0.5s;
+            background-image: linear-gradient(to right, rgba(103, 131, 218, 1) 0%, rgba(139, 103, 218, 1) 100%);
+            background-clip: text;
+
+
+            font-size: 70px;
+            line-height: 85.33px;
+            font-weight: bolder; 
+            letter-spacing: -.05em; 
+        }
 }
 
 .h2 {
@@ -38,24 +76,6 @@
 @media (min-width: $md) {
     .h1 {
         font-size: $h1-font-size;
-        &_top {
-            color:rgba(24, 35, 68, 1);
-            font-size: 70px;
-            line-height: 85.33px;
-            font-weight: bolder;  
-            &_develop {
-                    margin-bottom: $spacer * 7;
-            }
-        }
-        &_build {
-            background: linear-gradient(to right, rgba(200, 78, 137, 1) 0%, rgba(241, 95, 121, 1) 100%);
-            -webkit-text-fill-color: transparent; 
-            background-clip: text; 
-
-            font-size: 70px;
-            line-height: 85.33px;
-            font-weight: bolder;
-        }
     }
     
     .h2 {
@@ -78,4 +98,8 @@
     .h6 {
         font-size: $h6-font-size;
     }
+}
+
+.transparency {
+    color: rgba(255, 255, 255, 0);
 }
