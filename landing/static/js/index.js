@@ -2,7 +2,7 @@
 import DOTS from 'vanta/dist/vanta.dots.min';
 import $ from 'jquery';
 import 'jquery-validation';
-import 'jquery-modal';
+// import 'jquery-modal';
 
 $(document).ready(() => {
     setInterval(() => {
@@ -135,8 +135,11 @@ $('#contact-form').submit(function(event){
     });
 });
 
+const allowedLanguages = ['uk', 'en'];
+
 function changeLanguage (langCode) {
-    if (langCode === "uk" || langCode === "en") {
+    $('#select_language').val(langCode);
+    if (allowedLanguages.includes(langCode)) {
         $("[lang]").each(function () {
             if ($(this).attr("lang") === langCode)
                 $(this).show();
@@ -155,5 +158,10 @@ $('#select_language').on("change", function() {
 });
 
 $(document).ready(() => {
-    changeLanguage("uk");
+    const langFromLocalStorage = localStorage.getItem('lang');
+    if (allowedLanguages.includes(langFromLocalStorage)) {
+        changeLanguage(langFromLocalStorage);
+    } else {
+        changeLanguage('uk');
+    }
 });
