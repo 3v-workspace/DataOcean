@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="uk">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,10 +13,26 @@
         <header id="header" class="container header">
             <img src="static/img/logo.png" class="header-logo header__item">
             <ul class="navigation header__item">
-                <a class="navigation__item link" href="#product">про Data Platform</a>
-                <a class="navigation__item link" href="#about">Про нас</a>
-                <a class="navigation__item link" href="#contact">Контакти</a>
-                <a class="navigation__item btn-primary" href="#contact-form">Напишіть нам</a>
+                <a class="navigation__item link" href="#product">
+                    <span lang="uk">про Data Platform</span>
+                    <span lang="en">about Data Platform</span>
+                </a>
+                <a class="navigation__item link" href="#about">
+                    <span lang="uk">Про нас</span>
+                    <span lang="en">About us</span>
+                </a>
+                <a class="navigation__item link" href="#contact">
+                    <span lang="uk">Контакти</span>
+                    <span lang="en">Contacts</span>
+                </a>
+                <a class="navigation__item btn-primary" href="#contact-form">
+                    <span lang="uk">Напишіть нам</span>
+                    <span lang="en">Contact us</span>
+                </a>
+                <select id="select_language" class="navigation__item select-lang">
+                    <option value="uk" selected>ua</option>
+                    <option value="en">en</option>
+                </select>
             </ul>
         </header>
 
@@ -25,9 +41,9 @@
                 <div class="row row_vertical-spaces">
                     <div class="col-lg-6 landing-image">
                         <div class="hero-block hero-block__left">
-                            <h1 class="h1_top">Explore.</h1>
-                            <h1 class="h1_build">Build.</h1>
-                            <h1 class="h1_top h1_top_develop">Develop.</h1>
+                            <h1 id="explore" class="h1_top">Explore.</h1>
+                            <h1 id="build" class="h1_build">Build.</h1>
+                            <h1 id="develop" class="h1_develop">Develop.</h1>
                             <form action="https://dp.dataocean.us/system/home/" target="_blank">
                                 <button class="btn-primary btn-primary_dataocean">
                                     Data Platform
@@ -39,9 +55,17 @@
                 
                     <div class="col-lg-6 margin-list">
                         <div class="hero-block__right"> 
-                            <h2 class="h2 h2_light hero-block__right hero-block__right__hello">Привіт! <br> Ми &mdash; Data Ocean.</br> </h2>
+                            <h2 class="h2 h2_light hero-block__right hero-block__right__hello">
+                                <span lang="uk">Привіт! <br> Ми &mdash; Data Ocean.</br></span>
+                                <span lang="en">Hello! <br> We are Data Ocean.</br></span>
+                            </h2>
                             <div class="hero-block__right hero-block__right__text">
-                                Наша мета проста та амбітна — надати громадянам зручний доступ до державних даних.<br>Open Data є основою для прийняття бізнес та державних рішень, адже завдяки відкритим даним, кожен може з легкістю подивитися інформацію, навіть якщо вона важкодоступна.
+                                <span lang="uk">Наша мета проста та амбітна — надати громадянам зручний доступ до державних даних.
+                                <br>Open Data є основою для прийняття бізнес та державних рішень, адже завдяки відкритим даним, 
+                                кожен може з легкістю подивитися інформацію, навіть якщо вона важкодоступна.</span>
+                                <span lang="en">Our goal is simple and ambitious - to provide citizens with convenient access to government database.
+                                <br>Open Data is fundamental for business and governmental decision acceptance, 
+                                because thanks to open data, everyone can easily view information, even if it is difficult to access.</span>
                             </div>
                         </div>
                     </div>
@@ -58,10 +82,14 @@
                     <div class="col-lg-6 margin-list">
                         <img class="margin-list__item" src="static/img/image 8.svg">
                         <h2 class="h2 margin-list__item">
-                            Майбутнє за відкритими даними
+                            <span lang="uk">Майбутнє за відкритими даними</span>
+                            <span lang="en">Open data is the thing of the future</span>
                         </h2>
                         <div class="margin-list__item paragraph">
-                            Data Ocean — провайдер зручного доступу до відкритих даних. <br>Ми розробляємо спеціальний сервіс, де Ви зможете отримати доступ до всіх важливих та існуючих регістрів, даних та звітностей.
+                            <span lang="uk">Data Ocean — провайдер зручного доступу до відкритих даних. 
+                            <br>Ми розробляємо спеціальний сервіс, де Ви зможете отримати доступ до всіх важливих та існуючих регістрів, даних та звітностей.</span>
+                            <span lang="en">Data Ocean is a provider of convenient access to open data. 
+                            <br>We are developing a special service where you can access all important and existing registers, data and reports.</span>
                         </div>
                     </div>
                 </div>
@@ -81,9 +109,12 @@
                         </a>                           
                     </h2>
                     <div class="margin-list__item paragraph">
-                        Data Platform — не про сухі дані.
+                        <span lang="uk">Data Platform — не про сухі дані.
                         Це візуалізований конструктор даних для доступу до статистичної інформації, необхідної бізнесу для прийняття рішень.
-                        Також, платформа є сервісом зручного доступу до даних за допомогою Rest API для розробників програмного забезпечення.
+                        Також, платформа є сервісом зручного доступу до даних за допомогою Rest API для розробників програмного забезпечення.</span>
+                        <span lang="en">Data Platform is not about plain data. 
+                        It is a visualized data constructor for accessing statistical information needed by business to make decisions. 
+                        The platform is also a service for easy access to data using the Rest API for software developers.</span>
                     </div>
                 </div>
                 <div class="col-lg-6 landing-image">
@@ -104,10 +135,12 @@
                 <div class="col-lg-6 margin-list">
                     <img class="margin-list__item" src="static/img/Group_134.svg">
                     <h2 class="h2 margin-list__item">
-                        Зрозумілий інтерфейс   
+                        <span lang="uk">Зрозумілий інтерфейс</span>
+                        <span lang="en">Clear interface</span>    
                     </h2>
                     <div class="margin-list__item paragraph">
-                        Зручний  інтерфейс навіть для тих, хто ніколи не користувався такими системами
+                        <span lang="uk">Зручний  інтерфейс навіть для тих, хто ніколи не користувався такими системами</span>
+                        <span lang="en">Convenient interface even for those who have never used such systems</span>
                     </div>
                 </div>
             </div>
@@ -120,10 +153,12 @@
                 <div class="col-lg-6 margin-list paragraph_large">
                     <img class="margin-list__item" src="static/img/Group_134.svg">
                     <h2 class="h2 margin-list__item">
-                        Гнучкі налаштування  
+                        <span lang="uk">Гнучкі налаштування</span>
+                        <span lang="en">Flexible settings</span>
                     </h2>
                     <div class="margin-list__item">
-                        Швидкий пошук завдяки фільтрам  та тегам. Легке скачування файлів у популярних дата-форматах
+                        <span lang="uk">Швидкий пошук завдяки фільтрам  та тегам. Легке скачування файлів у популярних дата-форматах</span>
+                        <span lang="en">Quick search due to filters and tags. Easy files downloading in popular data formats</span>
                     </div>
                 </div>
                 <div class="col-lg-6 landing-image landing-image-grafic">
@@ -139,13 +174,16 @@
             <div class="row row_vertical-spaces">    
                 <div class="col-lg-6 paragraph_large">
                     <h2 class="h2">
-                        Про нас
+                    <span lang="uk">Про нас</span>
+                    <span lang="en">About us</span>
                     </h2>
                     <br>
-                        Ми віримо, що кожен має право на прозорий доступ до інформації. 
+                        <span lang="uk">Ми віримо, що кожен має право на прозорий доступ до інформації.</span>
+                        <span lang="en">We believe that everyone has the right to transparent access to information.</span>
                     <br>
                     <br>
-                    <b>Наша мета</b> — відкрити Вам світ відкритих даних, який допоможе Вам, коли інформаційна середа стає повсякденною необхідністю.
+                    <span lang="uk"><b>Наша мета</b> — відкрити Вам світ відкритих даних, який допоможе Вам, коли інформаційна середа стає повсякденною необхідністю.</span>
+                    <span lang="en"><b>Our goal</b> is to open a world of open data that will help you when the IT environment becomes a daily need.</span>
                 </div>
                 <div class="col-lg-6 landing-teams-container">
                     <img class="landing-teams-container__img" src="static/img/team_i.png">
@@ -157,90 +195,135 @@
     <section id="about" class="section">
         <div class="container">
             <div class="section__header">
-                <h1 class="h1">Команда</h1>
+                <h1 class="h1">
+                    <span lang="uk">Команда</span>
+                    <span lang="en">Teem</span>
+                </h1>
             </div>
             <div class="landing-grid">
                 <div class="user-card">
                     <img src="static/img/team/Lyuba-Shipovich.png" class="user-card__image">
-                    <div class="user-card__name h6">Люба Шипович</div>
+                    <div class="user-card__name h6">
+                        <span lang="uk">Люба Шипович</span>
+                        <span lang="en">Lyuba Shipovich</span>
+                    </div>
                     <div class="user-card__title">Project Leader on Data Ocean</div>
                 </div>
     
                 <div class="user-card">
                     <img src="static/img/team/Ugin-Poremchuk.png" class="user-card__image">
-                    <div class="user-card__name h6">Євген Поремчук</div>
+                    <div class="user-card__name h6">
+                        <span lang="uk">Євген Поремчук</span>
+                        <span lang="en">Ugin Poremchuk</span>
+                    </div>
                     <div class="user-card__title">СТО</div>
                 </div>
     
                 <div class="user-card">
                     <img src="static/img/team/Yehor-Sobolev.png" class="user-card__image">
-                    <div class="user-card__name h6">Єгор Соболєв</div>
+                    <div class="user-card__name h6">
+                        <span lang="uk">Єгор Соболєв</span>
+                        <span lang="en">Yehor Sobolev</span>
+                    </div>
                     <div class="user-card__title">Python developer</div>
                 </div>
     
                 <div class="user-card">
                     <img src="static/img/team/Anastasia-Otkydach.png" class="user-card__image">
-                    <div class="user-card__name h6">Анастасія Откидач</div>
+                    <div class="user-card__name h6">
+                        <span lang="uk">Анастасія Откидач</span>
+                        <span lang="en">Anastasia Otkydach</span>
+                    </div>
                     <div class="user-card__title">Operation officer</div>
                 </div>
     
                 <div class="user-card">
                     <img src="static/img/team/Liliia-Chan.png" class="user-card__image">
-                    <div class="user-card__name h6">Лілія Чан</div>
+                    <div class="user-card__name h6">
+                        <span lang="uk">Лілія Чан</span>
+                        <span lang="en">Liliia Chan</span>
+                    </div>
                     <div class="user-card__title">Product manager</div>
                 </div>
     
                 <div class="user-card">
                     <img src="static/img/team/Maksym-Nazaruk.png" class="user-card__image">
-                    <div class="user-card__name h6">Максим Назарук</div>
+                    <div class="user-card__name h6">
+                        <span lang="uk">Максим Назарук</span>
+                        <span lang="en">Maksym Nazaruk</span>
+                    </div>
                     <div class="user-card__title">Scrum master</div>
                 </div>
     
                 <div class="user-card">
                     <img src="static/img/team/Dina-Formakidova.png" class="user-card__image">
-                    <div class="user-card__name h6">Діна Формакідова</div>
+                    <div class="user-card__name h6">
+                        <span lang="uk">Діна Формакідова</span>
+                        <span lang="en">Dina Formakidova</span>
+                    </div>
                     <div class="user-card__title">Marketing manager</div>
                 </div>
     
                 <div class="user-card">
                     <img src="static/img/team/Roman-Tiukh.png" class="user-card__image">
-                    <div class="user-card__name h6">Роман Тюх</div>
+                    <div class="user-card__name h6">
+                        <span lang="uk">Роман Тюх</span>
+                        <span lang="en">Roman Tiukh</span>
+                    </div>
                     <div class="user-card__title">Team lead</div>
                 </div>
     
                 <div class="user-card">
                     <img src="static/img/team/Ivan-Kharina.png" class="user-card__image">
-                    <div class="user-card__name h6">Іван Харина</div>
+                    <div class="user-card__name h6">
+                        <span lang="uk">Іван Харина</span>
+                        <span lang="en">Ivan Kharina</span>
+                    </div>
                     <div class="user-card__title">Backend developer</div>
                 </div>
     
                 <div class="user-card">
                     <img src="static/img/team/Anna-Troyan.png" class="user-card__image">
-                    <div class="user-card__name h6">Анна Троян</div>
+                    <div class="user-card__name h6">
+                        <span lang="uk">Анна Троян</span>
+                        <span lang="en">Anna Troyan</span>
+                    </div>
                     <div class="user-card__title">Data engineer</div>
                 </div>
     
                 <div class="user-card">
                     <img src="static/img/team/Oleksiy-Baranovskiy.png" class="user-card__image">
-                    <div class="user-card__name h6">Олексій Барановський</div>
+                    <div class="user-card__name h6">
+                        <span lang="uk">Олексій Барановський</span>
+                        <span lang="en">Oleksiy Baranovskiy</span>
+                    </div>
                     <div class="user-card__title">Backend developer</div>
                 </div>
     
                 <div class="user-card">
                     <img src="static/img/team/Vitaliy-Bilous.png" class="user-card__image">
-                    <div class="user-card__name h6">Віталій Білоус</div>
+                    <div class="user-card__name h6">
+                        <span lang="uk">Віталій Білоус</span>
+                        <span lang="en">Vitaliy Bilous</span>
+                    </div>
                     <div class="user-card__title">Backend developer</div>
                 </div>
     
                 <div class="user-card">
                     <img src="static/img/team/Viktor-Abramov.png" class="user-card__image">
-                    <div class="user-card__name h6">Віктор Абрамов</div>
+                    <div class="user-card__name h6">
+                        <span lang="en">Віктор Абрамов</span>
+                        <span lang="en">Viktor Abramov</span>
+                    </div>
                     <div class="user-card__title">Frontend developer</div>
                 </div>
     
                 <div class="user-card">
                     <img src="static/img/team/Oleksa-Bezobchuk.png" class="user-card__image">
-                    <div class="user-card__name h6">Олександр Безобчук</div>
+                    <div class="user-card__name h6">
+                        <span lang="uk">Олександр Безобчук</span>
+                        <span lang="en">Oleksa Bezobchuk</span>
+                    </div>
                     <div class="user-card__title">Product designer</div>
                 </div>
             </div>
@@ -250,47 +333,72 @@
     <section id="contact" class="section section_background">
         <div class="container">
             <div class="section__header">
-                <h1 class="section__title h1">Виникли запитання?</h1>
-                <div class="section__subtitle">Надішліть нам своє запитання і ми з радістю допоможемо Вам!</div>
+                <h1 class="section__title h1">
+                    <span lang="uk">Виникли запитання?</span>
+                    <span lang="en">Questions?</span>
+                </h1>
+                <div class="section__subtitle">
+                    <span lang="uk">Надішліть нам своє запитання і ми з радістю допоможемо Вам!</span>
+                    <span lang="en">Contact us, we are glad to be of your assistance!</span>
+                </div>
             </div>
             <div class="landing-feedback">
                 <div class="landing-feedback__left">
                     <form class="form" id="contact-form">
                         <div class="form__row row row_vertical-spaces">
                             <div class="form-group col-lg-6">
-                                <label for="name" class="form-group__label form-group__label_required">Ім’я</label>
+                                <label for="name" class="form-group__label form-group__label_required">
+                                    <span lang="uk">Ім’я</span>
+                                    <span lang="en">Name</span>
+                                </label>
                                 <input type="text" name="username" required class="input input_large" minlength="2" id="name" placeholder="Петро">
                             </div>
                             <div class="form-group col-lg-6">
-                                <label for="surname" class="form-group__label form-group__label_required">Прізвище</label>
+                                <label for="surname" class="form-group__label form-group__label_required">
+                                    <span lang="uk">Прізвище</span>
+                                    <span lang="en">Surname</span>
+                                </label>
                                 <input type="text" name="surname" required class="input input_large" minlength="2" id="surname" placeholder="Іваненко">
                             </div>
                         </div>
                         <div class="form__row row row_vertical-spaces">
                             <div class="form-group col-lg-6">
-                                <label for="email" class="form-group__label form-group__label_required">Пошта</label>
+                                <label for="email" class="form-group__label form-group__label_required">
+                                    <span lang="uk">Пошта</span>
+                                    <span lang="en">Email</span>
+                                </label>
                                 <input type="email" name="email" required class="input input_large" id="email" placeholder="user@email.com">
                             </div>
                             <div class="form-group col-lg-6">
-                                <label for="phone" class="form-group__label form-group__label_required">Телефон</label>
+                                <label for="phone" class="form-group__label form-group__label_required">
+                                    <span lang="uk">Телефон</span>
+                                    <span lang="en">Phone number</span>
+                                </label>
                                 <input type="tel" name="phone" class="input input_large" id="phone" placeholder="(0__)___-__-__">
                             </div>
                         </div>
                         <div class="form__row">
                             <div class="form-group">
-                                <label for="question" class="form-group__label form-group__label_required">Напишіть своє запитання</label>
+                                <label for="question" class="form-group__label form-group__label_required">
+                                    <span lang="uk">Напишіть своє запитання</span>
+                                    <span lang="en">Ask your question</span>
+                                </label>
                                 <textarea class="input" rows="4" name="question" id="question" placeholder="Привіт, Data Ocean!&#10;Я хотів запитати..."></textarea>
                             </div>
                         </div>
                         <div class="form__row">
-                            <button class="btn-primary btn-primary_large" type="submit" id="form_send" rel="modal:open">Дізнатися більше</button>
+                            <button class="btn-primary btn-primary_large" type="submit" id="form_send" rel="modal:open">
+                                <span lang="uk">Дізнатися більше</span>
+                                <span lang="en">Find out more</span>
+                            </button>
                         </div>
                     </form>
                 </div>
     
                 <div class="landing-feedback__right">
                     <span class="landing-feedback__right-text">
-                        Або напишіть нам на електронну адресу
+                        <span lang="uk">Або напишіть нам на електронну адресу</span>
+                        <span lang="en">Or email us</span>
                     </span>
     
                     <a href="mailto:info@dataocean.us" class="link link_color-white">
@@ -307,18 +415,32 @@
                 <img class="footer__item" src="static/img/logo-white.svg" class="header-logo">
     
                 <ul class="footer__item navigation navigation_align-left navigation_white">
-                    <a class="navigation__item link" href="#product">про Data Platform</a>
-                    <a class="navigation__item link" href="#about">Про нас</a>
-                    <a class="navigation__item link" href="#contact">Контакти</a>
-                    <a class="navigation__item btn-primary btn-primary_color-5" href="#contact-form">Напишіть нам</a>
+                    <a class="navigation__item link" href="#product">
+                        <span lang="uk">про Data Platform</span>
+                        <span lang="en">about Data Platform</span>
+                    </a>
+                    <a class="navigation__item link" href="#about">
+                        <span lang="uk">Про нас</span>
+                        <span lang="en">About us</span>
+                    </a>
+                    <a class="navigation__item link" href="#contact">
+                        <span lang="uk">Контакти</span>
+                        <span lang="en">Contacts</span>
+                    </a>
+                    <a class="navigation__item btn-primary btn-primary_color-5" href="#contact-form">
+                        <span lang="uk">Напишіть нам</span>
+                        <span lang="en">Contact us</span></a>
+                    </a>
                 </ul>
             </div>
             <div class="footer-copyright">
                 <div class="footer-copyright__slogan">
-                    Data Ocean — провайдер зручного <br>доступу до відкритих даних. 
+                    <span lang="uk">Data Ocean — провайдер зручного <br>доступу до відкритих даних.</span>
+                    <span lang="en">Data Ocean is a provider <br>with convenient access to open data.</span></a>    
                 </div>
                 <div class="footer-copyright__copyright">
-                    ©2020 – Data Ocean. Всі права захищені.
+                    <span lang="uk">©2020 – Data Ocean. Всі права захищені.</span>
+                    <span lang="en">©2020 – Data Ocean. All rights reserved.</span>
                 </div>
             </div>
         </div>

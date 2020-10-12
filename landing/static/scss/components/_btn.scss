@@ -7,6 +7,7 @@
     font-size: 16px;
     font-family: $font-family-base;
     font-weight: 600;
+    outline: none;
     
     &_color-1 {
         background-color: $primary-1;
@@ -36,7 +37,6 @@
         position: absolute;
         width: 60%;
         line-height: 150%;
-
         font-weight: bolder;
         
         ion-icon {
@@ -48,7 +48,12 @@
     @media screen and (min-width: $lg) {
         &_dataocean {
             font-size: 22px;
-            text-indent: 10%;
+            //text-indent: 10%;
+        }
+    }
+    @media screen and (max-width: $sm) {
+        &_dataocean {
+            width: 80%;
         }
     }
 }
