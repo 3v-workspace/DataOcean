@@ -16,9 +16,15 @@ const orderingIcons = {
 
 const Table = (props) => {
   const { t } = useTranslation();
-  const { columns, url } = props;
+  const { columns, url, fields } = props;
   const [search, setSearch] = useState('');
-  const tc = useTableController({ url, params: { search } });
+
+  const params = { search };
+  if (fields.length) {
+    params.fields = fields.join(',');
+  }
+
+  const tc = useTableController({ url, params });
 
   const onSearch = (e) => {
     setSearch(e.target.value);
@@ -76,7 +82,7 @@ const Table = (props) => {
               <tr key={row.id || i}>
                 {columns.map((col) => (
                   <td key={col.prop} className="border-b">
-                    {col.render ? col.render(row[col.prop]) : row[col.prop]}
+                    {(col.render ? col.render(row[col.prop]) : row[col.prop]) || '---'}
                   </td>
                 ))}
               </tr>
@@ -99,6 +105,10 @@ Table.propTypes = {
     render: PropTypes.func,
   })).isRequired,
   url: PropTypes.string.isRequired,
+  fields: PropTypes.arrayOf(PropTypes.string),
+};
+Table.defaultProps = {
+  fields: [],
 };
 
 export default Table;

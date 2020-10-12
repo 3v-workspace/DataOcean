@@ -25,6 +25,17 @@
 }
 
 .select2 {
-  margin-top: 0.5rem;
+  //margin-top: 0.5rem;
   width: 100% !important;
+}
+
+.select2-hidden-accessible {
+  left: 47%;
+  top: 100%;
+}
+
+.button{
+  &.disabled, &:disabled {
+    opacity: 0.8;
+  }
 }

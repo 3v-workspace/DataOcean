@@ -1,5 +1,3 @@
-/* global $, Chart */
-
 import React, { useEffect, useState } from 'react';
 import {
   Briefcase, Database, File, RefreshCcw, User,
@@ -9,10 +7,11 @@ import Api from 'api';
 import moment from 'moment';
 import PieChartLegend from 'components/pages/dashboard/PieChartLegend';
 import { useTranslation } from 'react-i18next';
+import { upFirstLetter } from 'utils';
 
 
 const HomePage = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [registersCount, setRegistersCount] = useState('');
   const [usersCount, setUsersCount] = useState('');
   const [fopCount, setFopCount] = useState('');
@@ -20,6 +19,16 @@ const HomePage = () => {
   const [apiUsageData, setApiUsageData] = useState({});
   const [topKvedData, setTopKvedData] = useState([]);
   const [topCompanyTypeData, setTopCompanyTypeData] = useState([]);
+
+  const getName = (item) => {
+    if (i18n.language === 'uk') {
+      return upFirstLetter(item.name || item.name_eng);
+    }
+    if (i18n.language === 'en') {
+      return upFirstLetter(item.name_eng || item.name);
+    }
+    return '---';
+  };
 
   const initApiUsageChart = () => {
     const labels = apiUsageData.days.map((el) => moment(el.timestamp).format('DD.MM'));
@@ -108,7 +117,7 @@ const HomePage = () => {
   };
 
   const initTopCompanyTypesPie = () => {
-    const labels = topCompanyTypeData.map((el) => el.name);
+    const labels = topCompanyTypeData.map((el) => getName(el));
     const data = topCompanyTypeData.map((el) => el.count_companies);
 
     if ($('#report-donut-chart').length) {
@@ -200,14 +209,14 @@ const HomePage = () => {
               <h2 className="text-lg font-medium truncate mr-5">
                 {t('generalReport')}
               </h2>
-              <a href="#" className="ml-auto flex text-theme-1 dark:text-theme-10">
-                <RefreshCcw className="w-4 h-4 mr-3" /> {t('refresh')}
-              </a>
+              {/*<a href="#" className="ml-auto flex text-theme-1 dark:text-theme-10">*/}
+              {/*  <RefreshCcw className="w-4 h-4 mr-3" /> {t('refresh')}*/}
+              {/*</a>*/}
             </div>
             <div className="grid grid-cols-12 gap-6 mt-5">
               <div className="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
                 <ReportBox
-                  label={t('companiesCount')}
+                  label={t('numberOfCompanies')}
                   value={companyCount.toLocaleString()}
                   subText="18%"
                   subTextDirection="up"
@@ -216,7 +225,7 @@ const HomePage = () => {
               </div>
               <div className="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
                 <ReportBox
-                  label={t('fopCount')}
+                  label={t('numberOfSoleProprietors')}
                   value={fopCount.toLocaleString()}
                   subText="16%"
                   subTextDirection="up"
@@ -225,7 +234,7 @@ const HomePage = () => {
               </div>
               <div className="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
                 <ReportBox
-                  label={t('datasetsCount')}
+                  label={t('numberOfDatasets')}
                   value={registersCount.toLocaleString()}
                   subText="+5"
                   subTextDirection="up"
@@ -234,7 +243,7 @@ const HomePage = () => {
               </div>
               <div className="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
                 <ReportBox
-                  label={t('usersCount')}
+                  label={t('numberOfUsers')}
                   value={usersCount.toLocaleString()}
                   subText="+7"
                   subTextDirection="up"
@@ -288,7 +297,7 @@ const HomePage = () => {
               <h2 className="text-lg font-medium truncate mr-5">
                 {t('topKveds')}
               </h2>
-              <a href="#" className="ml-auto text-theme-1 truncate">Всі</a>
+              {/*<a href="#" className="ml-auto text-theme-1 truncate">{t('all')}</a>*/}
             </div>
             <div className="intro-y box p-5 mt-5">
               <canvas className="mt-3" id="report-pie-chart" height="280" />
@@ -305,13 +314,13 @@ const HomePage = () => {
               <h2 className="text-lg font-medium truncate mr-5">
                 {t('companyTypes')}
               </h2>
-              <a href="#" className="ml-auto text-theme-1 truncate">Всі</a>
+              {/*<a href="#" className="ml-auto text-theme-1 truncate">{t('all')}</a>*/}
             </div>
             <div className="intro-y box p-5 mt-5">
               <canvas className="mt-3" id="report-donut-chart" height="280" />
               <PieChartLegend
                 items={topCompanyTypeData.map((el) => ({
-                  label: el.name,
+                  label: getName(el),
                   value: el.count_companies,
                 }))}
               />

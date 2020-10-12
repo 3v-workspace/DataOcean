@@ -6,13 +6,18 @@ import LoadingIcon from 'components/LoadingIcon';
 const buttonTypes = {
   blank: '',
   primary: 'bg-theme-1 text-white',
-  secondary: 'border text-gray-700',
+  secondary: 'border bg-white text-gray-700',
   success: 'bg-theme-9 text-white',
   warning: 'bg-theme-12 text-white',
   danger: 'bg-theme-6 text-white',
   dark: 'bg-gray-200 text-gray-600',
 
   'outline-white': 'border border-white',
+  'outline-primary': 'border border-theme-1 text-theme-1',
+  'outline-secondary': 'border text-gray-700',
+  'outline-success': 'border border-theme-9 text-theme-9',
+  'outline-warning': 'border border-theme-12 text-theme-12',
+  'outline-danger': 'border border-theme-6 text-theme-6',
 };
 
 const loadingColors = {

@@ -1,4 +1,3 @@
-/* global $ */
 import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 
@@ -26,17 +25,19 @@ const Tooltip = (props) => {
     if (!isContentStr) {
       options.content = contentRef.current;
     }
+    if ($(childRef.current).hasClass('tooltipstered')) {
+      $(childRef.current).tooltipster('destroy');
+    }
     $(childRef.current).tooltipster(options);
 
     // return () => {
     //   $(childRef.current).tooltipster('destroy');
     // };
-  }, [animation, theme, delay, trigger, distance]);
+  }, [animation, theme, delay, trigger, distance, content]);
 
 
   // maybe we can use cloneElement for remove span el
   // const element = React.cloneElement(children, { ref: childRef });
-
   return (
     <>
       <span ref={childRef} title={isContentStr ? content : undefined}>

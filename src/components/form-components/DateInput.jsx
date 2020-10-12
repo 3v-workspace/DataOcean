@@ -1,4 +1,3 @@
-/* global $ */
 import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { FormikPropType } from 'utils/prop-types';
@@ -12,6 +11,7 @@ const DateInput = (props) => {
     name, formik, onChange, value, timePicker, timePicker24Hour,
     autoApply, singleDatePicker, startDate, endDate, autoUpdateInput,
     minDate, maxDate, drops, id, label, containerClass, className,
+    required,
   } = props;
 
   const { i18n } = useTranslation();
@@ -21,7 +21,15 @@ const DateInput = (props) => {
   const val = value || (formik && formik.values[name]);
 
   useEffect(() => {
-    const val2 = val ? moment(val, isoFormat).format(format) : '';
+    let val2 = '';
+    if (val) {
+      if (singleDatePicker) {
+        val2 = moment(val, isoFormat).format(format);
+      } else {
+        const [from, to] = val.split(' - ');
+        val2 = `${moment(from, isoFormat).format(format)} - ${moment(to, isoFormat).format(format)}`;
+      }
+    }
     $(datepickerRef.current).val(val2);
   }, [val]);
 
@@ -58,31 +66,41 @@ const DateInput = (props) => {
         ],
       };
     }
-    $(datepickerRef.current).daterangepicker(opt, (start) => {
-      const event = {
-        target: {
-          value: start.format(isoFormat),
-          name,
-        },
-      };
+    $(datepickerRef.current).daterangepicker(opt, (start, end) => {
+      // debugger;
+      const valueStr = singleDatePicker ? (
+        start.format(isoFormat)
+      ) : (
+        `${start.format(isoFormat)} - ${end.format(isoFormat)}`
+      );
       if (onChange) {
-        onChange(event);
-      } else {
-        formik.handleChange(event);
+        onChange(name, valueStr);
+      } else if (formik) {
+        formik.setFieldValue(name, valueStr);
       }
     });
     $(datepickerRef.current).on('apply.daterangepicker', (e, picker) => {
+      // debugger;
       if (!e.target.value) {
-        $(e.target).val('');
-      } else if (singleDatePicker) {
+        // $(e.target).val('');
+      }
+      if (singleDatePicker) {
         $(e.target).val(picker.startDate.format(format));
       } else {
         $(e.target).val(`${picker.startDate.format(format)} - ${picker.endDate.format(format)}`);
       }
     });
     $(datepickerRef.current).on('change', (e) => {
+      const input = $(e.target);
+      const drp = input.data('daterangepicker');
       if (e.target.value) {
-        $(e.target).val($(e.target).data('daterangepicker').startDate.format(format));
+        if (singleDatePicker) {
+          input.val(drp.startDate.format(format));
+        } else {
+          input.val(`${drp.startDate.format(format)} - ${drp.endDate.format(format)}`);
+        }
+      } else {
+        formik.setFieldValue(name, null);
       }
     });
 
@@ -94,14 +112,15 @@ const DateInput = (props) => {
   return (
     <div className={`${containerClass} mb-3`}>
       {label && (
-        <label htmlFor={endId}>{label}</label>
+        <label htmlFor={endId} className="mb-2 inline-block">{label}</label>
       )}
       <input
         id={endId}
         ref={datepickerRef}
         autoComplete="off"
-        className={`${className} input border mt-2`}
+        className={`${className} input border`}
         name={name}
+        required={required}
         // value={value || (formik && formik.values[name])}
         onBlur={formik && formik.handleBlur}
       />
@@ -140,6 +159,7 @@ DateInput.propTypes = {
   drops: PropTypes.oneOf(['down', 'up', 'auto']),
 
   formik: FormikPropType,
+  required: PropTypes.bool,
 };
 DateInput.defaultProps = {
   id: null,
@@ -160,6 +180,7 @@ DateInput.defaultProps = {
   minDate: undefined,
   maxDate: undefined,
   drops: 'auto',
+  required: false,
 };
 
 

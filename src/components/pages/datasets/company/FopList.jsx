@@ -5,27 +5,27 @@ import PageBox from 'components/pages/PageBox';
 import { useTranslation } from 'react-i18next';
 
 
-const CompanyList = () => {
+const FopList = () => {
   const { t } = useTranslation();
   const columns = [
-    { header: t('edrpou'), prop: 'edrpou' },
-    { header: t('name'), prop: 'name' },
+    { header: t('fullName'), prop: 'fullname' },
     { header: t('status'), prop: 'status' },
     { header: t('address'), prop: 'address' },
-    { header: t('authorizedCapital'), prop: 'authorized_capital' },
+    { header: t('registrationDate'), prop: 'registration_date' },
+    { header: t('terminationDate'), prop: 'termination_date' },
   ];
   return (
     <PageBox header={t('viewTheRegistry')} noBox>
       <Table
         columns={columns}
-        url="company/"
+        url="fop/"
         fields={[
           'id',
-          'edrpou',
-          'name',
+          'fullname',
           'status',
           'address',
-          'authorized_capital',
+          'registration_date',
+          'termination_date',
         ]}
       />
     </PageBox>
@@ -34,4 +34,4 @@ const CompanyList = () => {
 
 // CompanyList.propTypes = {};
 
-export default CompanyList;
+export default FopList;

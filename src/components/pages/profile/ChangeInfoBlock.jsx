@@ -31,7 +31,7 @@ const ChangeInfoBlock = () => {
       last_name: Yup.string().required(),
       organization: Yup.string(),
       position: Yup.string(),
-      date_of_birth: Yup.date(),
+      date_of_birth: Yup.date().nullable(),
     }),
     onSubmit: (values, actions) => {
       Api.patch('rest-auth/user/', values)

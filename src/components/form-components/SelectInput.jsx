@@ -1,4 +1,3 @@
-/* global $ */
 import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { FormikPropType } from 'utils/prop-types';
@@ -7,7 +6,7 @@ import { FormikPropType } from 'utils/prop-types';
 const SelectInput = (props) => {
   const {
     options, width, hideSearch, multiple, placeholder, value,
-    disabled, onChange, className, formik, name, label,
+    disabled, onChange, className, formik, name, label, required,
   } = props;
 
   const selectRef = useRef();
@@ -42,18 +41,19 @@ const SelectInput = (props) => {
     $(selectRef.current).val(value || (formik && formik.values[name])).trigger('change');
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [JSON.stringify(formik.values[name]), name]);
+  }, [JSON.stringify(formik ? formik.values[name] : value), name]);
 
   return (
-    <div className="mb-3">
+    <div className="mb-3 relative">
       {label && (
-        <label htmlFor={`id_${name}`}>{label}</label>
+        <label htmlFor={`id_${name}`} className="mb-2 inline-block">{label}</label>
       )}
       <select
         ref={selectRef}
         id={`id_${name}`}
         name={name}
         className={classList.join(' ')}
+        required={required}
       >
         {options.map((option) => (
           <option value={option.value} key={option.value}>
@@ -85,6 +85,7 @@ SelectInput.propTypes = {
   })).isRequired,
   width: PropTypes.string,
   formik: FormikPropType,
+  required: PropTypes.bool,
 };
 
 SelectInput.defaultProps = {
@@ -99,6 +100,7 @@ SelectInput.defaultProps = {
   placeholder: undefined,
   width: 'w-full',
   formik: undefined,
+  required: false,
 };
 
 export default SelectInput;

@@ -9,6 +9,7 @@ import HelpPage from 'components/pages/system/HelpPage';
 import HomePage from 'components/pages/system/HomePage';
 import ProfilePage from 'components/pages/profile/ProfilePage';
 import DatasetsRoutes from 'components/pages/datasets/DatasetsRoutes';
+import PepGraphPage from 'components/pages/system/PepGraphPage';
 
 
 const SystemRoutes = (props) => {
@@ -41,6 +42,11 @@ const SystemRoutes = (props) => {
         exact
         path={`${match.path}data-constructor/`}
         component={DataConstructorPage}
+      />
+      <Route
+        exact
+        path={`${match.path}pep-scheme/`}
+        component={PepGraphPage}
       />
       <Route
         exact
