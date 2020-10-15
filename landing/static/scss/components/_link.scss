@@ -15,7 +15,17 @@
     }
 
     &:hover {
-        text-decoration: underline;
+        //text-decoration: underline;
+        color: #3646eb;
+        transition: 0.25s;
+    }
+}
+
+.link_i:hover {
+    text-decoration-line: none;
+    i {
+        padding-left: 25px;
+        transition: 0.5s;
     }
 }
 
