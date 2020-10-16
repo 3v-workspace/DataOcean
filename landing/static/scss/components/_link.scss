@@ -7,6 +7,11 @@
     
     &_color-white {
         color: $gray-100;
+        
+        &:hover {
+            text-decoration: underline;
+            transition: 0.25s;
+        }
     }
 
     &__icon {
@@ -16,9 +21,17 @@
 
     &:hover {
         //text-decoration: underline;
-        color: #3646eb;
-        transition: 0.25s;
     }
+}
+
+.link_start:hover {
+    color: #3646eb;
+    transition: 0.25s;
+}
+
+.link_end:hover {
+    text-shadow: 0px 0px 6px rgba(255,255,255,0.7);
+    transition: 0.25s;
 }
 
 .link_i:hover {
