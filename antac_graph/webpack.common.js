@@ -55,11 +55,19 @@ module.exports = {
         ],
       },
       {
-        test: /\.(png|svg|jpg|jpeg|gif|eot|woff|woff2|ttf)$/,
+        test: /\.(png|jpg|jpeg|gif|eot|woff|woff2|ttf)$/,
         use: [
           'file-loader',
         ],
       },
+      {
+        test: /\.(svg|html)$/,
+        loader: 'raw-loader',
+      },
+      // {
+      //   test: /\.html$/i,
+      //   loader: 'html-loader',
+      // },
     ],
   },
   plugins: [
