@@ -40,6 +40,13 @@ path.link {
   box-sizing: border-box;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
   border-radius: 4px;
+
+  &-right {
+    @media (min-width: 992px) {
+      width: 220px;
+      float: right;
+    }
+  }
 }
 
 .side-block-header {
@@ -83,20 +90,44 @@ path.link {
 //.custom-control-label::before {
 //  border: rgba(0, 0, 0, 0.54) solid 2px;
 //}
+$color-green: #219653;
 
 .btn-green {
   color: #fff;
-  background-color: #219653;
-  border-color: #219653;
+  background-color: $color-green;
+  border-color: $color-green;
+}
+
+.text-green {
+  color: $color-green;
+}
+
+.bg-green {
+  background-color: $color-green;
+}
+
+.border-green {
+  border-color: $color-green;
 }
 
 .legend-item {
   display: flex;
   align-items: center;
 
-  > img {
-    padding: 6px 6px 6px 6px;
+  &-icon {
+    padding: 4px;
     margin-right: 6px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &-line {
+    width: 32px;
+    height: 5px;
+    border-radius: 3px;
   }
 
   &.legend-text {
@@ -271,6 +302,14 @@ path.link {
   }
 }
 
+.z-1 {
+  z-index: 3;
+}
+
+.z-2 {
+  z-index: 3;
+}
+
 .z-3 {
   z-index: 3;
 }
@@ -280,9 +319,9 @@ path.link {
 }
 
 .slide {
-  background-image: url("slideUp.svg");
+  //background-image: url("slideUp.svg");
   width: 14px;
-  height: 9px;
+  height: 26px;
   transition: transform .5s ease;
 }
 
@@ -292,4 +331,8 @@ path.link {
 
 .slide-down {
   transform: rotate(180deg);
+}
+
+.node-image {
+  stroke-width: 0;
 }
