@@ -16,6 +16,9 @@ const searchFormS = '#company-search-form';
 const searchButtonS = '#company-search-btn';
 const searchInputS = 'input#company-search';
 const graphContainerS = '#graph';
+const detailBlockS = '#node-detail';
+const filtersBlockS = '#filters';
+const legendBlockS = '#legend';
 
 
 const linkTypes = {
@@ -25,7 +28,7 @@ const linkTypes = {
   family: 'family',
   business: 'business',
   personal: 'personal',
-  unknown: 'unknown',
+  other: 'other',
   inactive: 'inactive',
 };
 
@@ -50,6 +53,10 @@ const themes = {
 
 class PepCompanyScheme {
   constructor(options = {}) {
+    if (!options.rootElement) {
+      throw new Error('Missed rootElement option');
+    }
+    this.rootElement = options.rootElement;
     this.theme = options.theme || 'data-ocean';
     this.icons = getIcons(options.icons, this.theme);
     this.apiHost = options.apiHost || '';
@@ -74,7 +81,7 @@ class PepCompanyScheme {
       [linkTypes.head]: '#1F4999',
       [linkTypes.beneficiary]: '#852500',
       [linkTypes.owner]: '#03A7EA',
-      [linkTypes.unknown]: '#B6B6B6',
+      [linkTypes.other]: '#B6B6B6',
       [linkTypes.inactive]: '#B6B6B6',
       // [linkTypes.business]: '#fd7575',
       // [linkTypes.family]: '#6ac72b',
@@ -82,7 +89,7 @@ class PepCompanyScheme {
       // [linkTypes.head]: '#3865d9',
       // [linkTypes.beneficiary]: '#9325ba',
       // [linkTypes.owner]: '#3FA2F7',
-      // [linkTypes.unknown]: '#7b7b7b',
+      // [linkTypes.other]: '#7b7b7b',
       // [linkTypes.inactive]: '#adbcd9',
       ...options.linkColors,
     };
@@ -94,7 +101,7 @@ class PepCompanyScheme {
       [linkTypes.business]: 'Ділові зв\'язки',
       [linkTypes.family]: 'Сімейні зв\'язки',
       [linkTypes.personal]: 'Особисті зв\'язки',
-      [linkTypes.unknown]: 'Невідомо',
+      [linkTypes.other]: 'Інше',
       ...options.linkLabels,
     };
 
@@ -167,6 +174,7 @@ class PepCompanyScheme {
     this.injectHtml();
     this.showMessage('Щоб розпочати роботу скористайтесь пошуком');
     this.registerEventListeners();
+    this.handleResizeRootElement();
   }
 
   injectHtml() {
@@ -191,6 +199,12 @@ class PepCompanyScheme {
       legendLinks,
     }));
     $('.slide').html(slideUp);
+  }
+
+  handleResizeRootElement (){
+    let rootHeight = this.rootElement.clientHeight;
+    $(`${detailBlockS} .side-block-body`).css('max-height', `${rootHeight - 200}px`);
+    $(`${legendBlockS} .side-block-body`).css('max-height', `${rootHeight - 390}px`);
   }
 
   fetchMeta() {
@@ -222,9 +236,12 @@ class PepCompanyScheme {
     }
   }
 
-  getIconForSearchResult(type) {
+  getIconForSearchResult(data, type) {
     if (type === PEP) {
-      return this.icons.pep.active;
+      if (data.is_pep) {
+        return this.icons.pep.active;
+      }
+      return this.icons.peoples.active;
     } else if (type === COMPANY) {
       return this.icons.company.active;
     } else {
@@ -255,7 +272,7 @@ class PepCompanyScheme {
   parseNodesLinks(data, type) {
     let newRootNode;
 
-    const addChildNode = (item, type, linkData = {}) => {
+    const addChildNode = (item, type, reverseLink = false, linkData = {}) => {
       const newNode = {
         ...item,
         _type: type,
@@ -263,7 +280,7 @@ class PepCompanyScheme {
         _root: false,
       };
       newNode.id = this.getIdForNode(newNode);
-      this.tryPushChildNode(newRootNode, newNode, false, linkData);
+      this.tryPushChildNode(newRootNode, newNode, reverseLink, linkData);
     };
 
     const parseCompany = () => {
@@ -280,11 +297,11 @@ class PepCompanyScheme {
       this.nodes.push(newRootNode);
 
       data.founder_of.forEach((company) => {
-        addChildNode(company, COMPANY, { _type: linkTypes.owner });
+        addChildNode(company, COMPANY, false, { _type: linkTypes.owner });
       });
       data.relationships_with_peps.forEach((linkWithPep) => {
         const [pep, linkData] = this.extractObjAndLinkData(linkWithPep, 'pep', 'relationship_type');
-        addChildNode(pep, PEP, linkData);
+        addChildNode(pep, PEP, false, linkData);
       });
     };
 
@@ -296,20 +313,25 @@ class PepCompanyScheme {
         _root: true,
         related_companies: undefined,
         from_person_links: undefined,
+        to_person_links: undefined,
         check_companies: undefined,
       };
       newRootNode.id = this.getIdForNode(newRootNode);
       this.nodes.push(newRootNode);
       data.related_companies.forEach((linkWithCompany) => {
         const [company, linkData] = this.extractObjAndLinkData(linkWithCompany, 'company', 'relationship_type');
-        addChildNode(company, COMPANY, linkData);
+        addChildNode(company, COMPANY, false, linkData);
       });
       data.from_person_links.forEach((linkWithPerson) => {
         const [pep, linkData] = this.extractObjAndLinkData(linkWithPerson, 'to_person', 'to_person_relationship_type');
-        addChildNode(pep, PEP, linkData);
+        addChildNode(pep, PEP, false, linkData);
+      });
+      data.to_person_links.forEach((linkWithPerson) => {
+        const [pep, linkData] = this.extractObjAndLinkData(linkWithPerson, 'from_person', 'from_person_relationship_type');
+        addChildNode(pep, PEP, true, linkData);
       });
       data.check_companies.forEach((item) => {
-        addChildNode(item, COMPANY, { _type: linkTypes.owner });
+        addChildNode(item, COMPANY, false, { _type: linkTypes.owner, probable: true });
       });
     };
     type === COMPANY ? parseCompany() : parsePep();
@@ -412,27 +434,37 @@ class PepCompanyScheme {
   showSearchResults(data, type) {
     const searchDropdown = $('.search-dropdown');
     const searchResults = searchDropdown.find('ul');
-    searchResults.find('li.search-result').remove();
+    searchResults.find('li').remove();
 
     $(document).one('click', () => {
       searchDropdown.removeClass('show');
     });
 
-    data.forEach((item) => {
+    if (!data.length) {
       searchResults.append(`
-      <li class="list-group-item p-1 list-group-item-action search-result"
-          data-id="${item.id}"
-          data-type="${type}"
-      >
-        <div class="pr-3 p-2" >
-          ${this.getIconForSearchResult(type)}
-        </div>
-        <div class="search-result__text ${type === PEP ? 'text-capitalize' : ''}">
-          ${this.entityToString(type, item)}
-        </div>
-      </li>
-    `);
-    });
+        <li class="list-group-item p-1 list-group-item-action">
+          <div class="d-flex justify-content-center">
+            Немає результатів
+          </div>
+        </li>
+      `)
+    } else {
+      data.forEach((item) => {
+        searchResults.append(`
+        <li class="list-group-item p-1 list-group-item-action search-result"
+            data-id="${item.id}"
+            data-type="${type}"
+        >
+          <div class="pr-3 p-2">
+            ${this.getIconForSearchResult(data, type)}
+          </div>
+          <div class="search-result__text ${type === PEP ? 'text-capitalize' : ''}">
+            ${this.entityToString(type, item)}
+          </div>
+        </li>
+      `);
+      });
+    }
     searchDropdown.addClass('show');
   }
 
@@ -471,11 +503,13 @@ class PepCompanyScheme {
     const value = $(searchInputS).val();
 
     let type = PEP;
-    let data = { name_search: value };
+    let data = { name_search: value, fields: 'id,fullname,is_pep' };
     if (/^\d{8}$/.test(value)) {
       type = COMPANY;
-      data = { edrpou: value };
+      data = { edrpou: value, fields: 'id,name,edrpou' };
     }
+
+    data.page_size = 100;
 
     $.ajax(this.getUrlForType(type), {
       headers: this.ajaxHeaders,
@@ -616,21 +650,14 @@ class PepCompanyScheme {
     if (this.linkTypeByRelationship.has(d._type)) {
       return this.linkTypeByRelationship.get(d._type);
     }
-    return linkTypes.unknown;
+    return linkTypes.other;
   }
 
   markerEnd(link, selectedNode) {
     let arrowId;
-    let srcId;
-    let dstId;
-    if (typeof link.source === 'string') {
-      srcId = link.source;
-      dstId = link.target;
-    } else {
-      srcId = link.source.id;
-      dstId = link.target.id;
-    }
-    if (srcId === selectedNode.id) {
+    let srcId = link.source.id || link.source;
+    let dstId = link.target.id || link.target;
+    if ([dstId, srcId].includes(selectedNode.id)) {
       arrowId = `arrow-${this.getLinkTypeForLink(link)}-`;
     } else {
       arrowId = 'arrow-inactive-';
@@ -747,34 +774,42 @@ class PepCompanyScheme {
     $detail.empty();
 
     let related_companies = pep.related_companies.map((rel_company) => {
-      return `<li>
+      return (
+        `<li>
            <div><u>${rel_company.relationship_type}</u></div>
            <div>${rel_company.company.name} (${rel_company.company.edrpou})</div>
-        </li>`;
+        </li>`
+      );
     });
-    let related_persons = pep.from_person_links.map((relation) => {
-      const rel_person = relation.to_person;
-      return `<li>
-           <div><u>${relation.to_person_relationship_type}</u></div>
+    let related_persons = [...pep.from_person_links, ...pep.to_person_links].map((relation) => {
+      const rel_person = relation.to_person || relation.from_person;
+      const relationship_type = relation.to_person_relationship_type || relation.from_person_relationship_type
+      return (
+        `<li>
+           <div><u>${relationship_type}</u></div>
            <div class="text-capitalize">${rel_person.fullname}</div>
-        </li>`;
+         </li>`
+      );
     });
     let check_companies = pep.check_companies.map((company) => {
-      return `<li>
-           ${company.name} (${company.edrpou})
-        </li>`;
+      return (
+        `<li>${company.name} (${company.edrpou})</li>`
+      );
     });
     $detail.append(`
       <div class="node-name">${pep.fullname}</div>
       <div>${pep.is_pep ? 'Є публічним діячем' : 'Не є публічним діячем'}</div>
       <div class="detail__prop">
-        <span class="prop-name">Остання посада:</span> ${pep.last_job_title}
+        <span class="prop-name">Остання посада:</span>
+        ${pep.last_job_title || '---'}
       </div>
       <div class="detail__prop">
-        <span class="prop-name">Останнє місце роботи:</span> ${pep.last_employer}
+        <span class="prop-name">Останнє місце роботи:</span>
+        ${pep.last_employer || '---'}
       </div>
       <div class="detail__prop">
-        <span class="prop-name">Тип:</span> ${pep.pep_type}
+        <span class="prop-name">Тип:</span>
+        ${pep.pep_type || '---'}
       </div>
       <div class="prop-name">Пов'язані компанії:</div>
       <div class="detail__prop">
@@ -823,7 +858,8 @@ class PepCompanyScheme {
     this.scheme.svg.selectAll('.link')
       .attr("marker-end", (d_link) => this.markerEnd(d_link, d))
       .style('stroke', (d_link) => this.linkColor(d_link, d))
-      .style('stroke-width', (d_link) => this.linkWidth(d_link, d));
+      .style('stroke-width', (d_link) => this.linkWidth(d_link, d))
+      .style('stroke-dasharray', (d_link) => this.linkDasharray(d_link, d));
     const $detail = $('#detail-block');
     $detail.empty();
     $detail.append(
@@ -837,10 +873,10 @@ class PepCompanyScheme {
             this.increaseSimulationSpeed();
             this.addNewChildNodes(d, data.founder_of, COMPANY, (company) => {
               return [company, { _type: linkTypes.owner }];
-            });
+            }, false);
             this.addNewChildNodes(d, data.relationships_with_peps, PEP, (linkWithPep) => {
               return this.extractObjAndLinkData(linkWithPep, 'pep', 'relationship_type');
-            });
+            }, false);
           }
           this.renderCompanyDetail(data);
         } else if (d._type === PEP) {
@@ -848,13 +884,16 @@ class PepCompanyScheme {
             this.increaseSimulationSpeed();
             this.addNewChildNodes(d, data.from_person_links, PEP, (linkWithPep) => {
               return this.extractObjAndLinkData(linkWithPep, 'to_person', 'to_person_relationship_type');
-            });
+            }, false);
+            this.addNewChildNodes(d, data.to_person_links, PEP, (linkWithPep) => {
+              return this.extractObjAndLinkData(linkWithPep, 'from_person', 'from_person_relationship_type');
+            }, true);
             this.addNewChildNodes(d, data.related_companies, COMPANY, (linkWithCompany) => {
               return this.extractObjAndLinkData(linkWithCompany, 'company', 'relationship_type');
-            });
+            }, false);
             this.addNewChildNodes(d, data.check_companies, COMPANY, (company) => {
-              return [company, { _type: linkTypes.owner }];
-            });
+              return [company, { _type: linkTypes.owner, probable: true }];
+            }, false);
           }
           this.renderPepDetail(data);
         } else {
@@ -863,12 +902,13 @@ class PepCompanyScheme {
         d._opened = true;
         this.scheme.svg.selectAll('.child-count')
           .attr('hidden', this.hideCount);
+        this.handleResizeRootElement();
         this.update(d);
       }
     });
   }
 
-  addNewChildNodes(d, items, type, getObjAndLink) {
+  addNewChildNodes(d, items, type, getObjAndLink, reverseLink = false) {
     items.forEach((item) => {
       const [object, linkData] = getObjAndLink(item);
       const newNode = {
@@ -876,18 +916,30 @@ class PepCompanyScheme {
         _type: type,
       };
       newNode.id = this.getIdForNode(newNode);
-      this.tryPushChildNode(d, newNode, false, linkData);
+      this.tryPushChildNode(d, newNode, reverseLink, linkData);
     });
   }
 
   linkColor(d, d_selected) {
-    const sourceId = typeof d.source === 'string' ? d.source : d.source.id;
-    return sourceId === d_selected.id ? this.linkColors[this.getLinkTypeForLink(d)] : this.linkColors.inactive;
+    const sourceId = d.source.id || d.source
+    const targetId = d.target.id || d.target
+    if ([sourceId, targetId].includes(d_selected.id)) {
+      return this.linkColors[this.getLinkTypeForLink(d)]
+    } else {
+      return this.linkColors.inactive
+    }
   }
 
   linkWidth(d, d_selected) {
-    const sourceId = typeof d.source === 'string' ? d.source : d.source.id;
-    return sourceId === d_selected.id ? 2 : 1;
+    const sourceId = d.source.id || d.source
+    const targetId = d.target.id || d.target
+    return [sourceId, targetId].includes(d_selected.id) ? 2 : 1;
+  }
+
+  linkDasharray(d, d_selected) {
+    if (d.probable) {
+      return '6 2';
+    }
   }
 
   nodeDefaultColor(d) {
@@ -1022,7 +1074,8 @@ class PepCompanyScheme {
       .attr('class', 'link')
       .style('opacity', 0)
       .style('stroke', (d_link) => this.linkColor(d_link, d))
-      .style('stroke-width', (d_link) => this.linkWidth(d_link, d));
+      .style('stroke-width', (d_link) => this.linkWidth(d_link, d))
+      .style('stroke-dasharray', (d_link) => this.linkDasharray(d_link, d));
     // .on('mouseenter', lineHover)
     // .on('mouseleave', lineBlur);
 
@@ -1192,7 +1245,9 @@ class PepCompanyScheme {
 window.PepCompanyScheme = PepCompanyScheme;
 
 $(function () {
-  const visualization = new PepCompanyScheme();
+  const visualization = new PepCompanyScheme({
+    rootElement: document.getElementById('root'),
+  });
   visualization.init();
 });
 

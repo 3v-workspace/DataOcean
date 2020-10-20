@@ -1,0 +1,95 @@
+<div id="graph"></div>
+
+<div class="container-fluid p-4">
+  <div class="row justify-content-between">
+    <div class="col-xl-10 col-lg-9 col-md-8">
+      <div class="row">
+        <div class="col-lg-8 col-xl-6 z-4">
+          <div class="search">
+            <form id="company-search-form" class="d-flex">
+              <input
+                  required
+                  id="company-search"
+                  type="text"
+                  class="form-control"
+                  placeholder="Введіть код ЄДРПОУ або прізвище публічного діяча"
+              >
+              <button type="submit" id="company-search-btn"
+                      class="btn {{#if themeDO}}btn-primary{{/if}} {{#if themeAA}}btn-green{{/if}} ml-2">
+                {{{icons.other.search}}}
+              </button>
+              <div class="dropdown-menu search-dropdown">
+                <div class="px-2">
+                  <ul class="list-group list-group-flush">
+                  </ul>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-5 col-xl-4 z-3">
+          <div id="node-detail" class="d-none side-block mt-4">
+            <div class="side-block-header">
+              Деталі
+              <div class="slide slide-up"></div>
+            </div>
+            <div id="detail-block" class="side-block-body show">
+            </div>
+          </div>
+        </div>
+        <div id="graph-space" class="col-lg-7 col-xl-8">
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-2 col-lg-3 col-md-4 z-3">
+      <div class="side-block side-block-right">
+        <div class="side-block-header side-block-body show">
+          Фільтр
+          <div class="slide slide-up"></div>
+        </div>
+        <div class="side-block-body show">
+          {{#each filters}}
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="id_{{this.name}}" name="{{this.name}}">
+              <label class="custom-control-label" for="id_{{this.name}}">
+                {{this.label}}
+              </label>
+            </div>
+          {{/each}}
+        </div>
+      </div>
+      <div class="side-block side-block-right mt-4">
+        <div class="side-block-header side-block-body show">
+          Легенда
+          <div class="slide slide-up"></div>
+        </div>
+        <div class="side-block-body show">
+          {{#each legendNodes}}
+          <div class="legend-item">
+            <div class="legend-item-icon">
+              {{{ this.icon }}}
+            </div>
+            <div class="legend-text">
+              {{this.label}}
+            </div>
+          </div>
+          {{/each}}
+          {{#each legendLinks}}
+          <div class="legend-item">
+            <div class="legend-item-icon">
+              <div class="legend-item-line" style="background-color: {{this.color}}">
+
+              </div>
+            </div>
+            <div class="legend-text">
+              {{this.label}}
+            </div>
+          </div>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
