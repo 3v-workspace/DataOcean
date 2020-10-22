@@ -1260,19 +1260,6 @@ class PepCompanyScheme {
 
 window.PepCompanyScheme = PepCompanyScheme;
 
-$(function () {
-  const visualization = new PepCompanyScheme({
-    rootElement: document.getElementById('root'),
-    // hideSearch: true,
-    // startNode: {
-    //   type: 'pep',
-    //   id: 59087,
-    //   isIdFromAntac: false,
-    // },
-  });
-  visualization.init();
-  // visualization.loadNodeById(59087, 'pep')
-});
 
 // function lineHover(e, d) {
 //   if (!e.defaultPrevented) {
