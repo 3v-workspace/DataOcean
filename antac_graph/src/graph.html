@@ -1,9 +1,7 @@
-<div class="position-relative w-100 h-100">
-  <div id="graph"></div>
-  <!--  <div id="graph-space" class="col-lg-7 col-xl-8">-->
-  <!--  </div>-->
-  <div class="cont p-4 z-3">
-    <div class="search search-block z-4">
+<div class="do-pep-company-scheme">
+  <div id="graph-container"></div>
+  <div class="main-grid p-4 z-3">
+    <div class="search search-block z-4 mb-4{{#if hideSearch}} d-none{{/if}}">
       <form id="company-search-form" class="d-flex">
         <input
             required
@@ -28,7 +26,7 @@
     <div id="filters" class="side-block side-block-right z-3">
       <div class="side-block-header show">
         Фільтр
-        <div class="slide slide-up"></div>
+        <div class="slide-icon"></div>
       </div>
       <div class="side-block-body show">
         {{#each filters}}
@@ -41,10 +39,10 @@
         {{/each}}
       </div>
     </div>
-    <div id="node-detail" class="d-none side-block mt-4 z-3">
+    <div id="node-detail" style="display: none" class="side-block z-3">
       <div class="side-block-header">
         Деталі
-        <div class="slide slide-up"></div>
+        <div class="slide-icon"></div>
       </div>
       <div id="detail-block" class="side-block-body show">
       </div>
@@ -53,7 +51,7 @@
     <div id="legend" class="side-block side-block-right mt-4 z-3">
       <div class="side-block-header show">
         Легенда
-        <div class="slide slide-up"></div>
+        <div class="slide-icon"></div>
       </div>
       <div class="side-block-body show">
         {{#each legendNodes}}

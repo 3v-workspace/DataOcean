@@ -7,7 +7,7 @@ import Handlebars from 'handlebars';
 import loadingElement from './components/loadingElement';
 import getIcons from './components/icons';
 import { randomInRange, waitElementAndClick } from './utils';
-import slideUp from './icons/data-ocean/slideUp.svg';
+import slideUpIcon from './icons/data-ocean/slideUp.svg';
 import closedCompanyIcon from './icons/data-ocean/closed.svg';
 import graphHtml from './graph.html';
 
@@ -15,10 +15,11 @@ import graphHtml from './graph.html';
 const searchFormS = '#company-search-form';
 const searchButtonS = '#company-search-btn';
 const searchInputS = 'input#company-search';
-const graphContainerS = '#graph';
+const graphContainerS = '#graph-container';
 const detailBlockS = '#node-detail';
 const filtersBlockS = '#filters';
 const legendBlockS = '#legend';
+const slideIconS = '.slide-icon'
 
 
 const linkTypes = {
@@ -36,7 +37,7 @@ const filters = [
   { name: 'family', label: 'Родинні зв\'язки' },
   { name: 'personal', label: 'Особисті зв\'язки' },
   { name: 'business', label: 'Ділові зв\'язки' },
-  { name: 'head', label: 'Директор' },
+  { name: 'head', label: 'Керівник' },
   { name: 'beneficiary', label: 'Бенефіціар' },
   { name: 'owner', label: 'Власник' },
   { name: 'pep', label: 'Публічні особи' },
@@ -59,9 +60,11 @@ class PepCompanyScheme {
     this.rootElement = options.rootElement;
     this.theme = options.theme || 'data-ocean';
     this.icons = getIcons(options.icons, this.theme);
+    this.hideSearch = options.hideSearch || false;
     this.apiHost = options.apiHost || '';
     this.token = options.token || '';
     this.ajaxHeaders = options.ajaxHeaders || {};
+    this.startNode = options.startNode || null;
 
     this.width = options.width || 1900;
     this.height = options.height || 900;
@@ -83,14 +86,6 @@ class PepCompanyScheme {
       [linkTypes.owner]: '#03A7EA',
       [linkTypes.other]: '#B6B6B6',
       [linkTypes.inactive]: '#B6B6B6',
-      // [linkTypes.business]: '#fd7575',
-      // [linkTypes.family]: '#6ac72b',
-      // [linkTypes.personal]: '#d2a22b',
-      // [linkTypes.head]: '#3865d9',
-      // [linkTypes.beneficiary]: '#9325ba',
-      // [linkTypes.owner]: '#3FA2F7',
-      // [linkTypes.other]: '#7b7b7b',
-      // [linkTypes.inactive]: '#adbcd9',
       ...options.linkColors,
     };
 
@@ -99,7 +94,7 @@ class PepCompanyScheme {
       [linkTypes.beneficiary]: 'Бенефіціар',
       [linkTypes.head]: 'Керівник',
       [linkTypes.business]: 'Ділові зв\'язки',
-      [linkTypes.family]: 'Сімейні зв\'язки',
+      [linkTypes.family]: 'Родинні зв\'язки',
       [linkTypes.personal]: 'Особисті зв\'язки',
       [linkTypes.other]: 'Інше',
       ...options.linkLabels,
@@ -175,13 +170,14 @@ class PepCompanyScheme {
     this.showMessage('Щоб розпочати роботу скористайтесь пошуком');
     this.registerEventListeners();
     this.handleResizeRootElement();
+    this.checkStartNode();
   }
 
   injectHtml() {
     const template = Handlebars.compile(graphHtml);
     const legendNodes = [
-      { icon: this.icons.company.active, label: 'Підприємство' },
-      { icon: this.icons.pep.active, label: 'Публічна особа' },
+      { icon: this.icons.company.active, label: 'Юридична особа' },
+      { icon: this.icons.pep.active, label: 'Публічний діяч' },
       { icon: this.icons.peoples.active, label: 'Фізична особа' },
     ];
     const legendLinks = [];
@@ -191,6 +187,7 @@ class PepCompanyScheme {
       }
     });
     $('#root').html(template({
+      hideSearch: this.hideSearch,
       icons: this.icons,
       themeDO: this.theme === themes.DATA_OCEAN,
       themeAA: this.theme === themes.ANT_AC,
@@ -198,13 +195,31 @@ class PepCompanyScheme {
       legendNodes,
       legendLinks,
     }));
-    $('.slide').html(slideUp);
+    $(slideIconS).html(slideUpIcon);
   }
 
   handleResizeRootElement (){
     let rootHeight = this.rootElement.clientHeight;
     $(`${detailBlockS} .side-block-body`).css('max-height', `${rootHeight - 200}px`);
     $(`${legendBlockS} .side-block-body`).css('max-height', `${rootHeight - 390}px`);
+  }
+
+  checkStartNode() {
+    if (this.startNode) {
+      const id = this.startNode.id;
+      const type = this.startNode.type;
+      const isIdFromAntac = this.startNode.isIdFromAntac || false;
+      if (!id) {
+        throw new Error(`startNode.id prop not correct {id: ${id}`)
+      }
+      if (!type) {
+        throw new Error(`startNode.type prop not correct {type: ${type}`)
+      }
+      if (typeof isIdFromAntac !== 'boolean') {
+        throw new Error(`type of startNode.isIdFromAntac must be boolean`)
+      }
+      this.loadNodeById(id, type, isIdFromAntac);
+    }
   }
 
   fetchMeta() {
@@ -226,8 +241,11 @@ class PepCompanyScheme {
     return `${this.apiHost}/api/${endpoint}`;
   };
 
-  getUrlForType(type, id) {
+  getUrlForType(type, id, isIdFromAntac = false) {
     if (type === PEP) {
+      if (isIdFromAntac) {
+        return this.getUrl('pep/source_id/', id);
+      }
       return this.getUrl('pep/', id);
     } else if (type === COMPANY) {
       return this.getUrl('company/', id);
@@ -301,7 +319,7 @@ class PepCompanyScheme {
       });
       data.relationships_with_peps.forEach((linkWithPep) => {
         const [pep, linkData] = this.extractObjAndLinkData(linkWithPep, 'pep', 'relationship_type');
-        addChildNode(pep, PEP, false, linkData);
+        addChildNode(pep, PEP, true, linkData);
       });
     };
 
@@ -393,18 +411,9 @@ class PepCompanyScheme {
   }
 
   handleSideBlockHeaderClick(e) {
-    const slideIcon = ($iconEl) => {
-      if ($iconEl.hasClass('slide-up')) {
-        $iconEl.removeClass('slide-up');
-        $iconEl.addClass('slide-down');
-      } else if ($iconEl.hasClass('slide-down')) {
-        $iconEl.removeClass('slide-down');
-        $iconEl.addClass('slide-up');
-      }
-    };
     const el = $(e.currentTarget);
     const detailBody = el.siblings('.side-block-body');
-    slideIcon(el.find('.slide'));
+    el.find(slideIconS).toggleClass('rotate-180');
     if (detailBody.length) {
       if (detailBody.hasClass('show')) {
         detailBody.removeClass('show');
@@ -525,12 +534,13 @@ class PepCompanyScheme {
     });
   }
 
-  handleSearchResultClick(e) {
-    const type = $(e.currentTarget).data('type');
-    const id = $(e.currentTarget).data('id');
+  loadNodeById(id, type = PEP, isIdFromAntac = false) {
+    if (![PEP, COMPANY].includes(type)) {
+      throw new Error(`Bad type - ${type}`);
+    }
     this.rootNodeId = this.getIdForNode({ _type: type, id });
     this.startLoading();
-    $.ajax(this.getUrlForType(type, id), {
+    $.ajax(this.getUrlForType(type, id, isIdFromAntac), {
       headers: this.ajaxHeaders,
       success: (data) => {
         this.endLoading();
@@ -539,13 +549,19 @@ class PepCompanyScheme {
         this.parseNodesLinks(data, type);
         this.drawSimulation();
         waitElementAndClick(`#${this.rootNodeId}`);
-        $('#node-detail').removeClass('d-none');
+        $(detailBlockS).show();
       },
       error: () => {
         this.endLoading();
         this.showMessage('Сталась непередбачувана помилка');
       }
     });
+  }
+
+  handleSearchResultClick(e) {
+    const type = $(e.currentTarget).data('type');
+    const id = $(e.currentTarget).data('id');
+    this.loadNodeById(id, type);
   }
 
   getIdForNode(d) {
@@ -876,7 +892,7 @@ class PepCompanyScheme {
             }, false);
             this.addNewChildNodes(d, data.relationships_with_peps, PEP, (linkWithPep) => {
               return this.extractObjAndLinkData(linkWithPep, 'pep', 'relationship_type');
-            }, false);
+            }, true);
           }
           this.renderCompanyDetail(data);
         } else if (d._type === PEP) {
@@ -1247,8 +1263,15 @@ window.PepCompanyScheme = PepCompanyScheme;
 $(function () {
   const visualization = new PepCompanyScheme({
     rootElement: document.getElementById('root'),
+    // hideSearch: true,
+    // startNode: {
+    //   type: 'pep',
+    //   id: 59087,
+    //   isIdFromAntac: false,
+    // },
   });
   visualization.init();
+  // visualization.loadNodeById(59087, 'pep')
 });
 
 // function lineHover(e, d) {

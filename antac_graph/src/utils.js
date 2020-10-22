@@ -9,7 +9,9 @@ export function waitElementAndClick(selector) {
     const element = $(selector);
     if (element.length) {
       clearInterval(interval);
-      element[0].dispatchEvent(new MouseEvent('click'));
+      setTimeout(() => {
+        element[0].dispatchEvent(new MouseEvent('click'));
+      }, 200)
     }
   }, 100);
 }
