@@ -244,7 +244,7 @@ class PepCompanyScheme {
   getUrlForType(type, id, isIdFromAntac = false) {
     if (type === PEP) {
       if (isIdFromAntac) {
-        return this.getUrl('pep/source_id/', id);
+        return this.getUrl(`pep/${id}/source-id/`);
       }
       return this.getUrl('pep/', id);
     } else if (type === COMPANY) {
@@ -534,15 +534,15 @@ class PepCompanyScheme {
     });
   }
 
-  loadNodeById(id, type = PEP, isIdFromAntac = false) {
+  loadNodeById(id, type, isIdFromAntac = false) {
     if (![PEP, COMPANY].includes(type)) {
       throw new Error(`Bad type - ${type}`);
     }
-    this.rootNodeId = this.getIdForNode({ _type: type, id });
     this.startLoading();
     $.ajax(this.getUrlForType(type, id, isIdFromAntac), {
       headers: this.ajaxHeaders,
       success: (data) => {
+        this.rootNodeId = this.getIdForNode({ _type: type, id: data.id });
         this.endLoading();
         this.nodes = [];
         this.links = [];
@@ -551,9 +551,13 @@ class PepCompanyScheme {
         waitElementAndClick(`#${this.rootNodeId}`);
         $(detailBlockS).show();
       },
-      error: () => {
+      error: (xhr) => {
         this.endLoading();
-        this.showMessage('Сталась непередбачувана помилка');
+        if (xhr.status === 404) {
+          this.showMessage('Об\'єкт не знайдено');
+        } else {
+          this.showMessage('Сталась непередбачувана помилка');
+        }
       }
     });
   }
