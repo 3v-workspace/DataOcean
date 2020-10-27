@@ -57,6 +57,7 @@ class PepCompanyScheme {
     if (!options.rootElement) {
       throw new Error('Missed rootElement option');
     }
+    this.useMetaFile = options.useMetaFile || false;
     this.rootElement = options.rootElement;
     this.theme = options.theme || 'data-ocean';
     this.icons = getIcons(options.icons, this.theme);
@@ -64,6 +65,10 @@ class PepCompanyScheme {
     this.apiHost = options.apiHost || '';
     this.token = options.token || '';
     this.ajaxHeaders = options.ajaxHeaders || {};
+    if (this.token) {
+      // this.ajaxHeaders['X-PEPToken'] = this.token
+      this.ajaxHeaders.Authorization = `PEP ${this.token}`
+    }
     this.startNode = options.startNode || null;
 
     this.width = options.width || 1900;
@@ -165,7 +170,9 @@ class PepCompanyScheme {
   }
 
   init() {
-    this.fetchMeta();
+    if (this.useMetaFile){
+      this.fetchMeta();
+    }
     this.injectHtml();
     this.showMessage('Щоб розпочати роботу скористайтесь пошуком');
     this.registerEventListeners();
@@ -228,8 +235,8 @@ class PepCompanyScheme {
       cache: false,
       success: (data) => {
         this.apiHost = data.apiHost.replace(/\/$/, '');
-        this.token = data.t;
-        this.ajaxHeaders.Authorization = `Token ${data.t}`;
+        this.token = data.token;
+        this.ajaxHeaders.Authorization = `PEP ${data.token}`;
       },
     });
   }
