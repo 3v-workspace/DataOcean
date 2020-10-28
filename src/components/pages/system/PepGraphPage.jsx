@@ -25,7 +25,7 @@ const PepGraphPage = () => {
       <div className="intro-y" ref={boxRef} style={{ height: '850px' }}>
         <iframe
           title="pep-scheme"
-          src={pepUrl}
+          src={`${pepUrl}?theme=data-ocean`}
           frameBorder="0"
           style={{ borderRadius: '12px' }}
           width="100%"

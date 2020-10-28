@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="icon" href="static/favicon.ico">
-    <link rel="stylesheet" href="static/dist/main.css?v=20">
+    <link rel="stylesheet" href="static/dist/main.css?v=21">
     <title>DataOcean PEP Scheme</title>
     <style>
       #root {
@@ -18,16 +18,22 @@
   </head>
   <body>
     <div id="root"></div>
-    <script src="static/dist/main.js?v=20"></script>
+    <script src="static/dist/main.js?v=21"></script>
     <script>
+      let theme = new URL(window.location).searchParams.get('theme')
+      if (theme !== 'data-ocean') {
+        theme = 'antac';
+      }
       document.addEventListener('DOMContentLoaded', function () {
         const visualization = new PepCompanyScheme({
           rootElement: document.getElementById('root'),
           useMetaFile: true,
+          // tokenKeyword: 'Token',
+          showSearch: true,
+          theme: theme,
+
           // apiHost: 'http://localhost:8005',
           // token: 'MThmM2Q1MTU1MTVlNGRkNjdkOTcyYTk2YmE5Njc2YjdmYWQzMj',
-
-          // hideSearch: true,
 
           // startNode: {
           //   type: 'pep',

@@ -1,15 +1,17 @@
-import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+// import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/js/src/popover'
 import './styles.scss';
 import * as d3 from 'd3';
 import $ from 'jquery';
 import Handlebars from 'handlebars';
 import loadingElement from './components/loadingElement';
 import getIcons from './components/icons';
-import { randomInRange, waitElementAndClick } from './utils';
-import slideUpIcon from './icons/data-ocean/slideUp.svg';
+import { randomInRange, waitElementAndClick, capitalizeAll } from './utils';
 import closedCompanyIcon from './icons/data-ocean/closed.svg';
 import graphHtml from './graph.html';
+import companyDetailHtml from './company_detail.html';
+import pepDetailHtml from './pep_detail.html';
 
 
 const searchFormS = '#company-search-form';
@@ -61,13 +63,15 @@ class PepCompanyScheme {
     this.rootElement = options.rootElement;
     this.theme = options.theme || 'data-ocean';
     this.icons = getIcons(options.icons, this.theme);
-    this.hideSearch = options.hideSearch || false;
+    this.showSearch = options.showSearch || false;
     this.apiHost = options.apiHost || '';
     this.token = options.token || '';
+    this.tokenKeyword = options.tokenKeyword || 'PEP';
     this.ajaxHeaders = options.ajaxHeaders || {};
+    this.metaFileUrl = options.metaFileUrl || 'static/meta.json';
     if (this.token) {
       // this.ajaxHeaders['X-PEPToken'] = this.token
-      this.ajaxHeaders.Authorization = `PEP ${this.token}`
+      this.ajaxHeaders.Authorization = `${this.tokenKeyword} ${this.token}`
     }
     this.startNode = options.startNode || null;
 
@@ -75,10 +79,10 @@ class PepCompanyScheme {
     this.height = options.height || 900;
 
     this.colors = {
-      primary: '#3FA2F7',
-      secondary: '#ADBCD9',
+      primary: this.theme === themes.DATA_OCEAN ? '#3FA2F7' : '#4EAD33',
+      secondary: this.theme === themes.DATA_OCEAN ? '#ADBCD9' : '#B2B9B0',
       root: '#4F4F4F',
-      nodeHover: '#EBF6FE',
+      nodeHover: this.theme === themes.DATA_OCEAN ? '#EBF6FE' : '#EDF9E9',
       ...options.colors,
     };
 
@@ -167,9 +171,11 @@ class PepCompanyScheme {
       ['дружина', linkTypes.family],
       ['свекруха', linkTypes.family],
     ]);
+    this.companyDetailTemplate = null;
   }
 
   init() {
+    this.registerHandlebarsHelpers();
     if (this.useMetaFile){
       this.fetchMeta();
     }
@@ -178,6 +184,24 @@ class PepCompanyScheme {
     this.registerEventListeners();
     this.handleResizeRootElement();
     this.checkStartNode();
+  }
+
+  registerHandlebarsHelpers() {
+    Handlebars.registerHelper('not', function (value) {
+      return !value
+    });
+    Handlebars.registerHelper('default', function (value, defaultValue = '---') {
+      return value || defaultValue;
+    });
+    Handlebars.registerHelper('default_if_null', function (value, defaultValue = '---') {
+      return value !== null && value !== undefined ? value : defaultValue;
+    });
+    Handlebars.registerHelper('locale_string', function (value) {
+      return value.toLocaleString()
+    });
+
+    this.companyDetailTemplate = Handlebars.compile(companyDetailHtml);
+    this.pepDetailTemplate = Handlebars.compile(pepDetailHtml);
   }
 
   injectHtml() {
@@ -194,7 +218,7 @@ class PepCompanyScheme {
       }
     });
     $('#root').html(template({
-      hideSearch: this.hideSearch,
+      showSearch: this.showSearch,
       icons: this.icons,
       themeDO: this.theme === themes.DATA_OCEAN,
       themeAA: this.theme === themes.ANT_AC,
@@ -202,7 +226,7 @@ class PepCompanyScheme {
       legendNodes,
       legendLinks,
     }));
-    $(slideIconS).html(slideUpIcon);
+    $(slideIconS).html(this.icons.other.slideUp);
   }
 
   handleResizeRootElement (){
@@ -230,13 +254,13 @@ class PepCompanyScheme {
   }
 
   fetchMeta() {
-    $.ajax('static/meta.json', {
+    $.ajax(this.metaFileUrl, {
       async: false,
       cache: false,
       success: (data) => {
         this.apiHost = data.apiHost.replace(/\/$/, '');
         this.token = data.token;
-        this.ajaxHeaders.Authorization = `PEP ${data.token}`;
+        this.ajaxHeaders.Authorization = `${this.tokenKeyword} ${data.token}`;
       },
     });
   }
@@ -736,121 +760,46 @@ class PepCompanyScheme {
         const isLinkExists = isNodeExists && this.links.find((link) => (
           link.source.id === founderNodeId && link.target.id === companyNodeId
         ));
-        if (isLinkExists) {
-          return `<li>${founder.name} ${founder.edrpou || ''}</li>`;
+        if (!isLinkExists) {
+          founder.link = this.getUrl('company/', founder.id_if_company)
         }
-        return (
-          `<li>
-            <a href="${this.getUrl('company/', founder.id_if_company)}" class="js-open-company">
-              ${founder.name} ${founder.edrpou || ''}
-            </a>
-          </li>`
-        );
+        return founder
       }
       if (founder.name.split(' ').length === 3) {
-        return `<li class="text-capitalize">${founder.name}</li>`;
+        founder.name = capitalizeAll(founder.name)
       }
-      return `<li>${founder.name}</li>`;
-    });
-
-    const founder_of = company.founder_of.map((comp) => {
-      return `<li>${comp.name}</li>`;
+      return founder;
     });
 
     const getHeadSigner = (company) => {
       const head = company.signers.find((person) => / - керівник/.test(person));
       if (head) {
-        return `<span class="text-capitalize">${head.split(' - ')[0]}</span>`;
-      } else {
-        return 'невідомо';
+        return head.split(' - ')[0]
       }
     };
-    $detail.append(`
-      <div class="node-name">${company.name}</div>
-      <div class="detail__prop">${company.short_name}</div>
-      <div class="detail__prop">
-        <span class="prop-name">Статус:</span> ${company.status}
-      </div>
-      <div class="detail__prop">
-        <span class="prop-name">ЄДРПОУ:</span> ${company.edrpou}
-      </div>
-      <div class="detail__prop">
-        <span class="prop-name">Адреса:</span> ${company.address || ''}
-      </div>
-      <div class="detail__prop">
-        <span class="prop-name">Статутний капітал:</span>
-        ${company.authorized_capital ? company.authorized_capital.toLocaleString() : 'невідомо'}
-      </div>
-      <div class="detail__prop">
-        <span class="prop-name">Керівник:</span> 
-        ${getHeadSigner(company)}
-      </div>
-      <div class="prop-name">Засновники:</div>
-      <div class="detail__prop">
-        <ul style="padding-left: 20px">${founders.join('')}</ul>
-      </div>
-      <div class="prop-name">Є засновником:</div>
-      <div class="detail__prop">
-        <ul style="padding-left: 20px">${founder_of.join('')}</ul>
-      </div>
-    `);
+
+    company.head = getHeadSigner(company);
+
+    let html = this.companyDetailTemplate({ company, founders })
+
+    $detail.append(html);
   }
 
   renderPepDetail(pep) {
     const $detail = $('#detail-block');
     $detail.empty();
 
-    let related_companies = pep.related_companies.map((rel_company) => {
-      return (
-        `<li>
-           <div><u>${rel_company.relationship_type}</u></div>
-           <div>${rel_company.company.name} (${rel_company.company.edrpou})</div>
-        </li>`
-      );
-    });
     let related_persons = [...pep.from_person_links, ...pep.to_person_links].map((relation) => {
       const rel_person = relation.to_person || relation.from_person;
       const relationship_type = relation.to_person_relationship_type || relation.from_person_relationship_type
-      return (
-        `<li>
-           <div><u>${relationship_type}</u></div>
-           <div class="text-capitalize">${rel_person.fullname}</div>
-         </li>`
-      );
+      relation.person = rel_person;
+      relation.relationship_type = relationship_type;
+      return relation
     });
-    let check_companies = pep.check_companies.map((company) => {
-      return (
-        `<li>${company.name} (${company.edrpou})</li>`
-      );
-    });
-    $detail.append(`
-      <div class="node-name">${pep.fullname}</div>
-      <div>${pep.is_pep ? 'Є публічним діячем' : 'Не є публічним діячем'}</div>
-      <div class="detail__prop">
-        <span class="prop-name">Остання посада:</span>
-        ${pep.last_job_title || '---'}
-      </div>
-      <div class="detail__prop">
-        <span class="prop-name">Останнє місце роботи:</span>
-        ${pep.last_employer || '---'}
-      </div>
-      <div class="detail__prop">
-        <span class="prop-name">Тип:</span>
-        ${pep.pep_type || '---'}
-      </div>
-      <div class="prop-name">Пов'язані компанії:</div>
-      <div class="detail__prop">
-        <ul style="padding-left: 20px">${related_companies.join('')}</ul>
-      </div>
-      <div class="prop-name">Пов'язані особи:</div>
-      <div class="detail__prop">
-        <ul style="padding-left: 20px">${related_persons.join('')}</ul>
-      </div>
-      <div class="prop-name">Можливі зв'язки з компаніями:</div>
-      <div class="detail__prop">
-        <ul style="padding-left: 20px">${check_companies.join('')}</ul>
-      </div>
-    `);
+
+    let html = this.pepDetailTemplate({ pep, related_persons })
+
+    $detail.append(html);
   }
 
   nodeClick(e, d) {
@@ -1219,6 +1168,7 @@ class PepCompanyScheme {
       }
       $(this).popover({
         trigger: 'hover',
+        container: '#do-pep-company-scheme',
         title: d.name || d.fullname,
         placement: 'top',
         html: true,

@@ -7,6 +7,9 @@ import do_pep_inactive from '../icons/data-ocean/pep/pep_inactive.svg';
 import do_peoples_active from '../icons/data-ocean/peoples/peoples_active.svg';
 import do_peoples_inactive from '../icons/data-ocean/peoples/peoples_inactive.svg';
 import do_search from '../icons/data-ocean/search.svg';
+import do_slideUp from '../icons/data-ocean/slideUp.svg';
+import do_dashedLine from '../icons/data-ocean/dashedLine.svg';
+
 // antac
 import aa_company_active from '../icons/antac/company/company_active.svg';
 import aa_company_inactive from '../icons/antac/company/company_inactive.svg';
@@ -16,19 +19,23 @@ import aa_pep_inactive from '../icons/antac/pep/pep_inactive.svg';
 import aa_peoples_active from '../icons/antac/peoples/peoples_active.svg';
 import aa_peoples_inactive from '../icons/antac/peoples/peoples_inactive.svg';
 import aa_search from '../icons/antac/search.svg';
+import aa_slideUp from '../icons/antac/slideUp.svg';
+import aa_dashedLine from '../icons/antac/dashedLine.svg';
 
 
 function getIconsForTheme(theme) {
   const icons = {
-      company_active: do_company_active,
-      company_inactive: do_company_inactive,
-      company_root: do_company_root,
-      pep_active: do_pep_active,
-      pep_inactive: do_pep_inactive,
-      peoples_active: do_peoples_active,
-      peoples_inactive: do_peoples_inactive,
-      search: do_search,
-  }
+    company_active: do_company_active,
+    company_inactive: do_company_inactive,
+    company_root: do_company_root,
+    pep_active: do_pep_active,
+    pep_inactive: do_pep_inactive,
+    peoples_active: do_peoples_active,
+    peoples_inactive: do_peoples_inactive,
+    search: do_search,
+    slideUp: do_slideUp,
+    dashedLine: do_dashedLine,
+  };
   if (theme === 'data-ocean') {
     // pass
   } else if (theme === 'antac') {
@@ -41,7 +48,9 @@ function getIconsForTheme(theme) {
       peoples_active: aa_peoples_active,
       peoples_inactive: aa_peoples_inactive,
       search: aa_search,
-    }
+      slideUp: aa_slideUp,
+      dashedLine: aa_dashedLine,
+    };
   } else {
     throw new Error(`Not supported theme - ${theme}`);
   }
@@ -71,6 +80,8 @@ export default function getDefaultIcons(icons, theme) {
     },
     other: {
       search: themeIcons.search,
+      slideUp: themeIcons.slideUp,
+      dashedLine: themeIcons.dashedLine,
       ...icons.other,
     }
     // hearth: {

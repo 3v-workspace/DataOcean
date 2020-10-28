@@ -19,3 +19,9 @@ export function waitElementAndClick(selector) {
 export function capitalize(text) {
   return text.charAt(0).toUpperCase() + text.slice(1);
 }
+
+export function capitalizeAll(text) {
+  return text.split(' ').map((word) => {
+    return capitalize(word);
+  }).join(' ')
+}
