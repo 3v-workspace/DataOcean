@@ -232,7 +232,8 @@ class PepCompanyScheme {
   handleResizeRootElement (){
     let rootHeight = this.rootElement.clientHeight;
     $(`${detailBlockS} .side-block-body`).css('max-height', `${rootHeight - 200}px`);
-    $(`${legendBlockS} .side-block-body`).css('max-height', `${rootHeight - 390}px`);
+    // $(`${legendBlockS} .side-block-body`).css('max-height', `${rootHeight - 390}px`);
+    $(`${legendBlockS} .side-block-body`).css('max-height', `${rootHeight - 110}px`);
   }
 
   checkStartNode() {
