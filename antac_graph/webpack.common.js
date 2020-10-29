@@ -3,7 +3,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-
+const pkg = require('./package.json')
 
 module.exports = {
   // disable css outputs
@@ -20,7 +20,7 @@ module.exports = {
   entry: path.resolve(__dirname, 'src/index.js'),
   output: {
     path: path.resolve(__dirname, 'static/dist/'),
-    filename: 'main.js',
+    filename: `pep-graph-${pkg.version}.min.js`,
   },
   module: {
     rules: [
@@ -73,7 +73,7 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
     new MiniCssExtractPlugin({
-      filename: '[name].css',
+      filename: `pep-graph-${pkg.version}.min.css`,
       chunkFilename: '[id].css',
     }),
   ],

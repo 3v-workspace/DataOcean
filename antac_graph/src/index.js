@@ -59,7 +59,7 @@ class PepCompanyScheme {
     if (!options.rootElement) {
       throw new Error('Missed rootElement option');
     }
-    this.useMetaFile = options.useMetaFile || false;
+    this.useConfigFile = options.useConfigFile || false;
     this.rootElement = options.rootElement;
     this.theme = options.theme || 'data-ocean';
     this.icons = getIcons(options.icons, this.theme);
@@ -68,7 +68,7 @@ class PepCompanyScheme {
     this.token = options.token || '';
     this.tokenKeyword = options.tokenKeyword || 'PEP';
     this.ajaxHeaders = options.ajaxHeaders || {};
-    this.metaFileUrl = options.metaFileUrl || 'static/meta.json';
+    this.configFileUrl = options.configFileUrl || 'static/config.json';
     if (this.token) {
       // this.ajaxHeaders['X-PEPToken'] = this.token
       this.ajaxHeaders.Authorization = `${this.tokenKeyword} ${this.token}`
@@ -176,7 +176,7 @@ class PepCompanyScheme {
 
   init() {
     this.registerHandlebarsHelpers();
-    if (this.useMetaFile){
+    if (this.useConfigFile){
       this.fetchMeta();
     }
     this.injectHtml();
@@ -255,7 +255,7 @@ class PepCompanyScheme {
   }
 
   fetchMeta() {
-    $.ajax(this.metaFileUrl, {
+    $.ajax(this.configFileUrl, {
       async: false,
       cache: false,
       success: (data) => {

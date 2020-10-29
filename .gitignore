@@ -30,4 +30,4 @@ yarn-error.log*
 /landing/**/dist/**
 
 # antac
-/antac_graph/static/meta.json
+/antac_graph/static/config.json
