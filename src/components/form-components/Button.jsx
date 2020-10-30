@@ -67,7 +67,7 @@ const Button = (props) => {
   const {
     size, children, width, variant, className, isLoading,
     onClick, link, toggleModal, type, disabled, isRounded,
-    isElevated,
+    isElevated, href, target,
   } = props;
 
   const classList = [];
@@ -95,7 +95,13 @@ const Button = (props) => {
   let Component = 'button';
 
   const extraProps = {};
-  if (link) {
+  if (href) {
+    Component = 'a';
+    extraProps.href = href;
+    if (target) {
+      extraProps.target = target;
+    }
+  } else if (link) {
     Component = Link;
     extraProps.to = link;
   } else if (toggleModal) {
@@ -124,6 +130,8 @@ Button.propTypes = {
   disabled: PropTypes.bool,
   type: PropTypes.oneOf(['button', 'submit', 'reset']),
   link: PropTypes.string,
+  href: PropTypes.string,
+  target: PropTypes.string,
   className: PropTypes.string,
   size: PropTypes.oneOf(['sm', 'lg']),
   width: PropTypes.string,
@@ -139,6 +147,8 @@ Button.defaultProps = {
   disabled: false,
   type: 'button',
   link: '',
+  href: '',
+  target: '',
   className: '',
   size: undefined,
   width: 'w-100',

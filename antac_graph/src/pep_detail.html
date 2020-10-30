@@ -1,0 +1,50 @@
+<div class="node-name">{{pep.fullname}}</div>
+<div>
+  {{#if pep.is_pep}}
+    Є публічним діячем
+  {{else}}
+    Не є публічним діячем
+  {{/if}}
+</div>
+<div class="detail__prop">
+  <span class="prop-name">Остання посада:</span>
+  {{default pep.last_job_title}}
+</div>
+<div class="detail__prop">
+  <span class="prop-name">Останнє місце роботи:</span>
+  {{default pep.last_employer}}
+</div>
+<div class="detail__prop">
+  <span class="prop-name">Тип:</span>
+  {{default pep.pep_type}}
+</div>
+<div class="prop-name">Пов'язані компанії:</div>
+<div class="detail__prop">
+  <ul style="padding-left: 20px">
+    {{#each pep.related_companies}}
+      <li>
+         <div><u>{{this.relationship_type}}</u></div>
+         <div>{{this.company.name}} ({{this.company.edrpou}})</div>
+      </li>
+    {{/each}}
+  </ul>
+</div>
+<div class="prop-name">Пов'язані особи:</div>
+<div class="detail__prop">
+  <ul style="padding-left: 20px">
+    {{#each related_persons}}
+      <li>
+        <div><u>{{this.relationship_type}}</u></div>
+        <div class="text-capitalize">{{this.person.fullname}}</div>
+      </li>
+    {{/each}}
+  </ul>
+</div>
+<div class="prop-name">Можливі зв'язки з компаніями:</div>
+<div class="detail__prop">
+  <ul style="padding-left: 20px">
+    {{#each pep.check_companies}}
+      <li>{{this.name}} ({{this.edrpou}})</li>
+    {{/each}}
+  </ul>
+</div>

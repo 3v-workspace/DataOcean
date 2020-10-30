@@ -1,0 +1,4 @@
+<svg height="32" width="32" xmlns="http://www.w3.org/2000/svg" fill="black">
+    <line x1="0" y1="16" x2="32" y2="16" stroke="black"
+          stroke-dasharray="9,3" stroke-width="5"/>
+</svg>

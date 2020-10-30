@@ -1,0 +1,94 @@
+<div id="do-pep-company-scheme" class="{{#if themeAA}}theme-antac{{/if}}">
+  {{#if (not true false)}}
+  {{/if}}
+  <div id="graph-container"></div>
+  <div class="main-grid p-4 z-3">
+    {{#if showSearch}}
+    <div class="search search-block z-4 mb-4">
+      <form id="company-search-form" class="d-flex">
+        <input
+            required
+            id="company-search"
+            type="text"
+            class="form-control"
+            placeholder="Введіть код ЄДРПОУ або прізвище публічного діяча"
+        >
+        <button type="submit" id="company-search-btn"
+                class="btn {{#if themeDO}}btn-primary{{/if}} {{#if themeAA}}btn-green{{/if}} ml-2">
+          {{{icons.other.search}}}
+        </button>
+        <div class="dropdown-menu search-dropdown">
+          <div class="px-2">
+            <ul class="list-group list-group-flush">
+            </ul>
+          </div>
+        </div>
+      </form>
+    </div>
+    {{/if}}
+    {{!-- TODO: filters --}}
+    {{#if false}}
+    <div id="filters" class="side-block side-block-right z-3">
+      <div class="side-block-header show">
+        Фільтр
+        <div class="slide-icon"></div>
+      </div>
+      <div class="side-block-body show">
+        {{#each filters}}
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" id="id_{{this.name}}" name="{{this.name}}">
+          <label class="custom-control-label" for="id_{{this.name}}">
+            {{this.label}}
+          </label>
+        </div>
+        {{/each}}
+      </div>
+    </div>
+    {{/if}}
+    <div id="node-detail" style="display: none" class="side-block z-3">
+      <div class="side-block-header">
+        Деталі
+        <div class="slide-icon"></div>
+      </div>
+      <div id="detail-block" class="side-block-body show">
+      </div>
+    </div>
+    <div id="legend" class="side-block side-block-right z-3">
+      <div class="side-block-header show">
+        Легенда
+        <div class="slide-icon"></div>
+      </div>
+      <div class="side-block-body show">
+        {{#each legendNodes}}
+        <div class="legend-item">
+          <div class="legend-item-icon">
+            {{{ this.icon }}}
+          </div>
+          <div class="legend-text">
+            {{this.label}}
+          </div>
+        </div>
+        {{/each}}
+        {{#each legendLinks}}
+        <div class="legend-item">
+          <div class="legend-item-icon">
+            <div class="legend-item-line" style="background-color: {{this.color}}">
+            </div>
+          </div>
+          <div class="legend-text">
+            {{this.label}}
+          </div>
+        </div>
+        {{/each}}
+        <div class="legend-item">
+          <div class="legend-item-icon">
+            {{{icons.other.dashedLine}}}
+          </div>
+          <div class="legend-text">
+            Можливий звязок
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,66 @@
+<div class="node-name">{{company.name}}</div>
+<div class="detail__prop">{{company.short_name}}</div>
+<div class="detail__prop">
+  <span class="prop-name">Статус:</span> {{company.status}}
+</div>
+<div class="detail__prop">
+  <span class="prop-name">ЄДРПОУ:</span> {{company.edrpou}}
+</div>
+<div class="detail__prop">
+  <span class="prop-name">Адреса:</span> {{default company.address}}
+</div>
+<div class="detail__prop">
+  <span class="prop-name">Статутний капітал:</span>
+  {{#if company.authorized_capital}}
+    {{locale_string company.authorized_capital}}
+  {{else}}
+    ---
+  {{/if}}
+</div>
+<div class="detail__prop">
+  <span class="prop-name">Керівник:</span>
+  {{#if company.head}}
+    <span class="text-capitalize">{{company.head}}</span>
+  {{else}}
+    ---
+  {{/if}}
+</div>
+<div class="prop-name">Засновники:</div>
+<div class="detail__prop">
+  <ul style="padding-left: 20px">
+    {{#each founders}}
+      <li>
+        {{#if this.id_if_company}}
+          {{#if this.link}}
+            <a href="{{this.link}}" class="js-open-company">
+              {{this.name}} {{default this.edrpou ""}}
+            </a>
+          {{else}}
+            {{this.name}} {{default this.edrpou ""}}
+          {{/if}}
+        {{else}}
+          {{this.name}}
+        {{/if}}
+      </li>
+    {{/each}}
+  </ul>
+</div>
+<div class="prop-name">Є засновником:</div>
+<div class="detail__prop">
+  <ul style="padding-left: 20px">
+    {{#each company.founder_of}}
+      <li>{{this.name}}</li>
+    {{/each}}
+  </ul>
+</div>
+<div class="prop-name">Повязані особи:</div>
+<div class="detail__prop">
+  <ul style="padding-left: 20px">
+    {{#each company.relationships_with_peps}}
+      <li>
+        <div><u>{{this.relationship_type}}</u></div>
+        <div class="text-capitalize">{{this.pep.fullname}}</div>
+      </li>
+    {{/each}}
+  </ul>
+</div>
