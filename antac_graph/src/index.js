@@ -217,7 +217,7 @@ class PepCompanyScheme {
         legendLinks.push({ color: this.linkColors[linkType], label: this.linkLabels[linkType] });
       }
     });
-    $('#root').html(template({
+    this.rootElement.innerHTML = template({
       showSearch: this.showSearch,
       icons: this.icons,
       themeDO: this.theme === themes.DATA_OCEAN,
@@ -225,7 +225,7 @@ class PepCompanyScheme {
       filters,
       legendNodes,
       legendLinks,
-    }));
+    });
     $(slideIconS).html(this.icons.other.slideUp);
   }
 

@@ -25,6 +25,17 @@
     ---
   {{/if}}
 </div>
+<div class="prop-name">Повязані особи:</div>
+<div class="detail__prop">
+  <ul style="padding-left: 20px">
+    {{#each company.relationships_with_peps}}
+      <li>
+        <div><u>{{this.relationship_type}}</u></div>
+        <div class="text-capitalize">{{this.pep.fullname}}</div>
+      </li>
+    {{/each}}
+  </ul>
+</div>
 <div class="prop-name">Засновники:</div>
 <div class="detail__prop">
   <ul style="padding-left: 20px">
@@ -50,17 +61,6 @@
   <ul style="padding-left: 20px">
     {{#each company.founder_of}}
       <li>{{this.name}}</li>
-    {{/each}}
-  </ul>
-</div>
-<div class="prop-name">Повязані особи:</div>
-<div class="detail__prop">
-  <ul style="padding-left: 20px">
-    {{#each company.relationships_with_peps}}
-      <li>
-        <div><u>{{this.relationship_type}}</u></div>
-        <div class="text-capitalize">{{this.pep.fullname}}</div>
-      </li>
     {{/each}}
   </ul>
 </div>
