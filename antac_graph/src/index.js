@@ -955,23 +955,42 @@ class PepCompanyScheme {
     const removeLinks = [];
     const removeNodes = [];
 
-    const removeChildNodesRecursive = (d_node) => {
-      this.links.forEach((link) => {
-        if (d_node === link.source) {
-          if (link.target._linksCount < 2) {
-            removeChildNodesRecursive(link.target);
+    // const removeChildNodesRecursive = (d_node) => {
+    //   this.links.forEach((link) => {
+    //     if (d_node === link.source) {
+    //       if (link.target._linksCount < 2) {
+    //         removeChildNodesRecursive(link.target);
+    //         removeNodes.push(link.target);
+    //       }
+    //       removeLinks.push(link);
+    //       d_node._linksCount -= 1;
+    //       if (d_node._linksCount < 1) {
+    //         removeNodes.push(d_node);
+    //       }
+    //     }
+    //   });
+    // }
+
+    // removeChildNodesRecursive(d);
+
+    this.links.forEach((link) => {
+      if ([link.source, link.target].includes(d)) {
+        if (d === link.source) {
+          if (link.target._linksCount < 2 && !link.target._root) {
             removeNodes.push(link.target);
           }
-          removeLinks.push(link);
-          d_node._linksCount -= 1;
-          if (d_node._linksCount < 1) {
-            removeNodes.push(d_node);
+        } else if (d === link.target) {
+          if (link.source._linksCount < 2 && !link.target._root) {
+            removeNodes.push(link.source);
           }
         }
-      });
-    }
-
-    removeChildNodesRecursive(d);
+        removeLinks.push(link);
+        d._linksCount -= 1;
+        if (d._linksCount < 1) {
+          removeNodes.push(d);
+        }
+      }
+    });
 
     this.links = this.links.filter((link) => !removeLinks.includes(link));
     this.nodes = this.nodes.filter((node) => !removeNodes.includes(node));
