@@ -843,7 +843,6 @@ class PepCompanyScheme {
         return this.nodeDefaultImage(d_node);
       });
 
-
     // svg.selectAll('.link').exit().remove();
     this.scheme.svg.selectAll('.link')
       .attr("marker-end", (d_link) => this.markerEnd(d_link, d))
@@ -859,32 +858,32 @@ class PepCompanyScheme {
       headers: this.ajaxHeaders,
       success: (data) => {
         if (d._type === COMPANY) {
-          if (!d._opened) {
-            this.increaseSimulationSpeed();
-            this.addNewChildNodes(d, data.founder_of, COMPANY, (company) => {
-              return [company, { _type: linkTypes.owner }];
-            }, false);
-            this.addNewChildNodes(d, data.relationships_with_peps, PEP, (linkWithPep) => {
-              return this.extractObjAndLinkData(linkWithPep, 'pep', 'relationship_type');
-            }, true);
-          }
+          // if (!d._opened) {
+          this.increaseSimulationSpeed();
+          this.addNewChildNodes(d, data.founder_of, COMPANY, (company) => {
+            return [company, { _type: linkTypes.owner }];
+          }, false);
+          this.addNewChildNodes(d, data.relationships_with_peps, PEP, (linkWithPep) => {
+            return this.extractObjAndLinkData(linkWithPep, 'pep', 'relationship_type');
+          }, true);
+          // }
           this.renderCompanyDetail(data);
         } else if (d._type === PEP) {
-          if (!d._opened) {
-            this.increaseSimulationSpeed();
-            this.addNewChildNodes(d, data.from_person_links, PEP, (linkWithPep) => {
-              return this.extractObjAndLinkData(linkWithPep, 'to_person', 'to_person_relationship_type');
-            }, false);
-            this.addNewChildNodes(d, data.to_person_links, PEP, (linkWithPep) => {
-              return this.extractObjAndLinkData(linkWithPep, 'from_person', 'from_person_relationship_type');
-            }, true);
-            this.addNewChildNodes(d, data.related_companies, COMPANY, (linkWithCompany) => {
-              return this.extractObjAndLinkData(linkWithCompany, 'company', 'relationship_type');
-            }, false);
-            this.addNewChildNodes(d, data.check_companies, COMPANY, (company) => {
-              return [company, { _type: linkTypes.owner, probable: true }];
-            }, false);
-          }
+          // if (!d._opened) {
+          this.increaseSimulationSpeed();
+          this.addNewChildNodes(d, data.from_person_links, PEP, (linkWithPep) => {
+            return this.extractObjAndLinkData(linkWithPep, 'to_person', 'to_person_relationship_type');
+          }, false);
+          this.addNewChildNodes(d, data.to_person_links, PEP, (linkWithPep) => {
+            return this.extractObjAndLinkData(linkWithPep, 'from_person', 'from_person_relationship_type');
+          }, true);
+          this.addNewChildNodes(d, data.related_companies, COMPANY, (linkWithCompany) => {
+            return this.extractObjAndLinkData(linkWithCompany, 'company', 'relationship_type');
+          }, false);
+          this.addNewChildNodes(d, data.check_companies, COMPANY, (company) => {
+            return [company, { _type: linkTypes.owner, probable: true }];
+          }, false);
+          // }
           this.renderPepDetail(data);
         } else {
           throw new Error(`wrong type ${d._type}`);
