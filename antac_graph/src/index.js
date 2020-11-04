@@ -182,7 +182,8 @@ class PepCompanyScheme {
     this.injectHtml();
     this.showMessage('Щоб розпочати роботу скористайтесь пошуком');
     this.registerEventListeners();
-    this.handleResizeRootElement();
+    this.startResizeTick();
+    // this.handleResizeRootElement();
     this.checkStartNode();
   }
 
@@ -202,6 +203,8 @@ class PepCompanyScheme {
 
     this.companyDetailTemplate = Handlebars.compile(companyDetailHtml);
     this.pepDetailTemplate = Handlebars.compile(pepDetailHtml);
+
+    this.prevRootHeight = null;
   }
 
   injectHtml() {
@@ -229,11 +232,21 @@ class PepCompanyScheme {
     $(slideIconS).html(this.icons.other.slideUp);
   }
 
+  startResizeTick() {
+    setInterval(() => {
+      this.handleResizeRootElement();
+    }, 300)
+  }
+
   handleResizeRootElement (){
     let rootHeight = this.rootElement.clientHeight;
-    $(`${detailBlockS} .side-block-body`).css('max-height', `${rootHeight - 200}px`);
-    // $(`${legendBlockS} .side-block-body`).css('max-height', `${rootHeight - 390}px`);
-    $(`${legendBlockS} .side-block-body`).css('max-height', `${rootHeight - 110}px`);
+    if (rootHeight !== this.prevRootHeight) {
+      this.prevRootHeight = rootHeight
+      $(`${detailBlockS} .side-block-body`).css('max-height', `${rootHeight - 200}px`);
+
+      // $(`${legendBlockS} .side-block-body`).css('max-height', `${rootHeight - 390}px`);
+      $(`${legendBlockS} .side-block-body`).css('max-height', `${rootHeight - 110}px`);
+    }
   }
 
   checkStartNode() {
@@ -943,7 +956,7 @@ class PepCompanyScheme {
     const removeLinks = [];
     const removeNodes = [];
 
-    function removeChildNodesRecursive(d_node) {
+    const removeChildNodesRecursive = (d_node) => {
       this.links.forEach((link) => {
         if (d_node === link.source) {
           if (link.target._linksCount < 2) {

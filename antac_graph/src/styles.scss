@@ -1,25 +1,40 @@
-@import "~bootstrap/scss/functions";
-@import "~bootstrap/scss/variables";
-@import "~bootstrap/scss/mixins";
-
-@import "~bootstrap/scss/spinners";
-@import "~bootstrap/scss/reboot";
-@import "~bootstrap/scss/list-group";
-@import "~bootstrap/scss/type";
-@import "~bootstrap/scss/forms";
-@import "~bootstrap/scss/buttons";
-@import "~bootstrap/scss/popover";
-@import "~bootstrap/scss/dropdown";
-@import "~bootstrap/scss/utilities/display";
-@import "~bootstrap/scss/utilities/spacing";
-@import "~bootstrap/scss/utilities/screenreaders";
-@import "~bootstrap/scss/utilities/text";
-
-
 #do-pep-company-scheme {
+  @import "~bootstrap/scss/functions";
+  @import "~bootstrap/scss/variables";
+  @import "~bootstrap/scss/mixins";
+
+  @import "~bootstrap/scss/spinners";
+  @import "~bootstrap/scss/reboot";
+  @import "~bootstrap/scss/list-group";
+  @import "~bootstrap/scss/type";
+  @import "~bootstrap/scss/forms";
+  @import "~bootstrap/scss/buttons";
+  @import "~bootstrap/scss/popover";
+  @import "~bootstrap/scss/dropdown";
+  @import "~bootstrap/scss/utilities/display";
+  @import "~bootstrap/scss/utilities/spacing";
+  @import "~bootstrap/scss/utilities/screenreaders";
+  @import "~bootstrap/scss/utilities/text";
+
   position: relative;
   height: 100%;
   width: 100%;
+
+  font-family: $font-family-base;
+  @include font-size($font-size-base);
+  font-weight: $font-weight-base;
+  line-height: $line-height-base;
+  color: $body-color;
+  text-align: left;
+  background-color: $body-bg;
+
+  .btn {
+    height: auto;
+  }
+
+  ol, ul {
+    list-style: outside;
+  }
 
   // MAIN GRID =================
 
