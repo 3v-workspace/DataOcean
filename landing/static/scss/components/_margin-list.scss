@@ -14,11 +14,22 @@
         text-decoration: underline;
     }
 
+    ion-icon {
+        vertical-align: sub;
+    }
+
     @media screen and (min-width: $md) {
         &__item {
             & + & {
                 margin-top: $spacer * 4;
             }
+        }
+    }
+
+    @media (max-width: $md) {
+        &__item {
+            text-align: center!important;
+            position: relative;
         }
     }
 }

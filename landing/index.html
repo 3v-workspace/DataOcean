@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Data Ocean</title>
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
     <link rel="stylesheet" href="static/dist/main.css">
@@ -12,28 +12,28 @@
     <div class="landing-dots">
         <header id="header" class="container header">
             <img src="static/img/logo.png" class="header-logo header__item">
-            <ul class="navigation header__item">
-                <a class="navigation__item link" href="#product">
-                    <span lang="uk">про Data Platform</span>
-                    <span lang="en">about Data Platform</span>
-                </a>
-                <a class="navigation__item link" href="#about">
-                    <span lang="uk">Про нас</span>
-                    <span lang="en">About us</span>
-                </a>
-                <a class="navigation__item link" href="#contact">
-                    <span lang="uk">Контакти</span>
-                    <span lang="en">Contacts</span>
-                </a>
-                <a class="navigation__item btn-primary" href="#contact-form">
-                    <span lang="uk">Напишіть нам</span>
-                    <span lang="en">Contact us</span>
-                </a>
-                <select id="select_language" class="navigation__item select-lang">
-                    <option value="uk" selected>ua</option>
-                    <option value="en">en</option>
-                </select>
-            </ul>
+                <ul class="navigation header__item">
+                    <a class="navigation__item link link_start" href="#product">
+                        <span lang="uk">про Data Platform</span>
+                        <span lang="en">about Data Platform</span>
+                    </a>
+                    <a class="navigation__item link link_start" href="#about">
+                        <span lang="uk">Про нас</span>
+                        <span lang="en">About us</span>
+                    </a>
+                    <a class="navigation__item link link_start" href="#contact">
+                        <span lang="uk">Контакти</span>
+                        <span lang="en">Contacts</span>
+                    </a>
+                    <a class="navigation__item btn-primary" href="#contact-form">
+                        <span lang="uk">Напишіть нам</span>
+                        <span lang="en">Contact us</span>
+                    </a>
+                    <select id="select_language" class="navigation__item select-lang">
+                        <option value="uk" selected>ua</option>
+                        <option value="en">en</option>
+                    </select>
+                </ul>  
         </header>
 
         <section class="header section section_head">
@@ -45,9 +45,11 @@
                             <h1 id="build" class="h1_build">Build.</h1>
                             <h1 id="develop" class="h1_develop">Develop.</h1>
                             <form action="https://dp.dataocean.us/system/home/" target="_blank">
-                                <button class="btn-primary btn-primary_dataocean">
-                                    Data Platform
-                                    <ion-icon class="btn-primary_dataocean_icon" name="chevron-forward-outline"></ion-icon>
+                                <button class="btn-primary btn--has-shadow btn-primary_dataocean">
+                                    <span>
+                                        Data Platform
+                                        <ion-icon class="btn-primary_dataocean_icon" name="chevron-forward-outline"></ion-icon>
+                                    </span>
                                 </button>
                             </form>
                         </div>
@@ -60,12 +62,18 @@
                                 <span lang="en">Hello! <br> We are Data Ocean.</br></span>
                             </h2>
                             <div class="hero-block__right hero-block__right__text">
-                                <span lang="uk">Наша мета проста та амбітна — надати громадянам зручний доступ до державних даних.
-                                <br>Open Data є основою для прийняття бізнес та державних рішень, адже завдяки відкритим даним, 
-                                кожен може з легкістю подивитися інформацію, навіть якщо вона важкодоступна.</span>
-                                <span lang="en">Our goal is simple and ambitious - to provide citizens with convenient access to government database.
-                                <br>Open Data is fundamental for business and governmental decision acceptance, 
-                                because thanks to open data, everyone can easily view information, even if it is difficult to access.</span>
+                                <span lang="uk">
+                                    Наша мета проста та амбітна — надати зручний доступ до державних даних.
+                                    <br>Відкриті дані — основа для прийняття бізнес та державних рішень.
+                                    <br>З Data Ocean доступ до відкритих даних стає простим. 
+                                    Кожен може отримати дані з потрібних реєстрів, сконструювати у зручний спосіб, проаналізувати та отримати користь. Спробуйте!
+                                </span>
+                                <span lang="en">
+                                    Our goal is simple and ambitious - to provide citizens with convenient access to government database.
+                                    <br>Open Data is fundamental for business and governmental decision. 
+                                    <br>With Data Ocean access to open data becomes easy.
+                                    Everyone can get data from the needed registers, design in a convenient way, analyze and benefit. Try it!
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -76,8 +84,8 @@
         <section class="section section_background">
             <div class="container">
                 <div class="row row_vertical-spaces">
-                    <div class="col-lg-6 landing-image">
-                        <img class="landing-image__image" src="static/img/intro.png">
+                    <div class="col-lg-6 landing-image__image">
+                        <img src="static/img/intro.png">
                     </div>
                     <div class="col-lg-6 margin-list">
                         <img class="margin-list__item" src="static/img/image 8.svg">
@@ -87,7 +95,7 @@
                         </h2>
                         <div class="margin-list__item paragraph">
                             <span lang="uk">Data Ocean — провайдер зручного доступу до відкритих даних. 
-                            <br>Ми розробляємо спеціальний сервіс, де Ви зможете отримати доступ до всіх важливих та існуючих регістрів, даних та звітностей.</span>
+                            <br>Ми розробляємо спеціальний сервіс, де Ви зможете отримати доступ до всіх важливих та існуючих реєстрів, даних та звітностей.</span>
                             <span lang="en">Data Ocean is a provider of convenient access to open data. 
                             <br>We are developing a special service where you can access all important and existing registers, data and reports.</span>
                         </div>
@@ -103,9 +111,9 @@
                 <div class="col-lg-6 margin-list paragraph_large">
                     <img class="margin-list__item" src="static/img/Group_134.svg">
                     <h2 class="h2 margin-list__item">
-                        <a href="https://dp.dataocean.us/system/home/" target="_blank">
+                        <a class="link_i" href="https://dp.dataocean.us/system/home/" target="_blank">
                             Data Platform
-                            <img src="static/img/arrow_blue.svg">
+                            <ion-icon class="h2 margin-list__item" name="chevron-forward-outline"></ion-icon>
                         </a>                           
                     </h2>
                     <div class="margin-list__item paragraph">
@@ -157,7 +165,7 @@
                         <span lang="en">Flexible settings</span>
                     </h2>
                     <div class="margin-list__item">
-                        <span lang="uk">Швидкий пошук завдяки фільтрам  та тегам. Легке скачування файлів у популярних дата-форматах</span>
+                        <span lang="uk">Швидкий пошук завдяки фільтрам  та тегам. Легке завантаження файлів у популярних дата-форматах</span>
                         <span lang="en">Quick search due to filters and tags. Easy files downloading in popular data formats</span>
                     </div>
                 </div>
@@ -182,7 +190,7 @@
                         <span lang="en">We believe that everyone has the right to transparent access to information.</span>
                     <br>
                     <br>
-                    <span lang="uk"><b>Наша мета</b> — відкрити Вам світ відкритих даних, який допоможе Вам, коли інформаційна середа стає повсякденною необхідністю.</span>
+                    <span lang="uk"><b>Наша мета</b> — відкрити Вам світ відкритих даних, який допоможе Вам, коли інформаційне середовище стає повсякденною необхідністю.</span>
                     <span lang="en"><b>Our goal</b> is to open a world of open data that will help you when the IT environment becomes a daily need.</span>
                 </div>
                 <div class="col-lg-6 landing-teams-container">
@@ -207,7 +215,7 @@
                         <span lang="uk">Люба Шипович</span>
                         <span lang="en">Lyuba Shipovich</span>
                     </div>
-                    <div class="user-card__title">Project Leader on Data Ocean</div>
+                    <div class="user-card__title">Project Leader in Data Ocean</div>
                 </div>
     
                 <div class="user-card">
@@ -312,7 +320,7 @@
                 <div class="user-card">
                     <img src="static/img/team/Viktor-Abramov.png" class="user-card__image">
                     <div class="user-card__name h6">
-                        <span lang="en">Віктор Абрамов</span>
+                        <span lang="uk">Віктор Абрамов</span>
                         <span lang="en">Viktor Abramov</span>
                     </div>
                     <div class="user-card__title">Frontend developer</div>
@@ -349,16 +357,18 @@
                             <div class="form-group col-lg-6">
                                 <label for="name" class="form-group__label form-group__label_required">
                                     <span lang="uk">Ім’я</span>
-                                    <span lang="en">Name</span>
+                                    <span lang="en">First Name</span>
                                 </label>
-                                <input type="text" name="username" required class="input input_large" minlength="2" id="name" placeholder="Петро">
+                                <input lang="uk" type="text" name="username" required class="input input_large" minlength="2" id="name" placeholder="Петро">
+                                <input lang="en" type="text" name="username" required class="input input_large" minlength="2" id="name" placeholder="John">
                             </div>
                             <div class="form-group col-lg-6">
                                 <label for="surname" class="form-group__label form-group__label_required">
                                     <span lang="uk">Прізвище</span>
-                                    <span lang="en">Surname</span>
+                                    <span lang="en">Last Name</span>
                                 </label>
-                                <input type="text" name="surname" required class="input input_large" minlength="2" id="surname" placeholder="Іваненко">
+                                <input lang="uk" type="text" name="surname" required class="input input_large" minlength="2" id="surname" placeholder="Іваненко">
+                                <input lang="en" type="text" name="surname" required class="input input_large" minlength="2" id="surname" placeholder="Galt">
                             </div>
                         </div>
                         <div class="form__row row row_vertical-spaces">
@@ -372,24 +382,26 @@
                             <div class="form-group col-lg-6">
                                 <label for="phone" class="form-group__label form-group__label_required">
                                     <span lang="uk">Телефон</span>
-                                    <span lang="en">Phone number</span>
+                                    <span lang="en">Phone Number</span>
                                 </label>
-                                <input type="tel" name="phone" class="input input_large" id="phone" placeholder="(0__)___-__-__">
+                                <input lang="uk" type="tel" name="phone" class="input input_large" id="phone" placeholder="(0__)___-__-__">
+                                <input lang="en" type="tel" name="phone" class="input input_large" id="phone" placeholder="(___)___-__-__">
                             </div>
                         </div>
                         <div class="form__row">
                             <div class="form-group">
                                 <label for="question" class="form-group__label form-group__label_required">
                                     <span lang="uk">Напишіть своє запитання</span>
-                                    <span lang="en">Ask your question</span>
+                                    <span lang="en">How can we help?</span>
                                 </label>
-                                <textarea class="input" rows="4" name="question" id="question" placeholder="Привіт, Data Ocean!&#10;Я хотів запитати..."></textarea>
+                                <textarea lang="uk" class="input" rows="4" name="question" id="question" placeholder="Привіт, Data Ocean!&#10;Я хотів запитати..."></textarea>
+                                <textarea lang="en" class="input" rows="4" name="question" id="question" placeholder="Hello, Data Ocean!&#10;May I ask you a question about..."></textarea>
                             </div>
                         </div>
                         <div class="form__row">
-                            <button class="btn-primary btn-primary_large" type="submit" id="form_send" rel="modal:open">
-                                <span lang="uk">Дізнатися більше</span>
-                                <span lang="en">Find out more</span>
+                            <button class="btn-primary btn-primary_large btn--has-shadow link_end" type="submit" id="form_send" rel="modal:open">
+                                <span lang="uk">Надіслати</span>
+                                <span lang="en">Submit</span>
                             </button>
                         </div>
                     </form>
@@ -415,15 +427,15 @@
                 <img class="footer__item" src="static/img/logo-white.svg" class="header-logo">
     
                 <ul class="footer__item navigation navigation_align-left navigation_white">
-                    <a class="navigation__item link" href="#product">
+                    <a class="navigation__item link link_end" href="#product">
                         <span lang="uk">про Data Platform</span>
                         <span lang="en">about Data Platform</span>
                     </a>
-                    <a class="navigation__item link" href="#about">
+                    <a class="navigation__item link link_end" href="#about">
                         <span lang="uk">Про нас</span>
                         <span lang="en">About us</span>
                     </a>
-                    <a class="navigation__item link" href="#contact">
+                    <a class="navigation__item link link_end" href="#contact">
                         <span lang="uk">Контакти</span>
                         <span lang="en">Contacts</span>
                     </a>
@@ -446,9 +458,8 @@
         </div>
     </footer>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r118/three.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
     <script src="https://unpkg.com/ionicons@5.1.2/dist/ionicons.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r118/three.min.js"></script>
     <script src="static/dist/vendors~main.js"></script>
     <script src="static/dist/main.js"></script>
 </body>

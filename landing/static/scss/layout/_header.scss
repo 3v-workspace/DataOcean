@@ -25,11 +25,20 @@
             }
         }
     }
+
+    @media (max-width: $sm) {
+        flex-direction: row;
+    }
 }
 
 .header-logo {
     width: 15%; //200px;
     object-fit: contain;
-    margin-top: $spacer * 3;
+    margin-top: auto; //margin-top: $spacer * 3;
     margin-left: 7%; //margin-left: $spacer * 11;
+    
+    @media (max-width: $sm) {
+        width: 40%;
+        margin-left: 0px;
+    }
 }

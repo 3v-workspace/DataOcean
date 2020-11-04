@@ -5,6 +5,11 @@
 
     &:focus {
         border: $border-width solid $primary-1;
+        outline: none;
+    }
+    
+    &:active {
+        border-color: white;
     }
 
     &::placeholder {

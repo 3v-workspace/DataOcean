@@ -23,17 +23,20 @@
     
     @media screen and (min-width: $sm) {
         flex-direction: row;
-
         &_align-left {
             align-items: center;
         }
         
         &__item {
-            
+           
             & + & {
                 margin-top: 0;
                 margin-left: $spacer * 3;
             }
         }
+    }
+
+    @media (max-width: $md) {
+        display: none;
     }
 }

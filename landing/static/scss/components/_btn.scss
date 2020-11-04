@@ -35,33 +35,67 @@
 
     &_dataocean {
         position: absolute;
-        width: 60%;
+        width: 55%;
         line-height: 150%;
         font-weight: bolder;
-        
+        transition: all 0.5s;
+        cursor: pointer;
         ion-icon {
-            margin-left: 10%;
-            vertical-align: middle;
-            font-size: 28px;
+            vertical-align:  middle;
         }
-    } 
-    @media screen and (min-width: $lg) {
-        &_dataocean {
+
+        @media screen and (min-width: $lg) {
             font-size: 22px;
-            //text-indent: 10%;
         }
-    }
-    @media screen and (max-width: $sm) {
-        &_dataocean {
+
+        @media screen and (max-width: $xl) {
+            width: 60%;
+        }
+
+        @media screen and (max-width: $sm) {
             width: 80%;
         }
     }
 }
 
 .btn-primary:hover {
+    cursor: pointer;
     border: none;
+    transition: 0.5s;
+    box-shadow: 0px 10px 16px 0px rgba(77,91,237,0.2);
 }
 
 .btn-primary:active {
     border: none;
+}
+
+.btn--has-shadow {
+    box-shadow: 0px 10px 16px 0px rgba(77,91,237,0.2);
+}
+
+.btn-primary_dataocean span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+    i {
+        padding-left: 10px;
+    }
+}
+
+.btn-primary_dataocean span:after {
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+}
+
+.btn-primary_dataocean:hover span {
+    padding-left: 25px;
+}
+
+.btn-primary_dataocean:hover span:after {
+    opacity: 1;
+    right: 0;
 }
