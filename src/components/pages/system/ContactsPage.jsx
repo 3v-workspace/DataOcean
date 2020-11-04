@@ -1,31 +1,36 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import Alert from 'components/Alert';
+import { Button } from 'components/form-components';
+import { Facebook, Linkedin, Mail } from 'react-feather';
+//import Alert from 'components/Alert';
 
 const ContactsPage = () => {
   const { t } = useTranslation();
+
   return (
     <>
-      <h2 className="intro-y text-lg font-medium mt-10">
+      <h2 className="intro-y text-lg font-medium justify-between mt-5 mb-5">
         {t('contacts')}
       </h2>
-      <div className="intro-y mt-10">
-        Напишіть нам:{t(' ')}
-        <a href="mailto:info@dataocean.us">info@dataocean.us{t(' ')}</a>
-        <img className="inline" src="/images/mail.png" alt="Mail" />
-      </div>
-      <div className="intro-y mt-10">
-        Слідкуйте за нашими новинами:{t(' ')}
-        <a href="https://www.linkedin.com/company/data-ocean/" target="_blank">
-          <img className="inline-flex" src="/images/linkedin.png" alt="Linked in" />
-        </a>
-        {t(' ')}
-        <a href="https://www.facebook.com/DataOceanGroup/" target="_blank">
-          <img className="inline-flex" src="/images/facebook.png" alt="Facebook" />
-        </a>
-      </div>
-      <div>
-        <img src="https://dev.virtualearth.net/REST/v1/Imagery/Map/CanvasLight/Kyiv,%20UA?key=Atn679uHwJz5qBW7Qdydz8-WNiejypvCQM1WRC94l9MtNSsBeNwHcLXzUAfFPaBr&amp;mapSize=552,350" alt="Map of  Kyiv,   UA" />
+      <div className="intro-y box inline-grid grid-cols-2">
+        <div className="inline-grid">
+          <div className="mx-10 pt-10">
+            <span className="font-medium mx-10">Напишіть нам:</span>
+            <a className="items-center flex justify-center mt-5" href="mailto:info@dataocean.us"><Mail className="w-4 h-4 mr-2" />info@dataocean.us</a>
+          </div>
+          <div className="mx-10 pt-5 border-t border-gray-200">
+            <span className="mx-10 my-20 pt-10 font-medium">Слідкуйте за нашими новинами:</span>
+            <div className="flex items-center justify-center mt-5">
+              <Button className="w-32 mr-2 mb-2 bg-theme-35 cursor-pointer" href="https://www.linkedin.com/company/data-ocean/" target="_blank"><Linkedin className="w-4 h-4 mr-2" />Linkedin</Button>
+              <Button className="w-32 mr-2 mb-2 bg-theme-32 cursor-pointer" href="https://www.facebook.com/DataOceanGroup/" target="_blank"><Facebook className="w-4 h-4 mr-2" />Facebook</Button>
+            </div>
+          </div>
+        </div>
+        <div className="inline-grid">
+          <div className="m-2 flex items-center justify-center">
+            <img alt="Map of Kyiv, UA" src="/images/map.png" />
+          </div>
+        </div>
       </div>
     </>
   );

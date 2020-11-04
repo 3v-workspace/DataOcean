@@ -1,79 +1,55 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import Alert from 'components/Alert';
+import { ChevronDown, ChevronUp } from 'react-feather';
+// import Alert from 'components/Alert';
+// import { useParams } from 'react-router-dom';
+import faqs from 'const/faqs';
 
 const HelpPage = () => {
   const { t } = useTranslation();
+  const defaultOpenState = {
+    1: false,
+    2: false,
+    3: false,
+    4: false,
+    5: false,
+    6: false,
+  };
+  const [open, setOpen] = useState(defaultOpenState);
+  const toggleOpen = (id) => {
+    setOpen({
+      ...defaultOpenState,
+      [id]: !open[id],
+    });
+  };
+
   return (
     <>
-      <h2 className="intro-y text-lg font-medium mt-10">
-        {t('help')}
-      </h2>
-      <ul>
-        <Alert variant="primary" className="intro-y mt-10">
-          <li>
-            {t('Як почати працювати на Data Platform?')}
-          </li>
-        </Alert>
-        <div><p>У Вашому профілі Ви знайдете токен доступу, ось приклад токену:</p>
-          <p>94c6d542af1c4c4942e51df6с4d47fbd12fb3dea</p>
-          Для того, щоб отримати доступ до API вам необхідно додати у Ваш HTTP-запит
-          звичайний заголовок з назвою “Authorization” та значенням
-          “Token 94c6d542af1c4c4942e51df6с4d47fbd12fb3dea” підставивши Ваш токен.
-          <p>Кінцевий заголовок:</p>
-          Authorization: Token 94c6d542af1c4c4942e51df6с4d47fbd12fb3dea
+      <div className="col-span-12 lg:col-span-6">
+        <div className="intro-y mt-8 box">
+          <div className="p-5 pt-0" id="basic-accordion">
+            <div className="intro-y mb-4 border-b border-gray-200">
+              <ul className="accordion font-medium block">
+                {faqs.map((faq) => (
+                  <li className="accordion__pane cursor-pointer pl-4 py-4 pr-20 block border-b border-gray-200 hover:text-theme-1" key={faq.id}>
+                    <div className="accordion__pane__toggle inline-flex flex-row justify-between w-full" onClick={() => toggleOpen(faq.id)}>
+                      {faq.question}
+                      {open[faq.id] ? <ChevronUp className="w-4 h-6" /> : <ChevronDown className="w-4 h-6" />}
+                    </div>
+                    <div className="accordion__pane__content cursor-text mt-3 text-gray-700 font-normal">
+                      {faq.answer}
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+          <div className="pl-8 pb-8 font-normal">
+            Не знайшли відповідь на своє запитання?
+            <a href="/system/contacts/" className="text-theme-1 block font-normal">Зверніться до нас.</a>
+          </div>
         </div>
-        <Alert variant="primary" className="intro-y mt-10">
-          <li>
-            {t('Чому не вдається отримати доступ до АPI (403)?')}
-          </li>
-        </Alert>
-        <div className="answer">Перевірте чи правильний токен Ви використовуєте у Ваших запитах, звіривши його
-          з токеном, що відображається у Вас в профілі.
-          Також перевірте структуру заголовку у запитах що Ви надсилаєте, він має мати наступну
-          структуру:
-          <p>Authorization: Token {'<your_token>'}</p>
-        </div>
-        <Alert variant="primary" className="intro-y mt-10">
-          <li>
-            {t('Чому Ваш API видає лише 10 результатів?')}
-          </li>
-        </Alert>
-        <div>Ендпоінти, що повертають списки сутностей працюють в режимі пагінації, тобто поділені
-          на сторінки. Керувати пагінацією ви можете за допомогою двух GET-параметрів:
-          <p>page - номер сторінки яку Ви хочете отримати</p>
-          <p>page_size - кількість записів, що повертаються на одній сторінці.</p>
-          <p>По замовчуванню - 10. Максимальне значення - 100.</p>
-          Приклад:
-          <p>/api/company/?page=3&page_size=25</p>
-        </div>
-        <Alert variant="primary" className="intro-y mt-10">
-          <li>
-            {t('Як мені отримати дані у XML форматі?')}
-          </li>
-        </Alert>
-        <div>Щоб змінити формат даних що повертаються скористайтесь GET-параметром format.
-          <p>Можливі значення: json, xml.</p>
-          Приклад:
-          <p>/api/company/?format=xml</p>
-        </div>
-        <Alert variant="primary" className="intro-y mt-10">
-          <li>
-            {t('Які тарифні плани Ви маєте?')}
-          </li>
-        </Alert>
-        <Alert variant="primary" className="intro-y mt-10">
-          <li>
-            {t('Де можна знайти Вашу документацію API?')}
-          </li>
-        </Alert>
-        <div>Документація API за посиланням.</div>
-        <Alert variant="primary" className="intro-y mt-10">
-          <li>
-            {t('Не знайшли відповідь на своє запитання? Зверніться до нас.')}
-          </li>
-        </Alert>
-      </ul>
+      </div>
     </>
   );
 };
