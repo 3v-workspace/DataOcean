@@ -80,7 +80,7 @@
     
     .h2 {
         font-size: $h2-font-size;
-        padding: 0px 60px 0px 0px;
+        //padding: 0px 60px 0px 0px;
     }
     
     .h3 {
@@ -97,6 +97,12 @@
     
     .h6 {
         font-size: $h6-font-size;
+    }
+}
+
+@media (max-width: 375px) {
+    .h2 {
+        font-size: 26px;
     }
 }
 

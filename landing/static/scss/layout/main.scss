@@ -47,7 +47,22 @@
             font-size: $font-size-xxl;
         }
     }
+
+    @media (max-width: $md) {
+        display: relative;
+        align: center;
+        overflow-x: hidden;
+    }
+
+    @media (max-width: 450px) {
+        display: relative;
+        align: center;
+        overflow-x: hidden;
+        padding: 10px 0px 10px;
+    }
 }
+
+
 
 @import 'footer';
 @import 'header';

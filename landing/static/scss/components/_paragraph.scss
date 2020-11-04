@@ -1,16 +1,15 @@
 .paragraph {
     font-size: $font-size-base;
     font-weight: $font-weight-base;
-    padding: 0px 30px 0px 0px;
 
-    &_large {
-        padding-left: 60px;
+    @media screen and (min-width: 769px) {
+        padding: 0px 30px 0px 0px;
     }
 
-    @media screen and (min-width: $md) {
-        
-        &_large {
+    &_large {
+        @media screen and (min-width: 769px) {
             //font-size: $font-size-xxl;
+            padding-left: 60px;
         }
     }
 }

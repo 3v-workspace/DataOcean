@@ -40,16 +40,19 @@
         font-weight: bolder;
         transition: all 0.5s;
         cursor: pointer;
-    }
-
-    @media screen and (min-width: $lg) {
-        &_dataocean {
-            font-size: 22px;
-            //text-indent: 10%;
+        ion-icon {
+            vertical-align:  middle;
         }
-    }
-    @media screen and (max-width: $sm) {
-        &_dataocean {
+
+        @media screen and (min-width: $lg) {
+            font-size: 22px;
+        }
+
+        @media screen and (max-width: $xl) {
+            width: 60%;
+        }
+
+        @media screen and (max-width: $sm) {
             width: 80%;
         }
     }
@@ -87,6 +90,7 @@
     right: -20px;
     transition: 0.5s;
 }
+
 .btn-primary_dataocean:hover span {
     padding-left: 25px;
 }
@@ -94,8 +98,4 @@
 .btn-primary_dataocean:hover span:after {
     opacity: 1;
     right: 0;
-}
-
-.fa-angle-right {
-    display: inline-block;
 }

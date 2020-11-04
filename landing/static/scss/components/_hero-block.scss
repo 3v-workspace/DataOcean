@@ -1,7 +1,7 @@
 .hero-block {
     position: relative;
     z-index: 1;   
-    margin-left: $spacer * -10;
+    //margin-left: $spacer * -10;
 
     &__left {
         margin-bottom: $spacer * 3;
@@ -50,7 +50,19 @@
             flex-direction: column;
             position: relative;
             align-items: flex-start;
+            left: 0px;
             padding: 0px 20px 0px 0px;
+        }
+
+        &__right {
+            padding: 20px 0px 0px 0px;
+            &__hello {
+                margin-left: initial;
+                font-size: 26px;
+            }
+            &__text {
+                margin-left: auto;
+            }
         }
     }
 }
