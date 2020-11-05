@@ -6,20 +6,20 @@
     Не є публічним діячем
   {{/if}}
 </div>
-<div class="detail__prop">
+<div>
   <span class="prop-name">Остання посада:</span>
   {{default pep.last_job_title}}
 </div>
-<div class="detail__prop">
+<div>
   <span class="prop-name">Останнє місце роботи:</span>
   {{default pep.last_employer}}
 </div>
-<div class="detail__prop">
+<div>
   <span class="prop-name">Тип:</span>
   {{default pep.pep_type}}
 </div>
 <div class="prop-name">Пов'язані компанії:</div>
-<div class="detail__prop">
+<div>
   <ul style="padding-left: 20px">
     {{#each pep.related_companies}}
       <li>
@@ -30,7 +30,7 @@
   </ul>
 </div>
 <div class="prop-name">Пов'язані особи:</div>
-<div class="detail__prop">
+<div>
   <ul style="padding-left: 20px">
     {{#each related_persons}}
       <li>
@@ -41,7 +41,7 @@
   </ul>
 </div>
 <div class="prop-name">Можливі зв'язки з компаніями:</div>
-<div class="detail__prop">
+<div>
   <ul style="padding-left: 20px">
     {{#each pep.check_companies}}
       <li>{{this.name}} ({{this.edrpou}})</li>

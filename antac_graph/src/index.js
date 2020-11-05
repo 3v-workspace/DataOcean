@@ -1,6 +1,6 @@
 // import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 // import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/js/src/popover'
+import 'bootstrap/js/src/popover';
 import './styles.scss';
 import * as d3 from 'd3';
 import $ from 'jquery';
@@ -14,15 +14,23 @@ import companyDetailHtml from './company_detail.html';
 import pepDetailHtml from './pep_detail.html';
 
 
-const searchFormS = '#company-search-form';
-const searchButtonS = '#company-search-btn';
-const searchInputS = 'input#company-search';
-const graphContainerS = '#graph-container';
-const detailBlockS = '#node-detail';
-const filtersBlockS = '#filters';
-const legendBlockS = '#legend';
-const slideIconS = '.slide-icon'
+const S = {
+  schemeRoot: '.do-pep-company-scheme',
+  searchForm: '.do-company-search-form',
 
+  searchButton: '.do-company-search-btn',
+  searchInput: 'input.do-company-search',
+  graphContainer: '.do-graph-container',
+  detailBlock: '.do-node-detail',
+  detailBlockBody: '.do-node-detail-body',
+  filtersBlock: '.do-filters',
+  legendBlock: '.do-legend-block',
+  slideIcon: '.slide-icon',
+
+  searchResult: '.do-search-result',
+
+  openCompany: 'a.js-open-company',
+};
 
 const linkTypes = {
   owner: 'owner',
@@ -52,7 +60,7 @@ const COMPANY = 'company';
 const themes = {
   DATA_OCEAN: 'data-ocean',
   ANT_AC: 'antac',
-}
+};
 
 class PepCompanyScheme {
   constructor(options = {}) {
@@ -71,7 +79,7 @@ class PepCompanyScheme {
     this.configFileUrl = options.configFileUrl || 'static/config.json';
     if (this.token) {
       // this.ajaxHeaders['X-PEPToken'] = this.token
-      this.ajaxHeaders.Authorization = `${this.tokenKeyword} ${this.token}`
+      this.ajaxHeaders.Authorization = `${this.tokenKeyword} ${this.token}`;
     }
     this.startNode = options.startNode || null;
 
@@ -176,7 +184,7 @@ class PepCompanyScheme {
 
   init() {
     this.registerHandlebarsHelpers();
-    if (this.useConfigFile){
+    if (this.useConfigFile) {
       this.fetchMeta();
     }
     this.injectHtml();
@@ -187,18 +195,34 @@ class PepCompanyScheme {
     this.checkStartNode();
   }
 
+  select(selector) {
+    return $(this.rootElement).find(selector);
+  }
+
   registerHandlebarsHelpers() {
     Handlebars.registerHelper('not', function (value) {
-      return !value
+      return !value;
     });
-    Handlebars.registerHelper('default', function (value, defaultValue = '---') {
-      return value || defaultValue;
+    Handlebars.registerHelper('default', function (value, arg1, arg2) {
+      if (value) {
+        return value;
+      }
+      if (arg2) {
+        return arg1;
+      }
+      return '---';
     });
-    Handlebars.registerHelper('default_if_null', function (value, defaultValue = '---') {
-      return value !== null && value !== undefined ? value : defaultValue;
+    Handlebars.registerHelper('default_if_null', function (value, arg1, arg2) {
+      if (value !== null && value !== undefined) {
+        return value;
+      }
+      if (arg2) {
+        return arg1;
+      }
+      return '---';
     });
     Handlebars.registerHelper('locale_string', function (value) {
-      return value.toLocaleString()
+      return value.toLocaleString();
     });
 
     this.companyDetailTemplate = Handlebars.compile(companyDetailHtml);
@@ -229,23 +253,28 @@ class PepCompanyScheme {
       legendNodes,
       legendLinks,
     });
-    $(slideIconS).html(this.icons.other.slideUp);
+    this.select(S.slideIcon).html(this.icons.other.slideUp);
   }
 
   startResizeTick() {
     setInterval(() => {
       this.handleResizeRootElement();
-    }, 300)
+    }, 300);
   }
 
-  handleResizeRootElement (){
+  handleResizeRootElement() {
     let rootHeight = this.rootElement.clientHeight;
     if (rootHeight !== this.prevRootHeight) {
-      this.prevRootHeight = rootHeight
-      $(`${detailBlockS} .side-block-body`).css('max-height', `${rootHeight - 200}px`);
-
-      // $(`${legendBlockS} .side-block-body`).css('max-height', `${rootHeight - 390}px`);
-      $(`${legendBlockS} .side-block-body`).css('max-height', `${rootHeight - 110}px`);
+      this.prevRootHeight = rootHeight;
+      let detailsMaxHeight;
+      if (this.showSearch) {
+        detailsMaxHeight = `${rootHeight - 200}px`;
+      } else {
+        detailsMaxHeight = `${rootHeight - 113}px`;
+      }
+      this.select(`${S.detailBlock} .side-block-body`).css('max-height', detailsMaxHeight);
+      // this.select(`${legendBlockS} .side-block-body`).css('max-height', `${rootHeight - 390}px`);
+      this.select(`${S.legendBlock} .side-block-body`).css('max-height', `${rootHeight - 110}px`);
     }
   }
 
@@ -255,13 +284,13 @@ class PepCompanyScheme {
       const type = this.startNode.type;
       const isIdFromAntac = this.startNode.isIdFromAntac || false;
       if (!id) {
-        throw new Error(`startNode.id prop not correct {id: ${id}`)
+        throw new Error(`startNode.id prop not correct {id: ${id}`);
       }
       if (!type) {
-        throw new Error(`startNode.type prop not correct {type: ${type}`)
+        throw new Error(`startNode.type prop not correct {type: ${type}`);
       }
       if (typeof isIdFromAntac !== 'boolean') {
-        throw new Error(`type of startNode.isIdFromAntac must be boolean`)
+        throw new Error(`type of startNode.isIdFromAntac must be boolean`);
       }
       this.loadNodeById(id, type, isIdFromAntac);
     }
@@ -390,7 +419,8 @@ class PepCompanyScheme {
         addChildNode(pep, PEP, false, linkData);
       });
       data.to_person_links.forEach((linkWithPerson) => {
-        const [pep, linkData] = this.extractObjAndLinkData(linkWithPerson, 'from_person', 'from_person_relationship_type');
+        const [pep, linkData] = this.extractObjAndLinkData(linkWithPerson, 'from_person',
+          'from_person_relationship_type');
         addChildNode(pep, PEP, true, linkData);
       });
       data.check_companies.forEach((item) => {
@@ -445,8 +475,8 @@ class PepCompanyScheme {
   }
 
   showMessage(message) {
-    $(graphContainerS).empty();
-    $(graphContainerS).append(`
+    this.select(S.graphContainer).empty();
+    this.select(S.graphContainer).append(`
     <div class="loading-container">
       <h4 class="text-secondary">
         ${message}
@@ -456,9 +486,9 @@ class PepCompanyScheme {
   }
 
   handleSideBlockHeaderClick(e) {
-    const el = $(e.currentTarget);
+    const el = this.select(e.currentTarget);
     const detailBody = el.siblings('.side-block-body');
-    el.find(slideIconS).toggleClass('rotate-180');
+    el.find(S.slideIcon).toggleClass('rotate-180');
     if (detailBody.length) {
       if (detailBody.hasClass('show')) {
         detailBody.removeClass('show');
@@ -471,22 +501,22 @@ class PepCompanyScheme {
   }
 
   registerEventListeners() {
-    $('.side-block-header').on('click', (e) => {
+    this.select('.side-block-header').on('click', (e) => {
       this.handleSideBlockHeaderClick(e);
     });
-    $(searchFormS).on('submit', (e) => {
+    this.select(S.searchForm).on('submit', (e) => {
       this.handleSearchFormSubmit(e);
     });
-    $(document).on('click', '.search-result', (e) => {
+    $(document).on('click', S.searchResult, (e) => {
       this.handleSearchResultClick(e);
     });
-    $(document).on('click', 'a.js-open-company', (e) => {
+    $(document).on('click', S.openCompany, (e) => {
       this.handleOpenCompany(e);
     });
   }
 
   showSearchResults(data, type) {
-    const searchDropdown = $('.search-dropdown');
+    const searchDropdown = this.select('.do-search-dropdown');
     const searchResults = searchDropdown.find('ul');
     searchResults.find('li').remove();
 
@@ -497,22 +527,22 @@ class PepCompanyScheme {
     if (!data.length) {
       searchResults.append(`
         <li class="list-group-item p-1 list-group-item-action">
-          <div class="d-flex justify-content-center">
+          <div class="d-flex" style="justify-content: center">
             Немає результатів
           </div>
         </li>
-      `)
+      `);
     } else {
       data.forEach((item) => {
         searchResults.append(`
-        <li class="list-group-item p-1 list-group-item-action search-result"
+        <li class="list-group-item p-1 list-group-item-action do-search-result"
             data-id="${item.id}"
             data-type="${type}"
         >
           <div class="pr-3 p-2">
             ${this.getIconForSearchResult(data, type)}
           </div>
-          <div class="search-result__text ${type === PEP ? 'text-capitalize' : ''}">
+          <div class="do-search-result-text ${type === PEP ? 'text-capitalize' : ''}">
             ${this.entityToString(type, item)}
           </div>
         </li>
@@ -523,9 +553,9 @@ class PepCompanyScheme {
   }
 
   startSearchLoading() {
-    $(searchButtonS).prop('disabled', true);
-    $(searchInputS).prop('disabled', true);
-    $(searchButtonS).html(`
+    this.select(S.searchButton).prop('disabled', true);
+    this.select(S.searchInput).prop('disabled', true);
+    this.select(S.searchButton).html(`
     <div class="spinner-border spinner-border-sm" role="status">
       <span class="sr-only">Loading...</span>
     </div>
@@ -533,28 +563,28 @@ class PepCompanyScheme {
   }
 
   endSearchLoading() {
-    $(searchButtonS).prop('disabled', false);
-    $(searchInputS).prop('disabled', false);
-    $(searchButtonS).html(this.icons.other.search);
+    this.select(S.searchButton).prop('disabled', false);
+    this.select(S.searchInput).prop('disabled', false);
+    this.select(S.searchButton).html(this.icons.other.search);
   }
 
   startLoading() {
-    $(graphContainerS).empty();
-    $(searchButtonS).prop('disabled', true);
-    $(graphContainerS).append(
+    this.select(S.graphContainer).empty();
+    this.select(S.searchButton).prop('disabled', true);
+    this.select(S.graphContainer).append(
       `<div class="loading-container">${loadingElement}</div>`
     );
   }
 
   endLoading() {
-    $(graphContainerS).empty();
-    $(searchButtonS).prop('disabled', false);
+    this.select(S.graphContainer).empty();
+    this.select(S.searchButton).prop('disabled', false);
   }
 
   handleSearchFormSubmit(e) {
     e.preventDefault();
     this.startSearchLoading();
-    const value = $(searchInputS).val();
+    const value = this.select(S.searchInput).val();
 
     let type = PEP;
     let data = { name_search: value, fields: 'id,fullname,is_pep' };
@@ -594,7 +624,7 @@ class PepCompanyScheme {
         this.parseNodesLinks(data, type);
         this.drawSimulation();
         waitElementAndClick(`#${this.rootNodeId}`);
-        $(detailBlockS).show();
+        this.select(S.detailBlock).show();
       },
       error: (xhr) => {
         this.endLoading();
@@ -608,8 +638,8 @@ class PepCompanyScheme {
   }
 
   handleSearchResultClick(e) {
-    const type = $(e.currentTarget).data('type');
-    const id = $(e.currentTarget).data('id');
+    const type = this.select(e.currentTarget).data('type');
+    const id = this.select(e.currentTarget).data('id');
     this.loadNodeById(id, type);
   }
 
@@ -643,8 +673,8 @@ class PepCompanyScheme {
     this.scheme.node = null;
     this.scheme.link = null;
 
-    $(graphContainerS).empty();
-    this.scheme.svg = d3.select(graphContainerS).append('svg')
+    this.select(S.graphContainer).empty();
+    this.scheme.svg = d3.select(S.graphContainer).append('svg')
       .attr('height', '100%')
       .attr('width', '100%')
       .attr('viewBox', `0 0 ${this.width} ${this.height}`)
@@ -763,24 +793,27 @@ class PepCompanyScheme {
   }
 
   renderCompanyDetail(company) {
-    const $detail = $('#detail-block');
+    const $detail = this.select(S.detailBlockBody);
     $detail.empty();
 
     const founders = company.founders.map((founder) => {
       if (founder.id_if_company) {
         const founderNodeId = this.getIdForNode({ id: founder.id_if_company, _type: COMPANY });
         const companyNodeId = this.getIdForNode({ id: company.id, _type: COMPANY });
+        if (founderNodeId === companyNodeId) {
+          return founder;
+        }
         const isNodeExists = this.nodes.find((node) => founderNodeId === node.id);
         const isLinkExists = isNodeExists && this.links.find((link) => (
           link.source.id === founderNodeId && link.target.id === companyNodeId
         ));
         if (!isLinkExists) {
-          founder.link = this.getUrl('company/', founder.id_if_company)
+          founder.link = this.getUrl('company/', founder.id_if_company);
         }
-        return founder
+        return founder;
       }
       if (founder.name.split(' ').length === 3) {
-        founder.name = capitalizeAll(founder.name)
+        founder.name = capitalizeAll(founder.name);
       }
       return founder;
     });
@@ -788,30 +821,30 @@ class PepCompanyScheme {
     const getHeadSigner = (company) => {
       const head = company.signers.find((person) => / - керівник/.test(person));
       if (head) {
-        return head.split(' - ')[0]
+        return head.split(' - ')[0];
       }
     };
 
     company.head = getHeadSigner(company);
 
-    let html = this.companyDetailTemplate({ company, founders })
+    let html = this.companyDetailTemplate({ company, founders });
 
     $detail.append(html);
   }
 
   renderPepDetail(pep) {
-    const $detail = $('#detail-block');
+    const $detail = this.select(S.detailBlockBody);
     $detail.empty();
 
     let related_persons = [...pep.from_person_links, ...pep.to_person_links].map((relation) => {
       const rel_person = relation.to_person || relation.from_person;
-      const relationship_type = relation.to_person_relationship_type || relation.from_person_relationship_type
+      const relationship_type = relation.to_person_relationship_type || relation.from_person_relationship_type;
       relation.person = rel_person;
       relation.relationship_type = relationship_type;
-      return relation
+      return relation;
     });
 
-    let html = this.pepDetailTemplate({ pep, related_persons })
+    let html = this.pepDetailTemplate({ pep, related_persons });
 
     $detail.append(html);
   }
@@ -849,7 +882,7 @@ class PepCompanyScheme {
       .style('stroke', (d_link) => this.linkColor(d_link, d))
       .style('stroke-width', (d_link) => this.linkWidth(d_link, d))
       .style('stroke-dasharray', (d_link) => this.linkDasharray(d_link, d));
-    const $detail = $('#detail-block');
+    const $detail = this.select(S.detailBlockBody);
     $detail.empty();
     $detail.append(
       `<div class="side-block-l-container">${loadingElement}</div>`
@@ -910,18 +943,18 @@ class PepCompanyScheme {
   }
 
   linkColor(d, d_selected) {
-    const sourceId = d.source.id || d.source
-    const targetId = d.target.id || d.target
+    const sourceId = d.source.id || d.source;
+    const targetId = d.target.id || d.target;
     if ([sourceId, targetId].includes(d_selected.id)) {
-      return this.linkColors[this.getLinkTypeForLink(d)]
+      return this.linkColors[this.getLinkTypeForLink(d)];
     } else {
-      return this.linkColors.inactive
+      return this.linkColors.inactive;
     }
   }
 
   linkWidth(d, d_selected) {
-    const sourceId = d.source.id || d.source
-    const targetId = d.target.id || d.target
+    const sourceId = d.source.id || d.source;
+    const targetId = d.target.id || d.target;
     return [sourceId, targetId].includes(d_selected.id) ? 2 : 1;
   }
 
@@ -995,7 +1028,7 @@ class PepCompanyScheme {
     this.links = this.links.filter((link) => !removeLinks.includes(link));
     this.nodes = this.nodes.filter((node) => !removeNodes.includes(node));
 
-    $('.popover').remove();
+    this.select('.popover').remove();
 
     d._opened = false;
     this.scheme.svg.selectAll('.child-count')
@@ -1184,6 +1217,7 @@ class PepCompanyScheme {
       d._linksCount = count;
     });
 
+    const engine = this;
     d3.selectAll('svg .node').each(function (d, i) {
       let content;
       if (d._type === PEP) {
@@ -1198,9 +1232,9 @@ class PepCompanyScheme {
           `<div><b>ЄДРПОУ:</b> ${d.edrpou || ' --- '}</div>` +
           `<div><b>Статус:</b> ${d.status || ' --- '}</div>`;
       }
-      $(this).popover({
+      engine.select(this).popover({
         trigger: 'hover',
-        container: '#do-pep-company-scheme',
+        container: engine.select(S.schemeRoot),
         title: d.name || d.fullname,
         placement: 'top',
         html: true,
@@ -1218,7 +1252,7 @@ class PepCompanyScheme {
 
   handleOpenCompany(e) {
     e.preventDefault();
-    $(e.currentTarget).closest('li').html($(e.currentTarget).text());
+    this.select(e.currentTarget).closest('li').html(this.select(e.currentTarget).text());
     $.ajax(e.currentTarget.href, {
       headers: this.ajaxHeaders,
       success: (data) => {
