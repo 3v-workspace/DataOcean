@@ -45,8 +45,8 @@ const HelpPage = () => {
             </div>
           </div>
           <div className="pl-8 pb-8 font-normal">
-            Не знайшли відповідь на своє запитання?
-            <a href="/system/contacts/" className="text-theme-1 block font-normal">Зверніться до нас.</a>
+            {t('faq.findQuestion')}
+            <a href="/system/contacts/" className="text-theme-1 block font-normal">{t('contactUs')}.</a>
           </div>
         </div>
       </div>
