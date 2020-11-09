@@ -1,114 +1,157 @@
 import React from 'react';
+import { Translation } from 'react-i18next';
 
 const faqs = [
   {
     id: 1,
-    question: 'Як почати працювати на Data Platform?',
+    question: (
+      <Translation>
+        {(t) => `${t('faq.startWork')}`}
+      </Translation>
+    ),
     answer: (
-      <div>
-        <div>
-          У Вашому профілі Ви знайдете токен доступу, ось приклад токену:
-          <mark className="p-1 bg-gray-200">
-            94c6d542af1c4c4942e51df6с4d47fbd12fb3dea
-          </mark>
-        </div>
-        <div>
-          Для того, щоб отримати доступ до API вам необхідно додати у Ваш HTTP-запит звичайний
-          заголовок з назвою “Authorization” та значенням
-          "Token 94c6d542af1c4c4942e51df6с4d47fbd12fb3dea" підставивши Ваш токен.
-        </div>
-        <div>
-          Кінцевий заголовок:
-          <em className="block">
-            Authorization: Token 94c6d542af1c4c4942e51df6с4d47fbd12fb3dea
-          </em>
-        </div>
-      </div>
+      <Translation>
+        {(t) => (
+          <>
+            <div>
+              {t('faq.answer.q1AccessToken')}
+              <mark className="p-1 bg-gray-200">
+                94c6d542af1c4c4942e51df6с4d47fbd12fb3dea
+              </mark>
+            </div>
+            <div>
+              {t('faq.answer.q1MainAnswer')}
+            </div>
+            <div>
+              {t('faq.answer.q1FinalTitle')}
+              <em className="block">
+                Authorization: Token 94c6d542af1c4c4942e51df6с4d47fbd12fb3dea
+              </em>
+            </div>
+          </>
+        )}
+      </Translation>
     ),
   },
   {
     id: 2,
-    question: 'Чому не вдається отримати доступ до АPI (403)?',
+    question: (
+      <Translation>
+        {(t) => `${t('faq.getApi')}`}
+      </Translation>
+    ),
     answer: (
-      <div>
-        <div>
-          Перевірте чи правильний токен Ви використовуєте у Ваших запитах, звіривши його
-          з токеном,
-        </div>
-        <div>
-          що відображається у Вас в профілі.
-        </div>
-        <div>
-          Також перевірте структуру заголовку у запитах що Ви надсилаєте,
-          він має мати наступну структуру:
-        </div>
-        <div>
-          <em className="block">
-            Authorization: Token {'<your_token>'}
-          </em>
-        </div>
-      </div>
+      <Translation>
+        {(t) => (
+          <>
+            <div>
+              <div className="pr-12">
+                {t('faq.answer.q2CorrectToken')}
+              </div>
+              <div>
+                {t('faq.answer.q2TitleStructure')}
+              </div>
+              <div>
+                <em className="block">
+                  Authorization: Token {'<your_token>'}
+                </em>
+              </div>
+            </div>
+          </>
+        )}
+      </Translation>
     ),
   },
   {
     id: 3,
-    question: 'Чому Ваш API видає лише 10 результатів?',
+    question: (
+      <Translation>
+        {(t) => `${t('faq.apiResults')}`}
+      </Translation>
+    ),
     answer: (
-      <div>
-        <div>
-          Ендпоінти, що повертають списки сутностей працюють в режимі пагінації, тобто поділені
-          на сторінки.
-        </div>
-        <div>
-          Керувати пагінацією ви можете за допомогою двух GET-параметрів:
-        </div>
-        <div className="pl-10">
-          page - номер сторінки яку Ви хочете отримати
-        </div>
-        <div className="pl-10">
-          page_size - кількість записів, що повертаються на одній сторінці.
-        </div>
-        <div>
-          По замовчуванню - 10.
-        </div>
-        <div>
-          Максимальне значення - 100.
-        </div>
-        <div>
-          <em className="block mt-1">
-            Приклад: /api/company/?page=3&page_size=25
-          </em>
-        </div>
-      </div>
+      <Translation>
+        {(t) => (
+          <>
+            <div>
+              <div>
+                {t('faq.answer.q3Endpoints')}
+              </div>
+              <div>
+                {t('faq.answer.q3Pagination')}
+              </div>
+              <div className="pl-10">
+                page - {t('faq.answer.q3PageNumber')}
+              </div>
+              <div className="pl-10">
+                page_size - {t('faq.answer.q3EntriesNumber')}
+              </div>
+              <div>
+                {t('faq.answer.q3Default')} 10.
+              </div>
+              <div>
+                {t('faq.answer.maxValue')} 100.
+              </div>
+              <div>
+                <em className="block mt-1">
+                  {t('faq.answer.example')} /api/company/?page=3&page_size=25
+                </em>
+              </div>
+            </div>
+          </>
+        )}
+      </Translation>
     ),
   },
   {
     id: 4,
-    question: 'Як мені отримати дані у XML форматі?',
+    question: (
+      <Translation>
+        {(t) => `${t('faq.xmlFormat')}`}
+      </Translation>
+    ),
     answer: (
-      <div>
-        <div>
-          Щоб змінити формат даних що повертаються скористайтесь GET-параметром <em>format</em>.
-        </div>
-        <div>
-          Можливі значення: json, xml.
-        </div>
-        <div>
-          <em className="block mt-1">
-            Приклад: /api/company/?format=xml
-          </em>
-        </div>
-      </div>
+      <Translation>
+        {(t) => (
+          <>
+            <div>
+              <div>
+                {t('faq.answer.q4FormatGetParameter')}
+              </div>
+              <div>
+                {t('faq.answer.q4PossibleValues')} json, xml.
+              </div>
+              <div>
+                <em className="block mt-1">
+                  {t('faq.answer.example')} /api/company/?format=xml
+                </em>
+              </div>
+            </div>
+          </>
+        )}
+      </Translation>
     ),
   },
   {
     id: 5,
-    question: 'Які тарифні плани Ви маєте?',
+    question: (
+      <Translation>
+        {(t) => `${t('faq.tariffPlans')}`}
+      </Translation>
+    ),
   },
   {
     id: 6,
-    question: 'Де можна знайти Вашу документацію API?',
-    answer: 'Документація API за посиланням.',
+    question: (
+      <Translation>
+        {(t) => `${t('faq.apiDocumentation')}`}
+      </Translation>
+    ),
+    answer: (
+      <Translation>
+        {(t) => `${t('faq.answer.linkAPI')}`}
+      </Translation>
+    ),
   },
 ];
 
