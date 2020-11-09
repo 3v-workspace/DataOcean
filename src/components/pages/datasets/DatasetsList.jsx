@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Eye, Plus } from 'react-feather';
+import { Eye } from 'react-feather';
 import { Button, SearchBox } from 'components/form-components';
 import { Pagination, useTableController } from 'components/table';
 import moment from 'moment';
