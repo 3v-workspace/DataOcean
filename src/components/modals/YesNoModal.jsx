@@ -37,14 +37,15 @@ const YesNoModal = React.forwardRef((props, ref) => {
         <button
           type="button"
           data-dismiss="modal"
-          className="button w-24 border text-gray-700 mr-1"
+          className="button px-8 border text-gray-700 mr-1"
           onClick={onNo}
         >
           {noLabel || t('no')}
         </button>
         <Button
-          width="w-24"
-          variant={variant}
+          // width="w-24"
+          className="px-8"
+          variant={variant === 'warning' ? 'primary' : variant}
           onClick={onYes}
         >
           {yesLabel || t('yes')}
