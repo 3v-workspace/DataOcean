@@ -52,7 +52,7 @@ $(document).ready(() => {
   // });
 });
 
-let contactFormScheme = {
+let contactFormRules = {
     errorClass: "input_error",
     rules: {
         username: {
@@ -69,42 +69,83 @@ let contactFormScheme = {
         },
         phone: {
             required: true,
+            number: true,
             minlength: 10,
             maxlength: 15
         },
         question: {
             required: true,
         },
-    },
+    }
+}
+
+let contactFormSchemeUk = {
+    ...contactFormRules,
     messages: {
         username: {
-            required: 'Будь ласка, введіть Ваше ім\'я',
-            minlength: 'Замала кількість символів',
+            required: "Будь ласка, введіть Ваше ім\'я",
+            minlength: "Замала кількість символів",
         },
         surname: {
             required: "Будь ласка, введіть Ваше прізвище",
-            minlength: 'Замала кількість символів',
+            minlength: "Замала кількість символів",
         },
         email: {
             required: "Будь ласка, введіть адресу",
-            email: "Будь ласка, введіть коректно адресу"
+            email: "Будь ласка, введіть коректно адресу",
         },
         phone: {
             required: "Будь ласка, введіть коректний номер телефону",
+            number: "Будь ласка, введіть коректний номер телефону",
             minlength: "Замала кількість символів",
-            maxlength: "Завелика кількість символів"
+            maxlength: "Завелика кількість символів",
         },
         question: {
-            required: "Будь ласка, поставте своє запитання"
+            required: "Будь ласка, поставте своє запитання",
         }
-    },
+    }
+}
+
+let contactFormSchemeEn = {
+    ...contactFormRules,
+    messages: {
+        username: {
+            required: "Enter your First Name, please",
+            minlength: "Too few symbols",
+        },
+        surname: {
+            required: "Enter your Last Name, please",
+            minlength: "Too few symbols",
+        },
+        email: {
+            required: "Enter your email, please",
+            email: "Enter your correct email, please",
+        },
+        phone: {
+            required: "Enter your number, please",
+            number: "Enter your correct number, please",
+            minlength: "Too few symbols",
+            maxlength: "Too many symbols",
+        },
+        question: {
+            required: "Ask us your question, please",
+        }
+    }
 }
 
 $('#contact-form').submit(function(event){
     event.preventDefault();
-    if (!$(this).validate(contactFormScheme)) {
-        return
+
+    const userLang = localStorage.getItem('lang');
+    let contactForm = contactFormSchemeEn;
+    if (userLang === 'uk') {
+        contactForm = contactFormSchemeUk;
     }
+
+    if (!$(this).validate(contactForm)) {
+         return $(this).parents
+    }
+
     let form = $('#contact-form');
     let data = {
             name: this.username.value + ' ' + this.surname.value,
@@ -114,7 +155,7 @@ $('#contact-form').submit(function(event){
     }
 
     $.ajax({
-        url: "https://ipa.dataocean.us/api/landing_mail/",
+        url: "https://dataocean-ipa.ml/api/landing_mail/",
         type: "POST",
         dataType: "json",
         data: data,
@@ -122,17 +163,26 @@ $('#contact-form').submit(function(event){
             if (xhr.status !== 200) {
                 return
             }
-            alert('Тепер Ви будете в курсі всіх новин про DataOcean!');
+            if (userLang === 'uk') {
+                alert('Тепер Ви будете в курсі всіх новин про DataOcean!');
+            } else 
+                alert('Now you will be able to keep up with all of DataOcean updates!');
         },
         error: function (jqXhr, textStatus, errorMessage) {
             if (jqXhr.status === 400 || jqXhr.status === 503) {
-                alert('Помилка. Дані не відправлені');
+                if (userLang === 'uk') {
+                    alert('Помилка. Дані не відправлені');
+                } else 
+                    alert('Error. Data isn\'t sent');    
             }
             else {
-                alert('Невідома помилка: ' + errorMessage)
+                if (userLang === 'uk') {
+                    alert('Невідома помилка: ' + errorMessage);
+                } else 
+                    alert('Unknown error: ' + errorMessage);
             };
         }
-    });
+    })
 });
 
 const allowedLanguages = ['uk', 'en'];
@@ -141,8 +191,18 @@ function changeLanguage (langCode) {
     $('#select_language').val(langCode);
     if (allowedLanguages.includes(langCode)) {
         $("[lang]").each(function () {
-            if ($(this).attr("lang") === langCode)
+            if ($(this).attr("lang") === langCode) {
                 $(this).show();
+                if (langCode === 'uk') {
+                    $('#name')[0].placeholder = 'Петро';
+                    $('#surname')[0].placeholder = 'Іваненко';
+                    $('#question')[0].placeholder = 'Привіт, Data Ocean! Я хотів запитати...';
+                } else {
+                    $('#name')[0].placeholder = 'John';
+                    $('#surname')[0].placeholder = 'Galt';
+                    $('#question')[0].placeholder = 'Hello, Data Ocean! I would like to ask about...';
+                }
+            }
             else
                 $(this).hide();
         });
