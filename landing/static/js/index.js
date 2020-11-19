@@ -101,6 +101,18 @@ let langs = {
         uk: 'Будь ласка, поставте своє запитання',
         en: 'Ask us your question, please',
     },
+    placeholderName: {
+        uk: 'Петро',
+        en: 'John',
+    },
+    placeholderLastName: {
+        uk: 'Іваненко',
+        en: 'Galt',
+    },
+    placeholderQuestion: {
+        uk: 'Привіт, Data Ocean! Я хотів запитати...',
+        en: 'Hello, Data Ocean! I would like to ask about...'
+    }
 };
 
 const t = (key) => {
@@ -204,18 +216,13 @@ function changeLanguage (langCode) {
         $("[lang]").each(function () {
             if ($(this).attr("lang") === langCode) {
                 $(this).show();
-                if (langCode === 'uk') {
-                    $('#name')[0].placeholder = 'Петро';
-                    $('#surname')[0].placeholder = 'Іваненко';
-                    $('#question')[0].placeholder = 'Привіт, Data Ocean! Я хотів запитати...';
-                } else {
-                    $('#name')[0].placeholder = 'John';
-                    $('#surname')[0].placeholder = 'Galt';
-                    $('#question')[0].placeholder = 'Hello, Data Ocean! I would like to ask about...';
-                }
+                $('#name')[0].placeholder = t('placeholderName');
+                $('#surname')[0].placeholder = t('placeholderLastName');
+                $('#question')[0].placeholder = t('placeholderQuestion');
             }
-            else
+            else {
                 $(this).hide();
+            }
         });
     } else {
         throw new Error("LangCode " + langCode + " not supported");
