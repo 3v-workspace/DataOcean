@@ -175,7 +175,7 @@ $('#contact-form').submit(function(event){
     }
 
     $.ajax({
-        url: "https://dataocean-ipa.ml/api/landing_mail/",
+        url: "https://ipa.dataocean.us",
         type: "POST",
         dataType: "json",
         data: data,
