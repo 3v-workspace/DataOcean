@@ -25,8 +25,8 @@ $(document).ready(() => {
             setTimeout(() => {
                 $('#develop').removeClass('transparency')
             }, 1500)
-        }, 4500);
-    }, 5000);
+        }, 4000);
+    }, 5500);
 });
 
 
@@ -52,97 +52,117 @@ $(document).ready(() => {
   // });
 });
 
-let contactFormRules = {
-    errorClass: "input_error",
-    rules: {
-        username: {
-            required: true,
-            minlength: 2,
-        },
-        surname: {
-            required: true,
-            minlength: 2,
-        },
-        email: {
-            required: true,
-            email: true,
-        },
-        phone: {
-            required: true,
-            number: true,
-            minlength: 10,
-            maxlength: 15
-        },
-        question: {
-            required: true,
-        },
-    }
-}
+let langs = {
+    messageSuccess: {
+        uk: 'Тепер Ви будете в курсі всіх новин про DataOcean!',
+        en: 'Now you will be able to keep up with all of DataOcean updates!',
+    },
+    messageError: {
+        uk: 'Помилка. Дані не відправлені',
+        en: 'Error. Data isn\'t sent',
+    },
+    messageErrorUnknown: {
+        uk: 'Невідома помилка: ',
+        en: 'Unknown error: ',
+    },
+    minSymbols: {
+        uk: 'Замала кількість символів',
+        en: 'Too few symbols',
+    },
+    maxSymbols: { 
+        uk: 'Завелика кількість символів',
+        en: 'Too many symbols',
+    },
+    usernameRequired: {
+        uk: 'Будь ласка, введіть Ваше ім\'я',
+        en: 'Enter your First Name, please',
+    },
+    surnameRequired: {
+        uk: 'Будь ласка, введіть Ваше прізвище',
+        en: 'Enter your Last Name, please',
+    },
+    emailRequired: {
+        uk: 'Будь ласка, введіть адресу',
+        en: 'Enter your email, please',
+    },
+    emailCorrect: {
+        uk: 'Будь ласка, введіть коректно адресу',
+        en: 'Enter your correct email, please',
+    },
+    phoneRequired: {
+        uk: 'Будь ласка, введіть коректний номер телефону',
+        en: 'Enter your number, please',
+    },
+    phoneNumber: {
+        uk: 'Будь ласка, введіть коректний номер телефону',
+        en: 'Enter your correct number, please',
+    },
+    questionAsk: {
+        uk: 'Будь ласка, поставте своє запитання',
+        en: 'Ask us your question, please',
+    },
+};
 
-let contactFormSchemeUk = {
-    ...contactFormRules,
-    messages: {
-        username: {
-            required: "Будь ласка, введіть Ваше ім\'я",
-            minlength: "Замала кількість символів",
+const t = (key) => {
+    let currentLang = localStorage.getItem('lang');
+    return langs[key][currentLang];
+};
+
+const getSchema = () => {
+    return {
+        errorClass: "input_error",
+        rules: {
+            username: {
+                required: true,
+                minlength: 2,
+            },
+            surname: {
+                required: true,
+                minlength: 2,
+            },
+            email: {
+                required: true,
+                email: true,
+            },
+            phone: {
+                required: true,
+                number: true,
+                minlength: 10,
+                maxlength: 15
+            },
+            question: {
+                required: true,
+            },
         },
-        surname: {
-            required: "Будь ласка, введіть Ваше прізвище",
-            minlength: "Замала кількість символів",
-        },
-        email: {
-            required: "Будь ласка, введіть адресу",
-            email: "Будь ласка, введіть коректно адресу",
-        },
-        phone: {
-            required: "Будь ласка, введіть коректний номер телефону",
-            number: "Будь ласка, введіть коректний номер телефону",
-            minlength: "Замала кількість символів",
-            maxlength: "Завелика кількість символів",
-        },
-        question: {
-            required: "Будь ласка, поставте своє запитання",
+        messages: {
+            username: {
+                required: t('usernameRequired'),
+                minlength: t('minSymbols'),
+            },
+            surname: {
+                required: t('surnameRequired'),
+                minlength: t('minSymbols'),
+            },
+            email: {
+                required: t('emailRequired'),
+                email: t('emailCorrect'),
+            },
+            phone: {
+                required: t('phoneRequired'),
+                number: t('phoneNumber'),
+                minlength: t('minSymbols'),
+                maxlength: t('maxSymbols'),
+            },
+            question: {
+                required: t('questionAsk'),
+            }
         }
     }
-}
-
-let contactFormSchemeEn = {
-    ...contactFormRules,
-    messages: {
-        username: {
-            required: "Enter your First Name, please",
-            minlength: "Too few symbols",
-        },
-        surname: {
-            required: "Enter your Last Name, please",
-            minlength: "Too few symbols",
-        },
-        email: {
-            required: "Enter your email, please",
-            email: "Enter your correct email, please",
-        },
-        phone: {
-            required: "Enter your number, please",
-            number: "Enter your correct number, please",
-            minlength: "Too few symbols",
-            maxlength: "Too many symbols",
-        },
-        question: {
-            required: "Ask us your question, please",
-        }
-    }
-}
+};
 
 $('#contact-form').submit(function(event){
     event.preventDefault();
-
-    const userLang = localStorage.getItem('lang');
-    let contactForm = contactFormSchemeEn;
-    if (userLang === 'uk') {
-        contactForm = contactFormSchemeUk;
-    }
-
-    if (!$(this).validate(contactForm)) {
+    if (!$(this).validate(getSchema())) {
          return $(this).parents
     }
 
@@ -163,24 +183,15 @@ $('#contact-form').submit(function(event){
             if (xhr.status !== 200) {
                 return
             }
-            if (userLang === 'uk') {
-                alert('Тепер Ви будете в курсі всіх новин про DataOcean!');
-            } else 
-                alert('Now you will be able to keep up with all of DataOcean updates!');
+            alert(t('messageSuccess'));
         },
         error: function (jqXhr, textStatus, errorMessage) {
             if (jqXhr.status === 400 || jqXhr.status === 503) {
-                if (userLang === 'uk') {
-                    alert('Помилка. Дані не відправлені');
-                } else 
-                    alert('Error. Data isn\'t sent');    
+                alert(t('messageError'));
             }
             else {
-                if (userLang === 'uk') {
-                    alert('Невідома помилка: ' + errorMessage);
-                } else 
-                    alert('Unknown error: ' + errorMessage);
-            };
+                alert(t('messageErrorUnknown') + errorMessage);
+            }
         }
     })
 });
