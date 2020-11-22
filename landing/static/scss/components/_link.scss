@@ -44,16 +44,15 @@
 
 .select_lang {
     align-items: center;
+    cursor: pointer;
+    border: none;
+    background: none;
     &_span {
         font-size: small;
         padding-left: 7%;
     }
-    color: #4F5979;
-    font-size: 16px;
-    font-style: normal;
-    font-family: $font-family-base;
-    background: none;
-    text-decoration: none;
-    border: none;
+}
+
+.select_lang:focus {
     outline: none;
 }

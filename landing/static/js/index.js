@@ -175,7 +175,7 @@ const getSchema = () => {
 $('#contact-form').submit(function(event){
     event.preventDefault();
     if (!$(this).validate(getSchema())) {
-         return $(this).parents
+        return
     }
 
     let form = $('#contact-form');
@@ -187,7 +187,7 @@ $('#contact-form').submit(function(event){
     }
 
     $.ajax({
-        url: "https://ipa.dataocean.us",
+        url: "process.env.PLATFORM_HOST",
         type: "POST",
         dataType: "json",
         data: data,
@@ -210,36 +210,45 @@ $('#contact-form').submit(function(event){
 
 const allowedLanguages = ['uk', 'en'];
 
-function changeLanguage (langCode) {
-    $('#select_language').val(langCode);
-    if (allowedLanguages.includes(langCode)) {
+function changeLang (languageCode) {
+    const languegeCode = window.localStorage.getItem('lang');
+    if (allowedLanguages.includes(languageCode)) {
+        $('#name')[0].placeholder = t('placeholderName');
+        $('#surname')[0].placeholder = t('placeholderLastName');
+        $('#question')[0].placeholder = t('placeholderQuestion');
         $("[lang]").each(function () {
-            if ($(this).attr("lang") === langCode) {
+            if ($(this).attr("lang") === languageCode) {
                 $(this).show();
-                $('#name')[0].placeholder = t('placeholderName');
-                $('#surname')[0].placeholder = t('placeholderLastName');
-                $('#question')[0].placeholder = t('placeholderQuestion');
             }
             else {
                 $(this).hide();
             }
         });
     } else {
-        throw new Error("LangCode " + langCode + " not supported");
-        }
+        throw new Error("LangCode " + languageCode + " not supported");
+    }
 }
 
-$('#select_language').on("change", function() {
-    const language = $(this).val();
-    const userlang = window.localStorage.setItem('lang', language); 
-    changeLanguage(language);
+$('#change-lang').click(function() {
+    event.preventDefault();
+    let langUser = 'uk';
+    if (localStorage.getItem('lang') === 'uk') {
+        langUser = 'en'; 
+    }
+    const userl = window.localStorage.setItem('lang', langUser); 
+    changeLang(langUser);
 });
 
 $(document).ready(() => {
     const langFromLocalStorage = localStorage.getItem('lang');
     if (allowedLanguages.includes(langFromLocalStorage)) {
-        changeLanguage(langFromLocalStorage);
+        changeLang(langFromLocalStorage);
     } else {
-        changeLanguage('uk');
+        changeLang('uk');
     }
+});
+
+
+$('#link_platform').on('click', function () {
+    window.open("https://dp.dataocean.us/system/home/");
 });

@@ -25,10 +25,12 @@
                         <span lang="uk">Напишіть нам</span>
                         <span lang="en">Contact us</span>
                     </a>
-                    <select id="select_language" class="navigation__item select_lang">
-                        <option value="uk" selected>ua</option>
-                        <option value="en">en</option>
-                    </select>
+                    <button id="change-lang" class="navigation__item link link_start select_lang">
+                        <img lang="en" src="static/img/ukraine_flag.svg">
+                        <span class="select_lang_span" lang="en">Українська</span>
+                        <img lang="uk" src="static/img/usa_flag.svg">
+                        <span class="select_lang_span" lang="uk">English</span>
+                    </button>
                 </ul>  
         </header>
 
@@ -40,7 +42,7 @@
                             <h1 id="explore" class="h1_top">Explore.</h1>
                             <h1 id="build" class="h1_build">Build.</h1>
                             <h1 id="develop" class="h1_develop">Develop.</h1>
-                            <a class="btn-primary btn--has-shadow btn-primary_dataocean" href="https://dp.dataocean.us/system/home/" target="_blank">
+                            <a id="link_platform" class="btn-primary btn--has-shadow btn-primary_dataocean">
                                 <span>
                                     Data Platform
                                     <ion-icon class="btn-primary_dataocean_icon" name="chevron-forward-outline"></ion-icon>
@@ -105,7 +107,7 @@
                 <div class="col-lg-6 margin-list paragraph_large">
                     <img class="margin-list__item" src="static/img/Group_134.svg">
                     <h2 class="h2 margin-list__item">
-                        <a class="link_i" href="https://dp.dataocean.us/system/home/" target="_blank">
+                        <a href="https://dp.dataocean.us/system/home/" target="_blank" id="link_platform" class="link_i">
                             Data Platform
                             <ion-icon class="h2 margin-list__item" name="chevron-forward-outline"></ion-icon>
                         </a>                           
