@@ -249,5 +249,5 @@ $(document).ready(() => {
 });
 
 $('#link_platform').on('click', function () {
-    window.open(process.env.DO_FRONTEND_HOST + '/system/home/');
+    window.open(process.env.DO_FRONTEND_HOST + '/system/home/' + '?lang=' + localStorage.getItem('lang')); 
 });
