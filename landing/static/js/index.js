@@ -4,6 +4,7 @@ import $ from 'jquery';
 import 'jquery-validation';
 // import 'jquery-modal';
 
+
 $(document).ready(() => {
     setInterval(() => {
         setTimeout(() => {
@@ -187,7 +188,7 @@ $('#contact-form').submit(function(event){
     }
 
     $.ajax({
-        url: "process.env.PLATFORM_HOST",
+        url: process.env.DO_BACKEND_HOST + '/api/landing_mail/',
         type: "POST",
         dataType: "json",
         data: data,
@@ -210,9 +211,9 @@ $('#contact-form').submit(function(event){
 
 const allowedLanguages = ['uk', 'en'];
 
-function changeLang (languageCode) {
-    const languegeCode = window.localStorage.getItem('lang');
+function changeLang (languageCode) {  
     if (allowedLanguages.includes(languageCode)) {
+        window.localStorage.setItem('lang', languageCode); 
         $('#name')[0].placeholder = t('placeholderName');
         $('#surname')[0].placeholder = t('placeholderLastName');
         $('#question')[0].placeholder = t('placeholderQuestion');
@@ -229,13 +230,12 @@ function changeLang (languageCode) {
     }
 }
 
-$('#change-lang').click(function() {
+$('#change-lang').click(function(event) {
     event.preventDefault();
     let langUser = 'uk';
     if (localStorage.getItem('lang') === 'uk') {
         langUser = 'en'; 
     }
-    const userl = window.localStorage.setItem('lang', langUser); 
     changeLang(langUser);
 });
 
@@ -248,7 +248,6 @@ $(document).ready(() => {
     }
 });
 
-
 $('#link_platform').on('click', function () {
-    window.open("https://dp.dataocean.us/system/home/");
+    window.open(process.env.DO_FRONTEND_HOST + '/system/home/');
 });
