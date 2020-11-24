@@ -67,7 +67,7 @@ const Button = (props) => {
   const {
     size, children, width, variant, className, isLoading,
     onClick, link, toggleModal, type, disabled, isRounded,
-    isElevated, href, target,
+    isElevated, href, target, noFlex,
   } = props;
 
   const classList = [];
@@ -90,7 +90,9 @@ const Button = (props) => {
   if (variant !== 'blank') {
     classList.push(buttonTypes[variant]);
   }
-  classList.push('inline-flex items-center justify-center');
+  if (!noFlex) {
+    classList.push('inline-flex items-center justify-center');
+  }
 
   let Component = 'button';
 
@@ -141,6 +143,7 @@ Button.propTypes = {
   isLoading: PropTypes.bool,
   isRounded: PropTypes.bool,
   isElevated: PropTypes.bool,
+  noFlex: PropTypes.bool,
 };
 
 Button.defaultProps = {
@@ -158,6 +161,7 @@ Button.defaultProps = {
   isLoading: false,
   isRounded: false,
   isElevated: false,
+  noFlex: false,
 };
 
 export default Button;

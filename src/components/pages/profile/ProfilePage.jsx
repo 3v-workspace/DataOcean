@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 import Api from 'api';
 import { ReactRouterPropTypes } from 'utils/prop-types';
 import {
-  Mail, Settings, User,
+  Mail, Settings, User, Clipboard,
 } from 'react-feather';
 import { NavLink, Route, Switch } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import ProjectsPage from 'components/pages/projects/ProjectsPage';
 import ProfileSettings from './ProfileSettings';
 import ProfileInfo from './ProfileInfo';
 
@@ -15,7 +16,6 @@ const ProfilePage = ({ match }) => {
   const [stats, setStats] = useState({ api_requests: '---', endpoints: '---' });
 
   const user = useSelector((store) => store.user);
-
   useEffect(() => {
     Api.get('stats/profile/')
       .then((resp) => {
@@ -87,6 +87,14 @@ const ProfilePage = ({ match }) => {
             <User className="w-4 h-4 mr-2" /> {t('profile')}
           </NavLink>
           <NavLink
+            to="/system/profile/projects/"
+            data-toggle="tab"
+            className="py-4 sm:mr-8 flex items-center"
+            activeClassName="active"
+          >
+            <Clipboard className="w-4 h-4 mr-2" /> {t('projects')}
+          </NavLink>
+          <NavLink
             exact
             to="/system/profile/settings/"
             data-toggle="tab"
@@ -104,8 +112,12 @@ const ProfilePage = ({ match }) => {
           component={ProfileSettings}
         />
         <Route
+          path={`${match.path}projects/`}
+          component={ProjectsPage}
+        />
+        <Route
           exact
-          path={`${match.path}/`}
+          path={match.path}
           component={ProfileInfo}
         />
       </Switch>
