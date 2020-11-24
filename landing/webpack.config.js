@@ -3,6 +3,7 @@ var webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 
 var DEBUG = process.env.NODE_ENV === 'development'
 
@@ -56,6 +57,7 @@ module.exports = {
     new CleanWebpackPlugin({
       cleanStaleWebpackAssets: false,
     }),
+    new Dotenv(),
   ],
 
   module: {
