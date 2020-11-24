@@ -1,23 +1,21 @@
-<div id="do-pep-company-scheme" class="{{#if themeAA}}theme-antac{{/if}}">
-  {{#if (not true false)}}
-  {{/if}}
-  <div id="graph-container"></div>
+<div class="do-pep-company-scheme {{#if themeAA}}theme-antac{{/if}}">
+  <div class="do-graph-container"></div>
   <div class="main-grid p-4 z-3">
     {{#if showSearch}}
-    <div class="search search-block z-4 mb-4">
-      <form id="company-search-form" class="d-flex">
+    <div class="do-search do-search-block z-4 mb-4">
+      <form class="do-company-search-form d-flex" autocomplete="on">
         <input
             required
-            id="company-search"
             type="text"
-            class="form-control"
+            class="do-company-search form-control"
             placeholder="Введіть код ЄДРПОУ або прізвище публічного діяча"
+            autocomplete="on"
         >
-        <button type="submit" id="company-search-btn"
-                class="btn {{#if themeDO}}btn-primary{{/if}} {{#if themeAA}}btn-green{{/if}} ml-2">
+        <button type="submit"
+                class="do-company-search-btn btn {{#if themeDO}}btn-primary{{/if}} {{#if themeAA}}btn-green{{/if}} ml-2">
           {{{icons.other.search}}}
         </button>
-        <div class="dropdown-menu search-dropdown">
+        <div class="dropdown-menu do-search-dropdown">
           <div class="px-2">
             <ul class="list-group list-group-flush">
             </ul>
@@ -28,7 +26,7 @@
     {{/if}}
     {{!-- TODO: filters --}}
     {{#if false}}
-    <div id="filters" class="side-block side-block-right z-3">
+    <div class="do-filters side-block side-block-right z-3">
       <div class="side-block-header show">
         Фільтр
         <div class="slide-icon"></div>
@@ -36,8 +34,8 @@
       <div class="side-block-body show">
         {{#each filters}}
         <div class="custom-control custom-checkbox">
-          <input type="checkbox" class="custom-control-input" id="id_{{this.name}}" name="{{this.name}}">
-          <label class="custom-control-label" for="id_{{this.name}}">
+          <input type="checkbox" class="custom-control-input" id="id_do_{{this.name}}" name="{{this.name}}">
+          <label class="custom-control-label" for="id_do_{{this.name}}">
             {{this.label}}
           </label>
         </div>
@@ -45,15 +43,15 @@
       </div>
     </div>
     {{/if}}
-    <div id="node-detail" style="display: none" class="side-block z-3">
+    <div style="display: none" class="do-node-detail side-block z-3">
       <div class="side-block-header">
         Деталі
         <div class="slide-icon"></div>
       </div>
-      <div id="detail-block" class="side-block-body show">
+      <div class="do-node-detail-body side-block-body show">
       </div>
     </div>
-    <div id="legend" class="side-block side-block-right z-3">
+    <div class="do-legend-block side-block side-block-right z-3">
       <div class="side-block-header show">
         Легенда
         <div class="slide-icon"></div>

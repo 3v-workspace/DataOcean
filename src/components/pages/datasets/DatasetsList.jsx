@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
-import { Eye, Plus } from 'react-feather';
+import { Eye } from 'react-feather';
 import { Button, SearchBox } from 'components/form-components';
 import { Pagination, useTableController } from 'components/table';
-import moment from 'moment';
-import { DATETIME_FORMAT } from 'const/const';
 import { Link } from 'react-router-dom';
 import { ReactRouterPropTypes } from 'utils/prop-types';
 import { useTranslation } from 'react-i18next';
 import Tooltip from 'components/Tooltip';
+import { dateFormat } from 'utils';
 
 const DatasetsList = ({ match }) => {
   const [search, setSearch] = useState('');
@@ -78,7 +77,7 @@ const DatasetsList = ({ match }) => {
                     {i18n.language === 'en' ? item.name_eng : item.name}
                   </td>
                   <td className="text-center">
-                    {moment(item.source_last_update).format(DATETIME_FORMAT)}
+                    {dateFormat(item.source_last_update)}
                   </td>
                   <td className="table-report__action w-56">
                     <div className="flex justify-center items-center">

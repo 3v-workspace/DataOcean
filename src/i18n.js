@@ -1,17 +1,22 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
-import HttpApi from 'i18next-http-backend';
+// import HttpApi from 'i18next-http-backend';
 import LanguageDetector from 'i18next-browser-languagedetector';
-
+import uk from 'locales/uk/translation.json';
+import en from 'locales/en/translation.json';
 
 i18n
-  .use(HttpApi)
   .use(LanguageDetector)
   .use(initReactI18next)
+  // .use(HttpApi)
   .init({
-    backend: {
-      loadPath: '/locales/{{lng}}/{{ns}}.json?v=2',
+    resources: {
+      uk: { translation: uk },
+      en: { translation: en },
     },
+    // backend: {
+    //   loadPath: '/locales/{{lng}}/{{ns}}.json?v=2',
+    // },
     detection: {
       order: [
         'localStorage', 'querystring', 'cookie', 'sessionStorage',

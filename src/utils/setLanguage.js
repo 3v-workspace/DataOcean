@@ -3,6 +3,7 @@
 import i18next from 'i18next';
 import Yup from 'utils/yup';
 import locale from 'yup/lib/locale';
+import moment from 'moment';
 
 export const setYupLanguage = (language) => {
   if (language === 'uk') {
@@ -41,6 +42,7 @@ const setLanguage = (languageCode) => {
       lang = i18next.languages.find((item) => lang.includes(item)) || 'uk';
     }
   }
+  moment.locale(lang);
   i18next.changeLanguage(lang);
   window.localStorage.setItem('i18nextLng', lang);
   setYupLanguage(lang);
