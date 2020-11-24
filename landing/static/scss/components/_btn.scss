@@ -34,10 +34,11 @@
     }
 
     &_dataocean {
-        position: absolute;
+        //position: absolute;
         width: 55%;
         line-height: 150%;
         font-weight: bolder;
+        text-align: center;
         transition: all 0.5s;
         cursor: pointer;
         ion-icon {
