@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "./node_modules/.bin/webpack --config webpack.config.js",
-    "watch": "./node_modules/.bin/webpack --config webpack.config.js --watch",
-    "start": "./node_modules/.bin/webpack-dev-server --watch-poll --hot"
+    "watch": "NODE_ENV=development ./node_modules/.bin/webpack --config webpack.config.js --watch",
+    "start": "NODE_ENV=development ./node_modules/.bin/webpack-dev-server --watch-poll --hot"
   },
   "browserslist": [
     "> 1%",
