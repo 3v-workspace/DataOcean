@@ -4,6 +4,7 @@ import $ from 'jquery';
 import 'jquery-validation';
 // import 'jquery-modal';
 
+
 $(document).ready(() => {
     setInterval(() => {
         setTimeout(() => {
@@ -25,8 +26,8 @@ $(document).ready(() => {
             setTimeout(() => {
                 $('#develop').removeClass('transparency')
             }, 1500)
-        }, 4500);
-    }, 5000);
+        }, 4000);
+    }, 5500);
 });
 
 
@@ -52,59 +53,132 @@ $(document).ready(() => {
   // });
 });
 
-let contactFormScheme = {
-    errorClass: "input_error",
-    rules: {
-        username: {
-            required: true,
-            minlength: 2,
-        },
-        surname: {
-            required: true,
-            minlength: 2,
-        },
-        email: {
-            required: true,
-            email: true,
-        },
-        phone: {
-            required: true,
-            minlength: 10,
-            maxlength: 15
-        },
-        question: {
-            required: true,
-        },
+let langs = {
+    messageSuccess: {
+        uk: 'Тепер Ви будете в курсі всіх новин про DataOcean!',
+        en: 'Now you will be able to keep up with all of DataOcean updates!',
     },
-    messages: {
-        username: {
-            required: 'Будь ласка, введіть Ваше ім\'я',
-            minlength: 'Замала кількість символів',
+    messageError: {
+        uk: 'Помилка. Дані не відправлені',
+        en: 'Error. Data isn\'t sent',
+    },
+    messageErrorUnknown: {
+        uk: 'Невідома помилка: ',
+        en: 'Unknown error: ',
+    },
+    minSymbols: {
+        uk: 'Замала кількість символів',
+        en: 'Too few symbols',
+    },
+    maxSymbols: { 
+        uk: 'Завелика кількість символів',
+        en: 'Too many symbols',
+    },
+    usernameRequired: {
+        uk: 'Будь ласка, введіть Ваше ім\'я',
+        en: 'Enter your First Name, please',
+    },
+    surnameRequired: {
+        uk: 'Будь ласка, введіть Ваше прізвище',
+        en: 'Enter your Last Name, please',
+    },
+    emailRequired: {
+        uk: 'Будь ласка, введіть адресу',
+        en: 'Enter your email, please',
+    },
+    emailCorrect: {
+        uk: 'Будь ласка, введіть коректно адресу',
+        en: 'Enter your correct email, please',
+    },
+    phoneRequired: {
+        uk: 'Будь ласка, введіть коректний номер телефону',
+        en: 'Enter your number, please',
+    },
+    phoneNumber: {
+        uk: 'Будь ласка, введіть коректний номер телефону',
+        en: 'Enter your correct number, please',
+    },
+    questionAsk: {
+        uk: 'Будь ласка, поставте своє запитання',
+        en: 'Ask us your question, please',
+    },
+    placeholderName: {
+        uk: 'Петро',
+        en: 'John',
+    },
+    placeholderLastName: {
+        uk: 'Іваненко',
+        en: 'Galt',
+    },
+    placeholderQuestion: {
+        uk: 'Привіт, Data Ocean! Я хотів запитати...',
+        en: 'Hello, Data Ocean! I would like to ask about...'
+    }
+};
+
+const t = (key) => {
+    let currentLang = localStorage.getItem('lang');
+    return langs[key][currentLang];
+};
+
+const getSchema = () => {
+    return {
+        errorClass: "input_error",
+        rules: {
+            username: {
+                required: true,
+                minlength: 2,
+            },
+            surname: {
+                required: true,
+                minlength: 2,
+            },
+            email: {
+                required: true,
+                email: true,
+            },
+            phone: {
+                required: true,
+                number: true,
+                minlength: 10,
+                maxlength: 15
+            },
+            question: {
+                required: true,
+            },
         },
-        surname: {
-            required: "Будь ласка, введіть Ваше прізвище",
-            minlength: 'Замала кількість символів',
-        },
-        email: {
-            required: "Будь ласка, введіть адресу",
-            email: "Будь ласка, введіть коректно адресу"
-        },
-        phone: {
-            required: "Будь ласка, введіть коректний номер телефону",
-            minlength: "Замала кількість символів",
-            maxlength: "Завелика кількість символів"
-        },
-        question: {
-            required: "Будь ласка, поставте своє запитання"
+        messages: {
+            username: {
+                required: t('usernameRequired'),
+                minlength: t('minSymbols'),
+            },
+            surname: {
+                required: t('surnameRequired'),
+                minlength: t('minSymbols'),
+            },
+            email: {
+                required: t('emailRequired'),
+                email: t('emailCorrect'),
+            },
+            phone: {
+                required: t('phoneRequired'),
+                number: t('phoneNumber'),
+                minlength: t('minSymbols'),
+                maxlength: t('maxSymbols'),
+            },
+            question: {
+                required: t('questionAsk'),
+            }
         }
-    },
-}
+    }
+};
 
 $('#contact-form').submit(function(event){
     event.preventDefault();
-    if (!$(this).validate(contactFormScheme)) {
+    if (!$(this).validate(getSchema())) {
         return
     }
+
     let form = $('#contact-form');
     let data = {
             name: this.username.value + ' ' + this.surname.value,
@@ -114,7 +188,7 @@ $('#contact-form').submit(function(event){
     }
 
     $.ajax({
-        url: "https://ipa.dataocean.us/api/landing_mail/",
+        url: process.env.DO_BACKEND_HOST + '/api/landing_mail/',
         type: "POST",
         dataType: "json",
         data: data,
@@ -122,46 +196,58 @@ $('#contact-form').submit(function(event){
             if (xhr.status !== 200) {
                 return
             }
-            alert('Тепер Ви будете в курсі всіх новин про DataOcean!');
+            alert(t('messageSuccess'));
         },
         error: function (jqXhr, textStatus, errorMessage) {
             if (jqXhr.status === 400 || jqXhr.status === 503) {
-                alert('Помилка. Дані не відправлені');
+                alert(t('messageError'));
             }
             else {
-                alert('Невідома помилка: ' + errorMessage)
-            };
+                alert(t('messageErrorUnknown') + errorMessage);
+            }
         }
-    });
+    })
 });
 
 const allowedLanguages = ['uk', 'en'];
 
-function changeLanguage (langCode) {
-    $('#select_language').val(langCode);
-    if (allowedLanguages.includes(langCode)) {
+function changeLang (languageCode) {  
+    if (allowedLanguages.includes(languageCode)) {
+        window.localStorage.setItem('lang', languageCode); 
+        $('#name')[0].placeholder = t('placeholderName');
+        $('#surname')[0].placeholder = t('placeholderLastName');
+        $('#question')[0].placeholder = t('placeholderQuestion');
         $("[lang]").each(function () {
-            if ($(this).attr("lang") === langCode)
+            if ($(this).attr("lang") === languageCode) {
                 $(this).show();
-            else
+            }
+            else {
                 $(this).hide();
+            }
         });
     } else {
-        throw new Error("LangCode " + langCode + " not supported");
-        }
+        throw new Error("LangCode " + languageCode + " not supported");
+    }
 }
 
-$('#select_language').on("change", function() {
-    const language = $(this).val();
-    const userlang = window.localStorage.setItem('lang', language); 
-    changeLanguage(language);
+$('#change-lang').click(function(event) {
+    event.preventDefault();
+    let langUser = 'uk';
+    if (localStorage.getItem('lang') === 'uk') {
+        langUser = 'en'; 
+    }
+    changeLang(langUser);
 });
 
 $(document).ready(() => {
     const langFromLocalStorage = localStorage.getItem('lang');
     if (allowedLanguages.includes(langFromLocalStorage)) {
-        changeLanguage(langFromLocalStorage);
+        changeLang(langFromLocalStorage);
     } else {
-        changeLanguage('uk');
+        changeLang('uk');
     }
+});
+
+$('#link_platform').on('click', function () {
+    window.open(process.env.DO_FRONTEND_HOST + '/system/home/' + '?lang=' + localStorage.getItem('lang')); 
 });
