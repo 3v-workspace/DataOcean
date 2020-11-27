@@ -157,25 +157,26 @@ const ProjectsTable = (props) => {
               placeholder="Type your comments"
               formik={formik}
             />
-            <div className="flex justify-end">
-              <Button
-                type="submit"
-                isLoading={formik.isSubmitting}
-                disabled={formik.isSubmitting}
-                className="ml-auto px-8"
-              >
-                Створити
-              </Button>
-            </div>
+            <Button
+              type="submit"
+              isLoading={formik.isSubmitting}
+              disabled={formik.isSubmitting}
+              noFlex
+              className="block ml-auto px-8"
+            >
+              Створити
+            </Button>
           </Form>
         </BlankModal>
         <div className="overflow-auto">
           <table className="table">
             <thead>
               <tr className="bg-gray-200 text-gray-700">
-                <th className="whitespace-no-wrap">Назва проекту</th>
-                <th className="whitespace-no-wrap">Власник</th>
-                <th className="whitespace-no-wrap">Статус</th>
+                <th>Назва проекту</th>
+                <th>Власник</th>
+                <th>Кількість користувачів</th>
+                <th>Статус</th>
+                <th>Тарифний план</th>
               </tr>
             </thead>
             <tbody>
@@ -187,7 +188,9 @@ const ProjectsTable = (props) => {
                 >
                   <td className="border-b">{project.name}</td>
                   <td className="border-b">{project.owner}</td>
+                  <td className="border-b">{project.users_count}</td>
                   <td className="border-b">{getProjectStatus(project)}</td>
+                  <td className="border-b">{project.active_subscription}</td>
                 </tr>
               ))}
             </tbody>

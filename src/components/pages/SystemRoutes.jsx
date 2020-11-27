@@ -10,6 +10,7 @@ import HomePage from 'components/pages/system/HomePage';
 import ProfilePage from 'components/pages/profile/ProfilePage';
 import DatasetsRoutes from 'components/pages/datasets/DatasetsRoutes';
 import PepGraphPage from 'components/pages/system/PepGraphPage';
+import SubscriptionsPage from 'components/pages/projects/SubscriptionsPage';
 
 
 const SystemRoutes = (props) => {
@@ -47,6 +48,11 @@ const SystemRoutes = (props) => {
         exact
         path={`${match.path}pep-scheme/`}
         component={PepGraphPage}
+      />
+      <Route
+        exact
+        path={`${match.path}subscriptions/`}
+        component={SubscriptionsPage}
       />
       <Route
         exact

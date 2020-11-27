@@ -4,7 +4,7 @@ import { ReactRouterPropTypes } from 'utils/prop-types';
 import TabContent from 'components/pages/profile/TabContent';
 import TabContentBlock from 'components/pages/profile/TabContentBlock';
 import { BooleanInput, Button, TextInput } from 'components/form-components';
-import { Copy, RefreshCcw, AlertTriangle, HelpCircle } from 'react-feather';
+import { Copy, RefreshCcw, HelpCircle, Briefcase } from 'react-feather';
 import Tooltip from 'components/Tooltip';
 import { BlankModal, YesNoModal } from 'components/modals';
 import { useTranslation } from 'react-i18next';
@@ -114,6 +114,7 @@ const ProjectDetail = (props) => {
     Api.put(`payment/project/${projectId}/refresh-token/`)
       .then(() => {
         $.toast('Token refreshed');
+        refreshTokenModalRef.current.hide();
         fetchData();
       });
   };
@@ -259,7 +260,8 @@ const ProjectDetail = (props) => {
               type="submit"
               isLoading={inviteUserFormik.isSubmitting}
               disabled={inviteUserFormik.isSubmitting}
-              className="px-5"
+              noFlex
+              className="block ml-auto px-10"
             >
               Запросити
             </Button>
@@ -284,16 +286,15 @@ const ProjectDetail = (props) => {
               placeholder="Type your comments"
               formik={projectFormik}
             />
-            <div className="flex justify-end">
-              <Button
-                type="submit"
-                isLoading={projectFormik.isSubmitting}
-                disabled={projectFormik.isSubmitting}
-                className="ml-auto px-8"
-              >
-                Оновити
-              </Button>
-            </div>
+            <Button
+              type="submit"
+              isLoading={projectFormik.isSubmitting}
+              disabled={projectFormik.isSubmitting}
+              noFlex
+              className="block ml-auto px-8"
+            >
+              Оновити
+            </Button>
           </Form>
         </BlankModal>
         <h3 className="intro-y text-2xl font-medium leading-none">
@@ -313,10 +314,9 @@ const ProjectDetail = (props) => {
             {project.token}
           </span>
           {project.is_owner && (
-            <Tooltip content="Оновити токен">
+            <Tooltip content="Оновити токен" noContainer>
               <Button
                 variant="blank"
-                // className="my-2"
                 isRounded
                 onClick={openRefreshTokenModal}
               >
@@ -324,10 +324,9 @@ const ProjectDetail = (props) => {
               </Button>
             </Tooltip>
           )}
-          <Tooltip content="Копіювати токен">
+          <Tooltip content="Копіювати токен" noContainer>
             <Button
               variant="blank"
-              // className="my-2"
               isRounded
               onClick={() => {
                 navigator.clipboard.writeText(project.token).then(
@@ -339,32 +338,34 @@ const ProjectDetail = (props) => {
             </Button>
           </Tooltip>
         </div>
-
         <h3 className="intro-y text-lg font-medium leading-none mt-10 mb-4">
           Користувачі
         </h3>
-        <div className="overflow-auto">
-          <table className="intro-y table mb-2">
+        <div className="intro-y overflow-auto">
+          <table className="table mb-2">
             <thead>
               <tr className="bg-gray-200 text-gray-700">
-                <th className="whitespace-no-wrap">Ім'я</th>
-                <th className="whitespace-no-wrap">Пошта</th>
-                <th className="whitespace-no-wrap">Статус</th>
-                <th className="whitespace-no-wrap">Роль</th>
-                {project.is_owner && (
-                  <th className="whitespace-no-wrap">Деактивувати</th>
-                )}
+                <th>Ім'я</th>
+                <th>Пошта</th>
+                <th>Статус</th>
               </tr>
             </thead>
             <tbody>
               {project.users.map((user) => (
                 <tr key={user.name}>
-                  <td className="border-b">{user.name}</td>
+                  <td className="border-b">
+                    <div className="flex items-center">
+                      {user.name}
+                      {user.role === u2pRole.OWNER && (
+                        <Tooltip content="Власник проекту" noContainer>
+                          <Briefcase className="ml-1 mb-1 w-4 h-4 text-theme-1" />
+                        </Tooltip>
+                      )}
+                    </div>
+                  </td>
                   <td className="border-b">{user.email}</td>
-                  <td className="border-b">{getUserStatus(user)}</td>
-                  <td className="border-b">{user.role}</td>
-                  {project.is_owner && (
-                    <td className="border-b">
+                  <td className="border-b">
+                    <div className="flex items-center">
                       {user.role !== u2pRole.OWNER && (
                         <BooleanInput
                           readOnly
@@ -374,25 +375,27 @@ const ProjectDetail = (props) => {
                           onClick={() => toggleUserActive(user)}
                         />
                       )}
-                    </td>
-                  )}
+                      {getUserStatus(user)}
+                    </div>
+                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
         {project.is_owner && (
-          <>
+          <div className="intro-y ">
             <Button
               // size="sm"
-              className="intro-y px-10"
+              disabled={!project.is_active}
+              className="px-10"
               onClick={handleAddUserClick}
             >
               Запросити користувача
             </Button>
             <a
               href=""
-              className="intro-y text-theme-1 font-medium ml-3 whitespace-nowrap"
+              className="text-theme-1 font-medium ml-3 whitespace-nowrap"
               onClick={(e) => {
                 e.preventDefault();
                 if (project.invitations.length) {
@@ -407,16 +410,16 @@ const ProjectDetail = (props) => {
                 </span>
               </sup>
             </a>
-          </>
+          </div>
         )}
         {showInvitations && (
-          <div className="overflow-auto">
-            <table className="intro-y table my-2">
+          <div className="intro-y overflow-auto">
+            <table className="table my-2">
               <thead>
                 <tr className="bg-gray-200 text-gray-700">
-                  <th className="whitespace-no-wrap">Пошта</th>
-                  <th className="whitespace-no-wrap">Дата запрошення</th>
-                  <th className="whitespace-no-wrap">Скасувати запрошення</th>
+                  <th>Пошта</th>
+                  <th>Дата запрошення</th>
+                  <th>Скасувати запрошення</th>
                 </tr>
               </thead>
               <tbody>
@@ -445,15 +448,15 @@ const ProjectDetail = (props) => {
         <h3 className="intro-y text-lg font-medium leading-none mt-10 mb-4">
           Обрані тарифні плани
         </h3>
-        <div className="overflow-auto">
-          <table className="intro-y table mb-2">
+        <div className="intro-y overflow-auto">
+          <table className="table mb-2">
             <thead>
               <tr className="bg-gray-200 text-gray-700">
-                <th className="whitespace-no-wrap">Назва</th>
-                <th className="whitespace-no-wrap">Статус</th>
-                <th className="whitespace-no-wrap">Вартість</th>
-                <th className="whitespace-no-wrap">Переглянути оплату</th>
-                <th className="whitespace-no-wrap">Дата закінчення</th>
+                <th>Назва</th>
+                <th>Статус</th>
+                <th>Вартість</th>
+                <th>Переглянути оплату</th>
+                <th>Дата закінчення</th>
               </tr>
             </thead>
             <tbody>
@@ -476,12 +479,16 @@ const ProjectDetail = (props) => {
           </table>
         </div>
         {project.is_owner && (
-          <Button
-            // size="sm"
-            className="intro-y px-10"
-          >
-            Змінити тарифний план
-          </Button>
+          <div className="intro-y">
+            <Button
+              // size="sm"
+              disabled={!project.is_active}
+              className="px-10"
+              onClick={() => console.log('hello')}
+            >
+              Змінити тарифний план
+            </Button>
+          </div>
         )}
       </TabContentBlock>
     </TabContent>

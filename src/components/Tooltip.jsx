@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 const Tooltip = (props) => {
   const {
     content, children, theme, animation, delay, trigger,
-    distance,
+    distance, noContainer,
   } = props;
   const childRef = useRef();
   const contentRef = useRef();
@@ -33,16 +33,25 @@ const Tooltip = (props) => {
     // return () => {
     //   $(childRef.current).tooltipster('destroy');
     // };
-  }, [animation, theme, delay, trigger, distance, content]);
+  }, [animation, theme, delay, trigger, distance, content, noContainer]);
 
-
-  // maybe we can use cloneElement for remove span el
-  // const element = React.cloneElement(children, { ref: childRef });
-  return (
-    <>
+  let element;
+  if (noContainer) {
+    element = React.cloneElement(children, {
+      ref: childRef,
+      title: isContentStr ? content : undefined,
+    });
+  } else {
+    element = (
       <span ref={childRef} title={isContentStr ? content : undefined}>
         {children}
       </span>
+    );
+  }
+
+  return (
+    <>
+      {element}
       {!isContentStr && (
         <div className="tooltip-content">
           <div ref={contentRef}>
@@ -61,6 +70,7 @@ Tooltip.propTypes = {
   delay: PropTypes.number,
   trigger: PropTypes.oneOf(['hover', 'click', 'custom']),
   distance: PropTypes.number,
+  noContainer: PropTypes.bool,
 };
 
 Tooltip.defaultProps = {
@@ -69,6 +79,7 @@ Tooltip.defaultProps = {
   delay: 0,
   trigger: 'hover',
   distance: 6,
+  noContainer: false,
 };
 
 export default Tooltip;

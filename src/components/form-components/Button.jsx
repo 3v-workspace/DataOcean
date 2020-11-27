@@ -63,11 +63,11 @@ Loading.defaultProps = {
 };
 
 // TODO: disabled effect
-const Button = (props) => {
+const Button = React.forwardRef((props, ref) => {
   const {
     size, children, width, variant, className, isLoading,
     onClick, link, toggleModal, type, disabled, isRounded,
-    isElevated, href, target, noFlex,
+    isElevated, href, target, noFlex, title,
   } = props;
 
   const classList = [];
@@ -114,7 +114,9 @@ const Button = (props) => {
 
   return (
     <Component
+      ref={ref}
       type={type}
+      title={title}
       disabled={disabled}
       onClick={onClick}
       className={classList.join(' ')}
@@ -126,7 +128,7 @@ const Button = (props) => {
       )}
     </Component>
   );
-};
+});
 
 Button.propTypes = {
   disabled: PropTypes.bool,
@@ -144,6 +146,7 @@ Button.propTypes = {
   isRounded: PropTypes.bool,
   isElevated: PropTypes.bool,
   noFlex: PropTypes.bool,
+  title: PropTypes.string,
 };
 
 Button.defaultProps = {
@@ -162,6 +165,7 @@ Button.defaultProps = {
   isRounded: false,
   isElevated: false,
   noFlex: false,
+  title: undefined,
 };
 
 export default Button;
