@@ -113,6 +113,10 @@ let langs = {
     placeholderQuestion: {
         uk: 'Привіт, Data Ocean! Я хотів запитати...',
         en: 'Hello, Data Ocean! I would like to ask about...'
+    },
+    placeholderPhone: {
+        uk: '+38(___)___-__-__',
+        en: '+1(___)___-__-__'
     }
 };
 
@@ -183,8 +187,8 @@ $('#contact-form').submit(function(event){
     let data = {
             name: this.username.value + ' ' + this.surname.value,
             email: this.email.value,
-            subject: this.phone.value,
-            message: this.question.value,
+            subject: this.username.value + ' ' + this.surname.value, 
+            message: this.question.value + ' Мій контактний номер: ' + this.phone.value,
     }
 
     $.ajax({
@@ -217,6 +221,7 @@ function changeLang (languageCode) {
         $('#name')[0].placeholder = t('placeholderName');
         $('#surname')[0].placeholder = t('placeholderLastName');
         $('#question')[0].placeholder = t('placeholderQuestion');
+        $('#phone')[0].placeholder = t('placeholderPhone');
         $("[lang]").each(function () {
             if ($(this).attr("lang") === languageCode) {
                 $(this).show();
@@ -250,4 +255,8 @@ $(document).ready(() => {
 
 $('#link_platform').on('click', function () {
     window.open(process.env.DO_FRONTEND_HOST + '/system/home/' + '?lang=' + localStorage.getItem('lang')); 
+});
+
+$('#link_DO').on('click', function () {
+     window.open(process.env.DO_FRONTEND_HOST + '/system/home/' + '?lang=' + localStorage.getItem('lang')); 
 });
