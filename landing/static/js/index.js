@@ -90,10 +90,6 @@ let langs = {
         uk: 'Будь ласка, введіть коректно адресу',
         en: 'Enter your correct email, please',
     },
-    phoneRequired: {
-        uk: 'Будь ласка, введіть коректний номер телефону',
-        en: 'Enter your number, please',
-    },
     phoneNumber: {
         uk: 'Будь ласка, введіть коректний номер телефону',
         en: 'Enter your correct number, please',
@@ -114,10 +110,6 @@ let langs = {
         uk: 'Привіт, Data Ocean! Я хотів запитати...',
         en: 'Hello, Data Ocean! I would like to ask about...'
     },
-    placeholderPhone: {
-        uk: '+38(___)___-__-__',
-        en: '+1(___)___-__-__'
-    }
 };
 
 const t = (key) => {
@@ -142,7 +134,6 @@ const getSchema = () => {
                 email: true,
             },
             phone: {
-                required: true,
                 number: true,
                 minlength: 10,
                 maxlength: 15
@@ -165,7 +156,6 @@ const getSchema = () => {
                 email: t('emailCorrect'),
             },
             phone: {
-                required: t('phoneRequired'),
                 number: t('phoneNumber'),
                 minlength: t('minSymbols'),
                 maxlength: t('maxSymbols'),
@@ -179,16 +169,22 @@ const getSchema = () => {
 
 $('#contact-form').submit(function(event){
     event.preventDefault();
-    if (!$(this).validate(getSchema())) {
+    let form = $(this);
+    form.validate(getSchema())
+    if (!form.valid()) {
         return
     }
 
-    let form = $('#contact-form');
+    let phoneNumber = '';
+    if (this.phone.value) {
+        phoneNumber = ' Мій контактний номер: '  + this.phone.value; 
+    }
+    
     let data = {
-            name: this.username.value + ' ' + this.surname.value,
-            email: this.email.value,
-            subject: this.username.value + ' ' + this.surname.value, 
-            message: this.question.value + ' Мій контактний номер: ' + this.phone.value,
+        name: this.username.value + ' ' + this.surname.value,
+        email: this.email.value,
+        subject: this.username.value + ' ' + this.surname.value, 
+        message: this.question.value + phoneNumber,
     }
 
     $.ajax({
@@ -201,6 +197,7 @@ $('#contact-form').submit(function(event){
                 return
             }
             alert(t('messageSuccess'));
+            $('#contact-form')[0].reset();
         },
         error: function (jqXhr, textStatus, errorMessage) {
             if (jqXhr.status === 400 || jqXhr.status === 503) {
@@ -221,7 +218,6 @@ function changeLang (languageCode) {
         $('#name')[0].placeholder = t('placeholderName');
         $('#surname')[0].placeholder = t('placeholderLastName');
         $('#question')[0].placeholder = t('placeholderQuestion');
-        $('#phone')[0].placeholder = t('placeholderPhone');
         $("[lang]").each(function () {
             if ($(this).attr("lang") === languageCode) {
                 $(this).show();
