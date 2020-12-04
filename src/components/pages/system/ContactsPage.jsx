@@ -22,7 +22,7 @@ const ContactsPage = () => {
       Api.post('users/question/create/', values)
         .then(() => {
           actions.resetForm();
-          $.toast(t('questionIsSent'));
+          $.toast(t('yourQuestionIsSent'));
         })
         .finally(() => {
           actions.setSubmitting(false);
@@ -38,7 +38,7 @@ const ContactsPage = () => {
       <div className="intro-y box inline-grid grid-cols-2">
         <div className="inline-grid">
           <div className="mx-10 pt-6">
-            <h2 className="font-medium pb-4">{t('anyQuestion')} {t('contactWrite')}!</h2>
+            <h2 className="font-medium pb-4">{t('anyQuestion')} {t('contactUs')}!</h2>
             <Form formik={formik}>
               <TextInput
                 textarea

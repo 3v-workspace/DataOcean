@@ -28,7 +28,6 @@
   "company": "Company",
   "companyTypes": "Company types",
   "contactUs": "Contact us",
-  "contactWrite": "Contact us",
   "contacts": "Contacts",
   "continueWith": "Continue with",
   "dataConstructor": "Data constructor",
@@ -132,7 +131,6 @@
   "previousMonth": "Previous month",
   "privacyPolicy": "Privacy policy",
   "profile": "Profile",
-  "questionIsSent": "Your question is sent!",
   "recoverPassword": "Recover password",
   "recoverPasswordEmailSent": "A password reset message has been sent to your email",
   "refresh": "Refresh",
@@ -175,5 +173,6 @@
   "viewTheRegistry": "View the registry",
   "worksInTestMode": "Works in test mode",
   "year": "Year",
-  "yes": "Yes"
+  "yes": "Yes",
+  "yourQuestionIsSent": "Your question is sent!"
 }

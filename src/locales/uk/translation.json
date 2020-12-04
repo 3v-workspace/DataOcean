@@ -27,8 +27,7 @@
   "companiesCount": "Кількість підприємств",
   "company": "Компанія",
   "companyTypes": "Типи компаній",
-  "contactUs": "Зверніться до нас",
-  "contactWrite": "Напишіть нам",
+  "contactUs": "Напишіть нам",
   "contacts": "Контакти",
   "continueWith": "Продовжити з",
   "dataConstructor": "Конструктор даних",
@@ -132,7 +131,6 @@
   "previousMonth": "Попередній місяць",
   "privacyPolicy": "Політикою конфіденційності",
   "profile": "Профіль",
-  "questionIsSent": "Ваше запитання надіслано!",
   "recoverPassword": "Відновити пароль",
   "recoverPasswordEmailSent": "На ваш email було надіслано повідомлення з інструкціями для відновлення паролю",
   "refresh": "Оновити",
@@ -175,5 +173,6 @@
   "viewTheRegistry": "Перегляд реєстру",
   "worksInTestMode": "Працює в тестовому режимі",
   "year": "Рік",
-  "yes": "Так"
+  "yes": "Так",
+  "yourQuestionIsSent": "Ваше запитання надіслано!"
 }
