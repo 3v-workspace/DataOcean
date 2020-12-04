@@ -22,7 +22,7 @@ const ContactsPage = () => {
       Api.post('users/question/create/', values)
         .then(() => {
           actions.resetForm();
-          $.toast(t('userQuestion'));
+          $.toast(t('questionIsSent'));
         })
         .finally(() => {
           actions.setSubmitting(false);
@@ -45,7 +45,7 @@ const ContactsPage = () => {
                 name="text"
                 type="text"
                 className="h-40 intro-x border-gray-200 block focus:outline-none justify-items-start"
-                placeholder={t('placeholderQuestion')}
+                placeholder={t('hiIWouldLikeToAsk')}
                 size="lg"
                 formik={formik}
               />
@@ -59,7 +59,7 @@ const ContactsPage = () => {
             </Form>
           </div>
           <div className="mx-10 pt-6">
-            <span className="font-medium">{t('emailAddress')}:
+            <span className="font-medium">{t('ourEmail')}:
               <a className="items-center flex mt-2 text-blue-800" href="mailto:info@dataocean.us">
                 <Mail className="w-4 h-4 mr-2" />info@dataocean.us
               </a>
