@@ -7,6 +7,7 @@
   "address": "Address",
   "afterRefreshTokenYouLoseAccess": "After the refreshing, you will lose access to the system with the current token.",
   "all": "All",
+  "anyQuestion": "Any question?",
   "apiRequests": "API Requests",
   "apiUsage": "API usage",
   "apply": "Apply",
@@ -27,7 +28,6 @@
   "company": "Company",
   "companyTypes": "Company types",
   "contactUs": "Contact us",
-  "contactWrite": "Email us",
   "contacts": "Contacts",
   "continueWith": "Continue with",
   "dataConstructor": "Data constructor",
@@ -81,6 +81,7 @@
   "generalReport": "General report",
   "group": "Group",
   "help": "Help",
+  "hiIWouldLikeToAsk": "Hello, DataOcean! I would like to ask about...",
   "home": "Home",
   "iAgreeWith": "I agree with",
   "inAFewSecondsYouWillRedirected": "In a few seconds you will be redirected to the login page",
@@ -107,6 +108,7 @@
   "numberOfUsers": "Number of users",
   "oldPassword": "Old password",
   "organization": "Organization",
+  "ourEmail": "Our email",
   "pageMayHaveMoved": "You may have mistyped the address or the page may have moved.",
   "pageMissing": "Oops. This page has gone missing.",
   "pass": {
@@ -147,6 +149,7 @@
   "save": "Save",
   "search": "Search",
   "section": "Section",
+  "send": "Send",
   "settings": "Settings",
   "showingToOfEntries": "Showing {{first}} to {{last}} of {{count}} entries",
   "signIn": "Sign in",
@@ -170,5 +173,6 @@
   "viewTheRegistry": "View the registry",
   "worksInTestMode": "Works in test mode",
   "year": "Year",
-  "yes": "Yes"
+  "yes": "Yes",
+  "yourQuestionIsSent": "Your question is sent!"
 }
