@@ -10,7 +10,7 @@ const TabContentBlock = (props) => {
   return (
     <div className={`intro-y box col-span-12 ${large ? '' : 'lg:col-span-6'}`}>
       <div className="flex items-center px-5 py-5 sm:py-3 border-b border-gray-200">
-        <h2 className="font-medium text-base mr-auto">
+        <h2 className="flex items-center font-medium text-base mr-auto">
           {title}
         </h2>
         {headerContent}

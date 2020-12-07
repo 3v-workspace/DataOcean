@@ -5,7 +5,7 @@ import ReportConstructorPage from 'components/pages/system/ReportConstructorPage
 import ContactsPage from 'components/pages/system/ContactsPage';
 import DataConstructorPage from 'components/pages/system/DataConstructorPage';
 import Route404 from 'components/pages/Route404';
-import HelpPage from 'components/pages/system/HelpPage';
+import HelpPage from 'components/pages/help/HelpPage';
 import HomePage from 'components/pages/system/HomePage';
 import ProfilePage from 'components/pages/profile/ProfilePage';
 import DatasetsRoutes from 'components/pages/datasets/DatasetsRoutes';

@@ -4,7 +4,10 @@ import { ReactRouterPropTypes } from 'utils/prop-types';
 import TabContent from 'components/pages/profile/TabContent';
 import TabContentBlock from 'components/pages/profile/TabContentBlock';
 import { BooleanInput, Button, TextInput } from 'components/form-components';
-import { Copy, RefreshCcw, HelpCircle, Briefcase } from 'react-feather';
+import {
+  Copy, RefreshCcw, HelpCircle,
+  Briefcase, ChevronLeft,
+} from 'react-feather';
 import Tooltip from 'components/Tooltip';
 import { BlankModal, YesNoModal } from 'components/modals';
 import { useTranslation } from 'react-i18next';
@@ -13,7 +16,8 @@ import { useFormik } from 'formik';
 import Yup from 'utils/yup';
 import { dateFormat } from 'utils';
 import Form from 'components/form-components/Form';
-import { u2pRole, u2pStatus } from 'const/projects';
+import { p2sStatus, u2pRole, u2pStatus } from 'const/projects';
+import { Link } from 'react-router-dom';
 
 
 const ProjectDetail = (props) => {
@@ -30,6 +34,12 @@ const ProjectDetail = (props) => {
   const [project, setProject] = useState({});
   const [selectedUser, setSelectedUser] = useState({});
   const [showInvitations, setShowInvitations] = useState(false);
+
+  const subsStatuses = {
+    future: 'Майбутній',
+    active: 'Активний',
+    past: 'Минулий',
+  };
 
   const fetchData = () => {
     Api.get(`payment/project/${projectId}/`)
@@ -112,7 +122,8 @@ const ProjectDetail = (props) => {
 
   const refreshToken = () => {
     Api.put(`payment/project/${projectId}/refresh-token/`)
-      .then(() => {
+      .then((resp) => {
+        window.localStorage.setItem('project_token', resp.data.token);
         $.toast('Token refreshed');
         refreshTokenModalRef.current.hide();
         fetchData();
@@ -178,15 +189,30 @@ const ProjectDetail = (props) => {
     }
   };
 
+  const getIsPaid = (subscription) => {
+    if (subscription.price) {
+      if (subscription.is_paid) {
+        return 'Оплачено';
+      }
+      return 'Неоплачено';
+    }
+    return '---';
+  };
+
   if (!Object.keys(project).length) {
     return null;
   }
+
+  // <Link to="/system/profile/projects/" className="flex items-center">
+  //   <ChevronLeft className="w-4 h-4" />
+  //   проекти
+  // </Link>
 
   return (
     <TabContent>
       <TabContentBlock
         large
-        title="View project"
+        title="Перегляд проекту"
         headerContent={(
           <>
             <span className="mr-3">
@@ -366,7 +392,7 @@ const ProjectDetail = (props) => {
                   <td className="border-b">{user.email}</td>
                   <td className="border-b">
                     <div className="flex items-center">
-                      {user.role !== u2pRole.OWNER && (
+                      {user.role !== u2pRole.OWNER && project.is_owner && (
                         <BooleanInput
                           readOnly
                           name={`${user.name}-is_active`}
@@ -412,7 +438,7 @@ const ProjectDetail = (props) => {
             </a>
           </div>
         )}
-        {showInvitations && (
+        {showInvitations && project.is_owner && (
           <div className="intro-y overflow-auto">
             <table className="table my-2">
               <thead>
@@ -442,7 +468,6 @@ const ProjectDetail = (props) => {
               </tbody>
             </table>
           </div>
-
         )}
         {/*<div className="w-full border-t border-gray-200 my-5" />*/}
         <h3 className="intro-y text-lg font-medium leading-none mt-10 mb-4">
@@ -454,24 +479,26 @@ const ProjectDetail = (props) => {
               <tr className="bg-gray-200 text-gray-700">
                 <th>Назва</th>
                 <th>Статус</th>
-                <th>Вартість</th>
-                <th>Переглянути оплату</th>
+                <th>Запитів залишилось</th>
                 <th>Дата закінчення</th>
+                <th>Оплата</th>
               </tr>
             </thead>
             <tbody>
               {project.subscriptions.map((subscription, i) => (
-                <tr key={i}>
+                <tr key={i} className={`${subscription.status !== p2sStatus.PAST ? '' : 'text-gray-500'}`}>
                   <td className="border-b">{subscription.name}</td>
-                  <td className="border-b">{subscription.status}</td>
-                  <td className="border-b">{subscription.price}</td>
-                  <td className="border-b">
-                    <Button variant="blank" className="text-theme-1 block font-medium">
-                      Оплата
-                    </Button>
-                  </td>
+                  <td className="border-b">{subsStatuses[subscription.status]}</td>
+                  <td className="border-b">{subscription.requests_left}</td>
                   <td className="border-b">
                     {dateFormat(subscription.expiring_date)}
+                  </td>
+                  <td className="border-b">
+                    {getIsPaid(subscription)}
+
+                    {/*<Button variant="blank" className="text-theme-1 block font-medium">*/}
+                    {/*  Оплата*/}
+                    {/*</Button>*/}
                   </td>
                 </tr>
               ))}
@@ -484,7 +511,8 @@ const ProjectDetail = (props) => {
               // size="sm"
               disabled={!project.is_active}
               className="px-10"
-              onClick={() => console.log('hello')}
+              // onClick={() => console.log('hello')}
+              link="/system/subscriptions/"
             >
               Змінити тарифний план
             </Button>

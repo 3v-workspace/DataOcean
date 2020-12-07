@@ -12,3 +12,9 @@ export const u2pRole = {
   OWNER: 'owner',
   MEMBER: 'member',
 };
+
+export const p2sStatus = {
+  PAST: 'past',
+  ACTIVE: 'active',
+  FUTURE: 'future',
+};

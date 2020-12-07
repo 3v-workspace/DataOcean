@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { PROJECT_TOKEN_PREFIX } from 'const/const';
 
 const baseUrl = process.env.REACT_APP_API_BASE_URL.replace(/\/$/, '');
 
@@ -14,20 +15,31 @@ const Api = axios.create({
 });
 
 Api.interceptors.request.use((config) => {
-  const token = window.localStorage.getItem('token');
   const lang = window.localStorage.getItem('i18nextLng');
-  if (token) {
-    config.headers.Authorization = `Token ${token}`;
+  if (config.useProjectToken) {
+    const project_token = window.localStorage.getItem('project_token');
+    config.headers.Authorization = `${PROJECT_TOKEN_PREFIX} ${project_token}`;
+  } else {
+    const token = window.localStorage.getItem('token');
+    if (token) {
+      config.headers.Authorization = `Token ${token}`;
+    }
   }
   config.headers['Accept-Language'] = lang || 'uk';
   return config;
 }, (error) => Promise.reject(error));
 
-// Api.interceptors.response.use((response) => {
-//   return response;
-// }, (error) => {
-//   return Promise.reject(error);
-// });
+Api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response && error.response.status !== 403) {
+      if (error.response.data && error.response.data.detail) {
+        $.toast(error.response.data.detail);
+      }
+    }
+    return Promise.reject(error);
+  },
+);
 
 export const passErrorsToFormik = (error, formik) => {
   if (error.response && error.response.data) {

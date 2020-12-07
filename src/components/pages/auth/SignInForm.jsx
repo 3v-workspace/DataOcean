@@ -34,8 +34,9 @@ const SignInForm = () => {
       Api.post('rest-auth/login/', values)
         .then((resp) => {
           actions.setSubmitting(false);
-          const { user, key } = resp.data;
+          const { user, key, project_token } = resp.data;
           window.localStorage.setItem('token', key);
+          window.localStorage.setItem('project_token', project_token);
           dispatch(userLogin(user));
           setLanguage(user.language);
         })

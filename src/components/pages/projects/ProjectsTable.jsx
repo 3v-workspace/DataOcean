@@ -190,7 +190,7 @@ const ProjectsTable = (props) => {
                   <td className="border-b">{project.owner}</td>
                   <td className="border-b">{project.users_count}</td>
                   <td className="border-b">{getProjectStatus(project)}</td>
-                  <td className="border-b">{project.active_subscription}</td>
+                  <td className="border-b">{project.active_subscription && project.active_subscription.name}</td>
                 </tr>
               ))}
             </tbody>

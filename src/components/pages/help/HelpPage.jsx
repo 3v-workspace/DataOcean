@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { ChevronDown, ChevronUp } from 'react-feather';
 // import Alert from 'components/Alert';
 // import { useParams } from 'react-router-dom';
-import faqs from 'const/faqs';
+import faqs from './faqs';
 
 const HelpPage = () => {
   const { t } = useTranslation();
