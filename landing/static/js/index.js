@@ -197,7 +197,7 @@ $('#contact-form').submit(function(event){
                 return
             }
             alert(t('messageSuccess'));
-            $('#contact-form')[0].reset();
+            form[0].reset();
         },
         error: function (jqXhr, textStatus, errorMessage) {
             if (jqXhr.status === 400 || jqXhr.status === 503) {
@@ -254,5 +254,13 @@ $('#link_platform').on('click', function () {
 });
 
 $('#link_DO').on('click', function () {
+    window.open(process.env.DO_FRONTEND_HOST + '/system/home/?lang=' + localStorage.getItem('lang')); 
+});
+
+$('#api-docs').on('click', function () {
+    window.open(process.env.DO_BACKEND_HOST + '/schema/redoc/'); 
+});
+
+$('#api-button').on('click', function () {
     window.open(process.env.DO_FRONTEND_HOST + '/system/home/?lang=' + localStorage.getItem('lang')); 
 });
