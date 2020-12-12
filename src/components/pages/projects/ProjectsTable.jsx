@@ -41,7 +41,7 @@ const ProjectsTable = (props) => {
     }),
     onSubmit: (values, actions) => {
       Api.post('payment/project/create/', values)
-        .then((resp) => {
+        .then(() => {
           $.toast('Project created');
           fetchData();
         })
@@ -168,7 +168,7 @@ const ProjectsTable = (props) => {
             </Button>
           </Form>
         </BlankModal>
-        <div className="overflow-auto">
+        <div className="overflow-auto md:overflow-hidden">
           <table className="table">
             <thead>
               <tr className="bg-gray-200 text-gray-700">
@@ -184,13 +184,13 @@ const ProjectsTable = (props) => {
                 <tr
                   key={project.id}
                   onClick={() => history.push(`${match.url}${project.id}/`)}
-                  className={`hover:bg-gray-100 cursor-pointer ${project.is_active ? '' : 'text-gray-500'}`}
+                  className={`border-b intro-x hover:bg-gray-100 cursor-pointer ${project.is_active ? '' : 'text-gray-500'}`}
                 >
-                  <td className="border-b">{project.name}</td>
-                  <td className="border-b">{project.owner}</td>
-                  <td className="border-b">{project.users_count}</td>
-                  <td className="border-b">{getProjectStatus(project)}</td>
-                  <td className="border-b">{project.active_subscription && project.active_subscription.name}</td>
+                  <td>{project.name}</td>
+                  <td>{project.owner}</td>
+                  <td>{project.users_count}</td>
+                  <td>{getProjectStatus(project)}</td>
+                  <td>{project.active_subscription && project.active_subscription.name}</td>
                 </tr>
               ))}
             </tbody>

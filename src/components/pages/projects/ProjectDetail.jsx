@@ -6,7 +6,7 @@ import TabContentBlock from 'components/pages/profile/TabContentBlock';
 import { BooleanInput, Button, TextInput } from 'components/form-components';
 import {
   Copy, RefreshCcw, HelpCircle,
-  Briefcase, ChevronLeft,
+  Briefcase,
 } from 'react-feather';
 import Tooltip from 'components/Tooltip';
 import { BlankModal, YesNoModal } from 'components/modals';
@@ -17,7 +17,6 @@ import Yup from 'utils/yup';
 import { dateFormat } from 'utils';
 import Form from 'components/form-components/Form';
 import { p2sStatus, u2pRole, u2pStatus } from 'const/projects';
-import { Link } from 'react-router-dom';
 
 
 const ProjectDetail = (props) => {
@@ -57,7 +56,7 @@ const ProjectDetail = (props) => {
     }),
     onSubmit: (values, actions) => {
       Api.post(`payment/project/${projectId}/invite/`, values)
-        .then((resp) => {
+        .then(() => {
           $.toast('User invited');
         })
         .finally(() => {
@@ -80,7 +79,7 @@ const ProjectDetail = (props) => {
     }),
     onSubmit: (values, actions) => {
       Api.put(`payment/project/${projectId}/update/`, values)
-        .then((resp) => {
+        .then(() => {
           $.toast('Project updated');
           fetchData();
           updateProjectModalRef.current.hide();
@@ -132,7 +131,7 @@ const ProjectDetail = (props) => {
 
   const deactivateUser = () => {
     Api.delete(`payment/project/${projectId}/deactivate-user/${selectedUser.id}/`)
-      .then((resp) => {
+      .then(() => {
         $.toast('Користувач деактивований');
         disableUserModalRef.current.hide();
         fetchData();
@@ -141,7 +140,7 @@ const ProjectDetail = (props) => {
 
   const activateUser = (userId) => {
     Api.put(`payment/project/${projectId}/activate-user/${userId}/`)
-      .then((resp) => {
+      .then(() => {
         $.toast('Користувач активований');
         fetchData();
       });
@@ -149,7 +148,7 @@ const ProjectDetail = (props) => {
 
   const cancelInvite = (inviteId) => {
     Api.delete(`payment/project/${projectId}/cancel-invite/${inviteId}/`)
-      .then((resp) => {
+      .then(() => {
         $.toast('Invitation canceled');
         fetchData();
       });
@@ -166,7 +165,7 @@ const ProjectDetail = (props) => {
 
   const disableProject = () => {
     Api.put(`payment/project/${projectId}/disable/`)
-      .then((resp) => {
+      .then(() => {
         $.toast('Проект деактивовано');
         fetchData();
         disableProjectModalRef.current.hide();
@@ -175,7 +174,7 @@ const ProjectDetail = (props) => {
 
   const activateProject = () => {
     Api.put(`payment/project/${projectId}/activate/`)
-      .then((resp) => {
+      .then(() => {
         $.toast('Проект активовано');
         fetchData();
       });
@@ -197,6 +196,23 @@ const ProjectDetail = (props) => {
       return 'Неоплачено';
     }
     return '---';
+  };
+
+  const getPaymentDateText = (subscription) => {
+    if (subscription.payment_overdue_days !== null) {
+      if (subscription.payment_overdue_days === 0) {
+        return <span className="text-orange-500 font-bold">Сьогодні</span>;
+      }
+      if (subscription.payment_overdue_days > 0) {
+        return (
+          <span className="text-red-500 font-bold">
+            Прострочено: {subscription.payment_overdue_days} дні(в)
+          </span>
+        );
+      }
+      return dateFormat(subscription.payment_date);
+    }
+    return dateFormat(subscription.payment_date);
   };
 
   if (!Object.keys(project).length) {
@@ -480,22 +496,21 @@ const ProjectDetail = (props) => {
                 <th>Назва</th>
                 <th>Статус</th>
                 <th>Запитів залишилось</th>
-                <th>Дата закінчення</th>
+                <th>Наступна оплата</th>
                 <th>Оплата</th>
               </tr>
             </thead>
             <tbody>
-              {project.subscriptions.map((subscription, i) => (
-                <tr key={i} className={`${subscription.status !== p2sStatus.PAST ? '' : 'text-gray-500'}`}>
+              {project.subscriptions.map((subscription) => (
+                <tr key={subscription.id} className={`${subscription.status !== p2sStatus.PAST ? '' : 'text-gray-500'}`}>
                   <td className="border-b">{subscription.name}</td>
                   <td className="border-b">{subsStatuses[subscription.status]}</td>
                   <td className="border-b">{subscription.requests_left}</td>
                   <td className="border-b">
-                    {dateFormat(subscription.expiring_date)}
+                    {getPaymentDateText(subscription)}
                   </td>
                   <td className="border-b">
                     {getIsPaid(subscription)}
-
                     {/*<Button variant="blank" className="text-theme-1 block font-medium">*/}
                     {/*  Оплата*/}
                     {/*</Button>*/}

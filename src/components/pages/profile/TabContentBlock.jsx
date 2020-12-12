@@ -1,5 +1,4 @@
 import React from 'react';
-import { MoreHorizontal } from 'react-feather';
 import PropTypes from 'prop-types';
 
 const TabContentBlock = (props) => {

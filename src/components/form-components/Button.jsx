@@ -70,6 +70,8 @@ const Button = React.forwardRef((props, ref) => {
     isElevated, href, target, noFlex, title,
   } = props;
 
+  let handleClick = onClick;
+
   const classList = [];
 
   if (className) {
@@ -92,6 +94,10 @@ const Button = React.forwardRef((props, ref) => {
   }
   if (!noFlex) {
     classList.push('inline-flex items-center justify-center');
+  }
+  if (disabled) {
+    classList.push('disabled');
+    handleClick = (e) => e.preventDefault();
   }
 
   let Component = 'button';
@@ -118,7 +124,7 @@ const Button = React.forwardRef((props, ref) => {
       type={type}
       title={title}
       disabled={disabled}
-      onClick={onClick}
+      onClick={handleClick}
       className={classList.join(' ')}
       {...extraProps}
     >
