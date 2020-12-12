@@ -7,6 +7,7 @@
   "address": "Адреса",
   "afterRefreshTokenYouLoseAccess": "Після оновлення ви втратите доступ до системи з поточним токеном.",
   "all": "Всі",
+  "anyQuestion": "Виникли питання?",
   "apiRequests": "API Запити",
   "apiUsage": "Використання API",
   "apply": "Примінити",
@@ -26,8 +27,7 @@
   "companiesCount": "Кількість підприємств",
   "company": "Компанія",
   "companyTypes": "Типи компаній",
-  "contactUs": "Зверніться до нас",
-  "contactWrite": "Напишіть нам",
+  "contactUs": "Напишіть нам",
   "contacts": "Контакти",
   "continueWith": "Продовжити з",
   "dataConstructor": "Конструктор даних",
@@ -81,6 +81,7 @@
   "generalReport": "Загальний звіт",
   "group": "Група",
   "help": "Допомога",
+  "hiIWouldLikeToAsk": "Привіт, DataOcean! Я хотів би запитати...",
   "home": "Домівка",
   "iAgreeWith": "Я згідний з",
   "inAFewSecondsYouWillRedirected": "Через декілька секунд вас буде перенаправлено на сторінку входу",
@@ -107,6 +108,7 @@
   "numberOfUsers": "Кількість користувачів",
   "oldPassword": "Старий пароль",
   "organization": "Організація",
+  "ourEmail": "Наша електронна пошта",
   "pageMayHaveMoved": "Можливо, ви помилилися при введенні адреси або сторінка перемістилася.",
   "pageMissing": "Ой. Ця сторінка зникла.",
   "pass": {
@@ -148,6 +150,7 @@
   "save": "Зберегти",
   "search": "Пошук",
   "section": "Підрозділ",
+  "send": "Надіслати",
   "settings": "Налаштування",
   "showingToOfEntries": "Показано від {{first}} до {{last}} із {{count}} записів",
   "signIn": "Вхід",
@@ -172,5 +175,6 @@
   "viewTheRegistry": "Перегляд реєстру",
   "worksInTestMode": "Працює в тестовому режимі",
   "year": "Рік",
-  "yes": "Так"
+  "yes": "Так",
+  "yourQuestionIsSent": "Ваше запитання надіслано!"
 }

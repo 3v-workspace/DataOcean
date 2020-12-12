@@ -65,3 +65,7 @@ For upgrade you need run only [upgrade.sh](upgrade.sh)
 ```
 sh upgrade.sh
 ```
+
+##### For test
+* Platform: https://dataocean-dp.ml/
+* Landing page: https://dataocean.ml/

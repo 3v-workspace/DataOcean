@@ -102,6 +102,24 @@
     }
 }
 
+.landing-image-api {
+    position: relative;
+    margin-top: -3%;
+
+    @media (max-width: $lg) {
+        justify-content: center;
+        order: 1;
+        max-width: 90%; 
+        position: relative;
+        margin-top: 0%;
+    }
+
+    @media (min-width: $lg) and (max-width: $xl) {
+        max-width: 80%;
+        margin-top: 0%;
+    }
+}
+
 .landing-feedback {
     display: flex;
     flex-direction: column;

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ChevronDown, ChevronUp } from 'react-feather';
+import { Link } from 'react-router-dom';
 // import Alert from 'components/Alert';
 // import { useParams } from 'react-router-dom';
 import faqs from './faqs';
@@ -46,7 +47,7 @@ const HelpPage = () => {
           </div>
           <div className="pl-8 pb-8 font-normal">
             {t('faq.findQuestion')}
-            <a href="/system/contacts/" className="text-theme-1 block font-normal">{t('contactUs')}.</a>
+            <Link to="/system/contacts/" className="text-theme-1 block font-normal">{t('contactUs')}.</Link>
           </div>
         </div>
       </div>

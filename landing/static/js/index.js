@@ -90,10 +90,6 @@ let langs = {
         uk: 'Будь ласка, введіть коректно адресу',
         en: 'Enter your correct email, please',
     },
-    phoneRequired: {
-        uk: 'Будь ласка, введіть коректний номер телефону',
-        en: 'Enter your number, please',
-    },
     phoneNumber: {
         uk: 'Будь ласка, введіть коректний номер телефону',
         en: 'Enter your correct number, please',
@@ -113,7 +109,7 @@ let langs = {
     placeholderQuestion: {
         uk: 'Привіт, Data Ocean! Я хотів запитати...',
         en: 'Hello, Data Ocean! I would like to ask about...'
-    }
+    },
 };
 
 const t = (key) => {
@@ -138,7 +134,6 @@ const getSchema = () => {
                 email: true,
             },
             phone: {
-                required: true,
                 number: true,
                 minlength: 10,
                 maxlength: 15
@@ -161,7 +156,6 @@ const getSchema = () => {
                 email: t('emailCorrect'),
             },
             phone: {
-                required: t('phoneRequired'),
                 number: t('phoneNumber'),
                 minlength: t('minSymbols'),
                 maxlength: t('maxSymbols'),
@@ -175,16 +169,22 @@ const getSchema = () => {
 
 $('#contact-form').submit(function(event){
     event.preventDefault();
-    if (!$(this).validate(getSchema())) {
+    let form = $(this);
+    form.validate(getSchema())
+    if (!form.valid()) {
         return
     }
 
-    let form = $('#contact-form');
+    let phoneNumber = '';
+    if (this.phone.value) {
+        phoneNumber = ' Мій контактний номер: '  + this.phone.value; 
+    }
+    
     let data = {
-            name: this.username.value + ' ' + this.surname.value,
-            email: this.email.value,
-            subject: this.phone.value,
-            message: this.question.value,
+        name: this.username.value + ' ' + this.surname.value,
+        email: this.email.value,
+        subject: this.username.value + ' ' + this.surname.value, 
+        message: this.question.value + phoneNumber,
     }
 
     $.ajax({
@@ -197,6 +197,7 @@ $('#contact-form').submit(function(event){
                 return
             }
             alert(t('messageSuccess'));
+            form[0].reset();
         },
         error: function (jqXhr, textStatus, errorMessage) {
             if (jqXhr.status === 400 || jqXhr.status === 503) {
@@ -249,5 +250,17 @@ $(document).ready(() => {
 });
 
 $('#link_platform').on('click', function () {
-    window.open(process.env.DO_FRONTEND_HOST + '/system/home/' + '?lang=' + localStorage.getItem('lang')); 
+    window.open(process.env.DO_FRONTEND_HOST + '/system/home/?lang=' + localStorage.getItem('lang')); 
+});
+
+$('#link_DO').on('click', function () {
+    window.open(process.env.DO_FRONTEND_HOST + '/system/home/?lang=' + localStorage.getItem('lang')); 
+});
+
+$('#api-docs').on('click', function () {
+    window.open(process.env.DO_BACKEND_HOST + '/schema/redoc/'); 
+});
+
+$('#api-button').on('click', function () {
+    window.open(process.env.DO_FRONTEND_HOST + '/system/home/?lang=' + localStorage.getItem('lang')); 
 });

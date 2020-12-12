@@ -12,12 +12,21 @@ import { useTranslation } from 'react-i18next';
 import GoogleButton from 'components/pages/auth/GoogleButton';
 import Api from 'api';
 import setLanguage from 'utils/setLanguage';
-import terms from './Публічна оферта.pdf';
 
 // TODO: finish LoginForm
 const SignInForm = () => {
   const dispatch = useDispatch();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+
+  let policy = '/docs/PrivacyPolicyUk.html';
+  if (i18n.language === 'en') {
+    policy = '/docs/PrivacyPolicyEn.html';
+  }
+
+  let terms = '/docs/TermsAndConditionsUk.html';
+  if (i18n.language === 'en') {
+    terms = '/docs/TermsAndConditionsEn.html';
+  }
 
   const formik = useFormik({
     initialValues: {
@@ -111,13 +120,16 @@ const SignInForm = () => {
         <br />
         <a
           className="text-theme-1"
-          href={terms}
+          href={`${process.env.PUBLIC_URL}${terms}`}
+          target="_blank"
         >
           {t('termsAndConditions')}
         </a>
         {' & '}
-        <a className="text-theme-1" href="#?">
+
+        <a className="text-theme-1" href={`${process.env.PUBLIC_URL}${policy}`} target="_blank">
           {t('privacyPolicy')}
+          {/* {i18n.language === 'en' ? 'Українська' : 'English'} */}
         </a>
       </div>
     </Form>
