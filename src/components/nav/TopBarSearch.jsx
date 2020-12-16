@@ -36,7 +36,7 @@ SearchResult.defaultProps = {
 
 
 const TopBarSearch = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [data, setData] = useState([]);
   const [show, setShow] = useState(false);
 
@@ -69,6 +69,11 @@ const TopBarSearch = () => {
     }, 100);
   };
 
+  let nameKey = 'name';
+  if (i18n.language === 'en') {
+    nameKey = 'name_eng';
+  }
+
   return (
     <>
       <div className="search hidden sm:block">
@@ -92,7 +97,7 @@ const TopBarSearch = () => {
           </div>
           <div>
             {data.map((ds) => (
-              <SearchResult key={ds.id} label={ds.name} link={`/system/datasets/${ds.id}/`} />
+              <SearchResult key={ds.id} label={ds[nameKey]} link={`/system/datasets/${ds.id}/`} />
             ))}
           </div>
         </div>

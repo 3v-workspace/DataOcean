@@ -10,8 +10,8 @@ import { useTranslation } from 'react-i18next';
 import SignUpConfirm from 'components/pages/auth/SignUpConfirm';
 import surfer from 'images/surfer.png';
 import logo from 'images/whitelogo.png';
-import english from 'images/english.png';
-import ukrainian from 'images/ukrainian.png';
+import english from 'images/USA.svg';
+import ukrainian from 'images/ukraine.svg';
 import { setYupLanguage } from 'utils/setLanguage';
 
 
@@ -108,7 +108,7 @@ const LoginPage = ({ match, history, location }) => {
       </div>
       <button
         type="button"
-        className="dark-mode-switcher shadow-md fixed bottom-0 right-0 box dark:bg-dark-2 border rounded-full px-4 py-2 flex items-center justify-center z-50 mb-10 mr-10"
+        className="dark-mode-switcher absolute top-0 right-0 px-4 py-2 flex items-center justify-center z-50 mr-6 xl:mr-16 mt-6 xl:mt-12 focus:outline-none"
         onClick={switchLanguage}
       >
         <img
@@ -116,7 +116,7 @@ const LoginPage = ({ match, history, location }) => {
           alt="English"
           className="w-6 h-6 mr-2"
         />
-        <div className="text-gray-700 dark:text-gray-300">
+        <div className="text-white xl:text-gray-700 dark:text-gray-300">
           {i18n.language === 'en' ? 'Українська' : 'English'}
         </div>
         {/*<input className="input input--switch border" type="checkbox" value="1" />*/}

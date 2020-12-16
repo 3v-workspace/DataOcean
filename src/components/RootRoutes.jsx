@@ -1,14 +1,20 @@
 import React from 'react';
 // import PropTypes from 'prop-types';
 import Route404, { Page404 } from 'components/pages/Route404';
-import { Switch, Route, Redirect } from 'react-router-dom';
-import SystemPage from 'components/pages/SystemPage';
+import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
+import { setLanguage } from 'utils';
 import { useIsLogin } from 'hooks';
+import SystemPage from 'components/pages/SystemPage';
 import LoginPage from './pages/auth/LoginPage';
 
 
 const RootRoutes = () => {
   const isLogin = useIsLogin();
+  const location = useLocation();
+  const language = new URLSearchParams(location.search).get('lang');
+  if (['uk', 'en'].includes(language)) {
+    setLanguage(language);
+  }
 
   return (
     <Switch>

@@ -7,6 +7,7 @@ const TextInput = (props) => {
     label, value, onChange, name, id, type, placeholder,
     className, width, size, formik, onBlur, isRounded,
     containerClass, autoComplete, error, pattern, required,
+    textarea,
   } = props;
 
   const classList = [];
@@ -28,12 +29,14 @@ const TextInput = (props) => {
 
   const endId = id || `id_${name}`;
 
+  const TagName = textarea ? 'textarea' : 'input';
+
   return (
     <div className={`${containerClass} mb-3`}>
       {label && (
         <label htmlFor={endId} className="inline-block mb-2">{label}</label>
       )}
-      <input
+      <TagName
         className={classList.join(' ')}
         id={endId}
         type={type}
@@ -72,6 +75,7 @@ TextInput.propTypes = {
   formik: FormikPropType,
   error: PropTypes.string,
   required: PropTypes.bool,
+  textarea: PropTypes.bool,
 };
 
 TextInput.defaultProps = {
@@ -92,6 +96,7 @@ TextInput.defaultProps = {
   formik: undefined,
   error: undefined,
   required: false,
+  textarea: false,
 };
 
 export default TextInput;

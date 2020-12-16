@@ -72,7 +72,7 @@ class BlankModal extends Component {
         <div className={`modal__content relative ${modalSizeClass}`}>
           {closeButton && (
             <a data-dismiss="modal" href="#" className="absolute right-0 top-0 mt-3 mr-3">
-              <X className="w-8 h-8 text-gray-500" />
+              <X className="w-6 h-6 text-gray-500" />
             </a>
           )}
           {headerText && (

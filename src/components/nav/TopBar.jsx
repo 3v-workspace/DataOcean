@@ -92,13 +92,13 @@ const TopBar = () => {
               >
                 <Settings className="w-4 h-4 mr-2" /> {t('settings')}
               </Link>
-              <a
-                href="#?"
+              <Link
                 onClick={closeDropdown}
+                to="/system/help/"
                 className="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 rounded-md"
               >
                 <HelpCircle className="w-4 h-4 mr-2" /> {t('help')}
-              </a>
+              </Link>
             </div>
             <div className="p-2 border-t border-theme-40">
               <a

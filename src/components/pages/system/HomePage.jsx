@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
-  Briefcase, Database, File, RefreshCcw, User,
+  Briefcase, Database, File, User,
 } from 'react-feather';
 import ReportBox from 'components/pages/dashboard/ReportBox';
 import Api from 'api';

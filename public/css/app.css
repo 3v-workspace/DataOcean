@@ -6848,8 +6848,8 @@ select.input.input--lg {
 .button.button--sm {
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
+  /*padding-left: 0.5rem;
+  padding-right: 0.5rem;*/
 }
 
 .button.button--lg {

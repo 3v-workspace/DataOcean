@@ -15,10 +15,10 @@ const App = () => {
         dispatch(userLogin(resp.data));
       })
       .catch(() => {
-        setLanguage();
         window.localStorage.removeItem('token');
       })
       .finally(() => {
+        setLanguage();
         setIsInit(true);
       });
   }, []);
