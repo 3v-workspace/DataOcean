@@ -66,7 +66,7 @@ const TopBar = () => {
           className="dropdown-toggle px-8 rounded-full flex justify-stretch cursor-pointer items-center bg-theme-1 text-white font-medium hover:bg-theme-38"
         >
           <User className="w-5 h-5 mr-1" />
-          Мій кабінет
+          {t('myProfile')}
         </div>
         <div ref={userDropdownRef} className="dropdown-box mt-10 absolute w-56 top-0 right-0 z-20">
           <div className="dropdown-box__content box bg-theme-38 text-white">

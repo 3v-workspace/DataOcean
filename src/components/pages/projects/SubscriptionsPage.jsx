@@ -60,7 +60,7 @@ const SubscriptionsPage = (props) => {
     Api.put(`payment/project/${defaultProject.id}/add-subscription/${id}/`)
       .then(() => {
         subscriptionChoiceModalRef.current.hide();
-        $.toast('Subscription added');
+        $.toast(t('subscriptionAdded'));
         history.push(`/system/profile/projects/${defaultProject.id}/`);
       });
   };
@@ -78,9 +78,12 @@ const SubscriptionsPage = (props) => {
       <YesNoModal
         ref={subscriptionChoiceModalRef}
         icon={DollarSign}
-        header={`Обрати ${modalData.subscription.name}?`}
+        header={t('payment_system.subscriptionChoiceModalHeader', { name: modalData.subscription.name })}
         message={
-          `Для проекту ${modalData.project.name} буде вибраний тарифний план ${modalData.subscription.name}.`
+          t('payment_system.subscriptionChoiceModalMessage', {
+            subscription: modalData.subscription.name,
+            project: modalData.project.name,
+          })
         }
         onYes={() => setSubscription(modalData.subscription.id)}
       />
@@ -95,7 +98,7 @@ const SubscriptionsPage = (props) => {
             } else {
               classes.push('px-5');
             }
-            if (defaultProject?.active_subscription.id === sub.id) {
+            if (defaultProject && (defaultProject.active_subscription.subscription_id === sub.id)) {
               classes.push('subscription-has-project');
             }
             return classes.join(' ');
@@ -103,12 +106,14 @@ const SubscriptionsPage = (props) => {
           return (
             <div key={sub.id} className="hover:z-50 intro-y flex-1">
               <div className={`${getBoxClass()}`}>
-                {defaultProject?.active_subscription.id === sub.id && (
+                {defaultProject &&
+                (defaultProject.active_subscription.subscription_id === sub.id) &&
+                (
                   <div className="subscription-project flex items-center font-medium">
                     <div className="px-2">
                       <Bookmark className="w-7 h-7" />
                     </div>
-                    Використовується в проекті "{defaultProject.name}"
+                    {t('usedInProject', { project: defaultProject.name })}
                   </div>
                 )}
                 <div className="h-full flex justify-between flex-col">
@@ -116,12 +121,12 @@ const SubscriptionsPage = (props) => {
                     <Icon className="w-12 h-12 text-theme-1 mx-auto" />
                     <div className="text-xl font-medium text-center mt-10">{sub.name}</div>
                     <div className="text-gray-700 text-center mt-5">
-                      {sub.price === 0 ? (
-                        'Unlimited duration'
+                      {sub.is_default ? (
+                        t('unlimitedDuration')
                       ) : (
-                        `${sub.duration} Days`
+                        `${sub.duration} ${t('days')}`
                       )}
-                      <span className="mx-1">•</span>{sub.requests_limit} Requests
+                      <span className="mx-1">•</span>{sub.requests_limit} {t('requests')}
                     </div>
                     <div className="text-gray-600 px-10 text-center mx-auto mt-2">
                       {sub.description}
@@ -137,15 +142,16 @@ const SubscriptionsPage = (props) => {
                     <Button
                       size="lg"
                       disabled={
-                        sub.price === 0 || sub.id === defaultProject?.active_subscription.id
+                        sub.is_default ||
+                        sub.id === defaultProject?.active_subscription.subscription_id
                       }
                       isRounded
                       noFlex
                       type="button"
                       className="subscription-button block mx-auto mt-8 px-8"
-                      onClick={() => sub.price !== 0 && openSubscriptionChoiceModal(sub)}
+                      onClick={() => !sub.is_default && openSubscriptionChoiceModal(sub)}
                     >
-                      Обрати
+                      {t('choose')}
                     </Button>
                   </div>
                 </div>

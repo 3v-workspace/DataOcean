@@ -11,10 +11,12 @@ import { useFormik } from 'formik';
 import Yup from 'utils/yup';
 import Api from 'api';
 import { dateFormat } from 'utils';
+import { useTranslation } from 'react-i18next';
 
 
 const ProjectsTable = (props) => {
   const { match, history } = props;
+  const { t } = useTranslation();
   const createProjectModalRef = useRef();
   const [projects, setProjects] = useState([]);
   const [invitations, setInvitations] = useState([]);
@@ -57,18 +59,18 @@ const ProjectsTable = (props) => {
 
   const getProjectStatus = (project) => {
     if (project.is_default) {
-      return 'Базовий проект';
+      return t('defaultProject');
     }
     if (project.is_active) {
-      return 'Активний';
+      return t('active');
     }
-    return 'Деактивований';
+    return t('deactivated');
   };
 
   const confirmInvitation = (invite) => {
     Api.post(`payment/project/${invite.project_id}/confirm-invite/`)
       .then(() => {
-        $.toast('Invitation confirmed');
+        $.toast(t('invitationConfirmed'));
         fetchData();
       });
   };
@@ -76,7 +78,7 @@ const ProjectsTable = (props) => {
   const rejectInvitation = (invite) => {
     Api.delete(`payment/project/${invite.project_id}/reject-invite/`)
       .then(() => {
-        $.toast('Invitation rejected');
+        $.toast(t('invitationRejected'));
         fetchData();
       });
   };
@@ -86,14 +88,14 @@ const ProjectsTable = (props) => {
       {!!invitations.length && (
         <TabContentBlock
           large
-          title="Запрошення"
+          title={t('invitation')}
         >
           <table className="table">
             <thead>
               <tr className="bg-gray-200 text-gray-700">
-                <th className="whitespace-no-wrap">Назва проекту</th>
-                <th className="whitespace-no-wrap">Дата запрошення</th>
-                <th className="whitespace-no-wrap">Власник проекту</th>
+                <th className="whitespace-no-wrap">{t('projectName')}</th>
+                <th className="whitespace-no-wrap">{t('dateOfInvitation')}</th>
+                <th className="whitespace-no-wrap">{t('projectOwner')}</th>
                 <th className="whitespace-no-wrap" />
               </tr>
             </thead>
@@ -109,7 +111,7 @@ const ProjectsTable = (props) => {
                       className="mr-2 px-4"
                       onClick={() => confirmInvitation(invite)}
                     >
-                      Прийняти
+                      {t('accept')}
                     </Button>
                     <Button
                       isRounded
@@ -117,7 +119,7 @@ const ProjectsTable = (props) => {
                       variant="secondary"
                       onClick={() => rejectInvitation(invite)}
                     >
-                      Відхилити
+                      {t('reject')}
                     </Button>
                   </td>
                 </tr>
@@ -128,55 +130,56 @@ const ProjectsTable = (props) => {
       )}
       <TabContentBlock
         large
-        title="Проекти"
+        title={t('projects')}
         headerContent={(
           <Button
             onClick={() => createProjectModalRef.current.show()}
             width="w-48"
           >
-            Додати проект
+            {t('addProject')}
           </Button>
         )}
       >
         <BlankModal
           closeButton
           ref={createProjectModalRef}
-          headerText="Додати проект"
+          headerText={t('addProject')}
         >
           <Form className="p-5" formik={formik}>
             <TextInput
               required
-              label="Назва"
+              label={t('name')}
               name="name"
               formik={formik}
             />
             <TextInput
               textarea
-              label="Опис"
+              label={t('description')}
               name="description"
-              placeholder="Type your comments"
+              // placeholder="Type your comments"
               formik={formik}
             />
-            <Button
-              type="submit"
-              isLoading={formik.isSubmitting}
-              disabled={formik.isSubmitting}
-              noFlex
-              className="block ml-auto px-8"
-            >
-              Створити
-            </Button>
+            <div className="flex justify-end">
+              <Button
+                type="submit"
+                isLoading={formik.isSubmitting}
+                disabled={formik.isSubmitting}
+                className="px-8"
+              >
+                {t('create')}
+              </Button>
+            </div>
           </Form>
         </BlankModal>
         <div className="overflow-auto md:overflow-hidden">
           <table className="table">
             <thead>
               <tr className="bg-gray-200 text-gray-700">
-                <th>Назва проекту</th>
-                <th>Власник</th>
-                <th>Кількість користувачів</th>
-                <th>Статус</th>
-                <th>Тарифний план</th>
+                <th>{t('projectName')}</th>
+                <th>{t('owner')}</th>
+                <th>{t('numberOfUsers')}</th>
+                <th>{t('status')}</th>
+                <th>{t('subscription')}</th>
               </tr>
             </thead>
             <tbody>

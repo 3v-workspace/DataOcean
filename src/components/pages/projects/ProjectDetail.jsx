@@ -34,10 +34,12 @@ const ProjectDetail = (props) => {
   const [selectedUser, setSelectedUser] = useState({});
   const [showInvitations, setShowInvitations] = useState(false);
 
+  const hasFutureSubscription = !!project.subscriptions?.find((s) => s.status === p2sStatus.FUTURE);
+
   const subsStatuses = {
-    future: 'Майбутній',
-    active: 'Активний',
-    past: 'Минулий',
+    future: t('future'),
+    active: t('active'),
+    past: t('past'),
   };
 
   const fetchData = () => {
@@ -57,7 +59,8 @@ const ProjectDetail = (props) => {
     onSubmit: (values, actions) => {
       Api.post(`payment/project/${projectId}/invite/`, values)
         .then(() => {
-          $.toast('User invited');
+          $.toast(t('userInvited'));
+          setShowInvitations(true);
         })
         .finally(() => {
           actions.setSubmitting(false);
@@ -80,7 +83,7 @@ const ProjectDetail = (props) => {
     onSubmit: (values, actions) => {
       Api.put(`payment/project/${projectId}/update/`, values)
         .then(() => {
-          $.toast('Project updated');
+          $.toast(t('projectUpdated'));
           fetchData();
           updateProjectModalRef.current.hide();
         })
@@ -96,19 +99,19 @@ const ProjectDetail = (props) => {
 
   const getProjectStatus = () => {
     if (project.is_default) {
-      return 'Базовий проект';
+      return t('defaultProject');
     }
     if (project.is_active) {
-      return 'Активний';
+      return t('active');
     }
-    return 'Деактивований';
+    return t('deactivated');
   };
 
   const getUserStatus = (userProject) => {
     if (userProject.status === 'active') {
-      return 'Активний';
+      return t('active');
     }
-    return 'Деактивований';
+    return t('deactivated');
   };
 
   const handleAddUserClick = () => {
@@ -123,7 +126,7 @@ const ProjectDetail = (props) => {
     Api.put(`payment/project/${projectId}/refresh-token/`)
       .then((resp) => {
         window.localStorage.setItem('project_token', resp.data.token);
-        $.toast('Token refreshed');
+        $.toast(t('tokenRefreshed'));
         refreshTokenModalRef.current.hide();
         fetchData();
       });
@@ -132,7 +135,7 @@ const ProjectDetail = (props) => {
   const deactivateUser = () => {
     Api.delete(`payment/project/${projectId}/deactivate-user/${selectedUser.id}/`)
       .then(() => {
-        $.toast('Користувач деактивований');
+        $.toast(t('userDeactivated'));
         disableUserModalRef.current.hide();
         fetchData();
       });
@@ -141,7 +144,7 @@ const ProjectDetail = (props) => {
   const activateUser = (userId) => {
     Api.put(`payment/project/${projectId}/activate-user/${userId}/`)
       .then(() => {
-        $.toast('Користувач активований');
+        $.toast(t('userActivated'));
         fetchData();
       });
   };
@@ -149,7 +152,7 @@ const ProjectDetail = (props) => {
   const cancelInvite = (inviteId) => {
     Api.delete(`payment/project/${projectId}/cancel-invite/${inviteId}/`)
       .then(() => {
-        $.toast('Invitation canceled');
+        $.toast(t('invitationCanceled'));
         fetchData();
       });
   };
@@ -166,7 +169,7 @@ const ProjectDetail = (props) => {
   const disableProject = () => {
     Api.put(`payment/project/${projectId}/disable/`)
       .then(() => {
-        $.toast('Проект деактивовано');
+        $.toast(t('projectDeactivated'));
         fetchData();
         disableProjectModalRef.current.hide();
       });
@@ -175,7 +178,7 @@ const ProjectDetail = (props) => {
   const activateProject = () => {
     Api.put(`payment/project/${projectId}/activate/`)
       .then(() => {
-        $.toast('Проект активовано');
+        $.toast(t('projectActivated'));
         fetchData();
       });
   };
@@ -191,22 +194,28 @@ const ProjectDetail = (props) => {
   const getIsPaid = (subscription) => {
     if (subscription.price) {
       if (subscription.is_paid) {
-        return 'Оплачено';
+        return t('paid');
       }
-      return 'Неоплачено';
+      return t('notPaid');
     }
     return '---';
   };
 
   const getPaymentDateText = (subscription) => {
+    if (subscription.is_default) {
+      return '---';
+    }
+    if (subscription.status === p2sStatus.ACTIVE && hasFutureSubscription) {
+      return '---';
+    }
     if (subscription.payment_overdue_days !== null) {
       if (subscription.payment_overdue_days === 0) {
-        return <span className="text-orange-500 font-bold">Сьогодні</span>;
+        return <span className="text-orange-500 font-bold">{t('today')}</span>;
       }
       if (subscription.payment_overdue_days > 0) {
         return (
           <span className="text-red-500 font-bold">
-            Прострочено: {subscription.payment_overdue_days} дні(в)
+            {t('overdueDays', { days: subscription.payment_overdue_days })}
           </span>
         );
       }
@@ -228,11 +237,11 @@ const ProjectDetail = (props) => {
     <TabContent>
       <TabContentBlock
         large
-        title="Перегляд проекту"
+        title={t('projectOverview')}
         headerContent={(
           <>
             <span className="mr-3">
-              Статус: <b>{getProjectStatus()}</b>
+              {t('status')}: <b>{getProjectStatus()}</b>
             </span>
             {project.is_owner && (
               <>
@@ -251,7 +260,7 @@ const ProjectDetail = (props) => {
                   variant="outline-primary"
                   onClick={() => updateProjectModalRef.current.show()}
                 >
-                  Редагувати
+                  {t('edit')}
                 </Button>
               </>
             )}
@@ -267,96 +276,97 @@ const ProjectDetail = (props) => {
         />
         <YesNoModal
           ref={disableUserModalRef}
-          header="Ви впевнені, що хочете деактивувати користувача?"
-          message="Ви зможете активувати його в будь-який момент"
+          header={t('payment_system.disableUserModalHeader')}
+          message={t('payment_system.disableUserModalMessage')}
           icon={HelpCircle}
           onYes={deactivateUser}
-          yesLabel="Деактивувати"
-          noLabel="Відмінити"
+          yesLabel={t('deactivate')}
+          noLabel={t('cancel')}
           // variant="warning"
         />
         <YesNoModal
           ref={disableProjectModalRef}
-          header="Ви впевнені, що хочете деактивувати проект?"
-          message="Ви зможете активувати його в будь-який момент"
+          header={t('payment_system.disableProjectModalHeader')}
+          message={t('payment_system.disableProjectModalMessage')}
           icon={HelpCircle}
           onYes={disableProject}
-          yesLabel="Деактивувати"
-          noLabel="Відмінити"
+          yesLabel={t('deactivate')}
+          noLabel={t('cancel')}
           // variant="warning"
         />
         <BlankModal
           ref={addUserModalRef}
           closeButton
-          headerText="Запросити користувача"
+          headerText={t('inviteUser')}
         >
           <Form className="p-5" formik={inviteUserFormik}>
             <TextInput
               name="email"
               type="email"
-              label="Введіть E-mail користувача"
+              label={t('enterUserEmail')}
               placeholder="E-mail"
               formik={inviteUserFormik}
             />
-            <Button
-              type="submit"
-              isLoading={inviteUserFormik.isSubmitting}
-              disabled={inviteUserFormik.isSubmitting}
-              noFlex
-              className="block ml-auto px-10"
-            >
-              Запросити
-            </Button>
+            <div className="flex justify-end">
+              <Button
+                type="submit"
+                isLoading={inviteUserFormik.isSubmitting}
+                disabled={inviteUserFormik.isSubmitting}
+                className="px-10"
+              >
+                {t('invite')}
+              </Button>
+            </div>
           </Form>
         </BlankModal>
         <BlankModal
           closeButton
           ref={updateProjectModalRef}
-          headerText="Редагувати проект"
+          headerText={t('editProject')}
         >
           <Form className="p-5" formik={projectFormik}>
             <TextInput
               required
-              label="Назва"
+              label={t('name')}
               name="name"
               formik={projectFormik}
             />
             <TextInput
               textarea
-              label="Опис"
+              label={t('description')}
               name="description"
-              placeholder="Type your comments"
               formik={projectFormik}
             />
-            <Button
-              type="submit"
-              isLoading={projectFormik.isSubmitting}
-              disabled={projectFormik.isSubmitting}
-              noFlex
-              className="block ml-auto px-8"
-            >
-              Оновити
-            </Button>
+            <div className="flex justify-end">
+              <Button
+                type="submit"
+                isLoading={projectFormik.isSubmitting}
+                disabled={projectFormik.isSubmitting}
+                className="px-8"
+              >
+                {t('refresh')}
+              </Button>
+            </div>
           </Form>
         </BlankModal>
         <h3 className="intro-y text-2xl font-medium leading-none">
           {project.name}
         </h3>
         <div className="intro-y text-gray-500 text-sm my-4 mt-1">
-          Створено: {dateFormat(project.created_at)}
+          {t('created')}: {dateFormat(project.created_at)}
         </div>
         <div className="intro-y text-gray-700 mb-8 w-2/3">
           {project.description}
         </div>
         <h6 className="intro-y font-medium leading-none mt-1">
-          Токен доступу:
+          {t('accessToken')}:
         </h6>
         <div className="intro-y mt-2 mb-4 flex flex-wrap items-center justify-center sm:justify-start">
           <span className="px-5 py-2 rounded-full bg-gray-200 text-gray-600 mr-1">
             {project.token}
           </span>
           {project.is_owner && (
-            <Tooltip content="Оновити токен" noContainer>
+            <Tooltip content={t('refreshToken')} noContainer>
               <Button
                 variant="blank"
                 isRounded
@@ -366,13 +376,13 @@ const ProjectDetail = (props) => {
               </Button>
             </Tooltip>
           )}
-          <Tooltip content="Копіювати токен" noContainer>
+          <Tooltip content={t('copyToken')} noContainer>
             <Button
               variant="blank"
               isRounded
               onClick={() => {
                 navigator.clipboard.writeText(project.token).then(
-                  () => $.toast('Токен збережений до буферу'),
+                  () => $.toast(t('tokenSavedToClipboard')),
                 );
               }}
             >
@@ -381,15 +391,15 @@ const ProjectDetail = (props) => {
           </Tooltip>
         </div>
         <h3 className="intro-y text-lg font-medium leading-none mt-10 mb-4">
-          Користувачі
+          {t('users')}
         </h3>
         <div className="intro-y overflow-auto">
           <table className="table mb-2">
             <thead>
               <tr className="bg-gray-200 text-gray-700">
-                <th>Ім'я</th>
-                <th>Пошта</th>
-                <th>Статус</th>
+                <th>{t('firstName')}</th>
+                <th>Email</th>
+                <th>{t('status')}</th>
               </tr>
             </thead>
             <tbody>
@@ -399,7 +409,7 @@ const ProjectDetail = (props) => {
                     <div className="flex items-center">
                       {user.name}
                       {user.role === u2pRole.OWNER && (
-                        <Tooltip content="Власник проекту" noContainer>
+                        <Tooltip content={t('projectOwner')} noContainer>
                           <Briefcase className="ml-1 mb-1 w-4 h-4 text-theme-1" />
                         </Tooltip>
                       )}
@@ -433,7 +443,7 @@ const ProjectDetail = (props) => {
               className="px-10"
               onClick={handleAddUserClick}
             >
-              Запросити користувача
+              {t('inviteUser')}
             </Button>
             <a
               href=""
@@ -445,7 +455,7 @@ const ProjectDetail = (props) => {
                 }
               }}
             >
-              Не підтвердили запрошення
+              {t('notConfirmedInvitation')}
               <sup>
                 <span className="text-xs px-1 rounded-full bg-theme-1 text-white mr-1">
                   {project.invitations.length}
@@ -454,55 +464,60 @@ const ProjectDetail = (props) => {
             </a>
           </div>
         )}
-        {showInvitations && project.is_owner && (
-          <div className="intro-y overflow-auto">
-            <table className="table my-2">
-              <thead>
-                <tr className="bg-gray-200 text-gray-700">
-                  <th>Пошта</th>
-                  <th>Дата запрошення</th>
-                  <th>Скасувати запрошення</th>
-                </tr>
-              </thead>
-              <tbody>
-                {project.invitations.map((invite) => (
-                  <tr key={invite.email}>
-                    <td className="border-b">{invite.email}</td>
-                    <td className="border-b">{dateFormat(invite.updated_at)}</td>
-                    <td className="border-b">
-                      <Button
-                        size="sm"
-                        className="px-6"
-                        isRounded
-                        onClick={() => cancelInvite(invite.id)}
-                      >
-                        Скасувати
-                      </Button>
-                    </td>
+        {showInvitations && !!project.invitations?.length && project.is_owner && (
+          <div>
+            <div className="intro-y overflow-auto">
+              <table className="table my-2">
+                <thead>
+                  <tr className="bg-gray-200 text-gray-700">
+                    <th>Email</th>
+                    <th>{t('dateOfInvitation')}</th>
+                    <th>{t('cancelInvitation')}</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {project.invitations.map((invite) => (
+                    <tr key={invite.email}>
+                      <td className="border-b">{invite.email}</td>
+                      <td className="border-b">{dateFormat(invite.updated_at)}</td>
+                      <td className="border-b">
+                        <Button
+                          size="sm"
+                          className="px-6"
+                          isRounded
+                          onClick={() => cancelInvite(invite.id)}
+                        >
+                          {t('cancel')}
+                        </Button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         )}
         {/*<div className="w-full border-t border-gray-200 my-5" />*/}
         <h3 className="intro-y text-lg font-medium leading-none mt-10 mb-4">
-          Обрані тарифні плани
+          {t('chosenSubscriptions')}
         </h3>
         <div className="intro-y overflow-auto">
           <table className="table mb-2">
             <thead>
               <tr className="bg-gray-200 text-gray-700">
-                <th>Назва</th>
-                <th>Статус</th>
-                <th>Запитів залишилось</th>
-                <th>Наступна оплата</th>
-                <th>Оплата</th>
+                <th>{t('name')}</th>
+                <th>{t('status')}</th>
+                <th>{t('requestsLeft')}</th>
+                <th>{t('nextPayment')}</th>
+                <th>{t('paid')}</th>
               </tr>
             </thead>
             <tbody>
               {project.subscriptions.map((subscription) => (
-                <tr key={subscription.id} className={`${subscription.status !== p2sStatus.PAST ? '' : 'text-gray-500'}`}>
+                <tr
+                  key={subscription.id}
+                  className={`${subscription.status !== p2sStatus.PAST ? '' : 'text-gray-500'}`}
+                >
                   <td className="border-b">{subscription.name}</td>
                   <td className="border-b">{subsStatuses[subscription.status]}</td>
                   <td className="border-b">{subscription.requests_left}</td>
@@ -529,7 +544,7 @@ const ProjectDetail = (props) => {
               // onClick={() => console.log('hello')}
               link="/system/subscriptions/"
             >
-              Змінити тарифний план
+              {t('changeSubscription')}
             </Button>
           </div>
         )}
