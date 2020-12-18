@@ -8,9 +8,9 @@ import moment from 'moment';
 import PieChartLegend from 'components/pages/dashboard/PieChartLegend';
 import { useTranslation } from 'react-i18next';
 import { upFirstLetter } from 'utils';
-import { useHistory } from 'react-router-dom';
+import { ReactRouterPropTypes } from 'utils/prop-types';
 
-const HomePage = () => {
+const HomePage = ({ history }) => {
   const { t, i18n } = useTranslation();
   const [registersCount, setRegistersCount] = useState('');
   const [usersCount, setUsersCount] = useState('');
@@ -19,7 +19,6 @@ const HomePage = () => {
   const [apiUsageData, setApiUsageData] = useState({});
   const [topKvedData, setTopKvedData] = useState([]);
   const [topCompanyTypeData, setTopCompanyTypeData] = useState([]);
-  const history = useHistory();
 
   const getName = (item) => {
     if (i18n.language === 'uk') {
@@ -347,6 +346,8 @@ const HomePage = () => {
   );
 };
 
-// HomePage.propTypes = {};
+HomePage.propTypes = {
+  history: ReactRouterPropTypes.history.isRequired,
+};
 
 export default HomePage;
