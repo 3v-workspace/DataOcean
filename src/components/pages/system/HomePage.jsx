@@ -8,6 +8,8 @@ import moment from 'moment';
 import PieChartLegend from 'components/pages/dashboard/PieChartLegend';
 import { useTranslation } from 'react-i18next';
 import { upFirstLetter } from 'utils';
+// import DatasetsRoutes from 'components/pages/datasets/DatasetsList';
+import { NavLink } from 'react-router-dom';
 
 
 const HomePage = () => {
@@ -215,40 +217,48 @@ const HomePage = () => {
             </div>
             <div className="grid grid-cols-12 gap-6 mt-5">
               <div className="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
-                <ReportBox
-                  label={t('numberOfCompanies')}
-                  value={companyCount.toLocaleString()}
-                  subText="18%"
-                  subTextDirection="up"
-                  icon={<File className="report-box__icon text-theme-10" />}
-                />
+                <NavLink to="/system/datasets/2/companies/">
+                  <ReportBox
+                    label={t('numberOfCompanies')}
+                    value={companyCount.toLocaleString()}
+                    subText="18%"
+                    subTextDirection="up"
+                    icon={<File className="report-box__icon text-theme-10" />}
+                  />
+                </NavLink>
               </div>
               <div className="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
-                <ReportBox
-                  label={t('numberOfSoleProprietors')}
-                  value={fopCount.toLocaleString()}
-                  subText="16%"
-                  subTextDirection="up"
-                  icon={<Briefcase className="report-box__icon text-theme-11" />}
-                />
+                <NavLink to="/system/datasets/2/fop/">
+                  <ReportBox
+                    label={t('numberOfSoleProprietors')}
+                    value={fopCount.toLocaleString()}
+                    subText="16%"
+                    subTextDirection="up"
+                    icon={<Briefcase className="report-box__icon text-theme-11" />}
+                  />
+                </NavLink>
               </div>
               <div className="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
-                <ReportBox
-                  label={t('numberOfDatasets')}
-                  value={registersCount.toLocaleString()}
-                  subText="+5"
-                  subTextDirection="up"
-                  icon={<Database className="report-box__icon text-theme-12" />}
-                />
+                <NavLink to="/system/datasets/">
+                  <ReportBox
+                    label={t('numberOfDatasets')}
+                    value={registersCount.toLocaleString()}
+                    subText="+5"
+                    subTextDirection="up"
+                    icon={<Database className="report-box__icon text-theme-12" />}
+                  />
+                </NavLink>
               </div>
               <div className="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
-                <ReportBox
-                  label={t('numberOfUsers')}
-                  value={usersCount.toLocaleString()}
-                  subText="+7"
-                  subTextDirection="up"
-                  icon={<User className="report-box__icon text-theme-9" />}
-                />
+                <NavLink to="/system/profile/">
+                  <ReportBox
+                    label={t('numberOfUsers')}
+                    value={usersCount.toLocaleString()}
+                    subText="+7"
+                    subTextDirection="up"
+                    icon={<User className="report-box__icon text-theme-9" />}
+                  />
+                </NavLink>
               </div>
             </div>
           </div>
