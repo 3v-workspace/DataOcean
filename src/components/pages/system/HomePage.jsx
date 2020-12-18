@@ -8,9 +8,7 @@ import moment from 'moment';
 import PieChartLegend from 'components/pages/dashboard/PieChartLegend';
 import { useTranslation } from 'react-i18next';
 import { upFirstLetter } from 'utils';
-// import DatasetsRoutes from 'components/pages/datasets/DatasetsList';
-import { NavLink } from 'react-router-dom';
-
+import { useHistory } from 'react-router-dom';
 
 const HomePage = () => {
   const { t, i18n } = useTranslation();
@@ -21,6 +19,7 @@ const HomePage = () => {
   const [apiUsageData, setApiUsageData] = useState({});
   const [topKvedData, setTopKvedData] = useState([]);
   const [topCompanyTypeData, setTopCompanyTypeData] = useState([]);
+  const history = useHistory();
 
   const getName = (item) => {
     if (i18n.language === 'uk') {
@@ -216,49 +215,53 @@ const HomePage = () => {
               {/*</a>*/}
             </div>
             <div className="grid grid-cols-12 gap-6 mt-5">
-              <div className="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
-                <NavLink to="/system/datasets/2/companies/">
-                  <ReportBox
-                    label={t('numberOfCompanies')}
-                    value={companyCount.toLocaleString()}
-                    subText="18%"
-                    subTextDirection="up"
-                    icon={<File className="report-box__icon text-theme-10" />}
-                  />
-                </NavLink>
+              <div
+                className="col-span-12 sm:col-span-6 xl:col-span-3 intro-y"
+                onClick={() => history.push('/system/datasets/2/companies/')}
+              >
+                <ReportBox
+                  label={t('numberOfCompanies')}
+                  value={companyCount.toLocaleString()}
+                  subText="18%"
+                  subTextDirection="up"
+                  icon={<File className="report-box__icon text-theme-10" />}
+                />
               </div>
-              <div className="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
-                <NavLink to="/system/datasets/2/fop/">
-                  <ReportBox
-                    label={t('numberOfSoleProprietors')}
-                    value={fopCount.toLocaleString()}
-                    subText="16%"
-                    subTextDirection="up"
-                    icon={<Briefcase className="report-box__icon text-theme-11" />}
-                  />
-                </NavLink>
+              <div
+                className="col-span-12 sm:col-span-6 xl:col-span-3 intro-y"
+                onClick={() => history.push('/system/datasets/2/fop/')}
+              >
+                <ReportBox
+                  label={t('numberOfSoleProprietors')}
+                  value={fopCount.toLocaleString()}
+                  subText="16%"
+                  subTextDirection="up"
+                  icon={<Briefcase className="report-box__icon text-theme-11" />}
+                />
               </div>
-              <div className="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
-                <NavLink to="/system/datasets/">
-                  <ReportBox
-                    label={t('numberOfDatasets')}
-                    value={registersCount.toLocaleString()}
-                    subText="+5"
-                    subTextDirection="up"
-                    icon={<Database className="report-box__icon text-theme-12" />}
-                  />
-                </NavLink>
+              <div
+                className="col-span-12 sm:col-span-6 xl:col-span-3 intro-y"
+                onClick={() => history.push('/system/datasets/')}
+              >
+                <ReportBox
+                  label={t('numberOfDatasets')}
+                  value={registersCount.toLocaleString()}
+                  subText="+5"
+                  subTextDirection="up"
+                  icon={<Database className="report-box__icon text-theme-12" />}
+                />
               </div>
-              <div className="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
-                <NavLink to="/system/profile/">
-                  <ReportBox
-                    label={t('numberOfUsers')}
-                    value={usersCount.toLocaleString()}
-                    subText="+7"
-                    subTextDirection="up"
-                    icon={<User className="report-box__icon text-theme-9" />}
-                  />
-                </NavLink>
+              <div
+                className="col-span-12 sm:col-span-6 xl:col-span-3 intro-y"
+                onClick={() => history.push('/system/profile/')}
+              >
+                <ReportBox
+                  label={t('numberOfUsers')}
+                  value={usersCount.toLocaleString()}
+                  subText="+7"
+                  subTextDirection="up"
+                  icon={<User className="report-box__icon text-theme-9" />}
+                />
               </div>
             </div>
           </div>

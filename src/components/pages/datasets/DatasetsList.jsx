@@ -21,10 +21,6 @@ const DatasetsList = ({ match, history }) => {
     setSearch(e.target.value);
   };
 
-  function rowRoute(id) {
-    history.push(`${match.url}${id}/`);
-  }
-
   return (
     <>
       <h2 className="intro-y text-lg font-medium mt-10">
@@ -74,7 +70,11 @@ const DatasetsList = ({ match, history }) => {
             </thead>
             <tbody>
               {tc.isDataReady && tc.data.map((item) => (
-                <tr onClick={() => rowRoute(item.id)} key={item.id} className="intro-x cursor-pointer zoom-in">
+                <tr
+                  onClick={() => history.push(`${match.url}${item.id}/`)}
+                  key={item.id}
+                  className="intro-x cursor-pointer hover:shadow-xl"
+                >
                   <td>
                     {item.id}
                   </td>
