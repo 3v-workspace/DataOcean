@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 import Tooltip from 'components/Tooltip';
 import { dateFormat } from 'utils';
 
-const DatasetsList = ({ match }) => {
+const DatasetsList = ({ match, history }) => {
   const [search, setSearch] = useState('');
   const { t, i18n } = useTranslation();
 
@@ -45,17 +45,18 @@ const DatasetsList = ({ match }) => {
           {/*    </span>*/}
           {/*  </button>*/}
           {/*</div>*/}
-          <div className="hidden md:block mx-auto text-gray-600">
+          <div className="hidden md:block ml-auto text-gray-600">
             {t('showingToOfEntries', {
               first: tc.itemsIndexes.first,
               last: tc.itemsIndexes.last,
               count: tc.count,
             })}
           </div>
-          <div className="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">
+          {/* <div className="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">
             <SearchBox containerClass="w-56 relative text-gray-700" onSearch={onSearch} />
-          </div>
+          </div> */}
         </div>
+        <Pagination tableController={tc} />
         {/*BEGIN: Data List*/}
         <div className="intro-y col-span-12 overflow-auto lg:overflow-visible">
           <table className="table table-report -mt-2">
@@ -69,7 +70,11 @@ const DatasetsList = ({ match }) => {
             </thead>
             <tbody>
               {tc.isDataReady && tc.data.map((item) => (
-                <tr key={item.id} className="intro-x">
+                <tr
+                  onClick={() => history.push(`${match.url}${item.id}/`)}
+                  key={item.id}
+                  className="intro-x cursor-pointer hover:shadow-xl"
+                >
                   <td>
                     {item.id}
                   </td>
@@ -102,6 +107,7 @@ const DatasetsList = ({ match }) => {
 
 DatasetsList.propTypes = {
   match: ReactRouterPropTypes.match.isRequired,
+  history: ReactRouterPropTypes.history.isRequired,
 };
 
 export default DatasetsList;

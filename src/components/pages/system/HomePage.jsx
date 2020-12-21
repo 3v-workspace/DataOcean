@@ -8,9 +8,9 @@ import moment from 'moment';
 import PieChartLegend from 'components/pages/dashboard/PieChartLegend';
 import { useTranslation } from 'react-i18next';
 import { upFirstLetter } from 'utils';
+import { ReactRouterPropTypes } from 'utils/prop-types';
 
-
-const HomePage = () => {
+const HomePage = ({ history }) => {
   const { t, i18n } = useTranslation();
   const [registersCount, setRegistersCount] = useState('');
   const [usersCount, setUsersCount] = useState('');
@@ -221,6 +221,7 @@ const HomePage = () => {
                   subText="18%"
                   subTextDirection="up"
                   icon={<File className="report-box__icon text-theme-10" />}
+                  onClick={() => history.push('/system/datasets/2/companies/')}
                 />
               </div>
               <div className="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
@@ -230,6 +231,7 @@ const HomePage = () => {
                   subText="16%"
                   subTextDirection="up"
                   icon={<Briefcase className="report-box__icon text-theme-11" />}
+                  onClick={() => history.push('/system/datasets/2/fop/')}
                 />
               </div>
               <div className="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
@@ -239,6 +241,7 @@ const HomePage = () => {
                   subText="+5"
                   subTextDirection="up"
                   icon={<Database className="report-box__icon text-theme-12" />}
+                  onClick={() => history.push('/system/datasets/')}
                 />
               </div>
               <div className="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
@@ -248,6 +251,7 @@ const HomePage = () => {
                   subText="+7"
                   subTextDirection="up"
                   icon={<User className="report-box__icon text-theme-9" />}
+                  onClick={() => history.push('/system/profile/')}
                 />
               </div>
             </div>
@@ -334,6 +338,8 @@ const HomePage = () => {
   );
 };
 
-// HomePage.propTypes = {};
+HomePage.propTypes = {
+  history: ReactRouterPropTypes.history.isRequired,
+};
 
 export default HomePage;
