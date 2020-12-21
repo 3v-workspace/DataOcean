@@ -214,52 +214,44 @@ const HomePage = ({ history }) => {
               {/*</a>*/}
             </div>
             <div className="grid grid-cols-12 gap-6 mt-5">
-              <div
-                className="col-span-12 sm:col-span-6 xl:col-span-3 intro-y"
-                onClick={() => history.push('/system/datasets/2/companies/')}
-              >
+              <div className="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
                 <ReportBox
                   label={t('numberOfCompanies')}
                   value={companyCount.toLocaleString()}
                   subText="18%"
                   subTextDirection="up"
                   icon={<File className="report-box__icon text-theme-10" />}
+                  onClick={() => history.push('/system/datasets/2/companies/')}
                 />
               </div>
-              <div
-                className="col-span-12 sm:col-span-6 xl:col-span-3 intro-y"
-                onClick={() => history.push('/system/datasets/2/fop/')}
-              >
+              <div className="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
                 <ReportBox
                   label={t('numberOfSoleProprietors')}
                   value={fopCount.toLocaleString()}
                   subText="16%"
                   subTextDirection="up"
                   icon={<Briefcase className="report-box__icon text-theme-11" />}
+                  onClick={() => history.push('/system/datasets/2/fop/')}
                 />
               </div>
-              <div
-                className="col-span-12 sm:col-span-6 xl:col-span-3 intro-y"
-                onClick={() => history.push('/system/datasets/')}
-              >
+              <div className="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
                 <ReportBox
                   label={t('numberOfDatasets')}
                   value={registersCount.toLocaleString()}
                   subText="+5"
                   subTextDirection="up"
                   icon={<Database className="report-box__icon text-theme-12" />}
+                  onClick={() => history.push('/system/datasets/')}
                 />
               </div>
-              <div
-                className="col-span-12 sm:col-span-6 xl:col-span-3 intro-y"
-                onClick={() => history.push('/system/profile/')}
-              >
+              <div className="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
                 <ReportBox
                   label={t('numberOfUsers')}
                   value={usersCount.toLocaleString()}
                   subText="+7"
                   subTextDirection="up"
                   icon={<User className="report-box__icon text-theme-9" />}
+                  onClick={() => history.push('/system/profile/')}
                 />
               </div>
             </div>

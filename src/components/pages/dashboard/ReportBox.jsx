@@ -12,13 +12,16 @@ const dirIcons = {
 
 const ReportBox = (props) => {
   const {
-    label, value, subText, subTextDirection, icon,
+    label, value, subText, subTextDirection, icon, onClick,
   } = props;
 
   const subTextBgTheme = subTextDirection === 'up' ? '9' : '6';
 
   return (
-    <div className="report-box zoom-in">
+    <div
+      className="report-box zoom-in"
+      onClick={onClick}
+    >
       <div className="box p-5">
         <div className="flex">
           {icon}
@@ -46,10 +49,12 @@ ReportBox.propTypes = {
   subText: PropTypes.string.isRequired,
   subTextDirection: PropTypes.oneOf(['up', 'down']).isRequired,
   icon: PropTypes.node.isRequired,
+  onClick: PropTypes.func,
 };
 
 ReportBox.defaultProps = {
   value: null,
+  onClick: undefined,
 };
 
 export default ReportBox;
