@@ -53,6 +53,9 @@ const Table = (props) => {
           <SearchBox containerClass="w-56 relative text-gray-700" onSearch={onSearch} />
         </div>
       </div>
+      <div className="p-5">
+        <Pagination tableController={tc} />
+      </div>
       <div className="overflow-x-auto box">
         {tc.isLoading && (
           <div className="w-full h-full bg-gray-700 bg-opacity-25 absolute flex items-center justify-center">
