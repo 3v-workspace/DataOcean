@@ -38,7 +38,7 @@ const HelpPage = () => {
                       {open[faq.id] ? <ChevronUp className="w-4 h-6" /> : <ChevronDown className="w-4 h-6" />}
                     </div>
                     <div className="accordion__pane__content cursor-text mt-3 text-gray-700 font-normal">
-                      {faq.answer}
+                      <a href={`${process.env.REACT_APP_API_BASE_URL}/schema/redoc/`}>{faq.answer}</a>
                     </div>
                   </li>
                 ))}
