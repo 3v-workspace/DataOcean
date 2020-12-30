@@ -28,13 +28,13 @@ const DatasetsList = ({ match, history }) => {
       </h2>
       <div className="grid grid-cols-12 gap-6 mt-5">
         <div className="intro-y col-span-12 flex flex-wrap sm:flex-no-wrap items-center mt-2">
-          <Tooltip content={`${t('inDevelopment')}...`}>
-            <Button
-              className="shadow-md mr-2 disabled"
-            >
-              {t('myDatasets')}
-            </Button>
-          </Tooltip>
+          {/*<Tooltip content={`${t('inDevelopment')}...`}>*/}
+          {/*  <Button*/}
+          {/*    className="shadow-md mr-2 disabled"*/}
+          {/*  >*/}
+          {/*    {t('myDatasets')}*/}
+          {/*  </Button>*/}
+          {/*</Tooltip>*/}
           {/*<div className="dropdown relative">*/}
           {/*  <button*/}
           {/*    type="button"*/}
