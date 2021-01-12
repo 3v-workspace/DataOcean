@@ -4,16 +4,17 @@ import Api from 'api';
 import { useTranslation } from 'react-i18next';
 import {
   Bookmark, Briefcase, CreditCard,
-  ShoppingBag, DollarSign,
+  DollarSign, Tag,
 } from 'react-feather';
 import { Button } from 'components/form-components';
 import { ReactRouterPropTypes } from 'utils/prop-types';
 import { YesNoModal } from 'components/modals';
 
 const icons = [
+  Tag,
   CreditCard,
   Briefcase,
-  ShoppingBag,
+  // ShoppingBag,
 ];
 
 const middleClasses = 'border-b border-t lg:border-b-0 lg:border-t-0 ' +
