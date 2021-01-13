@@ -90,8 +90,8 @@ const HomePage = ({ history }) => {
     const labels = topKvedData.map((el) => el.kved.code);
     const data = topKvedData.map((el) => el.count_companies_with_kved);
 
-    if ($('#report-pie-chart').length) {
-      const ctx = $('#report-pie-chart')[0].getContext('2d');
+    if ($('#top-kved-chart').length) {
+      const ctx = $('#top-kved-chart')[0].getContext('2d');
       new Chart(ctx, {
         type: 'pie',
         data: {
@@ -120,10 +120,10 @@ const HomePage = ({ history }) => {
     const labels = topCompanyTypeData.map((el) => getName(el));
     const data = topCompanyTypeData.map((el) => el.count_companies);
 
-    if ($('#report-donut-chart').length) {
-      const ctx = $('#report-donut-chart')[0].getContext('2d');
+    if ($('#top-company-chart').length) {
+      const ctx = $('#top-company-chart')[0].getContext('2d');
       new Chart(ctx, {
-        type: 'doughnut',
+        type: 'pie',
         data: {
           labels,
           datasets: [{
@@ -133,7 +133,7 @@ const HomePage = ({ history }) => {
               '#6a4d8d', '#6a4d8d', '#d54e82', '#f85c66', '#ff7c41',
             ],
             hoverBackgroundColor: ['#FF8B26', '#FFC533', '#285FD3'],
-            borderWidth: 5,
+            borderWidth: 2,
             borderColor: '#fff',
           }],
         },
@@ -141,7 +141,7 @@ const HomePage = ({ history }) => {
           legend: {
             display: false,
           },
-          cutoutPercentage: 60,
+          //cutoutPercentage: 60,
         },
       });
     }
@@ -304,7 +304,7 @@ const HomePage = ({ history }) => {
               {/*<a href="#" className="ml-auto text-theme-1 truncate">{t('all')}</a>*/}
             </div>
             <div className="intro-y box p-5 mt-5">
-              <canvas className="mt-3" id="report-pie-chart" height="280" />
+              <canvas className="mt-3" id="top-kved-chart" height="280" />
               <PieChartLegend
                 items={topKvedData.map((el) => ({
                   label: el.kved.code,
@@ -321,7 +321,7 @@ const HomePage = ({ history }) => {
               {/*<a href="#" className="ml-auto text-theme-1 truncate">{t('all')}</a>*/}
             </div>
             <div className="intro-y box p-5 mt-5">
-              <canvas className="mt-3" id="report-donut-chart" height="280" />
+              <canvas className="mt-3" id="top-company-chart" height="280" />
               <PieChartLegend
                 items={topCompanyTypeData.map((el) => ({
                   label: getName(el),
