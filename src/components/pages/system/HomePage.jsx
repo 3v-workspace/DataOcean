@@ -170,9 +170,9 @@ const HomePage = ({ history }) => {
       .then((resp) => {
         setRegistersCount(resp.data.count);
       });
-    Api.get('users/')
+    Api.get('stats/count-users/')
       .then((resp) => {
-        setUsersCount(resp.data.count);
+        setUsersCount(resp.data.users_count);
       });
     Api.get('stats/registered-companies/')
       .then((resp) => {
