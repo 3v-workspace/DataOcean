@@ -191,7 +191,7 @@ const SignUpForm = () => {
           <label className="cursor-pointer select-none" htmlFor="accept_policy">
             {t('iAgreeWith')}
           </label>
-          <a className="text-theme-1 ml-1" href="#?">{t('privacyPolicy')}</a>.
+          <a className="text-theme-1 ml-1" href="/docs/PrivacyPolicyEn.html" target="_blank">{t('privacyPolicy')}</a>.
         </div>
         {formik.touched.accept_policy && formik.errors.accept_policy && (
           <label className="error" htmlFor="accept_policy">{formik.errors.accept_policy}</label>
