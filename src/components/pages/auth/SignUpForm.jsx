@@ -40,10 +40,15 @@ PasswordSecure.propTypes = {
 };
 
 const SignUpForm = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [psswdSec, setPsswdSec] = useState(0);
   const [sent, setSent] = useState(false);
   // const dispatch = useDispatch();
+
+  let policy = '/docs/PrivacyPolicyUk.html';
+  if (i18n.language === 'en') {
+    policy = '/docs/PrivacyPolicyEn.html';
+  }
 
   const formik = useFormik({
     initialValues: {
@@ -188,10 +193,12 @@ const SignUpForm = () => {
             checked={formik.values.accept_policy}
             onChange={formik.handleChange}
           />
-          <label className="cursor-pointer select-none" htmlFor="accept_policy">
+          <label className="cursor-pointer select-none mr-2" htmlFor="accept_policy">
             {t('iAgreeWith')}
           </label>
-          <a className="text-theme-1 ml-1" href="/docs/PrivacyPolicyEn.html" target="_blank">{t('privacyPolicy')}</a>.
+          <a className="text-theme-1" href={` ${process.env.PUBLIC_URL}${policy}`} target="_blank">
+            {t('privacyPolicy')}
+          </a>
         </div>
         {formik.touched.accept_policy && formik.errors.accept_policy && (
           <label className="error" htmlFor="accept_policy">{formik.errors.accept_policy}</label>
