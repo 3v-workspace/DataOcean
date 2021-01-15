@@ -196,7 +196,7 @@ const SignUpForm = () => {
           <label className="cursor-pointer select-none mr-2" htmlFor="accept_policy">
             {t('iAgreeWith')}
           </label>
-          <a className="text-theme-1" href={` ${process.env.PUBLIC_URL}${policy}`} target="_blank">
+          <a className="text-theme-1" href={`${process.env.PUBLIC_URL}${policy}`} target="_blank">
             {t('privacyPolicy')}
           </a>
         </div>
