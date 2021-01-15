@@ -198,7 +198,7 @@ const SignUpForm = () => {
           </label>
           <a className="text-theme-1" href={`${process.env.PUBLIC_URL}${policy}`} target="_blank">
             {t('privacyPolicy')}
-          </a>
+          </a>.
         </div>
         {formik.touched.accept_policy && formik.errors.accept_policy && (
           <label className="error" htmlFor="accept_policy">{formik.errors.accept_policy}</label>
