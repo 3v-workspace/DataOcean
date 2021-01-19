@@ -1,6 +1,8 @@
 import React from 'react';
 import { Translation } from 'react-i18next';
 
+const baseUrl = process.env.REACT_APP_API_BASE_URL.replace(/\/$/, '');
+
 const faqs = [
   {
     id: 1,
@@ -148,7 +150,7 @@ const faqs = [
       </Translation>
     ),
     answer: (
-      <a href={`${process.env.REACT_APP_API_BASE_URL}/schema/redoc/`}>
+      <a href={`${baseUrl}/schema/redoc/`}>
         <Translation>
           {(t) => `${t('faq.answer.linkAPI')}`}
         </Translation>
