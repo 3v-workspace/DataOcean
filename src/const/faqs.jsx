@@ -148,7 +148,7 @@ const faqs = [
       </Translation>
     ),
     answer: (
-      <a href={`${process.env.REACT_APP_API_BASE_URL}schema/redoc/`}>
+      <a href={`${process.env.REACT_APP_API_BASE_URL}/schema/redoc/`}>
         <Translation>
           {(t) => `${t('faq.answer.linkAPI')}`}
         </Translation>
