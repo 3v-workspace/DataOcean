@@ -202,7 +202,7 @@ const ProjectDetail = (props) => {
   };
 
   const getPaymentDateText = (subscription) => {
-    if (subscription.is_default) {
+    if (subscription.is_default || subscription.status === p2sStatus.PAST) {
       return '---';
     }
     if (subscription.status === p2sStatus.ACTIVE && hasFutureSubscription) {

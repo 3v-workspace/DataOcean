@@ -142,15 +142,12 @@ const SubscriptionsPage = (props) => {
                     </div>
                     <Button
                       size="lg"
-                      disabled={
-                        sub.is_default ||
-                        sub.id === defaultProject?.active_subscription.subscription_id
-                      }
+                      disabled={sub.id === defaultProject?.active_subscription.subscription_id}
                       isRounded
                       noFlex
                       type="button"
                       className="subscription-button block mx-auto mt-8 px-8"
-                      onClick={() => !sub.is_default && openSubscriptionChoiceModal(sub)}
+                      onClick={() => openSubscriptionChoiceModal(sub)}
                     >
                       {t('choose')}
                     </Button>
