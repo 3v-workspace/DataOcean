@@ -10,7 +10,7 @@ import HomePage from 'components/pages/system/HomePage';
 import ProfilePage from 'components/pages/profile/ProfilePage';
 import DatasetsRoutes from 'components/pages/datasets/DatasetsRoutes';
 import PepGraphPage from 'components/pages/system/PepGraphPage';
-import SubscriptionsPage from 'components/pages/projects/SubscriptionsPage';
+import SubscriptionsPage from 'components/pages/payment/SubscriptionsPage';
 
 
 const SystemRoutes = (props) => {
@@ -65,8 +65,7 @@ const SystemRoutes = (props) => {
         component={HelpPage}
       />
       <Route
-        exact
-        path={`${match.path}profile/*`}
+        path={`${match.path}profile/`}
         component={ProfilePage}
       />
       <Route
