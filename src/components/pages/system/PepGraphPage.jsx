@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 const PepGraphPage = () => {
   const boxRef = useRef();
   const { t } = useTranslation();
-  const pepUrl = process.env.REACT_APP_PEP_GRAPH_URL;
+  const pepUrl = process.env.REACT_APP_PEP_GRAPH_URL.replace(/\/$/, '');
   if (!pepUrl) {
     throw new Error('You must set REACT_APP_PEP_GRAPH_URL in .env');
   }
@@ -25,7 +25,7 @@ const PepGraphPage = () => {
       <div className="intro-y" ref={boxRef} style={{ height: '850px' }}>
         <iframe
           title="pep-scheme"
-          src={`${pepUrl}?theme=data-ocean`}
+          src={`${pepUrl}/?theme=data-ocean`}
           frameBorder="0"
           style={{ borderRadius: '12px' }}
           width="100%"
