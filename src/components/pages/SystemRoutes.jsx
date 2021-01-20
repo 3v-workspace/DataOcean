@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { ReactRouterPropTypes } from 'utils/prop-types';
+import ApiPage from 'components/pages/api/ApiPage';
 import ReportConstructorPage from 'components/pages/system/ReportConstructorPage';
 import ContactsPage from 'components/pages/system/ContactsPage';
 import DataConstructorPage from 'components/pages/system/DataConstructorPage';
@@ -53,6 +54,11 @@ const SystemRoutes = (props) => {
         exact
         path={`${match.path}subscriptions/`}
         component={SubscriptionsPage}
+      />
+      <Route
+        exact
+        path={`${match.path}API/`}
+        component={ApiPage}
       />
       <Route
         exact
