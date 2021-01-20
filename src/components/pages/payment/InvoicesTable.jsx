@@ -4,7 +4,7 @@ import TabContentBlock from 'components/pages/profile/TabContentBlock';
 import { ReactRouterPropTypes } from 'utils/prop-types';
 import { dateFormat } from 'utils';
 import { useTranslation } from 'react-i18next';
-import Api from 'api';
+import Api, { baseApiUrl } from 'api';
 import { Printer } from 'react-feather';
 import Button from 'components/form-components/Button';
 
@@ -45,14 +45,13 @@ const InvoicesTable = (props) => {
   };
 
   const openInvoice = (invoiceId) => {
-    // TODO: open PDF doc here
-    // window.open('https://google.com', '_blank');
+    window.open(`${baseApiUrl}/api/payment/invoice/${invoiceId}/`, '_blank');
   };
 
   const getTitle = () => {
     if (subscriptionId && subData.subscription?.name) {
       return `${t('myPayments')}, ${t('subscription').toLowerCase()} ${subData.subscription.name}, ` +
-       `${t('project').toLowerCase()} ${subData.project.name}`;
+        `${t('project').toLowerCase()} ${subData.project.name}`;
     }
     return t('myPayments');
   };
