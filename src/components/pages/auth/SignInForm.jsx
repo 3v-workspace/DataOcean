@@ -130,6 +130,7 @@ const SignInForm = () => {
           {t('privacyPolicy')}
           {/* {i18n.language === 'en' ? 'Українська' : 'English'} */}
         </a>
+        <p>{t('copyrights')}</p>
       </div>
     </Form>
   );

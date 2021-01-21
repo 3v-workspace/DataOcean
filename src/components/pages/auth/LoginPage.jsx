@@ -49,13 +49,15 @@ const LoginPage = ({ match, history, location }) => {
       <div className="block xl:grid grid-cols-2 gap-4">
         <div className="hidden xl:flex flex-col min-h-screen">
           <div className="-intro-x flex items-center pt-8">
-            <img alt="Data Ocean Logo" className="w-12 -mt-3" src={logo} />
-            <div className="text-white text-lg ml-3">
-              <div className="font-medium">Data Ocean</div>
-              <div className="intro-x text-white text-sm">
-                Platform
+            <a href="https://dataocean.us/" target="_blank" className="intro-x flex items-center pl-5 pt-4">
+              <img alt="Data Ocean Logo" className="w-12 -mt-3" src={logo} />
+              <div className="text-white text-lg ml-3">
+                <div className="font-medium">Data Ocean</div>
+                <div className="intro-x text-white text-sm">
+                  Platform
+                </div>
               </div>
-            </div>
+            </a>
           </div>
           <div className="my-auto">
             <img
