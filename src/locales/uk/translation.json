@@ -168,6 +168,8 @@
     "disableProjectModalMessage": "Ви зможете активувати його в будь-який момент",
     "disableUserModalHeader": "Ви впевнені, що хочете деактивувати користувача?",
     "disableUserModalMessage": "Ви зможете активувати його в будь-який момент",
+    "removeFutureModalHeader": "Ви впевнені, що хочете скасувати вибір тарифного плану {{subName}}?",
+    "removeFutureModalMessage": "Ви зможете обрати будь-який інший тарифний план",
     "subscriptionChoiceModalHeader": "Обрати {{name}}?",
     "subscriptionChoiceModalMessage": "Тарифний план \"{{subscription}}\" буде додано до проекту \"{{project}}\"."
   },
@@ -216,6 +218,7 @@
   "streets": "Вулиці",
   "subscription": "Тарифний план",
   "subscriptionAdded": "Тарифний план додано",
+  "subscriptionRemoved": "Тарифний план видалено",
   "subscriptions": "Тарифні плани",
   "successfully": "Успішно",
   "system": "Система",

@@ -168,6 +168,8 @@
     "disableProjectModalMessage": "You can activate it at any time",
     "disableUserModalHeader": "Are you sure you want to deactivate the user?",
     "disableUserModalMessage": "You can activate him at any time",
+    "removeFutureModalHeader": "Are you sure you want to cancel the {{subName}} subscription?",
+    "removeFutureModalMessage": "You can choose any other subscription",
     "subscriptionChoiceModalHeader": "Choose {{name}}?",
     "subscriptionChoiceModalMessage": "The \"{{subscription}}\" subscription will be added to the \"{{project}}\" project."
   },
@@ -216,6 +218,7 @@
   "streets": "Streets",
   "subscription": "Subscription",
   "subscriptionAdded": "Subscription added",
+  "subscriptionRemoved": "Subscription removed",
   "subscriptions": "Subscriptions",
   "successfully": "Successfully",
   "system": "System",
