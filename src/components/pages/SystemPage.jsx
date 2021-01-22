@@ -49,7 +49,7 @@ const SystemPage = (props) => {
       <NavItem link="/system/subscriptions/" icon={DollarSign}>
         {t('subscriptions')}
       </NavItem>
-      <NavItem link="/system/API/" icon={Cloud}>
+      <NavItem link="/system/api/" icon={Cloud}>
         API
       </NavItem>
       <NavItem link="/system/contacts/" icon={BookOpen}>

@@ -57,7 +57,7 @@ const SystemRoutes = (props) => {
       />
       <Route
         exact
-        path={`${match.path}API/`}
+        path={`${match.path}api/`}
         component={ApiPage}
       />
       <Route
