@@ -7,7 +7,7 @@ import { Copy } from 'react-feather';
 
 const ApiPage = (props) => {
   const { t } = useTranslation();
-  const { match, history } = props;
+  const { history } = props;
   const [projects, setProjects] = useState([]);
 
   const fetchData = () => {
@@ -16,8 +16,6 @@ const ApiPage = (props) => {
         setProjects(resp.data);
       });
   };
-
-  const projectUrl = `${match.url.replace('api/', '')}profile/projects/`;
 
   useEffect(() => {
     fetchData();
@@ -60,19 +58,21 @@ const ApiPage = (props) => {
               {projects.map((project) => (
                 <tr
                   key={project.id}
+                  onClick={() => history.push(`/system/profile/projects/${project.id}/`)}
                   className={`border-b intro-x hover:bg-gray-100 cursor-pointer ${project.is_active ? '' : 'text-gray-500'}`}
                 >
-                  <td onClick={() => history.push(`${projectUrl}${project.id}/`)}>{project.token}</td>
-                  <td onClick={() => history.push(`${projectUrl}${project.id}/`)}>{project.name}</td>
-                  <td onClick={() => history.push(`${projectUrl}${project.id}/`)}>{getProjectStatus(project)}</td>
+                  <td>{project.token}</td>
+                  <td>{project.name}</td>
+                  <td>{getProjectStatus(project)}</td>
                   <td>
                     <Button
                       type="button"
                       variant="blank"
-                      onClick={() => {
+                      onClick={(event) => {
                         navigator.clipboard.writeText(project.token).then(
                           () => $.toast(t('tokenSavedToClipboard')),
                         );
+                        event.stopPropagation();
                       }}
                       className="px-0"
                     >
@@ -91,7 +91,6 @@ const ApiPage = (props) => {
 
 
 ApiPage.propTypes = {
-  match: ReactRouterPropTypes.match.isRequired,
   history: ReactRouterPropTypes.history.isRequired,
 };
 
