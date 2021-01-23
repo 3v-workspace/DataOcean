@@ -9,12 +9,18 @@ import CompanyList from './company/CompanyList';
 import StreetList from './street/StreetList';
 import FopList from './company/FopList';
 import PepList from './pep/PepList';
+import UKcompanyList from './company/UKcompanyList';
 
 const DatasetsRoutes = (props) => {
   const { match } = props;
 
   return (
     <Switch>
+      <Route
+        exact
+        path={`${match.path}:id/uk/`}
+        component={UKcompanyList}
+      />
       <Route
         exact
         path={`${match.path}:id/kved/`}
