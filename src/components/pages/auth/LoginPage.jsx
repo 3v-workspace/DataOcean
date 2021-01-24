@@ -14,7 +14,6 @@ import english from 'images/USA.svg';
 import ukrainian from 'images/ukraine.svg';
 import { setYupLanguage } from 'utils/setLanguage';
 
-const landingUrl = process.env.REACT_APP_LANDING_URL;
 
 const LoginPage = ({ match, history, location }) => {
   const user = useSelector((state) => state.user);
@@ -50,7 +49,7 @@ const LoginPage = ({ match, history, location }) => {
       <div className="block xl:grid grid-cols-2 gap-4">
         <div className="hidden xl:flex flex-col min-h-screen">
           <div className="-intro-x flex items-center pt-8">
-            <a href={landingUrl} target="_blank" className="intro-x flex items-center pl-5 pt-4">
+            <a href={process.env.REACT_APP_LANDING_URL} target="_blank" className="intro-x flex items-center pl-5 pt-4">
               <img alt="Data Ocean Logo" className="w-12 -mt-3" src={logo} />
               <div className="text-white text-lg ml-3">
                 <div className="font-medium">Data Ocean</div>
