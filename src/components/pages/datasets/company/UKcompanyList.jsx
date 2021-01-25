@@ -5,7 +5,7 @@ import PageBox from 'components/pages/PageBox';
 import { useTranslation } from 'react-i18next';
 
 
-const UKcompanyList = () => {
+const UKCompanyList = () => {
   const { t } = useTranslation();
   const columns = [
     { header: t('edrpou'), prop: 'edrpou' },
