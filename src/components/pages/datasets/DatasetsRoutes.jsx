@@ -9,7 +9,7 @@ import CompanyList from './company/CompanyList';
 import StreetList from './street/StreetList';
 import FopList from './company/FopList';
 import PepList from './pep/PepList';
-import UKcompanyList from './company/UKcompanyList';
+import UKCompanyList from './company/UKCompanyList';
 
 const DatasetsRoutes = (props) => {
   const { match } = props;
@@ -19,7 +19,7 @@ const DatasetsRoutes = (props) => {
       <Route
         exact
         path={`${match.path}:id/uk/`}
-        component={UKcompanyList}
+        component={UKCompanyList}
       />
       <Route
         exact
