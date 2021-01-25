@@ -18,7 +18,7 @@ const DatasetsRoutes = (props) => {
     <Switch>
       <Route
         exact
-        path={`${match.path}:id/uk/`}
+        path={`${match.path}:id/uk-companies/`}
         component={UKCompanyList}
       />
       <Route
