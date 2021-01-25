@@ -127,7 +127,7 @@ const SubscriptionsPage = (props) => {
                       ) : (
                         `${sub.duration} ${t('days')}`
                       )}
-                      <span className="mx-1">•</span>{sub.requests_limit} {t('requests')}
+                      <span className="mx-1">•</span>{sub.requests_limit} {t('apiRequestsTariffs')}
                     </div>
                     <div className="text-gray-600 px-10 text-center mx-auto mt-2">
                       {sub.description}

@@ -6,7 +6,7 @@ import TabContentBlock from 'components/pages/profile/TabContentBlock';
 import { BooleanInput, Button, TextInput } from 'components/form-components';
 import {
   Copy, RefreshCcw, HelpCircle,
-  Briefcase,
+  Briefcase, X,
 } from 'react-feather';
 import Tooltip from 'components/Tooltip';
 import { BlankModal, YesNoModal } from 'components/modals';
@@ -29,9 +29,11 @@ const ProjectDetail = (props) => {
   const disableUserModalRef = useRef();
   const disableProjectModalRef = useRef();
   const updateProjectModalRef = useRef();
+  const removeFutureModalRef = useRef();
 
   const [project, setProject] = useState({});
   const [selectedUser, setSelectedUser] = useState({});
+  const [selectedSubscription, setSelectedSubscription] = useState({});
   const [showInvitations, setShowInvitations] = useState(false);
 
   const hasFutureSubscription = !!project.subscriptions?.find((s) => s.status === p2sStatus.FUTURE);
@@ -183,6 +185,15 @@ const ProjectDetail = (props) => {
       });
   };
 
+  const removeFutureSubscription = () => {
+    Api.delete(`payment/project/${projectId}/remove-future-subscription/`)
+      .then(() => {
+        $.toast(t('subscriptionRemoved'));
+        fetchData();
+        removeFutureModalRef.current.hide();
+      });
+  };
+
   const toggleProjectActivity = () => {
     if (project.is_active) {
       disableProjectModalRef.current.show();
@@ -191,15 +202,15 @@ const ProjectDetail = (props) => {
     }
   };
 
-  const getIsPaid = (subscription) => {
-    if (subscription.price) {
-      if (subscription.is_paid) {
-        return t('paid');
-      }
-      return t('notPaid');
-    }
-    return '---';
-  };
+  // const getIsPaid = (subscription) => {
+  //   if (subscription.price) {
+  //     if (subscription.is_paid) {
+  //       return t('paid');
+  //     }
+  //     return t('notPaid');
+  //   }
+  //   return '---';
+  // };
 
   const getPaymentDateText = (subscription) => {
     if (subscription.is_default || subscription.status === p2sStatus.PAST) {
@@ -292,6 +303,14 @@ const ProjectDetail = (props) => {
           onYes={disableProject}
           yesLabel={t('deactivate')}
           noLabel={t('cancel')}
+          // variant="warning"
+        />
+        <YesNoModal
+          ref={removeFutureModalRef}
+          header={t('payment_system.removeFutureModalHeader', { subName: selectedSubscription.name || '' })}
+          message={t('payment_system.removeFutureModalMessage')}
+          icon={HelpCircle}
+          onYes={removeFutureSubscription}
           // variant="warning"
         />
         <BlankModal
@@ -518,7 +537,23 @@ const ProjectDetail = (props) => {
                   key={subscription.id}
                   className={`${subscription.status !== p2sStatus.PAST ? '' : 'text-gray-500'}`}
                 >
-                  <td className="border-b">{subscription.name}</td>
+                  <td className="border-b" style={{ verticalAlign: 'center' }}>
+                    <div className="flex items-center">
+                      {subscription.name}
+                      {subscription.status === p2sStatus.FUTURE && (
+                        <Button
+                          variant="blank"
+                          className="ml-2 p-0 mb-1"
+                          onClick={() => {
+                            setSelectedSubscription(subscription);
+                            removeFutureModalRef.current.show();
+                          }}
+                        >
+                          <X className="h-4 w-4" />
+                        </Button>
+                      )}
+                    </div>
+                  </td>
                   <td className="border-b">{subsStatuses[subscription.status]}</td>
                   <td className="border-b">{subscription.requests_left}</td>
                   <td className="border-b">

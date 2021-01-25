@@ -1,25 +1,25 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Eye } from 'react-feather';
-import { Button, SearchBox } from 'components/form-components';
+// import { Button, SearchBox } from 'components/form-components';
 import { Pagination, useTableController } from 'components/table';
 import { Link } from 'react-router-dom';
 import { ReactRouterPropTypes } from 'utils/prop-types';
 import { useTranslation } from 'react-i18next';
-import Tooltip from 'components/Tooltip';
+// import Tooltip from 'components/Tooltip';
 import { dateFormat } from 'utils';
 
 const DatasetsList = ({ match, history }) => {
-  const [search, setSearch] = useState('');
+  // const [search, setSearch] = useState('');
   const { t, i18n } = useTranslation();
 
   const tc = useTableController({
     url: 'register/',
-    params: { search },
+    // params: { search },
   });
 
-  const onSearch = (e) => {
-    setSearch(e.target.value);
-  };
+  // const onSearch = (e) => {
+  //   setSearch(e.target.value);
+  // };
 
   return (
     <>
