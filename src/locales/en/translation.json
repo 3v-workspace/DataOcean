@@ -7,6 +7,7 @@
   "address": "Address",
   "afterRefreshTokenYouLoseAccess": "After the refreshing, you will lose access to the system with the current token.",
   "all": "All",
+  "allRightsReserved": "All rights reserved",
   "anyQuestion": "Any question?",
   "apiRequests": "API Requests",
   "apiUsage": "API usage",
