@@ -33,4 +33,4 @@ const UKCompanyList = () => {
 
 // CompanyList.propTypes = {};
 
-export default UKcompanyList;
+export default UKCompanyList;
