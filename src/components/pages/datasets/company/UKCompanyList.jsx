@@ -18,7 +18,7 @@ const UKCompanyList = () => {
     <PageBox header={t('viewTheRegistry')} noBox>
       <Table
         columns={columns}
-        url="uk/"
+        url="company/uk/"
         fields={[
           'edrpou',
           'name',
