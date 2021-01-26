@@ -136,6 +136,7 @@ const SignInForm = ({ history }) => {
           {t('privacyPolicy')}
           {/* {i18n.language === 'en' ? 'Українська' : 'English'} */}
         </a>
+        <p>©2020 – Data Ocean. {t('allRightsReserved')}.</p>
       </div>
     </Form>
   );

@@ -11,6 +11,7 @@
   "afterRefreshTokenYouLoseAccess": "After the refreshing, you will lose access to the system with the current token.",
   "all": "All",
   "anEasyAccessToTheData": "An easy access to the data, using the Rest API for software developers.",
+  "allRightsReserved": "All rights reserved",
   "anyQuestion": "Any question?",
   "api": "API",
   "apiRequests": "API Requests",
