@@ -44,6 +44,7 @@ const ProjectsTable = (props) => {
     onSubmit: (values, actions) => {
       Api.post('payment/project/create/', values)
         .then(() => {
+          createProjectModalRef.current.hide();
           $.toast('Project created');
           fetchData();
         })
