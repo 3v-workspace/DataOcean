@@ -74,9 +74,9 @@ const ApiPage = (props) => {
                         );
                         event.stopPropagation();
                       }}
-                      className="px-0"
+                      className="p-0"
                     >
-                      <Copy />
+                      <Copy className="w-5 h-5" />
                     </Button>
                   </td>
                 </tr>
