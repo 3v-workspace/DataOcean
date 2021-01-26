@@ -38,7 +38,7 @@ const InvoicesTable = (props) => {
   }, []);
 
   const getInvoiceStatus = (invoice) => {
-    if (invoice.is_paid) {
+    if (!invoice.is_paid) {
       return <span className="text-red-500 font-bold">{t('notPaid')}</span>;
     }
     return t('paid');
