@@ -57,6 +57,19 @@ const SubscriptionsPage = (props) => {
     subscriptionChoiceModalRef.current.show();
   };
 
+  useEffect(() => {
+    if (subs.length && projects.length) {
+      const subId = +window.localStorage.getItem('subscription');
+      window.localStorage.removeItem('subscription');
+      if (subId && subId !== defaultProject?.active_subscription.subscription_id) {
+        const subscription = subs.find((s) => s.id === subId);
+        if (subscription) {
+          openSubscriptionChoiceModal(subscription);
+        }
+      }
+    }
+  }, [subs, projects]);
+
   const setSubscription = (id) => {
     Api.put(`payment/project/${defaultProject.id}/add-subscription/${id}/`)
       .then(() => {
@@ -79,11 +92,11 @@ const SubscriptionsPage = (props) => {
       <YesNoModal
         ref={subscriptionChoiceModalRef}
         icon={DollarSign}
-        header={t('payment_system.subscriptionChoiceModalHeader', { name: modalData.subscription.name })}
+        header={t('payment_system.subscriptionChoiceModalHeader', { name: modalData.subscription.name || '' })}
         message={
           t('payment_system.subscriptionChoiceModalMessage', {
-            subscription: modalData.subscription.name,
-            project: modalData.project.name,
+            subscription: modalData.subscription.name || '',
+            project: modalData.project.name || '',
           })
         }
         onYes={() => setSubscription(modalData.subscription.id)}
