@@ -256,7 +256,7 @@ const HomePage = ({ history }) => {
                   subText="+7"
                   subTextDirection="up"
                   icon={<User className="report-box__icon text-theme-9" />}
-                  onClick={() => history.push(`/system/profile/projects/${project.id}`)}
+                  onClick={() => history.push(`/system/profile/projects/${project.id}/`)}
                 />
               </div>
             </div>
