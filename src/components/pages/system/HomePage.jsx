@@ -312,7 +312,7 @@ const HomePage = ({ history }) => {
               <canvas className="mt-3" id="top-kved-chart" height="280" />
               <PieChartLegend
                 items={topKvedData.map((el) => ({
-                  label: el.kved.code,
+                  label: `${el.kved.code}  ${upFirstLetter(el.kved.name)}`,
                   value: el.count_companies_with_kved,
                 }))}
               />
