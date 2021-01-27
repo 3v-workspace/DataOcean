@@ -77,6 +77,7 @@ const SubscriptionsPage = (props) => {
       {/*  {t('subscriptions')}*/}
       {/*</h2>*/}
       <YesNoModal
+        closeButton
         ref={subscriptionChoiceModalRef}
         icon={DollarSign}
         header={t('payment_system.subscriptionChoiceModalHeader', { name: modalData.subscription.name })}
