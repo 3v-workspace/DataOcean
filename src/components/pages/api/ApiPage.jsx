@@ -43,6 +43,14 @@ const ApiPage = (props) => {
         {t('viewApiDocumentation')}
       </Button>
       <h2 className="text-lg font-medium mt-6">{t('projectsTokens')}</h2>
+      <div className="w-full mt-2">
+        <div>
+          {t('toAccessRESTAddHeader')}:
+        </div>
+        <div className="text-theme-9">
+          {/* Authorization: DataOcean {project.token} */}
+        </div>
+      </div>
       <div className="intro-y mt-6 col-span-12">
         <div className="overflow-auto md:overflow-hidden">
           <table className="table">
