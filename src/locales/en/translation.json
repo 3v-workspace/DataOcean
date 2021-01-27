@@ -166,6 +166,7 @@
   "toAccessRESTAddHeader": "To access the REST API, add the following header to the HTTP request",
   "tools": "Tools",
   "topKveds": "TOP NACE",
+  "totalRecords": "Total records",
   "type": "Type",
   "userInformation": "User information",
   "usersCount": "Users count",

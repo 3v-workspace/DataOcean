@@ -166,6 +166,7 @@
   "toAccessRESTAddHeader": "Для доступу до REST API додайте в HTTP-запит наступний заголовок",
   "tools": "Інструменти",
   "topKveds": "ТОП КВЕДів",
+  "totalRecords": "Кількість записів",
   "type": "Тип",
   "userInformation": "Інформація про користувача",
   "usersCount": "Кількість користувачів",
