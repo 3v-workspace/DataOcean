@@ -137,14 +137,6 @@ const faqs = [
     id: 5,
     question: (
       <Translation>
-        {(t) => `${t('faq.tariffPlans')}`}
-      </Translation>
-    ),
-  },
-  {
-    id: 6,
-    question: (
-      <Translation>
         {(t) => `${t('faq.apiDocumentation')}`}
       </Translation>
     ),
