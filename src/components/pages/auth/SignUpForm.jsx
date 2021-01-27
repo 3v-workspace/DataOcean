@@ -203,6 +203,9 @@ const SignUpForm = () => {
         {formik.touched.accept_policy && formik.errors.accept_policy && (
           <label className="error" htmlFor="accept_policy">{formik.errors.accept_policy}</label>
         )}
+        {formik.errors.non_field_errors && (
+          <label className="error">{formik.errors.non_field_errors}</label>
+        )}
         <div className="xl:flex intro-x mt-5 xl:mt-8 text-center xl:text-left">
           <Button
             type="submit"
