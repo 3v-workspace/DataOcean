@@ -80,7 +80,7 @@ YesNoModal.defaultProps = {
   onHide: undefined,
   noLabel: undefined,
   yesLabel: undefined,
-  closeButton: false,
+  closeButton: true,
   variant: 'primary',
 };
 
