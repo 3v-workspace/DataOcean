@@ -238,5 +238,6 @@
   "worksInTestMode": "Works in test mode",
   "year": "Year",
   "yes": "Yes",
-  "yourQuestionIsSent": "Your question is sent!"
+  "yourQuestionIsSent": "Your question is sent!",
+  "baseProjectCantBeRemoved": "The base project can't be removed from the system"
 }

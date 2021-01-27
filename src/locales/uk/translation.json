@@ -238,5 +238,6 @@
   "worksInTestMode": "Працює в тестовому режимі",
   "year": "Рік",
   "yes": "Так",
-  "yourQuestionIsSent": "Ваше запитання надіслано!"
+  "yourQuestionIsSent": "Ваше запитання надіслано!",
+  "baseProjectCantBeRemoved": "Базовий проєкт не може бути видалений із системи"
 }

@@ -242,6 +242,12 @@ const ProjectDetail = (props) => {
           <>
             <span className="mr-3">
               {t('status')}: <b>{getProjectStatus()}</b>
+              {project.is_default && (
+                <Tooltip content={t('baseProjectCantBeRemoved')}>
+                  <Button className="circleMark"> ?
+                  </Button>
+                </Tooltip>
+              )}
             </span>
             {project.is_owner && (
               <>
