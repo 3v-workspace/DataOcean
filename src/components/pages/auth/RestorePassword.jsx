@@ -221,24 +221,6 @@ const RestorePassword = ({ match }) => {
         uid={uid}
         token={token}
       />
-      <div className="intro-x mt-5 xl:mt-8 text-center xl:text-left">
-        <Button
-          className="xl:w-32 xl:mr-3"
-          variant="secondary"
-          width="w-full"
-          link="/auth/sign-in/"
-        >
-          {t('signIn')}
-        </Button>
-        <Button
-          className="xl:w-32 xl:mr-3"
-          variant="secondary"
-          width="w-full"
-          link="/auth/sign-up/"
-        >
-          {t('registration')}
-        </Button>
-      </div>
     </>
   );
 };

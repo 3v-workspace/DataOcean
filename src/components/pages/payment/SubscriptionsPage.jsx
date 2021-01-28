@@ -4,16 +4,17 @@ import Api from 'api';
 import { useTranslation } from 'react-i18next';
 import {
   Bookmark, Briefcase, CreditCard,
-  ShoppingBag, DollarSign,
+  DollarSign, Tag,
 } from 'react-feather';
 import { Button } from 'components/form-components';
 import { ReactRouterPropTypes } from 'utils/prop-types';
 import { YesNoModal } from 'components/modals';
 
 const icons = [
+  Tag,
   CreditCard,
   Briefcase,
-  ShoppingBag,
+  // ShoppingBag,
 ];
 
 const middleClasses = 'border-b border-t lg:border-b-0 lg:border-t-0 ' +
@@ -56,6 +57,19 @@ const SubscriptionsPage = (props) => {
     subscriptionChoiceModalRef.current.show();
   };
 
+  useEffect(() => {
+    if (subs.length && projects.length) {
+      const subId = +window.localStorage.getItem('subscription');
+      window.localStorage.removeItem('subscription');
+      if (subId && subId !== defaultProject?.active_subscription.subscription_id) {
+        const subscription = subs.find((s) => s.id === subId);
+        if (subscription) {
+          openSubscriptionChoiceModal(subscription);
+        }
+      }
+    }
+  }, [subs, projects]);
+
   const setSubscription = (id) => {
     Api.put(`payment/project/${defaultProject.id}/add-subscription/${id}/`)
       .then(() => {
@@ -78,11 +92,11 @@ const SubscriptionsPage = (props) => {
       <YesNoModal
         ref={subscriptionChoiceModalRef}
         icon={DollarSign}
-        header={t('payment_system.subscriptionChoiceModalHeader', { name: modalData.subscription.name })}
+        header={t('payment_system.subscriptionChoiceModalHeader', { name: modalData.subscription.name || '' })}
         message={
           t('payment_system.subscriptionChoiceModalMessage', {
-            subscription: modalData.subscription.name,
-            project: modalData.project.name,
+            subscription: modalData.subscription.name || '',
+            project: modalData.project.name || '',
           })
         }
         onYes={() => setSubscription(modalData.subscription.id)}
@@ -126,7 +140,7 @@ const SubscriptionsPage = (props) => {
                       ) : (
                         `${sub.duration} ${t('days')}`
                       )}
-                      <span className="mx-1">•</span>{sub.requests_limit} {t('requests')}
+                      <span className="mx-1">•</span>{sub.requests_limit} {t('apiRequestsTariffs')}
                     </div>
                     <div className="text-gray-600 px-10 text-center mx-auto mt-2">
                       {sub.description}
@@ -141,15 +155,12 @@ const SubscriptionsPage = (props) => {
                     </div>
                     <Button
                       size="lg"
-                      disabled={
-                        sub.is_default ||
-                        sub.id === defaultProject?.active_subscription.subscription_id
-                      }
+                      disabled={sub.id === defaultProject?.active_subscription.subscription_id}
                       isRounded
                       noFlex
                       type="button"
                       className="subscription-button block mx-auto mt-8 px-8"
-                      onClick={() => !sub.is_default && openSubscriptionChoiceModal(sub)}
+                      onClick={() => openSubscriptionChoiceModal(sub)}
                     >
                       {t('choose')}
                     </Button>

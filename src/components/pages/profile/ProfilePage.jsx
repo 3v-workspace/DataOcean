@@ -2,12 +2,13 @@ import React, { useEffect, useState } from 'react';
 import Api from 'api';
 import { ReactRouterPropTypes } from 'utils/prop-types';
 import {
-  Mail, Settings, User, Clipboard,
+  Mail, Settings, User, Clipboard, File,
 } from 'react-feather';
 import { NavLink, Route, Switch } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import ProjectsPage from 'components/pages/projects/ProjectsPage';
+import ProjectsPage from '../payment/ProjectsPage';
+import InvoicesTable from '../payment/InvoicesTable';
 import ProfileSettings from './ProfileSettings';
 import ProfileInfo from './ProfileInfo';
 
@@ -103,9 +104,28 @@ const ProfilePage = ({ match }) => {
           >
             <Settings className="w-4 h-4 mr-2" /> {t('settings')}
           </NavLink>
+          <NavLink
+            exact
+            to="/system/profile/my-payments/"
+            data-toggle="tab"
+            className="py-4 sm:mr-8 flex items-center"
+            activeClassName="active"
+          >
+            <File className="w-4 h-4 mr-2" /> {t('myPayments')}
+          </NavLink>
         </div>
       </div>
       <Switch>
+        <Route
+          exact
+          path={`${match.path}projects/:projectId/my-payments/:subscriptionId/`}
+          component={InvoicesTable}
+        />
+        <Route
+          exact
+          path={`${match.path}my-payments/`}
+          component={InvoicesTable}
+        />
         <Route
           exact
           path={`${match.path}settings/`}

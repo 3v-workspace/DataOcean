@@ -40,10 +40,15 @@ PasswordSecure.propTypes = {
 };
 
 const SignUpForm = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [psswdSec, setPsswdSec] = useState(0);
   const [sent, setSent] = useState(false);
   // const dispatch = useDispatch();
+
+  let policy = '/docs/PrivacyPolicyUk.html';
+  if (i18n.language === 'en') {
+    policy = '/docs/PrivacyPolicyEn.html';
+  }
 
   const formik = useFormik({
     initialValues: {
@@ -191,10 +196,15 @@ const SignUpForm = () => {
           <label className="cursor-pointer select-none" htmlFor="accept_policy">
             {t('iAgreeWith')}
           </label>
-          <a className="text-theme-1 ml-1" href="#?">{t('privacyPolicy')}</a>.
+          <a className="text-theme-1 ml-1" href={`${process.env.PUBLIC_URL}${policy}`} target="_blank">
+            {t('privacyPolicy')}
+          </a>.
         </div>
         {formik.touched.accept_policy && formik.errors.accept_policy && (
           <label className="error" htmlFor="accept_policy">{formik.errors.accept_policy}</label>
+        )}
+        {formik.errors.non_field_errors && (
+          <label className="error">{formik.errors.non_field_errors}</label>
         )}
         <div className="xl:flex intro-x mt-5 xl:mt-8 text-center xl:text-left">
           <Button
