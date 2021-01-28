@@ -15,11 +15,9 @@ const ApiPage = (props) => {
     Api.get('payment/project/')
       .then((resp) => {
         setProjects(resp.data);
-        // debugger;
         setDefaultProject(resp.data.find((project) => project.is_default));
       });
   };
-  console.log(defaultProject);
 
   useEffect(() => {
     fetchData();
