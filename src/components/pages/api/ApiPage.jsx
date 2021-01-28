@@ -9,13 +9,17 @@ const ApiPage = (props) => {
   const { t } = useTranslation();
   const { history } = props;
   const [projects, setProjects] = useState([]);
+  const [defaultProject, setDefaultProject] = useState({});
 
   const fetchData = () => {
     Api.get('payment/project/')
       .then((resp) => {
         setProjects(resp.data);
+        // debugger;
+        setDefaultProject(resp.data.find((project) => project.is_default));
       });
   };
+  console.log(defaultProject);
 
   useEffect(() => {
     fetchData();
@@ -48,7 +52,7 @@ const ApiPage = (props) => {
           {t('toAccessRESTAddHeader')}:
         </div>
         <div className="text-theme-9">
-          {/* Authorization: DataOcean {project.token} */}
+          Authorization: DataOcean {defaultProject.token}
         </div>
       </div>
       <div className="intro-y mt-6 col-span-12">
