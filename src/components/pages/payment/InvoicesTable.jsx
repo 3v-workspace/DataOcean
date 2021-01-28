@@ -5,7 +5,7 @@ import { ReactRouterPropTypes } from 'utils/prop-types';
 import { dateFormat } from 'utils';
 import { useTranslation } from 'react-i18next';
 import Api, { baseApiUrl } from 'api';
-import { Printer } from 'react-feather';
+import { Eye, Printer } from 'react-feather';
 import Button from 'components/form-components/Button';
 
 
@@ -90,7 +90,14 @@ const InvoicesTable = (props) => {
                   <td>
                     <Button
                       variant="blank"
-                      className="p-1"
+                      className="p-1 text-theme-3"
+                      onClick={() => openInvoice(invoice.id)}
+                    >
+                      <Eye className="w-4 h-4" />
+                    </Button>
+                    <Button
+                      variant="blank"
+                      className="p-1 text-theme-3"
                       onClick={() => openInvoice(invoice.id)}
                     >
                       <Printer className="w-4 h-4" />
