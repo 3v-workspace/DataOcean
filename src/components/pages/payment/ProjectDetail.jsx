@@ -251,12 +251,12 @@ const ProjectDetail = (props) => {
         title={t('projectOverview')}
         headerContent={(
           <>
-            <span className="mr-3">
+            <span className="mr-3 flex flex-row">
               {t('status')}: <b>{getProjectStatus()}</b>
               {project.is_default && (
                 <Tooltip content={t('baseProjectCantBeRemoved')}>
-                  <Button className="circleMark"> ?
-                  </Button>
+                  {/* <Button className="rounded-full h-8 w-8 bg-white" content={t('status')} /> */}
+                  <HelpCircle className="h-8 w-8 cursor-pointer" />
                 </Tooltip>
               )}
             </span>
@@ -414,20 +414,6 @@ const ProjectDetail = (props) => {
               <Copy />
             </Button>
           </Tooltip>
-          <div className="w-full mt-2">
-            <div>
-              {t('toAccessRESTAddHeader')}:
-            </div>
-            <div className="text-theme-9">
-              Authorization: DataOcean {project.token}
-            </div>
-          </div>
-          {/* <div>
-            {t('toAccessRESTAddHeader')}:
-          </div>
-          <div className="text-theme-9">
-            Authorization: DataOcean {project.token}
-          </div> */}
         </div>
         <h3 className="intro-y text-lg font-medium leading-none mt-10 mb-4">
           {t('users')}
