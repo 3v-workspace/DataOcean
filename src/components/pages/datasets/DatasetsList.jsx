@@ -65,14 +65,15 @@ const DatasetsList = ({ match, history }) => {
                 <th className="whitespace-no-wrap">ID</th>
                 <th className="whitespace-no-wrap">{t('datasetName')}</th>
                 <th className="text-center whitespace-no-wrap">{t('lastUpdated')}</th>
+                <th className="text-center whitespace-no-wrap">{t('status')}</th>
+                <th className="text-center whitespace-no-wrap">{t('totalRecords')}</th>
                 <th className="text-center whitespace-no-wrap">{t('tools')}</th>
               </tr>
             </thead>
             <tbody>
               {tc.isDataReady && tc.data.map((item) => (
                 <tr
-                  onClick={() => history.push(`${match.url}${item.id}/`)}
-                  key={item.id}
+                  onClick={() => history.push(`/system/datasets${item.api_list}`)}
                   className="intro-x cursor-pointer hover:shadow-xl"
                 >
                   <td>
@@ -82,11 +83,17 @@ const DatasetsList = ({ match, history }) => {
                     {i18n.language === 'en' ? item.name_eng : item.name}
                   </td>
                   <td className="text-center">
-                    {dateFormat(item.source_last_update)}
+                    {dateFormat(item.updated_at)}
+                  </td>
+                  <td className="text-center">
+                    {t(item.status)}
+                  </td>
+                  <td className="text-center">
+                    {item.total_records}
                   </td>
                   <td className="table-report__action w-56">
                     <div className="flex justify-center items-center">
-                      <Link to={`${match.url}${item.id}/`} className="flex items-center mr-3 text-theme-1">
+                      <Link to={`/system/datasets${item.api_list}`} className="flex items-center mr-3 text-theme-1">
                         <Eye className="w-4 h-4 mr-1 mb-1" /> {t('view')}
                       </Link>
                     </div>

@@ -110,6 +110,7 @@
   "oldPassword": "Старий пароль",
   "organization": "Організація",
   "ourEmail": "Наша електронна пошта",
+  "outdated": "Дані застарілі",
   "pageMayHaveMoved": "Можливо, ви помилилися при введенні адреси або сторінка перемістилася.",
   "pageMissing": "Ой. Ця сторінка зникла.",
   "pass": {
@@ -143,6 +144,7 @@
   "registration": "Реєстрація",
   "registrationDate": "Дата реєстрації",
   "registryData": "Дані реєстру",
+  "relevant": "Актуальний",
   "rememberMe": "Запам'ятати мене",
   "reportConstructor": "Конструктор звітів",
   "reports": "Звіти",

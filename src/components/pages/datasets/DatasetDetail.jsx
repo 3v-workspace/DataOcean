@@ -95,7 +95,6 @@ const DatasetDetail = (props) => {
               <th className="whitespace-no-wrap">{t('name')}</th>
               <th className="whitespace-no-wrap">{t('endpoint')}</th>
               <th className="text-center whitespace-no-wrap">{t('type')}</th>
-              <th className="text-center whitespace-no-wrap">{t('totalRecords')}</th>
               <th className="text-center whitespace-no-wrap">{t('tools')}</th>
             </tr>
           </thead>
@@ -110,9 +109,6 @@ const DatasetDetail = (props) => {
                 </td>
                 <td className="text-center">
                   {endpoint.type}
-                </td>
-                <td className="text-center">
-                  {endpoint.total_records}
                 </td>
                 <td className="table-report__action w-56">
                   <div className="flex justify-center items-center">
