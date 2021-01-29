@@ -416,12 +416,6 @@ const ProjectDetail = (props) => {
               Authorization: DataOcean {project.token}
             </div>
           </div>
-          {/* <div>
-            {t('toAccessRESTAddHeader')}:
-          </div>
-          <div className="text-theme-9">
-            Authorization: DataOcean {project.token}
-          </div> */}
         </div>
         <h3 className="intro-y text-lg font-medium leading-none mt-10 mb-4">
           {t('users')}
