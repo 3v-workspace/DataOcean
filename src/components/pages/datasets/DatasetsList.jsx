@@ -96,7 +96,7 @@ const DatasetsList = ({ match, history }) => {
                   <td className="table-report__action w-56">
                     <div className="flex justify-center items-center">
                       {item.api_list in datasets ? (
-                        <Link to={`/system/datasets${item.api_list}`} className="flex items-center mr-3 text-theme-1">
+                        <Link to={`${match.url}${item.api_list.replace(/^\/api\//, '')}`} className="flex items-center mr-3 text-theme-1">
                           <Eye className="w-4 h-4 mr-1 mb-1" /> {t('view')}
                         </Link>
                       ) : '---'}
