@@ -56,6 +56,46 @@ const InvoicesTable = (props) => {
     return t('myPayments');
   };
 
+  const CheckSubs = () => {
+    let result;
+    if (window.location.pathname === '/system/profile/my-payments/') {
+      result = <th>{t('subscription')}</th>;
+    } else {
+      result = '';
+    }
+    return result;
+  };
+
+  const CheckSubsInfo = (invoice) => {
+    let result;
+    if (window.location.pathname === '/system/profile/my-payments/') {
+      result = <td>{invoice.subscription_name}</td>;
+    } else {
+      result = '';
+    }
+    return result;
+  };
+
+  const CheckProj = () => {
+    let result;
+    if (window.location.pathname === '/system/profile/my-payments/') {
+      result = <th>{t('project')}</th>;
+    } else {
+      result = '';
+    }
+    return result;
+  };
+
+  const CheckProjInfo = (invoice) => {
+    let result;
+    if (window.location.pathname === '/system/profile/my-payments/') {
+      result = <td>{invoice.project_name}</td>;
+    } else {
+      result = '';
+    }
+    return result;
+  };
+
   return (
     <TabContent>
       <TabContentBlock
@@ -67,8 +107,8 @@ const InvoicesTable = (props) => {
             <thead>
               <tr className="bg-gray-200 text-gray-700">
                 <th>{t('invoiceNo')}</th>
-                <th>{t('subscription')}</th>
-                <th>{t('project')}</th>
+                {CheckSubs()}
+                {CheckProj()}
                 <th>{t('status')}</th>
                 <th>{t('paymentDate')}</th>
                 <th>{t('paymentAmount')}</th>
@@ -82,8 +122,8 @@ const InvoicesTable = (props) => {
                   className="border-b intro-x"
                 >
                   <td>{invoice.id}</td>
-                  <td>{invoice.subscription_name}</td>
-                  <td>{invoice.project_name}</td>
+                  {CheckSubsInfo(invoice)}
+                  {CheckProjInfo(invoice)}
                   <td>{getInvoiceStatus(invoice)}</td>
                   <td>{invoice.paid_at ? dateFormat(invoice.paid_at) : '---'}</td>
                   <td>{invoice.price} {t('uah')}</td>
