@@ -22,12 +22,22 @@ const DatasetsRoutes = (props) => {
       />
       <Route
         exact
-        path={`${match.path}:id/companies/`}
+        path={`${match.path}:id/company/`}
         component={CompanyList}
       />
       <Route
         exact
-        path={`${match.path}:id/streets/`}
+        path={`${match.path}:id/company/uk`}
+        component={CompanyList}
+      />
+      <Route
+        exact
+        path={`${match.path}:id/company/ukr`}
+        component={CompanyList}
+      />
+      <Route
+        exact
+        path={`${match.path}:id/street/`}
         component={StreetList}
       />
       <Route
@@ -39,11 +49,6 @@ const DatasetsRoutes = (props) => {
         exact
         path={`${match.path}:id/pep/`}
         component={PepList}
-      />
-      <Route
-        exact
-        path={`${match.path}:id/`}
-        component={DatasetDetail}
       />
       <Route
         exact

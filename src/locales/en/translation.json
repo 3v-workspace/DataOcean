@@ -110,7 +110,6 @@
   "oldPassword": "Old password",
   "organization": "Organization",
   "ourEmail": "Our email",
-  "outdated": "Outdated",
   "pageMayHaveMoved": "You may have mistyped the address or the page may have moved.",
   "pageMissing": "Oops. This page has gone missing.",
   "pass": {
@@ -144,7 +143,6 @@
   "registration": "Sign up",
   "registrationDate": "Registration date",
   "registryData": "Registry data",
-  "relevant": "Relevant",
   "rememberMe": "Remember me",
   "reportConstructor": "Report constructor",
   "reports": "Reports",

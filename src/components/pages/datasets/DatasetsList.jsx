@@ -7,6 +7,8 @@ import { ReactRouterPropTypes } from 'utils/prop-types';
 import { useTranslation } from 'react-i18next';
 import Tooltip from 'components/Tooltip';
 import { dateFormat } from 'utils';
+import datasets from './datasets';
+
 
 const DatasetsList = ({ match, history }) => {
   const [search, setSearch] = useState('');
@@ -73,7 +75,7 @@ const DatasetsList = ({ match, history }) => {
             <tbody>
               {tc.isDataReady && tc.data.map((item) => (
                 <tr
-                  onClick={() => history.push(`/system/datasets${item.api_list}`)}
+                  // onClick={() => history.push(`/system/datasets${item.api_list}`)}
                   className="intro-x cursor-pointer hover:shadow-xl"
                 >
                   <td>
@@ -86,16 +88,18 @@ const DatasetsList = ({ match, history }) => {
                     {dateFormat(item.updated_at)}
                   </td>
                   <td className="text-center">
-                    {t(item.status)}
+                    {item.status}
                   </td>
                   <td className="text-center">
                     {item.total_records}
                   </td>
                   <td className="table-report__action w-56">
                     <div className="flex justify-center items-center">
-                      <Link to={`/system/datasets${item.api_list}`} className="flex items-center mr-3 text-theme-1">
-                        <Eye className="w-4 h-4 mr-1 mb-1" /> {t('view')}
-                      </Link>
+                      {item.api_list in datasets ? (
+                        <Link to={`/system/datasets${item.api_list}`} className="flex items-center mr-3 text-theme-1">
+                          <Eye className="w-4 h-4 mr-1 mb-1" /> {t('view')}
+                        </Link>
+                      ) : '---'}
                     </div>
                   </td>
                 </tr>
