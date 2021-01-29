@@ -68,6 +68,10 @@ const DatasetDetail = (props) => {
                 <td>{data.source_name}</td>
               </tr>
               <tr>
+                <th className="whitespace-no-wrap">Status:</th>
+                <td>{data.status}</td>
+              </tr>
+              <tr>
                 <th className="whitespace-no-wrap">Your token:</th>
                 <td>
                   <Tooltip content={t('viewInProfile')}>
