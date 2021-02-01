@@ -4,8 +4,10 @@ import { datetimeFormat } from 'utils';
 import Tooltip from 'components/Tooltip';
 import { X } from 'react-feather';
 import unreadPin from 'images/unreadNitification.svg';
+import { useTranslation } from 'react-i18next';
 
 const NotificationItem = ({ message, onDelete, onRead }) => {
+  const { t } = useTranslation();
   const [isHover, setHover] = useState(false);
 
   return (
@@ -21,14 +23,14 @@ const NotificationItem = ({ message, onDelete, onRead }) => {
         <div className="flex items-center">
           <Tooltip
             className={`${isHover ? 'visible' : 'invisible'} mr-2`}
-            content="Видалити"
+            content={t('delete')}
             position="left"
             arrow={false}
           >
             <X className="cursor-pointer w-5 h-5" onClick={() => onDelete(message)} />
           </Tooltip>
           {!message.is_read && (
-            <Tooltip content="Позначити як прочитане" position="left" arrow={false}>
+            <Tooltip content={t('markAsRead')} position="left" arrow={false}>
               <img
                 src={unreadPin}
                 alt="not read"
