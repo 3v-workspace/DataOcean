@@ -67,8 +67,10 @@ const InvoicesTable = (props) => {
             <thead>
               <tr className="bg-gray-200 text-gray-700">
                 <th>{t('invoiceNo')}</th>
-                {!subscriptionId && (<th>{t('subscription')}</th>)}
-                {!subscriptionId && (<th>{t('project')}</th>)}
+                {!subscriptionId && [
+                  <th key={1}>{t('subscription')}</th>,
+                  <th key={2}>{t('project')}</th>,
+                ]}
                 <th>{t('status')}</th>
                 <th>{t('paymentDate')}</th>
                 <th>{t('paymentAmount')}</th>
@@ -82,8 +84,10 @@ const InvoicesTable = (props) => {
                   className="border-b intro-x"
                 >
                   <td>{invoice.id}</td>
-                  {!subscriptionId && (<td>{invoice.subscription_name}</td>)}
-                  {!subscriptionId && (<td>{invoice.project_name}</td>)}
+                  {!subscriptionId && [
+                    <td key={1}>{invoice.subscription_name}</td>,
+                    <td key={2}>{invoice.project_name}</td>,
+                  ]}
                   <td>{getInvoiceStatus(invoice)}</td>
                   <td>{invoice.paid_at ? dateFormat(invoice.paid_at) : '---'}</td>
                   <td>{invoice.price} {t('uah')}</td>
