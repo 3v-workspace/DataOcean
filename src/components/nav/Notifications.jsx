@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { Bell, AlertCircle } from 'react-feather';
 import Api from 'api';
 import NotificationItem from 'components/nav/NotificationItem';
+import { useTranslation } from 'react-i18next';
 
 const Notifications = () => {
   const dropdownRef = React.createRef();
 
-  // const [show, setShow] = useState(false);
+  const { t } = useTranslation();
   const [bullet, setBullet] = useState(false);
   const [alerts, setAlerts] = useState([]);
   const [messages, setMessages] = useState([]);
@@ -71,9 +72,9 @@ const Notifications = () => {
       >
         <div className="notification-content__box dropdown-box__content box">
           <div className="notification-content__title border-b-1 pb-2 flex items-center justify-between">
-            Notifications
+            {t('notifications')}
             <small className="cursor-pointer font-normal text-gray-600" onClick={readAll}>
-              Позначити всі як прочитані
+              {t('markAllAsRead')}
             </small>
           </div>
           <div className="notification-content__body">
@@ -106,6 +107,11 @@ const Notifications = () => {
                 onDelete={deleteNotification}
               />
             ))}
+            {alerts.length === 0 && messages.length === 0 && (
+              <div className="flex justify-center p-5 text-gray-500">
+                {t('noNotifications')}
+              </div>
+            )}
           </div>
         </div>
       </div>
