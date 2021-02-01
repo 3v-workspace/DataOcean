@@ -9,6 +9,7 @@ import { userLogout } from 'store/user/actionCreators';
 import TopBarSearch from 'components/nav/TopBarSearch';
 import getBreadcrumbName from 'const/breadcrumbsNames';
 import { useTranslation } from 'react-i18next';
+import Notifications from 'components/nav/Notifications';
 
 
 // TODO: finish this
@@ -111,6 +112,11 @@ const TopBar = () => {
             </div>
           </div>
         </div>
+      </div>
+
+      {/* NOTIFICATIONS */}
+      <div className="intro-x dropdown relative ml-auto sm:ml-6">
+        <Notifications />
       </div>
     </div>
   );
