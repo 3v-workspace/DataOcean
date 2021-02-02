@@ -251,12 +251,11 @@ const ProjectDetail = (props) => {
         title={t('projectOverview')}
         headerContent={(
           <>
-            <span className="mr-3 flex flex-row">
-              {t('status')}: <b>{getProjectStatus()}</b>
+            <span className="mr-3 flex flex-row mr-10 mt-1">
+              {t('status')}: <b className="ml-1">{getProjectStatus()}</b>
               {project.is_default && (
                 <Tooltip content={t('baseProjectCantBeRemoved')}>
-                  {/* <Button className="rounded-full h-8 w-8 bg-white" content={t('status')} /> */}
-                  <HelpCircle className="h-8 w-8 cursor-pointer" />
+                  <HelpCircle className="cursor-pointer ml-2 h-6 w-8 text-theme-1" />
                 </Tooltip>
               )}
             </span>
@@ -414,6 +413,14 @@ const ProjectDetail = (props) => {
               <Copy />
             </Button>
           </Tooltip>
+          <div className="w-full mt-2">
+            <div>
+              {t('toAccessRESTAddHeader')}:
+            </div>
+            <div className="text-theme-9">
+              Authorization: DataOcean {project.token}
+            </div>
+          </div>
         </div>
         <h3 className="intro-y text-lg font-medium leading-none mt-10 mb-4">
           {t('users')}
@@ -422,9 +429,9 @@ const ProjectDetail = (props) => {
           <table className="table mb-2">
             <thead>
               <tr className="bg-gray-200 text-gray-700">
-                <th>{t('firstName')}</th>
-                <th>Email</th>
-                <th>{t('status')}</th>
+                <th className="w-1/3">{t('firstName')}</th>
+                <th className="w-1/3">Email</th>
+                <th className="w-1/3">{t('status')}</th>
               </tr>
             </thead>
             <tbody>
@@ -435,7 +442,7 @@ const ProjectDetail = (props) => {
                       {user.name}
                       {user.role === u2pRole.OWNER && (
                         <Tooltip content={t('projectOwner')} noContainer>
-                          <Briefcase className="ml-1 mb-1 w-4 h-4 text-theme-1" />
+                          <Briefcase className="ml-1 mb-1 w-4 h-4 text-theme-1 ml-2" />
                         </Tooltip>
                       )}
                     </div>
@@ -503,9 +510,9 @@ const ProjectDetail = (props) => {
                 <tbody>
                   {project.invitations.map((invite) => (
                     <tr key={invite.email}>
-                      <td className="border-b">{invite.email}</td>
-                      <td className="border-b">{dateFormat(invite.updated_at)}</td>
-                      <td className="border-b">
+                      <td className="border-b w-1/3">{invite.email}</td>
+                      <td className="border-b w-1/3">{dateFormat(invite.updated_at)}</td>
+                      <td className="border-b w-1/3">
                         <Button
                           size="sm"
                           className="px-6"
@@ -530,11 +537,11 @@ const ProjectDetail = (props) => {
           <table className="table mb-2">
             <thead>
               <tr className="bg-gray-200 text-gray-700">
-                <th>{t('name')}</th>
-                <th>{t('status')}</th>
-                <th>{t('requestsLeft')}</th>
-                <th>{t('nextPayment')}</th>
-                <th>{t('invoices')}</th>
+                <th className="w-1/5">{t('name')}</th>
+                <th className="w-1/5">{t('status')}</th>
+                <th className="w-1/5">{t('requestsLeft')}</th>
+                <th className="w-1/5">{t('nextPayment')}</th>
+                <th className="w-1/5">{t('invoices')}</th>
               </tr>
             </thead>
             <tbody>
