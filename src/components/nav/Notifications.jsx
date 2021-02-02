@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Bell, AlertCircle } from 'react-feather';
 import Api from 'api';
 import NotificationItem from 'components/nav/NotificationItem';
@@ -8,6 +9,7 @@ const Notifications = () => {
   const dropdownRef = React.createRef();
 
   const { t } = useTranslation();
+  const history = useHistory();
   const [bullet, setBullet] = useState(false);
   const [alerts, setAlerts] = useState([]);
   const [messages, setMessages] = useState([]);
@@ -58,6 +60,17 @@ const Notifications = () => {
       });
   };
 
+  const onMessageClick = (message) => {
+    if (message.link) {
+      const url = new URL(message.link);
+      if (url.host === window.location.host) {
+        history.push(url.pathname + url.search);
+      } else {
+        window.open(message.link);
+      }
+    }
+  };
+
   return (
     <>
       <div
@@ -90,7 +103,7 @@ const Notifications = () => {
                 <div className="bg-theme-6 self-stretch w-2" />
                 <div
                   className="w-full py-1 px-2"
-                  onClick={() => alert.link && window.open(alert.link)}
+                  onClick={() => onMessageClick(alert)}
                 >
                   {alert.message}
                 </div>
@@ -105,6 +118,7 @@ const Notifications = () => {
                 message={message}
                 onRead={readNotification}
                 onDelete={deleteNotification}
+                onClick={() => onMessageClick(message)}
               />
             ))}
             {alerts.length === 0 && messages.length === 0 && (
