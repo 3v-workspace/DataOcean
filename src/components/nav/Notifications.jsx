@@ -65,6 +65,7 @@ const Notifications = () => {
       const url = new URL(message.link);
       if (url.host === window.location.host) {
         history.push(url.pathname + url.search);
+        dropdownRef.current.classList.remove('show');
       } else {
         window.open(message.link);
       }
