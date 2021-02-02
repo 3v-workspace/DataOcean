@@ -251,7 +251,7 @@ const ProjectDetail = (props) => {
         title={t('projectOverview')}
         headerContent={(
           <>
-            <span className="mr-3 flex flex-row mr-10 mt-1">
+            <span className="mr-3 flex flex-row mr-10 pt-1">
               {t('status')}: <b className="ml-1">{getProjectStatus()}</b>
               {project.is_default && (
                 <Tooltip content={t('baseProjectCantBeRemoved')}>
