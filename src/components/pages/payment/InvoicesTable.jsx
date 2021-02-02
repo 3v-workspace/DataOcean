@@ -35,7 +35,7 @@ const InvoicesTable = (props) => {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [subscriptionId]);
 
   const getInvoiceStatus = (invoice) => {
     if (!invoice.is_paid) {
@@ -44,8 +44,8 @@ const InvoicesTable = (props) => {
     return t('paid');
   };
 
-  const openInvoice = (invoiceId) => {
-    window.open(`${baseApiUrl}/api/payment/invoice/${invoiceId}/`, '_blank');
+  const openInvoice = (invoice) => {
+    window.open(`${baseApiUrl}/api/payment/invoice/${invoice.id}/${invoice.token}/`, '_blank');
   };
 
   const getTitle = () => {
@@ -95,14 +95,14 @@ const InvoicesTable = (props) => {
                     <Button
                       variant="blank"
                       className="p-1 text-theme-3"
-                      onClick={() => openInvoice(invoice.id)}
+                      onClick={() => openInvoice(invoice)}
                     >
                       <Eye className="w-4 h-4" />
                     </Button>
                     <Button
                       variant="blank"
                       className="p-1 text-theme-3"
-                      onClick={() => openInvoice(invoice.id)}
+                      onClick={() => openInvoice(invoice)}
                     >
                       <Printer className="w-4 h-4" />
                     </Button>
