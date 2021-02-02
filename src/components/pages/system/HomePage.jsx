@@ -174,11 +174,11 @@ const HomePage = ({ history }) => {
       .then((resp) => {
         setUsersCount(resp.data.users_count);
       });
-    Api.get('stats/registered-companies/')
+    Api.get('stats/count-registered-companies/')
       .then((resp) => {
         setCompanyCount(resp.data.company_count);
       });
-    Api.get('stats/registered-fops/')
+    Api.get('stats/count-registered-fops/')
       .then((resp) => {
         setFopCount(resp.data.company_count);
       });
@@ -190,7 +190,7 @@ const HomePage = ({ history }) => {
       .then((resp) => {
         setTopKvedData(resp.data.filter((el) => el.kved.code !== 'not_valid'));
       });
-    Api.get('stats/company-type/')
+    Api.get('stats/count-company-type/')
       .then((resp) => {
         setTopCompanyTypeData(resp.data.slice(0, 10));
       });
