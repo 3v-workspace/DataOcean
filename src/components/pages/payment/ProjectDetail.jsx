@@ -124,11 +124,12 @@ const ProjectDetail = (props) => {
     refreshTokenModalRef.current.show();
   };
 
-  const myToast = () => $.toast({
-    text: ' ',
-    hideAfter: false,
-    icon: 'info',
-  });
+  // const myToast = () => $.toast({
+  //   text: ' ',
+  //   hideAfter: false,
+  //   icon: 'info',
+  // });
+  const myToast = () => $.toast('<span>Lets test some HTML stuff... <a class="font-medium" href="#">Github</a></span>');
 
   const refreshToken = () => {
     Api.put(`payment/project/${projectId}/refresh-token/`)
