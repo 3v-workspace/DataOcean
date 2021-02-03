@@ -536,7 +536,9 @@ const ProjectDetail = (props) => {
                 <th>{t('status')}</th>
                 <th>{t('requestsLeft')}</th>
                 <th>{t('nextPayment')}</th>
-                <th>{t('invoices')}</th>
+                {project.is_owner && (
+                  <th>{t('invoices')}</th>
+                )}
               </tr>
             </thead>
             <tbody>
@@ -567,19 +569,21 @@ const ProjectDetail = (props) => {
                   <td className="border-b">
                     {getPaymentDateText(subscription)}
                   </td>
-                  <td className="border-b">
-                    {subscription.status !== p2sStatus.FUTURE && !subscription.is_default ? (
-                      <Button
-                        variant="blank"
-                        className="py-0 text-theme-1 block font-medium"
-                        link={`${match.url}my-payments/${subscription.id}/`}
-                      >
-                        {t('viewInvoices')}
-                      </Button>
-                    ) : (
-                      '---'
-                    )}
-                  </td>
+                  {project.is_owner && (
+                    <td className="border-b">
+                      {subscription.status !== p2sStatus.FUTURE && !subscription.is_default ? (
+                        <Button
+                          variant="blank"
+                          className="py-0 text-theme-1 block font-medium"
+                          link={`${match.url}my-payments/${subscription.id}/`}
+                        >
+                          {t('viewInvoices')}
+                        </Button>
+                      ) : (
+                        '---'
+                      )}
+                    </td>
+                  )}
                 </tr>
               ))}
             </tbody>
