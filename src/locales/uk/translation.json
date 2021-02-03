@@ -128,8 +128,6 @@
   "locality": "Населений пункт",
   "login": "Увійти",
   "logout": "Вийти",
-  "markAllAsRead": "Позначити всі як прочитані",
-  "markAsRead": "Позначити як прочитане",
   "metrics": "Метрики",
   "month": "Місяць",
   "myDatasets": "Мої набори даних",
@@ -142,8 +140,6 @@
   "no": "Ні",
   "notConfirmedInvitation": "Не підтвердили запрошення",
   "notPaid": "Неоплачено",
-  "noNotifications": "Сповіщень немає",
-  "notifications": "Сповіщення",
   "numberOfCompanies": "Кількість підприємств",
   "numberOfDatasets": "Кількість наборів даних",
   "numberOfSoleProprietors": "Кількість ФОП",
@@ -243,7 +239,6 @@
   "tokenSavedToClipboard": "Токен збережено в буфер обміну",
   "tools": "Інструменти",
   "topKveds": "ТОП КВЕДів",
-  "totalRecords": "Кількість записів",
   "type": "Тип",
   "uah": "грн",
   "unlimitedDuration": "Необмежена тривалість",
@@ -263,5 +258,5 @@
   "year": "Рік",
   "yes": "Так",
   "yourQuestionIsSent": "Ваше запитання надіслано!",
-  "baseProjectCantBeRemoved": "Базовий проєкт не може бути деактивовано"
+  "baseProjectCantBeDeactivated": "Базовий проєкт не може бути деактивовано"
 }
