@@ -6,7 +6,7 @@ import TabContentBlock from 'components/pages/profile/TabContentBlock';
 import { BooleanInput, Button, TextInput } from 'components/form-components';
 import {
   Copy, RefreshCcw, HelpCircle,
-  Briefcase, X,
+  Briefcase, X, AlertCircle, Tool, Info,
 } from 'react-feather';
 import Tooltip from 'components/Tooltip';
 import { BlankModal, YesNoModal } from 'components/modals';
@@ -123,6 +123,12 @@ const ProjectDetail = (props) => {
   const openRefreshTokenModal = () => {
     refreshTokenModalRef.current.show();
   };
+
+  const myToast = () => $.toast({
+    text: ' ',
+    hideAfter: false,
+    icon: 'info',
+  });
 
   const refreshToken = () => {
     Api.put(`payment/project/${projectId}/refresh-token/`)
@@ -406,7 +412,8 @@ const ProjectDetail = (props) => {
               isRounded
               onClick={() => {
                 navigator.clipboard.writeText(project.token).then(
-                  () => $.toast(t('tokenSavedToClipboard')),
+                  // () => $.toast(t('tokenSavedToClipboard')),
+                  () => myToast(),
                 );
               }}
             >
