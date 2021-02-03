@@ -218,9 +218,9 @@ const HomePage = ({ history }) => {
                 <ReportBox
                   label={t('numberOfCompanies')}
                   value={companyCount.toLocaleString()}
-                  subText="18%"
+                  /*subText="18%"
                   subTextDirection="up"
-                  icon={<File className="report-box__icon text-theme-10" />}
+                  icon={<File className="report-box__icon text-theme-10" />}*/
                   onClick={() => history.push('/system/datasets/2/companies/')}
                 />
               </div>
@@ -228,9 +228,9 @@ const HomePage = ({ history }) => {
                 <ReportBox
                   label={t('numberOfSoleProprietors')}
                   value={fopCount.toLocaleString()}
-                  subText="16%"
+                  /*subText="16%"
                   subTextDirection="up"
-                  icon={<Briefcase className="report-box__icon text-theme-11" />}
+                  icon={<Briefcase className="report-box__icon text-theme-11" />}*/
                   onClick={() => history.push('/system/datasets/2/fop/')}
                 />
               </div>
@@ -238,9 +238,9 @@ const HomePage = ({ history }) => {
                 <ReportBox
                   label={t('numberOfDatasets')}
                   value={registersCount.toLocaleString()}
-                  subText="+5"
+                  /*subText="+5"
                   subTextDirection="up"
-                  icon={<Database className="report-box__icon text-theme-12" />}
+                  icon={<Database className="report-box__icon text-theme-12" />}*/
                   onClick={() => history.push('/system/datasets/')}
                 />
               </div>
@@ -248,9 +248,9 @@ const HomePage = ({ history }) => {
                 <ReportBox
                   label={t('numberOfUsers')}
                   value={usersCount.toLocaleString()}
-                  subText="+7"
+                  /*subText="+7"
                   subTextDirection="up"
-                  icon={<User className="report-box__icon text-theme-9" />}
+                  icon={<User className="report-box__icon text-theme-9" />}*/
                   onClick={() => history.push('/system/profile/')}
                 />
               </div>
