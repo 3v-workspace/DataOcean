@@ -75,7 +75,9 @@ const DatasetsList = ({ match, history }) => {
             <tbody>
               {tc.isDataReady && tc.data.map((item) => (
                 <tr
-                  // onClick={() => history.push(`/system/datasets${item.api_list}`)}
+                  // onClick={() =>
+                    // history.push(`/system/datasets${item.api_list.replace(/^\/api\//, '')}`)}
+                  key={item.id}
                   className="intro-x cursor-pointer hover:shadow-xl"
                 >
                   <td>

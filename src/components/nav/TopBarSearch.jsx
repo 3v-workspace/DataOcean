@@ -97,7 +97,7 @@ const TopBarSearch = () => {
           </div>
           <div>
             {data.map((ds) => (
-              <SearchResult key={ds.id} label={ds[nameKey]} link={`/system/datasets/${ds.id}/`} />
+              <SearchResult key={ds.id} label={ds[nameKey]} link={`/system/datasets/${ds.api_list.replace(/^\/api\//, '')}`} />
             ))}
           </div>
         </div>
