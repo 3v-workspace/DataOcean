@@ -6,7 +6,8 @@ import { X } from 'react-feather';
 import unreadPin from 'images/unreadNitification.svg';
 import { useTranslation } from 'react-i18next';
 
-const NotificationItem = ({ message, onDelete, onRead }) => {
+const NotificationItem = (props) => {
+  const { message, onDelete, onRead, onClick } = props;
   const { t } = useTranslation();
   const [isHover, setHover] = useState(false);
 
@@ -43,7 +44,7 @@ const NotificationItem = ({ message, onDelete, onRead }) => {
       </div>
       <div
         className="w-full text-gray-700"
-        onClick={() => message.link && window.open(message.link)}
+        onClick={onClick}
       >
         {message.message}
       </div>
@@ -61,6 +62,7 @@ NotificationItem.propTypes = {
   }).isRequired,
   onDelete: PropTypes.func.isRequired,
   onRead: PropTypes.func.isRequired,
+  onClick: PropTypes.func.isRequired,
 };
 
 export default NotificationItem;

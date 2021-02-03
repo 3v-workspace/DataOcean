@@ -28,6 +28,7 @@ const Table = (props) => {
 
   const onSearch = (e) => {
     setSearch(e.target.value);
+    tc.setPage(1);
   };
 
   const handleHeaderClick = (col) => {
