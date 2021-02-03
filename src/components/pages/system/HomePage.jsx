@@ -221,7 +221,7 @@ const HomePage = ({ history }) => {
                   /*subText="18%"
                   subTextDirection="up"
                   icon={<File className="report-box__icon text-theme-10" />}*/
-                  onClick={() => history.push('/system/datasets/2/companies/')}
+                  onClick={() => history.push('/system/datasets/company/')}
                 />
               </div>
               <div className="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
@@ -231,7 +231,7 @@ const HomePage = ({ history }) => {
                   /*subText="16%"
                   subTextDirection="up"
                   icon={<Briefcase className="report-box__icon text-theme-11" />}*/
-                  onClick={() => history.push('/system/datasets/2/fop/')}
+                  onClick={() => history.push('/system/datasets/fop/')}
                 />
               </div>
               <div className="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
