@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 const Tooltip = (props) => {
   const {
     content, children, theme, animation, delay, trigger,
-    distance, noContainer,
+    distance, className, position, arrow, noContainer,
   } = props;
   const childRef = useRef();
   const contentRef = useRef();
@@ -20,6 +20,8 @@ const Tooltip = (props) => {
       theme: `tooltipster-${theme}`,
       trigger,
       distance,
+      position,
+      arrow,
       // contentAsHTML: true,
     };
     if (!isContentStr) {
@@ -43,7 +45,7 @@ const Tooltip = (props) => {
     });
   } else {
     element = (
-      <span ref={childRef} title={isContentStr ? content : undefined}>
+      <span className={className} ref={childRef} title={isContentStr ? content : undefined}>
         {children}
       </span>
     );
@@ -64,6 +66,7 @@ const Tooltip = (props) => {
 };
 
 Tooltip.propTypes = {
+  className: PropTypes.string,
   content: PropTypes.node.isRequired,
   theme: PropTypes.oneOf(['default', 'light', 'borderless', 'punk', 'noir', 'shadow']),
   animation: PropTypes.oneOf(['fade', 'grow', 'swing', 'slide', 'fall']),
@@ -71,15 +74,22 @@ Tooltip.propTypes = {
   trigger: PropTypes.oneOf(['hover', 'click', 'custom']),
   distance: PropTypes.number,
   noContainer: PropTypes.bool,
+  position: PropTypes.oneOf([
+    'right', 'left', 'top', 'top-right', 'top-left', 'bottom', 'bottom-right', 'bottom-left',
+  ]),
+  arrow: PropTypes.bool,
 };
 
 Tooltip.defaultProps = {
+  className: undefined,
   theme: 'borderless',
   animation: 'fade',
   delay: 0,
   trigger: 'hover',
   distance: 6,
   noContainer: false,
+  position: 'top',
+  arrow: true,
 };
 
 export default Tooltip;

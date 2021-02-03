@@ -42,7 +42,7 @@ DeleteModal.defaultProps = {
   className: '',
   header: 'Are you sure?',
   onHide: undefined,
-  closeButton: false,
+  closeButton: true,
 };
 
 export default DeleteModal;
