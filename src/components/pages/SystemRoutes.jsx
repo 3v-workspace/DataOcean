@@ -45,11 +45,11 @@ const SystemRoutes = (props) => {
         path={`${match.path}data-constructor/`}
         component={DataConstructorPage}
       />
-      <Route
-        exact
-        path={`${match.path}pep-scheme/`}
-        component={PepGraphPage}
-      />
+      {/*<Route*/}
+      {/*  exact*/}
+      {/*  path={`${match.path}pep-scheme/`}*/}
+      {/*  component={PepGraphPage}*/}
+      {/*/>*/}
       <Route
         exact
         path={`${match.path}subscriptions/`}
