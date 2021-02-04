@@ -255,7 +255,7 @@ const ProjectDetail = (props) => {
               {t('status')}: <b className="ml-1">{getProjectStatus()}</b>
               {project.is_default && (
                 <Tooltip content={t('baseProjectCantBeDeactivated')}>
-                  <HelpCircle className="cursor-pointer ml-2 h-6 w-8 text-theme-1" />
+                  <HelpCircle className="cursor-pointer ml-2 h-5 w-5 text-theme-1" />
                 </Tooltip>
               )}
             </span>
