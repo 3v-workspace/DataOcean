@@ -262,5 +262,6 @@
   "worksInTestMode": "Працює в тестовому режимі",
   "year": "Рік",
   "yes": "Так",
-  "yourQuestionIsSent": "Ваше запитання надіслано!"
+  "yourQuestionIsSent": "Ваше запитання надіслано!",
+  "baseProjectCantBeDeactivated": "Базовий проєкт не може бути деактивовано"
 }
