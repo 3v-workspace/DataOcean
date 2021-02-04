@@ -76,7 +76,9 @@ const DatasetsList = ({ match, history }) => {
               {tc.isDataReady && tc.data.map((item) => (
                 <tr
                   onClick={() => {
-                    history.push(`${match.url}${item.api_list.replace(/^\/api\//, '')}`);
+                    if (item.api_list in datasets) {
+                      history.push(`${match.url}${item.api_list.replace(/^\/api\//, '')}`);
+                    }
                   }}
                   key={item.id}
                   className="intro-x cursor-pointer hover:shadow-xl"

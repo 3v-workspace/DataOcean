@@ -115,7 +115,7 @@ const SignInForm = () => {
       </div>
       <GoogleButton>{t('continueWith')} Google</GoogleButton>
       <div className="intro-x mt-10 xl:mt-18 text-gray-700 text-center xl:text-left">
-        {t('bySigninUpYouAgreeWith')}
+        {t('bySigningUpYouAgreeWith')}
         <br />
         <a
           className="text-theme-1"
@@ -129,7 +129,7 @@ const SignInForm = () => {
         <a className="text-theme-1" href={`${process.env.PUBLIC_URL}${policy}`} target="_blank">
           {t('privacyPolicy')}
           {/* {i18n.language === 'en' ? 'Українська' : 'English'} */}
-        </a>
+        </a>.
         <p>©2020 – Data Ocean. {t('allRightsReserved')}.</p>
       </div>
     </Form>

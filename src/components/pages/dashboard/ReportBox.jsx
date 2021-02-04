@@ -25,12 +25,13 @@ const ReportBox = (props) => {
       <div className="box p-5">
         <div className="flex">
           {icon}
-          <div className="ml-auto">
-            <div className={`report-box__indicator bg-theme-${subTextBgTheme} tooltip cursor-pointer tooltipstered`}>
-              {subText}
-              {dirIcons[subTextDirection]}
-            </div>
-          </div>
+          {/*<div className="ml-auto">*/}
+          {/*<div className={`report-box__indicator bg-theme-${subTextBgTheme} */}
+          {/*tooltip cursor-pointer tooltipstered`}>*/}
+          {/*    {subText}*/}
+          {/*    {dirIcons[subTextDirection]}*/}
+          {/*  </div>*/}
+          {/*</div>*/}
         </div>
         <div className="text-3xl font-bold leading-8 mt-6">
           {!value ? <LoadingIcon icon="tail-spin" /> : value}
