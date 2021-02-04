@@ -129,7 +129,7 @@ const SignInForm = () => {
         <a className="text-theme-1" href={`${process.env.PUBLIC_URL}${policy}`} target="_blank">
           {t('privacyPolicy')}
           {/* {i18n.language === 'en' ? 'Українська' : 'English'} */}
-        </a>
+        </a>.
         <p>©2020 – Data Ocean. {t('allRightsReserved')}.</p>
       </div>
     </Form>
