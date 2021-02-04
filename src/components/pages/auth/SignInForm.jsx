@@ -115,7 +115,7 @@ const SignInForm = () => {
       </div>
       <GoogleButton>{t('continueWith')} Google</GoogleButton>
       <div className="intro-x mt-10 xl:mt-18 text-gray-700 text-center xl:text-left">
-        {t('bySigninUpYouAgreeWith')}
+        {t('bySigningUpYouAgreeWith')}
         <br />
         <a
           className="text-theme-1"
