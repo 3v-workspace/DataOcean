@@ -4,7 +4,7 @@ import { ReactRouterPropTypes } from 'utils/prop-types';
 import {
   Mail, Settings, User, Clipboard, File,
 } from 'react-feather';
-import { NavLink, Route, Switch } from 'react-router-dom';
+import { NavLink, Redirect, Route, Switch } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import ProjectsPage from '../payment/ProjectsPage';
@@ -78,15 +78,15 @@ const ProfilePage = ({ match }) => {
           </div>
         </div>
         <div className="nav-tabs flex flex-col sm:flex-row justify-center lg:justify-start">
-          <NavLink
-            exact
-            to="/system/profile/"
-            data-toggle="tab"
-            className="py-4 sm:mr-8 flex items-center"
-            activeClassName="active"
-          >
-            <User className="w-4 h-4 mr-2" /> {t('profile')}
-          </NavLink>
+          {/*<NavLink*/}
+          {/*  exact*/}
+          {/*  to="/system/profile/"*/}
+          {/*  data-toggle="tab"*/}
+          {/*  className="py-4 sm:mr-8 flex items-center"*/}
+          {/*  activeClassName="active"*/}
+          {/*>*/}
+          {/*  <User className="w-4 h-4 mr-2" /> {t('profile')}*/}
+          {/*</NavLink>*/}
           <NavLink
             to="/system/profile/projects/"
             data-toggle="tab"
@@ -138,7 +138,8 @@ const ProfilePage = ({ match }) => {
         <Route
           exact
           path={match.path}
-          component={ProfileInfo}
+          // component={ProfileInfo}
+          render={() => <Redirect to={`${match.url}projects/`} />}
         />
       </Switch>
     </>
