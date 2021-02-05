@@ -13,8 +13,6 @@ const datasets = {
   '/api/fop': { urlEnding: 'fop/' },
   '/api/pep/': { urlEnding: 'pep/' },
   '/api/pep': { urlEnding: 'pep/' },
-  // '/api/company/uk/': { urlEnding: 'uk-companies/' },
-  // '/api/company/uk': { urlEnding: 'uk-companies/' },
 };
 
 export default datasets;
