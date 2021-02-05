@@ -19,6 +19,7 @@ const HomePage = ({ history }) => {
   const [apiUsageData, setApiUsageData] = useState({});
   const [topKvedData, setTopKvedData] = useState([]);
   const [topCompanyTypeData, setTopCompanyTypeData] = useState([]);
+  const [project, setProject] = useState({});
 
   const getName = (item) => {
     if (i18n.language === 'uk') {
@@ -174,11 +175,11 @@ const HomePage = ({ history }) => {
       .then((resp) => {
         setUsersCount(resp.data.users_count);
       });
-    Api.get('stats/registered-companies/')
+    Api.get('stats/count-registered-companies/')
       .then((resp) => {
         setCompanyCount(resp.data.company_count);
       });
-    Api.get('stats/registered-fops/')
+    Api.get('stats/count-registered-fops/')
       .then((resp) => {
         setFopCount(resp.data.company_count);
       });
@@ -190,9 +191,13 @@ const HomePage = ({ history }) => {
       .then((resp) => {
         setTopKvedData(resp.data.filter((el) => el.kved.code !== 'not_valid'));
       });
-    Api.get('stats/company-type/')
+    Api.get('stats/count-company-type/')
       .then((resp) => {
         setTopCompanyTypeData(resp.data.slice(0, 10));
+      });
+    Api.get('payment/project/')
+      .then((resp) => {
+        setProject(resp.data.find((projects) => projects.is_default));
       });
   };
 
@@ -221,7 +226,7 @@ const HomePage = ({ history }) => {
                   subText="18%"
                   subTextDirection="up"
                   icon={<File className="report-box__icon text-theme-10" />}
-                  onClick={() => history.push('/system/datasets/2/companies/')}
+                  onClick={() => history.push('/system/datasets/company/')}
                 />
               </div>
               <div className="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
@@ -231,7 +236,7 @@ const HomePage = ({ history }) => {
                   subText="16%"
                   subTextDirection="up"
                   icon={<Briefcase className="report-box__icon text-theme-11" />}
-                  onClick={() => history.push('/system/datasets/2/fop/')}
+                  onClick={() => history.push('/system/datasets/fop/')}
                 />
               </div>
               <div className="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
@@ -251,7 +256,7 @@ const HomePage = ({ history }) => {
                   subText="+7"
                   subTextDirection="up"
                   icon={<User className="report-box__icon text-theme-9" />}
-                  onClick={() => history.push('/system/profile/')}
+                  onClick={() => history.push(`/system/profile/projects/${project.id}/`)}
                 />
               </div>
             </div>
