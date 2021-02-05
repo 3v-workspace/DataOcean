@@ -17,8 +17,8 @@ const Form = (props) => {
   return (
     <form
       className={classList.join(' ')}
-      onSubmit={onSubmit || formik.handleSubmit}
-      onReset={formik.handleReset}
+      onSubmit={onSubmit || (formik && formik.handleSubmit)}
+      onReset={formik && formik.handleSubmit}
     >
       {children}
     </form>

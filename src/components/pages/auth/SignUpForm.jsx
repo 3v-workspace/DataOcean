@@ -80,8 +80,8 @@ const SignUpForm = () => {
       return errors;
     },
     validationSchema: Yup.object({
-      first_name: Yup.string().required(),
-      last_name: Yup.string().required(),
+      first_name: Yup.string().required().min(2),
+      last_name: Yup.string().required().min(2),
       email: Yup.string().required().email(),
       password1: Yup.string().required().min(6),
       password2: Yup.string().required().min(6),
@@ -202,6 +202,9 @@ const SignUpForm = () => {
         </div>
         {formik.touched.accept_policy && formik.errors.accept_policy && (
           <label className="error" htmlFor="accept_policy">{formik.errors.accept_policy}</label>
+        )}
+        {formik.errors.non_field_errors && (
+          <label className="error">{formik.errors.non_field_errors}</label>
         )}
         <div className="xl:flex intro-x mt-5 xl:mt-8 text-center xl:text-left">
           <Button

@@ -27,6 +27,7 @@ const FopList = () => {
           'registration_date',
           'termination_date',
         ]}
+        axiosConfigs={{ useProjectToken: true }}
       />
     </PageBox>
   );

@@ -1,25 +1,27 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Eye } from 'react-feather';
-import { Button, SearchBox } from 'components/form-components';
+// import { Button, SearchBox } from 'components/form-components';
 import { Pagination, useTableController } from 'components/table';
 import { Link } from 'react-router-dom';
 import { ReactRouterPropTypes } from 'utils/prop-types';
 import { useTranslation } from 'react-i18next';
-import Tooltip from 'components/Tooltip';
+// import Tooltip from 'components/Tooltip';
 import { dateFormat } from 'utils';
+import datasets from './datasets';
+
 
 const DatasetsList = ({ match, history }) => {
-  const [search, setSearch] = useState('');
+  // const [search, setSearch] = useState('');
   const { t, i18n } = useTranslation();
 
   const tc = useTableController({
     url: 'register/',
-    params: { search },
+    // params: { search },
   });
 
-  const onSearch = (e) => {
-    setSearch(e.target.value);
-  };
+  // const onSearch = (e) => {
+  //   setSearch(e.target.value);
+  // };
 
   return (
     <>
@@ -65,13 +67,19 @@ const DatasetsList = ({ match, history }) => {
                 <th className="whitespace-no-wrap">ID</th>
                 <th className="whitespace-no-wrap">{t('datasetName')}</th>
                 <th className="text-center whitespace-no-wrap">{t('lastUpdated')}</th>
+                <th className="text-center whitespace-no-wrap">{t('status')}</th>
+                <th className="text-center whitespace-no-wrap">{t('totalRecords')}</th>
                 <th className="text-center whitespace-no-wrap">{t('tools')}</th>
               </tr>
             </thead>
             <tbody>
               {tc.isDataReady && tc.data.map((item) => (
                 <tr
-                  onClick={() => history.push(`${match.url}${item.id}/`)}
+                  onClick={() => {
+                    if (item.api_list in datasets) {
+                      history.push(`${match.url}${item.api_list.replace(/^\/api\//, '')}`);
+                    }
+                  }}
                   key={item.id}
                   className="intro-x cursor-pointer hover:shadow-xl"
                 >
@@ -82,13 +90,21 @@ const DatasetsList = ({ match, history }) => {
                     {i18n.language === 'en' ? item.name_eng : item.name}
                   </td>
                   <td className="text-center">
-                    {dateFormat(item.source_last_update)}
+                    {dateFormat(item.updated_at)}
+                  </td>
+                  <td className="text-center">
+                    {item.status}
+                  </td>
+                  <td className="text-center">
+                    {item.total_records}
                   </td>
                   <td className="table-report__action w-56">
                     <div className="flex justify-center items-center">
-                      <Link to={`${match.url}${item.id}/`} className="flex items-center mr-3 text-theme-1">
-                        <Eye className="w-4 h-4 mr-1 mb-1" /> {t('view')}
-                      </Link>
+                      {item.api_list in datasets ? (
+                        <Link to={`${match.url}${item.api_list.replace(/^\/api\//, '')}`} className="flex items-center mr-3 text-theme-1">
+                          <Eye className="w-4 h-4 mr-1 mb-1" /> {t('view')}
+                        </Link>
+                      ) : '---'}
                     </div>
                   </td>
                 </tr>

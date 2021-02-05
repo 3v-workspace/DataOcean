@@ -2,9 +2,10 @@ import { useEffect, useState } from 'react';
 import Api from 'api';
 
 const useTableController = (options) => {
-  const { url, params, afterFetch } = options;
+  const { url, params, afterFetch, axiosConfigs } = options;
 
   const [data, setData] = useState([]);
+  const [error, setError] = useState('');
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [ordering, _setOrdering] = useState('');
@@ -67,7 +68,7 @@ const useTableController = (options) => {
 
   const fetchData = () => {
     setLoading(true);
-    Api.get(`${url}?${getUrlParams()}`)
+    Api.get(`${url}?${getUrlParams()}`, { ...axiosConfigs })
       .then((resp) => {
         setData(resp.data.results);
         setCount(resp.data.count);
@@ -76,6 +77,11 @@ const useTableController = (options) => {
         calculateIndexes(resp.data.results.length);
         if (afterFetch) {
           afterFetch();
+        }
+      })
+      .catch((err) => {
+        if (err.response?.data?.detail) {
+          setError(err.response.data.detail);
         }
       })
       .finally(() => {
@@ -107,6 +113,7 @@ const useTableController = (options) => {
     getOrderingDirection,
     orderProp,
     isLoading,
+    error,
   };
 };
 

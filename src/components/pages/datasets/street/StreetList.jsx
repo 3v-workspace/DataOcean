@@ -20,6 +20,7 @@ const StreetList = () => {
       <Table
         columns={columns}
         url="street/"
+        axiosConfigs={{ useProjectToken: true }}
       />
     </PageBox>
   );

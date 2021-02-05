@@ -1,3 +1,4 @@
+// eslint-disable-next-line
 const request = {
   type: 'date',
   options: {
@@ -11,6 +12,7 @@ const request = {
   ],
 };
 
+// eslint-disable-next-line
 const response = {
   fopRegistration: [
     ['2020-06', 520],
