@@ -41,7 +41,7 @@ const ApiPage = (props) => {
       <div className="mt-4 mb-4 text-gray-700 dark:text-gray-600" style={{ width: '25%' }}>
         <h2>{t('anEasyAccessToTheData')}</h2>
       </div>
-      <Button type="button" className="px-8 mt-6 mb-10" href={`${baseApiUrl}/schema/redoc/`}>
+      <Button type="button" className="px-8 mt-6 mb-10" href={`${baseApiUrl}/schema/redoc/`} target="_blank">
         {t('viewApiDocumentation')}
       </Button>
       <h2 className="text-lg font-medium mt-6">{t('projectsTokens')}</h2>
