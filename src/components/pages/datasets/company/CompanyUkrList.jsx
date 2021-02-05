@@ -27,6 +27,7 @@ const CompanyUkrList = () => {
           'address',
           'authorized_capital',
         ]}
+        axiosConfigs={{ useProjectToken: true }}
       />
     </PageBox>
   );

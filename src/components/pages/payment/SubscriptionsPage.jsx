@@ -4,7 +4,7 @@ import Api from 'api';
 import { useTranslation } from 'react-i18next';
 import {
   Bookmark, Briefcase, CreditCard,
-  DollarSign, Tag,
+  DollarSign, Tag, Edit,
 } from 'react-feather';
 import { Button } from 'components/form-components';
 import { ReactRouterPropTypes } from 'utils/prop-types';
@@ -107,7 +107,7 @@ const SubscriptionsPage = (props) => {
           const getBoxClass = () => {
             const classes = ['subscription', 'box', 'zoom-in'];
             classes.push('py-20 h-full w-full');
-            if (i !== 0 && i !== subs.length - 1) {
+            if (i !== 0) {
               classes.push(middleClasses);
             } else {
               classes.push('px-5');
@@ -121,8 +121,7 @@ const SubscriptionsPage = (props) => {
             <div key={sub.id} className="hover:z-50 intro-y flex-1">
               <div className={`${getBoxClass()}`}>
                 {defaultProject &&
-                (defaultProject.active_subscription.subscription_id === sub.id) &&
-                (
+                (defaultProject.active_subscription.subscription_id === sub.id) && (
                   <div className="subscription-project flex items-center font-medium">
                     <div className="px-2">
                       <Bookmark className="w-7 h-7" />
@@ -135,12 +134,13 @@ const SubscriptionsPage = (props) => {
                     <Icon className="w-12 h-12 text-theme-1 mx-auto" />
                     <div className="text-xl font-medium text-center mt-10">{sub.name}</div>
                     <div className="text-gray-700 text-center mt-5">
-                      {sub.is_default ? (
-                        t('unlimitedDuration')
+                      {!sub.is_default ? (
+                        'Необмежено переглядів'
                       ) : (
-                        `${sub.duration} ${t('days')}`
+                        `${sub.platform_requests_limit} Переглядів (t)`
                       )}
-                      <span className="mx-1">•</span>{sub.requests_limit} {t('apiRequestsTariffs')}
+                      <span className="mx-1">•</span>
+                      {sub.requests_limit} {t('apiRequestsTariffs')}
                     </div>
                     <div className="text-gray-600 px-10 text-center mx-auto mt-2">
                       {sub.description}
@@ -170,6 +170,44 @@ const SubscriptionsPage = (props) => {
             </div>
           );
         })}
+        <div className="hover:z-50 intro-y flex-1">
+          <div className="subscription box zoom-in py-20 h-full w-full px-5">
+            {/*<div className="subscription-project flex items-center font-medium">*/}
+            {/*  <div className="px-2">*/}
+            {/*    <Bookmark className="w-7 h-7" />*/}
+            {/*  </div>*/}
+            {/*  {t('usedInProject', { project: defaultProject.name })}*/}
+            {/*</div>*/}
+            <div className="h-full flex justify-between flex-col">
+              <div>
+                <Edit className="w-12 h-12 text-theme-1 mx-auto" />
+                <div className="text-xl font-medium text-center mt-10">Custom (t)</div>
+                <div className="text-gray-700 text-center mt-10">
+                  Кількість переглядів та кількість запитів - за домовленістю
+                </div>
+              </div>
+              <div>
+                <div className="subscription-price flex justify-center">
+                  <div className="relative text-3xl font-semibold mt-5 mx-auto">
+                    Ціна договірна
+                  </div>
+                </div>
+                <Button
+                  size="lg"
+                  isRounded
+                  noFlex
+                  type="button"
+                  className="subscription-button block mx-auto mt-8 px-8"
+                  onClick={() => {
+                    window.open('mailto:info@dataocean.us');
+                  }}
+                >
+                  Написати нам
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
