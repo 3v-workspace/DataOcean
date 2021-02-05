@@ -137,7 +137,7 @@ const SubscriptionsPage = (props) => {
                       {!sub.is_default ? (
                         'Необмежено переглядів'
                       ) : (
-                        `${sub.platform_requests_limit} Переглядів (t)`
+                        `${sub.platform_requests_limit} Переглядів`
                       )}
                       <span className="mx-1">•</span>
                       {sub.requests_limit} {t('apiRequestsTariffs')}
@@ -181,7 +181,7 @@ const SubscriptionsPage = (props) => {
             <div className="h-full flex justify-between flex-col">
               <div>
                 <Edit className="w-12 h-12 text-theme-1 mx-auto" />
-                <div className="text-xl font-medium text-center mt-10">Custom (t)</div>
+                <div className="text-xl font-medium text-center mt-10">Custom</div>
                 <div className="text-gray-700 text-center mt-10">
                   Кількість переглядів та кількість запитів - за домовленістю
                 </div>
