@@ -19,6 +19,7 @@ const KvedList = () => {
       <Table
         columns={columns}
         url="kved/"
+        axiosConfigs={{ useProjectToken: true }}
       />
     </PageBox>
   );

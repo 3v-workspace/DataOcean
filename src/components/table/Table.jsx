@@ -16,7 +16,7 @@ const orderingIcons = {
 
 const Table = (props) => {
   const { t } = useTranslation();
-  const { columns, url, fields } = props;
+  const { columns, url, fields, axiosConfigs } = props;
   const [search, setSearch] = useState('');
 
   const params = { search };
@@ -24,10 +24,11 @@ const Table = (props) => {
     params.fields = fields.join(',');
   }
 
-  const tc = useTableController({ url, params });
+  const tc = useTableController({ url, params, axiosConfigs });
 
   const onSearch = (e) => {
     setSearch(e.target.value);
+    tc.setPage(1);
   };
 
   const handleHeaderClick = (col) => {
@@ -81,7 +82,13 @@ const Table = (props) => {
             </tr>
           </thead>
           <tbody>
-            {tc.data.map((row, i) => (
+            {tc.error ? (
+              <tr>
+                <td colSpan={columns.length} className="border-b text-center text-red-500">
+                  {tc.error}
+                </td>
+              </tr>
+            ) : tc.data.map((row, i) => (
               <tr key={row.id || i}>
                 {columns.map((col) => (
                   <td key={col.prop} className="border-b">
@@ -109,9 +116,11 @@ Table.propTypes = {
   })).isRequired,
   url: PropTypes.string.isRequired,
   fields: PropTypes.arrayOf(PropTypes.string),
+  axiosConfigs: PropTypes.object,
 };
 Table.defaultProps = {
   fields: [],
+  axiosConfigs: {},
 };
 
 export default Table;

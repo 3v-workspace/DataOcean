@@ -36,7 +36,49 @@
 
 .button {
   &.disabled, &:disabled {
-    opacity: 0.8;
+    opacity: 0.7;
+    cursor: default;
+    pointer-events: none;
+  }
+}
+
+.subscription-container:hover {
+  z-index: 51;
+}
+
+.subscription {
+  border-radius: .5rem;
+  box-shadow: none;
+
+  &:hover {
+    box-shadow: 0 0 20px rgba(28, 63, 170, 0.4);
+  }
+
+  &.subscription-has-project {
+    border-color: #1c3faa;
+    border-width: 1px;
+  }
+
+  .subscription-project {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 42px;
+    background-color: #1c3faa;
+    color: white;
+    border-top-right-radius: .375rem;
+    border-top-left-radius: .375rem;
+  }
+
+  .subscription-price {
+    margin-top: auto;
+  }
+
+  .subscription-button {
+    //position: absolute;
+    //bottom: 0;
+    //margin-top: auto;
   }
 }
 
