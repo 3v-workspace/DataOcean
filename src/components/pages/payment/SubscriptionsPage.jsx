@@ -135,9 +135,9 @@ const SubscriptionsPage = (props) => {
                     <div className="text-xl font-medium text-center mt-10">{sub.name}</div>
                     <div className="text-gray-700 text-center mt-5">
                       {!sub.is_default ? (
-                        'Необмежено переглядів'
+                        `${t('unlimitedViews')}`
                       ) : (
-                        `${sub.platform_requests_limit} Переглядів`
+                        `${sub.platform_requests_limit} ${t('views')}`
                       )}
                       <span className="mx-1">•</span>
                       {sub.requests_limit} {t('apiRequestsTariffs')}
@@ -182,14 +182,14 @@ const SubscriptionsPage = (props) => {
               <div>
                 <Edit className="w-12 h-12 text-theme-1 mx-auto" />
                 <div className="text-xl font-medium text-center mt-10">Custom</div>
-                <div className="text-gray-700 text-center mt-10">
-                  Кількість переглядів та кількість запитів - за домовленістю
+                <div className="text-gray-700 text-center mt-5">
+                  {t('requestsAndViewsTBD')}
                 </div>
               </div>
               <div>
                 <div className="subscription-price flex justify-center">
                   <div className="relative text-3xl font-semibold mt-5 mx-auto">
-                    Ціна договірна
+                    {t('contactSupportForPrice')}
                   </div>
                 </div>
                 <Button
@@ -202,7 +202,7 @@ const SubscriptionsPage = (props) => {
                     window.open('mailto:info@dataocean.us');
                   }}
                 >
-                  Написати нам
+                  {t('choose')}
                 </Button>
               </div>
             </div>
