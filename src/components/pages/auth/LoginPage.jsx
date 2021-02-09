@@ -73,7 +73,7 @@ const LoginPage = ({ match, history, location }) => {
             {/* </div> */}
           </div>
         </div>
-        <div className="h-screen xl:h-auto flex py-5 xl:py-0 my-10 xl:my-0">
+        <div className="grid grid-rows-100 gap-90 h-screen xl:h-auto flex py-5 xl:py-0 my-10 xl:my-0">
           <div
             className="my-auto mx-auto xl:ml-20 bg-white xl:bg-transparent px-5 sm:px-8 py-8 xl:p-0 rounded-md shadow-md xl:shadow-none w-full sm:w-3/4 lg:w-2/4 xl:w-auto"
           >
@@ -105,6 +105,11 @@ const LoginPage = ({ match, history, location }) => {
               />
               <Route404 />
             </Switch>
+          </div>
+          <div className="my-auto mx-auto xl:ml-0 xl:bg-transparent px-5 sm:px-8 py-8 xl:p-0 xl:shadow-none w-full sm:w-3/4 lg:w-2/4 xl:w-auto">
+            <div className="intro-x text-white xl:text-gray-700 lg:ml-20 sm:ml-20">
+              <p>©2020 – Data Ocean. {t('allRightsReserved')}.</p>
+            </div>
           </div>
         </div>
       </div>
