@@ -6,7 +6,7 @@ import TabContentBlock from 'components/pages/profile/TabContentBlock';
 import { BooleanInput, Button, TextInput } from 'components/form-components';
 import {
   Copy, RefreshCcw, HelpCircle,
-  Briefcase, X, AlertCircle, Tool, Info,
+  Briefcase, X,
 } from 'react-feather';
 import Tooltip from 'components/Tooltip';
 import { BlankModal, YesNoModal } from 'components/modals';
@@ -152,7 +152,7 @@ const ProjectDetail = (props) => {
     Api.put(`payment/project/${projectId}/activate-user/${userId}/`)
       .then(() => {
         toast('success', t('userActivated'));
-        $.toast(t('userActivated'));
+        // $.toast(t('userActivated'));
         fetchData();
       });
   };

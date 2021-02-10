@@ -9,6 +9,7 @@ import {
 import { Button } from 'components/form-components';
 import { ReactRouterPropTypes } from 'utils/prop-types';
 import { YesNoModal } from 'components/modals';
+import toast from 'utils/toasts';
 
 const icons = [
   Tag,
@@ -74,12 +75,7 @@ const SubscriptionsPage = (props) => {
     Api.put(`payment/project/${defaultProject.id}/add-subscription/${id}/`)
       .then(() => {
         subscriptionChoiceModalRef.current.hide();
-        $.toast({
-          heading: 'Success',
-          text: t('subscriptionAdded'),
-          icon: 'success',
-        });
-        // $.toast(t('subscriptionAdded'));
+        toast('success', t('subscriptionAdded'));
         history.push(`/system/profile/projects/${defaultProject.id}/`);
       });
   };
@@ -99,7 +95,7 @@ const SubscriptionsPage = (props) => {
         icon={DollarSign}
         header={t('payment_system.subscriptionChoiceModalHeader', { name: modalData.subscription.name || '' })}
         message={
-          t('payment_system.subscriptionChoiceModalMessage', {
+          t('payment_system.subscriptionChoiceModalMessagesss', {
             subscription: modalData.subscription.name || '',
             project: modalData.project.name || '',
           })

@@ -13,7 +13,7 @@ import Api from 'api';
 import { dateFormat } from 'utils';
 import { useTranslation } from 'react-i18next';
 import Tooltip from 'components/Tooltip';
-
+import toast from 'utils/toasts';
 
 const ProjectsTable = (props) => {
   const { match, history } = props;
@@ -46,6 +46,7 @@ const ProjectsTable = (props) => {
       Api.post('payment/project/create/', values)
         .then(() => {
           createProjectModalRef.current.hide();
+          // toast('success', t('userInvited'));
           $.toast('Project created');
           fetchData();
         })
@@ -72,7 +73,8 @@ const ProjectsTable = (props) => {
   const confirmInvitation = (invite) => {
     Api.post(`payment/project/${invite.project_id}/confirm-invite/`)
       .then(() => {
-        $.toast(t('invitationConfirmed'));
+        toast('success', t('invitationConfirmed'));
+        // $.toast(t('invitationConfirmed'));
         fetchData();
       });
   };
@@ -80,7 +82,8 @@ const ProjectsTable = (props) => {
   const rejectInvitation = (invite) => {
     Api.delete(`payment/project/${invite.project_id}/reject-invite/`)
       .then(() => {
-        $.toast(t('invitationRejected'));
+        toast('info', t('invitationRejected'));
+        // $.toast(t('invitationRejected'));
         fetchData();
       });
   };

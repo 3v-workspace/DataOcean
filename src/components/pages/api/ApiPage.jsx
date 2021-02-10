@@ -4,6 +4,7 @@ import Button from 'components/form-components/Button';
 import Api, { baseApiUrl } from 'api';
 import { useTranslation } from 'react-i18next';
 import { Copy } from 'react-feather';
+import toast from 'utils/toasts';
 
 const ApiPage = (props) => {
   const { t } = useTranslation();
@@ -80,7 +81,7 @@ const ApiPage = (props) => {
                       variant="blank"
                       onClick={(event) => {
                         navigator.clipboard.writeText(project.token).then(
-                          () => $.toast(t('tokenSavedToClipboard')),
+                          () => toast('info', t('tokenSavedToClipboard')),
                         );
                         event.stopPropagation();
                       }}
