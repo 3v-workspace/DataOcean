@@ -95,7 +95,7 @@ const SubscriptionsPage = (props) => {
         icon={DollarSign}
         header={t('payment_system.subscriptionChoiceModalHeader', { name: modalData.subscription.name || '' })}
         message={
-          t('payment_system.subscriptionChoiceModalMessagesss', {
+          t('payment_system.subscriptionChoiceModalMessage', {
             subscription: modalData.subscription.name || '',
             project: modalData.project.name || '',
           })
