@@ -258,5 +258,9 @@
   "year": "Year",
   "yes": "Yes",
   "yourQuestionIsSent": "Your question is sent!",
-  "baseProjectCantBeRemoved": "The base project can't be removed from the system"
+  "baseProjectCantBeRemoved": "The base project can't be removed from the system",
+  "InformationMessage": "Information",
+  "Success": "Success",
+  "Warning": "Warning",
+  "Error": "Error"
 }

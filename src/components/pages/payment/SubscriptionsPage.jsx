@@ -74,7 +74,12 @@ const SubscriptionsPage = (props) => {
     Api.put(`payment/project/${defaultProject.id}/add-subscription/${id}/`)
       .then(() => {
         subscriptionChoiceModalRef.current.hide();
-        $.toast(t('subscriptionAdded'));
+        $.toast({
+          heading: 'Success',
+          text: t('subscriptionAdded'),
+          icon: 'success',
+        });
+        // $.toast(t('subscriptionAdded'));
         history.push(`/system/profile/projects/${defaultProject.id}/`);
       });
   };

@@ -258,5 +258,9 @@
   "year": "Рік",
   "yes": "Так",
   "yourQuestionIsSent": "Ваше запитання надіслано!",
-  "baseProjectCantBeRemoved": "Базовий проєкт не може бути видалений із системи"
+  "baseProjectCantBeRemoved": "Базовий проєкт не може бути видалений із системи",
+  "InformationMessage": "Інформаційне повідомлення",
+  "Success": "Успішно",
+  "Warning": "Попередження",
+  "Error": "Помилка"
 }
