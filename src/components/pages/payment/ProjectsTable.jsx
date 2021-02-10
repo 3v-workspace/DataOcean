@@ -46,8 +46,7 @@ const ProjectsTable = (props) => {
       Api.post('payment/project/create/', values)
         .then(() => {
           createProjectModalRef.current.hide();
-          // toast('success', t('userInvited'));
-          $.toast('Project created');
+          // toast('success', 'Project created');
           fetchData();
         })
         .finally(() => {
@@ -74,7 +73,6 @@ const ProjectsTable = (props) => {
     Api.post(`payment/project/${invite.project_id}/confirm-invite/`)
       .then(() => {
         toast('success', t('invitationConfirmed'));
-        // $.toast(t('invitationConfirmed'));
         fetchData();
       });
   };
@@ -82,8 +80,7 @@ const ProjectsTable = (props) => {
   const rejectInvitation = (invite) => {
     Api.delete(`payment/project/${invite.project_id}/reject-invite/`)
       .then(() => {
-        toast('info', t('invitationRejected'));
-        // $.toast(t('invitationRejected'));
+        toast('warning', t('invitationRejected'));
         fetchData();
       });
   };
