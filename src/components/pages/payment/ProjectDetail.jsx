@@ -62,7 +62,6 @@ const ProjectDetail = (props) => {
       Api.post(`payment/project/${projectId}/invite/`, values)
         .then(() => {
           toast('success', t('userInvited'));
-          // $.toast(t('userInvited'));
           setShowInvitations(true);
         })
         .finally(() => {
@@ -87,7 +86,6 @@ const ProjectDetail = (props) => {
       Api.put(`payment/project/${projectId}/update/`, values)
         .then(() => {
           toast('success', t('projectUpdated'));
-          // $.toast(t('projectUpdated'));
           fetchData();
           updateProjectModalRef.current.hide();
         })
@@ -131,8 +129,7 @@ const ProjectDetail = (props) => {
     Api.put(`payment/project/${projectId}/refresh-token/`)
       .then((resp) => {
         window.localStorage.setItem('project_token', resp.data.token);
-        toast('info', t('tokenRefreshed'));
-        // $.toast(t('tokenRefreshed'));
+        toast('success', t('tokenRefreshed'));
         refreshTokenModalRef.current.hide();
         fetchData();
       });
@@ -142,7 +139,6 @@ const ProjectDetail = (props) => {
     Api.delete(`payment/project/${projectId}/deactivate-user/${selectedUser.id}/`)
       .then(() => {
         toast('warning', t('userDeactivated'));
-        // $.toast(t('userDeactivated'));
         disableUserModalRef.current.hide();
         fetchData();
       });
@@ -152,7 +148,6 @@ const ProjectDetail = (props) => {
     Api.put(`payment/project/${projectId}/activate-user/${userId}/`)
       .then(() => {
         toast('success', t('userActivated'));
-        // $.toast(t('userActivated'));
         fetchData();
       });
   };
@@ -161,7 +156,6 @@ const ProjectDetail = (props) => {
     Api.delete(`payment/project/${projectId}/cancel-invite/${inviteId}/`)
       .then(() => {
         toast('warning', t('invitationCanceled'));
-        // $.toast(t('invitationCanceled'));
         fetchData();
       });
   };
@@ -179,7 +173,6 @@ const ProjectDetail = (props) => {
     Api.put(`payment/project/${projectId}/disable/`)
       .then(() => {
         toast('warning', t('projectDeactivated'));
-        // $.toast(t('projectDeactivated'));
         fetchData();
         disableProjectModalRef.current.hide();
       });
@@ -189,7 +182,6 @@ const ProjectDetail = (props) => {
     Api.put(`payment/project/${projectId}/activate/`)
       .then(() => {
         toast('success', t('projectActivated'));
-        // $.toast(t('projectActivated'));
         fetchData();
       });
   };
@@ -198,7 +190,6 @@ const ProjectDetail = (props) => {
     Api.delete(`payment/project/${projectId}/remove-future-subscription/`)
       .then(() => {
         toast('warning', t('subscriptionRemoved'));
-        // $.toast(t('subscriptionRemoved'));
         fetchData();
         removeFutureModalRef.current.hide();
       });
@@ -416,7 +407,6 @@ const ProjectDetail = (props) => {
               isRounded
               onClick={() => {
                 navigator.clipboard.writeText(project.token).then(
-                  // () => $.toast(t('tokenSavedToClipboard')),
                   toast('info', t('tokenSavedToClipboard')),
                 );
               }}
