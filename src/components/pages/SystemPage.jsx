@@ -43,9 +43,9 @@ const SystemPage = (props) => {
       <NavItem link="/system/data-constructor/" icon={FileText}>
         {t('dataConstructor')}
       </NavItem>
-      <NavItem link="/system/pep-scheme/" icon={GitBranch}>
-        {t('pepScheme')}
-      </NavItem>
+      {/*<NavItem link="/system/pep-scheme/" icon={GitBranch}>*/}
+      {/*  {t('pepScheme')}*/}
+      {/*</NavItem>*/}
       <NavItem link="/system/subscriptions/" icon={DollarSign}>
         {t('subscriptions')}
       </NavItem>

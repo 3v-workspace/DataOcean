@@ -108,7 +108,7 @@ BlankModal.defaultProps = {
   size: 'md',
   headerText: undefined,
   footerContent: undefined,
-  closeButton: false,
+  closeButton: true,
 };
 
 export default BlankModal;

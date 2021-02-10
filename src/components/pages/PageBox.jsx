@@ -10,11 +10,11 @@ const PageBox = (props) => {
 
   return (
     <>
-      <div className="intro-y flex flex-col sm:flex-row items-center mt-8">
-        <h2 className="text-lg font-medium mr-auto">
-          {header}
-        </h2>
-        <div className="w-full sm:w-auto flex mt-4 sm:mt-0">
+      <div className="intro-y flex flex-col sm:flex-row items-center">
+        {/*<h2 className="text-lg font-medium mr-auto">*/}
+        {/*  {header}*/}
+        {/*</h2>*/}
+        <div className="w-full sm:w-auto flex sm:mt-0">
           {actions.length >= 1 && actions.slice(0, 1).map((action) => {
             const Icon = action.icon;
             return (

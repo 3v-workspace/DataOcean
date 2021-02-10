@@ -12,6 +12,7 @@ import Yup from 'utils/yup';
 import Api from 'api';
 import { dateFormat } from 'utils';
 import { useTranslation } from 'react-i18next';
+import Tooltip from 'components/Tooltip';
 
 
 const ProjectsTable = (props) => {
@@ -133,12 +134,15 @@ const ProjectsTable = (props) => {
         large
         title={t('projects')}
         headerContent={(
-          <Button
-            onClick={() => createProjectModalRef.current.show()}
-            width="w-48"
-          >
-            {t('addProject')}
-          </Button>
+          <Tooltip content={t('inDevelopment')}>
+            <Button
+              disabled
+              // onClick={() => createProjectModalRef.current.show()}
+              width="w-48"
+            >
+              {t('addProject')}
+            </Button>
+          </Tooltip>
         )}
       >
         <BlankModal

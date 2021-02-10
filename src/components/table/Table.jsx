@@ -28,6 +28,7 @@ const Table = (props) => {
 
   const onSearch = (e) => {
     setSearch(e.target.value);
+    tc.setPage(1);
   };
 
   const handleHeaderClick = (col) => {
@@ -36,21 +37,21 @@ const Table = (props) => {
 
   return (
     <div>
-      <div className="intro-y flex flex-wrap sm:flex-no-wrap items-center mb-3 p-2">
+      <div className="intro-y flex flex-wrap sm:flex-no-wrap items-center justify-end mb-3 p-2">
         {/*<Button*/}
         {/*  className="shadow-md mr-2"*/}
         {/*>*/}
         {/*  Фільтр*/}
         {/*</Button>*/}
-        <div className="hidden md:block mx-auto text-gray-600">
-          {t('showingToOfEntries', {
-            first: tc.itemsIndexes.first,
-            last: tc.itemsIndexes.last,
-            count: tc.count,
-          })}
-        </div>
+        {/*<div className="hidden md:block mx-auto text-gray-600">*/}
+        {/*  {t('showingToOfEntries', {*/}
+        {/*    first: tc.itemsIndexes.first,*/}
+        {/*    last: tc.itemsIndexes.last,*/}
+        {/*    count: tc.count,*/}
+        {/*  })}*/}
+        {/*</div>*/}
         <div className="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">
-          <SearchBox containerClass="w-56 relative text-gray-700" onSearch={onSearch} />
+          <SearchBox containerClass="w-56" onSearch={onSearch} />
         </div>
       </div>
       <div className="p-5">
