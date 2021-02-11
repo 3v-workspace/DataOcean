@@ -241,7 +241,7 @@ const ProjectDetail = (props) => {
 
   // <Link to="/system/profile/projects/" className="flex items-center">
   //   <ChevronLeft className="w-4 h-4" />
-  //   проекти
+  //   проєкти
   // </Link>
 
   return (
