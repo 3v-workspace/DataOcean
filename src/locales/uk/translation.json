@@ -269,8 +269,7 @@
   "year": "Рік",
   "yes": "Так",
   "yourQuestionIsSent": "Ваше запитання надіслано!",
-  "InformationMessage": "Інформаційне повідомлення",
-  "Success": "Успішно",
-  "Warning": "Попередження",
-  "Error": "Помилка"
+  "informationMessage": "Інформаційне повідомлення",
+  "success": "Успішно",
+  "warning": "Попередження"
 }

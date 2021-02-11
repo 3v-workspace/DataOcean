@@ -9,7 +9,7 @@ import {
 import { Button } from 'components/form-components';
 import { ReactRouterPropTypes } from 'utils/prop-types';
 import { YesNoModal } from 'components/modals';
-import toast from 'utils/toasts';
+import toast from 'utils/toast';
 
 const icons = [
   Tag,

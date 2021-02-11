@@ -4,7 +4,7 @@ import Button from 'components/form-components/Button';
 import Api, { baseApiUrl } from 'api';
 import { useTranslation } from 'react-i18next';
 import { Copy } from 'react-feather';
-import toast from 'utils/toasts';
+import toast from 'utils/toast';
 
 const ApiPage = (props) => {
   const { t } = useTranslation();

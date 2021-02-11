@@ -17,7 +17,7 @@ import Yup from 'utils/yup';
 import { dateFormat } from 'utils';
 import Form from 'components/form-components/Form';
 import { p2sStatus, u2pRole, u2pStatus } from 'const/projects';
-import toast from 'utils/toasts';
+import toast from 'utils/toast';
 
 const ProjectDetail = (props) => {
   const { match } = props;

@@ -7,7 +7,7 @@ import Form from 'components/form-components/Form';
 import TextInput from 'components/form-components/TextInput';
 import Api from 'api';
 import Yup from 'utils/yup';
-import toast from 'utils/toasts';
+import toast from 'utils/toast';
 
 const ContactsPage = () => {
   const { t } = useTranslation();

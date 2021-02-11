@@ -269,8 +269,7 @@
   "year": "Year",
   "yes": "Yes",
   "yourQuestionIsSent": "Your question is sent!",
-  "InformationMessage": "Information",
-  "Success": "Success",
-  "Warning": "Warning",
-  "Error": "Error"
+  "informationMessage": "Information message",
+  "success": "Success",
+  "warning": "Warning"
 }

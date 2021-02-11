@@ -13,7 +13,7 @@ import Api from 'api';
 import { dateFormat } from 'utils';
 import { useTranslation } from 'react-i18next';
 import Tooltip from 'components/Tooltip';
-import toast from 'utils/toasts';
+import toast from 'utils/toast';
 
 const ProjectsTable = (props) => {
   const { match, history } = props;

@@ -5,10 +5,10 @@ const toast = (type, text, heading = '', hideAfter = 5000) => {
     throw new Error(`${type} is wrong type. You can write correct type : 'info', 'warning', 'success', 'error'`);
   }
   const headings = {
-    info: i18next.t('InformationMessage'),
-    error: i18next.t('Error'),
-    success: i18next.t('Success'),
-    warning: i18next.t('Warning'),
+    info: i18next.t('informationMessage'),
+    error: i18next.t('error'),
+    success: i18next.t('success'),
+    warning: i18next.t('warning'),
   };
   let title = heading;
   if (!title) {
@@ -21,6 +21,5 @@ const toast = (type, text, heading = '', hideAfter = 5000) => {
     icon: type,
   });
 };
-
 
 export default toast;
