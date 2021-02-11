@@ -74,6 +74,7 @@
     "no-debugger": "warn",
     "react/no-unescaped-entities": "off",
     "no-new": "off",
+    "no-unreachable": "warn",
     "func-names": "off"
   }
 }

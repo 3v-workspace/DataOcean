@@ -5,7 +5,7 @@ import Pagination from 'components/table/Pagination';
 import { SearchBox } from 'components/form-components';
 import { ChevronDown, ChevronUp } from 'react-feather';
 import LoadingIcon from 'components/LoadingIcon';
-import { useTranslation } from 'react-i18next';
+// import { useTranslation } from 'react-i18next';
 
 
 const orderingIcons = {
@@ -15,7 +15,7 @@ const orderingIcons = {
 
 
 const Table = (props) => {
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
   const { columns, url, fields, axiosConfigs } = props;
   const [search, setSearch] = useState('');
 
