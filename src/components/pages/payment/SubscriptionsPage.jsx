@@ -11,6 +11,7 @@ import { ReactRouterPropTypes } from 'utils/prop-types';
 import { YesNoModal, BlankModal } from 'components/modals';
 import { useFormik } from 'formik';
 import Yup from 'utils/yup';
+import toast from 'utils/toast';
 
 const icons = [
   Tag,
@@ -113,7 +114,7 @@ const SubscriptionsPage = (props) => {
     Api.put(`payment/project/${defaultProject.id}/add-subscription/${id}/`)
       .then(() => {
         subscriptionChoiceModalRef.current.hide();
-        $.toast(t('subscriptionAdded'));
+        toast('success', t('subscriptionAdded'));
         history.push(`/system/profile/projects/${defaultProject.id}/`);
       });
   };

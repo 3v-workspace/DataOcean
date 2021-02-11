@@ -1,0 +1,70 @@
+%toast-design {
+  background-color: #FFFFFF;
+  box-sizing: border-box;
+  border-radius: 6px;
+  width: 700px;
+  height: 100px;
+}
+
+.jq-toast-single {
+    border: 1px ;
+    box-sizing: border-box;
+    border-radius: 6px;
+    color: black;
+    padding-left: 40%;
+    font-weight: normal;
+
+    .jq-toast-loader {
+      margin-top: 2px;
+      background: #c3c8cf!important;
+      height: .35rem;
+    }
+  }
+  
+.jq-toast-single h2 {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  margin: 0px 0px 7px;
+  color: inherit;
+  line-height: inherit;
+  letter-spacing: normal;
+}
+
+.close-jq-toast-single {
+  padding-top: 4%;
+  padding-right: 1%;
+  font-weight: lighter;
+  font-size: 25px;
+}
+
+.jq-icon-info {
+  @extend %toast-design;
+  background: left center url("/images/toastsicons/infoicon.svg"),
+    linear-gradient(to right, #2358F9 2%, white 2% 90%);
+}
+
+.jq-icon-success {
+  @extend %toast-design;
+  background: left center url("/images/toastsicons/successicon.svg"),
+    linear-gradient(to right, #1BAF3C 2%, white 2% 90%);
+}
+
+.jq-icon-warning {
+  @extend %toast-design;
+  background: left center url("/images/toastsicons/warningicon.svg"),
+    linear-gradient(to right, #FE9B07 2%, white 2% 90%);
+}
+
+.jq-icon-error {
+  @extend %toast-design;
+  background: left center url("/images/toastsicons/alert-circle.svg"),
+    linear-gradient(to right, #f56565 2%, white 2% 90%);
+}
+
+.jq-has-icon {
+  background-repeat: no-repeat;
+  background-position-x: 5%;
+}
+

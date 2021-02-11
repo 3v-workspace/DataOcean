@@ -273,5 +273,7 @@
   "year": "Рік",
   "yes": "Так",
   "yourQuestionIsSent": "Ваше запитання надіслано!",
-  "yourRequestHasBeenSentWeWillContactYou": "Ваш запит надіслано. Ми звяжемось з Вами."
+  "yourRequestHasBeenSentWeWillContactYou": "Ваш запит надіслано. Ми звяжемось з Вами.",
+  "informationMessage": "Інформаційне повідомлення",
+  "warning": "Попередження"
 }
