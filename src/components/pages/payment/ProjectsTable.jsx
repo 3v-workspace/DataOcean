@@ -46,7 +46,7 @@ const ProjectsTable = (props) => {
       Api.post('payment/project/create/', values)
         .then(() => {
           createProjectModalRef.current.hide();
-          // toast('success', 'Project created');
+          toast('success', 'Project created');
           fetchData();
         })
         .finally(() => {
