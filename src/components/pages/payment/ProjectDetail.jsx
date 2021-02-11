@@ -407,7 +407,7 @@ const ProjectDetail = (props) => {
               isRounded
               onClick={() => {
                 navigator.clipboard.writeText(project.token).then(
-                  toast('info', t('tokenSavedToClipboard')),
+                  () => toast('info', t('tokenSavedToClipboard')),
                 );
               }}
             >
