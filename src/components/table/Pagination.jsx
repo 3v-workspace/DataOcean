@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from 'react-feather';
+import { useTranslation } from 'react-i18next';
 
 const Pagination = (props) => {
+  const { t } = useTranslation();
   const { tableController: tc } = props;
 
   const prevPage = () => {
@@ -40,7 +42,7 @@ const Pagination = (props) => {
   };
 
   return (
-    <div className="intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-no-wrap items-center">
+    <div className="intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-no-wrap items-center justify-between">
       <ul className="pagination">
         <li>
           <button
@@ -100,10 +102,17 @@ const Pagination = (props) => {
           </button>
         </li>
       </ul>
+      <div className="hidden md:block text-gray-600">
+        {t('showingToOfEntries', {
+          first: tc.itemsIndexes.first,
+          last: tc.itemsIndexes.last,
+          count: tc.count,
+        })}
+      </div>
       <select
         onChange={handleChangePageSize}
         value={tc.pageSize}
-        className="w-20 input box mt-3 sm:mt-0"
+        className="w-20 input box sm:mt-0 sm:ml-20 ml-0 mt-3"
       >
         <option>10</option>
         <option>25</option>
