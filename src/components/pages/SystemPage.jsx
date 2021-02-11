@@ -75,10 +75,8 @@ const SystemPage = (props) => {
           <SystemRoutes {...props} />
         </div>
       </div>
-      <div className="flex">
-        <div className="pt-4 xl:pl-64 lg:pl-32 md:pl-24 mx-auto text-white">
-          <p>©2020-2021 – Data Ocean. {t('allRightsReserved')}.</p>
-        </div>
+      <div className="flex justify-center items-center mt-3 xl:ml-64 lg:ml-32 md:ml-24 text-white">
+        ©2020-2021 – Data Ocean. {t('allRightsReserved')}.
       </div>
     </>
   );
