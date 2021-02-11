@@ -34,7 +34,9 @@ const TextInput = (props) => {
   return (
     <div className={`${containerClass} mb-3`}>
       {label && (
-        <label htmlFor={endId} className="inline-block mb-2">{label}</label>
+        <label htmlFor={endId} className="inline-block mb-2">
+          {label} {required && <sup className="text-red-500">*</sup>}
+        </label>
       )}
       <TagName
         className={classList.join(' ')}
