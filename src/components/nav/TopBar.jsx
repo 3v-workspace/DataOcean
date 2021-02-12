@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 // import PropTypes from 'prop-types';
 import {
-  ChevronRight, User, Settings, HelpCircle, ToggleRight, Clipboard,
+  ChevronRight, User, Settings, HelpCircle, ToggleRight, Clipboard, File,
 } from 'react-feather';
 import { Link, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -85,13 +85,6 @@ const TopBar = () => {
             <div className="p-2">
               <Link
                 onClick={closeDropdown}
-                to="/system/profile/"
-                className="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 rounded-md"
-              >
-                <User className="w-4 h-4 mr-2" /> {t('profile')}
-              </Link>
-              <Link
-                onClick={closeDropdown}
                 to="/system/profile/projects/"
                 className="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 rounded-md"
               >
@@ -103,6 +96,13 @@ const TopBar = () => {
                 className="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 rounded-md"
               >
                 <Settings className="w-4 h-4 mr-2" /> {t('settings')}
+              </Link>
+              <Link
+                onClick={closeDropdown}
+                to="/system/profile/my-payments/"
+                className="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 rounded-md"
+              >
+                <File className="w-4 h-4 mr-2" /> {t('myPayments')}
               </Link>
               <Link
                 onClick={closeDropdown}
