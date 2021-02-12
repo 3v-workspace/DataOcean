@@ -1,14 +1,18 @@
 import React, { useEffect, useRef, useState } from 'react';
 // import PropTypes from 'prop-types';
-import Api from 'api';
+import Api, { passErrorsToFormik } from 'api';
 import { useTranslation } from 'react-i18next';
 import {
   Bookmark, Briefcase, CreditCard,
   DollarSign, Tag, Edit,
 } from 'react-feather';
-import { Button } from 'components/form-components';
+import { Form, Button, TextInput } from 'components/form-components';
 import { ReactRouterPropTypes } from 'utils/prop-types';
-import { YesNoModal } from 'components/modals';
+import { YesNoModal, BlankModal } from 'components/modals';
+import { useFormik } from 'formik';
+import Yup from 'utils/yup';
+import { useSelector } from 'react-redux';
+import toast from 'utils/toast';
 
 const icons = [
   Tag,
@@ -23,6 +27,7 @@ const middleClasses = 'border-b border-t lg:border-b-0 lg:border-t-0 ' +
 const SubscriptionsPage = (props) => {
   const { history } = props;
   const { t } = useTranslation();
+  const user = useSelector((store) => store.user);
   const [subs, setSubs] = useState([]);
   const [projects, setProjects] = useState([]);
   const [modalData, setModalData] = useState({
@@ -31,8 +36,39 @@ const SubscriptionsPage = (props) => {
   });
 
   const subscriptionChoiceModalRef = useRef();
+  const customSubscriptionModalRef = useRef();
 
   const defaultProject = projects.find((p) => p.is_default);
+
+  const formik = useFormik({
+    initialValues: {
+      first_name: user.first_name,
+      last_name: user.last_name,
+      email: user.email,
+      phone: '',
+      note: '',
+    },
+    validationSchema: Yup.object({
+      first_name: Yup.string().required().min(2),
+      last_name: Yup.string().required().min(2),
+      email: Yup.string().required().email(),
+      phone: Yup.string().max(15),
+      note: Yup.string(),
+    }),
+    onSubmit: (values, actions) => {
+      Api.post('payment/custom-subscription-request/create/', values)
+        .then(() => {
+          toast('success', t('yourRequestHasBeenSentWeWillContactYou'), '', false);
+          customSubscriptionModalRef.current.hide();
+        })
+        .catch((error) => {
+          passErrorsToFormik(error, formik);
+        })
+        .finally(() => {
+          actions.setSubmitting(false);
+        });
+    },
+  });
 
   const fetchData = () => {
     Api.get('payment/subscriptions/')
@@ -74,7 +110,7 @@ const SubscriptionsPage = (props) => {
     Api.put(`payment/project/${defaultProject.id}/add-subscription/${id}/`)
       .then(() => {
         subscriptionChoiceModalRef.current.hide();
-        $.toast(t('subscriptionAdded'));
+        toast('success', t('subscriptionAdded'));
         history.push(`/system/profile/projects/${defaultProject.id}/`);
       });
   };
@@ -89,6 +125,62 @@ const SubscriptionsPage = (props) => {
       {/*<h2 className="intro-y text-lg font-medium mt-10">*/}
       {/*  {t('subscriptions')}*/}
       {/*</h2>*/}
+      <BlankModal
+        ref={customSubscriptionModalRef}
+        headerText={t('customSubscriptionRequest')}
+      >
+        <div className="p-5">
+          <Form formik={formik}>
+            <TextInput
+              required
+              formik={formik}
+              name="first_name"
+              label={t('firstName')}
+            />
+            <TextInput
+              required
+              formik={formik}
+              name="last_name"
+              label={t('lastName')}
+            />
+            <TextInput
+              required
+              formik={formik}
+              type="email"
+              name="email"
+              label="Email"
+            />
+            <TextInput
+              formik={formik}
+              type="tel"
+              name="phone"
+              label={t('phone')}
+            />
+            <TextInput
+              textarea
+              formik={formik}
+              name="note"
+              label={t('note')}
+            />
+            <div className="flex justify-end">
+              <Button
+                variant="secondary"
+                className="mr-4"
+                onClick={() => customSubscriptionModalRef.current.hide()}
+              >
+                {t('cancel')}
+              </Button>
+              <Button
+                disabled={formik.isSubmitting}
+                isLoading={formik.isSubmitting}
+                type="submit"
+              >
+                {t('send')}
+              </Button>
+            </div>
+          </Form>
+        </div>
+      </BlankModal>
       <YesNoModal
         ref={subscriptionChoiceModalRef}
         icon={DollarSign}
@@ -198,9 +290,7 @@ const SubscriptionsPage = (props) => {
                   noFlex
                   type="button"
                   className="subscription-button block mx-auto mt-8 px-8"
-                  onClick={() => {
-                    window.open('mailto:info@dataocean.us');
-                  }}
+                  onClick={() => customSubscriptionModalRef.current.show()}
                 >
                   {t('choose')}
                 </Button>

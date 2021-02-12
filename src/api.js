@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { PROJECT_TOKEN_PREFIX } from 'const/const';
+import toast from 'utils/toast';
 
 export const baseApiUrl = process.env.REACT_APP_API_BASE_URL.replace(/\/$/, '');
 
@@ -34,7 +35,7 @@ Api.interceptors.response.use(
   (error) => {
     if (error.response && error.response.status !== 403) {
       if (error.response.data && error.response.data.detail) {
-        $.toast(error.response.data.detail);
+        toast('error', error.response.data.detail);
       }
     }
     return Promise.reject(error);
