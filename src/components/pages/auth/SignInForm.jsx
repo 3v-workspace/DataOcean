@@ -108,7 +108,7 @@ const SignInForm = ({ history }) => {
           className="flex-1 xl:w-2/5 xl:mr-3"
           width="w-full"
         >
-          {t('login')}
+          {t('logIn')}
         </Button>
         <Button
           className="flex-1 xl:w-2/5 mt-3 xl:mt-0"
@@ -136,7 +136,6 @@ const SignInForm = ({ history }) => {
           {t('privacyPolicy')}
           {/* {i18n.language === 'en' ? 'Українська' : 'English'} */}
         </a>.
-        <p>©2020 – Data Ocean. {t('allRightsReserved')}.</p>
       </div>
     </Form>
   );

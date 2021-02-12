@@ -12,6 +12,7 @@ import { YesNoModal, BlankModal } from 'components/modals';
 import { useFormik } from 'formik';
 import Yup from 'utils/yup';
 import { useSelector } from 'react-redux';
+import toast from 'utils/toast';
 
 const icons = [
   Tag,
@@ -57,13 +58,7 @@ const SubscriptionsPage = (props) => {
     onSubmit: (values, actions) => {
       Api.post('payment/custom-subscription-request/create/', values)
         .then(() => {
-          // TODO: new toast here
-          $.toast({
-            heading: t('success'),
-            text: t('yourRequestHasBeenSentWeWillContactYou'),
-            hideAfter: false,
-            icon: 'success',
-          });
+          toast('success', t('yourRequestHasBeenSentWeWillContactYou'), '', false);
           customSubscriptionModalRef.current.hide();
         })
         .catch((error) => {
@@ -115,7 +110,7 @@ const SubscriptionsPage = (props) => {
     Api.put(`payment/project/${defaultProject.id}/add-subscription/${id}/`)
       .then(() => {
         subscriptionChoiceModalRef.current.hide();
-        $.toast(t('subscriptionAdded'));
+        toast('success', t('subscriptionAdded'));
         history.push(`/system/profile/projects/${defaultProject.id}/`);
       });
   };

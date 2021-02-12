@@ -130,7 +130,7 @@
   "lastUpdated": "Last updated",
   "line": "Line",
   "locality": "Locality",
-  "login": "Login",
+  "logIn": "Log in",
   "logout": "Log out",
   "markAllAsRead": "Mark all as read",
   "markAsRead": "Mark as read",
@@ -273,5 +273,7 @@
   "year": "Year",
   "yes": "Yes",
   "yourQuestionIsSent": "Your question is sent!",
-  "yourRequestHasBeenSentWeWillContactYou": "Your request has been sent. We will contact you."
+  "yourRequestHasBeenSentWeWillContactYou": "Your request has been sent. We will contact you.",
+  "informationMessage": "Information message",
+  "warning": "Warning"
 }
