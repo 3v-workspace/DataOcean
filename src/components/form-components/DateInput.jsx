@@ -112,7 +112,9 @@ const DateInput = (props) => {
   return (
     <div className={`${containerClass} mb-3`}>
       {label && (
-        <label htmlFor={endId} className="mb-2 inline-block">{label}</label>
+        <label htmlFor={endId} className="mb-2 inline-block">
+          {label} {required && <sup className="text-red-500">*</sup>}
+        </label>
       )}
       <input
         id={endId}

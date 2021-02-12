@@ -1,4 +1,4 @@
-@import "utils";
+@import "utils", "toast";
 
 @media (min-width: 1279px) {
   body.login {
@@ -106,5 +106,9 @@
   & &__title {
     margin-bottom: 0;
   }
+}
+
+.pagination {
+  margin-right: 0;
 }
 

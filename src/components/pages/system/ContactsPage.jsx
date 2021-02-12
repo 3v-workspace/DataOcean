@@ -7,6 +7,7 @@ import Form from 'components/form-components/Form';
 import TextInput from 'components/form-components/TextInput';
 import Api from 'api';
 import Yup from 'utils/yup';
+import toast from 'utils/toast';
 
 const ContactsPage = () => {
   const { t } = useTranslation();
@@ -22,7 +23,7 @@ const ContactsPage = () => {
       Api.post('users/question/create/', values)
         .then(() => {
           actions.resetForm();
-          $.toast(t('yourQuestionIsSent'));
+          toast('success', t('yourQuestionIsSent'));
         })
         .finally(() => {
           actions.setSubmitting(false);
