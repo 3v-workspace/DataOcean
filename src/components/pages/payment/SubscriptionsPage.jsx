@@ -11,6 +11,7 @@ import { ReactRouterPropTypes } from 'utils/prop-types';
 import { YesNoModal, BlankModal } from 'components/modals';
 import { useFormik } from 'formik';
 import Yup from 'utils/yup';
+import { useSelector } from 'react-redux';
 
 const icons = [
   Tag,
@@ -25,6 +26,7 @@ const middleClasses = 'border-b border-t lg:border-b-0 lg:border-t-0 ' +
 const SubscriptionsPage = (props) => {
   const { history } = props;
   const { t } = useTranslation();
+  const user = useSelector((store) => store.user);
   const [subs, setSubs] = useState([]);
   const [projects, setProjects] = useState([]);
   const [modalData, setModalData] = useState({
@@ -39,9 +41,9 @@ const SubscriptionsPage = (props) => {
 
   const formik = useFormik({
     initialValues: {
-      first_name: '',
-      last_name: '',
-      email: '',
+      first_name: user.first_name,
+      last_name: user.last_name,
+      email: user.email,
       phone: '',
       note: '',
     },
