@@ -6,7 +6,7 @@ import TabContentBlock from 'components/pages/profile/TabContentBlock';
 import { BooleanInput, Button, TextInput } from 'components/form-components';
 import {
   Copy, RefreshCcw, HelpCircle,
-  Briefcase,
+  Briefcase, X,
 } from 'react-feather';
 import Tooltip from 'components/Tooltip';
 import { BlankModal, YesNoModal } from 'components/modals';
@@ -27,6 +27,7 @@ const ProjectDetail = (props) => {
   const addUserModalRef = useRef();
   const refreshTokenModalRef = useRef();
   const disableUserModalRef = useRef();
+  const deleteUserModalRef = useRef();
   const disableProjectModalRef = useRef();
   const updateProjectModalRef = useRef();
 
@@ -166,6 +167,20 @@ const ProjectDetail = (props) => {
     }
   };
 
+  const ifDeleteUser = (user) => {
+    setSelectedUser(user);
+    deleteUserModalRef.current.show();
+  };
+
+  const deleteUser = (user) => {
+    Api.delete(`payment/project/${projectId}/delete-user/${selectedUser.id}/`)
+      .then(() => {
+        $.toast(t('userDeleted'));
+        deleteUserModalRef.current.hide();
+        fetchData();
+      });
+  };
+
   const disableProject = () => {
     Api.put(`payment/project/${projectId}/disable/`)
       .then(() => {
@@ -273,6 +288,13 @@ const ProjectDetail = (props) => {
           message={t('afterRefreshTokenYouLoseAccess')}
           icon={RefreshCcw}
           onYes={refreshToken}
+        />
+        <YesNoModal
+          ref={deleteUserModalRef}
+          header={`${t('deleteUser')}?`}
+          message={t('deleteUserSure')}
+          icon={X}
+          onYes={deleteUser}
         />
         <YesNoModal
           ref={disableUserModalRef}
@@ -411,6 +433,17 @@ const ProjectDetail = (props) => {
                       {user.role === u2pRole.OWNER && (
                         <Tooltip content={t('projectOwner')} noContainer>
                           <Briefcase className="ml-1 mb-1 w-4 h-4 text-theme-1" />
+                        </Tooltip>
+                      )}
+                      {user.role !== u2pRole.OWNER && project.is_owner && (
+                        <Tooltip content={t('deleteFromProject')} data-placement="bottom">
+                          <X
+                            className="w-6 h-6 text-gray-500"
+                            link={`${match.url}delete-user/'${user.id}/`}
+                            disabled={false}
+                            onClick={() => ifDeleteUser(user)}
+                            data-placement="bottom"
+                          />
                         </Tooltip>
                       )}
                     </div>
