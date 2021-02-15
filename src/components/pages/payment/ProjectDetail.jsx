@@ -9,7 +9,7 @@ import {
   Briefcase, X,
 } from 'react-feather';
 import Tooltip from 'components/Tooltip';
-import { BlankModal, YesNoModal } from 'components/modals';
+import { BlankModal, YesNoModal, DeleteModal } from 'components/modals';
 import { useTranslation } from 'react-i18next';
 import Api from 'api';
 import { useFormik } from 'formik';
@@ -167,7 +167,7 @@ const ProjectDetail = (props) => {
     }
   };
 
-  const ifDeleteUser = (user) => {
+  const handleDeleteUserClick = (user) => {
     setSelectedUser(user);
     deleteUserModalRef.current.show();
   };
@@ -289,10 +289,10 @@ const ProjectDetail = (props) => {
           icon={RefreshCcw}
           onYes={refreshToken}
         />
-        <YesNoModal
+        <DeleteModal
           ref={deleteUserModalRef}
           header={`${t('deleteUser')}?`}
-          message={t('deleteUserSure')}
+          message={`${t('deleteUserModalMessage') + t(selectedUser.name) + t('fromProject')} `}
           icon={X}
           onYes={deleteUser}
         />
@@ -436,13 +436,10 @@ const ProjectDetail = (props) => {
                         </Tooltip>
                       )}
                       {user.role !== u2pRole.OWNER && project.is_owner && (
-                        <Tooltip content={t('deleteFromProject')} data-placement="bottom">
+                        <Tooltip content={t('deleteFromProject')}>
                           <X
                             className="w-6 h-6 text-gray-500"
-                            link={`${match.url}delete-user/'${user.id}/`}
-                            disabled={false}
-                            onClick={() => ifDeleteUser(user)}
-                            data-placement="bottom"
+                            onClick={() => handleDeleteUserClick(user)}
                           />
                         </Tooltip>
                       )}
