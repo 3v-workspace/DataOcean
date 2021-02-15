@@ -61,7 +61,7 @@ const SignUpForm = () => {
     },
     validate: (values) => {
       const errors = {};
-      const { password1, password2 } = values;
+      const { password1, password2, first_name, last_name } = values;
       if (password1) {
         const level = getPasswordLevel(password1);
         if (level < 2) {
@@ -76,6 +76,12 @@ const SignUpForm = () => {
       }
       if (!values.accept_policy) {
         errors.accept_policy = t('acceptPolicyError');
+      }
+      if (!first_name.match(/^[A-Za-z]*$/)) {
+        errors.first_name = t('onlyLetters');
+      }
+      if (!last_name.match(/^[A-Za-z]*$/)) {
+        errors.last_name = t('onlyLetters');
       }
       return errors;
     },

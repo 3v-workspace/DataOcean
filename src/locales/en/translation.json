@@ -115,6 +115,7 @@
   "iAgreeWith": "I agree with",
   "inAFewSecondsYouWillRedirected": "In a few seconds you will be redirected to the login page",
   "inDevelopment": "In development",
+  "informationMessage": "Information message",
   "invalidLoginOrPassword": "Invalid login or password",
   "invitation": "Invitation",
   "invitationCanceled": "Invitation canceled",
@@ -154,6 +155,7 @@
   "numberOfSoleProprietors": "Number of sole proprietors",
   "numberOfUsers": "Number of users",
   "oldPassword": "Old password",
+  "onlyLetters": "Only letters",
   "organization": "Organization",
   "ourEmail": "Our email",
   "overdueDays": "Overdue {{days}} day(s)",
@@ -269,11 +271,10 @@
   "viewInvoices": "View invoices",
   "viewTheRegistry": "View the registry",
   "views": "Views",
+  "warning": "Warning",
   "worksInTestMode": "Works in test mode",
   "year": "Year",
   "yes": "Yes",
   "yourQuestionIsSent": "Your question is sent!",
-  "yourRequestHasBeenSentWeWillContactYou": "Your request has been sent. We will contact you.",
-  "informationMessage": "Information message",
-  "warning": "Warning"
+  "yourRequestHasBeenSentWeWillContactYou": "Your request has been sent. We will contact you."
 }
