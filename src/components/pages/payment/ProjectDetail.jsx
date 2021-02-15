@@ -294,7 +294,7 @@ const ProjectDetail = (props) => {
           header={`${t('deleteUser')}?`}
           message={`${t('deleteUserModalMessage') + t(selectedUser.name) + t('fromProject')} `}
           icon={X}
-          onYes={deleteUser}
+          onDelete={deleteUser}
         />
         <YesNoModal
           ref={disableUserModalRef}
