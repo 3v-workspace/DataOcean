@@ -55,8 +55,6 @@
   "defaultProject": "Default project",
   "delete": "Delete",
   "deleteUser": "Delete user",
-  "deleteUserModalMessage": "Are you sure you want to delete ",
-  "fromProject": " from project?",
   "description": "Description",
   "district": "District",
   "division": "Division",
@@ -173,7 +171,8 @@
     "disableUserModalHeader": "Are you sure you want to deactivate the user?",
     "disableUserModalMessage": "You can activate him at any time",
     "subscriptionChoiceModalHeader": "Choose {{name}}?",
-    "subscriptionChoiceModalMessage": "The \"{{subscription}}\" subscription will be added to the \"{{project}}\" project."
+    "subscriptionChoiceModalMessage": "The \"{{subscription}}\" subscription will be added to the \"{{project}}\" project.",
+    "deleteUserModalMessage": "Are you sure you want to delete \"{{name}}\" from project?"
   },
   "pep": "PEP",
   "pepScheme": "PEP Scheme",

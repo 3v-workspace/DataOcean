@@ -17,6 +17,7 @@ import Yup from 'utils/yup';
 import { dateFormat } from 'utils';
 import Form from 'components/form-components/Form';
 import { p2sStatus, u2pRole, u2pStatus } from 'const/projects';
+import toast from 'utils/toast';
 
 
 const ProjectDetail = (props) => {
@@ -175,7 +176,7 @@ const ProjectDetail = (props) => {
   const deleteUser = (user) => {
     Api.delete(`payment/project/${projectId}/delete-user/${selectedUser.id}/`)
       .then(() => {
-        $.toast(t('userDeleted'));
+        toast('success', t('userDeleted'));
         deleteUserModalRef.current.hide();
         fetchData();
       });
@@ -292,8 +293,11 @@ const ProjectDetail = (props) => {
         <DeleteModal
           ref={deleteUserModalRef}
           header={`${t('deleteUser')}?`}
-          message={`${t('deleteUserModalMessage') + t(selectedUser.name) + t('fromProject')} `}
-          icon={X}
+          message={
+            t('deleteUserModalMessage', {
+              user: selectedUser.name,
+            })
+          }
           onDelete={deleteUser}
         />
         <YesNoModal

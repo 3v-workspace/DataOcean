@@ -55,8 +55,6 @@
   "defaultProject": "Базовий проект",
   "delete": "Видалити",
   "deleteUser": "Видалити користувача",
-  "deleteUserModalMessage": "Ви впевнені, що хочете видалити ",
-  "fromProject": " з проекту?",
   "description": "Опис",
   "district": "Район",
   "division": "Розділ",
@@ -173,7 +171,8 @@
     "disableUserModalHeader": "Ви впевнені, що хочете деактивувати користувача?",
     "disableUserModalMessage": "Ви зможете активувати його в будь-який момент",
     "subscriptionChoiceModalHeader": "Обрати {{name}}?",
-    "subscriptionChoiceModalMessage": "Тарифний план \"{{subscription}}\" буде додано до проекту \"{{project}}\"."
+    "subscriptionChoiceModalMessage": "Тарифний план \"{{subscription}}\" буде додано до проекту \"{{project}}\".",
+    "deleteUserModalMessage": "Ви впевнені, що хочете видалити \"{{name}}\" з проекту?"
   },
   "pep": "PEP",
   "pepScheme": "Схема PEP",
