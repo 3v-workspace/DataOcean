@@ -6,7 +6,8 @@ import Nav from 'components/nav/Nav';
 import NavItem from 'components/nav/NavItem';
 import SystemRoutes from 'components/pages/SystemRoutes';
 import {
-  Activity, Home, FileText, Trello, BookOpen, HelpCircle, GitBranch,
+  Activity, Home, FileText, Trello, BookOpen,
+  HelpCircle, GitBranch, DollarSign, Cloud,
 } from 'react-feather';
 import TopBar from 'components/nav/TopBar';
 import { useTranslation } from 'react-i18next';
@@ -42,8 +43,14 @@ const SystemPage = (props) => {
       <NavItem link="/system/data-constructor/" icon={FileText}>
         {t('dataConstructor')}
       </NavItem>
-      <NavItem link="/system/pep-scheme/" icon={GitBranch}>
-        {t('pepScheme')}
+      {/*<NavItem link="/system/pep-scheme/" icon={GitBranch}>*/}
+      {/*  {t('pepScheme')}*/}
+      {/*</NavItem>*/}
+      <NavItem link="/system/subscriptions/" icon={DollarSign}>
+        {t('subscriptions')}
+      </NavItem>
+      <NavItem link="/system/api/" icon={Cloud}>
+        API
       </NavItem>
       <NavItem link="/system/contacts/" icon={BookOpen}>
         {t('contacts')}
@@ -67,6 +74,9 @@ const SystemPage = (props) => {
           <TopBar />
           <SystemRoutes {...props} />
         </div>
+      </div>
+      <div className="flex justify-center items-center mt-3 xl:ml-64 lg:ml-32 md:ml-24 text-white">
+        ©2020-2021 – Data Ocean. {t('allRightsReserved')}.
       </div>
     </>
   );

@@ -69,7 +69,7 @@ MessageModal.defaultProps = {
   className: '',
   type: 'warning',
   onHide: undefined,
-  closeButton: false,
+  closeButton: true,
 };
 
 export default MessageModal;

@@ -12,9 +12,10 @@ import { useTranslation } from 'react-i18next';
 import GoogleButton from 'components/pages/auth/GoogleButton';
 import Api from 'api';
 import setLanguage from 'utils/setLanguage';
+import { ReactRouterPropTypes } from 'utils/prop-types';
 
-// TODO: finish LoginForm
-const SignInForm = () => {
+
+const SignInForm = ({ history }) => {
   const dispatch = useDispatch();
   const { t, i18n } = useTranslation();
 
@@ -43,10 +44,15 @@ const SignInForm = () => {
       Api.post('rest-auth/login/', values)
         .then((resp) => {
           actions.setSubmitting(false);
-          const { user, key } = resp.data;
+          const { user, key, project_token } = resp.data;
           window.localStorage.setItem('token', key);
+          window.localStorage.setItem('project_token', project_token);
           dispatch(userLogin(user));
           setLanguage(user.language);
+          const subId = +window.localStorage.getItem('subscription');
+          if (subId) {
+            history.push('/system/subscriptions/');
+          }
         })
         .catch(({ response }) => {
           if (response && response.data && response.data.non_field_errors) {
@@ -102,7 +108,7 @@ const SignInForm = () => {
           className="flex-1 xl:w-2/5 xl:mr-3"
           width="w-full"
         >
-          {t('login')}
+          {t('logIn')}
         </Button>
         <Button
           className="flex-1 xl:w-2/5 mt-3 xl:mt-0"
@@ -130,12 +136,13 @@ const SignInForm = () => {
           {t('privacyPolicy')}
           {/* {i18n.language === 'en' ? 'Українська' : 'English'} */}
         </a>.
-        <p>©2020 – Data Ocean. {t('allRightsReserved')}.</p>
       </div>
     </Form>
   );
 };
 
-SignInForm.propTypes = {};
+SignInForm.propTypes = {
+  history: ReactRouterPropTypes.history.isRequired,
+};
 
 export default SignInForm;

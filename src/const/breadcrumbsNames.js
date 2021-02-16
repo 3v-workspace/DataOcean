@@ -19,6 +19,7 @@ const translations = {
   'report-constructor': 'reportConstructor',
   'data-constructor': 'dataConstructor',
   'pep-scheme': 'pepScheme',
+  'my-payments': 'myPayments',
 };
 
 const getBreadcrumbName = (key) => {
