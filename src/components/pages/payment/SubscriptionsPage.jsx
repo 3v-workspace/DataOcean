@@ -4,7 +4,7 @@ import Api, { passErrorsToFormik } from 'api';
 import { useTranslation } from 'react-i18next';
 import {
   Bookmark, Briefcase, CreditCard,
-  DollarSign, Tag, Edit,
+  DollarSign, Tag, Edit, ArrowLeft,
 } from 'react-feather';
 import { Form, Button, TextInput } from 'components/form-components';
 import { ReactRouterPropTypes } from 'utils/prop-types';
@@ -121,6 +121,12 @@ const SubscriptionsPage = (props) => {
         <h2 className="text-lg font-medium mr-auto">
           {t('subscriptions')}
         </h2>
+        {history.location.state?.fromProjects && (
+          <Button onClick={() => history.goBack()} className="bg-opacity-0 text-blue-800 h-2 mt-3">
+            <ArrowLeft className="w-10 h-5" />
+            <span className="underline">{t('returnToTheProject')}</span>
+          </Button>
+        )}
       </div>
       {/*<h2 className="intro-y text-lg font-medium mt-10">*/}
       {/*  {t('subscriptions')}*/}
