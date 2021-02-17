@@ -638,7 +638,6 @@ const ProjectDetail = (props) => {
                 pathname: '/system/subscriptions/',
                 state: { fromProjects: true },
               })}
-              // link="/system/subscriptions/"
             >
               {t('changeSubscription')}
             </Button>
