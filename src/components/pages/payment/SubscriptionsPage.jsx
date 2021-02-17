@@ -4,7 +4,7 @@ import Api, { passErrorsToFormik } from 'api';
 import { useTranslation } from 'react-i18next';
 import {
   Bookmark, Briefcase, CreditCard,
-  DollarSign, Tag, Edit,
+  DollarSign, Tag, Edit, ArrowLeft,
 } from 'react-feather';
 import { Form, Button, TextInput } from 'components/form-components';
 import { ReactRouterPropTypes } from 'utils/prop-types';
@@ -13,6 +13,7 @@ import { useFormik } from 'formik';
 import Yup from 'utils/yup';
 import { useSelector } from 'react-redux';
 import toast from 'utils/toast';
+import { useHistory } from 'react-router-dom';
 
 const icons = [
   Tag,
@@ -122,6 +123,13 @@ const SubscriptionsPage = (props) => {
           {t('subscriptions')}
         </h2>
       </div>
+      {history.location.state?.fromProjects && (
+        <div className="flex justify-end">
+          <Button onClick={() => history.goBack()} className="bg-opacity-0 text-blue-800 h-2">
+            <ArrowLeft className="w-10 h-5" /> <span className="underline">Go back to the project</span>
+          </Button>
+        </div>
+      )}
       {/*<h2 className="intro-y text-lg font-medium mt-10">*/}
       {/*  {t('subscriptions')}*/}
       {/*</h2>*/}

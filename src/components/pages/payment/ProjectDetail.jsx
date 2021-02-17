@@ -20,7 +20,7 @@ import { p2sStatus, u2pRole, u2pStatus } from 'const/projects';
 import toast from 'utils/toast';
 
 const ProjectDetail = (props) => {
-  const { match } = props;
+  const { match, history } = props;
   const projectId = match.params.id;
 
   const { t } = useTranslation();
@@ -634,8 +634,11 @@ const ProjectDetail = (props) => {
               // size="sm"
               disabled={!project.is_active}
               className="px-10"
-              // onClick={() => console.log('hello')}
-              link="/system/subscriptions/"
+              onClick={() => history.push({
+                pathname: '/system/subscriptions/',
+                state: { fromProjects: true },
+              })}
+              // link="/system/subscriptions/"
             >
               {t('changeSubscription')}
             </Button>
@@ -648,6 +651,7 @@ const ProjectDetail = (props) => {
 
 ProjectDetail.propTypes = {
   match: ReactRouterPropTypes.match.isRequired,
+  history: ReactRouterPropTypes.history.isRequired,
 };
 
 export default ProjectDetail;
