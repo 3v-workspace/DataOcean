@@ -9,7 +9,7 @@ import {
   Briefcase, X,
 } from 'react-feather';
 import Tooltip from 'components/Tooltip';
-import { BlankModal, YesNoModal } from 'components/modals';
+import { BlankModal, YesNoModal, DeleteModal } from 'components/modals';
 import { useTranslation } from 'react-i18next';
 import Api from 'api';
 import { useFormik } from 'formik';
@@ -27,6 +27,7 @@ const ProjectDetail = (props) => {
   const addUserModalRef = useRef();
   const refreshTokenModalRef = useRef();
   const disableUserModalRef = useRef();
+  const deleteUserModalRef = useRef();
   const disableProjectModalRef = useRef();
   const updateProjectModalRef = useRef();
   const removeFutureModalRef = useRef();
@@ -169,6 +170,20 @@ const ProjectDetail = (props) => {
     }
   };
 
+  const handleDeleteUserClick = (user) => {
+    setSelectedUser(user);
+    deleteUserModalRef.current.show();
+  };
+
+  const deleteUser = (user) => {
+    Api.delete(`payment/project/${projectId}/delete-user/${selectedUser.id}/`)
+      .then(() => {
+        toast('success', t('userDeleted'));
+        deleteUserModalRef.current.hide();
+        fetchData();
+      });
+  };
+
   const disableProject = () => {
     Api.put(`payment/project/${projectId}/disable/`)
       .then(() => {
@@ -290,6 +305,16 @@ const ProjectDetail = (props) => {
           message={t('afterRefreshTokenYouLoseAccess')}
           icon={RefreshCcw}
           onYes={refreshToken}
+        />
+        <DeleteModal
+          ref={deleteUserModalRef}
+          header={`${t('deleteUser')}?`}
+          message={
+            t('deleteUserModalMessage', {
+              user: selectedUser.name,
+            })
+          }
+          onDelete={deleteUser}
         />
         <YesNoModal
           ref={disableUserModalRef}
@@ -444,6 +469,14 @@ const ProjectDetail = (props) => {
                       {user.role === u2pRole.OWNER && (
                         <Tooltip content={t('projectOwner')} noContainer>
                           <Briefcase className="ml-1 mb-1 w-4 h-4 text-theme-1 ml-2" />
+                        </Tooltip>
+                      )}
+                      {user.role !== u2pRole.OWNER && project.is_owner && (
+                        <Tooltip content={t('deleteFromProject')}>
+                          <X
+                            className="w-6 h-6 text-gray-500"
+                            onClick={() => handleDeleteUserClick(user)}
+                          />
                         </Tooltip>
                       )}
                     </div>
