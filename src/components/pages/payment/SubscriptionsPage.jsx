@@ -13,7 +13,6 @@ import { useFormik } from 'formik';
 import Yup from 'utils/yup';
 import { useSelector } from 'react-redux';
 import toast from 'utils/toast';
-import { useHistory } from 'react-router-dom';
 
 const icons = [
   Tag,
@@ -122,14 +121,13 @@ const SubscriptionsPage = (props) => {
         <h2 className="text-lg font-medium mr-auto">
           {t('subscriptions')}
         </h2>
-      </div>
-      {history.location.state?.fromProjects && (
-        <div className="flex justify-end">
-          <Button onClick={() => history.goBack()} className="bg-opacity-0 text-blue-800 h-2">
-            <ArrowLeft className="w-10 h-5" /> <span className="underline">Go back to the project</span>
+        {history.location.state?.fromProjects && (
+          <Button onClick={() => history.goBack()} className="bg-opacity-0 text-blue-800 h-2 mt-3">
+            <ArrowLeft className="w-10 h-5" />
+            <span className="underline">{t('returnToTheProject')}</span>
           </Button>
-        </div>
-      )}
+        )}
+      </div>
       {/*<h2 className="intro-y text-lg font-medium mt-10">*/}
       {/*  {t('subscriptions')}*/}
       {/*</h2>*/}
