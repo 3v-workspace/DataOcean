@@ -1,7 +1,6 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
 import Route404, { Page404 } from 'components/pages/Route404';
-import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import { setLanguage } from 'utils';
 import { useIsLogin } from 'hooks';
 import SystemPage from 'components/pages/SystemPage';
@@ -10,10 +9,24 @@ import LoginPage from './pages/auth/LoginPage';
 
 const RootRoutes = () => {
   const isLogin = useIsLogin();
-  const location = useLocation();
-  const language = new URLSearchParams(location.search).get('lang');
+  const qs = new URLSearchParams(window.location.search);
+
+  let needClear = false;
+
+  const language = qs.get('lang');
   if (['uk', 'en'].includes(language)) {
     setLanguage(language);
+    needClear = true;
+  }
+
+  const subscriptionId = +qs.get('subscription');
+  if (subscriptionId) {
+    window.localStorage.setItem('subscription', subscriptionId.toString());
+    needClear = true;
+  }
+
+  if (needClear) {
+    window.history.replaceState(null, document.title, window.location.pathname);
   }
 
   return (
@@ -44,6 +57,6 @@ const RootRoutes = () => {
   );
 };
 
-RootRoutes.propTypes = {};
+// RootRoutes.propTypes = {};
 
 export default RootRoutes;

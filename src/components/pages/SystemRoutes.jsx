@@ -11,6 +11,7 @@ import ProfilePage from 'components/pages/profile/ProfilePage';
 import DatasetsRoutes from 'components/pages/datasets/DatasetsRoutes';
 import PepGraphPage from 'components/pages/system/PepGraphPage';
 import SubscriptionsPage from 'components/pages/payment/SubscriptionsPage';
+import ApiPage from 'components/pages/api/ApiPage';
 
 
 const SystemRoutes = (props) => {
@@ -44,15 +45,20 @@ const SystemRoutes = (props) => {
         path={`${match.path}data-constructor/`}
         component={DataConstructorPage}
       />
-      <Route
-        exact
-        path={`${match.path}pep-scheme/`}
-        component={PepGraphPage}
-      />
+      {/*<Route*/}
+      {/*  exact*/}
+      {/*  path={`${match.path}pep-scheme/`}*/}
+      {/*  component={PepGraphPage}*/}
+      {/*/>*/}
       <Route
         exact
         path={`${match.path}subscriptions/`}
         component={SubscriptionsPage}
+      />
+      <Route
+        exact
+        path={`${match.path}api/`}
+        component={ApiPage}
       />
       <Route
         exact

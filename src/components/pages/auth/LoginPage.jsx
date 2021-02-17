@@ -49,13 +49,15 @@ const LoginPage = ({ match, history, location }) => {
       <div className="block xl:grid grid-cols-2 gap-4">
         <div className="hidden xl:flex flex-col min-h-screen">
           <div className="-intro-x flex items-center pt-8">
-            <img alt="Data Ocean Logo" className="w-12 -mt-3" src={logo} />
-            <div className="text-white text-lg ml-3">
-              <div className="font-medium">Data Ocean</div>
-              <div className="intro-x text-white text-sm">
-                Platform
+            <a href={process.env.REACT_APP_LANDING_URL} target="_blank" className="intro-x flex items-center pl-5 pt-4">
+              <img alt="Data Ocean Logo" className="w-12 -mt-3" src={logo} />
+              <div className="text-white text-lg ml-3">
+                <div className="font-medium">Data Ocean</div>
+                <div className="intro-x text-white text-sm">
+                  Platform
+                </div>
               </div>
-            </div>
+            </a>
           </div>
           <div className="my-auto">
             <img
@@ -71,7 +73,7 @@ const LoginPage = ({ match, history, location }) => {
             {/* </div> */}
           </div>
         </div>
-        <div className="h-screen xl:h-auto flex py-5 xl:py-0 my-10 xl:my-0">
+        <div className="h-screen xl:h-auto flex flex-col py-5 xl:py-0 my-10 xl:my-0 ">
           <div
             className="my-auto mx-auto xl:ml-20 bg-white xl:bg-transparent px-5 sm:px-8 py-8 xl:p-0 rounded-md shadow-md xl:shadow-none w-full sm:w-3/4 lg:w-2/4 xl:w-auto"
           >
@@ -103,6 +105,9 @@ const LoginPage = ({ match, history, location }) => {
               />
               <Route404 />
             </Switch>
+          </div>
+          <div className="mx-auto mb-8 xl:ml-20 text-white xl:text-gray-700">
+            ©2020-2021 – Data Ocean. {t('allRightsReserved')}.
           </div>
         </div>
       </div>

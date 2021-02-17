@@ -19,7 +19,6 @@ import Form from 'components/form-components/Form';
 import { p2sStatus, u2pRole, u2pStatus } from 'const/projects';
 import toast from 'utils/toast';
 
-
 const ProjectDetail = (props) => {
   const { match } = props;
   const projectId = match.params.id;
@@ -31,9 +30,11 @@ const ProjectDetail = (props) => {
   const deleteUserModalRef = useRef();
   const disableProjectModalRef = useRef();
   const updateProjectModalRef = useRef();
+  const removeFutureModalRef = useRef();
 
   const [project, setProject] = useState({});
   const [selectedUser, setSelectedUser] = useState({});
+  const [selectedSubscription, setSelectedSubscription] = useState({});
   const [showInvitations, setShowInvitations] = useState(false);
 
   const hasFutureSubscription = !!project.subscriptions?.find((s) => s.status === p2sStatus.FUTURE);
@@ -61,7 +62,7 @@ const ProjectDetail = (props) => {
     onSubmit: (values, actions) => {
       Api.post(`payment/project/${projectId}/invite/`, values)
         .then(() => {
-          $.toast(t('userInvited'));
+          toast('success', t('userInvited'));
           setShowInvitations(true);
         })
         .finally(() => {
@@ -85,7 +86,7 @@ const ProjectDetail = (props) => {
     onSubmit: (values, actions) => {
       Api.put(`payment/project/${projectId}/update/`, values)
         .then(() => {
-          $.toast(t('projectUpdated'));
+          toast('success', t('projectUpdated'));
           fetchData();
           updateProjectModalRef.current.hide();
         })
@@ -124,11 +125,12 @@ const ProjectDetail = (props) => {
     refreshTokenModalRef.current.show();
   };
 
+
   const refreshToken = () => {
     Api.put(`payment/project/${projectId}/refresh-token/`)
       .then((resp) => {
         window.localStorage.setItem('project_token', resp.data.token);
-        $.toast(t('tokenRefreshed'));
+        toast('success', t('tokenRefreshed'));
         refreshTokenModalRef.current.hide();
         fetchData();
       });
@@ -137,7 +139,7 @@ const ProjectDetail = (props) => {
   const deactivateUser = () => {
     Api.delete(`payment/project/${projectId}/deactivate-user/${selectedUser.id}/`)
       .then(() => {
-        $.toast(t('userDeactivated'));
+        toast('warning', t('userDeactivated'));
         disableUserModalRef.current.hide();
         fetchData();
       });
@@ -146,7 +148,7 @@ const ProjectDetail = (props) => {
   const activateUser = (userId) => {
     Api.put(`payment/project/${projectId}/activate-user/${userId}/`)
       .then(() => {
-        $.toast(t('userActivated'));
+        toast('success', t('userActivated'));
         fetchData();
       });
   };
@@ -154,7 +156,7 @@ const ProjectDetail = (props) => {
   const cancelInvite = (inviteId) => {
     Api.delete(`payment/project/${projectId}/cancel-invite/${inviteId}/`)
       .then(() => {
-        $.toast(t('invitationCanceled'));
+        toast('warning', t('invitationCanceled'));
         fetchData();
       });
   };
@@ -185,7 +187,7 @@ const ProjectDetail = (props) => {
   const disableProject = () => {
     Api.put(`payment/project/${projectId}/disable/`)
       .then(() => {
-        $.toast(t('projectDeactivated'));
+        toast('warning', t('projectDeactivated'));
         fetchData();
         disableProjectModalRef.current.hide();
       });
@@ -194,8 +196,17 @@ const ProjectDetail = (props) => {
   const activateProject = () => {
     Api.put(`payment/project/${projectId}/activate/`)
       .then(() => {
-        $.toast(t('projectActivated'));
+        toast('success', t('projectActivated'));
         fetchData();
+      });
+  };
+
+  const removeFutureSubscription = () => {
+    Api.delete(`payment/project/${projectId}/remove-future-subscription/`)
+      .then(() => {
+        toast('warning', t('subscriptionRemoved'));
+        fetchData();
+        removeFutureModalRef.current.hide();
       });
   };
 
@@ -207,15 +218,15 @@ const ProjectDetail = (props) => {
     }
   };
 
-  const getIsPaid = (subscription) => {
-    if (subscription.price) {
-      if (subscription.is_paid) {
-        return t('paid');
-      }
-      return t('notPaid');
-    }
-    return '---';
-  };
+  // const getIsPaid = (subscription) => {
+  //   if (subscription.price) {
+  //     if (subscription.is_paid) {
+  //       return t('paid');
+  //     }
+  //     return t('notPaid');
+  //   }
+  //   return '---';
+  // };
 
   const getPaymentDateText = (subscription) => {
     if (subscription.is_default || subscription.status === p2sStatus.PAST) {
@@ -246,7 +257,7 @@ const ProjectDetail = (props) => {
 
   // <Link to="/system/profile/projects/" className="flex items-center">
   //   <ChevronLeft className="w-4 h-4" />
-  //   проекти
+  //   проєкти
   // </Link>
 
   return (
@@ -256,8 +267,13 @@ const ProjectDetail = (props) => {
         title={t('projectOverview')}
         headerContent={(
           <>
-            <span className="mr-3">
-              {t('status')}: <b>{getProjectStatus()}</b>
+            <span className="mr-3 flex flex-row mr-10 pt-1">
+              {t('status')}: <b className="ml-1">{getProjectStatus()}</b>
+              {project.is_default && (
+                <Tooltip content={t('baseProjectCantBeDeactivated')}>
+                  <HelpCircle className="cursor-pointer ml-2 h-5 w-5 text-theme-1" />
+                </Tooltip>
+              )}
             </span>
             {project.is_owner && (
               <>
@@ -318,6 +334,14 @@ const ProjectDetail = (props) => {
           onYes={disableProject}
           yesLabel={t('deactivate')}
           noLabel={t('cancel')}
+          // variant="warning"
+        />
+        <YesNoModal
+          ref={removeFutureModalRef}
+          header={t('payment_system.removeFutureModalHeader', { subName: selectedSubscription.name || '' })}
+          message={t('payment_system.removeFutureModalMessage')}
+          icon={HelpCircle}
+          onYes={removeFutureSubscription}
           // variant="warning"
         />
         <BlankModal
@@ -408,13 +432,21 @@ const ProjectDetail = (props) => {
               isRounded
               onClick={() => {
                 navigator.clipboard.writeText(project.token).then(
-                  () => $.toast(t('tokenSavedToClipboard')),
+                  () => toast('info', t('tokenSavedToClipboard')),
                 );
               }}
             >
               <Copy />
             </Button>
           </Tooltip>
+          <div className="w-full mt-2">
+            <div>
+              {t('toAccessRESTAddHeader')}:
+            </div>
+            <div className="text-theme-9">
+              Authorization: DataOcean {project.token}
+            </div>
+          </div>
         </div>
         <h3 className="intro-y text-lg font-medium leading-none mt-10 mb-4">
           {t('users')}
@@ -423,9 +455,9 @@ const ProjectDetail = (props) => {
           <table className="table mb-2">
             <thead>
               <tr className="bg-gray-200 text-gray-700">
-                <th>{t('firstName')}</th>
-                <th>Email</th>
-                <th>{t('status')}</th>
+                <th className="w-1/3">{t('firstName')}</th>
+                <th className="w-1/3">Email</th>
+                <th className="w-1/3">{t('status')}</th>
               </tr>
             </thead>
             <tbody>
@@ -436,7 +468,7 @@ const ProjectDetail = (props) => {
                       {user.name}
                       {user.role === u2pRole.OWNER && (
                         <Tooltip content={t('projectOwner')} noContainer>
-                          <Briefcase className="ml-1 mb-1 w-4 h-4 text-theme-1" />
+                          <Briefcase className="ml-1 mb-1 w-4 h-4 text-theme-1 ml-2" />
                         </Tooltip>
                       )}
                       {user.role !== u2pRole.OWNER && project.is_owner && (
@@ -512,9 +544,9 @@ const ProjectDetail = (props) => {
                 <tbody>
                   {project.invitations.map((invite) => (
                     <tr key={invite.email}>
-                      <td className="border-b">{invite.email}</td>
-                      <td className="border-b">{dateFormat(invite.updated_at)}</td>
-                      <td className="border-b">
+                      <td className="border-b w-1/3">{invite.email}</td>
+                      <td className="border-b w-1/3">{dateFormat(invite.updated_at)}</td>
+                      <td className="border-b w-1/3">
                         <Button
                           size="sm"
                           className="px-6"
@@ -539,11 +571,13 @@ const ProjectDetail = (props) => {
           <table className="table mb-2">
             <thead>
               <tr className="bg-gray-200 text-gray-700">
-                <th>{t('name')}</th>
-                <th>{t('status')}</th>
-                <th>{t('requestsLeft')}</th>
-                <th>{t('nextPayment')}</th>
-                <th>{t('invoices')}</th>
+                <th className="w-1/5">{t('name')}</th>
+                <th className="w-1/5">{t('status')}</th>
+                <th className="w-1/5">{t('requestsLeft')}</th>
+                <th className="w-1/5">{t('nextPayment')}</th>
+                {project.is_owner && (
+                  <th className="w-1/5">{t('invoices')}</th>
+                )}
               </tr>
             </thead>
             <tbody>
@@ -552,25 +586,43 @@ const ProjectDetail = (props) => {
                   key={subscription.id}
                   className={`${subscription.status !== p2sStatus.PAST ? '' : 'text-gray-500'}`}
                 >
-                  <td className="border-b">{subscription.name}</td>
+                  <td className="border-b" style={{ verticalAlign: 'center' }}>
+                    <div className="flex items-center">
+                      {subscription.name}
+                      {subscription.status === p2sStatus.FUTURE && (
+                        <Button
+                          variant="blank"
+                          className="ml-2 p-0 mb-1"
+                          onClick={() => {
+                            setSelectedSubscription(subscription);
+                            removeFutureModalRef.current.show();
+                          }}
+                        >
+                          <X className="h-4 w-4" />
+                        </Button>
+                      )}
+                    </div>
+                  </td>
                   <td className="border-b">{subsStatuses[subscription.status]}</td>
                   <td className="border-b">{subscription.requests_left}</td>
                   <td className="border-b">
                     {getPaymentDateText(subscription)}
                   </td>
-                  <td className="border-b">
-                    {subscription.status !== p2sStatus.FUTURE && !subscription.is_default ? (
-                      <Button
-                        variant="blank"
-                        className="py-0 text-theme-1 block font-medium"
-                        link={`${match.url}my-payments/${subscription.id}/`}
-                      >
-                        {t('viewInvoices')}
-                      </Button>
-                    ) : (
-                      '---'
-                    )}
-                  </td>
+                  {project.is_owner && (
+                    <td className="border-b">
+                      {subscription.status !== p2sStatus.FUTURE && !subscription.is_default ? (
+                        <Button
+                          variant="blank"
+                          className="py-0 text-theme-1 block font-medium"
+                          link={`${match.url}my-payments/${subscription.id}/`}
+                        >
+                          {t('viewInvoices')}
+                        </Button>
+                      ) : (
+                        '---'
+                      )}
+                    </td>
+                  )}
                 </tr>
               ))}
             </tbody>

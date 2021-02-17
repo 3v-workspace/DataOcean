@@ -56,6 +56,7 @@ const ChangePasswordBlock = () => {
     <TabContentBlock title={t('changePassword')}>
       <Form formik={formik}>
         <TextInput
+          required
           autoComplete="on"
           label={t('oldPassword')}
           type="password"
@@ -63,6 +64,7 @@ const ChangePasswordBlock = () => {
           formik={formik}
         />
         <TextInput
+          required
           autoComplete="on"
           label={t('newPassword')}
           type="password"
@@ -70,6 +72,7 @@ const ChangePasswordBlock = () => {
           formik={formik}
         />
         <TextInput
+          required
           autoComplete="on"
           label={t('passwordConfirmation')}
           type="password"

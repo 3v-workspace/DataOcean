@@ -1,12 +1,13 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button } from 'components/form-components';
-import { Facebook, Linkedin, Mail } from 'react-feather';
+import { Facebook, Linkedin, Mail, MapPin, Phone } from 'react-feather';
 import { useFormik } from 'formik';
 import Form from 'components/form-components/Form';
 import TextInput from 'components/form-components/TextInput';
 import Api from 'api';
 import Yup from 'utils/yup';
+import toast from 'utils/toast';
 
 const ContactsPage = () => {
   const { t } = useTranslation();
@@ -22,7 +23,7 @@ const ContactsPage = () => {
       Api.post('users/question/create/', values)
         .then(() => {
           actions.resetForm();
-          $.toast(t('yourQuestionIsSent'));
+          toast('success', t('yourQuestionIsSent'));
         })
         .finally(() => {
           actions.setSubmitting(false);
@@ -59,11 +60,15 @@ const ContactsPage = () => {
             </Form>
           </div>
           <div className="mx-10 pt-6">
-            <span className="font-medium">{t('ourEmail')}:
-              <a className="items-center flex mt-2 text-blue-800" href="mailto:info@dataocean.us">
-                <Mail className="w-4 h-4 mr-2" />info@dataocean.us
-              </a>
-            </span>
+            <p className="items-center flex mt-2 text-gray-700">
+              <MapPin className="w-4 h-4 mr-2" /> {t('addressOffice')}
+            </p>
+            <p className="items-center flex mt-2 text-gray-700">
+              <Phone className="w-4 h-4 mr-2" />+38 063 25 88 145
+            </p>
+            <a className="items-center flex mt-2 text-blue-800" href="mailto:info@dataocean.us">
+              <Mail className="w-4 h-4 mr-2" />info@dataocean.us
+            </a>
           </div>
           <div className="mx-10 pt-6 border-gray-200">
             <span className="my-20 pt-10 font-medium">{t('followOurNews')}:</span>

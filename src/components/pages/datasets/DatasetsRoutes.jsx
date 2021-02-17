@@ -1,11 +1,11 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import { ReactRouterPropTypes } from 'utils/prop-types';
 import Route404 from 'components/pages/Route404';
 import DatasetsList from './DatasetsList';
-import DatasetDetail from './DatasetDetail';
 import KvedList from './kved/KvedList';
-import CompanyList from './company/CompanyList';
+import CompanyUkList from './company/CompanyUkList';
+import CompanyUkrList from './company/CompanyUkrList';
 import StreetList from './street/StreetList';
 import FopList from './company/FopList';
 import PepList from './pep/PepList';
@@ -17,33 +17,39 @@ const DatasetsRoutes = (props) => {
     <Switch>
       <Route
         exact
-        path={`${match.path}:id/kved/`}
+        path={`${match.path}kved/`}
         component={KvedList}
       />
       <Route
         exact
-        path={`${match.path}:id/companies/`}
-        component={CompanyList}
+        path={`${match.path}company/ukr/`}
+        component={CompanyUkrList}
       />
       <Route
         exact
-        path={`${match.path}:id/streets/`}
+        path={`${match.path}company/uk/`}
+        component={CompanyUkList}
+      />
+      <Route
+        exact
+        path={`${match.path}company/`}
+        // component={CompanyList}
+        render={() => <Redirect to={`${match.url}/company/ukr/`} />}
+      />
+      <Route
+        exact
+        path={`${match.path}street/`}
         component={StreetList}
       />
       <Route
         exact
-        path={`${match.path}:id/fop/`}
+        path={`${match.path}fop/`}
         component={FopList}
       />
       <Route
         exact
-        path={`${match.path}:id/pep/`}
+        path={`${match.path}pep/`}
         component={PepList}
-      />
-      <Route
-        exact
-        path={`${match.path}:id/`}
-        component={DatasetDetail}
       />
       <Route
         exact

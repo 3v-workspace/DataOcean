@@ -1,4 +1,4 @@
-@import "utils";
+@import "utils", "toast";
 
 @media (min-width: 1279px) {
   body.login {
@@ -42,7 +42,6 @@
   }
 }
 
-
 .subscription-container:hover {
   z-index: 51;
 }
@@ -83,4 +82,33 @@
   }
 }
 
+.notification {
+  .notification__icon {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  &.notification--bullet:before {
+    width: 10px;
+    height: 10px;
+  }
+}
+
+.notification-content {
+  width: 500px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.15);
+
+  & &__body {
+    max-height: 550px;
+    overflow: auto;
+  }
+
+  & &__title {
+    margin-bottom: 0;
+  }
+}
+
+.pagination {
+  margin-right: 0;
+}
 

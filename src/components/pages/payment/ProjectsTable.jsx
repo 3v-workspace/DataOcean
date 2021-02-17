@@ -12,7 +12,8 @@ import Yup from 'utils/yup';
 import Api from 'api';
 import { dateFormat } from 'utils';
 import { useTranslation } from 'react-i18next';
-
+import Tooltip from 'components/Tooltip';
+import toast from 'utils/toast';
 
 const ProjectsTable = (props) => {
   const { match, history } = props;
@@ -45,7 +46,7 @@ const ProjectsTable = (props) => {
       Api.post('payment/project/create/', values)
         .then(() => {
           createProjectModalRef.current.hide();
-          $.toast('Project created');
+          toast('success', 'Project created');
           fetchData();
         })
         .finally(() => {
@@ -71,7 +72,7 @@ const ProjectsTable = (props) => {
   const confirmInvitation = (invite) => {
     Api.post(`payment/project/${invite.project_id}/confirm-invite/`)
       .then(() => {
-        $.toast(t('invitationConfirmed'));
+        toast('success', t('invitationConfirmed'));
         fetchData();
       });
   };
@@ -79,7 +80,7 @@ const ProjectsTable = (props) => {
   const rejectInvitation = (invite) => {
     Api.delete(`payment/project/${invite.project_id}/reject-invite/`)
       .then(() => {
-        $.toast(t('invitationRejected'));
+        toast('warning', t('invitationRejected'));
         fetchData();
       });
   };
@@ -133,12 +134,15 @@ const ProjectsTable = (props) => {
         large
         title={t('projects')}
         headerContent={(
-          <Button
-            onClick={() => createProjectModalRef.current.show()}
-            width="w-48"
-          >
-            {t('addProject')}
-          </Button>
+          <Tooltip content={t('inDevelopment')}>
+            <Button
+              disabled
+              // onClick={() => createProjectModalRef.current.show()}
+              width="w-48"
+            >
+              {t('addProject')}
+            </Button>
+          </Tooltip>
         )}
       >
         <BlankModal
