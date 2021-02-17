@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react';
 import Api from 'api';
 import { ReactRouterPropTypes } from 'utils/prop-types';
 import {
-  Mail, Settings, User,
+  Mail, Settings, User, Clipboard, File,
 } from 'react-feather';
-import { NavLink, Route, Switch } from 'react-router-dom';
+import { NavLink, Redirect, Route, Switch } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import ProjectsPage from '../payment/ProjectsPage';
+import InvoicesTable from '../payment/InvoicesTable';
 import ProfileSettings from './ProfileSettings';
 import ProfileInfo from './ProfileInfo';
 
@@ -15,7 +17,6 @@ const ProfilePage = ({ match }) => {
   const [stats, setStats] = useState({ api_requests: '---', endpoints: '---' });
 
   const user = useSelector((store) => store.user);
-
   useEffect(() => {
     Api.get('stats/profile/')
       .then((resp) => {
@@ -77,14 +78,22 @@ const ProfilePage = ({ match }) => {
           </div>
         </div>
         <div className="nav-tabs flex flex-col sm:flex-row justify-center lg:justify-start">
+          {/*<NavLink*/}
+          {/*  exact*/}
+          {/*  to="/system/profile/"*/}
+          {/*  data-toggle="tab"*/}
+          {/*  className="py-4 sm:mr-8 flex items-center"*/}
+          {/*  activeClassName="active"*/}
+          {/*>*/}
+          {/*  <User className="w-4 h-4 mr-2" /> {t('profile')}*/}
+          {/*</NavLink>*/}
           <NavLink
-            exact
-            to="/system/profile/"
+            to="/system/profile/projects/"
             data-toggle="tab"
             className="py-4 sm:mr-8 flex items-center"
             activeClassName="active"
           >
-            <User className="w-4 h-4 mr-2" /> {t('profile')}
+            <Clipboard className="w-4 h-4 mr-2" /> {t('projects')}
           </NavLink>
           <NavLink
             exact
@@ -95,18 +104,42 @@ const ProfilePage = ({ match }) => {
           >
             <Settings className="w-4 h-4 mr-2" /> {t('settings')}
           </NavLink>
+          <NavLink
+            exact
+            to="/system/profile/my-payments/"
+            data-toggle="tab"
+            className="py-4 sm:mr-8 flex items-center"
+            activeClassName="active"
+          >
+            <File className="w-4 h-4 mr-2" /> {t('myPayments')}
+          </NavLink>
         </div>
       </div>
       <Switch>
+        <Route
+          exact
+          path={`${match.path}projects/:projectId/my-payments/:subscriptionId/`}
+          component={InvoicesTable}
+        />
+        <Route
+          exact
+          path={`${match.path}my-payments/`}
+          component={InvoicesTable}
+        />
         <Route
           exact
           path={`${match.path}settings/`}
           component={ProfileSettings}
         />
         <Route
+          path={`${match.path}projects/`}
+          component={ProjectsPage}
+        />
+        <Route
           exact
-          path={`${match.path}/`}
-          component={ProfileInfo}
+          path={match.path}
+          // component={ProfileInfo}
+          render={() => <Redirect to={`${match.url}projects/`} />}
         />
       </Switch>
     </>

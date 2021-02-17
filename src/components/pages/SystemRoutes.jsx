@@ -5,11 +5,13 @@ import ReportConstructorPage from 'components/pages/system/ReportConstructorPage
 import ContactsPage from 'components/pages/system/ContactsPage';
 import DataConstructorPage from 'components/pages/system/DataConstructorPage';
 import Route404 from 'components/pages/Route404';
-import HelpPage from 'components/pages/system/HelpPage';
+import HelpPage from 'components/pages/help/HelpPage';
 import HomePage from 'components/pages/system/HomePage';
 import ProfilePage from 'components/pages/profile/ProfilePage';
 import DatasetsRoutes from 'components/pages/datasets/DatasetsRoutes';
 import PepGraphPage from 'components/pages/system/PepGraphPage';
+import SubscriptionsPage from 'components/pages/payment/SubscriptionsPage';
+import ApiPage from 'components/pages/api/ApiPage';
 
 
 const SystemRoutes = (props) => {
@@ -43,10 +45,20 @@ const SystemRoutes = (props) => {
         path={`${match.path}data-constructor/`}
         component={DataConstructorPage}
       />
+      {/*<Route*/}
+      {/*  exact*/}
+      {/*  path={`${match.path}pep-scheme/`}*/}
+      {/*  component={PepGraphPage}*/}
+      {/*/>*/}
       <Route
         exact
-        path={`${match.path}pep-scheme/`}
-        component={PepGraphPage}
+        path={`${match.path}subscriptions/`}
+        component={SubscriptionsPage}
+      />
+      <Route
+        exact
+        path={`${match.path}api/`}
+        component={ApiPage}
       />
       <Route
         exact
@@ -59,8 +71,7 @@ const SystemRoutes = (props) => {
         component={HelpPage}
       />
       <Route
-        exact
-        path={`${match.path}profile/*`}
+        path={`${match.path}profile/`}
         component={ProfilePage}
       />
       <Route

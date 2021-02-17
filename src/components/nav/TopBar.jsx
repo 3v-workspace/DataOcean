@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 // import PropTypes from 'prop-types';
 import {
-  ChevronRight, User, Settings, HelpCircle, ToggleRight,
+  ChevronRight, User, Settings, HelpCircle, ToggleRight, Clipboard, File,
 } from 'react-feather';
 import { Link, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,6 +9,7 @@ import { userLogout } from 'store/user/actionCreators';
 import TopBarSearch from 'components/nav/TopBarSearch';
 import getBreadcrumbName from 'const/breadcrumbsNames';
 import { useTranslation } from 'react-i18next';
+import Notifications from 'components/nav/Notifications';
 
 
 // TODO: finish this
@@ -60,9 +61,13 @@ const TopBar = () => {
       </div>
 
       {/* PROFILE */}
-      <div className="intro-x dropdown w-8 h-8 relative">
-        <div className="dropdown-toggle w-8 h-8 rounded-full overflow-hidden shadow-lg image-fit zoom-in">
-          <User width="100%" height="100%" />
+      <div className="intro-x dropdown relative">
+        <div
+          style={{ height: 36 }}
+          className="dropdown-toggle px-8 rounded-full flex justify-stretch cursor-pointer items-center bg-theme-1 text-white font-medium hover:bg-theme-38"
+        >
+          <User className="w-5 h-5 mr-1" />
+          {t('myProfile')}
         </div>
         <div ref={userDropdownRef} className="dropdown-box mt-10 absolute w-56 top-0 right-0 z-20">
           <div className="dropdown-box__content box bg-theme-38 text-white">
@@ -80,10 +85,10 @@ const TopBar = () => {
             <div className="p-2">
               <Link
                 onClick={closeDropdown}
-                to="/system/profile/"
+                to="/system/profile/projects/"
                 className="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 rounded-md"
               >
-                <User className="w-4 h-4 mr-2" /> {t('profile')}
+                <Clipboard className="w-4 h-4 mr-2" /> {t('projects')}
               </Link>
               <Link
                 onClick={closeDropdown}
@@ -91,6 +96,13 @@ const TopBar = () => {
                 className="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 rounded-md"
               >
                 <Settings className="w-4 h-4 mr-2" /> {t('settings')}
+              </Link>
+              <Link
+                onClick={closeDropdown}
+                to="/system/profile/my-payments/"
+                className="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 rounded-md"
+              >
+                <File className="w-4 h-4 mr-2" /> {t('myPayments')}
               </Link>
               <Link
                 onClick={closeDropdown}
@@ -111,6 +123,11 @@ const TopBar = () => {
             </div>
           </div>
         </div>
+      </div>
+
+      {/* NOTIFICATIONS */}
+      <div className="intro-x dropdown relative ml-auto sm:ml-6">
+        <Notifications />
       </div>
     </div>
   );

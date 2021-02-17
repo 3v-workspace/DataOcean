@@ -5,7 +5,7 @@ import PageBox from 'components/pages/PageBox';
 import { useTranslation } from 'react-i18next';
 
 
-const CompanyList = () => {
+const CompanyUkList = () => {
   const { t } = useTranslation();
   const columns = [
     { header: t('edrpou'), prop: 'edrpou' },
@@ -18,7 +18,7 @@ const CompanyList = () => {
     <PageBox header={t('viewTheRegistry')} noBox>
       <Table
         columns={columns}
-        url="company/"
+        url="company/uk/"
         fields={[
           'id',
           'edrpou',
@@ -27,6 +27,7 @@ const CompanyList = () => {
           'address',
           'authorized_capital',
         ]}
+        axiosConfigs={{ useProjectToken: true }}
       />
     </PageBox>
   );
@@ -34,4 +35,4 @@ const CompanyList = () => {
 
 // CompanyList.propTypes = {};
 
-export default CompanyList;
+export default CompanyUkList;

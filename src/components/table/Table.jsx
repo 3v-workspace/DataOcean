@@ -5,7 +5,7 @@ import Pagination from 'components/table/Pagination';
 import { SearchBox } from 'components/form-components';
 import { ChevronDown, ChevronUp } from 'react-feather';
 import LoadingIcon from 'components/LoadingIcon';
-import { useTranslation } from 'react-i18next';
+// import { useTranslation } from 'react-i18next';
 
 
 const orderingIcons = {
@@ -15,8 +15,8 @@ const orderingIcons = {
 
 
 const Table = (props) => {
-  const { t } = useTranslation();
-  const { columns, url, fields } = props;
+  // const { t } = useTranslation();
+  const { columns, url, fields, axiosConfigs } = props;
   const [search, setSearch] = useState('');
 
   const params = { search };
@@ -24,10 +24,11 @@ const Table = (props) => {
     params.fields = fields.join(',');
   }
 
-  const tc = useTableController({ url, params });
+  const tc = useTableController({ url, params, axiosConfigs });
 
   const onSearch = (e) => {
     setSearch(e.target.value);
+    tc.setPage(1);
   };
 
   const handleHeaderClick = (col) => {
@@ -36,21 +37,21 @@ const Table = (props) => {
 
   return (
     <div>
-      <div className="intro-y flex flex-wrap sm:flex-no-wrap items-center mb-3 p-2">
+      <div className="intro-y flex flex-wrap sm:flex-no-wrap items-center justify-end mb-3 p-2">
         {/*<Button*/}
         {/*  className="shadow-md mr-2"*/}
         {/*>*/}
         {/*  Фільтр*/}
         {/*</Button>*/}
-        <div className="hidden md:block mx-auto text-gray-600">
-          {t('showingToOfEntries', {
-            first: tc.itemsIndexes.first,
-            last: tc.itemsIndexes.last,
-            count: tc.count,
-          })}
-        </div>
+        {/*<div className="hidden md:block mx-auto text-gray-600">*/}
+        {/*  {t('showingToOfEntries', {*/}
+        {/*    first: tc.itemsIndexes.first,*/}
+        {/*    last: tc.itemsIndexes.last,*/}
+        {/*    count: tc.count,*/}
+        {/*  })}*/}
+        {/*</div>*/}
         <div className="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">
-          <SearchBox containerClass="w-56 relative text-gray-700" onSearch={onSearch} />
+          <SearchBox containerClass="w-56" onSearch={onSearch} />
         </div>
       </div>
       <div className="p-5">
@@ -81,7 +82,13 @@ const Table = (props) => {
             </tr>
           </thead>
           <tbody>
-            {tc.data.map((row, i) => (
+            {tc.error ? (
+              <tr>
+                <td colSpan={columns.length} className="border-b text-center text-red-500">
+                  {tc.error}
+                </td>
+              </tr>
+            ) : tc.data.map((row, i) => (
               <tr key={row.id || i}>
                 {columns.map((col) => (
                   <td key={col.prop} className="border-b">
@@ -109,9 +116,11 @@ Table.propTypes = {
   })).isRequired,
   url: PropTypes.string.isRequired,
   fields: PropTypes.arrayOf(PropTypes.string),
+  axiosConfigs: PropTypes.object,
 };
 Table.defaultProps = {
   fields: [],
+  axiosConfigs: {},
 };
 
 export default Table;
