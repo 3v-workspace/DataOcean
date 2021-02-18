@@ -114,6 +114,7 @@ const SubscriptionsPage = (props) => {
         history.push(`/system/profile/projects/${defaultProject.id}/`);
       });
   };
+
   return (
     <div>
       <div className="intro-y flex items-center mt-8">
