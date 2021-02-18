@@ -13,7 +13,6 @@ import { useFormik } from 'formik';
 import Yup from 'utils/yup';
 import { useSelector } from 'react-redux';
 import toast from 'utils/toast';
-import i18next from 'i18next';
 
 const icons = [
   Tag,
@@ -27,7 +26,7 @@ const middleClasses = 'border-b border-t lg:border-b-0 lg:border-t-0 ' +
 
 const SubscriptionsPage = (props) => {
   const { history } = props;
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const user = useSelector((store) => store.user);
   const [subs, setSubs] = useState([]);
   const [projects, setProjects] = useState([]);
@@ -115,7 +114,6 @@ const SubscriptionsPage = (props) => {
         history.push(`/system/profile/projects/${defaultProject.id}/`);
       });
   };
-
   return (
     <div>
       <div className="intro-y flex items-center mt-8">
@@ -248,7 +246,7 @@ const SubscriptionsPage = (props) => {
                   <div>
                     <div className="subscription-price flex justify-center">
                       <div className="relative text-5xl font-semibold mt-8 mx-auto">
-                        {i18next.language === 'en' ? sub.price.toLocaleString('en') : sub.price}
+                        {i18n.language === 'en' ? sub.price.toLocaleString('en') : sub.price}
                         <span className="absolute text-2xl top-0 right-0 text-gray-500 -mr-4 mt-1">₴</span>
                       </div>
                     </div>
