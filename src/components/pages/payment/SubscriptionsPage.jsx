@@ -115,7 +115,6 @@ const SubscriptionsPage = (props) => {
         history.push(`/system/profile/projects/${defaultProject.id}/`);
       });
   };
-  console.log(i18next.language);
 
   return (
     <div>
