@@ -309,11 +309,7 @@ const ProjectDetail = (props) => {
         <DeleteModal
           ref={deleteUserModalRef}
           header={`${t('deleteUser')}?`}
-          message={
-            t('deleteUserModalMessage', {
-              user: selectedUser.name,
-            })
-          }
+          message={t('payment_system.deleteUserModalMessage', { name: selectedUser.name || '' })}
           onDelete={deleteUser}
         />
         <YesNoModal

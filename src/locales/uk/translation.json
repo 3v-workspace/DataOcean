@@ -187,7 +187,7 @@
     "removeFutureModalMessage": "Ви зможете обрати будь-який інший тарифний план",
     "subscriptionChoiceModalHeader": "Обрати {{name}}?",
     "subscriptionChoiceModalMessage": "Тарифний план \"{{subscription}}\" буде додано до проєкту \"{{project}}\".",
-    "deleteUserModalMessage": "Ви впевнені, що хочете видалити \"{{name}}\" з проекту?"
+    "deleteUserModalMessage": "Ви впевнені, що хочете видалити {{name}} з проекту?"
   },
   "pep": "PEP",
   "pepScheme": "Схема PEP",
@@ -205,6 +205,7 @@
   "projectOverview": "Перегляд проєкту",
   "projectOwner": "Власник проєкту",
   "projectUpdated": "Проєкт оновлено",
+  "deleteFromProject": "Видалити з проєкту",
   "projects": "Проєкти",
   "projectsTokens": "Токени проєктів",
   "recoverPassword": "Відновити пароль",

@@ -187,7 +187,7 @@
     "removeFutureModalMessage": "You can choose any other subscription",
     "subscriptionChoiceModalHeader": "Choose {{name}}?",
     "subscriptionChoiceModalMessage": "The \"{{subscription}}\" subscription will be added to the \"{{project}}\" project.",
-    "deleteUserModalMessage": "Are you sure you want to delete \"{{name}}\" from project?"
+    "deleteUserModalMessage": "Are you sure you want to delete {{name}} from project?"
   },
   "pep": "PEP",
   "pepScheme": "PEP Scheme",
