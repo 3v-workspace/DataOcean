@@ -13,6 +13,7 @@ import { useFormik } from 'formik';
 import Yup from 'utils/yup';
 import { useSelector } from 'react-redux';
 import toast from 'utils/toast';
+import i18next from 'i18next';
 
 const icons = [
   Tag,
@@ -114,6 +115,7 @@ const SubscriptionsPage = (props) => {
         history.push(`/system/profile/projects/${defaultProject.id}/`);
       });
   };
+  console.log(i18next.language);
 
   return (
     <div>
@@ -247,7 +249,7 @@ const SubscriptionsPage = (props) => {
                   <div>
                     <div className="subscription-price flex justify-center">
                       <div className="relative text-5xl font-semibold mt-8 mx-auto">
-                        {sub.price}
+                        {i18next.language === 'en' ? sub.price.toLocaleString('en') : sub.price}
                         <span className="absolute text-2xl top-0 right-0 text-gray-500 -mr-4 mt-1">₴</span>
                       </div>
                     </div>
