@@ -26,7 +26,7 @@ const middleClasses = 'border-b border-t lg:border-b-0 lg:border-t-0 ' +
 
 const SubscriptionsPage = (props) => {
   const { history } = props;
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const user = useSelector((store) => store.user);
   const [subs, setSubs] = useState([]);
   const [projects, setProjects] = useState([]);
@@ -247,7 +247,7 @@ const SubscriptionsPage = (props) => {
                   <div>
                     <div className="subscription-price flex justify-center">
                       <div className="relative text-5xl font-semibold mt-8 mx-auto">
-                        {sub.price}
+                        {i18n.language === 'en' ? sub.price.toLocaleString('en') : sub.price}
                         <span className="absolute text-2xl top-0 right-0 text-gray-500 -mr-4 mt-1">₴</span>
                       </div>
                     </div>
