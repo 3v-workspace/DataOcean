@@ -155,7 +155,7 @@
   "numberOfSoleProprietors": "Кількість ФОП",
   "numberOfUsers": "Кількість користувачів",
   "oldPassword": "Старий пароль",
-  "onlyLetters": "Тільки літери",
+  "onlyLetters": "Може містити тільки літери",
   "organization": "Організація",
   "ourEmail": "Наша електронна пошта",
   "overdueDays": "Прострочено {{days}} дні(в)",

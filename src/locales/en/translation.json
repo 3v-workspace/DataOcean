@@ -155,7 +155,7 @@
   "numberOfSoleProprietors": "Number of sole proprietors",
   "numberOfUsers": "Number of users",
   "oldPassword": "Old password",
-  "onlyLetters": "Only letters",
+  "onlyLetters": "Can only contain letters",
   "organization": "Organization",
   "ourEmail": "Our email",
   "overdueDays": "Overdue {{days}} day(s)",

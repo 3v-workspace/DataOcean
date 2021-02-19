@@ -77,10 +77,10 @@ const SignUpForm = () => {
       if (!values.accept_policy) {
         errors.accept_policy = t('acceptPolicyError');
       }
-      if (!first_name.match(/^[A-Za-z]*$/)) {
+      if (!first_name.match(/^[A-Za-zА-ЯҐЄІЇа-яґєії'`-]*$/)) {
         errors.first_name = t('onlyLetters');
       }
-      if (!last_name.match(/^[A-Za-z]*$/)) {
+      if (!last_name.match(/^[A-Za-zА-ЯҐЄІЇа-яґєії'`-]*$/)) {
         errors.last_name = t('onlyLetters');
       }
       return errors;
