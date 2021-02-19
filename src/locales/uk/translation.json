@@ -65,6 +65,7 @@
   "description": "Опис",
   "district": "Район",
   "division": "Розділ",
+  "downloadContract": "Завантажити договір",
   "edit": "Редагувати",
   "editProject": "Редагувати проєкт",
   "edrpou": "ЄДРПОУ",
@@ -115,6 +116,8 @@
   "iAgreeWith": "Я згоден з",
   "inAFewSecondsYouWillRedirected": "Через декілька секунд вас буде перенаправлено на сторінку входу",
   "inDevelopment": "У розробці",
+  "informationMessage": "Інформаційне повідомлення",
+  "internalServerError": "Внутрішня помилка серверу",
   "invalidLoginOrPassword": "Невірний логін або пароль",
   "invitation": "Запрошення",
   "invitationCanceled": "Запрошення скасовано",
@@ -269,11 +272,10 @@
   "viewInvoices": "Переглянути рахунки",
   "viewTheRegistry": "Перегляд реєстру",
   "views": "Переглядів",
+  "warning": "Попередження",
   "worksInTestMode": "Працює в тестовому режимі",
   "year": "Рік",
   "yes": "Так",
   "yourQuestionIsSent": "Ваше запитання надіслано!",
-  "yourRequestHasBeenSentWeWillContactYou": "Ваш запит надіслано. Ми звяжемось з Вами.",
-  "informationMessage": "Інформаційне повідомлення",
-  "warning": "Попередження"
+  "yourRequestHasBeenSentWeWillContactYou": "Ваш запит надіслано. Ми звяжемось з Вами."
 }
