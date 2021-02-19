@@ -63,12 +63,14 @@ Loading.defaultProps = {
 };
 
 // TODO: disabled effect
-const Button = (props) => {
+const Button = React.forwardRef((props, ref) => {
   const {
     size, children, width, variant, className, isLoading,
     onClick, link, toggleModal, type, disabled, isRounded,
-    isElevated, href, target,
+    isElevated, href, target, noFlex, title,
   } = props;
+
+  let handleClick = onClick;
 
   const classList = [];
 
@@ -90,7 +92,13 @@ const Button = (props) => {
   if (variant !== 'blank') {
     classList.push(buttonTypes[variant]);
   }
-  classList.push('inline-flex items-center justify-center');
+  if (!noFlex) {
+    classList.push('inline-flex items-center justify-center');
+  }
+  if (disabled) {
+    classList.push('disabled');
+    handleClick = (e) => e.preventDefault();
+  }
 
   let Component = 'button';
 
@@ -112,9 +120,11 @@ const Button = (props) => {
 
   return (
     <Component
+      ref={ref}
       type={type}
+      title={title}
       disabled={disabled}
-      onClick={onClick}
+      onClick={handleClick}
       className={classList.join(' ')}
       {...extraProps}
     >
@@ -124,7 +134,7 @@ const Button = (props) => {
       )}
     </Component>
   );
-};
+});
 
 Button.propTypes = {
   disabled: PropTypes.bool,
@@ -141,6 +151,8 @@ Button.propTypes = {
   isLoading: PropTypes.bool,
   isRounded: PropTypes.bool,
   isElevated: PropTypes.bool,
+  noFlex: PropTypes.bool,
+  title: PropTypes.string,
 };
 
 Button.defaultProps = {
@@ -158,6 +170,8 @@ Button.defaultProps = {
   isLoading: false,
   isRounded: false,
   isElevated: false,
+  noFlex: false,
+  title: undefined,
 };
 
 export default Button;

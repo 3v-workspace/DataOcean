@@ -41,8 +41,11 @@ i18n
     interpolation: {
       escapeValue: false,
       format: (value, format) => {
-        if (format === 'uppercase') {
+        if (format === 'upper') {
           return value.toUpperCase();
+        }
+        if (format === 'lower') {
+          return value.toLowerCase();
         }
         return value;
       },

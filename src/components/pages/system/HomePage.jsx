@@ -19,6 +19,7 @@ const HomePage = ({ history }) => {
   const [apiUsageData, setApiUsageData] = useState({});
   const [topKvedData, setTopKvedData] = useState([]);
   const [topCompanyTypeData, setTopCompanyTypeData] = useState([]);
+  const [project, setProject] = useState({});
 
   const getName = (item) => {
     if (i18n.language === 'uk') {
@@ -194,6 +195,10 @@ const HomePage = ({ history }) => {
       .then((resp) => {
         setTopCompanyTypeData(resp.data.slice(0, 10));
       });
+    Api.get('payment/project/')
+      .then((resp) => {
+        setProject(resp.data.find((projects) => projects.is_default));
+      });
   };
 
   useEffect(() => {
@@ -251,7 +256,7 @@ const HomePage = ({ history }) => {
                   subText="+7"
                   subTextDirection="up"
                   icon={<User className="report-box__icon text-theme-9" />}
-                  onClick={() => history.push('/system/profile/')}
+                  onClick={() => history.push(`/system/profile/projects/${project.id}/`)}
                 />
               </div>
             </div>

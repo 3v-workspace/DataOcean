@@ -1,12 +1,11 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import { ReactRouterPropTypes } from 'utils/prop-types';
 import Route404 from 'components/pages/Route404';
 import DatasetsList from './DatasetsList';
 import KvedList from './kved/KvedList';
 import CompanyUkList from './company/CompanyUkList';
 import CompanyUkrList from './company/CompanyUkrList';
-import CompanyList from './company/CompanyList';
 import StreetList from './street/StreetList';
 import FopList from './company/FopList';
 import PepList from './pep/PepList';
@@ -35,7 +34,8 @@ const DatasetsRoutes = (props) => {
       <Route
         exact
         path={`${match.path}company/`}
-        component={CompanyList}
+        // component={CompanyList}
+        render={() => <Redirect to={`${match.url}/company/ukr/`} />}
       />
       <Route
         exact

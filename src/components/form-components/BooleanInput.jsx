@@ -5,7 +5,7 @@ import { FormikPropType } from 'utils/prop-types';
 const BooleanInput = (props) => {
   const {
     name, label, value, onChange, className, formik,
-    switchStyle, readOnly, onClick,
+    switchStyle, readOnly, onClick, required,
   } = props;
 
   const classNames = ['input border mr-2'];
@@ -28,7 +28,7 @@ const BooleanInput = (props) => {
       />
       {label && (
         <label className="cursor-pointer select-none" htmlFor={`id_${name}`}>
-          {label}
+          {label} {required && <sup className="text-red-500">*</sup>}
         </label>
       )}
     </div>
@@ -45,6 +45,7 @@ BooleanInput.propTypes = {
   switchStyle: PropTypes.bool,
   readOnly: PropTypes.bool,
   onClick: PropTypes.func,
+  required: PropTypes.bool,
 };
 
 BooleanInput.defaultProps = {
@@ -56,6 +57,7 @@ BooleanInput.defaultProps = {
   formik: undefined,
   switchStyle: false,
   onClick: undefined,
+  required: false,
 };
 
 export default BooleanInput;

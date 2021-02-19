@@ -27,10 +27,10 @@ const ChangeInfoBlock = () => {
     },
     validationSchema: Yup.object({
       email: Yup.string().required().email(),
-      first_name: Yup.string().required(),
-      last_name: Yup.string().required(),
-      organization: Yup.string(),
-      position: Yup.string(),
+      first_name: Yup.string().required().min(2),
+      last_name: Yup.string().required().min(2),
+      organization: Yup.string().min(2),
+      position: Yup.string().min(2),
       date_of_birth: Yup.date().nullable(),
     }),
     onSubmit: (values, actions) => {
@@ -51,17 +51,20 @@ const ChangeInfoBlock = () => {
     <TabContentBlock title={t('changeUserInfo')}>
       <Form formik={formik}>
         <TextInput
+          required
           label="Email"
           type="email"
           name="email"
           formik={formik}
         />
         <TextInput
+          required
           label={t('firstName')}
           name="first_name"
           formik={formik}
         />
         <TextInput
+          required
           label={t('lastName')}
           name="last_name"
           formik={formik}

@@ -27,6 +27,7 @@ const PepList = () => {
           'last_job_title',
           'last_employer',
         ]}
+        axiosConfigs={{ useProjectToken: true }}
       />
     </PageBox>
   );

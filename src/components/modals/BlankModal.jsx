@@ -52,9 +52,9 @@ class BlankModal extends Component {
   };
 
   backHide = (e) => {
-    e.stopPropagation();
-    e.preventDefault();
     if (e.target === this.modalRef.current) {
+      e.stopPropagation();
+      e.preventDefault();
       this.setState({ show: false });
     }
   };
@@ -108,7 +108,7 @@ BlankModal.defaultProps = {
   size: 'md',
   headerText: undefined,
   footerContent: undefined,
-  closeButton: false,
+  closeButton: true,
 };
 
 export default BlankModal;

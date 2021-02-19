@@ -1,6 +1,6 @@
 import React from 'react';
 import { Translation } from 'react-i18next';
-import { baseUrl } from 'api';
+import { baseApiUrl } from 'api';
 
 const faqs = [
   {
@@ -137,19 +137,11 @@ const faqs = [
     id: 5,
     question: (
       <Translation>
-        {(t) => `${t('faq.tariffPlans')}`}
-      </Translation>
-    ),
-  },
-  {
-    id: 6,
-    question: (
-      <Translation>
         {(t) => `${t('faq.apiDocumentation')}`}
       </Translation>
     ),
     answer: (
-      <a href={`${baseUrl}/schema/redoc/`}>
+      <a href={`${baseApiUrl}/schema/redoc/`}>
         <Translation>
           {(t) => `${t('faq.answer.linkAPI')}`}
         </Translation>

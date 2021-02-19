@@ -45,6 +45,7 @@ const YesNoModal = React.forwardRef((props, ref) => {
         <Button
           // width="w-24"
           className="px-8"
+          data-dismiss="modal"
           variant={variant === 'warning' ? 'primary' : variant}
           onClick={onYes}
         >
@@ -79,7 +80,7 @@ YesNoModal.defaultProps = {
   onHide: undefined,
   noLabel: undefined,
   yesLabel: undefined,
-  closeButton: false,
+  closeButton: true,
   variant: 'primary',
 };
 
