@@ -2,12 +2,11 @@ import React, { useEffect, useState } from 'react';
 import Api from 'api';
 import { ReactRouterPropTypes } from 'utils/prop-types';
 import {
-  Mail, Settings, User, Clipboard, File,
+  Mail, Settings, User, Clipboard, File, Download,
 } from 'react-feather';
-import { NavLink, Redirect, Route, Switch, Link } from 'react-router-dom';
+import { NavLink, Redirect, Route, Switch } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import download from 'images/icon_download.svg';
 import ProjectsPage from '../payment/ProjectsPage';
 import InvoicesTable from '../payment/InvoicesTable';
 import ProfileSettings from './ProfileSettings';
@@ -63,7 +62,7 @@ const ProfilePage = ({ match }) => {
               target="_blank"
               download
             >
-              <img className="mr-2" src={download} alt="download" />
+              <Download className="mr-2" />
               {t('downloadContract')}
             </a>
           </div>
