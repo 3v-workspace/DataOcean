@@ -7,13 +7,12 @@ import { useTranslation } from 'react-i18next';
 
 const KoatuuList = () => {
   const { t } = useTranslation();
-
   const columns = [
     { header: t('code'), prop: 'code' },
-    { header: t('name'), prop: 'name', render: (value) => (value === 'empty field' ? '' : value) },
-    { header: t('Районна рада'), prop: 'third_level', render: (value) => (value === 'empty field' ? '' : value) },
-    { header: t('district'), prop: 'second_level', render: (value) => (value === 'empty field' ? '' : value) },
-    { header: t('region'), prop: 'first_level', render: (value) => (value === 'empty field' ? '' : value) },
+    { header: t('name'), prop: 'name' },
+    { header: t('третій рівень підпорядкованості'), prop: 'third_level' },
+    { header: t('Другий рівень підпорядкованості'), prop: 'second_level' },
+    { header: t('Перший рівень підпорядкованості'), prop: 'first_level' },
   ];
 
   return (
@@ -21,11 +20,22 @@ const KoatuuList = () => {
       <Table
         columns={columns}
         url="koatuu-fourth-level/"
+        fields={[
+          'id',
+          'code',
+          'name',
+          'third_level',
+          'second_level',
+          'first_level',
+          'fourth-level',
+        ]}
+        axiosConfigs={{ useProjectToken: true }}
+
       />
     </PageBox>
   );
 };
 
-// StreetList.propTypes = {};
+// KoatuuList.propTypes = {};
 
 export default KoatuuList;
