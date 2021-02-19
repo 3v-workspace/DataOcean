@@ -57,7 +57,7 @@ const ProfilePage = ({ match }) => {
             }
           >
             <a
-              className="sm:whitespace-normal flex items-center mr-2 inline-flex font-medium text-lg text-theme-1"
+              className="sm:whitespace-normal flex items-center mr-2 inline-flex text-theme-1"
               href="/docs/Contract.docx"
               target="_blank"
               download
