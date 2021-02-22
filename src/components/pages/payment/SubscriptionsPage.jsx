@@ -4,7 +4,7 @@ import Api, { passErrorsToFormik } from 'api';
 import { useTranslation } from 'react-i18next';
 import {
   Bookmark, Briefcase, CreditCard,
-  DollarSign, Tag, Edit,
+  DollarSign, Tag, Edit, ArrowLeft,
 } from 'react-feather';
 import { Form, Button, TextInput } from 'components/form-components';
 import { ReactRouterPropTypes } from 'utils/prop-types';
@@ -26,7 +26,7 @@ const middleClasses = 'border-b border-t lg:border-b-0 lg:border-t-0 ' +
 
 const SubscriptionsPage = (props) => {
   const { history } = props;
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const user = useSelector((store) => store.user);
   const [subs, setSubs] = useState([]);
   const [projects, setProjects] = useState([]);
@@ -121,6 +121,12 @@ const SubscriptionsPage = (props) => {
         <h2 className="text-lg font-medium mr-auto">
           {t('subscriptions')}
         </h2>
+        {history.location.state?.fromProjects && (
+          <Button onClick={() => history.goBack()} className="bg-opacity-0 text-blue-800 h-2 mt-3">
+            <ArrowLeft className="w-10 h-5" />
+            <span className="underline">{t('returnToTheProject')}</span>
+          </Button>
+        )}
       </div>
       {/*<h2 className="intro-y text-lg font-medium mt-10">*/}
       {/*  {t('subscriptions')}*/}
@@ -241,7 +247,7 @@ const SubscriptionsPage = (props) => {
                   <div>
                     <div className="subscription-price flex justify-center">
                       <div className="relative text-5xl font-semibold mt-8 mx-auto">
-                        {sub.price}
+                        {i18n.language === 'en' ? sub.price.toLocaleString('en') : sub.price}
                         <span className="absolute text-2xl top-0 right-0 text-gray-500 -mr-4 mt-1">₴</span>
                       </div>
                     </div>

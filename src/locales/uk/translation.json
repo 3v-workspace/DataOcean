@@ -62,6 +62,7 @@
   "deactivated": "Деактивований",
   "defaultProject": "Базовий проєкт",
   "delete": "Видалити",
+  "deleteUser": "Видалити користувача",
   "description": "Опис",
   "district": "Район",
   "division": "Розділ",
@@ -188,7 +189,8 @@
     "removeFutureModalHeader": "Ви впевнені, що хочете скасувати вибір тарифного плану {{subName}}?",
     "removeFutureModalMessage": "Ви зможете обрати будь-який інший тарифний план",
     "subscriptionChoiceModalHeader": "Обрати {{name}}?",
-    "subscriptionChoiceModalMessage": "Тарифний план \"{{subscription}}\" буде додано до проєкту \"{{project}}\"."
+    "subscriptionChoiceModalMessage": "Тарифний план \"{{subscription}}\" буде додано до проєкту \"{{project}}\".",
+    "deleteUserModalMessage": "Ви впевнені, що хочете видалити {{name}} з проекту?"
   },
   "pep": "PEP",
   "pepScheme": "Схема PEP",
@@ -206,6 +208,7 @@
   "projectOverview": "Перегляд проєкту",
   "projectOwner": "Власник проєкту",
   "projectUpdated": "Проєкт оновлено",
+  "deleteFromProject": "Видалити з проєкту",
   "projects": "Проєкти",
   "projectsTokens": "Токени проєктів",
   "recoverPassword": "Відновити пароль",
@@ -223,6 +226,7 @@
   "rememberMe": "Запам'ятати мене",
   "reportConstructor": "Конструктор звітів",
   "reports": "Звіти",
+  "returnToTheProject": "Повернутись до проєкту",
   "requests": "Запити",
   "requestsAndViewsTBD": "Кількість переглядів та кількість запитів - за домовленістю",
   "requestsLeft": "Запитів залишилось",
@@ -262,6 +266,7 @@
   "usedInProject": "Використовується в проєкті \"{{project}}\"",
   "userActivated": "Користувача активовано",
   "userDeactivated": "Користувача деактивовано",
+  "userDeleted": "Користувача видалено з проекту",
   "userInformation": "Інформація про користувача",
   "userInvited": "Користувача запрошено",
   "users": "Користувачі",
@@ -277,5 +282,7 @@
   "year": "Рік",
   "yes": "Так",
   "yourQuestionIsSent": "Ваше запитання надіслано!",
-  "yourRequestHasBeenSentWeWillContactYou": "Ваш запит надіслано. Ми звяжемось з Вами."
+  "yourRequestHasBeenSentWeWillContactYou": "Ваш запит надіслано. Ми звяжемось з Вами.",
+  "informationMessage": "Інформаційне повідомлення",
+  "warning": "Попередження"
 }
