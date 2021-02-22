@@ -29,21 +29,9 @@ const HomePage = ({ history }) => {
   const [fopCount, setFopCount] = useState('');
   const [companyCount, setCompanyCount] = useState('');
   const [apiUsageData, setApiUsageData] = useState({});
-  const [topKvedData, setTopKvedData] = useState([]);
-  const [topCompanyTypeData, setTopCompanyTypeData] = useState([]);
   const [project, setProject] = useState({});
 
   const [visibleChart, setVisibleChart] = useState(chartsTypes.KVED);
-
-  const getName = (item) => {
-    if (i18n.language === 'uk') {
-      return upFirstLetter(item.name || item.name_eng);
-    }
-    if (i18n.language === 'en') {
-      return upFirstLetter(item.name_eng || item.name);
-    }
-    return '---';
-  };
 
   const initApiUsageChart = () => {
     const labels = apiUsageData.days.map((el) => moment(el.timestamp).format('DD.MM'));
@@ -101,79 +89,6 @@ const HomePage = ({ history }) => {
     }
   };
 
-  const initTopKvedPie = () => {
-    const labels = topKvedData.map((el) => el.kved.code);
-    const data = topKvedData.map((el) => el.count_companies_with_kved);
-
-    if ($('#top-kved-chart').length) {
-      const ctx = $('#top-kved-chart')[0].getContext('2d');
-      new Chart(ctx, {
-        type: 'pie',
-        data: {
-          labels,
-          datasets: [{
-            data,
-            backgroundColor: [
-              '#FF8B26', '#FFC533', '#285FD3', '#003c5c', '#33477a',
-              '#6a4d8d', '#6a4d8d', '#d54e82', '#f85c66', '#ff7c41',
-            ],
-            hoverBackgroundColor: ['#FF8B26', '#FFC533', '#285FD3'],
-            borderWidth: 2,
-            borderColor: '#fff',
-          }],
-        },
-        options: {
-          legend: {
-            display: false,
-          },
-        },
-      });
-    }
-  };
-
-  const initTopCompanyTypesPie = () => {
-    const labels = topCompanyTypeData.map((el) => getName(el));
-    const data = topCompanyTypeData.map((el) => el.count_companies);
-
-    if ($('#top-company-chart').length) {
-      const ctx = $('#top-company-chart')[0].getContext('2d');
-      new Chart(ctx, {
-        type: 'pie',
-        data: {
-          labels,
-          datasets: [{
-            data,
-            backgroundColor: [
-              '#FF8B26', '#FFC533', '#285FD3', '#003c5c', '#33477a',
-              '#6a4d8d', '#6a4d8d', '#d54e82', '#f85c66', '#ff7c41',
-            ],
-            hoverBackgroundColor: ['#FF8B26', '#FFC533', '#285FD3'],
-            borderWidth: 2,
-            borderColor: '#fff',
-          }],
-        },
-        options: {
-          legend: {
-            display: false,
-          },
-          //cutoutPercentage: 60,
-        },
-      });
-    }
-  };
-
-  useEffect(() => {
-    if (topCompanyTypeData.length) {
-      initTopCompanyTypesPie();
-    }
-  }, [topCompanyTypeData]);
-
-  useEffect(() => {
-    if (topKvedData.length) {
-      initTopKvedPie();
-    }
-  }, [topKvedData]);
-
   useEffect(() => {
     if (Object.keys(apiUsageData).length) {
       initApiUsageChart();
@@ -200,14 +115,6 @@ const HomePage = ({ history }) => {
     Api.get('stats/api-usage/me/')
       .then((resp) => {
         setApiUsageData(resp.data);
-      });
-    Api.get('stats/top-kved/')
-      .then((resp) => {
-        setTopKvedData(resp.data.filter((el) => el.kved.code !== 'not_valid'));
-      });
-    Api.get('stats/count-company-type/')
-      .then((resp) => {
-        setTopCompanyTypeData(resp.data.slice(0, 10));
       });
     Api.get('payment/project/')
       .then((resp) => {
