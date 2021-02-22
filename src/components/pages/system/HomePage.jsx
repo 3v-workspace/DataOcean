@@ -9,6 +9,18 @@ import PieChartLegend from 'components/pages/dashboard/PieChartLegend';
 import { useTranslation } from 'react-i18next';
 import { upFirstLetter } from 'utils';
 import { ReactRouterPropTypes } from 'utils/prop-types';
+import KvedChart from 'components/pages/dashboard/KvedChart';
+import CompanyChart from 'components/pages/dashboard/CompanyChart';
+
+const chartsTypes = {
+  KVED: 'KVED',
+  COMPANY: 'COMPANY',
+};
+
+const charts = {
+  [chartsTypes.KVED]: <KvedChart />,
+  [chartsTypes.COMPANY]: <CompanyChart />,
+};
 
 const HomePage = ({ history }) => {
   const { t, i18n } = useTranslation();
@@ -20,6 +32,8 @@ const HomePage = ({ history }) => {
   const [topKvedData, setTopKvedData] = useState([]);
   const [topCompanyTypeData, setTopCompanyTypeData] = useState([]);
   const [project, setProject] = useState({});
+
+  const [visibleChart, setVisibleChart] = useState(chartsTypes.KVED);
 
   const getName = (item) => {
     if (i18n.language === 'uk') {
@@ -300,39 +314,29 @@ const HomePage = ({ history }) => {
             </div>
           </div>
 
-
-          <div className="col-span-12 sm:col-span-6 lg:col-span-3 mt-8">
-            <div className="intro-y flex items-center h-10">
-              <h2 className="text-lg font-medium truncate mr-5">
-                {t('topKveds')}
-              </h2>
-              {/*<a href="#" className="ml-auto text-theme-1 truncate">{t('all')}</a>*/}
-            </div>
-            <div className="intro-y box p-5 mt-5">
-              <canvas className="mt-3" id="top-kved-chart" height="280" />
-              <PieChartLegend
-                items={topKvedData.map((el) => ({
-                  label: `${el.kved.code}  ${upFirstLetter(el.kved.name)}`,
-                  value: el.count_companies_with_kved,
-                }))}
-              />
-            </div>
-          </div>
-          <div className="col-span-12 sm:col-span-6 lg:col-span-3 mt-8">
-            <div className="intro-y flex items-center h-10">
-              <h2 className="text-lg font-medium truncate mr-5">
-                {t('companyTypes')}
-              </h2>
-              {/*<a href="#" className="ml-auto text-theme-1 truncate">{t('all')}</a>*/}
-            </div>
-            <div className="intro-y box p-5 mt-5">
-              <canvas className="mt-3" id="top-company-chart" height="280" />
-              <PieChartLegend
-                items={topCompanyTypeData.map((el) => ({
-                  label: getName(el),
-                  value: el.count_companies,
-                }))}
-              />
+          <div className="col-span-12 lg:col-span-6 mt-8">
+            <div>
+              <div className="row intro-y flex items-center h-10 cursor-pointer">
+                <div
+                  className={`${visibleChart === chartsTypes.KVED ? 'px-4 pt-4 pb-8 mt-8 bg-white active' : 'px-4 pt-4 pb-8 mt-8'}`}
+                  onClick={() => setVisibleChart(chartsTypes.KVED)}
+                >
+                  <h2 className="text-lg font-medium">
+                    {t('topKveds')}
+                  </h2>
+                </div>
+                <div
+                  className={`${visibleChart === chartsTypes.COMPANY ? 'px-4 pt-4 pb-8 mt-8 bg-white active' : 'px-4 pt-4 pb-8 mt-8 '}`}
+                  onClick={() => setVisibleChart(chartsTypes.COMPANY)}
+                >
+                  <h2 className="text-lg font-medium">
+                    {t('topCompanies')}
+                  </h2>
+                </div>
+              </div>
+              <div>
+                {charts[visibleChart]}
+              </div>
             </div>
           </div>
           {/*<UnusedSections />*/}
