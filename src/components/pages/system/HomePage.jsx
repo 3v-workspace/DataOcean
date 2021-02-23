@@ -225,7 +225,7 @@ const HomePage = ({ history }) => {
             <div>
               <div className="row intro-y flex items-center h-10 cursor-pointer">
                 <div
-                  className={`${visibleChart === chartsTypes.KVED ? 'px-4 pt-4 pb-8 mt-8 bg-white active' : 'px-4 pt-4 pb-8 mt-8'}`}
+                  className={`${visibleChart === chartsTypes.KVED ? 'px-4 pt-4 pb-4 mt-4 bg-white active' : 'px-4 pt-4 pb-4 mt-4'}`}
                   onClick={() => setVisibleChart(chartsTypes.KVED)}
                 >
                   <h2 className="text-lg font-medium">
@@ -233,7 +233,7 @@ const HomePage = ({ history }) => {
                   </h2>
                 </div>
                 <div
-                  className={`${visibleChart === chartsTypes.COMPANY ? 'px-4 pt-4 pb-8 mt-8 bg-white active' : 'px-4 pt-4 pb-8 mt-8 '}`}
+                  className={`${visibleChart === chartsTypes.COMPANY ? 'px-4 pt-4 pb-4 mt-4 bg-white active' : 'px-4 pt-4 pb-4 mt-4 '}`}
                   onClick={() => setVisibleChart(chartsTypes.COMPANY)}
                 >
                   <h2 className="text-lg font-medium">
