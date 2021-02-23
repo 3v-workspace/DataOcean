@@ -9,6 +9,18 @@ import PieChartLegend from 'components/pages/dashboard/PieChartLegend';
 import { useTranslation } from 'react-i18next';
 import { upFirstLetter } from 'utils';
 import { ReactRouterPropTypes } from 'utils/prop-types';
+import KvedChart from 'components/pages/dashboard/KvedChart';
+import CompanyChart from 'components/pages/dashboard/CompanyChart';
+
+const chartsTypes = {
+  KVED: 'KVED',
+  COMPANY: 'COMPANY',
+};
+
+const charts = {
+  [chartsTypes.KVED]: <KvedChart />,
+  [chartsTypes.COMPANY]: <CompanyChart />,
+};
 
 const HomePage = ({ history }) => {
   const { t, i18n } = useTranslation();
@@ -17,19 +29,9 @@ const HomePage = ({ history }) => {
   const [fopCount, setFopCount] = useState('');
   const [companyCount, setCompanyCount] = useState('');
   const [apiUsageData, setApiUsageData] = useState({});
-  const [topKvedData, setTopKvedData] = useState([]);
-  const [topCompanyTypeData, setTopCompanyTypeData] = useState([]);
   const [project, setProject] = useState({});
 
-  const getName = (item) => {
-    if (i18n.language === 'uk') {
-      return upFirstLetter(item.name || item.name_eng);
-    }
-    if (i18n.language === 'en') {
-      return upFirstLetter(item.name_eng || item.name);
-    }
-    return '---';
-  };
+  const [visibleChart, setVisibleChart] = useState(chartsTypes.KVED);
 
   const initApiUsageChart = () => {
     const labels = apiUsageData.days.map((el) => moment(el.timestamp).format('DD.MM'));
@@ -87,79 +89,6 @@ const HomePage = ({ history }) => {
     }
   };
 
-  const initTopKvedPie = () => {
-    const labels = topKvedData.map((el) => el.kved.code);
-    const data = topKvedData.map((el) => el.count_companies_with_kved);
-
-    if ($('#top-kved-chart').length) {
-      const ctx = $('#top-kved-chart')[0].getContext('2d');
-      new Chart(ctx, {
-        type: 'pie',
-        data: {
-          labels,
-          datasets: [{
-            data,
-            backgroundColor: [
-              '#FF8B26', '#FFC533', '#285FD3', '#003c5c', '#33477a',
-              '#6a4d8d', '#6a4d8d', '#d54e82', '#f85c66', '#ff7c41',
-            ],
-            hoverBackgroundColor: ['#FF8B26', '#FFC533', '#285FD3'],
-            borderWidth: 2,
-            borderColor: '#fff',
-          }],
-        },
-        options: {
-          legend: {
-            display: false,
-          },
-        },
-      });
-    }
-  };
-
-  const initTopCompanyTypesPie = () => {
-    const labels = topCompanyTypeData.map((el) => getName(el));
-    const data = topCompanyTypeData.map((el) => el.count_companies);
-
-    if ($('#top-company-chart').length) {
-      const ctx = $('#top-company-chart')[0].getContext('2d');
-      new Chart(ctx, {
-        type: 'pie',
-        data: {
-          labels,
-          datasets: [{
-            data,
-            backgroundColor: [
-              '#FF8B26', '#FFC533', '#285FD3', '#003c5c', '#33477a',
-              '#6a4d8d', '#6a4d8d', '#d54e82', '#f85c66', '#ff7c41',
-            ],
-            hoverBackgroundColor: ['#FF8B26', '#FFC533', '#285FD3'],
-            borderWidth: 2,
-            borderColor: '#fff',
-          }],
-        },
-        options: {
-          legend: {
-            display: false,
-          },
-          //cutoutPercentage: 60,
-        },
-      });
-    }
-  };
-
-  useEffect(() => {
-    if (topCompanyTypeData.length) {
-      initTopCompanyTypesPie();
-    }
-  }, [topCompanyTypeData]);
-
-  useEffect(() => {
-    if (topKvedData.length) {
-      initTopKvedPie();
-    }
-  }, [topKvedData]);
-
   useEffect(() => {
     if (Object.keys(apiUsageData).length) {
       initApiUsageChart();
@@ -186,14 +115,6 @@ const HomePage = ({ history }) => {
     Api.get('stats/api-usage/me/')
       .then((resp) => {
         setApiUsageData(resp.data);
-      });
-    Api.get('stats/top-kved/')
-      .then((resp) => {
-        setTopKvedData(resp.data.filter((el) => el.kved.code !== 'not_valid'));
-      });
-    Api.get('stats/count-company-type/')
-      .then((resp) => {
-        setTopCompanyTypeData(resp.data.slice(0, 10));
       });
     Api.get('payment/project/')
       .then((resp) => {
@@ -300,39 +221,29 @@ const HomePage = ({ history }) => {
             </div>
           </div>
 
-
-          <div className="col-span-12 sm:col-span-6 lg:col-span-3 mt-8">
-            <div className="intro-y flex items-center h-10">
-              <h2 className="text-lg font-medium truncate mr-5">
-                {t('topKveds')}
-              </h2>
-              {/*<a href="#" className="ml-auto text-theme-1 truncate">{t('all')}</a>*/}
-            </div>
-            <div className="intro-y box p-5 mt-5">
-              <canvas className="mt-3" id="top-kved-chart" height="280" />
-              <PieChartLegend
-                items={topKvedData.map((el) => ({
-                  label: `${el.kved.code}  ${upFirstLetter(el.kved.name)}`,
-                  value: el.count_companies_with_kved,
-                }))}
-              />
-            </div>
-          </div>
-          <div className="col-span-12 sm:col-span-6 lg:col-span-3 mt-8">
-            <div className="intro-y flex items-center h-10">
-              <h2 className="text-lg font-medium truncate mr-5">
-                {t('companyTypes')}
-              </h2>
-              {/*<a href="#" className="ml-auto text-theme-1 truncate">{t('all')}</a>*/}
-            </div>
-            <div className="intro-y box p-5 mt-5">
-              <canvas className="mt-3" id="top-company-chart" height="280" />
-              <PieChartLegend
-                items={topCompanyTypeData.map((el) => ({
-                  label: getName(el),
-                  value: el.count_companies,
-                }))}
-              />
+          <div className="col-span-12 lg:col-span-6 mt-8">
+            <div>
+              <div className="row intro-y flex items-center h-10 cursor-pointer">
+                <div
+                  className={`${visibleChart === chartsTypes.KVED ? 'px-4 pt-4 pb-8 mt-8 bg-white active' : 'px-4 pt-4 pb-8 mt-8'}`}
+                  onClick={() => setVisibleChart(chartsTypes.KVED)}
+                >
+                  <h2 className="text-lg font-medium">
+                    {t('topKveds')}
+                  </h2>
+                </div>
+                <div
+                  className={`${visibleChart === chartsTypes.COMPANY ? 'px-4 pt-4 pb-8 mt-8 bg-white active' : 'px-4 pt-4 pb-8 mt-8 '}`}
+                  onClick={() => setVisibleChart(chartsTypes.COMPANY)}
+                >
+                  <h2 className="text-lg font-medium">
+                    {t('topCompanies')}
+                  </h2>
+                </div>
+              </div>
+              <div>
+                {charts[visibleChart]}
+              </div>
             </div>
           </div>
           {/*<UnusedSections />*/}
