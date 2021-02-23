@@ -249,7 +249,6 @@ const SubscriptionsPage = (props) => {
                       <div className="relative text-5xl font-semibold mt-8 mx-auto">
                         {i18n.language === 'en' ? sub.price.toLocaleString('en') : sub.price}
                         <span className="contents align-top text-2xl text-gray-500">₴/{t('abbreviationMonth')}</span>
-                        {/* -mr-4 mt-1 top-0 right-0 */}
                       </div>
                     </div>
                     <Button
