@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 
 const Pagination = (props) => {
   const { t } = useTranslation();
-  const { tableController: tc } = props;
+  const { tableController: tc, showCountEntries } = props;
 
   const prevPage = () => {
     if (tc.page > 1) {
@@ -102,13 +102,15 @@ const Pagination = (props) => {
           </button>
         </li>
       </ul>
-      <div className="hidden md:block text-gray-600">
-        {t('showingToOfEntries', {
-          first: tc.itemsIndexes.first,
-          last: tc.itemsIndexes.last,
-          count: tc.count,
-        })}
-      </div>
+      {showCountEntries || (
+        <div className="hidden md:block text-gray-600">
+          {t('showingToOfEntries', {
+            first: tc.itemsIndexes.first,
+            last: tc.itemsIndexes.last,
+            count: tc.count,
+          })}
+        </div>
+      )}
       <select
         onChange={handleChangePageSize}
         value={tc.pageSize}
@@ -125,6 +127,11 @@ const Pagination = (props) => {
 
 Pagination.propTypes = {
   tableController: PropTypes.object.isRequired,
+  showCountEntries: PropTypes.bool,
+};
+
+Pagination.defaultProps = {
+  showCountEntries: false,
 };
 
 export default Pagination;

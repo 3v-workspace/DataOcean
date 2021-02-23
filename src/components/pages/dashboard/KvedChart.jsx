@@ -7,7 +7,7 @@ const KvedChart = () => {
   const [topKvedData, setTopKvedData] = useState([]);
 
   const initTopKvedPie = () => {
-    const labels = topKvedData.map((el) => el.kved.code);
+    const labels = topKvedData.map((el) => el.kved.name);
     const data = topKvedData.map((el) => el.count_companies_with_kved);
 
     if ($('#top-kved-chart').length) {

@@ -25,9 +25,16 @@ const DatasetsList = ({ match, history }) => {
 
   return (
     <>
-      {/*<h2 className="intro-y text-lg font-medium mt-10">*/}
-      {/*  {t('datasets')}*/}
-      {/*</h2>*/}
+      <h2 className="intro-y text-lg font-medium mt-10">
+        {t('datasets')}
+      </h2>
+      <div className="text-gray-600 flex justify-end mt-4">
+        {t('showingToOfEntries', {
+          first: tc.itemsIndexes.first,
+          last: tc.itemsIndexes.last,
+          count: tc.count,
+        })}
+      </div>
       <div className="grid grid-cols-12 gap-6 mt-5">
         {/*<div className="intro-y col-span-12 flex flex-wrap sm:flex-no-wrap items-center mt-2">*/}
         {/*<Tooltip content={`${t('inDevelopment')}...`}>*/}
@@ -47,29 +54,29 @@ const DatasetsList = ({ match, history }) => {
         {/*    </span>*/}
         {/*  </button>*/}
         {/*</div>*/}
-        {/*<div className="hidden md:block ml-auto text-gray-600">*/}
-        {/*  {t('showingToOfEntries', {*/}
-        {/*    first: tc.itemsIndexes.first,*/}
-        {/*    last: tc.itemsIndexes.last,*/}
-        {/*    count: tc.count,*/}
-        {/*  })}*/}
-        {/*</div>*/}
+        {/* <div className="text-gray-600"> */}
+        {/* {t('showingToOfEntries', { */}
+        {/* first: tc.itemsIndexes.first, */}
+        {/* last: tc.itemsIndexes.last, */}
+        {/* count: tc.count, */}
+        {/* })} */}
+        {/* </div>  */}
         {/*<div className="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">*/}
         {/*  <SearchBox containerClass="w-56 relative text-gray-700" onSearch={onSearch} />*/}
         {/*</div>*/}
         {/*</div>*/}
-        <Pagination tableController={tc} />
+        {/* <Pagination tableController={tc} /> */}
         {/*BEGIN: Data List*/}
         <div className="intro-y col-span-12 overflow-auto lg:overflow-visible">
           <table className="table table-report -mt-2">
-            <thead>
+            <thead className="text-white" style={{ backgroundColor: '#436986' }}>
               <tr>
                 <th className="whitespace-no-wrap">ID</th>
                 <th className="whitespace-no-wrap">{t('datasetName')}</th>
                 <th className="text-center whitespace-no-wrap">{t('lastUpdated')}</th>
-                <th className="text-center whitespace-no-wrap">{t('status')}</th>
+                {/* <th className="text-center whitespace-no-wrap">{t('status')}</th>
                 <th className="text-center whitespace-no-wrap">{t('totalRecords')}</th>
-                <th className="text-center whitespace-no-wrap">{t('tools')}</th>
+                <th className="text-center whitespace-no-wrap">{t('tools')}</th> */}
               </tr>
             </thead>
             <tbody>
@@ -92,7 +99,7 @@ const DatasetsList = ({ match, history }) => {
                   <td className="text-center">
                     {dateFormat(item.updated_at)}
                   </td>
-                  <td className="text-center">
+                  {/* <td className="text-center">
                     {item.status}
                   </td>
                   <td className="text-center">
@@ -101,12 +108,13 @@ const DatasetsList = ({ match, history }) => {
                   <td className="table-report__action w-56">
                     <div className="flex justify-center items-center">
                       {item.api_list in datasets ? (
-                        <Link to={`${match.url}${item.api_list.replace(/^\/api\//, '')}`} className="flex items-center mr-3 text-theme-1">
+                        <Link to={`${match.url}${item.api_list.replace(/^\/api\//, '')}`}
+                        className="flex items-center mr-3 text-theme-1">
                           <Eye className="w-4 h-4 mr-1 mb-1" /> {t('view')}
                         </Link>
                       ) : '---'}
                     </div>
-                  </td>
+                  </td> */}
                 </tr>
               ))}
             </tbody>
@@ -114,7 +122,7 @@ const DatasetsList = ({ match, history }) => {
         </div>
         {/* END: Data List */}
         {/* BEGIN: Pagination */}
-        <Pagination tableController={tc} />
+        <Pagination tableController={tc} showCountEntries />
         {/* END: Pagination */}
       </div>
     </>
