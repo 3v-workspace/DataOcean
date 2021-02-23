@@ -67,6 +67,7 @@
   "description": "Description",
   "district": "District",
   "division": "Division",
+  "downloadContract": "Download contract",
   "edit": "Edit",
   "editProject": "Edit project",
   "edrpou": "EDRPOU",
