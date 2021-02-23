@@ -248,7 +248,7 @@ const SubscriptionsPage = (props) => {
                     <div className="subscription-price flex justify-center">
                       <div className="relative text-5xl font-semibold mt-8 mx-auto">
                         {i18n.language === 'en' ? sub.price.toLocaleString('en') : sub.price}
-                        <span className="absolute text-2xl top-0 right-0 text-gray-500 -mr-4 mt-1">₴</span>
+                        <span className="contents align-top text-2xl text-gray-500">₴/{t('abbreviationMonth')}</span>
                       </div>
                     </div>
                     <Button
