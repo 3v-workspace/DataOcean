@@ -10,9 +10,9 @@ const KoatuuList = () => {
   const columns = [
     { header: t('code'), prop: 'code' },
     { header: t('name'), prop: 'name' },
-    { header: t('Третій рівень підпорядкованості'), prop: 'third_level' },
-    { header: t('Другий рівень підпорядкованості'), prop: 'second_level' },
-    { header: t('Перший рівень підпорядкованості'), prop: 'first_level' },
+    { header: t('koatuuThirdLevel'), prop: 'third_level' },
+    { header: t('koatuuSecondLevel'), prop: 'second_level' },
+    { header: t('koatuuFirstLevel'), prop: 'first_level' },
   ];
 
   return (
