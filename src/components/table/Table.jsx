@@ -64,7 +64,7 @@ const Table = (props) => {
           </div>
         )}
         <table className="table">
-          <thead>
+          <thead className="text-white" style={{ backgroundColor: '#436986' }}>
             <tr>
               {columns.map((col) => (
                 <th
