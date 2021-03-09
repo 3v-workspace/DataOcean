@@ -27,8 +27,8 @@ const ChangeInfoBlock = () => {
     },
     validationSchema: Yup.object({
       email: Yup.string().required().email(),
-      first_name: Yup.string().required().min(2),
-      last_name: Yup.string().required().min(2),
+      first_name: Yup.string().name().required().min(2),
+      last_name: Yup.string().name().required().min(2),
       organization: Yup.string().min(2),
       position: Yup.string().min(2),
       date_of_birth: Yup.date().nullable(),

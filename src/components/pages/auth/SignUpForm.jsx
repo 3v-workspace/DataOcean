@@ -77,17 +77,11 @@ const SignUpForm = () => {
       if (!values.accept_policy) {
         errors.accept_policy = t('acceptPolicyError');
       }
-      if (!first_name.match(/^[A-Za-zА-ЯҐЄІЇа-яґєії'`-]*$/)) {
-        errors.first_name = t('onlyLetters');
-      }
-      if (!last_name.match(/^[A-Za-zА-ЯҐЄІЇа-яґєії'`-]*$/)) {
-        errors.last_name = t('onlyLetters');
-      }
       return errors;
     },
     validationSchema: Yup.object({
-      first_name: Yup.string().required().min(2),
-      last_name: Yup.string().required().min(2),
+      first_name: Yup.string().name().required().min(2),
+      last_name: Yup.string().name().required().min(2),
       email: Yup.string().required().email(),
       password1: Yup.string().required().min(6),
       password2: Yup.string().required().min(6),

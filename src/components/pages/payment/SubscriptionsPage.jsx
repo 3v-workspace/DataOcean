@@ -49,8 +49,8 @@ const SubscriptionsPage = (props) => {
       note: '',
     },
     validationSchema: Yup.object({
-      first_name: Yup.string().required().min(2),
-      last_name: Yup.string().required().min(2),
+      first_name: Yup.string().name().required().min(2),
+      last_name: Yup.string().name().required().min(2),
       email: Yup.string().required().email(),
       phone: Yup.string().max(15),
       note: Yup.string(),
