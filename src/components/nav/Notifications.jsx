@@ -98,8 +98,9 @@ const Notifications = () => {
                 key={i}
                 className={
                   `${alert.link ? 'cursor-pointer' : ''} ` +
-                  'relative flex items-center text-theme-6'
+                  'relative flex items-center text-theme-6 hover:bg-gray-200'
                 }
+                style={{ minHeight: 60 }}
               >
                 <div className="bg-theme-6 self-stretch w-2" />
                 <div
@@ -108,8 +109,8 @@ const Notifications = () => {
                 >
                   {alert.message}
                 </div>
-                <div className="w-12 h-12 flex-none mr-1 ml-3">
-                  <AlertCircle className="w-10 h-10" />
+                <div className="w-12 h-12 flex-none flex justify-center items-center mr-1 ml-3">
+                  <AlertCircle className="w-8 h-8" />
                 </div>
               </div>
             ))}

@@ -26,7 +26,7 @@ const faqs = [
             <div>
               {t('faq.answer.q1FinalTitle')}
               <em className="block">
-                Authorization: Token 94c6d542af1c4c4942e51df6с4d47fbd12fb3dea
+                Authorization: DataOcean 94c6d542af1c4c4942e51df6с4d47fbd12fb3dea
               </em>
             </div>
           </>
@@ -54,7 +54,7 @@ const faqs = [
               </div>
               <div>
                 <em className="block">
-                  Authorization: Token {'<your_token>'}
+                  Authorization: DataOcean {'<your_token>'}
                 </em>
               </div>
             </div>
