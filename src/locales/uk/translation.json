@@ -160,6 +160,7 @@
   "numberOfSoleProprietors": "Кількість ФОП",
   "numberOfUsers": "Кількість користувачів",
   "oldPassword": "Старий пароль",
+  "onlyLettersAndSpecialSymbols": "Може містити тільки літери та деякі символи ( ` . ' - ).",
   "organization": "Організація",
   "ourEmail": "Наша електронна пошта",
   "overdueDays": "Прострочено {{days}} дні(в)",

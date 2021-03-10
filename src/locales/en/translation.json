@@ -160,6 +160,7 @@
   "numberOfSoleProprietors": "Number of sole proprietors",
   "numberOfUsers": "Number of users",
   "oldPassword": "Old password",
+  "onlyLettersAndSpecialSymbols": "Can only contain letters and some symbols ( ` . ' - ).",
   "organization": "Organization",
   "ourEmail": "Our email",
   "overdueDays": "Overdue {{days}} day(s)",
