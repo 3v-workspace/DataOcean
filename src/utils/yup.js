@@ -43,7 +43,6 @@ export const getPasswordLevel = (password) => {
   return level;
 };
 
-//added validation method for name spaces in forms Litsyshyn (03.2021)
 const validNameRegex = /^[A-Za-zА-ЯҐЄІЇа-яґєії'`.-]*$/;
 
 Yup.addMethod(Yup.string, 'name', function () {

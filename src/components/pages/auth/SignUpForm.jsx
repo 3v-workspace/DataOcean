@@ -61,7 +61,7 @@ const SignUpForm = () => {
     },
     validate: (values) => {
       const errors = {};
-      const { password1, password2, first_name, last_name } = values;
+      const { password1, password2 } = values;
       if (password1) {
         const level = getPasswordLevel(password1);
         if (level < 2) {
