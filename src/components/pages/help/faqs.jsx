@@ -17,11 +17,11 @@ const faqs = [
         {(t) => (
           <>
             <div>
-              {`${t('faq.answer.q1DOWorksWithPublicData')}\n`}
+              {`${t('faq.answer.q1DOWorksWithPublicData')} `}
               <Link to="/system/datasets/" className="text-theme-1 font-normal">
                 {t('theListOfDatasets')}
               </Link>
-              {`\n${t('faq.answer.q1constantlyUpgrated')}`}
+              {` ${t('faq.answer.q1constantlyUpgrated')}`}
             </div>
             <div>
               {t('faq.answer.q1GuaranteeCompliance')}
@@ -43,7 +43,7 @@ const faqs = [
         {(t) => (
           <>
             <div>
-              {`${t('faq.answer.q2')}\n`}
+              {`${t('faq.answer.q2')} `}
               <Link to="/system/subscriptions/" className="text-theme-1 font-normal">
                 {`${t('faq.answer.tariffs')}.`}
               </Link>
@@ -67,7 +67,7 @@ const faqs = [
             <div>
               {t('faq.answer.q3InfoContainedInTheRegister')}
               <a href={`https://pep.org.ua/${i18n.language}/article/6`} className="text-theme-1 font-normal" target="_blank">
-                {`\n${t('faq.answer.sources')}.`}
+                {` ${t('faq.answer.sources')}.`}
               </a>
             </div>
             <div>
@@ -86,9 +86,9 @@ const faqs = [
           <>
             <div>
               <a className="text-theme-1" href={`https://pep.org.ua/${i18n.language}/`} target="_blank">Pep.org.ua</a>
-              {`\n${t('and')}\n`}
+              {` ${t('and')} `}
               <a className="text-theme-1" href={`${process.env.REACT_APP_LANDING_URL}pep/?lang=${i18n.language}`} target="_blank">Data Ocean</a>
-              {`\n${t('faq.differentRegisters')}`}
+              {` ${t('faq.differentRegisters')}`}
             </div>
           </>
         )}
@@ -105,7 +105,7 @@ const faqs = [
               {t('faq.answer.q4ProceedsFromTheSale')}
             </div>
             <div>
-              {`${t('faq.answer.q4InAdditionToPEPRegistry')}\n`}
+              {`${t('faq.answer.q4InAdditionToPEPRegistry')} `}
               <Link to="/system/datasets/" className="text-theme-1">
                 {`${t('datasets').toLowerCase()}.`}
               </Link>
@@ -151,7 +151,7 @@ const faqs = [
             <div>
               {t('faq.answer.q6')}
               <Link to="/system/subscriptions/" className="text-theme-1">
-                {`\nBasic+ ${t('tariff')}.`}
+                {` Basic+ ${t('tariff')}.`}
               </Link>
             </div>
           </>
@@ -173,11 +173,11 @@ const faqs = [
             <div>
               {t('faq.answer.q7OnTheTab')}
               <Link to="/system/api/" className="text-theme-1">
-                {'\nAPI\n'}
+                {' API '}
               </Link>
-              {`${t('and')}\n${t('faq.answer.q7InTheUserProfile')}`}
+              {`${t('and')} ${t('faq.answer.q7InTheUserProfile')}`}
               <Link to="/system/profile/projects/" className="text-theme-1">
-                {`\n"${t('projects')}".\n`}
+                {` "${t('projects')}". `}
               </Link>
               {t('faq.answer.q7AccessToken')}
               <mark className="p-1 bg-gray-200">
@@ -251,11 +251,11 @@ const faqs = [
               <div className="pr-12">
                 {`${t('faq.answer.q10CorrectToken')}${t('faq.answer.q7OnTheTab').toLowerCase()}`}
                 <Link to="/system/api/" className="text-theme-1">
-                  {'\nAPI\n'}
+                  {' API '}
                 </Link>
-                {`${t('and')}\n${t('faq.answer.q7InTheUserProfile')}`}
+                {`${t('and')} ${t('faq.answer.q7InTheUserProfile')}`}
                 <Link to="/system/profile/projects/" className="text-theme-1">
-                  {`\n"${t('projects')}".\n`}
+                  {` "${t('projects')}". `}
                 </Link>
               </div>
               <div>
@@ -356,7 +356,7 @@ const faqs = [
             <div>
               {t('faq.answer.q13SelectingPaidTariff')}
               <Link to="/system/profile/projects/" className="text-theme-1">
-                {`\n"${t('projects')}".`}
+                {` "${t('projects')}".`}
               </Link>
             </div>
             <div>
@@ -379,7 +379,7 @@ const faqs = [
         {(t) => (
           <>
             <div>
-              {`${t('faq.answer.docAPI')}\n`}
+              {`${t('faq.answer.docAPI')} `}
               <a className="text-theme-1" href={`${baseApiUrl}/schema/redoc/`}>{`${t('byLink')}`}</a>
             </div>
           </>
