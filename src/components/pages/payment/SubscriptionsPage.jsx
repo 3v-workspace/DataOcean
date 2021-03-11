@@ -305,9 +305,9 @@ const SubscriptionsPage = (props) => {
           </div>
         </div>
       </div>
-      <div className="intro-y flex justify-end mt-4 mr-4">
-        <h3>*{t('abbreviationMonth')} = 30 {t('days')}</h3>
-      </div>
+      {/*<div className="intro-y flex justify-end mt-4 mr-4">*/}
+      {/*  <h3>*{t('abbreviationMonth')} = 30 {t('days')}</h3>*/}
+      {/*</div>*/}
     </div>
   );
 };
