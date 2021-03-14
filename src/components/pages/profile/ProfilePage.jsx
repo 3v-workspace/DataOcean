@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Api from 'api';
 import { ReactRouterPropTypes } from 'utils/prop-types';
 import {
-  Mail, Settings, User, Clipboard, File,
+  Mail, Settings, User, Clipboard, File, Download,
 } from 'react-feather';
 import { NavLink, Redirect, Route, Switch } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -43,19 +43,28 @@ const ProfilePage = ({ match }) => {
               <div className="sm:w-40 truncate sm:whitespace-normal font-medium text-lg">
                 {user.first_name} {user.last_name}
               </div>
+              <div className="truncate sm:whitespace-normal flex items-center">
+                <Mail className="w-4 h-4 mr-2" /> {user.email}
+              </div>
               {user.organization && <div className="text-gray-600">{user.organization}</div>}
               {user.position && <div className="text-gray-600">{user.position}</div>}
             </div>
           </div>
           <div
             className={
-              'flex mt-6 lg:mt-0 items-center lg:items-start flex-1 flex-col justify-center ' +
+              'flex mt-6 lg:mt-0 items-center lg:items-center flex-1 flex-col justify-center ' +
               'text-gray-600 px-5 border-l border-r border-gray-200 border-t lg:border-t-0 pt-5 lg:pt-0'
             }
           >
-            <div className="truncate sm:whitespace-normal flex items-center">
-              <Mail className="w-4 h-4 mr-2" /> {user.email}
-            </div>
+            <a
+              className="sm:whitespace-normal flex items-center mr-2 inline-flex text-theme-1"
+              href="/docs/Contract.docx"
+              target="_blank"
+              download
+            >
+              <Download className="mr-2" />
+              {t('downloadContract')}
+            </a>
           </div>
           <div
             className={

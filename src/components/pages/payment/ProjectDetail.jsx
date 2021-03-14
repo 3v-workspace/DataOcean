@@ -229,11 +229,14 @@ const ProjectDetail = (props) => {
   // };
 
   const getPaymentDateText = (subscription) => {
-    if (subscription.is_default || subscription.status === p2sStatus.PAST) {
+    if (subscription.status === p2sStatus.PAST) {
       return '---';
     }
     if (subscription.status === p2sStatus.ACTIVE && hasFutureSubscription) {
       return '---';
+    }
+    if (subscription.is_default) {
+      return dateFormat(subscription.expiring_date);
     }
     if (subscription.payment_overdue_days !== null) {
       if (subscription.payment_overdue_days === 0) {
@@ -570,7 +573,7 @@ const ProjectDetail = (props) => {
                 <th className="w-1/5">{t('name')}</th>
                 <th className="w-1/5">{t('status')}</th>
                 <th className="w-1/5">{t('requestsLeft')}</th>
-                <th className="w-1/5">{t('nextPayment')}</th>
+                <th className="w-1/5">{t('nextPayment')} / {t('renewal')}</th>
                 {project.is_owner && (
                   <th className="w-1/5">{t('invoices')}</th>
                 )}
