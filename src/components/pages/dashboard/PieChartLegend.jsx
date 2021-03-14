@@ -11,7 +11,7 @@ const PieChartLegend = (props) => {
   const { items } = props;
 
   const sum = items.reduce((r, el) => r + el.value, 0);
-  const calculated = items.slice(0, 3)
+  const calculated = items.slice(0, 4)
     .map((el) => ({
       ...el,
       value: Math.round((el.value / sum) * 100),
