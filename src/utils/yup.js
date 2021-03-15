@@ -43,7 +43,7 @@ export const getPasswordLevel = (password) => {
   return level;
 };
 
-const validNameRegex = /^ *[A-Za-zА-Яа-яҐґЄєІіЇї'`.-]+ *$/;
+const validNameRegex = /^\s*[A-Za-zА-Яа-яҐґЄєІіЇї'`.-]+\s*$/;
 
 Yup.addMethod(Yup.string, 'name', function () {
   return this.test('name', i18next.t('onlyLettersAndSpecialSymbols'), (value) => validNameRegex.test(value));
