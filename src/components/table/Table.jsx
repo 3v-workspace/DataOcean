@@ -5,7 +5,7 @@ import Pagination from 'components/table/Pagination';
 import { SearchBox } from 'components/form-components';
 import { ChevronDown, ChevronUp } from 'react-feather';
 import LoadingIcon from 'components/LoadingIcon';
-// import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 
 
 const orderingIcons = {
@@ -15,7 +15,7 @@ const orderingIcons = {
 
 
 const Table = (props) => {
-  // const { t } = useTranslation();
+  const { t } = useTranslation();
   const { columns, url, fields, axiosConfigs } = props;
   const [search, setSearch] = useState('');
 
@@ -33,6 +33,43 @@ const Table = (props) => {
 
   const handleHeaderClick = (col) => {
     tc.setOrdering(col.prop);
+  };
+
+  const getTableBody = () => {
+    if (tc.error) {
+      return (
+        <tr>
+          <td colSpan={columns.length} className="border-b text-center text-red-500">
+            {tc.error}
+          </td>
+        </tr>
+      );
+    }
+    if (tc.data.length) {
+      return tc.data.map((row, i) => (
+        <tr key={row.id || i}>
+          {columns.map((col) => (
+            <td key={col.prop} className="border-b">
+              {(col.render ? col.render(row[col.prop]) : row[col.prop]) || '---'}
+            </td>
+          ))}
+        </tr>
+      ));
+    }
+    if (tc.isDataReady) {
+      return (
+        <tr>
+          <td colSpan={columns.length} className="border-b text-center text-gray-700">
+            {search ? (
+              t('noSearchResults')
+            ) : (
+              t('noDataAvailable')
+            )}
+          </td>
+        </tr>
+      );
+    }
+    return null;
   };
 
   return (
@@ -82,22 +119,7 @@ const Table = (props) => {
             </tr>
           </thead>
           <tbody>
-            {tc.error ? (
-              <tr>
-                <td colSpan={columns.length} className="border-b text-center text-red-500">
-                  {tc.error}
-                </td>
-              </tr>
-            ) : tc.data.map((row, i) => (
-              <tr key={row.id || i}>
-                {columns.map((col) => (
-                  <td key={col.prop} className="border-b">
-                    {(col.render ? col.render(row[col.prop]) : row[col.prop]) || '---'}
-                  </td>
-                ))}
-              </tr>
-            ))}
-            {/*)}*/}
+            {getTableBody()}
           </tbody>
         </table>
       </div>
