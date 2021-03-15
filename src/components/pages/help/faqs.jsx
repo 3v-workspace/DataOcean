@@ -9,7 +9,7 @@ const faqs = [
     id: 1,
     question: (
       <Translation>
-        {(t) => `${t('faq.whatDataHasDOGot')}`}
+        {(t) => `${t('faq.whatDataDOProvide')}`}
       </Translation>
     ),
     answer: (
@@ -85,6 +85,7 @@ const faqs = [
         {(t) => (
           <>
             <div>
+              {i18n.language === 'en' ? 'Are ' : ''}
               <a className="text-theme-1" href={`https://pep.org.ua/${i18n.language}/`} target="_blank">Pep.org.ua</a>
               {` ${t('and')} `}
               <a className="text-theme-1" href={`${process.env.REACT_APP_LANDING_URL}pep/?lang=${i18n.language}`} target="_blank">Data Ocean</a>
@@ -230,6 +231,9 @@ const faqs = [
           <>
             <div>
               {t('faq.answer.q9')}
+              <a className="text-theme-1" href={`${process.env.REACT_APP_LANDING_URL}pep/?lang=${i18n.language}`} target="_blank"> dataocean.us </a>
+              {t('faq.answer.q9AndOn')}
+              <a className="text-theme-1" href={`https://pep.org.ua/${i18n.language}/`} target="_blank"> pep.org.ua.</a>
             </div>
           </>
         )}
