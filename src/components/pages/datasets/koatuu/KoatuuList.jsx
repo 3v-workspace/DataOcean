@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 
 const KoatuuList = () => {
   const { t } = useTranslation();
+
   const columns = [
     { header: t('code'), prop: 'code' },
     { header: t('name'), prop: 'name' },
