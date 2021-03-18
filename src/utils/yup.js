@@ -1,5 +1,6 @@
 /* eslint no-template-curly-in-string: 0 */
 import * as Yup from 'yup';
+import i18next from 'i18next';
 
 // Yup.setLocale({
 //   mixed: {
@@ -41,5 +42,12 @@ export const getPasswordLevel = (password) => {
   }
   return level;
 };
+
+const validNameRegex = /^\s*[A-Za-zА-Яа-яҐґЄєІіЇї'`.-]+\s*$/;
+
+Yup.addMethod(Yup.string, 'name', function () {
+  return this.test('name', i18next.t('onlyLettersAndSpecialSymbols'), (value) => validNameRegex.test(value));
+});
+
 
 export default Yup;

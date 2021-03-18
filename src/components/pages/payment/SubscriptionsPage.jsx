@@ -49,8 +49,8 @@ const SubscriptionsPage = (props) => {
       note: '',
     },
     validationSchema: Yup.object({
-      first_name: Yup.string().required().min(2),
-      last_name: Yup.string().required().min(2),
+      first_name: Yup.string().name().required().min(2),
+      last_name: Yup.string().name().required().min(2),
       email: Yup.string().required().email(),
       phone: Yup.string().max(15),
       note: Yup.string(),
@@ -248,7 +248,7 @@ const SubscriptionsPage = (props) => {
                     <div className="subscription-price flex justify-center">
                       <div className="relative text-5xl font-semibold mt-8 mx-auto">
                         {i18n.language === 'en' ? sub.price.toLocaleString('en') : sub.price}
-                        <span className="contents align-top text-xl text-gray-500">₴/{t('abbreviationMonth')}*</span>
+                        <span className="contents align-top text-xl text-gray-500">₴/{t('abbreviationMonth')}</span>
                       </div>
                     </div>
                     <Button
@@ -305,9 +305,9 @@ const SubscriptionsPage = (props) => {
           </div>
         </div>
       </div>
-      <div className="intro-y flex justify-end mt-4 mr-4">
-        <h3>*{t('abbreviationMonth')} = 30 {t('days')}</h3>
-      </div>
+      {/*<div className="intro-y flex justify-end mt-4 mr-4">*/}
+      {/*  <h3>*{t('abbreviationMonth')} = 30 {t('days')}</h3>*/}
+      {/*</div>*/}
     </div>
   );
 };
