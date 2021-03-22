@@ -9,6 +9,8 @@ const datasets = {
   '/api/company/uk': { urlEnding: 'company/uk/' },
   '/api/street/': { urlEnding: 'street/' },
   '/api/street': { urlEnding: 'street/' },
+  '/api/koatuu/': { urlEnding: 'koatuu/' },
+  '/api/koatuu': { urlEnding: 'koatuu/' },
   '/api/fop/': { urlEnding: 'fop/' },
   '/api/fop': { urlEnding: 'fop/' },
   '/api/pep/': { urlEnding: 'pep/' },
