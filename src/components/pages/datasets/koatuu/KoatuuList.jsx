@@ -9,11 +9,31 @@ const KoatuuList = () => {
   const { t } = useTranslation();
 
   const columns = [
-    { header: t('code'), prop: 'code' },
-    { header: t('name'), prop: 'name' },
-    { header: t('thirdLevelOfSubordination'), prop: 'third_level' },
-    { header: t('secondLevelOfSubordination'), prop: 'second_level' },
-    { header: t('firstLevelOfSubordination'), prop: 'first_level' },
+    {
+      header: t('code'),
+      prop: 'code',
+      width: '10%',
+    },
+    {
+      header: t('name'),
+      prop: 'name',
+      width: '20%',
+    },
+    {
+      header: t('thirdLevelOfSubordination'),
+      prop: 'third_level',
+      width: '20%',
+    },
+    {
+      header: t('secondLevelOfSubordination'),
+      prop: 'second_level',
+      width: '20%',
+    },
+    {
+      header: t('firstLevelOfSubordination'),
+      prop: 'first_level',
+      width: '20%',
+    },
   ];
 
   return (

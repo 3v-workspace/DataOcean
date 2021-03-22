@@ -105,8 +105,9 @@ const Table = (props) => {
             <tr>
               {columns.map((col) => (
                 <th
+                  width={col.width}
                   key={col.prop}
-                  className="border-b-2 whitespace-no-wrap cursor-pointer w-1/5"
+                  className="border-b-2 whitespace-no-wrap cursor-pointer"
                 >
                   <div className="flex items-center justify-between" onClick={() => handleHeaderClick(col)}>
                     {col.header}
@@ -134,6 +135,7 @@ Table.propTypes = {
   columns: PropTypes.arrayOf(PropTypes.shape({
     header: PropTypes.string.isRequired,
     prop: PropTypes.string.isRequired,
+    width: PropTypes.string.isRequired,
     render: PropTypes.func,
   })).isRequired,
   url: PropTypes.string.isRequired,

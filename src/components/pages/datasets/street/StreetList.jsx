@@ -9,10 +9,29 @@ const StreetList = () => {
   const { t } = useTranslation();
 
   const columns = [
-    { header: t('name'), prop: 'name' },
-    { header: t('locality'), prop: 'city', render: (value) => (value === 'empty field' ? '' : value) },
-    { header: t('district'), prop: 'district', render: (value) => (value === 'empty field' ? '' : value) },
-    { header: t('region'), prop: 'region', render: (value) => (value === 'empty field' ? '' : value) },
+    {
+      header: t('name'),
+      prop: 'name',
+      width: '25%',
+    },
+    {
+      header: t('locality'),
+      prop: 'city',
+      width: '25%',
+      render: (value) => (value === 'empty field' ? '' : value),
+    },
+    {
+      header: t('district'),
+      prop: 'district',
+      width: '25%',
+      render: (value) => (value === 'empty field' ? '' : value),
+    },
+    {
+      header: t('region'),
+      prop: 'region',
+      width: '25%',
+      render: (value) => (value === 'empty field' ? '' : value),
+    },
   ];
 
   return (

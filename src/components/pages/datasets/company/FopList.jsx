@@ -8,11 +8,31 @@ import { useTranslation } from 'react-i18next';
 const FopList = () => {
   const { t } = useTranslation();
   const columns = [
-    { header: t('fullName'), prop: 'fullname' },
-    { header: t('status'), prop: 'status' },
-    { header: t('address'), prop: 'address' },
-    { header: t('registrationDate'), prop: 'registration_date' },
-    { header: t('terminationDate'), prop: 'termination_date' },
+    {
+      header: t('fullName'),
+      prop: 'fullname',
+      width: '30%',
+    },
+    {
+      header: t('status'),
+      prop: 'status',
+      width: '15%',
+    },
+    {
+      header: t('address'),
+      prop: 'address',
+      width: '35%',
+    },
+    {
+      header: t('registrationDate'),
+      prop: 'registration_date',
+      width: '10%',
+    },
+    {
+      header: t('terminationDate'),
+      prop: 'termination_date',
+      width: '10%',
+    },
   ];
   return (
     <PageBox header={t('viewTheRegistry')} noBox>
