@@ -9,7 +9,6 @@ import CompanyUkrList from './company/CompanyUkrList';
 import StreetList from './street/StreetList';
 import FopList from './company/FopList';
 import PepList from './pep/PepList';
-import UKCompanyList from './company/UKCompanyList';
 
 const DatasetsRoutes = (props) => {
   const { match } = props;
