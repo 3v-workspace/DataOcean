@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 const CompanyUkList = () => {
   const { t } = useTranslation();
   const columns = [
-    { header: t('edrpou'), prop: 'edrpou' },
+    { header: t('companyID'), prop: 'edrpou' },
     { header: t('name'), prop: 'name' },
     { header: t('status'), prop: 'status' },
     { header: t('address'), prop: 'address' },
