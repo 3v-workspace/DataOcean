@@ -8,11 +8,31 @@ import { useTranslation } from 'react-i18next';
 const KvedList = () => {
   const { t } = useTranslation();
   const columns = [
-    { header: t('code'), prop: 'code' },
-    { header: t('name'), prop: 'name' },
-    { header: t('group'), prop: 'group' },
-    { header: t('division'), prop: 'division' },
-    { header: t('section'), prop: 'section' },
+    {
+      header: t('code'),
+      prop: 'code',
+      width: '4%',
+    },
+    {
+      header: t('name'),
+      prop: 'name',
+      width: '24%',
+    },
+    {
+      header: t('group'),
+      prop: 'group',
+      width: '24%',
+    },
+    {
+      header: t('division'),
+      prop: 'division',
+      width: '24%',
+    },
+    {
+      header: t('section'),
+      prop: 'section',
+      width: '24%',
+    },
   ];
   return (
     <PageBox header={t('viewTheRegistry')} noBox>
