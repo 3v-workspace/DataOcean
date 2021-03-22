@@ -106,7 +106,7 @@ const Table = (props) => {
               {columns.map((col) => (
                 <th
                   key={col.prop}
-                  className="border-b-2 whitespace-no-wrap cursor-pointer"
+                  className="border-b-2 whitespace-no-wrap cursor-pointer w-1/5"
                 >
                   <div className="flex items-center justify-between" onClick={() => handleHeaderClick(col)}>
                     {col.header}
