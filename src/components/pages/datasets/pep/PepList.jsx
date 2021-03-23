@@ -8,11 +8,32 @@ import { useTranslation } from 'react-i18next';
 const PepList = () => {
   const { t } = useTranslation();
   const columns = [
-    { header: t('fullName'), prop: 'fullname' },
-    { header: t('status'), prop: 'is_pep', render: (v) => (v ? 'Є публічним діячем' : 'Не є публічним діячем') },
-    { header: t('pepType'), prop: 'pep_type' },
-    { header: t('lastPosition'), prop: 'last_job_title' },
-    { header: t('lastPlaceOfWork'), prop: 'last_employer' },
+    {
+      header: t('fullName'),
+      prop: 'fullname',
+      width: '25%',
+    },
+    {
+      header: t('status'),
+      prop: 'is_pep',
+      width: '15%',
+      render: (v) => (v ? 'Є публічним діячем' : 'Не є публічним діячем'),
+    },
+    {
+      header: t('pepType'),
+      prop: 'pep_type',
+      width: '20%',
+    },
+    {
+      header: t('lastPosition'),
+      prop: 'last_job_title',
+      width: '20%',
+    },
+    {
+      header: t('lastPlaceOfWork'),
+      prop: 'last_employer',
+      width: '20%',
+    },
   ];
   return (
     <PageBox header={t('viewTheRegistry')} noBox>

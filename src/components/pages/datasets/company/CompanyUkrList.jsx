@@ -8,11 +8,31 @@ import { useTranslation } from 'react-i18next';
 const CompanyUkrList = () => {
   const { t } = useTranslation();
   const columns = [
-    { header: t('edrpou'), prop: 'edrpou' },
-    { header: t('name'), prop: 'name' },
-    { header: t('status'), prop: 'status' },
-    { header: t('address'), prop: 'address' },
-    { header: t('authorizedCapital'), prop: 'authorized_capital' },
+    {
+      header: t('edrpou'),
+      prop: 'edrpou',
+      width: '7%',
+    },
+    {
+      header: t('name'),
+      prop: 'name',
+      width: '30%',
+    },
+    {
+      header: t('status'),
+      prop: 'status',
+      width: '15%',
+    },
+    {
+      header: t('address'),
+      prop: 'address',
+      width: '40%',
+    },
+    {
+      header: t('authorizedCapital'),
+      prop: 'authorized_capital',
+      width: '7%',
+    },
   ];
   return (
     <PageBox header={t('viewTheRegistry')} noBox>

@@ -105,6 +105,7 @@ const Table = (props) => {
             <tr>
               {columns.map((col) => (
                 <th
+                  style={{ width: col.width }}
                   key={col.prop}
                   className="border-b-2 whitespace-no-wrap cursor-pointer"
                 >
@@ -134,6 +135,7 @@ Table.propTypes = {
   columns: PropTypes.arrayOf(PropTypes.shape({
     header: PropTypes.string.isRequired,
     prop: PropTypes.string.isRequired,
+    width: PropTypes.string.isRequired,
     render: PropTypes.func,
   })).isRequired,
   url: PropTypes.string.isRequired,
