@@ -105,7 +105,7 @@ const Table = (props) => {
             <tr>
               {columns.map((col) => (
                 <th
-                  width={col.width}
+                  style={{ width: col.width }}
                   key={col.prop}
                   className="border-b-2 whitespace-no-wrap cursor-pointer"
                 >
