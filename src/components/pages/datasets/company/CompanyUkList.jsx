@@ -9,7 +9,7 @@ const CompanyUkList = () => {
   const { t } = useTranslation();
   const columns = [
     {
-      header: t('edrpou'),
+      header: t('companyID'),
       prop: 'edrpou',
       width: '5%',
     },
