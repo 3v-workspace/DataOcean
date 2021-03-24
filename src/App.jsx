@@ -33,4 +33,4 @@ const App = () => {
   return null;
 };
 
-export default withCookies(App);
+export default App;
