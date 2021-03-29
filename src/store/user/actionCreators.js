@@ -21,10 +21,11 @@ export const userLogin = (user) => ({
 });
 
 export const userLogout = () => {
-  const cookies = new Cookies(['token', 'firstname', 'lastname']);
-  cookies.remove('token', { path: '/' });
-  cookies.remove('firstname', { path: '/' });
-  cookies.remove('lastname', { path: '/' });
+  const cookies = new Cookies(['token', 'firstname', 'lastname', 'email']);
+  cookies.remove('token', { path: '/', domain: process.env.REACT_APP_COOKIE_DOMAIN });
+  cookies.remove('firstname', { path: '/', domain: process.env.REACT_APP_COOKIE_DOMAIN });
+  cookies.remove('lastname', { path: '/', domain: process.env.REACT_APP_COOKIE_DOMAIN });
+  cookies.remove('email', { path: '/', domain: process.env.REACT_APP_COOKIE_DOMAIN });
   return {
     type: USER_LOGOUT,
   };

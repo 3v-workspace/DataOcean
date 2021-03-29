@@ -13,13 +13,14 @@ import GoogleButton from 'components/pages/auth/GoogleButton';
 import Api from 'api';
 import setLanguage from 'utils/setLanguage';
 import { ReactRouterPropTypes } from 'utils/prop-types';
-import { useCookies } from 'react-cookie';
+import { useDOCookies } from 'hooks';
 
 
 const SignInForm = ({ history }) => {
   const dispatch = useDispatch();
   const { t, i18n } = useTranslation();
-  const [cookies, setCookie, removeCookie] = useCookies(['token']);
+  const [cookies, setCookie] = useDOCookies();
+
 
   let policy = '/docs/PrivacyPolicyUk.html';
   if (i18n.language === 'en') {
@@ -47,9 +48,10 @@ const SignInForm = ({ history }) => {
         .then((resp) => {
           actions.setSubmitting(false);
           const { user, key, project_token } = resp.data;
-          setCookie('token', key, { path: '/' });
-          setCookie('firstname', user.first_name, { path: '/' });
-          setCookie('lastname', user.last_name, { path: '/' });
+          setCookie('token', key);
+          setCookie('firstname', user.first_name);
+          setCookie('lastname', user.last_name);
+          setCookie('email', user.email);
           window.localStorage.setItem('project_token', project_token);
           dispatch(userLogin(user));
           setLanguage(user.language);

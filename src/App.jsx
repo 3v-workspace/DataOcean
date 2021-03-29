@@ -4,12 +4,12 @@ import Api from 'api';
 import { userLogin } from 'store/user/actionCreators';
 import { useDispatch } from 'react-redux';
 import setLanguage from 'utils/setLanguage';
-import { useCookies, withCookies } from 'react-cookie';
+import { useDOCookies } from 'hooks';
 
 const App = () => {
   const [isInit, setIsInit] = useState(false);
   const dispatch = useDispatch();
-  const [cookies, setCookie, removeCookie] = useCookies(['token', 'firstname', 'lastname']);
+  const [cookies, setCookie, removeCookie] = useDOCookies();
 
   useEffect(() => {
     Api.get('rest-auth/user/')
@@ -17,9 +17,10 @@ const App = () => {
         dispatch(userLogin(resp.data));
       })
       .catch(() => {
-        removeCookie('token', { path: '/' });
-        removeCookie('firstname', { path: '/' });
-        removeCookie('lastname', { path: '/' });
+        removeCookie('token');
+        removeCookie('firstname');
+        removeCookie('lastname');
+        removeCookie('email');
       })
       .finally(() => {
         setLanguage();
