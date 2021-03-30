@@ -259,7 +259,7 @@ const SubscriptionsPage = (props) => {
                 ))}
                 <th className="text-center align-middle">
                   <div className="flex justify-center py-3">
-                    <div className="text-xl mt-4">Custom</div>
+                    <div className="text-xl mt-4 text-gray-900">Custom</div>
                   </div>
                 </th>
               </tr>
