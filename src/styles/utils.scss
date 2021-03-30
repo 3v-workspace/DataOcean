@@ -1,19 +1,35 @@
 .border-1 {
   border-width: 1px;
 }
+
 .border-r-1 {
   border-right-width: 1px;
 }
+
 .border-l-1 {
   border-left-width: 1px;
 }
+
 .border-t-1 {
   border-top-width: 1px;
 }
+
 .border-b-1 {
   border-bottom-width: 1px;
 }
 
+.rounded-br-xl {
+  border-bottom-right-radius: 0.75rem;
+}
+
 .whitespace-nowrap {
   white-space: nowrap !important;
+}
+
+td.p-0 {
+  padding: 0;
+}
+
+.bg-green-btn {
+  background-color: #279324;
 }

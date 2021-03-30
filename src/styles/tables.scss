@@ -1,0 +1,45 @@
+//.table.table-rounded {
+//  border-collapse: collapse;
+//  border-top-left-radius: 6px;
+//  border-top-right-radius: 6px;
+//  border-style: hidden;
+//  box-shadow: 0 0 0 1px #e2e8f0;
+//}
+
+.table.table-rounded {
+  thead th:first-child {
+    padding: 0;
+    position: relative;
+
+    > div {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      border-top-width: 1px;
+      border-left-width: 1px;
+      border-top-left-radius: 6px;
+    }
+  }
+
+  thead th:last-child {
+    padding: 0;
+    position: relative;
+
+    border-right: 1px solid rgba(0, 0, 0, 0);
+    border-top: 1px solid rgba(0, 0, 0, 0);
+
+    > div {
+      position: absolute;
+      top: -1px;
+      bottom: 0;
+      right: -1px;
+      left: 0;
+      border-top-width: 1px;
+      border-right-width: 1px;
+      border-top-right-radius: 6px;
+    }
+  }
+}
+
