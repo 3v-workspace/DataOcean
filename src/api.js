@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { PROJECT_TOKEN_PREFIX } from 'const/const';
 import toast from 'utils/toast';
+import { Cookies } from 'react-cookie';
 
 export const baseApiUrl = process.env.REACT_APP_API_BASE_URL.replace(/\/$/, '');
 
@@ -16,12 +17,13 @@ const Api = axios.create({
 });
 
 Api.interceptors.request.use((config) => {
+  const cookies = new Cookies(['token']);
   const lang = window.localStorage.getItem('i18nextLng');
   if (config.useProjectToken) {
     const project_token = window.localStorage.getItem('project_token');
     config.headers.Authorization = `${PROJECT_TOKEN_PREFIX} ${project_token}`;
   } else {
-    const token = window.localStorage.getItem('token');
+    const token = cookies.get('token');
     if (token) {
       config.headers.Authorization = `Token ${token}`;
     }
