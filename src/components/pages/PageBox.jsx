@@ -11,9 +11,11 @@ const PageBox = (props) => {
   return (
     <>
       <div className="intro-y flex flex-col sm:flex-row items-center">
-        {/*<h2 className="text-lg font-medium mr-auto">*/}
-        {/*  {header}*/}
-        {/*</h2>*/}
+        {header && (
+          <h2 className="text-lg font-medium mr-auto">
+            {header}
+          </h2>
+        )}
         <div className="w-full sm:w-auto flex sm:mt-0">
           {actions.length >= 1 && actions.slice(0, 1).map((action) => {
             const Icon = action.icon;
@@ -69,7 +71,7 @@ const PageBox = (props) => {
 };
 
 PageBox.propTypes = {
-  header: PropTypes.string.isRequired,
+  header: PropTypes.string,
   actions: PropTypes.arrayOf(PropTypes.shape({
     label: PropTypes.string.isRequired,
     onClick: PropTypes.func.isRequired,
@@ -79,6 +81,7 @@ PageBox.propTypes = {
 };
 
 PageBox.defaultProps = {
+  header: '',
   actions: [],
   noBox: false,
 };

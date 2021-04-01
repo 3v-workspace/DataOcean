@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next';
 import ProjectsPage from '../payment/ProjectsPage';
 import InvoicesTable from '../payment/InvoicesTable';
 import ProfileSettings from './ProfileSettings';
-import ProfileInfo from './ProfileInfo';
+
 
 const ProfilePage = ({ match }) => {
   const { t } = useTranslation();

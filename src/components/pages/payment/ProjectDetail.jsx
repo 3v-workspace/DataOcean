@@ -175,7 +175,7 @@ const ProjectDetail = (props) => {
     deleteUserModalRef.current.show();
   };
 
-  const deleteUser = (user) => {
+  const deleteUser = () => {
     Api.delete(`payment/project/${projectId}/delete-user/${selectedUser.id}/`)
       .then(() => {
         toast('success', t('userDeleted'));

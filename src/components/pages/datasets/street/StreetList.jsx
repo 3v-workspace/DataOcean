@@ -35,7 +35,7 @@ const StreetList = () => {
   ];
 
   return (
-    <PageBox header={t('viewTheRegistry')} noBox>
+    <PageBox noBox>
       <Table
         columns={columns}
         url="street/"

@@ -2,10 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 // import PropTypes from 'prop-types';
 import Api, { passErrorsToFormik } from 'api';
 import { useTranslation } from 'react-i18next';
-import {
-  Bookmark, Briefcase, CreditCard,
-  DollarSign, Tag, Edit, ArrowLeft, Check,
-} from 'react-feather';
+import { DollarSign, ArrowLeft, Check } from 'react-feather';
 import { Form, Button, TextInput } from 'components/form-components';
 import { ReactRouterPropTypes } from 'utils/prop-types';
 import { YesNoModal, BlankModal } from 'components/modals';
@@ -15,19 +12,19 @@ import { useSelector } from 'react-redux';
 import toast from 'utils/toast';
 import Tooltip from 'components/Tooltip';
 
-const icons = [
-  Tag,
-  CreditCard,
-  Briefcase,
-  // ShoppingBag,
-];
+// const icons = [
+//   Tag,
+//   CreditCard,
+//   Briefcase,
+//   // ShoppingBag,
+// ];
 
-const middleClasses = 'border-b border-t lg:border-b-0 lg:border-t-0 ' +
-  'border-gray-200 p-5 lg:border-l lg:border-r border-gray-200';
+// const middleClasses = 'border-b border-t lg:border-b-0 lg:border-t-0 ' +
+//   'border-gray-200 p-5 lg:border-l lg:border-r border-gray-200';
 
 const SubscriptionsPage = (props) => {
   const { history } = props;
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const user = useSelector((store) => store.user);
   const [subs, setSubs] = useState([]);
   const [projects, setProjects] = useState([]);

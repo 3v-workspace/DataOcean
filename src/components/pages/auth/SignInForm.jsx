@@ -19,7 +19,7 @@ import { useDOCookies } from 'hooks';
 const SignInForm = ({ history }) => {
   const dispatch = useDispatch();
   const { t, i18n } = useTranslation();
-  const [cookies, setCookie] = useDOCookies();
+  const setCookie = useDOCookies()[1];
 
 
   let policy = '/docs/PrivacyPolicyUk.html';

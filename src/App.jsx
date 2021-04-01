@@ -9,7 +9,7 @@ import { useDOCookies } from 'hooks';
 const App = () => {
   const [isInit, setIsInit] = useState(false);
   const dispatch = useDispatch();
-  const [cookies, setCookie, removeCookie] = useDOCookies();
+  const removeCookie = useDOCookies()[2];
 
   useEffect(() => {
     Api.get('rest-auth/user/')

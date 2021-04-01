@@ -6,8 +6,8 @@ import { useLocation } from 'react-router-dom';
 
 export const DropdownContext = React.createContext(null);
 
-const NavDropdown = ({ label, icon: Icon, children }) => {
-  const [isOpen, setOpen] = useState(false);
+const NavDropdown = ({ label, icon: Icon, children, defaultOpen }) => {
+  const [isOpen, setOpen] = useState(defaultOpen);
   const [isActive, setActive] = useState(false);
 
   const { isMobile } = useContext(NavContext);
@@ -25,11 +25,42 @@ const NavDropdown = ({ label, icon: Icon, children }) => {
     className.push(`${menuClass}--active`);
   }
 
+  const open = () => {
+    const $ul = $(itemsListRef.current);
+    setOpen(true);
+    $ul.slideDown({
+      done: () => {
+        $ul.addClass(`${menuClass}__sub-open`);
+      },
+    });
+  };
+
+  const close = () => {
+    const $ul = $(itemsListRef.current);
+    setOpen(false);
+    $ul.slideUp({
+      done: () => {
+        $ul.removeClass(`${menuClass}__sub-open`);
+      },
+    });
+  };
+
+  const toggle = () => {
+    if (!isOpen) {
+      open();
+    } else {
+      close();
+    }
+  };
+
   useEffect(() => {
     if (Array.isArray(children)) {
       links.current = children.map((child) => child.props.link);
     } else {
       links.current = [children.props.link];
+    }
+    if (defaultOpen) {
+      open();
     }
   }, []);
 
@@ -37,25 +68,6 @@ const NavDropdown = ({ label, icon: Icon, children }) => {
     const match = links.current.find((link) => pathname.startsWith(link));
     setActive(!!match);
   }, [pathname]);
-
-  const toggle = () => {
-    const $ul = $(itemsListRef.current);
-    setOpen(!isOpen);
-    const subOpenClass = `${menuClass}__sub-open`;
-    if (!isOpen) {
-      $ul.slideDown({
-        done: () => {
-          $ul.addClass(subOpenClass);
-        },
-      });
-    } else {
-      $ul.slideUp({
-        done: () => {
-          $ul.removeClass(subOpenClass);
-        },
-      });
-    }
-  };
 
   return (
     <li>
@@ -86,6 +98,10 @@ const NavDropdown = ({ label, icon: Icon, children }) => {
 NavDropdown.propTypes = {
   label: PropTypes.string.isRequired,
   icon: PropTypes.elementType.isRequired,
+  defaultOpen: PropTypes.bool,
+};
+NavDropdown.defaultProps = {
+  defaultOpen: false,
 };
 
 export default NavDropdown;

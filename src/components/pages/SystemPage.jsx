@@ -7,10 +7,11 @@ import NavItem from 'components/nav/NavItem';
 import SystemRoutes from 'components/pages/SystemRoutes';
 import {
   Activity, Home, FileText, Trello, BookOpen,
-  HelpCircle, GitBranch, DollarSign, Cloud,
+  HelpCircle, DollarSign, Cloud, Users, Layers,
 } from 'react-feather';
 import TopBar from 'components/nav/TopBar';
 import { useTranslation } from 'react-i18next';
+import NavDropdown from 'components/nav/NavDropdown';
 
 
 const SystemPage = (props) => {
@@ -34,9 +35,17 @@ const SystemPage = (props) => {
       <NavItem link="/system/home/" icon={Home}>
         {t('home')}
       </NavItem>
-      <NavItem link="/system/datasets/" icon={Trello}>
-        {t('datasets')}
-      </NavItem>
+      {/*<NavItem link="/system/datasets/" icon={Trello}>*/}
+      {/*  {t('datasets')}*/}
+      {/*</NavItem>*/}
+      <NavDropdown label={t('datasets')} icon={Trello} defaultOpen>
+        <NavItem link="/system/datasets/" icon={Layers} activeLinkMode="equal">
+          {t('all')}
+        </NavItem>
+        <NavItem link="/system/datasets/pep/" icon={Users}>
+          {t('pep')}
+        </NavItem>
+      </NavDropdown>
       <NavItem link="/system/report-constructor/" icon={Activity}>
         {t('reportConstructor')}
       </NavItem>

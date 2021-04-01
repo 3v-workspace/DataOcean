@@ -5,9 +5,7 @@ import {
 import ReportBox from 'components/pages/dashboard/ReportBox';
 import Api from 'api';
 import moment from 'moment';
-import PieChartLegend from 'components/pages/dashboard/PieChartLegend';
 import { useTranslation } from 'react-i18next';
-import { upFirstLetter } from 'utils';
 import { ReactRouterPropTypes } from 'utils/prop-types';
 import KvedChart from 'components/pages/dashboard/KvedChart';
 import CompanyChart from 'components/pages/dashboard/CompanyChart';
@@ -23,7 +21,7 @@ const charts = {
 };
 
 const HomePage = ({ history }) => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const [registersCount, setRegistersCount] = useState('');
   const [usersCount, setUsersCount] = useState('');
   const [fopCount, setFopCount] = useState('');
