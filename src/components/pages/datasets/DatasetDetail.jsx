@@ -42,7 +42,7 @@ const DatasetDetail = (props) => {
 
   return (
     <>
-      <PageBox header={t('viewTheRegistry')}>
+      <PageBox>
         <div className="flex flex-col lg:flex-row pt-5 px-5 sm:px-10 sm:pt-10 lg:pb-5 text-center sm:text-left">
           <div className="font-semibold text-3xl">
             {i18n.language === 'en' ? data.name_eng : data.name}

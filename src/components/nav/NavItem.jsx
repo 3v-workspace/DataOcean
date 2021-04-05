@@ -16,7 +16,7 @@ const NavItem = (props) => {
 
   const { pathname } = useLocation();
 
-  const { link, icon: Icon, children } = props;
+  const { link, icon: Icon, children, activeLinkMode } = props;
   const menuClass = isMobile ? 'menu' : 'side-menu';
 
   const handleClick = () => {
@@ -36,8 +36,14 @@ const NavItem = (props) => {
   }, [pathname]);
 
   const linkClass = [menuClass];
-  if (pathname.startsWith(link)) {
-    linkClass.push(`${menuClass}--active`);
+  if (activeLinkMode === 'startsWith') {
+    if (pathname.startsWith(link)) {
+      linkClass.push(`${menuClass}--active`);
+    }
+  } else if (activeLinkMode === 'equal') {
+    if (pathname === link) {
+      linkClass.push(`${menuClass}--active`);
+    }
   }
 
   return (
@@ -58,9 +64,11 @@ const NavItem = (props) => {
 NavItem.propTypes = {
   link: PropTypes.string.isRequired,
   icon: PropTypes.elementType,
+  activeLinkMode: PropTypes.oneOf(['equal', 'startsWith']),
 };
 NavItem.defaultProps = {
   icon: ChevronRight,
+  activeLinkMode: 'startsWith',
 };
 
 export default NavItem;

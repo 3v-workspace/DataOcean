@@ -9,7 +9,7 @@ import HelpPage from 'components/pages/help/HelpPage';
 import HomePage from 'components/pages/system/HomePage';
 import ProfilePage from 'components/pages/profile/ProfilePage';
 import DatasetsRoutes from 'components/pages/datasets/DatasetsRoutes';
-import PepGraphPage from 'components/pages/system/PepGraphPage';
+// import PepGraphPage from 'components/pages/system/PepGraphPage';
 import SubscriptionsPage from 'components/pages/payment/SubscriptionsPage';
 import ApiPage from 'components/pages/api/ApiPage';
 
