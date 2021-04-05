@@ -81,7 +81,7 @@ const DatasetsList = ({ match, history }) => {
                     }
                   }}
                   key={item.id}
-                  className={item.api_list in datasets ? 'intro-x cursor-pointer hover:shadow-xl' : 'cursor-not-allowed'}
+                  className={`'intro-x' ${item.api_list in datasets ? 'cursor-pointer hover:shadow-xl' : 'cursor-not-allowed'}`}
                 >
                   <td>
                     {item.id}
