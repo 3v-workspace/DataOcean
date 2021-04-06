@@ -17,7 +17,7 @@ const PepList = () => {
       header: t('status'),
       prop: 'is_pep',
       width: '15%',
-      render: (v) => (v ? 'Є публічним діячем' : 'Не є публічним діячем'),
+      render: (v) => (v ? t('politicallyExposedPerson') : t('notPoliticallyExposedPerson')),
     },
     {
       header: t('pepType'),
