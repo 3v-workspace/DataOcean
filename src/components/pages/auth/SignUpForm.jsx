@@ -50,6 +50,11 @@ const SignUpForm = () => {
     policy = '/docs/PrivacyPolicyEn.html';
   }
 
+  let terms = '/docs/TermsAndConditionsUk.html';
+  if (i18n.language === 'en') {
+    terms = '/docs/TermsAndConditionsEn.html';
+  }
+
   const formik = useFormik({
     initialValues: {
       first_name: '',
@@ -196,8 +201,13 @@ const SignUpForm = () => {
           <label className="cursor-pointer select-none" htmlFor="accept_policy">
             {t('iAgreeWith')}
           </label>
-          <a className="text-theme-1 ml-1" href={`${process.env.PUBLIC_URL}${policy}`} target="_blank">
+          {i18n.language === 'en' ? <>&nbsp;the</> : ''}
+          <a className="text-theme-1 mx-1" href={`${process.env.PUBLIC_URL}${policy}`} target="_blank">
             {t('privacyPolicy')}
+          </a>
+          {' & '}
+          <a className="text-theme-1 ml-1" href={`${process.env.PUBLIC_URL}${terms}`} target="_blank">
+            {t('termsAndConditions')}
           </a>.
         </div>
         {formik.touched.accept_policy && formik.errors.accept_policy && (
