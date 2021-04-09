@@ -88,8 +88,8 @@ const SignUpForm = () => {
       first_name: Yup.string().name().required().min(2),
       last_name: Yup.string().name().required().min(2),
       email: Yup.string().required().email(),
-      password1: Yup.string().required().min(6),
-      password2: Yup.string().required().min(6),
+      password1: Yup.string().required().min(8),
+      password2: Yup.string().required().min(8),
       accept_policy: Yup.boolean(),
     }),
     onSubmit: (values, actions) => {

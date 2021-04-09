@@ -35,8 +35,8 @@ const ChangePasswordBlock = () => {
     },
     validationSchema: Yup.object({
       old_password: Yup.string().required(),
-      new_password1: Yup.string().required().min(6),
-      new_password2: Yup.string().required().min(6),
+      new_password1: Yup.string().required().min(8),
+      new_password2: Yup.string().required().min(8),
     }),
     onSubmit: (values, actions) => {
       Api.post('rest-auth/password/change/', values)
