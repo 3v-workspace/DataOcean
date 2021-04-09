@@ -14,6 +14,7 @@ const initialState = {
   organization: '',
   position: '',
   date_of_birth: '',
+  phone: '',
   language: 'uk',
 
   // system

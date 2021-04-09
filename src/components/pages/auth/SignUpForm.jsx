@@ -57,6 +57,7 @@ const SignUpForm = () => {
       email: '',
       password1: '',
       password2: '',
+      phone: '',
       accept_policy: false,
     },
     validate: (values) => {
@@ -83,6 +84,7 @@ const SignUpForm = () => {
       first_name: Yup.string().required().min(2),
       last_name: Yup.string().required().min(2),
       email: Yup.string().required().email(),
+      phone: Yup.string().matches(/^(\+\d{1,2}\s?)?1?-?\.?\s?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/, t('wrongPhone')),
       password1: Yup.string().required().min(6),
       password2: Yup.string().required().min(6),
       accept_policy: Yup.boolean(),
@@ -148,6 +150,11 @@ const SignUpForm = () => {
             name="email"
             className="intro-x login__input border-gray-300 block"
             placeholder="Email"
+            formik={formik}
+          />
+          <TextInput
+            placeholder={t('phone')}
+            name="phone"
             formik={formik}
           />
           <TextInput

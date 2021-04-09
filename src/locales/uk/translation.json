@@ -279,5 +279,6 @@
   "yourQuestionIsSent": "Ваше запитання надіслано!",
   "yourRequestHasBeenSentWeWillContactYou": "Ваш запит надіслано. Ми звяжемось з Вами.",
   "informationMessage": "Інформаційне повідомлення",
-  "warning": "Попередження"
+  "warning": "Попередження",
+  "wrongPhone": "Некоректний телефон"
 }
