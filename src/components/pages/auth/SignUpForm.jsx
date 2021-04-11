@@ -50,6 +50,11 @@ const SignUpForm = () => {
     policy = '/docs/PrivacyPolicyEn.html';
   }
 
+  let terms = '/docs/TermsAndConditionsUk.html';
+  if (i18n.language === 'en') {
+    terms = '/docs/TermsAndConditionsEn.html';
+  }
+
   const formik = useFormik({
     initialValues: {
       first_name: '',
@@ -81,8 +86,8 @@ const SignUpForm = () => {
       return errors;
     },
     validationSchema: Yup.object({
-      first_name: Yup.string().required().min(2),
-      last_name: Yup.string().required().min(2),
+      first_name: Yup.string().name().required().min(2),
+      last_name: Yup.string().name().required().min(2),
       email: Yup.string().required().email(),
       phone: Yup.string().matches(/^(\+\d{1,2}\s?)?1?-?\.?\s?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/, t('wrongPhone')),
       password1: Yup.string().required().min(8),
@@ -203,8 +208,13 @@ const SignUpForm = () => {
           <label className="cursor-pointer select-none" htmlFor="accept_policy">
             {t('iAgreeWith')}
           </label>
-          <a className="text-theme-1 ml-1" href={`${process.env.PUBLIC_URL}${policy}`} target="_blank">
+          {i18n.language === 'en' ? <>&nbsp;the</> : ''}
+          <a className="text-theme-1 mx-1" href={`${process.env.PUBLIC_URL}${policy}`} target="_blank">
             {t('privacyPolicy')}
+          </a>
+          {' & '}
+          <a className="text-theme-1 ml-1" href={`${process.env.PUBLIC_URL}${terms}`} target="_blank">
+            {t('termsAndConditions')}
           </a>.
         </div>
         {formik.touched.accept_policy && formik.errors.accept_policy && (

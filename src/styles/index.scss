@@ -1,4 +1,6 @@
-@import "utils", "toast";
+@import "utils";
+@import "toast";
+@import "tables";
 
 @media (min-width: 1279px) {
   body.login {

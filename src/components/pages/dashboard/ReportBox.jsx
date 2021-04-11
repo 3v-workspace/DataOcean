@@ -1,21 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ChevronDown, ChevronUp } from 'react-feather';
 import LoadingIcon from 'components/LoadingIcon';
+// import { ChevronDown, ChevronUp } from 'react-feather';
 
 
-const dirIcons = {
-  up: <ChevronUp className="w-4 h-4" />,
-  down: <ChevronDown className="w-4 h-4" />,
-};
+// const dirIcons = {
+//   up: <ChevronUp className="w-4 h-4" />,
+//   down: <ChevronDown className="w-4 h-4" />,
+// };
 
 
 const ReportBox = (props) => {
   const {
-    label, value, subText, subTextDirection, icon, onClick,
+    label, value, icon, onClick,
   } = props;
 
-  const subTextBgTheme = subTextDirection === 'up' ? '9' : '6';
+  // const subTextBgTheme = subTextDirection === 'up' ? '9' : '6';
 
   return (
     <div
@@ -47,10 +47,10 @@ const ReportBox = (props) => {
 ReportBox.propTypes = {
   label: PropTypes.string.isRequired,
   value: PropTypes.node,
-  subText: PropTypes.string.isRequired,
-  subTextDirection: PropTypes.oneOf(['up', 'down']).isRequired,
   icon: PropTypes.node.isRequired,
   onClick: PropTypes.func,
+  // subText: PropTypes.string.isRequired,
+  // subTextDirection: PropTypes.oneOf(['up', 'down']).isRequired,
 };
 
 ReportBox.defaultProps = {

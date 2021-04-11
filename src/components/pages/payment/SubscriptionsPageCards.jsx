@@ -2,7 +2,10 @@ import React, { useEffect, useRef, useState } from 'react';
 // import PropTypes from 'prop-types';
 import Api, { passErrorsToFormik } from 'api';
 import { useTranslation } from 'react-i18next';
-import { DollarSign, ArrowLeft, Check } from 'react-feather';
+import {
+  Bookmark, Briefcase, CreditCard,
+  DollarSign, Tag, Edit, ArrowLeft,
+} from 'react-feather';
 import { Form, Button, TextInput } from 'components/form-components';
 import { ReactRouterPropTypes } from 'utils/prop-types';
 import { YesNoModal, BlankModal } from 'components/modals';
@@ -10,21 +13,20 @@ import { useFormik } from 'formik';
 import Yup from 'utils/yup';
 import { useSelector } from 'react-redux';
 import toast from 'utils/toast';
-import Tooltip from 'components/Tooltip';
 
-// const icons = [
-//   Tag,
-//   CreditCard,
-//   Briefcase,
-//   // ShoppingBag,
-// ];
+const icons = [
+  Tag,
+  CreditCard,
+  Briefcase,
+  // ShoppingBag,
+];
 
-// const middleClasses = 'border-b border-t lg:border-b-0 lg:border-t-0 ' +
-//   'border-gray-200 p-5 lg:border-l lg:border-r border-gray-200';
+const middleClasses = 'border-b border-t lg:border-b-0 lg:border-t-0 ' +
+  'border-gray-200 p-5 lg:border-l lg:border-r border-gray-200';
 
 const SubscriptionsPage = (props) => {
   const { history } = props;
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const user = useSelector((store) => store.user);
   const [subs, setSubs] = useState([]);
   const [projects, setProjects] = useState([]);
@@ -113,21 +115,6 @@ const SubscriptionsPage = (props) => {
       });
   };
 
-  const getSubscriptionButton = (sub) => (
-    <Button
-      // size="lg"
-      variant="success"
-      disabled={sub.id === defaultProject?.active_subscription.subscription_id}
-      isRounded
-      noFlex
-      type="button"
-      className="block px-6"
-      onClick={() => openSubscriptionChoiceModal(sub)}
-    >
-      {t('choose')}
-    </Button>
-  );
-
   return (
     <div>
       <div className="intro-y flex items-center mt-8">
@@ -211,153 +198,111 @@ const SubscriptionsPage = (props) => {
           })
         }
         onYes={() => setSubscription(modalData.subscription.id)}
-      >
-        {modalData.subscription.yearly_subscription && (
-          <>
-            <Button
-              className="mr-2"
-              data-dismiss="modal"
-              variant="primary"
-              onClick={() => setSubscription(modalData.subscription.id)}
-            >
-              {t('monthlyPayment')}
-            </Button>
-            <Button
-              // width="w-24"
-              className="px-5 text-white bg-green-btn"
-              data-dismiss="modal"
-              variant="blank"
-              onClick={() => setSubscription(modalData.subscription.yearly_subscription)}
-            >
-              {t('yearlyPayment')}
-            </Button>
-          </>
-        )}
-      </YesNoModal>
-      <div className="intro-y box mt-5 p-5">
-        <div className="overflow-auto">
-          <table className="table table-rounded text-gray-700">
-            <thead>
-              <tr>
-                <th>
-                  <div />
-                </th>
-                {subs.map((sub) => (
-                  <th className="text-center align-middle border relative">
-                    {sub.yearly_subscription && (
-                      <div className="absolute top-0 left-0 bg-red-600 rounded-br-xl py-1 px-2 font-normal text-white">
-                        -10%*
-                      </div>
-                    )}
-                    <div className="text-xl whitespace-nowrap text-gray-900 mt-4">{sub.name}</div>
-                    <div className="text-xl -mb-2">{sub.price}</div>
-                    <div className="font-normal">{t('uah')}/{t('abbreviationMonth')}</div>
-                  </th>
-                ))}
-                <th className="text-center align-middle">
-                  <div className="flex justify-center py-3">
-                    <div className="text-xl mt-4 text-gray-900">Custom</div>
-                  </div>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td className="border font-medium">{t('uiUsage')}</td>
-                {subs.map((sub) => (
-                  <td className="text-center align-middle border">
-                    {sub.is_default ? (
-                      <div className="text-xl font-medium">{sub.platform_requests_limit}</div>
-                    ) : t('unlimited')}
-                  </td>
-                ))}
-                <td rowSpan={6} className="border whitespace-nowrap text-center">
-                  {t('contactSales')}
-                </td>
-              </tr>
-              <tr>
-                <td className="border font-medium">{t('apiRequestsPEPUpdatesGroupChecks')}</td>
-                {subs.map((sub) => (
-                  <td className="text-center align-middle border text-xl font-medium">
-                    {sub.requests_limit}
-                  </td>
-                ))}
-              </tr>
-              <tr>
-                <td className="border font-medium">
-                  {t('individualPEPChecks')}
-                </td>
-                {subs.map((sub) => (
-                  <td className="text-center align-middle border text-xl font-medium">
-                    {!sub.is_default && (
-                      <div className="text-xl font-medium">{sub.pep_checks_per_minute}</div>
-                    )}
-                  </td>
-                ))}
-              </tr>
-              <tr>
-                <td className="border font-medium">{t('contract')}</td>
-                {subs.map((sub) => (
-                  <td className="text-center align-middle border">
-                    {!sub.is_default && (
-                      <div className="flex justify-center items-center">
-                        <Check className="w-6 h-6" />
-                      </div>
-                    )}
-                  </td>
-                ))}
-              </tr>
-              <tr>
-                <td className="border font-medium">{t('techSupport')}</td>
-                {subs.map((sub) => (
-                  <td className="text-center align-middle border">
-                    {!sub.is_default && (
-                      <div className="flex justify-center items-center">
-                        <Check className="w-6 h-6" />
-                      </div>
-                    )}
-                  </td>
-                ))}
-              </tr>
-              <tr>
-                <td className="border font-medium">{t('downloadPEPDatabase')}</td>
-                {subs.map((sub) => (
-                  <td className="text-center align-middle border">
-                    {sub.pep_db_downloading_if_yearly && t('forAnnualPayment')}
-                  </td>
-                ))}
-              </tr>
-              <tr>
-                <td className="p-0"><i>*{t('discountIsValidForAnnualPaymentOnly')}</i></td>
-                {subs.map((sub) => (
-                  <td>
-                    <div className="flex items-center justify-center mt-4">
-                      {defaultProject?.active_subscription.subscription_id === sub.id ? (
-                        <Tooltip content={t('usedInProject', { project: defaultProject.name })}>
-                          {getSubscriptionButton(sub)}
-                        </Tooltip>
-                      ) : getSubscriptionButton(sub)}
+      />
+      <div className="intro-y flex flex-col lg:flex-row mt-5">
+        {subs.map((sub, i) => {
+          const Icon = icons[i];
+          const getBoxClass = () => {
+            const classes = ['subscription', 'box', 'zoom-in'];
+            classes.push('py-20 h-full w-full');
+            if (i !== 0) {
+              classes.push(middleClasses);
+            } else {
+              classes.push('px-5');
+            }
+            if (defaultProject && (defaultProject.active_subscription.subscription_id === sub.id)) {
+              classes.push('subscription-has-project');
+            }
+            return classes.join(' ');
+          };
+          return (
+            <div key={sub.id} className="hover:z-50 intro-y flex-1">
+              <div className={`${getBoxClass()}`}>
+                {defaultProject &&
+                (defaultProject.active_subscription.subscription_id === sub.id) && (
+                  <div className="subscription-project flex items-center font-medium">
+                    <div className="px-2">
+                      <Bookmark className="w-7 h-7" />
                     </div>
-                  </td>
-                ))}
-                <td>
-                  <div className="flex items-center justify-center mt-4">
+                    {t('usedInProject', { project: defaultProject.name })}
+                  </div>
+                )}
+                <div className="h-full flex justify-between flex-col">
+                  <div>
+                    <Icon className="w-12 h-12 text-theme-1 mx-auto" />
+                    <div className="text-xl font-medium text-center mt-10">{sub.name}</div>
+                    <div className="text-gray-700 text-center mt-5">
+                      {!sub.is_default ? (
+                        `${t('unlimitedViews')}`
+                      ) : (
+                        `${sub.platform_requests_limit} ${t('views')}`
+                      )}
+                      <span className="mx-1">•</span>
+                      {sub.requests_limit} {t('apiRequestsTariffs')}
+                    </div>
+                    <div className="text-gray-600 px-10 text-center mx-auto mt-2">
+                      {sub.description}
+                    </div>
+                  </div>
+                  <div>
+                    <div className="subscription-price flex justify-center">
+                      <div className="relative text-5xl font-semibold mt-8 mx-auto">
+                        {i18n.language === 'en' ? sub.price.toLocaleString('en') : sub.price}
+                        <span className="contents align-top text-xl text-gray-500">₴/{t('abbreviationMonth')}</span>
+                      </div>
+                    </div>
                     <Button
-                      // size="lg"
+                      size="lg"
+                      disabled={sub.id === defaultProject?.active_subscription.subscription_id}
                       isRounded
                       noFlex
-                      variant="success"
                       type="button"
-                      className="block px-6"
-                      onClick={() => customSubscriptionModalRef.current.show()}
+                      className="subscription-button block mx-auto mt-8 px-8"
+                      onClick={() => openSubscriptionChoiceModal(sub)}
                     >
                       {t('choose')}
                     </Button>
                   </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+        <div className="hover:z-50 intro-y flex-1">
+          <div className="subscription box zoom-in py-20 h-full w-full px-5">
+            {/*<div className="subscription-project flex items-center font-medium">*/}
+            {/*  <div className="px-2">*/}
+            {/*    <Bookmark className="w-7 h-7" />*/}
+            {/*  </div>*/}
+            {/*  {t('usedInProject', { project: defaultProject.name })}*/}
+            {/*</div>*/}
+            <div className="h-full flex justify-between flex-col">
+              <div>
+                <Edit className="w-12 h-12 text-theme-1 mx-auto" />
+                <div className="text-xl font-medium text-center mt-10">Custom</div>
+                <div className="text-gray-700 text-center mt-5">
+                  {t('requestsAndViewsTBD')}
+                </div>
+              </div>
+              <div>
+                <div className="subscription-price flex justify-center">
+                  <div className="relative text-3xl font-semibold mt-5 mx-auto">
+                    {t('contactSupportForPrice')}
+                  </div>
+                </div>
+                <Button
+                  size="lg"
+                  isRounded
+                  noFlex
+                  type="button"
+                  className="subscription-button block mx-auto mt-8 px-8"
+                  onClick={() => customSubscriptionModalRef.current.show()}
+                >
+                  {t('choose')}
+                </Button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       {/*<div className="intro-y flex justify-end mt-4 mr-4">*/}

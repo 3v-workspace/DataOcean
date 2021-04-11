@@ -8,14 +8,34 @@ import { useTranslation } from 'react-i18next';
 const CompanyUkList = () => {
   const { t } = useTranslation();
   const columns = [
-    { header: t('edrpou'), prop: 'edrpou' },
-    { header: t('name'), prop: 'name' },
-    { header: t('status'), prop: 'status' },
-    { header: t('address'), prop: 'address' },
-    { header: t('authorizedCapital'), prop: 'authorized_capital' },
+    {
+      header: t('companyID'),
+      prop: 'edrpou',
+      width: '5%',
+    },
+    {
+      header: t('name'),
+      prop: 'name',
+      width: '35%',
+    },
+    {
+      header: t('status'),
+      prop: 'status',
+      width: '10%',
+    },
+    {
+      header: t('address'),
+      prop: 'address',
+      width: '40%',
+    },
+    {
+      header: t('authorizedCapital'),
+      prop: 'authorized_capital',
+      width: '10%',
+    },
   ];
   return (
-    <PageBox header={t('viewTheRegistry')} noBox>
+    <PageBox noBox>
       <Table
         columns={columns}
         url="company/uk/"

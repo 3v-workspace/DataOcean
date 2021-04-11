@@ -4,6 +4,8 @@ import {
   USER_LOGOUT,
 } from 'store/user/actions';
 
+import { Cookies } from 'react-cookie';
+
 export const setUserData = (user) => ({
   type: SET_USER_DATA,
   payload: {
@@ -19,7 +21,11 @@ export const userLogin = (user) => ({
 });
 
 export const userLogout = () => {
-  window.localStorage.removeItem('token');
+  const cookies = new Cookies(['token', 'firstname', 'lastname', 'email']);
+  cookies.remove('token', { path: '/', domain: process.env.REACT_APP_COOKIE_DOMAIN });
+  cookies.remove('firstname', { path: '/', domain: process.env.REACT_APP_COOKIE_DOMAIN });
+  cookies.remove('lastname', { path: '/', domain: process.env.REACT_APP_COOKIE_DOMAIN });
+  cookies.remove('email', { path: '/', domain: process.env.REACT_APP_COOKIE_DOMAIN });
   return {
     type: USER_LOGOUT,
   };

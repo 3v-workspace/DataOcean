@@ -62,7 +62,7 @@ const DatasetsList = ({ match, history }) => {
         {/*BEGIN: Data List*/}
         <div className="intro-y col-span-12 overflow-auto lg:overflow-visible">
           <table className="table table-report -mt-2">
-            <thead>
+            <thead className="text-white" style={{ backgroundColor: '#436986' }}>
               <tr>
                 <th className="whitespace-no-wrap">ID</th>
                 <th className="whitespace-no-wrap">{t('datasetName')}</th>
@@ -81,7 +81,7 @@ const DatasetsList = ({ match, history }) => {
                     }
                   }}
                   key={item.id}
-                  className="intro-x cursor-pointer hover:shadow-xl"
+                  className={`intro-x ${item.api_list in datasets ? 'cursor-pointer hover:shadow-xl' : 'cursor-not-allowed'}`}
                 >
                   <td>
                     {item.id}

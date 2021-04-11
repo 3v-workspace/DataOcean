@@ -102,13 +102,15 @@ const Pagination = (props) => {
           </button>
         </li>
       </ul>
-      <div className="hidden md:block text-gray-600">
-        {t('showingToOfEntries', {
-          first: tc.itemsIndexes.first,
-          last: tc.itemsIndexes.last,
-          count: tc.count,
-        })}
-      </div>
+      {tc.count > 0 && (
+        <div className="hidden md:block text-gray-600">
+          {t('showingToOfEntries', {
+            first: tc.itemsIndexes.first,
+            last: tc.itemsIndexes.last,
+            count: tc.count,
+          })}
+        </div>
+      )}
       <select
         onChange={handleChangePageSize}
         value={tc.pageSize}
