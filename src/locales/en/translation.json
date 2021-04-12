@@ -339,5 +339,6 @@
   "yearlyPayment": "Yearly payment",
   "yes": "Yes",
   "yourQuestionIsSent": "Your question is sent!",
-  "yourRequestHasBeenSentWeWillContactYou": "Your request has been sent. We will contact you."
+  "yourRequestHasBeenSentWeWillContactYou": "Your request has been sent. We will contact you.",
+  "wrongPhone": "Wrong phone number"
 }
