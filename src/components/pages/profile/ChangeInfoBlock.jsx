@@ -33,7 +33,7 @@ const ChangeInfoBlock = () => {
       organization: Yup.string().min(2),
       position: Yup.string().min(2),
       date_of_birth: Yup.date().nullable(),
-      phone: Yup.string().matches(/^(\+\d{1,2}\s?)?1?-?\.?\s?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/, t('wrongPhone')),
+      phone: Yup.string().phone(),
     }),
     onSubmit: (values, actions) => {
       Api.patch('rest-auth/user/', values)

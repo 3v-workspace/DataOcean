@@ -1,5 +1,6 @@
 /* eslint no-template-curly-in-string: 0 */
 import * as Yup from 'yup';
+import i18next from 'i18next';
 
 // Yup.setLocale({
 //   mixed: {
@@ -41,5 +42,9 @@ export const getPasswordLevel = (password) => {
   }
   return level;
 };
+
+Yup.addMethod(Yup.string, 'phone', function () {
+  return this.matches(/^(\+\d{1,2}\s?)?1?-?\.?\s?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/, i18next.t('wrongPhone'));
+});
 
 export default Yup;

@@ -84,7 +84,7 @@ const SignUpForm = () => {
       first_name: Yup.string().required().min(2),
       last_name: Yup.string().required().min(2),
       email: Yup.string().required().email(),
-      phone: Yup.string().matches(/^(\+\d{1,2}\s?)?1?-?\.?\s?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/, t('wrongPhone')),
+      phone: Yup.string().phone(),
       password1: Yup.string().required().min(8),
       password2: Yup.string().required().min(8),
       accept_policy: Yup.boolean(),
