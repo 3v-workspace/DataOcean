@@ -62,6 +62,7 @@ const SignUpForm = () => {
       email: '',
       password1: '',
       password2: '',
+      phone: '',
       accept_policy: false,
     },
     validate: (values) => {
@@ -88,6 +89,7 @@ const SignUpForm = () => {
       first_name: Yup.string().name().required().min(2),
       last_name: Yup.string().name().required().min(2),
       email: Yup.string().required().email(),
+      phone: Yup.string().phone(),
       password1: Yup.string().required().min(8),
       password2: Yup.string().required().min(8),
       accept_policy: Yup.boolean(),
@@ -153,6 +155,11 @@ const SignUpForm = () => {
             name="email"
             className="intro-x login__input border-gray-300 block"
             placeholder="Email"
+            formik={formik}
+          />
+          <TextInput
+            placeholder={t('phone')}
+            name="phone"
             formik={formik}
           />
           <TextInput
