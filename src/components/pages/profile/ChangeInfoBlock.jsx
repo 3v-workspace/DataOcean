@@ -10,6 +10,7 @@ import TabContentBlock from 'components/pages/profile/TabContentBlock';
 import DateInput from 'components/form-components/DateInput';
 import Api, { passErrorsToFormik } from 'api';
 import { useTranslation } from 'react-i18next';
+import toast from 'utils/toast';
 
 const ChangeInfoBlock = () => {
   const user = useSelector((store) => store.user);
@@ -39,6 +40,7 @@ const ChangeInfoBlock = () => {
       Api.patch('rest-auth/user/', values)
         .then((response) => {
           dispatch(setUserData(response.data));
+          toast('success', t('saved'), null, 2000);
         })
         .catch((error) => {
           passErrorsToFormik(error, formik);
