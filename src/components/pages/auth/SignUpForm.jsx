@@ -139,14 +139,14 @@ const SignUpForm = () => {
             size="lg"
             name="first_name"
             className="intro-x login__input border-gray-300 block"
-            placeholder={t('firstName')}
+            placeholder={`${t('firstName')} *`}
             formik={formik}
           />
           <TextInput
             size="lg"
             name="last_name"
             className="intro-x login__input border-gray-300 block"
-            placeholder={t('lastName')}
+            placeholder={`${t('lastName')} *`}
             formik={formik}
           />
           <TextInput
@@ -154,12 +154,7 @@ const SignUpForm = () => {
             size="lg"
             name="email"
             className="intro-x login__input border-gray-300 block"
-            placeholder="Email"
-            formik={formik}
-          />
-          <TextInput
-            placeholder={t('phone')}
-            name="phone"
+            placeholder="Email *"
             formik={formik}
           />
           <TextInput
@@ -168,7 +163,7 @@ const SignUpForm = () => {
             name="password1"
             autoComplete="on"
             className="intro-x login__input border-gray-300 block"
-            placeholder={t('password')}
+            placeholder={`${t('password')} *`}
             formik={formik}
           />
           <PasswordSecure level={psswdSec} />
@@ -192,11 +187,18 @@ const SignUpForm = () => {
             size="lg"
             autoComplete="on"
             className="intro-x login__input border-gray-300 block mt-4"
-            placeholder={t('passwordConfirmation')}
+            placeholder={`${t('passwordConfirmation')} *`}
+            formik={formik}
+          />
+          <TextInput
+            size="lg"
+            name="phone"
+            className="intro-x login__input border-gray-300 block"
+            placeholder={t('phone')}
             formik={formik}
           />
         </div>
-        <div className="intro-x flex items-center text-gray-700 mt-4 text-xs sm:text-sm">
+        <div className="intro-x flex flex-wrap items-center text-gray-700 mt-4 text-xs sm:text-sm">
           <input
             type="checkbox"
             className="input border mr-2"
