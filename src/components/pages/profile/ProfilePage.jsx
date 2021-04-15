@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Api from 'api';
 import { ReactRouterPropTypes } from 'utils/prop-types';
 import {
-  Mail, Settings, User, Clipboard, File, Download,
+  Mail, Settings, User, Clipboard, File,
 } from 'react-feather';
 import { NavLink, Redirect, Route, Switch } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -56,15 +56,15 @@ const ProfilePage = ({ match }) => {
               'text-gray-600 px-5 border-l border-r border-gray-200 border-t lg:border-t-0 pt-5 lg:pt-0'
             }
           >
-            <a
-              className="sm:whitespace-normal flex items-center mr-2 inline-flex text-theme-1"
-              href="/docs/Contract.docx"
-              target="_blank"
-              download
-            >
-              <Download className="mr-2" />
-              {t('downloadContract')}
-            </a>
+            {/*<a*/}
+            {/*  className="sm:whitespace-normal flex items-center mr-2 inline-flex text-theme-1"*/}
+            {/*  href="/docs/Contract.docx"*/}
+            {/*  target="_blank"*/}
+            {/*  download*/}
+            {/*>*/}
+            {/*  <Download className="mr-2" />*/}
+            {/*  {t('downloadContract')}*/}
+            {/*</a>*/}
           </div>
           <div
             className={

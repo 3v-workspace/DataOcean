@@ -21,11 +21,31 @@ export const setYupLanguage = (language) => {
         max: 'Максимальна довжина ${max} символів',
       },
       number: {
-        min: 'Число повинно бути меньше ніж ${min}',
+        min: 'Число повинно бути менше ніж ${min}',
         max: 'Число повинно бути більше ніж ${max}',
         positive: 'Від\'ємне число заборонено',
         negative: 'Необхідно ввести від\'ємне число',
         integer: 'Необхідно ввести ціле число',
+      },
+    });
+  } else if (language === 'en') {
+    Yup.setLocale({
+      mixed: {
+        required: 'The field can\'t be empty',
+      },
+      string: {
+        email: 'Incorrect email',
+        url: 'Incorrect url',
+        length: 'The field must contain ${length} characters',
+        min: 'Minimum length of ${min} characters',
+        max: 'Maximum length of ${max} characters',
+      },
+      number: {
+        min: 'The number must be less than ${min}',
+        max: 'The number must be higher than ${max}',
+        positive: 'The negative number is forbidden',
+        negative: 'Enter a negative number',
+        integer: 'Enter an integer number',
       },
     });
   } else {

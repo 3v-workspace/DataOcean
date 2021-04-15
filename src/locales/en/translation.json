@@ -2,7 +2,7 @@
   "NACEs": "NACE",
   "abbreviationMonth": "month",
   "accept": "Accept",
-  "acceptPolicyError": "To register, you must confirm your agreement to the privacy policy",
+  "acceptPolicyError": "To register, you must confirm your agreement to the Privacy policy and Terms and conditions",
   "accessToken": "Access token",
   "active": "Active",
   "addMetric": "Add metric",
@@ -206,6 +206,7 @@
   "noSearchResults": "No search results",
   "notConfirmedInvitation": "Not confirmed invitation",
   "notPaid": "Not paid",
+  "notPoliticallyExposedPerson": "Not a politically exposed person",
   "note": "Note",
   "notifications": "Notifications",
   "numberOfCompanies": "Number of companies",
@@ -254,6 +255,7 @@
   "personStatus": "User status",
   "phone": "Phone",
   "pie": "Pie",
+  "politicallyExposedPerson": "Politically exposed person",
   "position": "Position",
   "previousMonth": "Previous month",
   "privacyPolicy": "Privacy policy",
@@ -289,6 +291,7 @@
   "requestsLeft": "Requests left",
   "returnToTheProject": "Return to the project",
   "save": "Save",
+  "saved": "Saved",
   "search": "Search",
   "secondLevelOfSubordination": "Second level of subordination",
   "section": "Section",
@@ -349,5 +352,6 @@
   "yearlyPayment": "Yearly payment",
   "yes": "Yes",
   "yourQuestionIsSent": "Your question is sent!",
-  "yourRequestHasBeenSentWeWillContactYou": "Your request has been sent. We will contact you."
+  "yourRequestHasBeenSentWeWillContactYou": "Your request has been sent. We will contact you.",
+  "wrongPhone": "Wrong phone number"
 }

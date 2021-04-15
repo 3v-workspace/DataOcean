@@ -9,6 +9,7 @@ import Api, { passErrorsToFormik } from 'api';
 import { setUserData } from 'store/user/actionCreators';
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import toast from 'utils/toast';
 
 
 const ChangePasswordBlock = () => {
@@ -35,13 +36,14 @@ const ChangePasswordBlock = () => {
     },
     validationSchema: Yup.object({
       old_password: Yup.string().required(),
-      new_password1: Yup.string().required().min(6),
-      new_password2: Yup.string().required().min(6),
+      new_password1: Yup.string().required().min(8),
+      new_password2: Yup.string().required().min(8),
     }),
     onSubmit: (values, actions) => {
       Api.post('rest-auth/password/change/', values)
         .then((response) => {
           dispatch(setUserData(response.data));
+          toast('success', t('saved'), null, 2000);
         })
         .catch((error) => {
           passErrorsToFormik(error, formik);

@@ -4,6 +4,7 @@ import { Database, Search } from 'react-feather';
 import Api from 'api';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import datasets from '../pages/datasets/datasets';
 
 
 const SearchResult = (props) => {
@@ -13,7 +14,7 @@ const SearchResult = (props) => {
       <div
         className="w-8 h-8 flex-grow-0 flex-shrink-0 bg-theme-18 text-theme-9 flex items-center justify-center rounded-full"
       >
-        <Database className="feather feather-inbox w-4 h-4" />
+        <Database className="w-4 h-4" />
       </div>
       <div className="ml-3">{label}</div>
       {subLabel && (
@@ -43,7 +44,7 @@ const TopBarSearch = () => {
   const fetchData = (search) => {
     Api.get('register/', { params: { search } })
       .then((resp) => {
-        setData(resp.data.results);
+        setData(resp.data.results.filter((dataset) => dataset.api_list in datasets));
       })
       .catch(() => {
         setData([]);

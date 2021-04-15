@@ -2,7 +2,7 @@
   "NACEs": "КВЕДи",
   "abbreviationMonth": "міс",
   "accept": "Прийняти",
-  "acceptPolicyError": "Для реєстрації ви повинні підтвердити згоду з політикою конфіденційності",
+  "acceptPolicyError": "Для реєстрації Ви повинні підтвердити згоду з Політикою конфіденційності і Правилами та умовами",
   "accessToken": "Токен доступу",
   "active": "Активний",
   "addMetric": "Додати метрику",
@@ -206,6 +206,7 @@
   "noSearchResults": "Немає результатів пошуку",
   "notConfirmedInvitation": "Не підтвердили запрошення",
   "notPaid": "Неоплачено",
+  "notPoliticallyExposedPerson": "Не є публічним діячем",
   "note": "Примітка",
   "notifications": "Сповіщення",
   "numberOfCompanies": "Кількість підприємств",
@@ -254,6 +255,7 @@
   "personStatus": "Статус користувача",
   "phone": "Телефон",
   "pie": "Пиріг",
+  "politicallyExposedPerson": "Публічний діяч",
   "position": "Посада",
   "previousMonth": "Попередній місяць",
   "privacyPolicy": "Політикою конфіденційності",
@@ -289,6 +291,7 @@
   "requestsLeft": "Запитів залишилось",
   "returnToTheProject": "Повернутись до проєкту",
   "save": "Зберегти",
+  "saved": "Збережено",
   "search": "Пошук",
   "secondLevelOfSubordination": "Другий рівень підпорядкованості",
   "section": "Підрозділ",
@@ -349,5 +352,6 @@
   "yearlyPayment": "Щорічний платіж",
   "yes": "Так",
   "yourQuestionIsSent": "Ваше запитання надіслано!",
-  "yourRequestHasBeenSentWeWillContactYou": "Ваш запит надіслано. Ми звяжемось з Вами."
+  "yourRequestHasBeenSentWeWillContactYou": "Ваш запит надіслано. Ми звяжемось з Вами.",
+  "wrongPhone": "Невірно вказано номер телефону"
 }
