@@ -194,9 +194,9 @@
   "noDataAvailable": "Дані відсутні",
   "noNotifications": "Сповіщень немає",
   "noSearchResults": "Немає результатів пошуку",
-  "notPoliticallyExposedPerson": "Не є публічним діячем",
   "notConfirmedInvitation": "Не підтвердили запрошення",
   "notPaid": "Неоплачено",
+  "notPoliticallyExposedPerson": "Не є публічним діячем",
   "note": "Примітка",
   "notifications": "Сповіщення",
   "numberOfCompanies": "Кількість підприємств",
@@ -279,6 +279,7 @@
   "requestsLeft": "Запитів залишилось",
   "returnToTheProject": "Повернутись до проєкту",
   "save": "Зберегти",
+  "saved": "Збережено",
   "search": "Пошук",
   "secondLevelOfSubordination": "Другий рівень підпорядкованості",
   "section": "Підрозділ",
@@ -339,5 +340,6 @@
   "yearlyPayment": "Щорічний платіж",
   "yes": "Так",
   "yourQuestionIsSent": "Ваше запитання надіслано!",
-  "yourRequestHasBeenSentWeWillContactYou": "Ваш запит надіслано. Ми звяжемось з Вами."
+  "yourRequestHasBeenSentWeWillContactYou": "Ваш запит надіслано. Ми звяжемось з Вами.",
+  "wrongPhone": "Невірно вказано номер телефону"
 }
