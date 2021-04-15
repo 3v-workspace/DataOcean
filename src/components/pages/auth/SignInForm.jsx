@@ -21,16 +21,8 @@ const SignInForm = ({ history }) => {
   const { t, i18n } = useTranslation();
   const setCookie = useDOCookies()[1];
 
-
-  let policy = '/docs/PrivacyPolicyUk.html';
-  if (i18n.language === 'en') {
-    policy = '/docs/PrivacyPolicyEn.html';
-  }
-
-  let terms = '/docs/TermsAndConditionsUk.html';
-  if (i18n.language === 'en') {
-    terms = '/docs/TermsAndConditionsEn.html';
-  }
+  const policy = `/docs/${i18n.language}/PrivacyPolicy.html`;
+  const terms = `/docs/${i18n.language}/TermsAndConditions.html`;
 
   const formik = useFormik({
     initialValues: {
@@ -55,6 +47,7 @@ const SignInForm = ({ history }) => {
           window.localStorage.setItem('project_token', project_token);
           dispatch(userLogin(user));
           setLanguage(user.language);
+          setCookie('lang', user.language);
           const subId = +window.localStorage.getItem('subscription');
           if (subId) {
             history.push('/system/subscriptions/');

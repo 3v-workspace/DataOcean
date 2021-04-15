@@ -45,15 +45,8 @@ const SignUpForm = () => {
   const [sent, setSent] = useState(false);
   // const dispatch = useDispatch();
 
-  let policy = '/docs/PrivacyPolicyUk.html';
-  if (i18n.language === 'en') {
-    policy = '/docs/PrivacyPolicyEn.html';
-  }
-
-  let terms = '/docs/TermsAndConditionsUk.html';
-  if (i18n.language === 'en') {
-    terms = '/docs/TermsAndConditionsEn.html';
-  }
+  const policy = `/docs/${i18n.language}/PrivacyPolicy.html`;
+  const terms = `/docs/${i18n.language}/TermsAndConditions.html`;
 
   const formik = useFormik({
     initialValues: {

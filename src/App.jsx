@@ -21,6 +21,7 @@ const App = () => {
         removeCookie('firstname');
         removeCookie('lastname');
         removeCookie('email');
+        removeCookie('lang');
       })
       .finally(() => {
         setLanguage();

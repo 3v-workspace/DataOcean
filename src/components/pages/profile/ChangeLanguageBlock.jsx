@@ -10,11 +10,13 @@ import Api, { passErrorsToFormik } from 'api';
 import { SelectInput } from 'components/form-components';
 import { useTranslation } from 'react-i18next';
 import setLanguage from 'utils/setLanguage';
+import { useDOCookies } from 'hooks';
 
 const ChangeLanguageBlock = () => {
   const user = useSelector((store) => store.user);
   const dispatch = useDispatch();
   const { t } = useTranslation();
+  const setCookie = useDOCookies()[1];
 
   const formik = useFormik({
     initialValues: {
@@ -28,6 +30,7 @@ const ChangeLanguageBlock = () => {
         .then((response) => {
           dispatch(setUserData(response.data));
           setLanguage(response.data.language);
+          setCookie('lang', response.data.language);
         })
         .catch((error) => {
           passErrorsToFormik(error, formik);

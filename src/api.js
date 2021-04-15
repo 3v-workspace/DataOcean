@@ -17,8 +17,8 @@ const Api = axios.create({
 });
 
 Api.interceptors.request.use((config) => {
-  const cookies = new Cookies(['token']);
-  const lang = window.localStorage.getItem('i18nextLng');
+  const cookies = new Cookies(['token', 'lang']);
+  const lang = cookies.get('lang');
   if (config.useProjectToken) {
     const project_token = window.localStorage.getItem('project_token');
     config.headers.Authorization = `${PROJECT_TOKEN_PREFIX} ${project_token}`;

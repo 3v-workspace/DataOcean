@@ -23,6 +23,7 @@ i18n
         'navigator', 'htmlTag', 'path', 'subdomain',
       ],
       lookupLocalStorage: 'i18nextLng',
+      lookupCookie: 'lang',
     },
     // resources: {
     //   en,
