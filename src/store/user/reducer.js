@@ -15,6 +15,12 @@ const initialState = {
   position: '',
   date_of_birth: '',
   language: 'uk',
+  person_status: '',
+  iban: '',
+  company_name: '',
+  company_address: '',
+  identification_code: '',
+  mfo: '',
 
   // system
   isLoggedIn: false,

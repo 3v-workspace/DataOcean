@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import TabContent from 'components/pages/profile/TabContent';
 import TabContentBlock from 'components/pages/profile/TabContentBlock';
 import { ReactRouterPropTypes } from 'utils/prop-types';
@@ -7,7 +7,8 @@ import { useTranslation } from 'react-i18next';
 import Api, { baseApiUrl } from 'api';
 import { Eye, Printer } from 'react-feather';
 import Button from 'components/form-components/Button';
-
+import { BlankModal } from 'components/modals';
+import UserStatusForm from 'components/pages/profile/UserStatusForm';
 
 const InvoicesTable = (props) => {
   const { match } = props;
@@ -15,6 +16,9 @@ const InvoicesTable = (props) => {
   const { t } = useTranslation();
   const [invoices, setInvoices] = useState([]);
   const [subData, setSubData] = useState({});
+  const [selectedInvoice, setSelectedInvoice] = useState({});
+
+  const customSubscriptionModalRef = useRef();
 
   const fetchData = () => {
     let url;
@@ -57,63 +61,84 @@ const InvoicesTable = (props) => {
   };
 
   return (
-    <TabContent>
-      <TabContentBlock
-        large
-        title={getTitle()}
+    <>
+      <BlankModal
+        ref={customSubscriptionModalRef}
+        headerText={t('payerInformation')}
       >
-        <div className="overflow-auto md:overflow-hidden">
-          <table className="table">
-            <thead>
-              <tr className="bg-gray-200 text-gray-700">
-                <th>{t('invoiceNo')}</th>
-                {!subscriptionId && [
-                  <th key={1}>{t('subscription')}</th>,
-                  <th key={2}>{t('project')}</th>,
-                ]}
-                <th>{t('status')}</th>
-                <th>{t('paymentDate')}</th>
-                <th>{t('paymentAmount')}</th>
-                <th />
-              </tr>
-            </thead>
-            <tbody>
-              {invoices.map((invoice) => (
-                <tr
-                  key={invoice.id}
-                  className="border-b intro-x"
-                >
-                  <td>{invoice.id}</td>
-                  {!subscriptionId && [
-                    <td key={1}>{invoice.subscription_name}</td>,
-                    <td key={2}>{invoice.project_name}</td>,
-                  ]}
-                  <td>{getInvoiceStatus(invoice)}</td>
-                  <td>{invoice.paid_at ? dateFormat(invoice.paid_at) : '---'}</td>
-                  <td>{invoice.price} {t('uah')}</td>
-                  <td>
-                    <Button
-                      variant="blank"
-                      className="p-1 text-theme-3"
-                      onClick={() => openInvoice(invoice)}
-                    >
-                      <Eye className="w-4 h-4" />
-                    </Button>
-                    <Button
-                      variant="blank"
-                      className="p-1 text-theme-3"
-                      onClick={() => openInvoice(invoice)}
-                    >
-                      <Printer className="w-4 h-4" />
-                    </Button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        <div className="p-5">
+          <UserStatusForm
+            onSubmit={() => {
+              customSubscriptionModalRef.current.hide();
+              openInvoice(selectedInvoice);
+            }}
+          />
         </div>
-      </TabContentBlock>
-    </TabContent>
+      </BlankModal>
+      <TabContent>
+        <TabContentBlock
+          large
+          title={getTitle()}
+        >
+          <div className="overflow-auto md:overflow-hidden">
+            <table className="table">
+              <thead>
+                <tr className="bg-gray-200 text-gray-700">
+                  <th>{t('invoiceNo')}</th>
+                  {!subscriptionId && [
+                    <th key={1}>{t('subscription')}</th>,
+                    <th key={2}>{t('project')}</th>,
+                  ]}
+                  <th>{t('status')}</th>
+                  <th>{t('paymentDate')}</th>
+                  <th>{t('paymentAmount')}</th>
+                  <th />
+                </tr>
+              </thead>
+              <tbody>
+                {invoices.map((invoice) => (
+                  <tr
+                    key={invoice.id}
+                    className="border-b intro-x"
+                  >
+                    <td>{invoice.id}</td>
+                    {!subscriptionId && [
+                      <td key={1}>{invoice.subscription_name}</td>,
+                      <td key={2}>{invoice.project_name}</td>,
+                    ]}
+                    <td>{getInvoiceStatus(invoice)}</td>
+                    <td>{invoice.paid_at ? dateFormat(invoice.paid_at) : '---'}</td>
+                    <td>{invoice.price} {t('uah')}</td>
+                    <td>
+                      <Button
+                        variant="blank"
+                        className="p-1 text-theme-3"
+                        onClick={() => {
+                          customSubscriptionModalRef.current.show();
+                          setSelectedInvoice(invoice);
+                        }}
+                      >
+                        <Eye className="w-4 h-4" />
+                      </Button>
+                      <Button
+                        variant="blank"
+                        className="p-1 text-theme-3"
+                        onClick={() => {
+                          customSubscriptionModalRef.current.show();
+                          setSelectedInvoice(invoice);
+                        }}
+                      >
+                        <Printer className="w-4 h-4" />
+                      </Button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </TabContentBlock>
+      </TabContent>
+    </>
   );
 };
 
