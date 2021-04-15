@@ -9,11 +9,10 @@ import PropTypes from 'prop-types';
 import { usersStatus } from 'const/usersStatus';
 
 const UserStatusForm = (props) => {
+  const { onSubmit } = props;
   const user = useSelector((store) => store.user);
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const { onSubmit } = props;
-
 
   const formik = useFormik({
     initialValues: {
@@ -23,8 +22,6 @@ const UserStatusForm = (props) => {
       company_address: user.company_address,
       identification_code: user.identification_code,
       mfo: user.mfo,
-
-
     },
     onSubmit: (values, actions) => {
       Api.patch('rest-auth/user/', values)
@@ -45,8 +42,8 @@ const UserStatusForm = (props) => {
   return (
     <Form formik={formik}>
       <SelectInput
+        required
         formik={formik}
-        //onChange={(event) => setOption(event.target.value)}
         name="person_status"
         options={[
           { value: usersStatus.INDIVIDUAL, label: t('individual') },
@@ -56,50 +53,39 @@ const UserStatusForm = (props) => {
         label={t('personStatus')}
       />
       {formik.values.person_status !== usersStatus.INDIVIDUAL && (
-      <>
-        <TextInput
-          required
-          formik={formik}
-          name="company_name"
-          label={t('companyName')}
-        />
-        {formik.values.person_status === usersStatus.INDIVIDUAL_ENTREPRENEUR && (
-        <TextInput
-          required
-          formik={formik}
-          name="identification_code"
-          label={t('itn')}
-        />
-        )}
-        {formik.values.person_status === usersStatus.LEGAL_ENTITY && (
-        <TextInput
-          required
-          formik={formik}
-          name="identification_code"
-          label={t('edrpou')}
-        />
-        )}
-        <TextInput
-          required
-          formik={formik}
-          name="company_address"
-          label={t('registrationAddress')}
-        />
-        <TextInput
-          required
-          formik={formik}
-          name="iban"
-          label={t('iban')}
-        />
-        <TextInput
-          required
-          formik={formik}
-          name="mfo"
-          label={t('mfo')}
-        />
-      </>
+        <>
+          <TextInput
+            required
+            formik={formik}
+            name="company_name"
+            label={t('companyName')}
+          />
+          <TextInput
+            required
+            formik={formik}
+            name="identification_code"
+            label={formik.values.person_status === usersStatus.INDIVIDUAL_ENTREPRENEUR ? t('itn') : t('edrpou')}
+          />
+          <TextInput
+            required
+            formik={formik}
+            name="company_address"
+            label={t('registrationAddress')}
+          />
+          <TextInput
+            required
+            formik={formik}
+            name="iban"
+            label={t('iban')}
+          />
+          <TextInput
+            required
+            formik={formik}
+            name="mfo"
+            label={t('mfo')}
+          />
+        </>
       )}
-
       <Button
         disabled={formik.isSubmitting}
         isLoading={formik.isSubmitting}
@@ -112,7 +98,11 @@ const UserStatusForm = (props) => {
 };
 
 UserStatusForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func,
+};
+
+UserStatusForm.defaultProps = {
+  onSubmit: () => {},
 };
 
 export default UserStatusForm;

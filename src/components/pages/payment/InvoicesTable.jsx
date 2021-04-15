@@ -16,7 +16,7 @@ const InvoicesTable = (props) => {
   const { t } = useTranslation();
   const [invoices, setInvoices] = useState([]);
   const [subData, setSubData] = useState({});
-  const [invoiceData, setInvoiceData] = useState({});
+  const [selectedInvoice, setSelectedInvoice] = useState({});
 
   const customSubscriptionModalRef = useRef();
 
@@ -52,11 +52,6 @@ const InvoicesTable = (props) => {
     window.open(`${baseApiUrl}/api/payment/invoice/${invoice.id}/${invoice.token}/`, '_blank');
   };
 
-  const onSubmit = () => {
-    customSubscriptionModalRef.current.hide();
-    openInvoice(invoiceData);
-  };
-
   const getTitle = () => {
     if (subscriptionId && subData.subscription?.name) {
       return `${t('myPayments')}, ${t('subscription').toLowerCase()} ${subData.subscription.name}, ` +
@@ -69,10 +64,15 @@ const InvoicesTable = (props) => {
     <>
       <BlankModal
         ref={customSubscriptionModalRef}
-        headerText={t('confirmationInvoice')}
+        headerText={t('payerInformation')}
       >
         <div className="p-5">
-          <UserStatusForm onSubmit={onSubmit} />
+          <UserStatusForm
+            onSubmit={() => {
+              customSubscriptionModalRef.current.hide();
+              openInvoice(selectedInvoice);
+            }}
+          />
         </div>
       </BlankModal>
       <TabContent>
@@ -115,16 +115,18 @@ const InvoicesTable = (props) => {
                         className="p-1 text-theme-3"
                         onClick={() => {
                           customSubscriptionModalRef.current.show();
-                          setInvoiceData(invoice);
+                          setSelectedInvoice(invoice);
                         }}
                       >
-
                         <Eye className="w-4 h-4" />
                       </Button>
                       <Button
                         variant="blank"
                         className="p-1 text-theme-3"
-                        onClick={() => openInvoice(invoice)}
+                        onClick={() => {
+                          customSubscriptionModalRef.current.show();
+                          setSelectedInvoice(invoice);
+                        }}
                       >
                         <Printer className="w-4 h-4" />
                       </Button>

@@ -9,7 +9,7 @@ const ChangeUserStatus = () => {
 
 
   return (
-    <TabContentBlock title={t('changeUserStatus')}>
+    <TabContentBlock title={t('payerInformation')}>
       <UserStatusForm />
     </TabContentBlock>
   );
