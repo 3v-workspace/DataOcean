@@ -19,8 +19,14 @@ i18n
     // },
     detection: {
       order: [
-        'localStorage', 'querystring', 'cookie', 'sessionStorage',
-        'navigator', 'htmlTag', 'path', 'subdomain',
+        'cookie',
+        'querystring',
+        'localStorage',
+        'sessionStorage',
+        'navigator',
+        'htmlTag',
+        'path',
+        'subdomain',
       ],
       lookupLocalStorage: 'i18nextLng',
       lookupCookie: 'lang',
@@ -32,8 +38,8 @@ i18n
     react: {
       useSuspense: false,
     },
-    // languages: ['uk', 'en'],
-    // lng: 'uk',
+    supportedLngs: ['uk', 'en'],
+    lng: 'uk',
     fallbackLng: ['uk', 'en'],
     debug: process.env.NODE_ENV === 'development',
 

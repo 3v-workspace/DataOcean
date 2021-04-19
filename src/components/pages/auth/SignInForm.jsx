@@ -44,7 +44,6 @@ const SignInForm = ({ history }) => {
           window.localStorage.setItem('project_token', project_token);
           dispatch(userLogin(user));
           setLanguage(user.language);
-          setCookie('lang', user.language);
           const subId = +window.localStorage.getItem('subscription');
           if (subId) {
             history.push('/system/subscriptions/');
