@@ -45,9 +45,6 @@ const SignUpForm = () => {
   const [sent, setSent] = useState(false);
   // const dispatch = useDispatch();
 
-  const policy = `/docs/${i18n.language}/PrivacyPolicy.html`;
-  const terms = `/docs/${i18n.language}/TermsAndConditions.html`;
-
   const formik = useFormik({
     initialValues: {
       first_name: '',
@@ -204,11 +201,19 @@ const SignUpForm = () => {
             {t('iAgreeWith')}
           </label>
           {i18n.language === 'en' ? <>&nbsp;the</> : ''}
-          <a className="text-theme-1 mx-1" href={`${process.env.PUBLIC_URL}${policy}`} target="_blank">
+          <a
+            className="text-theme-1 mx-1"
+            href={`${process.env.PUBLIC_URL}/docs/${i18n.language}/PrivacyPolicy.html`}
+            target="_blank"
+          >
             {t('privacyPolicy')}
           </a>
           {' & '}
-          <a className="text-theme-1 ml-1" href={`${process.env.PUBLIC_URL}${terms}`} target="_blank">
+          <a
+            className="text-theme-1 ml-1"
+            href={`${process.env.PUBLIC_URL}/docs/${i18n.language}/PrivacyPolicy.html`}
+            target="_blank"
+          >
             {t('termsAndConditions')}
           </a>.
         </div>

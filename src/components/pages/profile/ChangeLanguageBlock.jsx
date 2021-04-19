@@ -31,7 +31,6 @@ const ChangeLanguageBlock = () => {
         .then((response) => {
           dispatch(setUserData(response.data));
           setLanguage(response.data.language);
-          setCookie('lang', response.data.language);
           toast('success', t('saved'), null, 2000);
         })
         .catch((error) => {
