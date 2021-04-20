@@ -15,7 +15,9 @@ const RootRoutes = () => {
 
   const language = qs.get('lang');
   if (['uk', 'en'].includes(language)) {
-    setLanguage(language);
+    if (!isLogin) {
+      setLanguage(language);
+    }
     needClear = true;
   }
 

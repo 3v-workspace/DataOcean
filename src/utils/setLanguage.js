@@ -4,6 +4,7 @@ import i18next from 'i18next';
 import Yup from 'utils/yup';
 import locale from 'yup/lib/locale';
 import moment from 'moment';
+import { Cookies } from 'react-cookie';
 
 export const setYupLanguage = (language) => {
   if (language === 'uk') {
@@ -54,9 +55,10 @@ export const setYupLanguage = (language) => {
 };
 
 const setLanguage = (languageCode) => {
+  const cookies = new Cookies(['lang']);
   let lang = languageCode;
   if (!lang) {
-    lang = window.localStorage.getItem('i18nextLng');
+    lang = cookies.get('lang');
     if (!lang) {
       lang = navigator.language || navigator.userLanguage;
       lang = i18next.languages.find((item) => lang.includes(item)) || 'uk';
@@ -64,7 +66,7 @@ const setLanguage = (languageCode) => {
   }
   moment.locale(lang);
   i18next.changeLanguage(lang);
-  window.localStorage.setItem('i18nextLng', lang);
+  cookies.set('lang', lang, { path: '/', domain: process.env.REACT_APP_COOKIE_DOMAIN, maxAge: 604800 });
   setYupLanguage(lang);
 };
 
