@@ -10,6 +10,7 @@ import TabContentBlock from 'components/pages/profile/TabContentBlock';
 import DateInput from 'components/form-components/DateInput';
 import Api, { passErrorsToFormik } from 'api';
 import { useTranslation } from 'react-i18next';
+import toast from 'utils/toast';
 
 const ChangeInfoBlock = () => {
   const user = useSelector((store) => store.user);
@@ -24,6 +25,7 @@ const ChangeInfoBlock = () => {
       organization: user.organization,
       position: user.position,
       date_of_birth: user.date_of_birth,
+      phone: user.phone,
     },
     validationSchema: Yup.object({
       email: Yup.string().required().email(),
@@ -32,11 +34,13 @@ const ChangeInfoBlock = () => {
       organization: Yup.string().min(2),
       position: Yup.string().min(2),
       date_of_birth: Yup.date().nullable(),
+      phone: Yup.string().phone(),
     }),
     onSubmit: (values, actions) => {
       Api.patch('rest-auth/user/', values)
         .then((response) => {
           dispatch(setUserData(response.data));
+          toast('success', t('saved'), null, 2000);
         })
         .catch((error) => {
           passErrorsToFormik(error, formik);
@@ -83,6 +87,11 @@ const ChangeInfoBlock = () => {
           label={t('dateOfBirth')}
           name="date_of_birth"
           drops="up"
+          formik={formik}
+        />
+        <TextInput
+          label={t('phone')}
+          name="phone"
           formik={formik}
         />
         <div className="mt-5 xl:mt-8 xl:text-left">

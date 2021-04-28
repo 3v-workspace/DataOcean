@@ -18,6 +18,7 @@ import { dateFormat } from 'utils';
 import Form from 'components/form-components/Form';
 import { p2sStatus, u2pRole, u2pStatus } from 'const/projects';
 import toast from 'utils/toast';
+import moment from 'moment';
 import { useDispatch } from 'react-redux';
 import { changeCrumbName } from '../../../store/breadcrubms/actionCreators';
 
@@ -607,7 +608,15 @@ const ProjectDetail = (props) => {
                     </div>
                   </td>
                   <td className="border-b">{subsStatuses[subscription.status]}</td>
-                  <td className="border-b">{subscription.requests_left}</td>
+                  <td className="border-b">
+                    <b>{subscription.requests_left}</b>{' '}
+                    {subscription.status !== p2sStatus.PAST && (
+                      <span className="whitespace-nowrap">
+                        (<RefreshCcw className="w-4 h-4 inline-block" />{' '}
+                        {moment(subscription.renewal_date).format('D MMMM')})
+                      </span>
+                    )}
+                  </td>
                   <td className="border-b">
                     {getPaymentDateText(subscription)}
                   </td>

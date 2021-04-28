@@ -21,17 +21,6 @@ const SignInForm = ({ history }) => {
   const { t, i18n } = useTranslation();
   const setCookie = useDOCookies()[1];
 
-
-  let policy = '/docs/PrivacyPolicyUk.html';
-  if (i18n.language === 'en') {
-    policy = '/docs/PrivacyPolicyEn.html';
-  }
-
-  let terms = '/docs/TermsAndConditionsUk.html';
-  if (i18n.language === 'en') {
-    terms = '/docs/TermsAndConditionsEn.html';
-  }
-
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -131,14 +120,18 @@ const SignInForm = ({ history }) => {
         <br />
         <a
           className="text-theme-1"
-          href={`${process.env.PUBLIC_URL}${terms}`}
+          href={`${process.env.PUBLIC_URL}/docs/${i18n.language}/TermsAndConditions.html`}
           target="_blank"
         >
           {t('termsAndConditions')}
         </a>
         {' & '}
 
-        <a className="text-theme-1" href={`${process.env.PUBLIC_URL}${policy}`} target="_blank">
+        <a
+          className="text-theme-1"
+          href={`${process.env.PUBLIC_URL}/docs/${i18n.language}/PrivacyPolicy.html`}
+          target="_blank"
+        >
           {t('privacyPolicy')}
           {/* {i18n.language === 'en' ? 'Українська' : 'English'} */}
         </a>.

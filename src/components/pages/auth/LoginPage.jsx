@@ -12,7 +12,7 @@ import surfer from 'images/surfer.png';
 import logo from 'images/whitelogo.png';
 import english from 'images/USA.svg';
 import ukrainian from 'images/ukraine.svg';
-import { setYupLanguage } from 'utils/setLanguage';
+import setLanguage from 'utils/setLanguage';
 
 
 const LoginPage = ({ match, history, location }) => {
@@ -36,11 +36,9 @@ const LoginPage = ({ match, history, location }) => {
 
   const switchLanguage = () => {
     if (i18n.language === 'uk') {
-      i18n.changeLanguage('en');
-      setYupLanguage('en');
+      setLanguage('en');
     } else {
-      i18n.changeLanguage('uk');
-      setYupLanguage('uk');
+      setLanguage('uk');
     }
   };
 

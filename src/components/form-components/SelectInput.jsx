@@ -35,7 +35,7 @@ const SelectInput = (props) => {
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [placeholder, multiple, disabled, onChange, hideSearch, name]);
+  }, [placeholder, multiple, disabled, onChange, hideSearch, name, JSON.stringify(options)]);
 
   useEffect(() => {
     $(selectRef.current).val(value || (formik && formik.values[name])).trigger('change');

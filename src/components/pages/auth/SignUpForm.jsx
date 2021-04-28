@@ -45,16 +45,6 @@ const SignUpForm = () => {
   const [sent, setSent] = useState(false);
   // const dispatch = useDispatch();
 
-  let policy = '/docs/PrivacyPolicyUk.html';
-  if (i18n.language === 'en') {
-    policy = '/docs/PrivacyPolicyEn.html';
-  }
-
-  let terms = '/docs/TermsAndConditionsUk.html';
-  if (i18n.language === 'en') {
-    terms = '/docs/TermsAndConditionsEn.html';
-  }
-
   const formik = useFormik({
     initialValues: {
       first_name: '',
@@ -62,6 +52,7 @@ const SignUpForm = () => {
       email: '',
       password1: '',
       password2: '',
+      phone: '',
       accept_policy: false,
     },
     validate: (values) => {
@@ -88,6 +79,7 @@ const SignUpForm = () => {
       first_name: Yup.string().name().required().min(2),
       last_name: Yup.string().name().required().min(2),
       email: Yup.string().required().email(),
+      phone: Yup.string().phone(),
       password1: Yup.string().required().min(8),
       password2: Yup.string().required().min(8),
       accept_policy: Yup.boolean(),
@@ -137,14 +129,14 @@ const SignUpForm = () => {
             size="lg"
             name="first_name"
             className="intro-x login__input border-gray-300 block"
-            placeholder={t('firstName')}
+            placeholder={`${t('firstName')} *`}
             formik={formik}
           />
           <TextInput
             size="lg"
             name="last_name"
             className="intro-x login__input border-gray-300 block"
-            placeholder={t('lastName')}
+            placeholder={`${t('lastName')} *`}
             formik={formik}
           />
           <TextInput
@@ -152,7 +144,7 @@ const SignUpForm = () => {
             size="lg"
             name="email"
             className="intro-x login__input border-gray-300 block"
-            placeholder="Email"
+            placeholder="Email *"
             formik={formik}
           />
           <TextInput
@@ -161,7 +153,7 @@ const SignUpForm = () => {
             name="password1"
             autoComplete="on"
             className="intro-x login__input border-gray-300 block"
-            placeholder={t('password')}
+            placeholder={`${t('password')} *`}
             formik={formik}
           />
           <PasswordSecure level={psswdSec} />
@@ -185,11 +177,18 @@ const SignUpForm = () => {
             size="lg"
             autoComplete="on"
             className="intro-x login__input border-gray-300 block mt-4"
-            placeholder={t('passwordConfirmation')}
+            placeholder={`${t('passwordConfirmation')} *`}
+            formik={formik}
+          />
+          <TextInput
+            size="lg"
+            name="phone"
+            className="intro-x login__input border-gray-300 block"
+            placeholder={t('phone')}
             formik={formik}
           />
         </div>
-        <div className="intro-x flex items-center text-gray-700 mt-4 text-xs sm:text-sm">
+        <div className="intro-x flex flex-wrap items-center text-gray-700 mt-4 text-xs sm:text-sm">
           <input
             type="checkbox"
             className="input border mr-2"
@@ -202,11 +201,19 @@ const SignUpForm = () => {
             {t('iAgreeWith')}
           </label>
           {i18n.language === 'en' ? <>&nbsp;the</> : ''}
-          <a className="text-theme-1 mx-1" href={`${process.env.PUBLIC_URL}${policy}`} target="_blank">
+          <a
+            className="text-theme-1 mx-1"
+            href={`${process.env.PUBLIC_URL}/docs/${i18n.language}/PrivacyPolicy.html`}
+            target="_blank"
+          >
             {t('privacyPolicy')}
           </a>
           {' & '}
-          <a className="text-theme-1 ml-1" href={`${process.env.PUBLIC_URL}${terms}`} target="_blank">
+          <a
+            className="text-theme-1 ml-1"
+            href={`${process.env.PUBLIC_URL}/docs/${i18n.language}/PrivacyPolicy.html`}
+            target="_blank"
+          >
             {t('termsAndConditions')}
           </a>.
         </div>

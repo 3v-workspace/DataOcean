@@ -48,6 +48,9 @@ const validNameRegex = /^\s*[A-Za-zА-Яа-яҐґЄєІіЇї'`.-]+\s*$/;
 Yup.addMethod(Yup.string, 'name', function () {
   return this.test('name', i18next.t('onlyLettersAndSpecialSymbols'), (value) => validNameRegex.test(value));
 });
+Yup.addMethod(Yup.string, 'phone', function () {
+  return this.matches(/^(\+\d{1,2}\s?)?1?-?\.?\s?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/, i18next.t('wrongPhone'));
+});
 
 
 export default Yup;
