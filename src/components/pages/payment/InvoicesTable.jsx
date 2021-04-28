@@ -37,10 +37,10 @@ const InvoicesTable = (props) => {
     Api.get(url)
       .then((resp) => {
         setInvoices(resp.data);
-        console.log(resp.data);
-        debugger;
-        dispatch(changeCrumbName(3, resp.data[0].project_name));
-        dispatch(changeCrumbName(5, resp.data[0].subscription_name));
+        if (subscriptionId) {
+          dispatch(changeCrumbName(3, resp.data[0].project_name));
+          dispatch(changeCrumbName(5, resp.data[0].subscription_name));
+        }
       });
   };
 
@@ -66,7 +66,6 @@ const InvoicesTable = (props) => {
     }
     return t('myPayments');
   };
-  console.log(invoices);
 
   return (
     <>
