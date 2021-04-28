@@ -7,6 +7,8 @@ import { useTranslation } from 'react-i18next';
 import Api, { baseApiUrl } from 'api';
 import { Eye, Printer } from 'react-feather';
 import Button from 'components/form-components/Button';
+import { useDispatch } from 'react-redux';
+import { changeCrumbName } from '../../../store/breadcrubms/actionCreators';
 
 
 const InvoicesTable = (props) => {
@@ -15,6 +17,7 @@ const InvoicesTable = (props) => {
   const { t } = useTranslation();
   const [invoices, setInvoices] = useState([]);
   const [subData, setSubData] = useState({});
+  const dispatch = useDispatch();
 
   const fetchData = () => {
     let url;
@@ -30,6 +33,10 @@ const InvoicesTable = (props) => {
     Api.get(url)
       .then((resp) => {
         setInvoices(resp.data);
+        console.log(resp.data);
+        debugger;
+        dispatch(changeCrumbName(3, resp.data[0].project_name));
+        dispatch(changeCrumbName(5, resp.data[0].subscription_name));
       });
   };
 
@@ -55,6 +62,7 @@ const InvoicesTable = (props) => {
     }
     return t('myPayments');
   };
+  console.log(invoices);
 
   return (
     <TabContent>
