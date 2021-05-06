@@ -30,6 +30,8 @@ const InvoicesTable = (props) => {
       Api.get(`payment/project-subscription/${subscriptionId}/`)
         .then((resp) => {
           setSubData(resp.data);
+          dispatch(changeCrumbName(3, resp.data.project.name));
+          dispatch(changeCrumbName(5, resp.data.subscription.name));
         });
     } else {
       url = 'payment/invoices/';
@@ -37,10 +39,6 @@ const InvoicesTable = (props) => {
     Api.get(url)
       .then((resp) => {
         setInvoices(resp.data);
-        if (subscriptionId) {
-          dispatch(changeCrumbName(3, resp.data[0].project_name));
-          dispatch(changeCrumbName(5, resp.data[0].subscription_name));
-        }
       });
   };
 

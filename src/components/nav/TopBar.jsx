@@ -11,7 +11,7 @@ import getBreadcrumbName from 'const/breadcrumbsNames';
 import { useTranslation } from 'react-i18next';
 import Notifications from 'components/nav/Notifications';
 import { setBreadcrumbs } from '../../store/breadcrubms/actionCreators';
-
+import LoadingIcon from '../LoadingIcon';
 
 // TODO: finish this
 const TopBar = () => {
@@ -32,6 +32,14 @@ const TopBar = () => {
           link: path,
         };
       });
+    const checkIntInCrumb = () => {
+      breadcrumbsNodes.forEach((item) => {
+        if (!Number.isNaN(parseInt(item.name, 10))) {
+          item.name = <LoadingIcon icon="three-dots" className="w-8 h-8" />;
+        }
+      });
+    };
+    checkIntInCrumb();
     dispatch(setBreadcrumbs(breadcrumbsNodes));
   }, [pathname]);
 
