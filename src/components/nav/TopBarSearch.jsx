@@ -99,7 +99,7 @@ const TopBarSearch = () => {
           <div>
             {data.length === 0 ? (
               <div className="flex justify-center p-5 text-gray-500">
-                {t('noResultsFound')}
+                {t('noSearchResults')}
               </div>
             ) : data.map((ds) => (
               <SearchResult key={ds.id} label={ds[nameKey]} link={`/system/datasets/${ds.api_list.replace(/^\/api\//, '')}`} />
