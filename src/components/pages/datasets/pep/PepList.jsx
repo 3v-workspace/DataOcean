@@ -10,9 +10,19 @@ const PepList = () => {
   const { t } = useTranslation();
   const columns = [
     {
+      header: 'ID',
+      prop: 'id',
+      width: '5%',
+    },
+    {
       header: t('fullName'),
       prop: 'fullname',
-      width: '25%',
+      width: '20%',
+    },
+    {
+      header: t('dateOfBirth'),
+      prop: 'date_of_birth',
+      width: '5%',
     },
     {
       header: t('lastUpdated'),
@@ -50,6 +60,7 @@ const PepList = () => {
         fields={[
           'id',
           'fullname',
+          'date_of_birth',
           'is_pep',
           'pep_type',
           'last_job_title',
