@@ -8,10 +8,10 @@ import LoadingIcon from 'components/LoadingIcon';
 import { useTranslation } from 'react-i18next';
 
 
-const orderingIcons = {
-  asc: <ChevronDown className="w-4 h-4" />,
-  desc: <ChevronUp className="w-4 h-4" />,
-};
+// const orderingIcons = {
+//   asc: <ChevronDown className="w-4 h-4" />,
+//   desc: <ChevronUp className="w-4 h-4" />,
+// };
 
 
 const Table = (props) => {
@@ -29,10 +29,6 @@ const Table = (props) => {
   const onSearch = (e) => {
     setSearch(e.target.value);
     tc.setPage(1);
-  };
-
-  const handleHeaderClick = (col) => {
-    tc.setOrdering(col.prop);
   };
 
   const getTableBody = () => {
@@ -109,11 +105,15 @@ const Table = (props) => {
                   key={col.prop}
                   className="border-b-2 whitespace-no-wrap cursor-pointer"
                 >
-                  <div className="flex items-center justify-between" onClick={() => handleHeaderClick(col)}>
+                  <div className="flex items-center justify-between">
                     {col.header}
-                    {tc.orderProp === col.prop && (
-                      orderingIcons[tc.getOrderingDirection()]
-                    )}
+                    {tc.orderProp === col.prop}
+                    {col.ordering === true ? (
+                      <div className="px-4">
+                        <ChevronUp className="w-4 h-4" onClick={() => tc.setOrdering(`-${col.prop}`)} />
+                        <ChevronDown className="w-4 h-4" onClick={() => tc.setOrdering(col.prop)} />
+                      </div>
+                    ) : ''}
                   </div>
                 </th>
               ))}
@@ -136,6 +136,7 @@ Table.propTypes = {
     header: PropTypes.string.isRequired,
     prop: PropTypes.string.isRequired,
     width: PropTypes.string.isRequired,
+    ordering: PropTypes.bool.isRequired,
     render: PropTypes.func,
   })).isRequired,
   url: PropTypes.string.isRequired,
