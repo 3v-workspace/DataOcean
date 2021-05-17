@@ -32,16 +32,14 @@ const TopBar = () => {
           link: path,
         };
       });
-    const checkIntInCrumb = () => {
-      breadcrumbsNodes.forEach((item) => {
-        if (!Number.isNaN(parseInt(item.name, 10))) {
-          item.name = <LoadingIcon icon="three-dots" className="w-8 h-8" />;
-        }
-      });
-    };
-    checkIntInCrumb();
     dispatch(setBreadcrumbs(breadcrumbsNodes));
   }, [pathname]);
+
+  breadcrumbs.forEach((item) => {
+    if (!Number.isNaN(parseInt(item.name, 10))) {
+      item.name = <LoadingIcon icon="three-dots" className="w-8 h-8" />;
+    }
+  });
 
   const breadcrumbsNodes = breadcrumbs.map((breadcrumb, i, array) => (
     <Link
