@@ -7,13 +7,6 @@ import { ChevronDown, ChevronUp } from 'react-feather';
 import LoadingIcon from 'components/LoadingIcon';
 import { useTranslation } from 'react-i18next';
 
-
-const orderingIcons = {
-  asc: <ChevronDown className="w-4 h-4" />,
-  desc: <ChevronUp className="w-4 h-4" />,
-};
-
-
 const Table = (props) => {
   const { t } = useTranslation();
   const { columns, url, fields, axiosConfigs } = props;
@@ -32,7 +25,9 @@ const Table = (props) => {
   };
 
   const handleHeaderClick = (col) => {
-    tc.setOrdering(col.prop);
+    if (!col.noSort) {
+      tc.setOrdering(col.prop);
+    }
   };
 
   const getTableBody = () => {
@@ -107,12 +102,15 @@ const Table = (props) => {
                 <th
                   style={{ width: col.width }}
                   key={col.prop}
-                  className="border-b-2 whitespace-no-wrap cursor-pointer"
+                  className={`border-b-2 whitespace-no-wrap ${!col.noSort ? 'cursor-pointer' : ''}`}
                 >
                   <div className="flex items-center justify-between" onClick={() => handleHeaderClick(col)}>
                     {col.header}
-                    {tc.orderProp === col.prop && (
-                      orderingIcons[tc.getOrderingDirection()]
+                    {!col.noSort && (
+                      <div className="px-4">
+                        <ChevronUp className={`w-4 h-4 -mb-1 ${tc.getOrderingDirection() === 'desc' && tc.orderProp === col.prop ? '' : 'opacity-50'}`} />
+                        <ChevronDown className={`w-4 h-4 -mt-1 ${tc.getOrderingDirection() === 'asc' && tc.orderProp === col.prop ? '' : 'opacity-50'}`} />
+                      </div>
                     )}
                   </div>
                 </th>
@@ -136,6 +134,7 @@ Table.propTypes = {
     header: PropTypes.string.isRequired,
     prop: PropTypes.string.isRequired,
     width: PropTypes.string.isRequired,
+    noSort: PropTypes.bool,
     render: PropTypes.func,
   })).isRequired,
   url: PropTypes.string.isRequired,

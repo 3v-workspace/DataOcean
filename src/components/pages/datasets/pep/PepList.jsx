@@ -13,6 +13,7 @@ const PepList = () => {
       header: 'ID',
       prop: 'id',
       width: '5%',
+      noSort: true,
     },
     {
       header: t('fullName'),
@@ -23,6 +24,7 @@ const PepList = () => {
       header: t('dateOfBirth'),
       prop: 'date_of_birth',
       width: '5%',
+      noSort: true,
     },
     {
       header: t('lastUpdated'),
