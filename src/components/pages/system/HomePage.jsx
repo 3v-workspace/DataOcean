@@ -9,6 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { ReactRouterPropTypes } from 'utils/prop-types';
 import KvedChart from 'components/pages/dashboard/KvedChart';
 import CompanyChart from 'components/pages/dashboard/CompanyChart';
+import ApiUsageChart from 'components/pages/system/ApiUsageChart';
 
 const chartsTypes = {
   KVED: 'KVED',
@@ -26,72 +27,9 @@ const HomePage = ({ history }) => {
   const [usersCount, setUsersCount] = useState('');
   const [fopCount, setFopCount] = useState('');
   const [companyCount, setCompanyCount] = useState('');
-  const [apiUsageData, setApiUsageData] = useState({});
   const [project, setProject] = useState({});
 
   const [visibleChart, setVisibleChart] = useState(chartsTypes.KVED);
-
-  const initApiUsageChart = () => {
-    const labels = apiUsageData.days.map((el) => moment(el.timestamp).format('DD.MM'));
-    const data = apiUsageData.days.map((el) => el.count);
-    if ($('#api-usage-chart').length) {
-      const ctx = $('#api-usage-chart')[0].getContext('2d');
-      new Chart(ctx, {
-        type: 'line',
-        data: {
-          labels,
-          datasets: [
-            {
-              label: t('apiRequests'),
-              data,
-              borderWidth: 2,
-              borderColor: '#3160D8',
-              backgroundColor: 'transparent',
-              pointBorderColor: 'transparent',
-            },
-          ],
-        },
-        options: {
-          legend: {
-            display: false,
-          },
-          scales: {
-            xAxes: [{
-              ticks: {
-                fontSize: '12',
-                fontColor: '#777777',
-              },
-              gridLines: {
-                display: false,
-              },
-            }],
-            yAxes: [{
-              ticks: {
-                fontSize: '12',
-                fontColor: '#777777',
-                // callback(value) {
-                //   return `$${value}`;
-                // },
-              },
-              gridLines: {
-                color: '#D8D8D8',
-                zeroLineColor: '#D8D8D8',
-                borderDash: [2, 2],
-                zeroLineBorderDash: [2, 2],
-                drawBorder: false,
-              },
-            }],
-          },
-        },
-      });
-    }
-  };
-
-  useEffect(() => {
-    if (Object.keys(apiUsageData).length) {
-      initApiUsageChart();
-    }
-  }, [apiUsageData]);
 
   const fetchData = () => {
     Api.get('register/')
@@ -109,10 +47,6 @@ const HomePage = ({ history }) => {
     Api.get('stats/count-registered-fops/')
       .then((resp) => {
         setFopCount(resp.data.company_count);
-      });
-    Api.get('stats/api-usage/me/')
-      .then((resp) => {
-        setApiUsageData(resp.data);
       });
     Api.get('payment/project/')
       .then((resp) => {
@@ -196,26 +130,7 @@ const HomePage = ({ history }) => {
               {/*</div>*/}
             </div>
             <div className="intro-y box p-5 mt-12 sm:mt-5">
-              <div className="flex flex-col xl:flex-row xl:items-center">
-                <div className="flex">
-                  <div>
-                    <div className="text-theme-20 text-lg xl:text-xl font-bold">
-                      {apiUsageData.current_month || 0}
-                    </div>
-                    <div className="text-gray-600">{t('thisMonth')}</div>
-                  </div>
-                  <div className="w-px h-12 border border-r border-dashed border-gray-300 mx-4 xl:mx-6" />
-                  <div>
-                    <div className="text-gray-600 text-lg xl:text-xl font-medium">
-                      {apiUsageData.prev_month || 0}
-                    </div>
-                    <div className="text-gray-600">{t('previousMonth')}</div>
-                  </div>
-                </div>
-              </div>
-              <div> {/* className="report-chart"> */}
-                <canvas id="api-usage-chart" height="160" className="mt-6" />
-              </div>
+              <ApiUsageChart project={project} />
             </div>
           </div>
 

@@ -1,0 +1,61 @@
+.progress-chart {
+  overflow: visible;
+  //padding: 20px;
+  font-size: 15px;
+  //border: 1px solid black;
+
+  .progress-chart-current-container {
+    position: relative;
+    width: 100%;
+    height: 30px;
+  }
+
+  .progress-chart-current-number {
+    transition: left 2s;
+    position: absolute;
+    bottom: -7px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .progress-chart-current-arrow {
+    margin-top: -7px;
+  }
+
+  .progress-chart-bar {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    //border-right: 1px solid #91C715;
+    overflow: hidden;
+    background-color: #91C715;
+  }
+
+  .progress-chart-bar-current {
+    transition: width 2s;
+    height: 100%;
+    background-color: #E74C57;
+  }
+
+  .progress-chart-lines {
+    position: relative;
+    width: 100%;
+    height: 10px;
+    border-right: 1px solid #c4c4c4;
+    border-left: 1px solid #c4c4c4;
+  }
+
+  .progress-chart-numbers {
+    position: relative;
+    width: 100%;
+    height: 15px;
+    font-size: 15px;
+  }
+
+  .progress-chart-number {
+    transition: left 2s;
+    position: absolute;
+    top: 0;
+  }
+}
