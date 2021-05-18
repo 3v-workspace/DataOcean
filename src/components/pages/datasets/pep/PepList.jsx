@@ -3,15 +3,34 @@ import React from 'react';
 import Table from 'components/table/Table';
 import PageBox from 'components/pages/PageBox';
 import { useTranslation } from 'react-i18next';
+import { dateFormat } from 'utils';
 
 
 const PepList = () => {
   const { t } = useTranslation();
   const columns = [
     {
+      header: 'ID',
+      prop: 'id',
+      width: '5%',
+      noSort: true,
+    },
+    {
       header: t('fullName'),
       prop: 'fullname',
-      width: '25%',
+      width: '20%',
+    },
+    {
+      header: t('dateOfBirth'),
+      prop: 'date_of_birth',
+      width: '5%',
+      noSort: true,
+    },
+    {
+      header: t('lastUpdated'),
+      prop: 'updated_at',
+      width: '20%',
+      render: (v) => dateFormat(v),
     },
     {
       header: t('status'),
@@ -43,10 +62,12 @@ const PepList = () => {
         fields={[
           'id',
           'fullname',
+          'date_of_birth',
           'is_pep',
           'pep_type',
           'last_job_title',
           'last_employer',
+          'updated_at',
         ]}
         axiosConfigs={{ useProjectToken: true }}
       />
