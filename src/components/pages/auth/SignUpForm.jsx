@@ -140,6 +140,13 @@ const SignUpForm = () => {
             formik={formik}
           />
           <TextInput
+            size="lg"
+            name="organization"
+            className="intro-x login__input border-gray-300 block"
+            placeholder={`${t('organization')} *`}
+            formik={formik}
+          />
+          <TextInput
             type="email"
             size="lg"
             name="email"
