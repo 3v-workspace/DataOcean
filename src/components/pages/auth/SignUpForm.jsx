@@ -49,6 +49,7 @@ const SignUpForm = () => {
     initialValues: {
       first_name: '',
       last_name: '',
+      organization: '',
       email: '',
       password1: '',
       password2: '',
@@ -78,6 +79,7 @@ const SignUpForm = () => {
     validationSchema: Yup.object({
       first_name: Yup.string().name().required().min(2),
       last_name: Yup.string().name().required().min(2),
+      organization: Yup.string().required().min(2),
       email: Yup.string().required().email(),
       phone: Yup.string().phone(),
       password1: Yup.string().required().min(8),
@@ -137,6 +139,13 @@ const SignUpForm = () => {
             name="last_name"
             className="intro-x login__input border-gray-300 block"
             placeholder={`${t('lastName')} *`}
+            formik={formik}
+          />
+          <TextInput
+            size="lg"
+            name="organization"
+            className="intro-x login__input border-gray-300 block"
+            placeholder={`${t('organization')} *`}
             formik={formik}
           />
           <TextInput
