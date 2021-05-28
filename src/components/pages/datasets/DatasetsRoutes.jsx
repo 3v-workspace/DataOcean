@@ -49,7 +49,7 @@ const DatasetsRoutes = (props) => {
       />
       <Route
         exact
-        path={`${match.path}koatuu/`}
+        path={`${match.path}koatuu-fourth-level/`}
         component={KoatuuList}
       />
       <Route
