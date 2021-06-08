@@ -6,24 +6,67 @@ import { SearchBox } from 'components/form-components';
 import { ChevronDown, ChevronUp } from 'react-feather';
 import LoadingIcon from 'components/LoadingIcon';
 import { useTranslation } from 'react-i18next';
+import FilterField from 'components/filter-fields/FilterField';
+
+const generateFilterValues = (columns) => {
+  const defaultValues = {};
+  columns.forEach((col) => {
+    if (!col.filter) return;
+    if (['text'].includes(col.filter.type)) {
+      defaultValues[col.filter.queryParam] = '';
+    } else if (['number'].includes(col.filter.type)) {
+      defaultValues[col.filter.queryParam] = '';
+    } else if (['data'].includes(col.filter.type)) {
+      defaultValues[col.filter.queryParam] = '';
+    }
+  });
+  return defaultValues;
+};
 
 const Table = (props) => {
   const { t } = useTranslation();
   const { columns, url, fields, axiosConfigs } = props;
   const [search, setSearch] = useState('');
 
-  const params = { search };
+  const defaultFilterValues = generateFilterValues(columns);
+  const [filterValues, setFilterValues] = useState(defaultFilterValues);
+  const [params, setParams] = useState({
+    search,
+    ...filterValues,
+  });
   if (fields.length) {
     params.fields = fields.join(',');
   }
 
   const tc = useTableController({ url, params, axiosConfigs });
 
-  const onSearch = (e) => {
-    setSearch(e.target.value);
-    tc.setPage(1);
+  const onFilterChange = (name, value) => {
+    setFilterValues({
+      ...filterValues,
+      [name]: value,
+    });
   };
 
+  const onFilterClear = (name) => {
+    onFilterChange(name, defaultFilterValues[name]);
+    setParams({ ...params, [name]: defaultFilterValues[name] });
+  };
+
+  const onPressEnter = (e) => {
+    if (e.key === 'Enter') {
+      setParams({
+        ...params,
+        ...filterValues,
+      });
+      tc.setPage(1);
+    }
+  };
+
+  const onSearch = (e) => {
+    setSearch(e.target.value);
+    setParams({ ...params, search: e.target.value });
+    tc.setPage(1);
+  };
   const handleHeaderClick = (col) => {
     if (!col.noSort) {
       tc.setOrdering(col.prop);
@@ -102,9 +145,9 @@ const Table = (props) => {
                 <th
                   style={{ width: col.width }}
                   key={col.prop}
-                  className={`border-b-2 whitespace-no-wrap ${!col.noSort ? 'cursor-pointer' : ''}`}
+                  className="border-b-2 whitespace-no-wrap"
                 >
-                  <div className="flex items-center justify-between" onClick={() => handleHeaderClick(col)}>
+                  <div className={`flex items-center h-8 justify-between ${!col.noSort ? 'cursor-pointer' : ''}`} onClick={() => handleHeaderClick(col)}>
                     {col.header}
                     {!col.noSort && (
                       <div className="px-4">
@@ -112,6 +155,18 @@ const Table = (props) => {
                         <ChevronDown className={`w-4 h-4 -mt-1 ${tc.getOrderingDirection() === 'asc' && tc.orderProp === col.prop ? '' : 'opacity-50'}`} />
                       </div>
                     )}
+                  </div>
+                  <div>
+                    {col.filter && (
+                    <FilterField
+                      filter={col.filter}
+                      value={filterValues[col.filter.queryParam]}
+                      onChange={onFilterChange}
+                      onClear={onFilterClear}
+                      onPressEnter={onPressEnter}
+                    />
+                    )}
+                    {console.log(params)}
                   </div>
                 </th>
               ))}
@@ -135,6 +190,10 @@ Table.propTypes = {
     prop: PropTypes.string.isRequired,
     width: PropTypes.string.isRequired,
     noSort: PropTypes.bool,
+    filter: PropTypes.shape({
+      queryParam: PropTypes.string,
+      type: PropTypes.string,
+    }),
     render: PropTypes.func,
   })).isRequired,
   url: PropTypes.string.isRequired,
