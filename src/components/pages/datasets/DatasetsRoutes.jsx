@@ -10,6 +10,7 @@ import StreetList from './street/StreetList';
 import FopList from './company/FopList';
 import PepList from './pep/PepList';
 import KoatuuList from './koatuu/KoatuuList';
+import PersonSanctionList from './sanctions/PersonSanctionList';
 
 const DatasetsRoutes = (props) => {
   const { match } = props;
@@ -56,6 +57,16 @@ const DatasetsRoutes = (props) => {
         exact
         path={`${match.path}pep/`}
         component={PepList}
+      />
+      <Route
+        exact
+        path={`${match.path}sanction/person/`}
+        component={PersonSanctionList}
+      />
+      <Route
+        exact
+        path={`${match.path}sanction/`}
+        render={() => <Redirect to={`${match.url}/sanction/person/`} />}
       />
       <Route
         exact
