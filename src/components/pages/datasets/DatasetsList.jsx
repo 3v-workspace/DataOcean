@@ -77,7 +77,7 @@ const DatasetsList = ({ match, history }) => {
                 <tr
                   onClick={() => {
                     if (item.api_list in datasets) {
-                      history.push(`${match.url}${item.api_list.replace(/^\/api\//, '')}`);
+                      history.push(`${match.url}${datasets[item.api_list].urlEnding}`);
                     }
                   }}
                   key={item.id}
@@ -101,7 +101,10 @@ const DatasetsList = ({ match, history }) => {
                   <td className="table-report__action w-56">
                     <div className="flex justify-center items-center">
                       {item.api_list in datasets ? (
-                        <Link to={`${match.url}${item.api_list.replace(/^\/api\//, '')}`} className="flex items-center mr-3 text-theme-1">
+                        <Link
+                          to={`${match.url}${datasets[item.api_list].urlEnding}`}
+                          className="flex items-center mr-3 text-theme-1"
+                        >
                           <Eye className="w-4 h-4 mr-1 mb-1" /> {t('view')}
                         </Link>
                       ) : '---'}

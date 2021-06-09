@@ -10,6 +10,7 @@ import StreetList from './street/StreetList';
 import FopList from './company/FopList';
 import PepList from './pep/PepList';
 import KoatuuList from './koatuu/KoatuuList';
+import PersonSanctionList from './sanctions/PersonSanctionList';
 
 const DatasetsRoutes = (props) => {
   const { match } = props;
@@ -56,6 +57,11 @@ const DatasetsRoutes = (props) => {
         exact
         path={`${match.path}pep/`}
         component={PepList}
+      />
+      <Route
+        exact
+        path={`${match.path}person-sanction/`}
+        component={PersonSanctionList}
       />
       <Route
         exact
