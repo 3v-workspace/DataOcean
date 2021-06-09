@@ -14,7 +14,7 @@ const PepList = () => {
       width: '5%',
       noSort: true,
       filter: {
-        queryParam: 'id',
+        name: 'id',
         type: 'number',
       },
     },
@@ -23,7 +23,7 @@ const PepList = () => {
       prop: 'fullname',
       width: '20%',
       filter: {
-        queryParam: 'fullname',
+        name: 'fullname',
         type: 'text',
       },
     },
@@ -33,7 +33,7 @@ const PepList = () => {
       width: '5%',
       noSort: true,
       filter: {
-        queryParam: 'date_of_birth',
+        name: 'date_of_birth',
         type: 'data',
       },
     },
@@ -43,7 +43,7 @@ const PepList = () => {
       width: '10%',
       render: (v) => dateFormatISO(v),
       filter: {
-        queryParam: 'updated_at',
+        name: 'updated_at',
         type: 'data',
       },
     },
@@ -63,7 +63,7 @@ const PepList = () => {
       prop: 'last_job_title',
       width: '20%',
       filter: {
-        queryParam: 'last_job_title',
+        name: 'last_job_title',
         type: 'text',
       },
     },
@@ -72,7 +72,7 @@ const PepList = () => {
       prop: 'last_employer',
       width: '20%',
       filter: {
-        queryParam: 'last_employer',
+        name: 'last_employer',
         type: 'text',
       },
     },

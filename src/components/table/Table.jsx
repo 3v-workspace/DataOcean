@@ -12,12 +12,8 @@ const generateFilterValues = (columns) => {
   const defaultValues = {};
   columns.forEach((col) => {
     if (!col.filter) return;
-    if (['text'].includes(col.filter.type)) {
-      defaultValues[col.filter.queryParam] = '';
-    } else if (['number'].includes(col.filter.type)) {
-      defaultValues[col.filter.queryParam] = '';
-    } else if (['data'].includes(col.filter.type)) {
-      defaultValues[col.filter.queryParam] = '';
+    if (['text', 'number', 'data'].includes(col.filter.type)) {
+      defaultValues[col.filter.name] = '';
     }
   });
   return defaultValues;
@@ -30,10 +26,7 @@ const Table = (props) => {
 
   const defaultFilterValues = generateFilterValues(columns);
   const [filterValues, setFilterValues] = useState(defaultFilterValues);
-  const [params, setParams] = useState({
-    search,
-    ...filterValues,
-  });
+  const [params, setParams] = useState({ search });
   if (fields.length) {
     params.fields = fields.join(',');
   }
@@ -41,25 +34,12 @@ const Table = (props) => {
   const tc = useTableController({ url, params, axiosConfigs });
 
   const onFilterChange = (name, value) => {
-    setFilterValues({
-      ...filterValues,
-      [name]: value,
-    });
+    setFilterValues({ ...filterValues, [name]: value });
   };
 
-  const onFilterClear = (name) => {
-    onFilterChange(name, defaultFilterValues[name]);
-    setParams({ ...params, [name]: defaultFilterValues[name] });
-  };
-
-  const onPressEnter = (e) => {
-    if (e.key === 'Enter') {
-      setParams({
-        ...params,
-        ...filterValues,
-      });
-      tc.setPage(1);
-    }
+  const passFiltersToParams = () => {
+    setParams({ ...params, ...filterValues });
+    tc.setPage(1);
   };
 
   const onSearch = (e) => {
@@ -67,6 +47,7 @@ const Table = (props) => {
     setParams({ ...params, search: e.target.value });
     tc.setPage(1);
   };
+
   const handleHeaderClick = (col) => {
     if (!col.noSort) {
       tc.setOrdering(col.prop);
@@ -147,7 +128,10 @@ const Table = (props) => {
                   key={col.prop}
                   className="border-b-2 whitespace-no-wrap"
                 >
-                  <div className={`flex items-center h-8 justify-between ${!col.noSort ? 'cursor-pointer' : ''}`} onClick={() => handleHeaderClick(col)}>
+                  <div
+                    className={`flex items-center h-8 justify-between ${!col.noSort ? 'cursor-pointer' : ''}`}
+                    onClick={() => handleHeaderClick(col)}
+                  >
                     {col.header}
                     {!col.noSort && (
                       <div className="px-4">
@@ -158,15 +142,14 @@ const Table = (props) => {
                   </div>
                   <div>
                     {col.filter && (
-                    <FilterField
-                      filter={col.filter}
-                      value={filterValues[col.filter.queryParam]}
-                      onChange={onFilterChange}
-                      onClear={onFilterClear}
-                      onPressEnter={onPressEnter}
-                    />
+                      <FilterField
+                        filter={col.filter}
+                        value={filterValues[col.filter.name]}
+                        defaultValue={defaultFilterValues[col.filter.name]}
+                        onChange={onFilterChange}
+                        onSearch={passFiltersToParams}
+                      />
                     )}
-                    {console.log(params)}
                   </div>
                 </th>
               ))}
@@ -191,8 +174,8 @@ Table.propTypes = {
     width: PropTypes.string.isRequired,
     noSort: PropTypes.bool,
     filter: PropTypes.shape({
-      queryParam: PropTypes.string,
-      type: PropTypes.string,
+      name: PropTypes.string.isRequired,
+      type: PropTypes.string.isRequired,
     }),
     render: PropTypes.func,
   })).isRequired,
