@@ -9,4 +9,6 @@ export const upFirstLetter = (string) => string.charAt(0).toUpperCase() + string
 
 export const dateFormat = (iso) => moment(iso).format('MMMM D, YYYY');
 
+export const dateFormatISO = (iso) => moment(iso).format('YYYY-MM-DD');
+
 export const datetimeFormat = (iso) => moment(iso).format('MMMM D, YYYY HH:mm');

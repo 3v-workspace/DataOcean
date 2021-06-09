@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Search } from 'react-feather';
+import { Search, X } from 'react-feather';
 import { useTranslation } from 'react-i18next';
 
 const SearchBox = (props) => {
   const {
-    value, onChange, name, id, placeholder, containerClass,
+    value, onChange, onClear, name, id, placeholder, containerClass,
     className, size, onBlur, onSearch, isRounded,
   } = props;
   const { t } = useTranslation();
@@ -40,7 +40,11 @@ const SearchBox = (props) => {
         onBlur={onBlur || onSearch}
         name={name}
       />
-      <Search className="w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0" />
+      {value !== undefined && value.length > 0 ? (
+        <X className="w-4 h-4 inline inset-y-0 -ml-6 cursor-pointer" onClick={onClear} />
+      ) : (
+        <Search className="w-4 h-4 inline inset-y-0 -ml-6" />
+      )}
     </div>
   );
 };
@@ -49,10 +53,11 @@ SearchBox.propTypes = {
   id: PropTypes.string,
   className: PropTypes.string,
   containerClass: PropTypes.string,
-  size: PropTypes.oneOf(['sm', 'lg']),
+  size: PropTypes.oneOf(['sm', 'md', 'lg']),
   name: PropTypes.string,
   value: PropTypes.string,
   onChange: PropTypes.func,
+  onClear: PropTypes.func,
   onBlur: PropTypes.func,
   placeholder: PropTypes.string,
   onSearch: PropTypes.func,
@@ -68,6 +73,7 @@ SearchBox.defaultProps = {
   placeholder: undefined,
   value: undefined,
   onChange: undefined,
+  onClear: undefined,
   onBlur: undefined,
   onSearch: undefined,
   isRounded: false,

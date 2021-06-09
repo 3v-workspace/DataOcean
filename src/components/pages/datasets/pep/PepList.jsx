@@ -3,8 +3,7 @@ import React from 'react';
 import Table from 'components/table/Table';
 import PageBox from 'components/pages/PageBox';
 import { useTranslation } from 'react-i18next';
-import { dateFormat } from 'utils';
-
+import { dateFormatISO } from 'utils';
 
 const PepList = () => {
   const { t } = useTranslation();
@@ -14,23 +13,39 @@ const PepList = () => {
       prop: 'id',
       width: '5%',
       noSort: true,
+      filter: {
+        name: 'id',
+        type: 'number',
+      },
     },
     {
       header: t('fullName'),
       prop: 'fullname',
       width: '20%',
+      filter: {
+        name: 'fullname',
+        type: 'text',
+      },
     },
     {
       header: t('dateOfBirth'),
       prop: 'date_of_birth',
       width: '5%',
       noSort: true,
+      filter: {
+        name: 'date_of_birth',
+        type: 'data',
+      },
     },
     {
       header: t('lastUpdated'),
       prop: 'updated_at',
-      width: '20%',
-      render: (v) => dateFormat(v),
+      width: '10%',
+      render: (v) => dateFormatISO(v),
+      filter: {
+        name: 'updated_at',
+        type: 'data',
+      },
     },
     {
       header: t('status'),
@@ -47,11 +62,19 @@ const PepList = () => {
       header: t('lastPosition'),
       prop: 'last_job_title',
       width: '20%',
+      filter: {
+        name: 'last_job_title',
+        type: 'text',
+      },
     },
     {
       header: t('lastPlaceOfWork'),
       prop: 'last_employer',
       width: '20%',
+      filter: {
+        name: 'last_employer',
+        type: 'text',
+      },
     },
   ];
   return (
