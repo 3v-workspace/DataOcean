@@ -60,13 +60,8 @@ const DatasetsRoutes = (props) => {
       />
       <Route
         exact
-        path={`${match.path}sanction/person/`}
+        path={`${match.path}person-sanction/`}
         component={PersonSanctionList}
-      />
-      <Route
-        exact
-        path={`${match.path}sanction/`}
-        render={() => <Redirect to={`${match.url}/sanction/person/`} />}
       />
       <Route
         exact
