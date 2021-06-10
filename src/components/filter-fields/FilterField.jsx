@@ -47,7 +47,11 @@ const FilterField = (props) => {
             type="number"
             placeholder="12345"
             value={value}
-            onChange={(e) => onChange(name, e.target.value)}
+            onChange={(e) => {
+              if (e.target.value.length < 6) {
+                onChange(name, e.target.value);
+              }
+            }}
             onClear={onClear}
             onSearch={onSearch}
           />
