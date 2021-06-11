@@ -7,7 +7,19 @@ import { dateFormat } from 'utils';
 
 
 const PersonSanctionList = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  let countries_of_citizenship = '';
+  function addCountry(country, index) {
+    if (index === 0) {
+      countries_of_citizenship = country[`name_${i18n.language}`];
+    } else {
+      countries_of_citizenship += `, ${country[`name_${i18n.language}`]}`;
+    }
+  }
+  function getCountries(countries) {
+    countries.forEach(addCountry);
+    return countries_of_citizenship;
+  }
   const columns = [
     {
       header: 'ID',
@@ -47,6 +59,7 @@ const PersonSanctionList = () => {
       header: t('countriesOfCitizenship'),
       prop: 'countries_of_citizenship',
       width: '20%',
+      render: (v) => getCountries(v),
     },
   ];
   return (
