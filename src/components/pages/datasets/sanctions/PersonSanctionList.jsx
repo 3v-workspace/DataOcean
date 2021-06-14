@@ -59,7 +59,7 @@ const PersonSanctionList = () => {
       header: t('countriesOfCitizenship'),
       prop: 'countries_of_citizenship',
       width: '20%',
-      render: (v) => getCountries(v),
+      render: (countries) => countries.map((country) => country[`name_${i18n.language}`]).join(', '),
     },
   ];
   return (
