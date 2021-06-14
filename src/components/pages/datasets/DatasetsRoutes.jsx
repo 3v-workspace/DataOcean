@@ -11,6 +11,7 @@ import FopList from './company/FopList';
 import PepList from './pep/PepList';
 import KoatuuList from './koatuu/KoatuuList';
 import PersonSanctionList from './sanctions/PersonSanctionList';
+import PepDetail from './pep/PepDetail';
 
 const DatasetsRoutes = (props) => {
   const { match } = props;
@@ -52,6 +53,11 @@ const DatasetsRoutes = (props) => {
         exact
         path={`${match.path}koatuu-fourth-level/`}
         component={KoatuuList}
+      />
+      <Route
+        exact
+        path={`${match.path}pep/:id`}
+        component={PepDetail}
       />
       <Route
         exact
