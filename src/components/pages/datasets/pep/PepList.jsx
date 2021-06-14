@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { dateFormatISO } from 'utils';
 
 const PepList = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const columns = [
     {
       header: 'ID',
@@ -69,10 +69,10 @@ const PepList = () => {
     },
     {
       header: t('lastPlaceOfWork'),
-      prop: 'last_employer',
+      prop: i18n.language === 'uk' ? 'last_employer' : 'last_employer_en',
       width: '20%',
       filter: {
-        name: 'last_employer',
+        name: i18n.language === 'uk' ? 'last_employer' : 'last_employer_en',
         type: 'text',
       },
     },
@@ -90,6 +90,7 @@ const PepList = () => {
           'pep_type',
           'last_job_title',
           'last_employer',
+          'last_employer_en',
           'updated_at',
         ]}
         axiosConfigs={{ useProjectToken: true }}
