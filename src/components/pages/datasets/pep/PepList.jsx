@@ -16,6 +16,7 @@ const PepList = () => {
       filter: {
         name: 'id',
         type: 'number',
+        placeholder: '12345',
       },
     },
     {
@@ -34,7 +35,8 @@ const PepList = () => {
       noSort: true,
       filter: {
         name: 'date_of_birth',
-        type: 'data',
+        type: 'text',
+        placeholder: '1989-02-11',
       },
     },
     {
@@ -43,8 +45,9 @@ const PepList = () => {
       width: '10%',
       render: (v) => dateFormatISO(v),
       filter: {
-        name: 'updated_at',
-        type: 'data',
+        name: 'updated_at_date',
+        type: 'date',
+        placeholder: '2020-08-27',
       },
     },
     {

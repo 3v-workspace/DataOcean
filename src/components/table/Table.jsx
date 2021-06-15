@@ -12,7 +12,7 @@ const generateFilterValues = (columns) => {
   const defaultValues = {};
   columns.forEach((col) => {
     if (!col.filter) return;
-    if (['text', 'number', 'data'].includes(col.filter.type)) {
+    if (['text', 'number', 'date'].includes(col.filter.type)) {
       defaultValues[col.filter.name] = '';
     }
   });
@@ -176,6 +176,7 @@ Table.propTypes = {
     filter: PropTypes.shape({
       name: PropTypes.string.isRequired,
       type: PropTypes.string.isRequired,
+      placeholder: PropTypes.string,
     }),
     render: PropTypes.func,
   })).isRequired,
