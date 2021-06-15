@@ -7,7 +7,7 @@ import { dateFormat } from 'utils';
 
 
 const PersonSanctionList = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const columns = [
     {
       header: 'ID',
@@ -47,6 +47,7 @@ const PersonSanctionList = () => {
       header: t('countriesOfCitizenship'),
       prop: 'countries_of_citizenship',
       width: '20%',
+      render: (countries) => countries.map((country) => country[`name_${i18n.language}`]).join(', '),
     },
   ];
   return (
