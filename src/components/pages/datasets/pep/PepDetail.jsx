@@ -5,13 +5,19 @@ import PageBox from 'components/pages/PageBox';
 import { useTranslation } from 'react-i18next';
 import { dateFormatISO } from 'utils';
 import { ArrowLeft, ChevronDown, ChevronUp } from 'react-feather';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import Api from 'api';
 import faqs from '../../help/faqs';
 import { Button } from '../../../form-components';
 
 
-const PepDetail = (props) => {
-  const { t } = useTranslation();
+const PepDetail = () => {
+  // const { match } = props;
+  const { idp } = useParams();
+  // const { idp } = match.params;
+  const { t, i18n } = useTranslation();
+  const { pep } = Api.get(`pep/${idp}/`);
+
   // const { history } = props;
   const defaultOpenState = {
     1: false,
@@ -33,7 +39,7 @@ const PepDetail = (props) => {
     <>
       <div className="intro-y flex items-center mt-8">
         <h2 className="text-lg font-medium mr-auto">
-          {t('subscriptions')}
+          {t('subscriptions')}{pep.name}
         </h2>
         {}
         {/*{history.location.state?.fromProjects && (*/}
@@ -52,7 +58,7 @@ const PepDetail = (props) => {
                 {faqs.map((faq) => (
                   <li className="accordion__pane cursor-pointer pl-4 py-4 pr-20 block border-b border-gray-200 hover:text-theme-1" key={faq.id}>
                     <div className="accordion__pane__toggle inline-flex flex-row justify-between w-full" onClick={() => toggleOpen(faq.id)}>
-                      {faq.question}
+                      {idp}
                       {open[faq.id] ? <ChevronUp className="w-4 h-6" /> : <ChevronDown className="w-4 h-6" />}
                     </div>
                     <div className="accordion__pane__content cursor-text mt-3 text-gray-700 font-normal">
