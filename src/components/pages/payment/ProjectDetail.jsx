@@ -19,11 +19,14 @@ import Form from 'components/form-components/Form';
 import { p2sStatus, u2pRole, u2pStatus } from 'const/projects';
 import toast from 'utils/toast';
 import moment from 'moment';
+import { useDispatch } from 'react-redux';
+import { changeCrumbName } from '../../../store/breadcrubms/actionCreators';
 
 const ProjectDetail = (props) => {
   const { match, history } = props;
   const projectId = match.params.id;
 
+  const dispatch = useDispatch();
   const { t } = useTranslation();
   const addUserModalRef = useRef();
   const refreshTokenModalRef = useRef();
@@ -50,6 +53,7 @@ const ProjectDetail = (props) => {
     Api.get(`payment/project/${projectId}/`)
       .then((resp) => {
         setProject(resp.data);
+        dispatch(changeCrumbName(3, resp.data.name));
       });
   };
 

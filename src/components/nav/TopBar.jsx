@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 // import PropTypes from 'prop-types';
 import {
   ChevronRight, User, Settings, HelpCircle, ToggleRight, Clipboard, File,
@@ -10,34 +10,48 @@ import TopBarSearch from 'components/nav/TopBarSearch';
 import getBreadcrumbName from 'const/breadcrumbsNames';
 import { useTranslation } from 'react-i18next';
 import Notifications from 'components/nav/Notifications';
-
+import { setBreadcrumbs } from '../../store/breadcrubms/actionCreators';
+import LoadingIcon from '../LoadingIcon';
 
 // TODO: finish this
 const TopBar = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
+  const breadcrumbs = useSelector((store) => store.breadcrumbs);
 
   const { pathname } = useLocation();
 
-  const breadcrumbsNodes = pathname.split('/')
-    .filter((path) => !!path)
-    .map((name, i, array) => {
-      const path = `/${array.slice(0, i + 1).join('/')}/`;
-      return (
-        <Link
-          key={path}
-          to={path}
-          className={i === array.length - 1 ? 'breadcrumb--active' : undefined}
-        >
-          {getBreadcrumbName(name) || name}
-        </Link>
-      );
-    })
-    .reduce((r, el) => r.concat(
-      <ChevronRight key={`${el.props.to}-sep`} className="breadcrumb__icon" />, el,
-    ), [])
-    .slice(1);
+  useEffect(() => {
+    const breadcrumbsNodes = pathname.split('/')
+      .filter((path) => !!path)
+      .map((name, i, array) => {
+        const path = `/${array.slice(0, i + 1).join('/')}/`;
+        return {
+          name: getBreadcrumbName(name) || name,
+          link: path,
+        };
+      });
+    dispatch(setBreadcrumbs(breadcrumbsNodes));
+  }, [pathname]);
+
+  breadcrumbs.forEach((item) => {
+    if (!Number.isNaN(parseInt(item.name, 10))) {
+      item.name = <LoadingIcon icon="three-dots" className="w-8 h-8" />;
+    }
+  });
+
+  const breadcrumbsNodes = breadcrumbs.map((breadcrumb, i, array) => (
+    <Link
+      key={breadcrumb.link}
+      to={breadcrumb.link}
+      className={i === array.length - 1 ? 'breadcrumb--active' : undefined}
+    >
+      {breadcrumb.name}
+    </Link>
+  )).reduce((r, el) => r.concat(
+    <ChevronRight key={`${el.props.to}-sep`} className="breadcrumb__icon" />, el,
+  ), []).slice(1);
 
   const userDropdownRef = useRef();
 
