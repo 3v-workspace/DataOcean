@@ -34,7 +34,7 @@ const FilterField = (props) => {
       return (
         <div>
           <SearchBox
-            className="border-gray-300"
+            className="border-gray-300 w-full"
             size="md"
             type="text"
             value={value}
