@@ -11,7 +11,7 @@ const DateInput = (props) => {
     name, formik, onChange, value, timePicker, timePicker24Hour,
     autoApply, singleDatePicker, startDate, endDate, autoUpdateInput,
     minDate, maxDate, drops, id, label, containerClass, className,
-    required,
+    required, placeholder, onKeyPress, onApply,
   } = props;
 
   const { i18n } = useTranslation();
@@ -67,7 +67,6 @@ const DateInput = (props) => {
       };
     }
     $(datepickerRef.current).daterangepicker(opt, (start, end) => {
-      // debugger;
       const valueStr = singleDatePicker ? (
         start.format(isoFormat)
       ) : (
@@ -80,15 +79,19 @@ const DateInput = (props) => {
       }
     });
     $(datepickerRef.current).on('apply.daterangepicker', (e, picker) => {
-      // debugger;
-      if (!e.target.value) {
-        // $(e.target).val('');
-      }
+      let newValue;
+      // if (!e.target.value) {
+      //   $(e.target).val('');
+      // }
       if (singleDatePicker) {
-        $(e.target).val(picker.startDate.format(format));
+        newValue = picker.startDate.format(format);
       } else {
-        $(e.target).val(`${picker.startDate.format(format)} - ${picker.endDate.format(format)}`);
+        newValue = `${picker.startDate.format(format)} - ${picker.endDate.format(format)}`;
       }
+      if (onApply) {
+        onApply(name, newValue);
+      }
+      $(e.target).val(newValue);
     });
     $(datepickerRef.current).on('change', (e) => {
       const input = $(e.target);
@@ -123,8 +126,10 @@ const DateInput = (props) => {
         className={`${className} input border`}
         name={name}
         required={required}
+        placeholder={placeholder}
         // value={value || (formik && formik.values[name])}
         onBlur={formik && formik.handleBlur}
+        onKeyPress={onKeyPress}
       />
       {formik && formik.touched[name] && formik.errors[name] && (
         <label className="error" htmlFor={endId}>{formik.errors[name]}</label>
@@ -141,6 +146,8 @@ DateInput.propTypes = {
   className: PropTypes.string,
   containerClass: PropTypes.string,
   onChange: PropTypes.func,
+  onKeyPress: PropTypes.func,
+  onApply: PropTypes.func,
   timePicker: PropTypes.bool,
   timePicker24Hour: PropTypes.bool,
   autoApply: PropTypes.bool,
@@ -162,11 +169,14 @@ DateInput.propTypes = {
 
   formik: FormikPropType,
   required: PropTypes.bool,
+  placeholder: PropTypes.string,
 };
 DateInput.defaultProps = {
   id: null,
   value: '',
   onChange: undefined,
+  onKeyPress: undefined,
+  onApply: undefined,
   formik: undefined,
   label: '',
   className: 'w-full',
@@ -183,6 +193,7 @@ DateInput.defaultProps = {
   maxDate: undefined,
   drops: 'auto',
   required: false,
+  placeholder: '',
 };
 
 
