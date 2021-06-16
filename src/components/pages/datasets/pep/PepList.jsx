@@ -74,10 +74,10 @@ const PepList = () => {
       header: t('lastPlaceOfWork'),
       prop: i18n.language === 'uk' ? 'last_employer' : 'last_employer_en',
       width: '20%',
-      filter: {
-        name: i18n.language === 'uk' ? 'last_employer' : 'last_employer_en',
+      filter: i18n.language === 'uk' ? {
+        name: 'last_employer',
         type: 'text',
-      },
+      } : null,
     },
   ];
   return (
