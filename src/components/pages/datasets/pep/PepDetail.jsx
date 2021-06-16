@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 // import PropTypes from 'prop-types';
 import Table from 'components/table/Table';
 import PageBox from 'components/pages/PageBox';
@@ -15,8 +15,32 @@ const PepDetail = () => {
   // const { match } = props;
   const { idp } = useParams();
   // const { idp } = match.params;
+  const [data, setData] = useState([]);
+  const [error, setError] = useState('');
+  const [isDataReady, setDataReady] = useState(false);
+  const [isLoading, setLoading] = useState(false);
   const { t, i18n } = useTranslation();
-  const { pep } = Api.get(`pep/${idp}/`);
+  const fetchData = () => {
+    setLoading(true);
+    Api.get(`pep/${idp}/`)
+      .then((resp) => {
+        setData(resp.data);
+        setDataReady(true);
+      })
+      .catch((err) => {
+        if (err.response?.data?.detail) {
+          setError(err.response.data.detail);
+        }
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+
+  useEffect(() => {
+    fetchData();
+    console.log(data);
+  }, []);
 
   // const { history } = props;
   const defaultOpenState = {
@@ -39,7 +63,7 @@ const PepDetail = () => {
     <>
       <div className="intro-y flex items-center mt-8">
         <h2 className="text-lg font-medium mr-auto">
-          {t('subscriptions')}{pep.name}
+          {data.fullname}
         </h2>
         {}
         {/*{history.location.state?.fromProjects && (*/}
