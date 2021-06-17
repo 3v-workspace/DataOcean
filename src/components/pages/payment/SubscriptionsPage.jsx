@@ -50,7 +50,7 @@ const SubscriptionsPage = (props) => {
       first_name: Yup.string().name().required().min(2),
       last_name: Yup.string().name().required().min(2),
       email: Yup.string().required().email(),
-      phone: Yup.string().max(15),
+      phone: Yup.string().phone(),
       note: Yup.string(),
     }),
     onSubmit: (values, actions) => {
