@@ -51,7 +51,7 @@ const FilterField = (props) => {
       return (
         <div>
           <SearchBox
-            className="border-gray-300 w-full"
+            className="border-gray-300 w-20"
             size="md"
             type="number"
             placeholder={placeholder}
