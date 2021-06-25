@@ -68,11 +68,10 @@ const Table = (props) => {
     if (tc.data.length) {
       return tc.data.map((row, i) => (
         <tr
-          className={`intro-x ${rowLinkUrl ? 'cursor-pointer hover:bg-gray-200' : ''}`}
+          className={rowLinkUrl ? 'cursor-pointer hover:bg-gray-200' : ''}
           key={row.id || i}
           onClick={() => {
             const selection = window.getSelection();
-            console.log(selection);
             if (rowLinkUrl && selection.type !== 'Range') {
               history.push(`${rowLinkUrl}${row.id}`);
             }
