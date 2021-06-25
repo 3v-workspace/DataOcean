@@ -8,15 +8,16 @@ import Api from 'api';
 
 
 const PepDetail = () => {
-  const { idp } = useParams();
+  const { id } = useParams();
   const [data, setData] = useState([]);
   const [error, setError] = useState('');
-  const [isDataReady, setDataReady] = useState(false);
+  const [setDataReady] = useState(false);
   const [isLoading, setLoading] = useState(false);
   const { t, i18n } = useTranslation();
+
   const fetchData = () => {
     setLoading(true);
-    Api.get(`pep/${idp}/`)
+    Api.get(`pep/${id}/`)
       .then((resp) => {
         setData(resp.data);
         setDataReady(true);
@@ -32,11 +33,9 @@ const PepDetail = () => {
   };
   useEffect(() => {
     fetchData();
-    console.log(data);
   }, []);
   const fromPersonLinksLength = data.from_person_links ? data.from_person_links.length : 0;
   const toPersonLinksLength = data.to_person_links ? data.to_person_links.length : 0;
-  // const { history } = props;
   const [openRelatedPersons, setOpenRelatedPersons] = useState(false);
   const toggleOpenRelatedPersons = () => {
     setOpenRelatedPersons(!openRelatedPersons);
@@ -162,7 +161,17 @@ const PepDetail = () => {
               </ul>
               {fromPersonLinksLength + toPersonLinksLength > 3 ? (
                 <div className="flex flex-row cursor-pointer text-blue-800" onClick={() => toggleOpenRelatedPersons()}>
-                  {openRelatedPersons ? [<ChevronUp className="w-4 h-6" />, t('viewLess')] : [<ChevronDown className="w-4 h-6" />, t('viewMore')]}
+                  {openRelatedPersons ? (
+                    <>
+                      <ChevronUp className="w-4 h-6" />
+                      {t('viewLess')}
+                    </>
+                  ) : (
+                    <>
+                      <ChevronDown className="w-4 h-6" />
+                      {t('viewMore')}
+                    </>
+                  )}
                 </div>
               ) : null}
             </div>
@@ -182,7 +191,17 @@ const PepDetail = () => {
               </ul>
               {data.related_companies && data.related_companies.length > 3 ? (
                 <div className="flex flex-row cursor-pointer text-blue-800" onClick={() => toggleOpenRelatedCompanies()}>
-                  {openRelatedCompanies ? [<ChevronUp className="w-4 h-6" />, t('viewLess')] : [<ChevronDown className="w-4 h-6" />, t('viewMore')]}
+                  {openRelatedCompanies ? (
+                    <>
+                      <ChevronUp className="w-4 h-6" />
+                      {t('viewLess')}
+                    </>
+                  ) : (
+                    <>
+                      <ChevronDown className="w-4 h-6" />
+                      {t('viewMore')}
+                    </>
+                  )}
                 </div>
               ) : null}
             </div>
@@ -210,7 +229,17 @@ const PepDetail = () => {
             }
               {data.criminal_proceedings && data.criminal_proceedings.length > 777 ? (
                 <div className="flex flex-row cursor-pointer text-blue-800" onClick={() => toggleOpenCriminalProceedings()}>
-                  {openCriminalProceedings ? [<ChevronUp className="w-4 h-6" />, t('viewLess')] : [<ChevronDown className="w-4 h-6" />, t('viewMore')]}
+                  {openCriminalProceedings ? (
+                    <>
+                      <ChevronUp className="w-4 h-6" />
+                      {t('viewLess')}
+                    </>
+                  ) : (
+                    <>
+                      <ChevronDown className="w-4 h-6" />
+                      {t('viewMore')}
+                    </>
+                  )}
                 </div>
               ) : null}
             </div>

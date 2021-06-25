@@ -56,7 +56,7 @@ const DatasetsRoutes = (props) => {
       />
       <Route
         exact
-        path={`${match.path}pep/:idp`}
+        path={`${match.path}pep/:id`}
         component={PepDetail}
       />
       <Route
