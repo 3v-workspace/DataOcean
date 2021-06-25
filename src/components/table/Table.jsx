@@ -7,6 +7,7 @@ import { ChevronDown, ChevronUp } from 'react-feather';
 import LoadingIcon from 'components/LoadingIcon';
 import { useTranslation } from 'react-i18next';
 import FilterField from 'components/filter-fields/FilterField';
+import { ReactRouterPropTypes } from '../../utils/prop-types';
 
 const generateFilterValues = (columns) => {
   const defaultValues = {};
@@ -21,7 +22,7 @@ const generateFilterValues = (columns) => {
 
 const Table = (props) => {
   const { t } = useTranslation();
-  const { columns, url, fields, axiosConfigs } = props;
+  const { columns, url, fields, axiosConfigs, rowLinkUrl, history } = props;
   const [search, setSearch] = useState('');
 
   const defaultFilterValues = generateFilterValues(columns);
@@ -66,10 +67,20 @@ const Table = (props) => {
     }
     if (tc.data.length) {
       return tc.data.map((row, i) => (
-        <tr key={row.id || i}>
+        <tr
+          className={`intro-x ${rowLinkUrl ? 'cursor-pointer hover:bg-gray-200' : ''}`}
+          key={row.id || i}
+          onClick={() => {
+            const selection = window.getSelection();
+            console.log(selection);
+            if (rowLinkUrl && selection.type !== 'Range') {
+              history.push(`${rowLinkUrl}${row.id}`);
+            }
+          }}
+        >
           {columns.map((col) => (
             <td key={col.prop} className="border-b">
-              {(col.render ? col.render(row[col.prop], row) : row[col.prop]) || '---'}
+              <span className="cursor-text">{(col.render ? col.render(row[col.prop], row) : row[col.prop]) || '---'}</span>
             </td>
           ))}
         </tr>
@@ -183,10 +194,13 @@ Table.propTypes = {
   url: PropTypes.string.isRequired,
   fields: PropTypes.arrayOf(PropTypes.string),
   axiosConfigs: PropTypes.object,
+  rowLinkUrl: PropTypes.string,
+  history: ReactRouterPropTypes.history.isRequired,
 };
 Table.defaultProps = {
   fields: [],
   axiosConfigs: {},
+  rowLinkUrl: null,
 };
 
 export default Table;
