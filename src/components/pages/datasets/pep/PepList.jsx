@@ -99,8 +99,9 @@ const PepList = ({ match, history }) => {
           'updated_at',
         ]}
         axiosConfigs={{ useProjectToken: true }}
-        rowLinkUrl={match.url}
-        history={history}
+        onRowClick={(row) => {
+          history.push(`${match.url}${row.id}`);
+        }}
       />
     </PageBox>
   );

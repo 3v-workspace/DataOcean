@@ -22,7 +22,7 @@ const generateFilterValues = (columns) => {
 
 const Table = (props) => {
   const { t } = useTranslation();
-  const { columns, url, fields, axiosConfigs, rowLinkUrl, history } = props;
+  const { columns, url, fields, axiosConfigs, onRowClick } = props;
   const [search, setSearch] = useState('');
 
   const defaultFilterValues = generateFilterValues(columns);
@@ -68,12 +68,12 @@ const Table = (props) => {
     if (tc.data.length) {
       return tc.data.map((row, i) => (
         <tr
-          className={rowLinkUrl ? 'cursor-pointer hover:bg-gray-200' : ''}
+          className={onRowClick ? 'cursor-pointer hover:bg-gray-200' : ''}
           key={row.id || i}
           onClick={() => {
             const selection = window.getSelection();
-            if (rowLinkUrl && selection.type !== 'Range') {
-              history.push(`${rowLinkUrl}${row.id}`);
+            if (onRowClick && selection.type !== 'Range') {
+              onRowClick(row);
             }
           }}
         >
@@ -193,13 +193,12 @@ Table.propTypes = {
   url: PropTypes.string.isRequired,
   fields: PropTypes.arrayOf(PropTypes.string),
   axiosConfigs: PropTypes.object,
-  rowLinkUrl: PropTypes.string,
-  history: ReactRouterPropTypes.history.isRequired,
+  onRowClick: PropTypes.func,
 };
 Table.defaultProps = {
   fields: [],
   axiosConfigs: {},
-  rowLinkUrl: null,
+  onRowClick: undefined,
 };
 
 export default Table;
