@@ -4,7 +4,7 @@ import Table from 'components/table/Table';
 import PageBox from 'components/pages/PageBox';
 import { useTranslation } from 'react-i18next';
 import { dateFormatISO } from 'utils';
-import { ReactRouterPropTypes } from '../../../../utils/prop-types';
+import { ReactRouterPropTypes } from 'utils/prop-types';
 
 const PepList = ({ match, history }) => {
   const { t, i18n } = useTranslation();
@@ -100,7 +100,7 @@ const PepList = ({ match, history }) => {
         ]}
         axiosConfigs={{ useProjectToken: true }}
         onRowClick={(row) => {
-          history.push(`${match.url}${row.id}`);
+          history.push(`${match.url}${row.id}/`);
         }}
       />
     </PageBox>

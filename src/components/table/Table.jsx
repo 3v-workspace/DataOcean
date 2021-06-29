@@ -7,7 +7,6 @@ import { ChevronDown, ChevronUp } from 'react-feather';
 import LoadingIcon from 'components/LoadingIcon';
 import { useTranslation } from 'react-i18next';
 import FilterField from 'components/filter-fields/FilterField';
-import { ReactRouterPropTypes } from '../../utils/prop-types';
 
 const generateFilterValues = (columns) => {
   const defaultValues = {};
@@ -68,18 +67,19 @@ const Table = (props) => {
     if (tc.data.length) {
       return tc.data.map((row, i) => (
         <tr
-          className={onRowClick ? 'cursor-pointer hover:bg-gray-200' : ''}
+          className={onRowClick ? 'cursor-pointer hover:bg-gray-200' : undefined}
           key={row.id || i}
           onClick={() => {
-            const selection = window.getSelection();
-            if (onRowClick && selection.type !== 'Range') {
+            if (onRowClick && window.getSelection().type !== 'Range') {
               onRowClick(row);
             }
           }}
         >
           {columns.map((col) => (
             <td key={col.prop} className="border-b">
-              <span className="cursor-text">{(col.render ? col.render(row[col.prop], row) : row[col.prop]) || '---'}</span>
+              <span className="cursor-text">
+                {(col.render ? col.render(row[col.prop], row) : row[col.prop]) || '---'}
+              </span>
             </td>
           ))}
         </tr>
