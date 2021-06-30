@@ -21,10 +21,10 @@ const PepList = () => {
     },
     {
       header: t('fullName'),
-      prop: 'fullname',
+      prop: i18n.language === 'uk' ? 'fullname' : 'fullname_en',
       width: '20%',
       filter: {
-        name: 'fullname',
+        name: i18n.language === 'uk' ? 'fullname' : 'fullname_en',
         type: 'text',
       },
     },
@@ -88,6 +88,7 @@ const PepList = () => {
         fields={[
           'id',
           'fullname',
+          'fullname_en',
           'date_of_birth',
           'is_pep',
           'pep_type',
