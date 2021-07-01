@@ -10,10 +10,8 @@ const UnfoldingBlock = (props) => {
   const unfoldingWindowRef = useRef(null);
 
   useEffect(() => {
-    if (unfoldingWindowRef.current) {
-      setOverflow(
-        unfoldingWindowRef.current.scrollHeight > unfoldingWindowRef.current.offsetHeight,
-      );
+    if (unfoldingWindowRef.current.scrollHeight > unfoldingWindowRef.current.offsetHeight) {
+      setOverflow(true);
     }
   }, []);
 

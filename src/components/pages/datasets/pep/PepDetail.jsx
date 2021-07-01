@@ -10,8 +10,6 @@ const PepDetail = () => {
   const [data, setData] = useState({});
   const { id } = useParams();
   const { t, i18n } = useTranslation();
-  let relatedCompanies = '';
-  let relatedPersons = '';
 
   const fetchData = () => {
     Api.get(`pep/${id}/`)
@@ -20,7 +18,12 @@ const PepDetail = () => {
       });
   };
 
-  const getLocaleField = (object, fieldName) => (i18n.language === 'uk' ? object[fieldName] || '---' : object[`${fieldName}_en`] || '---');
+  const getLocaleField = (object, fieldName) => {
+    if (i18n.language === 'uk') {
+      return object[fieldName] || '---';
+    }
+    return object[`${fieldName}_en`] || '---';
+  };
 
   const prepareHtmlField = (rawValue) => {
     if (rawValue) {
@@ -35,18 +38,13 @@ const PepDetail = () => {
     return '---';
   };
 
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  if (!Object.keys(data).length) {
-    return null;
-  }
-
-  if (data.related_companies.length > 0) {
-    relatedCompanies = (
+  const getRelatedCompanies = (relatedCompanies) => {
+    if (!relatedCompanies.length) {
+      return '---';
+    }
+    return (
       <ul className="list-disc list-inside">
-        {data.related_companies.map((company) => (
+        {relatedCompanies.map((company) => (
           <li>
             <span className="underline">
               {getLocaleField(company.company, 'name')} ({company.company.edrpou})
@@ -55,12 +53,15 @@ const PepDetail = () => {
         ))}
       </ul>
     );
-  } else { relatedCompanies = '---'; }
+  };
 
-  if (data.from_person_links.length + data.to_person_links.length > 0) {
-    relatedPersons = (
+  const getRelatedPersons = (relatedFromPersons, relatedToPersons) => {
+    if (!relatedFromPersons.length + relatedToPersons.length) {
+      return '---';
+    }
+    return (
       <ul className="list-disc list-inside">
-        {data.from_person_links.map((person) => (
+        {relatedFromPersons.map((person) => (
           <li>
             <span className="italic">
               {getLocaleField(person, 'to_person_relationship_type')} —
@@ -70,7 +71,7 @@ const PepDetail = () => {
             </span>
           </li>
         ))}
-        {data.to_person_links.map((person) => (
+        {relatedToPersons.map((person) => (
           <li>
             <span className="italic">
               {getLocaleField(person, 'from_person_relationship_type')} —
@@ -82,7 +83,15 @@ const PepDetail = () => {
         ))}
       </ul>
     );
-  } else { relatedPersons = '---'; }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  if (!Object.keys(data).length) {
+    return null;
+  }
 
   return (
     <>
@@ -162,7 +171,7 @@ const PepDetail = () => {
             <div className="w-64 font-medium">{t('relatedPersons')}:</div>
             <div className="max-w-xl">
               <UnfoldingBlock>
-                {relatedPersons}
+                {getRelatedPersons(data.from_person_links, data.to_person_links)}
               </UnfoldingBlock>
             </div>
           </div>
@@ -170,7 +179,7 @@ const PepDetail = () => {
             <div className="w-64 font-medium">{t('relatedCompanies')}:</div>
             <div className="max-w-xl">
               <UnfoldingBlock>
-                {relatedCompanies}
+                {getRelatedCompanies(data.related_companies)}
               </UnfoldingBlock>
             </div>
           </div>
