@@ -17,6 +17,7 @@ const PepList = () => {
         name: 'id',
         type: 'number',
         placeholder: '12345',
+        width: '20',
       },
     },
     {

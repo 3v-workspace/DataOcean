@@ -5,7 +5,7 @@ import moment from 'moment';
 
 const FilterField = (props) => {
   const {
-    filter: { name, type, placeholder }, onChange, defaultValue,
+    filter: { name, type, placeholder, width }, onChange, defaultValue,
     onSearch, value,
   } = props;
 
@@ -51,7 +51,7 @@ const FilterField = (props) => {
       return (
         <div>
           <SearchBox
-            className="border-gray-300 w-20"
+            className={`border-gray-300 w-${width ? `${width}` : 'full'}`}
             size="md"
             type="number"
             placeholder={placeholder}
@@ -91,6 +91,7 @@ FilterField.propTypes = {
     name: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
     placeholder: PropTypes.string,
+    width: PropTypes.string,
   }).isRequired,
   onChange: PropTypes.func.isRequired,
   onSearch: PropTypes.func.isRequired,
