@@ -21,7 +21,7 @@ const generateFilterValues = (columns) => {
 
 const Table = (props) => {
   const { t } = useTranslation();
-  const { columns, url, fields, axiosConfigs } = props;
+  const { columns, url, fields, axiosConfigs, onRowClick } = props;
   const [search, setSearch] = useState('');
 
   const defaultFilterValues = generateFilterValues(columns);
@@ -66,10 +66,20 @@ const Table = (props) => {
     }
     if (tc.data.length) {
       return tc.data.map((row, i) => (
-        <tr key={row.id || i}>
+        <tr
+          className={onRowClick ? 'cursor-pointer hover:bg-gray-200' : undefined}
+          key={row.id || i}
+          onClick={() => {
+            if (onRowClick && window.getSelection().type !== 'Range') {
+              onRowClick(row);
+            }
+          }}
+        >
           {columns.map((col) => (
             <td key={col.prop} className="border-b">
-              {(col.render ? col.render(row[col.prop], row) : row[col.prop]) || '---'}
+              <span className="cursor-text">
+                {(col.render ? col.render(row[col.prop], row) : row[col.prop]) || '---'}
+              </span>
             </td>
           ))}
         </tr>
@@ -183,10 +193,12 @@ Table.propTypes = {
   url: PropTypes.string.isRequired,
   fields: PropTypes.arrayOf(PropTypes.string),
   axiosConfigs: PropTypes.object,
+  onRowClick: PropTypes.func,
 };
 Table.defaultProps = {
   fields: [],
   axiosConfigs: {},
+  onRowClick: undefined,
 };
 
 export default Table;

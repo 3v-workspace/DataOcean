@@ -4,8 +4,9 @@ import Table from 'components/table/Table';
 import PageBox from 'components/pages/PageBox';
 import { useTranslation } from 'react-i18next';
 import { dateFormatISO } from 'utils';
+import { ReactRouterPropTypes } from 'utils/prop-types';
 
-const PepList = () => {
+const PepList = ({ match, history }) => {
   const { t, i18n } = useTranslation();
   const columns = [
     {
@@ -99,11 +100,17 @@ const PepList = () => {
           'updated_at',
         ]}
         axiosConfigs={{ useProjectToken: true }}
+        onRowClick={(row) => {
+          history.push(`${match.url}${row.id}/`);
+        }}
       />
     </PageBox>
   );
 };
 
-// CompanyList.propTypes = {};
+PepList.propTypes = {
+  match: ReactRouterPropTypes.match.isRequired,
+  history: ReactRouterPropTypes.history.isRequired,
+};
 
 export default PepList;
