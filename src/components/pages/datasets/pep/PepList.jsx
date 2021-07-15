@@ -98,11 +98,13 @@ const PepList = ({ match, history }) => {
           'last_employer',
           'last_employer_en',
           'updated_at',
+          'created_at',
         ]}
         axiosConfigs={{ useProjectToken: true }}
         onRowClick={(row) => {
           history.push(`${match.url}${row.id}/`);
         }}
+        exportUrl="pep/xlsx/"
       />
     </PageBox>
   );
