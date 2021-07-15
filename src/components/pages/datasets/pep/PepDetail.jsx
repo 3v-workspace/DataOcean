@@ -12,7 +12,7 @@ const PepDetail = () => {
   const { t, i18n } = useTranslation();
 
   const fetchData = () => {
-    Api.get(`pep/${id}/`)
+    Api.get(`pep/${id}/`, { useProjectToken: true })
       .then((resp) => {
         setData(resp.data);
       });
