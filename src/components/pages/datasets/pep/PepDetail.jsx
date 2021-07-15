@@ -56,7 +56,7 @@ const PepDetail = () => {
   };
 
   const getRelatedPersons = (relatedFromPersons, relatedToPersons) => {
-    if (!relatedFromPersons.length + relatedToPersons.length) {
+    if (!relatedFromPersons.length && !relatedToPersons.length) {
       return '---';
     }
     return (
