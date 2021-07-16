@@ -59,7 +59,7 @@ const PepList = ({ match, history }) => {
     },
     {
       header: t('pepType'),
-      prop: 'pep_type',
+      prop: 'pep_type_display',
       width: '20%',
     },
     {
@@ -92,17 +92,19 @@ const PepList = ({ match, history }) => {
           'fullname_en',
           'date_of_birth',
           'is_pep',
-          'pep_type',
+          'pep_type_display',
           'last_job_title',
           'last_job_title_en',
           'last_employer',
           'last_employer_en',
           'updated_at',
+          'created_at',
         ]}
         axiosConfigs={{ useProjectToken: true }}
         onRowClick={(row) => {
           history.push(`${match.url}${row.id}/`);
         }}
+        exportUrl="pep/xlsx/"
       />
     </PageBox>
   );

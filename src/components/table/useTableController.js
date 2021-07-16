@@ -47,6 +47,21 @@ const useTableController = (options) => {
     return urlParams.toString();
   };
 
+  const getExportUrlParams = () => {
+    const urlParams = new URLSearchParams();
+    if (ordering) {
+      urlParams.set('o', ordering);
+    }
+    if (params) {
+      Object.entries(params).forEach(([key, value]) => {
+        if (value) {
+          urlParams.set(key, value.toString());
+        }
+      });
+    }
+    return urlParams.toString();
+  };
+
   const getOrderingDirection = () => {
     if (ordering) {
       if (ordering.startsWith('-')) {
@@ -102,6 +117,7 @@ const useTableController = (options) => {
     data,
     setData,
     getUrlParams,
+    getExportUrlParams,
     maxPage,
     setMaxPage,
     count,
