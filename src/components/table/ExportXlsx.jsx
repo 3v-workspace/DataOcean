@@ -1,35 +1,55 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import { useTableController } from 'components/table/index';
-import Pagination from 'components/table/Pagination';
-import { SearchBox } from 'components/form-components';
-import { ChevronDown, ChevronUp, Download } from 'react-feather';
+import { Download } from 'react-feather';
 import Tooltip from 'components/Tooltip';
-import LoadingIcon from 'components/LoadingIcon';
 import { useTranslation } from 'react-i18next';
-import FilterField from 'components/filter-fields/FilterField';
 import Api from 'api';
+import { EXPORT_PEP_XLSX_LIMIT } from 'const/const';
+import YesNoModal from 'components/modals/YesNoModal';
+import toast from 'utils/toast';
 
 
 const ExportXlsx = (props) => {
   const { t } = useTranslation();
   const { exportUrl, params, count } = props;
-  // const tc = useTableController({ url, params, axiosConfigs });
+  const ExportXlsxModalRef = useRef();
   const [ResponceMessage, setResponceMessage] = useState([]);
+  const detail = 'detail';
 
-  const fetchData = () => {
+  const exportXlsx = () => {
     Api.get(`${exportUrl}?${params}`)
       .then((resp) => {
-        setResponceMessage(resp.data);
+        setResponceMessage(resp.data[detail]);
       });
+    toast('success', ResponceMessage);
+    ExportXlsxModalRef.current.hide();
   };
 
-  return (
-    <div onClick={count < 2 ? () => fetchData() : undefined}>
-      <Tooltip position="left" arrow={false}>
-        <Download className="w-5 h-5" /> Excel
+  const openExportXlsxModal = () => {
+    ExportXlsxModalRef.current.show();
+  };
+
+  let element;
+  if (count <= EXPORT_PEP_XLSX_LIMIT) {
+    element = (
+      <div onClick={openExportXlsxModal} className="flex mx-2 cursor-pointer text-gray-800">
+        <Download className="w-5 h-5 mr-1 color-gray-800" />
+        Excel
+        <YesNoModal ref={ExportXlsxModalRef} onYes={exportXlsx} />
+      </div>
+    );
+  } else {
+    element = (
+      <Tooltip position="bottom" arrow={false} content={t('exportTooltipContent', { limit: EXPORT_PEP_XLSX_LIMIT })} className="flex mx-2 cursor-default text-gray-500">
+        <Download className="w-5 h-5 mr-1 color-gray-500" /> Excel
       </Tooltip>
-    </div>
+    );
+  }
+
+  return (
+    <>
+      {element}
+    </>
   );
 };
 
@@ -38,8 +58,5 @@ ExportXlsx.propTypes = {
   params: PropTypes.string.isRequired,
   count: PropTypes.number.isRequired,
 };
-// ExportXlsx.defaultProps = {
-//   axiosConfigs: {},
-// };
 
 export default ExportXlsx;

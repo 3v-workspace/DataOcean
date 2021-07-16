@@ -118,7 +118,7 @@ const Table = (props) => {
         {/*  })}*/}
         {/*</div>*/}
         { exportUrl && (
-          <div className="flex">
+          <div className="mr-6">
             <ExportXlsx
               exportUrl={exportUrl}
               params={tc.getExportUrlParams()}

@@ -93,6 +93,7 @@
   "endpoints": "Ендпоінти",
   "enterUserEmail": "Введіть E-mail користувача",
   "error": "Помилка",
+  "exportTooltipContent": "Для завантаження скористайтесь фільтрами або пошуком. Максимальна кількість записів для завантаження - {{limit}}",
   "faq": {
     "PEPRegisterTrustworthyOrLegallyValid": "Чому реєстр PEP є таким, що заслуговує довіру або таким, що має правову \"вагомість\"?",
     "accessPEPDatabase": "Як отримати доступ до бази PEP?",
