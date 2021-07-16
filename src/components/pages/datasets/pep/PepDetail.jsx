@@ -46,7 +46,7 @@ const PepDetail = () => {
       <ul className="list-disc list-inside">
         {relatedCompanies.map((company) => (
           <li>
-            <span className="underline">
+            <span>
               {getLocaleField(company.company, 'name')} ({company.company.edrpou})
             </span>
           </li>
@@ -63,20 +63,20 @@ const PepDetail = () => {
       <ul className="list-disc list-inside">
         {relatedFromPersons.map((person) => (
           <li>
-            <span className="italic">
+            <span className="italic mr-1">
               {getLocaleField(person, 'to_person_relationship_type')} —
             </span>
-            <span className="capitalize underline">
+            <span className="capitalize">
               {getLocaleField(person.to_person, 'fullname')}
             </span>
           </li>
         ))}
         {relatedToPersons.map((person) => (
           <li>
-            <span className="italic">
+            <span className="italic mr-1">
               {getLocaleField(person, 'from_person_relationship_type')} —
             </span>
-            <span className="capitalize underline">
+            <span className="capitalize">
               {getLocaleField(person.from_person, 'fullname')}
             </span>
           </li>
