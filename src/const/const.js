@@ -6,4 +6,4 @@ export const DATETIME_FORMAT = 'DD.MM.YYYY HH:mm:ss';
 
 export const PROJECT_TOKEN_PREFIX = 'Platform';
 
-export const EXPORT_PEP_XLSX_LIMIT = 1;
+export const EXPORT_PEP_XLSX_LIMIT = 5000;

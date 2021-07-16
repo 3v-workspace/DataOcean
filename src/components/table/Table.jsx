@@ -4,7 +4,7 @@ import { useTableController } from 'components/table/index';
 import ExportXlsx from 'components/table/ExportXlsx';
 import Pagination from 'components/table/Pagination';
 import { SearchBox } from 'components/form-components';
-import { ChevronDown, ChevronUp, Download } from 'react-feather';
+import { ChevronDown, ChevronUp } from 'react-feather';
 import LoadingIcon from 'components/LoadingIcon';
 import { useTranslation } from 'react-i18next';
 import FilterField from 'components/filter-fields/FilterField';
