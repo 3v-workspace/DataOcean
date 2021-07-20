@@ -17,6 +17,10 @@ const datasets = {
   '/api/pep': { urlEnding: 'pep/' },
   '/api/sanction/person/': { urlEnding: 'person-sanction/' },
   '/api/sanction/person': { urlEnding: 'person-sanction/' },
+  '/api/sanction/country/': { urlEnding: 'country-sanction/' },
+  '/api/sanction/country': { urlEnding: 'country-sanction/' },
+  '/api/sanction/company/': { urlEnding: 'company-sanction/' },
+  '/api/sanction/company': { urlEnding: 'company-sanction/' },
 };
 
 export default datasets;

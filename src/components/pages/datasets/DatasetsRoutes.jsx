@@ -11,6 +11,8 @@ import FopList from './company/FopList';
 import PepList from './pep/PepList';
 import KoatuuList from './koatuu/KoatuuList';
 import PersonSanctionList from './sanctions/PersonSanctionList';
+import CompanySanctionList from './sanctions/CompanySanctionList';
+import CountrySanctionList from './sanctions/CountrySanctionList';
 import PepDetail from './pep/PepDetail';
 
 const DatasetsRoutes = (props) => {
@@ -68,6 +70,16 @@ const DatasetsRoutes = (props) => {
         exact
         path={`${match.path}person-sanction/`}
         component={PersonSanctionList}
+      />
+      <Route
+        exact
+        path={`${match.path}country-sanction/`}
+        component={CountrySanctionList}
+      />
+      <Route
+        exact
+        path={`${match.path}company-sanction/`}
+        component={CompanySanctionList}
       />
       <Route
         exact
