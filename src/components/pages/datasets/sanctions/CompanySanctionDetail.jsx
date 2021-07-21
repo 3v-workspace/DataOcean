@@ -1,0 +1,122 @@
+import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { dateFormat } from 'utils';
+import { useParams } from 'react-router-dom';
+import Api from 'api';
+import UnfoldingBlock from 'components/UnfoldingBlock';
+
+
+const CompanySanctionDetail = () => {
+  const [data, setData] = useState({});
+  const { id } = useParams();
+  const { t, i18n } = useTranslation();
+
+  const fetchData = () => {
+    Api.get(`sanction/company/${id}/`, { useProjectToken: true })
+      .then((resp) => {
+        setData(resp.data);
+      });
+  };
+
+  const getSanctions = (sanctions) => {
+    if (!sanctions.length) {
+      return '---';
+    }
+    return (
+      <ul className="list-disc list-inside">
+        {sanctions.map((sanction) => (
+          <li>
+            <span>
+              {sanction}
+            </span>
+          </li>
+        ))}
+      </ul>
+    );
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  if (!Object.keys(data).length) {
+    return null;
+  }
+
+  return (
+    <>
+      <div className="intro-y flex items-center mt-8">
+        <h2 className="text-lg mr-auto">
+          {t('companyInfo')}
+        </h2>
+        {/* TODO: Add 'Return to search results' button */}
+        {/*{history.location.state?.fromProjects && (*/}
+        {/*  <Button onClick={() => history.goBack()}
+          className="bg-opacity-0 text-blue-800 h-2 mt-3">*/}
+        {/*    <ArrowLeft className="w-10 h-5" />*/}
+        {/*    <span className="underline">{t('returnToTheProject')}</span>*/}
+        {/*  </Button>*/}
+        {/*)}*/}
+      </div>
+      <div className="col-span-12 lg:col-span-6">
+        <div className="intro-y space-y-1 mt-8 box">
+          <div className="py-4 pl-5 border-b border-gray-200">
+            <h2 className="text-2xl font-medium mr-auto capitalize">
+              {data.name}
+            </h2>
+          </div>
+          <div className="pl-5 flex flex-row">
+            <div className="w-64 font-medium">ID:</div>
+            <div className="max-w-xl">{data.id}</div>
+          </div>
+          <div className="pl-5 flex flex-row">
+            <div className="w-64 font-medium">{t('sanctionStartDate')}:</div>
+            <div className="max-w-xl">{dateFormat(data.start_date)}</div>
+          </div>
+          <div className="pl-5 flex flex-row">
+            <div className="w-64 font-medium">{t('sanctionEndDate')}:</div>
+            <div className="max-w-xl">{dateFormat(data.end_date)}</div>
+          </div>
+          <div className="pl-5 flex flex-row">
+            <div className="w-64 font-medium">{t('registrationDate')}:</div>
+            <div className="max-w-xl">{dateFormat(data.registration_date) || '---'}</div>
+          </div>
+          <div className="pl-5 flex flex-row">
+            <div className="w-64 font-medium">{t('address')}:</div>
+            <div className="max-w-xl">{data.address || '---'}</div>
+          </div>
+          <div className="pl-5 flex flex-row">
+            <div className="w-64 font-medium">{t('countryOfRegistration')}:</div>
+            <div className="max-w-xl">{data.country_of_registration[`name_${i18n.language}`] || '---'}</div>
+          </div>
+          <div className="pl-5 flex flex-row">
+            <div className="w-64 font-medium">{t('registrationNumber')}:</div>
+            <div className="max-w-xl">{data.registration_number || '---'}</div>
+          </div>
+          <div className="pl-5 flex flex-row">
+            <div className="w-64 font-medium">{t('taxpayerNumber')}:</div>
+            <div className="max-w-xl">{data.taxpayer_number || '---'}</div>
+          </div>
+          <div className="pl-5 flex flex-row">
+            <div className="w-64 font-medium">{t('referenceData')}:</div>
+            <div className="max-w-xl">{data.additional_info || '---'}</div>
+          </div>
+          <div className="pl-5 flex flex-row">
+            <div className="w-64 font-medium">{t('reasoning')}:</div>
+            <div className="max-w-xl">{data.reasoning || '---'}</div>
+          </div>
+          <div className="pl-5 flex flex-row">
+            <div className="w-64 font-medium">{t('sanctionsDetail')}:</div>
+            <div className="max-w-xl">
+              <UnfoldingBlock>
+                {getSanctions(data.types_of_sanctions)}
+              </UnfoldingBlock>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default CompanySanctionDetail;
