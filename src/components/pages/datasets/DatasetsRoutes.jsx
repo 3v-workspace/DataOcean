@@ -75,7 +75,6 @@ const DatasetsRoutes = (props) => {
         path={`${match.path}person-sanction/`}
         component={PersonSanctionList}
       />
-
       <Route
         exact
         path={`${match.path}`}
