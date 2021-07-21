@@ -1,13 +1,11 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
 import Table from 'components/table/Table';
 import PageBox from 'components/pages/PageBox';
 import { useTranslation } from 'react-i18next';
-import { ReactRouterPropTypes } from 'utils/prop-types';
 import { dateFormatISO } from 'utils';
 
 
-const PersonSanctionList = ({ match, history }) => {
+const CompanySanctionList = () => {
   const { t, i18n } = useTranslation();
   const columns = [
     {
@@ -17,16 +15,9 @@ const PersonSanctionList = ({ match, history }) => {
       noSort: true,
     },
     {
-      header: t('fullName'),
-      prop: 'full_name',
+      header: t('companyName'),
+      prop: 'name',
       width: '20%',
-    },
-    {
-      header: t('dateOfBirth'),
-      prop: 'date_of_birth',
-      width: '5%',
-      noSort: true,
-      render: (v) => (v ? dateFormatISO(v) : '---'),
     },
     {
       header: t('startDate'),
@@ -47,39 +38,37 @@ const PersonSanctionList = ({ match, history }) => {
       noSort: true,
     },
     {
-      header: t('countriesOfCitizenship'),
-      prop: 'countries_of_citizenship',
+      header: t('registrationNumber'),
+      prop: 'registration_number',
       width: '20%',
       noSort: true,
-      render: (countries) => countries.map((country) => country[`name_${i18n.language}`]).join(', '),
+    },
+    {
+      header: t('countryOfRegistration'),
+      prop: 'country_of_registration',
+      width: '20%',
+      noSort: true,
+      render: (country) => country[`name_${i18n.language}`],
     },
   ];
   return (
     <PageBox noBox>
       <Table
         columns={columns}
-        url="sanction/person/"
+        url="sanction/company/"
         fields={[
           'id',
-          'full_name',
-          'date_of_birth',
+          'name',
           'start_date',
           'end_date',
           'taxpayer_number',
-          'countries_of_citizenship',
+          'registration_number',
+          'country_of_registration',
         ]}
         axiosConfigs={{ useProjectToken: true }}
-        onRowClick={(row) => {
-          history.push(`${match.url}${row.id}/`);
-        }}
       />
     </PageBox>
   );
 };
 
-PersonSanctionList.propTypes = {
-  match: ReactRouterPropTypes.match.isRequired,
-  history: ReactRouterPropTypes.history.isRequired,
-};
-
-export default PersonSanctionList;
+export default CompanySanctionList;

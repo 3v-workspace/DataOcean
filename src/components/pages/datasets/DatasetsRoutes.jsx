@@ -4,13 +4,11 @@ import { ReactRouterPropTypes } from 'utils/prop-types';
 import Route404 from 'components/pages/Route404';
 import DatasetsList from './DatasetsList';
 import KvedList from './kved/KvedList';
-import CompanyUkList from './company/CompanyUkList';
-import CompanyUkrList from './company/CompanyUkrList';
+import { CompanyUkList, CompanyUkrList, FopList } from './company';
 import StreetList from './street/StreetList';
-import FopList from './company/FopList';
 import PepList from './pep/PepList';
 import KoatuuList from './koatuu/KoatuuList';
-import PersonSanctionList from './sanctions/PersonSanctionList';
+import { PersonSanctionList, CompanySanctionList, CountrySanctionList } from './sanctions';
 import PepDetail from './pep/PepDetail';
 import PersonSanctionDetail from './sanctions/PersonSanctionDetail';
 
@@ -74,6 +72,16 @@ const DatasetsRoutes = (props) => {
         exact
         path={`${match.path}person-sanction/`}
         component={PersonSanctionList}
+      />
+      <Route
+        exact
+        path={`${match.path}country-sanction/`}
+        component={CountrySanctionList}
+      />
+      <Route
+        exact
+        path={`${match.path}company-sanction/`}
+        component={CompanySanctionList}
       />
       <Route
         exact
