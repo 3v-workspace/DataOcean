@@ -10,6 +10,7 @@ import PepList from './pep/PepList';
 import KoatuuList from './koatuu/KoatuuList';
 import { PersonSanctionList, CompanySanctionList, CountrySanctionList } from './sanctions';
 import PepDetail from './pep/PepDetail';
+import PersonSanctionDetail from './sanctions/PersonSanctionDetail';
 
 const DatasetsRoutes = (props) => {
   const { match } = props;
@@ -61,6 +62,11 @@ const DatasetsRoutes = (props) => {
         exact
         path={`${match.path}pep/`}
         component={PepList}
+      />
+      <Route
+        exact
+        path={`${match.path}person-sanction/:id/`}
+        component={PersonSanctionDetail}
       />
       <Route
         exact
