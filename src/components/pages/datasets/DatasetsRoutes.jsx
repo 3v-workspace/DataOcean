@@ -4,15 +4,11 @@ import { ReactRouterPropTypes } from 'utils/prop-types';
 import Route404 from 'components/pages/Route404';
 import DatasetsList from './DatasetsList';
 import KvedList from './kved/KvedList';
-import CompanyUkList from './company/CompanyUkList';
-import CompanyUkrList from './company/CompanyUkrList';
+import { CompanyUkList, CompanyUkrList, FopList } from './company/index';
 import StreetList from './street/StreetList';
-import FopList from './company/FopList';
 import PepList from './pep/PepList';
 import KoatuuList from './koatuu/KoatuuList';
-import PersonSanctionList from './sanctions/PersonSanctionList';
-import CompanySanctionList from './sanctions/CompanySanctionList';
-import CountrySanctionList from './sanctions/CountrySanctionList';
+import { PersonSanctionList, CompanySanctionList, CountrySanctionList } from './sanctions/index';
 import PepDetail from './pep/PepDetail';
 
 const DatasetsRoutes = (props) => {
