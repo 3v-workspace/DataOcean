@@ -4,9 +4,10 @@ import Table from 'components/table/Table';
 import PageBox from 'components/pages/PageBox';
 import { useTranslation } from 'react-i18next';
 import { dateFormat } from 'utils';
+import { ReactRouterPropTypes } from 'utils/prop-types';
 
 
-const PersonSanctionList = () => {
+const PersonSanctionList = ({ match, history }) => {
   const { t, i18n } = useTranslation();
   const columns = [
     {
@@ -65,11 +66,17 @@ const PersonSanctionList = () => {
           'countries_of_citizenship',
         ]}
         axiosConfigs={{ useProjectToken: true }}
+        onRowClick={(row) => {
+          history.push(`${match.url}${row.id}/`);
+        }}
       />
     </PageBox>
   );
 };
 
-// CompanyList.propTypes = {};
+PersonSanctionList.propTypes = {
+  match: ReactRouterPropTypes.match.isRequired,
+  history: ReactRouterPropTypes.history.isRequired,
+};
 
 export default PersonSanctionList;
