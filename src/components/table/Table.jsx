@@ -121,7 +121,7 @@ const Table = (props) => {
           <div className="mr-6">
             <ExportXlsx
               exportUrl={exportUrl}
-              params={tc.getExportUrlParams()}
+              params={tc.getUrlParams()}
               count={tc.count}
             />
           </div>

@@ -85,8 +85,6 @@
   "division": "Division",
   "downloadContract": "Download contract",
   "downloadPEPDatabase": "Download PEP database",
-  "downloadXlsx": "Downloading data in .xlsx format will start",
-  "downloadXlsxConfirmation": "After ending will send email to Your address with web-link for downloading a file. Continue?",
   "edit": "Edit",
   "editProject": "Edit project",
   "edrpou": "EDRPOU",
@@ -95,7 +93,11 @@
   "endpoints": "Endpoints",
   "enterUserEmail": "Enter user Email",
   "error": "Error",
-  "exportTooltipContent": "Use filters or search before downloading. Max records limit for downloading - {{limit}}",
+  "export": {
+    "downloadXlsx": "Downloading data in .xlsx format will start",
+    "downloadXlsxConfirmation": "After ending will send email to Your address with web-link for downloading a file. Continue?",
+    "exportTooltipContent": "Use filters or search before downloading. Max records limit for downloading - {{limit}}"
+  },
   "faq": {
     "PEPRegisterTrustworthyOrLegallyValid": "Why is the PEP register trustworthy or legally valid?",
     "accessPEPDatabase": "How to access the PEP database?",
