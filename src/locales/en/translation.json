@@ -99,6 +99,7 @@
   "enterUserEmail": "Enter user Email",
   "error": "Error",
   "export": {
+    "downloadPdf": "Download PDF",
     "downloadXlsx": "Downloading data in .xlsx format will start",
     "downloadXlsxConfirmation": "After ending will send email to Your address with web-link for downloading a file. Continue?",
     "exportTooltipContent": "Use filters or search before downloading. Max records limit for downloading - {{limit}}"
