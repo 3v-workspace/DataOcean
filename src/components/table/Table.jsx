@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useTableController } from 'components/table/index';
+import ExportXlsx from 'components/table/ExportXlsx';
 import Pagination from 'components/table/Pagination';
 import { SearchBox } from 'components/form-components';
 import { ChevronDown, ChevronUp } from 'react-feather';
@@ -21,7 +22,7 @@ const generateFilterValues = (columns) => {
 
 const Table = (props) => {
   const { t } = useTranslation();
-  const { columns, url, fields, axiosConfigs, onRowClick } = props;
+  const { columns, url, fields, axiosConfigs, onRowClick, exportUrl } = props;
   const [search, setSearch] = useState('');
 
   const defaultFilterValues = generateFilterValues(columns);
@@ -116,6 +117,15 @@ const Table = (props) => {
         {/*    count: tc.count,*/}
         {/*  })}*/}
         {/*</div>*/}
+        { exportUrl && (
+          <div className="mr-6">
+            <ExportXlsx
+              exportUrl={exportUrl}
+              params={tc.getUrlParams()}
+              count={tc.count}
+            />
+          </div>
+        )}
         <div className="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">
           <SearchBox containerClass="w-56" onSearch={onSearch} />
         </div>
@@ -194,11 +204,13 @@ Table.propTypes = {
   fields: PropTypes.arrayOf(PropTypes.string),
   axiosConfigs: PropTypes.object,
   onRowClick: PropTypes.func,
+  exportUrl: PropTypes.string,
 };
 Table.defaultProps = {
   fields: [],
   axiosConfigs: {},
   onRowClick: undefined,
+  exportUrl: undefined,
 };
 
 export default Table;
