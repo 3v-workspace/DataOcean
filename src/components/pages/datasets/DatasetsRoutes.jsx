@@ -8,7 +8,7 @@ import { CompanyUkList, CompanyUkrList, FopList } from './company';
 import StreetList from './street/StreetList';
 import PepList from './pep/PepList';
 import KoatuuList from './koatuu/KoatuuList';
-import { PersonSanctionList, CompanySanctionList, CountrySanctionList } from './sanctions';
+import { PersonSanctionList, CompanySanctionList, CountrySanctionList, CountrySanctionDetail } from './sanctions';
 import PepDetail from './pep/PepDetail';
 import PersonSanctionDetail from './sanctions/PersonSanctionDetail';
 
@@ -77,6 +77,11 @@ const DatasetsRoutes = (props) => {
         exact
         path={`${match.path}country-sanction/`}
         component={CountrySanctionList}
+      />
+      <Route
+        exact
+        path={`${match.path}country-sanction/:id/`}
+        component={CountrySanctionDetail}
       />
       <Route
         exact
