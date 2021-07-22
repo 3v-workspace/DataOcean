@@ -4,6 +4,8 @@ import { dateFormat } from 'utils';
 import { useParams } from 'react-router-dom';
 import Api from 'api';
 import UnfoldingBlock from 'components/UnfoldingBlock';
+import { Download } from 'react-feather';
+import Tooltip from 'components/Tooltip';
 
 
 const CompanySanctionDetail = () => {
@@ -60,10 +62,19 @@ const CompanySanctionDetail = () => {
       </div>
       <div className="col-span-12 lg:col-span-6">
         <div className="intro-y space-y-1 mt-8 box">
-          <div className="py-4 pl-5 border-b border-gray-200">
+          <div className="py-4 pl-5 border-b border-gray-200 flex flex-row">
             <h2 className="text-2xl font-medium mr-auto capitalize">
               {data.name}
             </h2>
+            <Tooltip
+              position="bottom"
+              arrow={false}
+              content={t('inDevelopment')}
+              className="flex mr-16 cursor-default text-blue-500 pt-3"
+            >
+              <Download className="w-5 h-5 mr-1 color-blue-500" />
+              {t('export.downloadPdf')}
+            </Tooltip>
           </div>
           <div className="pl-5 flex flex-row">
             <div className="w-64 font-medium">ID:</div>

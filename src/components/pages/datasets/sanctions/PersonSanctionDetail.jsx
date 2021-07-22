@@ -69,11 +69,11 @@ const PersonSanctionDetail = () => {
             <Tooltip
               position="bottom"
               arrow={false}
-              content="asdfghjkl;asdfghjkdfghj"
+              content={t('inDevelopment')}
               className="flex mr-16 cursor-default text-blue-500 pt-3"
             >
               <Download className="w-5 h-5 mr-1 color-blue-500" />
-              Download PDF
+              {t('export.downloadPdf')}
             </Tooltip>
           </div>
           <div className="pl-5 flex flex-row">
