@@ -47,6 +47,7 @@
   "company": "Company",
   "company-sanction": "Sanctions against company",
   "companyID": "Company ID",
+  "companyInfo": "Company's information",
   "companyName": "Company name",
   "companyTypes": "Company types",
   "confirmationInvoice": "Сonfirmation invoice",
@@ -99,6 +100,11 @@
   "endpoints": "Endpoints",
   "enterUserEmail": "Enter user Email",
   "error": "Error",
+  "export": {
+    "downloadXlsx": "Downloading data in .xlsx format will start",
+    "downloadXlsxConfirmation": "After ending will send email to Your address with web-link for downloading a file. Continue?",
+    "exportTooltipContent": "Use filters or search before downloading. Max records limit for downloading - {{limit}}"
+  },
   "faq": {
     "PEPRegisterTrustworthyOrLegallyValid": "Why is the PEP register trustworthy or legally valid?",
     "accessPEPDatabase": "How to access the PEP database?",
