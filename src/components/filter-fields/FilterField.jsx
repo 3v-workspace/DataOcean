@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { SearchBox, DateInput } from 'components/form-components';
+import { SearchBox, DateInput, SelectInput } from 'components/form-components';
 import moment from 'moment';
 
 const FilterField = (props) => {
   const {
-    filter: { name, type, placeholder }, onChange, defaultValue,
+    filter: { name, type, placeholder, options }, onChange, defaultValue,
     onSearch, value,
   } = props;
 
@@ -81,6 +81,22 @@ const FilterField = (props) => {
           />
         </div>
       );
+
+    case 'select':
+      return (
+        <div>
+          <SelectInput
+            name={name}
+            options={options}
+            value={value}
+            onChange={(e) => {
+              needSearchRef.current = true;
+              onChange(name, e.target.value);
+            }}
+            onClear={onClear}
+          />
+        </div>
+      );
     default:
       return null;
   }
@@ -91,6 +107,10 @@ FilterField.propTypes = {
     name: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
     placeholder: PropTypes.string,
+    options: PropTypes.arrayOf(PropTypes.shape({
+      value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+      label: PropTypes.string,
+    })),
   }).isRequired,
   onChange: PropTypes.func.isRequired,
   onSearch: PropTypes.func.isRequired,

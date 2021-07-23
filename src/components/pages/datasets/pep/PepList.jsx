@@ -56,11 +56,32 @@ const PepList = ({ match, history }) => {
       prop: 'is_pep',
       width: '15%',
       render: (v) => (v ? t('politicallyExposedPerson') : t('notPoliticallyExposedPerson')),
+      filter: {
+        name: 'is_pep',
+        type: 'select',
+        options: [
+          { value: '', label: t('all') },
+          { value: 0, label: t('notPoliticallyExposedPerson') },
+          { value: 1, label: t('politicallyExposedPerson') },
+        ],
+      },
     },
     {
       header: t('pepType'),
       prop: 'pep_type_display',
       width: '20%',
+      filter: {
+        name: 'pep_type',
+        type: 'select',
+        options: [
+          { value: '', label: t('all') },
+          { value: 'national PEP', label: t('nationalPEP') },
+          { value: 'foreign PEP', label: t('foreignPEP') },
+          { value: 'PEP with political functions in international organization', label: t('PEPwithPoliticalFunctions') },
+          { value: 'associated person with PEP', label: t('associatedPersonWithPEP') },
+          { value: 'member of PEP`s family', label: t('familyMember') },
+        ],
+      },
     },
     {
       header: t('lastPosition'),

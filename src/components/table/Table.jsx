@@ -13,7 +13,7 @@ const generateFilterValues = (columns) => {
   const defaultValues = {};
   columns.forEach((col) => {
     if (!col.filter) return;
-    if (['text', 'number', 'date'].includes(col.filter.type)) {
+    if (['text', 'number', 'date', 'select', 'multiselect'].includes(col.filter.type)) {
       defaultValues[col.filter.name] = '';
     }
   });
@@ -160,7 +160,7 @@ const Table = (props) => {
                       </div>
                     )}
                   </div>
-                  {/* <div>
+                  <div>
                     {col.filter && (
                       <FilterField
                         filter={col.filter}
@@ -170,7 +170,7 @@ const Table = (props) => {
                         onSearch={passFiltersToParams}
                       />
                     )}
-                  </div> */}
+                  </div>
                 </th>
               ))}
             </tr>
@@ -197,6 +197,10 @@ Table.propTypes = {
       name: PropTypes.string.isRequired,
       type: PropTypes.string.isRequired,
       placeholder: PropTypes.string,
+      options: PropTypes.arrayOf(PropTypes.shape({
+        value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        label: PropTypes.string,
+      })),
     }),
     render: PropTypes.func,
   })).isRequired,
