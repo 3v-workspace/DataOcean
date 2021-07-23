@@ -75,18 +75,16 @@ const DatasetsRoutes = (props) => {
       />
       <Route
         exact
-        path={`${match.path}country-sanction/`}
-        component={CountrySanctionList}
-      />
-      <Route
-        exact
-        HEAD
         path={`${match.path}country-sanction/:id/`}
         component={CountrySanctionDetail}
       />
       <Route
         exact
-        HEAD
+        path={`${match.path}country-sanction/`}
+        component={CountrySanctionList}
+      />
+      <Route
+        exact
         path={`${match.path}company-sanction/:id/`}
         component={CompanySanctionDetail}
       />
