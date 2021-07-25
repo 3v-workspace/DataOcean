@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { FormikPropType } from 'utils/prop-types';
 import moment from 'moment';
-import { DATE_FORMAT, DATETIME_FORMAT } from 'const/const';
+import { DATE_FORMAT, DATETIME_FORMAT, DATE_FORMAT_ENG, DATETIME_FORMAT_ENG } from 'const/const';
 import { useTranslation } from 'react-i18next';
 
 // TODO: finish this
@@ -16,8 +16,16 @@ const DateInput = (props) => {
 
   const { i18n } = useTranslation();
   const datepickerRef = useRef();
-  const isoFormat = timePicker ? 'YYYY-MM-DDTHH:mm' : 'YYYY-MM-DD';
-  const format = timePicker ? DATETIME_FORMAT : DATE_FORMAT;
+  let isoFormat;
+  let format;
+  if (i18n.language !== 'en') {
+    format = timePicker ? DATETIME_FORMAT : DATE_FORMAT;
+    isoFormat = timePicker ? DATETIME_FORMAT : DATE_FORMAT;
+  } else {
+    format = timePicker ? DATETIME_FORMAT_ENG : DATE_FORMAT_ENG;
+    isoFormat = timePicker ? DATETIME_FORMAT_ENG : DATE_FORMAT_ENG;
+  }
+
   const val = value || (formik && formik.values[name]);
 
   useEffect(() => {
