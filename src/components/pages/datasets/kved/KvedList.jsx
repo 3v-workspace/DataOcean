@@ -14,7 +14,7 @@ const KvedList = () => {
       width: '4%',
     },
     {
-      header: t('name'),
+      header: t('class'),
       prop: 'name',
       width: '24%',
     },
