@@ -41,17 +41,6 @@ const PepList = ({ match, history }) => {
       },
     },
     {
-      header: t('lastUpdated'),
-      prop: 'updated_at',
-      width: '10%',
-      render: (v) => dateFormatISO(v),
-      filter: {
-        name: 'updated_at_date',
-        type: 'date',
-        placeholder: '2020-08-27',
-      },
-    },
-    {
       header: t('status'),
       prop: 'is_pep',
       width: '15%',
@@ -79,6 +68,17 @@ const PepList = ({ match, history }) => {
         name: 'last_employer',
         type: 'text',
       } : null,
+    },
+    {
+      header: t('lastUpdated'),
+      prop: 'updated_at',
+      width: '10%',
+      render: (v) => dateFormatISO(v),
+      filter: {
+        name: 'updated_at_date',
+        type: 'date',
+        placeholder: '2020-08-27',
+      },
     },
   ];
   return (
