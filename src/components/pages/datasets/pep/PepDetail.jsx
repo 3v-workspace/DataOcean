@@ -119,7 +119,7 @@ const PepDetail = ({ match }) => {
       </div>
       <div className="col-span-12 lg:col-span-6">
         <div className="intro-y space-y-1 mt-8 box">
-          <div className="py-4 pl-5 border-b border-gray-200 flex flex-row">
+          <div className="py-4 pl-5 border-b border-gray-200 flex">
             <h2 className="text-2xl font-medium mr-auto capitalize">
               {getLocaleField(data, 'fullname')}
             </h2>
