@@ -12,7 +12,10 @@ const PepDetail = () => {
   const { t, i18n } = useTranslation();
 
   const fetchData = () => {
-    Api.get(`pep/${id}/`, { useProjectToken: true })
+    Api.get(`pep/${id}/`, {
+      useProjectToken: true,
+      params: { show_check_companies: 'none' },
+    })
       .then((resp) => {
         setData(resp.data);
       });
@@ -125,7 +128,9 @@ const PepDetail = () => {
           </div>
           <div className="pl-5 flex flex-row">
             <div className="w-64 font-medium">{t('status')}:</div>
-            <div className="max-w-xl">{data.is_pep ? t('politicallyExposedPerson') : t('notPoliticallyExposedPerson')}</div>
+            <div className="max-w-xl">
+              {data.is_pep ? t('politicallyExposedPerson') : t('notPoliticallyExposedPerson')}
+            </div>
           </div>
           <div className="pl-5 flex flex-row">
             <div className="w-64 font-medium">{t('pepDetailType')}:</div>
