@@ -34,6 +34,7 @@ const PepList = ({ match, history }) => {
       prop: 'date_of_birth',
       width: '5%',
       noSort: true,
+      render: (v) => dateFormatISO(v),
       filter: {
         name: 'date_of_birth',
         type: 'text',

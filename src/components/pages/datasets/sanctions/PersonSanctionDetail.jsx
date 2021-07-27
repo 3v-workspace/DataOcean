@@ -94,7 +94,7 @@ const PersonSanctionDetail = () => {
           </div>
           <div className="pl-5 flex flex-row">
             <div className="w-64 font-medium">{t('dateOfBirth')}:</div>
-            <div className="max-w-xl">{data.date_of_birth || data.year_of_birth || '---'}</div>
+            <div className="max-w-xl">{dateFormat(data.date_of_birth) || data.year_of_birth || '---'}</div>
           </div>
           <div className="pl-5 flex flex-row">
             <div className="w-64 font-medium">{t('placeOfBirth')}:</div>
