@@ -106,7 +106,9 @@ const PersonSanctionDetail = () => {
           </div>
           <div className="pl-5 flex flex-row">
             <div className="w-64 font-medium">{t('countriesOfCitizenship')}:</div>
-            <div className="max-w-xl">{data.countries_of_citizenship.map((country) => country[`name_${i18n.language}`]).join(', ') || '---'}</div>
+            <div className="max-w-xl capitalize">
+              {data.countries_of_citizenship.map((country) => country[`name_${i18n.language}`]).join(', ') || '---'}
+            </div>
           </div>
           <div className="pl-5 flex flex-row">
             <div className="w-64 font-medium">{t('position')}:</div>

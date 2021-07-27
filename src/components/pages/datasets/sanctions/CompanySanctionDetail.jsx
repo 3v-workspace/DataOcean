@@ -98,7 +98,7 @@ const CompanySanctionDetail = () => {
           </div>
           <div className="pl-5 flex flex-row">
             <div className="w-64 font-medium">{t('countryOfRegistration')}:</div>
-            <div className="max-w-xl">{data.country_of_registration[`name_${i18n.language}`] || '---'}</div>
+            <div className="max-w-xl capitalize">{data.country_of_registration[`name_${i18n.language}`] || '---'}</div>
           </div>
           <div className="pl-5 flex flex-row">
             <div className="w-64 font-medium">{t('registrationNumber')}:</div>

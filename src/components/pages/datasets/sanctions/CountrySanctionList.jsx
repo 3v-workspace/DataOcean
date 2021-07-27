@@ -2,10 +2,10 @@ import React from 'react';
 import Table from 'components/table/Table';
 import PageBox from 'components/pages/PageBox';
 import { useTranslation } from 'react-i18next';
-import { dateFormatISO } from 'utils';
+import { dateFormatISO, upFirstLetter } from 'utils';
+import { ReactRouterPropTypes } from 'utils/prop-types';
 
-
-const CountrySanctionList = () => {
+const CountrySanctionList = ({ match, history }) => {
   const { t } = useTranslation();
   const columns = [
     {
@@ -18,6 +18,7 @@ const CountrySanctionList = () => {
       header: t('countryName'),
       prop: 'country',
       width: '20%',
+      render: (v) => upFirstLetter(v),
     },
     {
       header: t('startDate'),
@@ -44,9 +45,17 @@ const CountrySanctionList = () => {
           'end_date',
         ]}
         axiosConfigs={{ useProjectToken: true }}
+        onRowClick={(row) => {
+          history.push(`${match.url}${row.id}/`);
+        }}
       />
     </PageBox>
   );
+};
+
+CountrySanctionList.propTypes = {
+  match: ReactRouterPropTypes.match.isRequired,
+  history: ReactRouterPropTypes.history.isRequired,
 };
 
 export default CountrySanctionList;
