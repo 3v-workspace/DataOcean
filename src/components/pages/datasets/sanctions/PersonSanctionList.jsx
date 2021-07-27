@@ -4,7 +4,7 @@ import Table from 'components/table/Table';
 import PageBox from 'components/pages/PageBox';
 import { useTranslation } from 'react-i18next';
 import { ReactRouterPropTypes } from 'utils/prop-types';
-import { dateFormatISO } from 'utils';
+import { dateFormatISO, upFirstLetter } from 'utils';
 
 
 const PersonSanctionList = ({ match, history }) => {
@@ -51,7 +51,7 @@ const PersonSanctionList = ({ match, history }) => {
       prop: 'countries_of_citizenship',
       width: '20%',
       noSort: true,
-      render: (countries) => countries.map((country) => country[`name_${i18n.language}`]).join(', '),
+      render: (countries) => countries.map((country) => upFirstLetter(country[`name_${i18n.language}`])).join(', '),
     },
   ];
   return (

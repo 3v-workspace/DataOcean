@@ -2,7 +2,7 @@ import React from 'react';
 import Table from 'components/table/Table';
 import PageBox from 'components/pages/PageBox';
 import { useTranslation } from 'react-i18next';
-import { dateFormatISO } from 'utils';
+import { dateFormatISO, upFirstLetter } from 'utils';
 import { ReactRouterPropTypes } from 'utils/prop-types';
 
 const CountrySanctionList = ({ match, history }) => {
@@ -18,6 +18,7 @@ const CountrySanctionList = ({ match, history }) => {
       header: t('countryName'),
       prop: 'country',
       width: '20%',
+      render: (v) => upFirstLetter(v),
     },
     {
       header: t('startDate'),
