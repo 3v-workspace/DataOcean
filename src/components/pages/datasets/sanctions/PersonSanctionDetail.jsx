@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { dateFormat, DateFormatIndefinitely } from 'utils';
+import { DateFormat } from 'utils';
 import { useParams } from 'react-router-dom';
 import Api from 'api';
 import UnfoldingBlock from 'components/UnfoldingBlock';
@@ -82,11 +82,11 @@ const PersonSanctionDetail = () => {
           </div>
           <div className="pl-5 flex flex-row">
             <div className="w-64 font-medium">{t('sanctionStartDate')}:</div>
-            <div className="max-w-xl">{dateFormat(data.start_date)}</div>
+            <div className="max-w-xl">{DateFormat(data.start_date)}</div>
           </div>
           <div className="pl-5 flex flex-row">
             <div className="w-64 font-medium">{t('sanctionEndDate')}:</div>
-            <div className="max-w-xl">{DateFormatIndefinitely(dateFormat(data.end_date), i18n.language)}</div>
+            <div className="max-w-xl">{DateFormat(DateFormat(data.end_date), i18n.language, true)}</div>
           </div>
           <div className="pl-5 flex flex-row">
             <div className="w-64 font-medium">{t('publicExpoused')}:</div>

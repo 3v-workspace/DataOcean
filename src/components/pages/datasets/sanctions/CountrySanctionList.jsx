@@ -2,7 +2,7 @@ import React from 'react';
 import Table from 'components/table/Table';
 import PageBox from 'components/pages/PageBox';
 import { useTranslation } from 'react-i18next';
-import { dateFormat, dateFormatISO, DateFormatIndefinitely, upFirstLetter } from 'utils';
+import { dateFormatISO, DateFormat, upFirstLetter } from 'utils';
 import { ReactRouterPropTypes } from 'utils/prop-types';
 
 const CountrySanctionList = ({ match, history }) => {
@@ -30,7 +30,7 @@ const CountrySanctionList = ({ match, history }) => {
       header: t('endDate'),
       prop: 'end_date',
       width: '15%',
-      render: (v) => DateFormatIndefinitely(dateFormatISO(v), i18n.language),
+      render: (v) => DateFormat(dateFormatISO(v), i18n.language, true),
     },
   ];
   return (
