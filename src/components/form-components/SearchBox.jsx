@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Search, X } from 'react-feather';
 import { useTranslation } from 'react-i18next';
+import Tooltip from 'components/Tooltip';
 
 const SearchBox = (props) => {
   const {
@@ -41,7 +42,9 @@ const SearchBox = (props) => {
         name={name}
       />
       {value !== undefined && value.length > 0 ? (
-        <X className="w-4 h-4 inline inset-y-0 -ml-6 cursor-pointer" onClick={onClear} />
+        <Tooltip content={t('resetFilter')} position="bottom">
+          <X className="w-4 h-4 inline inset-y-0 -ml-6 cursor-pointer" onClick={onClear} />
+        </Tooltip>
       ) : (
         <Search className="w-4 h-4 inline inset-y-0 -ml-6" />
       )}
