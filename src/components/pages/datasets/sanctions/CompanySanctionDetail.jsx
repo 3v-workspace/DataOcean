@@ -86,7 +86,7 @@ const CompanySanctionDetail = () => {
           </div>
           <div className="pl-5 flex flex-row">
             <div className="w-64 font-medium">{t('sanctionEndDate')}:</div>
-            <div className="max-w-xl">{DateIsIndefinitely(dateFormat(data.end_date))}</div>
+            <div className="max-w-xl">{DateIsIndefinitely(dateFormat(data.end_date), i18n.language)}</div>
           </div>
           <div className="pl-5 flex flex-row">
             <div className="w-64 font-medium">{t('registrationDate')}:</div>

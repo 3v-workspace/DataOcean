@@ -38,7 +38,7 @@ const PersonSanctionList = ({ match, history }) => {
       header: t('endDate'),
       prop: 'end_date',
       width: '15%',
-      render: (v) => DateIsIndefinitely(dateFormatISO(v)),
+      render: (v) => DateIsIndefinitely(dateFormatISO(v), i18n.language),
     },
     {
       header: t('taxpayerNumber'),

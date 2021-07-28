@@ -2,11 +2,11 @@ import React from 'react';
 import Table from 'components/table/Table';
 import PageBox from 'components/pages/PageBox';
 import { useTranslation } from 'react-i18next';
-import { dateFormatISO, DateIsIndefinitely, upFirstLetter } from 'utils';
+import { dateFormat, dateFormatISO, DateIsIndefinitely, upFirstLetter } from 'utils';
 import { ReactRouterPropTypes } from 'utils/prop-types';
 
 const CountrySanctionList = ({ match, history }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const columns = [
     {
       header: 'ID',
@@ -30,7 +30,7 @@ const CountrySanctionList = ({ match, history }) => {
       header: t('endDate'),
       prop: 'end_date',
       width: '15%',
-      render: (v) => DateIsIndefinitely(dateFormatISO(v)),
+      render: (v) => DateIsIndefinitely(dateFormatISO(v), i18n.language),
     },
   ];
   return (

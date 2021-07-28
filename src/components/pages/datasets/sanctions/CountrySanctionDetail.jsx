@@ -9,7 +9,7 @@ import UnfoldingBlock from 'components/UnfoldingBlock';
 const CountrySanctionDetail = () => {
   const [data, setData] = useState({});
   const { id } = useParams();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const fetchData = () => {
     Api.get(`sanction/country/${id}/`, { useProjectToken: true })
@@ -63,7 +63,7 @@ const CountrySanctionDetail = () => {
           </div>
           <div className="pl-5 flex flex-row">
             <div className="w-64 font-medium">{t('sanctionEndDate')}:</div>
-            <div className="max-w-xl">{DateIsIndefinitely(dateFormat(data.end_date))}</div>
+            <div className="max-w-xl">{DateIsIndefinitely(dateFormat(data.end_date), i18n.language)}</div>
           </div>
           <div className="pl-5 flex flex-row">
             <div className="w-64 font-medium">ID:</div>

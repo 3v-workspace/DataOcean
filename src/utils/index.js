@@ -1,29 +1,24 @@
 import moment from 'moment';
-import { useTranslation } from 'react-i18next';
+import { DATE_FORMAT, DATETIME_FORMAT } from '../const/const';
 
 export { default as toggleFullScreen } from './fullscreen';
 export { default as setLanguage } from './setLanguage';
 export { default as toast } from './toast';
 
-export function Lang() {
-  const { i18n } = useTranslation();
-  return i18n.language;
-}
+export const upFirstLetter = (string) => string.charAt(0).toUpperCase() + string.slice(1);
 
-export function DateIsIndefinitely(date) {
-  if (date !== '3000-01-01') {
+export const dateFormat = (iso) => moment(iso).format(DATE_FORMAT);
+
+export const dateFormatISO = (iso) => moment(iso).format(DATE_FORMAT);
+
+export const datetimeFormat = (iso) => moment(iso).format(DATETIME_FORMAT);
+
+export function DateIsIndefinitely(date, lang) {
+  if (date !== dateFormat('01.01.3000')) {
     return date;
   }
-  if (Lang() === 'uk') {
+  if (lang === 'uk') {
     return 'Безстроково';
   }
   return 'Indefinitely';
 }
-
-export const upFirstLetter = (string) => string.charAt(0).toUpperCase() + string.slice(1);
-
-export const dateFormat = (iso) => moment(iso).format('MMMM D, YYYY');
-
-export const dateFormatISO = (iso) => moment(iso).format('YYYY-MM-DD');
-
-export const datetimeFormat = (iso) => moment(iso).format('MMMM D, YYYY HH:mm');
