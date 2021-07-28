@@ -3,11 +3,11 @@ import React from 'react';
 import Table from 'components/table/Table';
 import PageBox from 'components/pages/PageBox';
 import { useTranslation } from 'react-i18next';
-import { dateFormatISO } from '../../../../utils';
+import { dateFormat, dateFormatEng, dateFormatISO } from '../../../../utils';
 
 
 const FopList = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const columns = [
     {
       header: t('fullName'),
@@ -27,13 +27,13 @@ const FopList = () => {
     {
       header: t('registrationDate'),
       prop: 'registration_date',
-      render: (v) => dateFormatISO(v),
+      render: (v) => ((i18n.language === 'uk') ? dateFormat(v) : dateFormatEng(v)),
       width: '10%',
     },
     {
       header: t('terminationDate'),
       prop: 'termination_date',
-      render: (v) => dateFormatISO(v),
+      render: (v) => ((i18n.language === 'uk') ? dateFormat(v) : dateFormatEng(v)),
       width: '10%',
     },
   ];

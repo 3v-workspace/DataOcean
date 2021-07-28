@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { dateFormat } from 'utils';
+import { dateFormat, dateFormatEng } from 'utils';
 import { useParams } from 'react-router-dom';
 import Api from 'api';
 import UnfoldingBlock from 'components/UnfoldingBlock';
@@ -82,15 +82,15 @@ const CompanySanctionDetail = () => {
           </div>
           <div className="pl-5 flex flex-row">
             <div className="w-64 font-medium">{t('sanctionStartDate')}:</div>
-            <div className="max-w-xl">{dateFormat(data.start_date)}</div>
+            <div className="max-w-xl">{i18n.language === 'en' ? dateFormatEng(data.start_date) : dateFormat(data.start_date)}</div>
           </div>
           <div className="pl-5 flex flex-row">
             <div className="w-64 font-medium">{t('sanctionEndDate')}:</div>
-            <div className="max-w-xl">{dateFormat(data.end_date)}</div>
+            <div className="max-w-xl">{i18n.language === 'en' ? dateFormatEng(data.end_date) : dateFormat(data.end_date)}</div>
           </div>
           <div className="pl-5 flex flex-row">
             <div className="w-64 font-medium">{t('registrationDate')}:</div>
-            <div className="max-w-xl">{dateFormat(data.registration_date) || '---'}</div>
+            <div className="max-w-xl">{i18n.language === 'en' ? dateFormatEng(data.registration_date) : dateFormat(data.registration_date)}</div>
           </div>
           <div className="pl-5 flex flex-row">
             <div className="w-64 font-medium">{t('address')}:</div>
