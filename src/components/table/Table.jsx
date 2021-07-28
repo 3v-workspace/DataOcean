@@ -197,6 +197,7 @@ Table.propTypes = {
       name: PropTypes.string.isRequired,
       type: PropTypes.string.isRequired,
       placeholder: PropTypes.string,
+      width: PropTypes.string,
     }),
     render: PropTypes.func,
   })).isRequired,
