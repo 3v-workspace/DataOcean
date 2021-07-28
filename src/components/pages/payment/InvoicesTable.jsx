@@ -9,6 +9,8 @@ import { Eye, Printer } from 'react-feather';
 import Button from 'components/form-components/Button';
 import { BlankModal } from 'components/modals';
 import UserStatusForm from 'components/pages/profile/UserStatusForm';
+import { useDispatch } from 'react-redux';
+import { changeCrumbName } from '../../../store/breadcrubms/actionCreators';
 
 const InvoicesTable = (props) => {
   const { match } = props;
@@ -17,6 +19,7 @@ const InvoicesTable = (props) => {
   const [invoices, setInvoices] = useState([]);
   const [subData, setSubData] = useState({});
   const [selectedInvoice, setSelectedInvoice] = useState({});
+  const dispatch = useDispatch();
 
   const customSubscriptionModalRef = useRef();
 
@@ -27,6 +30,8 @@ const InvoicesTable = (props) => {
       Api.get(`payment/project-subscription/${subscriptionId}/`)
         .then((resp) => {
           setSubData(resp.data);
+          dispatch(changeCrumbName(3, resp.data.project.name));
+          dispatch(changeCrumbName(5, resp.data.subscription.name));
         });
     } else {
       url = 'payment/invoices/';

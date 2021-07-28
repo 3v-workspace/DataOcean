@@ -115,3 +115,9 @@
   margin-right: 0;
 }
 
+.breadcrumb a {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: 7rem;
+}
