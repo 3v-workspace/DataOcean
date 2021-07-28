@@ -10,14 +10,14 @@ import { Form, TextInput } from 'components/form-components';
 import { useFormik } from 'formik';
 import Yup from 'utils/yup';
 import Api from 'api';
-import { dateFormat } from 'utils';
+import { DateFormat } from 'utils';
 import { useTranslation } from 'react-i18next';
 import Tooltip from 'components/Tooltip';
 import toast from 'utils/toast';
 
 const ProjectsTable = (props) => {
   const { match, history } = props;
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const createProjectModalRef = useRef();
   const [projects, setProjects] = useState([]);
   const [invitations, setInvitations] = useState([]);
@@ -105,7 +105,7 @@ const ProjectsTable = (props) => {
               {invitations.map((invite) => (
                 <tr key={invite.project_id}>
                   <td className="border-b">{invite.project_name}</td>
-                  <td className="border-b">{dateFormat(invite.updated_at)}</td>
+                  <td className="border-b">{DateFormat(invite.updated_at, i18n.language)}</td>
                   <td className="border-b">{invite.project_owner}</td>
                   <td className="border-b">
                     <Button

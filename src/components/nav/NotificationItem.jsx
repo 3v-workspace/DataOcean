@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { datetimeFormat } from 'utils';
+import { DateTimeFormat } from 'utils';
 import Tooltip from 'components/Tooltip';
 import { X } from 'react-feather';
 import unreadPin from 'images/unreadNitification.svg';
@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 
 const NotificationItem = (props) => {
   const { message, onDelete, onRead, onClick } = props;
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [isHover, setHover] = useState(false);
 
   return (
@@ -19,7 +19,7 @@ const NotificationItem = (props) => {
     >
       <div className="relative flex items-center justify-between">
         <small className="text-gray-600">
-          {datetimeFormat(message.created_at)}
+          {DateTimeFormat(message.created_at, i18n.language)}
         </small>
         <div className="flex items-center">
           <Tooltip

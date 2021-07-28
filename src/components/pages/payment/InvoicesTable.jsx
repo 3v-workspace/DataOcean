@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import TabContent from 'components/pages/profile/TabContent';
 import TabContentBlock from 'components/pages/profile/TabContentBlock';
 import { ReactRouterPropTypes } from 'utils/prop-types';
-import { dateFormat } from 'utils';
+import { DateFormat } from 'utils';
 import { useTranslation } from 'react-i18next';
 import Api, { baseApiUrl } from 'api';
 import { Eye, Printer } from 'react-feather';
@@ -13,7 +13,7 @@ import UserStatusForm from 'components/pages/profile/UserStatusForm';
 const InvoicesTable = (props) => {
   const { match } = props;
   const { subscriptionId } = match.params;
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [invoices, setInvoices] = useState([]);
   const [subData, setSubData] = useState({});
   const [selectedInvoice, setSelectedInvoice] = useState({});
@@ -107,7 +107,7 @@ const InvoicesTable = (props) => {
                       <td key={2}>{invoice.project_name}</td>,
                     ]}
                     <td>{getInvoiceStatus(invoice)}</td>
-                    <td>{invoice.paid_at ? dateFormat(invoice.paid_at) : '---'}</td>
+                    <td>{invoice.paid_at ? DateFormat(invoice.paid_at, i18n.language) : '---'}</td>
                     <td>{invoice.price} {t('uah')}</td>
                     <td>
                       <Button

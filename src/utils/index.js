@@ -8,24 +8,24 @@ export { default as toast } from './toast';
 
 export const upFirstLetter = (string) => string.charAt(0).toUpperCase() + string.slice(1);
 
-export const dateFormat = (iso) => ((moment(iso).format(DATE_FORMAT) !== 'Invalid date') ? moment(iso).format(DATE_FORMAT) : '---');
-export const dateFormatEng = (iso) => ((moment(iso).format(DATE_FORMAT_ENG) !== 'Invalid date') ? moment(iso).format(DATE_FORMAT_ENG) : '---');
-
-export const dateFormatISO = (iso) => ((moment(iso).format(DATE_FORMAT) !== 'Invalid date') ? moment(iso).format(DATE_FORMAT) : '---');
-
-export const datetimeFormat = (iso) => ((moment(iso).format(DATETIME_FORMAT) !== 'Invalid date') ? moment(iso).format(DATETIME_FORMAT) : '---');
-export const datetimeFormatEng = (iso) => ((moment(iso).format(DATETIME_FORMAT_ENG) !== 'Invalid date') ? moment(iso).format(DATETIME_FORMAT_ENG) : '---');
-
-export function DateFormat(lang) {
-  if (lang === 'uk') {
-    return DATE_FORMAT;
+export function DateFormat(date, lang = 'uk', checkIndefinitely = false) {
+  if (checkIndefinitely === true) {
+    if (moment(date).format(DATE_FORMAT) === moment('3000-01-01').format(DATE_FORMAT)) {
+      if (lang === 'uk') {
+        return 'Безстроково';
+      }
+      return 'Indefinitely';
+    }
   }
-  return DATE_FORMAT_ENG;
+  if (lang === 'uk') {
+    return ((moment(date).format(DATE_FORMAT) !== 'Invalid date') ? moment(date).format(DATE_FORMAT) : '---');
+  }
+  return ((moment(date).format(DATE_FORMAT_ENG) !== 'Invalid date') ? moment(date).format(DATE_FORMAT_ENG) : '---');
 }
 
-export function DateTimeFormat(lang) {
+export function DateTimeFormat(date, lang = 'uk') {
   if (lang === 'uk') {
-    return DATETIME_FORMAT;
+    return ((moment(date).format(DATETIME_FORMAT) !== 'Invalid date') ? moment(date).format(DATETIME_FORMAT) : '---');
   }
-  return DATETIME_FORMAT_ENG;
+  return ((moment(date).format(DATETIME_FORMAT_ENG) !== 'Invalid date') ? moment(date).format(DATETIME_FORMAT_ENG) : '---');
 }
