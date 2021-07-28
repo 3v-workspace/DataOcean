@@ -17,8 +17,8 @@ const DateInput = (props) => {
 
   const { i18n } = useTranslation();
   const datepickerRef = useRef();
-  const isoFormat = timePicker ? DateTimeFormat(i18n.language) : DateFormat(i18n.language);
-  const format = timePicker ? DateTimeFormat(i18n.language) : DateFormat(i18n.language);
+  const isoFormat = timePicker ? 'YYYY-MM-DDTHH:mm' : 'YYYY-MM-DD';
+  const format = timePicker ? DATETIME_FORMAT : DATE_FORMAT;
   const val = value || (formik && formik.values[name]);
 
   useEffect(() => {
