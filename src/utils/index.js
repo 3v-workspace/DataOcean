@@ -1,4 +1,5 @@
 import moment from 'moment';
+import { i18n } from 'i18next';
 import { DATE_FORMAT, DATETIME_FORMAT } from '../const/const';
 
 export { default as toggleFullScreen } from './fullscreen';
@@ -13,12 +14,16 @@ export const dateFormatISO = (iso) => moment(iso).format(DATE_FORMAT);
 
 export const datetimeFormat = (iso) => moment(iso).format(DATETIME_FORMAT);
 
-export function DateIsIndefinitely(date, lang) {
+export function DateFormatIndefinitely(date, lang) {
+  let checkIndefinitely = false;
   if (date !== dateFormat('01.01.3000')) {
-    return date;
+    checkIndefinitely = true;
   }
-  if (lang === 'uk') {
-    return 'Безстроково';
+  if (checkIndefinitely !== false) {
+    if (lang === 'uk') {
+      return 'Безстроково';
+    }
+    return 'Indefinitely';
   }
-  return 'Indefinitely';
+  return dateFormat(date);
 }

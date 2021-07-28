@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { dateFormat, DateIsIndefinitely } from 'utils';
+import { dateFormat, DateFormatIndefinitely } from 'utils';
 import { useParams } from 'react-router-dom';
 import Api from 'api';
 import UnfoldingBlock from 'components/UnfoldingBlock';
@@ -86,7 +86,7 @@ const PersonSanctionDetail = () => {
           </div>
           <div className="pl-5 flex flex-row">
             <div className="w-64 font-medium">{t('sanctionEndDate')}:</div>
-            <div className="max-w-xl">{DateIsIndefinitely(dateFormat(data.end_date), i18n.language)}</div>
+            <div className="max-w-xl">{DateFormatIndefinitely(dateFormat(data.end_date), i18n.language)}</div>
           </div>
           <div className="pl-5 flex flex-row">
             <div className="w-64 font-medium">{t('publicExpoused')}:</div>

@@ -4,7 +4,7 @@ import Table from 'components/table/Table';
 import PageBox from 'components/pages/PageBox';
 import { useTranslation } from 'react-i18next';
 import { ReactRouterPropTypes } from 'utils/prop-types';
-import { dateFormatISO, DateIsIndefinitely, upFirstLetter } from 'utils';
+import { dateFormatISO, DateFormatIndefinitely, upFirstLetter } from 'utils';
 
 
 const PersonSanctionList = ({ match, history }) => {
@@ -38,7 +38,7 @@ const PersonSanctionList = ({ match, history }) => {
       header: t('endDate'),
       prop: 'end_date',
       width: '15%',
-      render: (v) => DateIsIndefinitely(dateFormatISO(v), i18n.language),
+      render: (v) => DateFormatIndefinitely(dateFormatISO(v), i18n.language),
     },
     {
       header: t('taxpayerNumber'),
