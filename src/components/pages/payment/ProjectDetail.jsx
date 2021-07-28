@@ -14,7 +14,7 @@ import { useTranslation } from 'react-i18next';
 import Api from 'api';
 import { useFormik } from 'formik';
 import Yup from 'utils/yup';
-import { dateFormat } from 'utils';
+import { dateFormat, dateFormatEng } from 'utils';
 import Form from 'components/form-components/Form';
 import { p2sStatus, u2pRole, u2pStatus } from 'const/projects';
 import toast from 'utils/toast';
@@ -24,7 +24,7 @@ const ProjectDetail = (props) => {
   const { match, history } = props;
   const projectId = match.params.id;
 
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const addUserModalRef = useRef();
   const refreshTokenModalRef = useRef();
   const disableUserModalRef = useRef();
@@ -403,7 +403,7 @@ const ProjectDetail = (props) => {
           {project.name}
         </h3>
         <div className="intro-y text-gray-500 text-sm my-4 mt-1">
-          {t('created')}: {dateFormat(project.created_at)}
+          {t('created')}: {i18n.language === 'en' ? dateFormatEng(project.created_at) : dateFormat(project.created_at)}
         </div>
         <div className="intro-y text-gray-700 mb-8 w-2/3">
           {project.description}
@@ -614,7 +614,7 @@ const ProjectDetail = (props) => {
                     )}
                   </td>
                   <td className="border-b">
-                    {getPaymentDateText(subscription)}
+                    {i18n.language === 'en' ? dateFormatEng(getPaymentDateText(subscription)) : getPaymentDateText(subscription)}
                   </td>
                   {project.is_owner && (
                     <td className="border-b">
