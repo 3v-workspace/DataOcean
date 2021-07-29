@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { dateFormat } from 'utils';
+import { dateFormat, upFirstLetter } from 'utils';
 import { useParams } from 'react-router-dom';
 import Api from 'api';
 import UnfoldingBlock from 'components/UnfoldingBlock';
@@ -18,6 +18,13 @@ const CompanySanctionDetail = () => {
       .then((resp) => {
         setData(resp.data);
       });
+  };
+
+  const getCountryOfRegistration = () => {
+    if (data.country_of_registration) {
+      return upFirstLetter(data.country_of_registration[`name_${i18n.language}`]) || '---';
+    }
+    return '---';
   };
 
   const getSanctions = (sanctions) => {
@@ -98,7 +105,9 @@ const CompanySanctionDetail = () => {
           </div>
           <div className="pl-5 flex flex-row">
             <div className="w-64 font-medium">{t('countryOfRegistration')}:</div>
-            <div className="max-w-xl capitalize">{data.country_of_registration[`name_${i18n.language}`] || '---'}</div>
+            <div className="max-w-xl">
+              {getCountryOfRegistration()}
+            </div>
           </div>
           <div className="pl-5 flex flex-row">
             <div className="w-64 font-medium">{t('registrationNumber')}:</div>
