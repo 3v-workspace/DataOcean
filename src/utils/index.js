@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { i18n } from 'i18next';
+import i18n from 'i18next';
 import { DATE_FORMAT, DATE_FORMAT_ENG, DATETIME_FORMAT } from '../const/const';
 
 export { default as toggleFullScreen } from './fullscreen';
@@ -8,19 +8,21 @@ export { default as toast } from './toast';
 
 export const upFirstLetter = (string) => string.charAt(0).toUpperCase() + string.slice(1);
 
-export function DateFormat(date, lang = 'uk', checkIndefinitely = false) {
-  if (checkIndefinitely === true) {
-    if (moment(date).format(DATE_FORMAT) === moment('3000-01-01').format(DATE_FORMAT)) {
-      if (lang === 'uk') {
-        return 'Безстроково';
-      }
-      return 'Indefinitely';
+export function dateFormat(date, checkIndefinitely = false) {
+  const lang = i18n.language;
+  if (checkIndefinitely) {
+    if (moment(date).format('YYYY-MM-DD') === '3000-01-01') {
+      return i18n.t('indefinitely');
     }
   }
-  if (lang === 'uk') {
-    return moment(date).format(DATE_FORMAT);
+  const moment_date = moment(date);
+  if (!moment_date.isValid()) {
+    return '---';
   }
-  return moment(date).format(DATE_FORMAT_ENG);
+  if (lang === 'uk') {
+    return moment_date.format(DATE_FORMAT);
+  }
+  return moment_date.format(DATE_FORMAT_ENG);
 }
 
 export const dateFormatISO = (iso) => moment(iso).format(DATE_FORMAT);

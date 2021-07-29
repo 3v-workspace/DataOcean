@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import TabContent from 'components/pages/profile/TabContent';
 import TabContentBlock from 'components/pages/profile/TabContentBlock';
 import { ReactRouterPropTypes } from 'utils/prop-types';
-import { DateFormat } from 'utils';
+import { dateFormat } from 'utils';
 import { useTranslation } from 'react-i18next';
 import Api, { baseApiUrl } from 'api';
 import { Eye, Printer } from 'react-feather';
@@ -107,7 +107,7 @@ const InvoicesTable = (props) => {
                       <td key={2}>{invoice.project_name}</td>,
                     ]}
                     <td>{getInvoiceStatus(invoice)}</td>
-                    <td>{invoice.paid_at ? DateFormat(invoice.paid_at) : '---'}</td>
+                    <td>{invoice.paid_at ? dateFormat(invoice.paid_at) : '---'}</td>
                     <td>{invoice.price} {t('uah')}</td>
                     <td>
                       <Button
