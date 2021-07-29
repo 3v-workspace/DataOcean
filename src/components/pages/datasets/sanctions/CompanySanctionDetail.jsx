@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { dateFormat } from 'utils';
+import { dateFormat, upFirstLetter } from 'utils';
 import { useParams } from 'react-router-dom';
 import Api from 'api';
 import UnfoldingBlock from 'components/UnfoldingBlock';
@@ -18,6 +18,13 @@ const CompanySanctionDetail = () => {
       .then((resp) => {
         setData(resp.data);
       });
+  };
+
+  const getRegistrationDate = (registrationDate) => {
+    if (registrationDate) {
+      return dateFormat(data.registration_date);
+    }
+    return '---';
   };
 
   const getSanctions = (sanctions) => {
@@ -90,7 +97,7 @@ const CompanySanctionDetail = () => {
           </div>
           <div className="pl-5 flex flex-row">
             <div className="w-64 font-medium">{t('registrationDate')}:</div>
-            <div className="max-w-xl">{dateFormat(data.registration_date) || '---'}</div>
+            <div className="max-w-xl">{getRegistrationDate(data.registration_date)}</div>
           </div>
           <div className="pl-5 flex flex-row">
             <div className="w-64 font-medium">{t('address')}:</div>
@@ -98,7 +105,9 @@ const CompanySanctionDetail = () => {
           </div>
           <div className="pl-5 flex flex-row">
             <div className="w-64 font-medium">{t('countryOfRegistration')}:</div>
-            <div className="max-w-xl capitalize">{data.country_of_registration[`name_${i18n.language}`] || '---'}</div>
+            <div className="max-w-xl">
+              {upFirstLetter(data.country_of_registration[`name_${i18n.language}`]) || '---'}
+            </div>
           </div>
           <div className="pl-5 flex flex-row">
             <div className="w-64 font-medium">{t('registrationNumber')}:</div>
