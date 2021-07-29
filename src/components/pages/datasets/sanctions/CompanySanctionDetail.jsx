@@ -20,6 +20,13 @@ const CompanySanctionDetail = () => {
       });
   };
 
+  const getCountryOfRegistration = () => {
+    if (data.country_of_registration) {
+      return upFirstLetter(data.country_of_registration[`name_${i18n.language}`]) || '---';
+    }
+    return '---';
+  };
+
   const getSanctions = (sanctions) => {
     if (!sanctions.length) {
       return '---';
@@ -99,7 +106,7 @@ const CompanySanctionDetail = () => {
           <div className="pl-5 flex flex-row">
             <div className="w-64 font-medium">{t('countryOfRegistration')}:</div>
             <div className="max-w-xl">
-              {upFirstLetter(data.country_of_registration[`name_${i18n.language}`]) || '---'}
+              {getCountryOfRegistration()}
             </div>
           </div>
           <div className="pl-5 flex flex-row">

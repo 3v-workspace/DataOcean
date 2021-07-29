@@ -49,7 +49,12 @@ const CompanySanctionList = ({ match, history }) => {
       prop: 'country_of_registration',
       width: '20%',
       noSort: true,
-      render: (country) => upFirstLetter(country[`name_${i18n.language}`]),
+      render: (country) => {
+        if (country) {
+          country = upFirstLetter(country[`name_${i18n.language}`]);
+        }
+        return country;
+      },
     },
   ];
   return (
