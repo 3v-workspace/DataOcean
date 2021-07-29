@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { DateFormat } from 'utils';
+import { dateFormat } from 'utils';
 import { useParams } from 'react-router-dom';
 import Api from 'api';
 import UnfoldingBlock from 'components/UnfoldingBlock';
@@ -142,7 +142,7 @@ const PepDetail = ({ match }) => {
           </div>
           <div className="pl-5 flex flex-row">
             <div className="w-64 font-medium">{t('updatedAt')}:</div>
-            <div className="max-w-xl">{DateFormat(data.updated_at, i18n.language)}</div>
+            <div className="max-w-xl">{dateFormat(data.updated_at)}</div>
           </div>
           <div className="pl-5 flex flex-row">
             <div className="w-64 font-medium">{t('status')}:</div>
@@ -156,7 +156,7 @@ const PepDetail = ({ match }) => {
           </div>
           <div className="pl-5 flex flex-row">
             <div className="w-64 font-medium">{t('terminationDatePep')}:</div>
-            <div className="max-w-xl">{DateFormat(data.termination_date, i18n.language)}</div>
+            <div className="max-w-xl">{dateFormat(data.termination_date)}</div>
           </div>
           <div className="pl-5 flex flex-row">
             <div className="w-64 font-medium">{t('reasonOfTermination')}:</div>
@@ -164,7 +164,7 @@ const PepDetail = ({ match }) => {
           </div>
           <div className="pl-5 flex flex-row">
             <div className="w-64 font-medium">{t('dateOfBirth')}:</div>
-            <div className="max-w-xl">{DateFormat(data.date_of_birth, i18n.language)}</div>
+            <div className="max-w-xl">{dateFormat(data.date_of_birth)}</div>
           </div>
           <div className="pl-5 flex flex-row">
             <div className="w-64 font-medium">{t('placeOfBirth')}:</div>

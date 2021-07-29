@@ -3,7 +3,7 @@ import Table from 'components/table/Table';
 import PageBox from 'components/pages/PageBox';
 import { useTranslation } from 'react-i18next';
 import { ReactRouterPropTypes } from 'utils/prop-types';
-import { DateFormat, upFirstLetter } from 'utils';
+import { dateFormat, upFirstLetter } from 'utils';
 
 
 const CompanySanctionList = ({ match, history }) => {
@@ -24,13 +24,13 @@ const CompanySanctionList = ({ match, history }) => {
       header: t('startDate'),
       prop: 'start_date',
       width: '20%',
-      render: (v) => (DateFormat(v, i18n.language)),
+      render: (v) => (dateFormat(v)),
     },
     {
       header: t('endDate'),
       prop: 'end_date',
       width: '15%',
-      render: (v) => (DateFormat(v, i18n.language)),
+      render: (v) => (dateFormat(v)),
     },
     {
       header: t('taxpayerNumber'),

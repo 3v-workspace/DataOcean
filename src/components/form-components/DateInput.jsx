@@ -4,7 +4,6 @@ import { FormikPropType } from 'utils/prop-types';
 import moment from 'moment';
 import { DATE_FORMAT, DATETIME_FORMAT, DATE_FORMAT_ENG, DATETIME_FORMAT_ENG } from 'const/const';
 import { useTranslation } from 'react-i18next';
-import { DateFormat, DateTimeFormat } from '../../utils';
 
 // TODO: finish this
 const DateInput = (props) => {

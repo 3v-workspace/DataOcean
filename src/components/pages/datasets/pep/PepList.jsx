@@ -3,7 +3,7 @@ import React from 'react';
 import Table from 'components/table/Table';
 import PageBox from 'components/pages/PageBox';
 import { useTranslation } from 'react-i18next';
-import { DateFormat } from 'utils';
+import { dateFormat } from 'utils';
 import { ReactRouterPropTypes } from 'utils/prop-types';
 
 const PepList = ({ match, history }) => {
@@ -35,7 +35,7 @@ const PepList = ({ match, history }) => {
       prop: 'date_of_birth',
       width: '5%',
       noSort: true,
-      render: (v) => (DateFormat(v, i18n.language)),
+      render: (v) => (dateFormat(v)),
       filter: {
         name: 'date_of_birth',
         type: 'text',
@@ -75,7 +75,7 @@ const PepList = ({ match, history }) => {
       header: t('lastUpdated'),
       prop: 'updated_at',
       width: '10%',
-      render: (v) => (DateFormat(v, i18n.language)),
+      render: (v) => (dateFormat(v)),
       filter: {
         name: 'updated_at_date',
         type: 'date',

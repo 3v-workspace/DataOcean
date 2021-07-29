@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { ReactRouterPropTypes } from 'utils/prop-types';
 import { useTranslation } from 'react-i18next';
 // import Tooltip from 'components/Tooltip';
-import { DateFormat } from 'utils';
+import { dateFormat } from 'utils';
 import datasets from './datasets';
 
 
@@ -90,7 +90,7 @@ const DatasetsList = ({ match, history }) => {
                     {i18n.language === 'en' ? item.name_eng : item.name}
                   </td>
                   <td className="text-center">
-                    {DateFormat(item.updated_at, i18n.language)}
+                    {dateFormat(item.updated_at)}
                   </td>
                   <td className="text-center">
                     {item.status}
