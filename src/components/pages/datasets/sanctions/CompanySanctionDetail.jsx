@@ -20,13 +20,6 @@ const CompanySanctionDetail = () => {
       });
   };
 
-  const getRegistrationDate = (registrationDate) => {
-    if (registrationDate) {
-      return dateFormat(data.registration_date);
-    }
-    return '---';
-  };
-
   const getSanctions = (sanctions) => {
     if (!sanctions.length) {
       return '---';
@@ -97,7 +90,7 @@ const CompanySanctionDetail = () => {
           </div>
           <div className="pl-5 flex flex-row">
             <div className="w-64 font-medium">{t('registrationDate')}:</div>
-            <div className="max-w-xl">{getRegistrationDate(data.registration_date)}</div>
+            <div className="max-w-xl">{dateFormat(data.registration_date)}</div>
           </div>
           <div className="pl-5 flex flex-row">
             <div className="w-64 font-medium">{t('address')}:</div>
