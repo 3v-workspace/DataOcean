@@ -13,7 +13,7 @@ import UserStatusForm from 'components/pages/profile/UserStatusForm';
 const InvoicesTable = (props) => {
   const { match } = props;
   const { subscriptionId } = match.params;
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const [invoices, setInvoices] = useState([]);
   const [subData, setSubData] = useState({});
   const [selectedInvoice, setSelectedInvoice] = useState({});

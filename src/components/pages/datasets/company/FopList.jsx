@@ -7,7 +7,7 @@ import { dateFormat } from '../../../../utils';
 
 
 const FopList = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const columns = [
     {
       header: t('fullName'),

@@ -17,7 +17,7 @@ import toast from 'utils/toast';
 
 const ProjectsTable = (props) => {
   const { match, history } = props;
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const createProjectModalRef = useRef();
   const [projects, setProjects] = useState([]);
   const [invitations, setInvitations] = useState([]);

@@ -9,7 +9,7 @@ import UnfoldingBlock from 'components/UnfoldingBlock';
 const CountrySanctionDetail = () => {
   const [data, setData] = useState({});
   const { id } = useParams();
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   const fetchData = () => {
     Api.get(`sanction/country/${id}/`, { useProjectToken: true })

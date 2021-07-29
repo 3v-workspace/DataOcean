@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 
 const NotificationItem = (props) => {
   const { message, onDelete, onRead, onClick } = props;
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const [isHover, setHover] = useState(false);
 
   return (

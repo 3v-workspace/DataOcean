@@ -6,7 +6,7 @@ import { dateFormat, upFirstLetter } from 'utils';
 import { ReactRouterPropTypes } from 'utils/prop-types';
 
 const CountrySanctionList = ({ match, history }) => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const columns = [
     {
       header: 'ID',
