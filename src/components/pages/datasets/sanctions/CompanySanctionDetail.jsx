@@ -27,7 +27,7 @@ const CompanySanctionDetail = () => {
     return (
       <ul className="list-disc list-inside">
         {sanctions.map((sanction) => (
-          <li>
+          <li key={sanction}>
             <span>
               {sanction}
             </span>
@@ -90,7 +90,7 @@ const CompanySanctionDetail = () => {
           </div>
           <div className="pl-5 flex flex-row">
             <div className="w-64 font-medium">{t('registrationDate')}:</div>
-            <div className="max-w-xl">{dateFormat(data.registration_date) || '---'}</div>
+            <div className="max-w-xl">{dateFormat(data.registration_date)}</div>
           </div>
           <div className="pl-5 flex flex-row">
             <div className="w-64 font-medium">{t('address')}:</div>

@@ -25,7 +25,7 @@ const CountrySanctionDetail = () => {
     return (
       <ul className="list-disc list-inside">
         {sanctions.map((sanction) => (
-          <li>
+          <li key={sanction}>
             <span>
               {sanction}
             </span>
