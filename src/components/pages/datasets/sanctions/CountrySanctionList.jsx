@@ -30,7 +30,7 @@ const CountrySanctionList = ({ match, history }) => {
       header: t('endDate'),
       prop: 'end_date',
       width: '15%',
-      render: (v) => dateFormat(dateFormatISO(v), true),
+      render: (v) => dateFormat(v),
     },
   ];
   return (

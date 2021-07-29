@@ -63,7 +63,7 @@ const CountrySanctionDetail = () => {
           </div>
           <div className="pl-5 flex flex-row">
             <div className="w-64 font-medium">{t('sanctionEndDate')}:</div>
-            <div className="max-w-xl">{dateFormat(dateFormat(data.end_date), true)}</div>
+            <div className="max-w-xl">{dateFormat(data.end_date)}</div>
           </div>
           <div className="pl-5 flex flex-row">
             <div className="w-64 font-medium">ID:</div>

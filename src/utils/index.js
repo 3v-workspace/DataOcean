@@ -8,14 +8,12 @@ export { default as toast } from './toast';
 
 export const upFirstLetter = (string) => string.charAt(0).toUpperCase() + string.slice(1);
 
-export function dateFormat(date, checkIndefinitely = false) {
+export function dateFormat(date) {
   const lang = i18n.language;
-  if (checkIndefinitely) {
-    if (moment(date).format('YYYY-MM-DD') === '3000-01-01') {
-      return i18n.t('indefinitely');
-    }
-  }
   const moment_date = moment(date);
+  if (moment_date.format('YYYY-MM-DD') === '3000-01-01') {
+    return i18n.t('indefinitely');
+  }
   if (!moment_date.isValid()) {
     return '---';
   }
