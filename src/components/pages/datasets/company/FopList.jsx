@@ -3,6 +3,7 @@ import React from 'react';
 import Table from 'components/table/Table';
 import PageBox from 'components/pages/PageBox';
 import { useTranslation } from 'react-i18next';
+import { dateFormat } from 'utils';
 
 
 const FopList = () => {
@@ -27,11 +28,13 @@ const FopList = () => {
       header: t('registrationDate'),
       prop: 'registration_date',
       width: '10%',
+      render: (v) => dateFormat(v),
     },
     {
       header: t('terminationDate'),
       prop: 'termination_date',
       width: '10%',
+      render: (v) => dateFormat(v),
     },
   ];
   return (
