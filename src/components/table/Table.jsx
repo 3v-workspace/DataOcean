@@ -117,15 +117,15 @@ const Table = (props) => {
         {/*    count: tc.count,*/}
         {/*  })}*/}
         {/*</div>*/}
-        { exportUrl && (
-          <div className="mr-6">
-            <ExportXlsx
-              exportUrl={exportUrl}
-              params={tc.getUrlParams()}
-              count={tc.count}
-            />
-          </div>
-        )}
+        {/*{ exportUrl && (*/}
+        {/*  <div className="mr-6">*/}
+        {/*    <ExportXlsx*/}
+        {/*      exportUrl={exportUrl}*/}
+        {/*      params={tc.getUrlParams()}*/}
+        {/*      count={tc.count}*/}
+        {/*    />*/}
+        {/*  </div>*/}
+        {/*)}*/}
         <div className="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">
           <SearchBox containerClass="w-56" onSearch={onSearch} />
         </div>
