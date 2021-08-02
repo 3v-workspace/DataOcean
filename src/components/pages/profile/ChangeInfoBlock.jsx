@@ -11,6 +11,7 @@ import DateInput from 'components/form-components/DateInput';
 import Api, { passErrorsToFormik } from 'api';
 import { useTranslation } from 'react-i18next';
 import toast from 'utils/toast';
+import moment from 'moment';
 
 const ChangeInfoBlock = () => {
   const user = useSelector((store) => store.user);
@@ -88,6 +89,7 @@ const ChangeInfoBlock = () => {
           name="date_of_birth"
           drops="up"
           formik={formik}
+          startDate={moment(user.date_of_birth).format('DD.MM.YYYY')}
         />
         <TextInput
           label={t('phone')}
