@@ -43,9 +43,9 @@ const Table = (props) => {
     tc.setPage(1);
   };
 
-  const onSearch = (e) => {
-    setSearch(e.target.value);
-    setParams({ ...params, search: e.target.value });
+  const onSearch = (name, value) => {
+    setSearch(value);
+    setParams({ ...params, search: value });
     tc.setPage(1);
   };
 
