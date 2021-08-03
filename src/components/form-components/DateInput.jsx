@@ -4,6 +4,7 @@ import { FormikPropType } from 'utils/prop-types';
 import moment from 'moment';
 import { DATE_FORMAT, DATETIME_FORMAT } from 'const/const';
 import { useTranslation } from 'react-i18next';
+import { X } from 'react-feather';
 
 // TODO: finish this
 const DateInput = (props) => {
@@ -11,7 +12,7 @@ const DateInput = (props) => {
     name, formik, onChange, value, timePicker, timePicker24Hour,
     autoApply, singleDatePicker, startDate, endDate, autoUpdateInput,
     minDate, maxDate, drops, id, label, containerClass, className,
-    required, placeholder, onKeyPress, onApply,
+    required, placeholder, onKeyPress, onApply, onClear,
   } = props;
 
   const { i18n } = useTranslation();
@@ -134,6 +135,9 @@ const DateInput = (props) => {
       {formik && formik.touched[name] && formik.errors[name] && (
         <label className="error" htmlFor={endId}>{formik.errors[name]}</label>
       )}
+      {value !== undefined && value.length > 0 && (
+        <X className="w-4 h-4 inline inset-y-0 -ml-6 cursor-pointer text-gray-700" onClick={onClear} />
+      )}
     </div>
   );
 };
@@ -148,6 +152,7 @@ DateInput.propTypes = {
   onChange: PropTypes.func,
   onKeyPress: PropTypes.func,
   onApply: PropTypes.func,
+  onClear: PropTypes.func,
   timePicker: PropTypes.bool,
   timePicker24Hour: PropTypes.bool,
   autoApply: PropTypes.bool,
@@ -177,6 +182,7 @@ DateInput.defaultProps = {
   onChange: undefined,
   onKeyPress: undefined,
   onApply: undefined,
+  onClear: undefined,
   formik: undefined,
   label: '',
   className: 'w-full',

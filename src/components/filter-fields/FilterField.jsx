@@ -78,6 +78,7 @@ const FilterField = (props) => {
             }}
             minDate={moment('2020-08-27')}
             onKeyPress={handleKeyPress}
+            onClear={onClear}
           />
         </div>
       );

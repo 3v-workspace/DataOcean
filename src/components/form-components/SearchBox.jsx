@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Search, X } from 'react-feather';
 import { useTranslation } from 'react-i18next';
@@ -10,6 +10,8 @@ const SearchBox = (props) => {
     className, size, onBlur, onSearch, isRounded,
   } = props;
   const { t } = useTranslation();
+  const [mouseOver, setMouseOver] = useState(false);
+
   const classList = [];
   if (className) {
     classList.push(className);
@@ -25,7 +27,11 @@ const SearchBox = (props) => {
   const endId = id || `id_${name}`;
 
   return (
-    <div className={`${containerClass} relative text-gray-700`}>
+    <div
+      className={`${containerClass} relative text-gray-700`}
+      onMouseEnter={() => setMouseOver(true)}
+      onMouseLeave={() => setMouseOver(false)}
+    >
       <input
         className={classList.join(' ')}
         id={endId}
@@ -35,10 +41,16 @@ const SearchBox = (props) => {
         onChange={onChange}
         onKeyPress={(e) => {
           if (onSearch && e.key === 'Enter') {
-            onSearch(e);
+            onSearch(name, e.target.value);
           }
         }}
-        onBlur={onBlur || onSearch}
+        onBlur={(e) => {
+          if (onBlur) {
+            onBlur(e);
+          } else if (!mouseOver) {
+            onSearch(name, e.target.value);
+          }
+        }}
         name={name}
       />
       {value !== undefined && value.length > 0 ? (

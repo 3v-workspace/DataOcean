@@ -43,9 +43,9 @@ const Table = (props) => {
     tc.setPage(1);
   };
 
-  const onSearch = (e) => {
-    setSearch(e.target.value);
-    setParams({ ...params, search: e.target.value });
+  const onSearch = (name, value) => {
+    setSearch(value);
+    setParams({ ...params, search: value });
     tc.setPage(1);
   };
 
@@ -160,7 +160,7 @@ const Table = (props) => {
                       </div>
                     )}
                   </div>
-                  {/* <div>
+                  <div>
                     {col.filter && (
                       <FilterField
                         filter={col.filter}
@@ -170,7 +170,7 @@ const Table = (props) => {
                         onSearch={passFiltersToParams}
                       />
                     )}
-                  </div> */}
+                  </div>
                 </th>
               ))}
             </tr>
