@@ -155,8 +155,8 @@ const Table = (props) => {
                     {col.header}
                     {!col.noSort && (
                       <div className="px-4">
-                        <ChevronUp className={`w-4 h-4 -mb-1 ${tc.getOrderingDirection() === 'desc' && tc.orderProp === col.prop ? '' : 'opacity-50'}`} />
-                        <ChevronDown className={`w-4 h-4 -mt-1 ${tc.getOrderingDirection() === 'asc' && tc.orderProp === col.prop ? '' : 'opacity-50'}`} />
+                        <ChevronUp className={`w-4 h-4 -mb-1 ${tc.getOrderingDirection() === 'asc' && tc.orderProp === col.prop && 'opacity-0'} ${tc.getOrderingDirection() === 'nosort' && 'opacity-50'} ${tc.orderProp !== col.prop && 'opacity-50'}`} />
+                        <ChevronDown className={`w-4 h-4 -mt-1 ${tc.getOrderingDirection() === 'desc' && tc.orderProp === col.prop && 'opacity-0'} ${tc.getOrderingDirection() === 'nosort' && 'opacity-50'} ${tc.orderProp !== col.prop && 'opacity-50'}`} />
                       </div>
                     )}
                   </div>
