@@ -4,7 +4,8 @@ import { useTableController } from 'components/table/index';
 import ExportXlsx from 'components/table/ExportXlsx';
 import Pagination from 'components/table/Pagination';
 import { SearchBox } from 'components/form-components';
-import { ChevronDown, ChevronUp } from 'react-feather';
+import { ReactComponent as ArrowUp } from 'images/ParallelArrowUp.svg';
+import { ReactComponent as ArrowDown } from 'images/ParallelArrowDown.svg';
 import LoadingIcon from 'components/LoadingIcon';
 import { useTranslation } from 'react-i18next';
 import FilterField from 'components/filter-fields/FilterField';
@@ -155,8 +156,10 @@ const Table = (props) => {
                     {col.header}
                     {!col.noSort && (
                       <div className="px-4">
-                        <ChevronUp className={`w-4 h-4 -mb-1 ${tc.getOrderingDirection() === 'asc' && tc.orderProp === col.prop && 'opacity-0'} ${tc.getOrderingDirection() === 'nosort' && 'opacity-50'} ${tc.orderProp !== col.prop && 'opacity-50'}`} />
-                        <ChevronDown className={`w-4 h-4 -mt-1 ${tc.getOrderingDirection() === 'desc' && tc.orderProp === col.prop && 'opacity-0'} ${tc.getOrderingDirection() === 'nosort' && 'opacity-50'} ${tc.orderProp !== col.prop && 'opacity-50'}`} />
+                        <div>
+                          <ArrowUp className={`w-4 h-4 -mb-4 -ml-2 ${tc.getOrderingDirection() === 'asc' && tc.orderProp === col.prop && 'opacity-0'} ${tc.getOrderingDirection() === 'nosort' && 'opacity-50'} ${tc.orderProp !== col.prop && 'opacity-50'}`} />
+                          <ArrowDown className={`w-4 h-4 -mt-4 ${tc.getOrderingDirection() === 'desc' && tc.orderProp === col.prop && 'opacity-0'} ${tc.getOrderingDirection() === 'nosort' && 'opacity-50'} ${tc.orderProp !== col.prop && 'opacity-50'}`} />
+                        </div>
                       </div>
                     )}
                   </div>
