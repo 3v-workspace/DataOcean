@@ -157,8 +157,14 @@ const Table = (props) => {
                     {!col.noSort && (
                       <div className="px-4">
                         <div>
-                          <ArrowUp className={`w-4 h-4 -mb-4 -ml-2 ${tc.getOrderingDirection() === 'asc' && tc.orderProp === col.prop && 'opacity-0'} ${tc.getOrderingDirection() === 'nosort' && 'opacity-50'} ${tc.orderProp !== col.prop && 'opacity-50'}`} />
-                          <ArrowDown className={`w-4 h-4 -mt-4 ${tc.getOrderingDirection() === 'desc' && tc.orderProp === col.prop && 'opacity-0'} ${tc.getOrderingDirection() === 'nosort' && 'opacity-50'} ${tc.orderProp !== col.prop && 'opacity-50'}`} />
+                          <ArrowUp className={`w-4 h-4 -mb-4 -ml-2 ${tc.getOrderingDirection() === 'asc' &&
+                          tc.orderProp === col.prop && 'opacity-0'} ${tc.getOrderingDirection() === 'nosort' &&
+                          'opacity-50'} ${tc.orderProp !== col.prop && 'opacity-50'}`}
+                          />
+                          <ArrowDown className={`w-4 h-4 -mt-4 ${tc.getOrderingDirection() === 'desc' &&
+                          tc.orderProp === col.prop && 'opacity-0'} ${tc.getOrderingDirection() === 'nosort' &&
+                          'opacity-50'} ${tc.orderProp !== col.prop && 'opacity-50'}`}
+                          />
                         </div>
                       </div>
                     )}
