@@ -51,6 +51,7 @@ const PepList = ({ match, history }) => {
       header: t('pepType'),
       prop: 'pep_type_display',
       width: '20%',
+      noSort: true,
     },
     {
       header: t('lastPosition'),
