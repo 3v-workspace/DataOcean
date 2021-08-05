@@ -49,6 +49,14 @@ const Table = (props) => {
     tc.setPage(1);
   };
 
+  const isAnyFilter = columns.some((col) => !!col.filter);
+
+  const resetAllFilters = () => {
+    setParams({ ...params, ...defaultFilterValues });
+    setFilterValues({ ...filterValues, ...defaultFilterValues });
+    tc.setPage(1);
+  };
+
   const handleHeaderClick = (col) => {
     if (!col.noSort) {
       tc.setOrdering(col.prop);
@@ -133,6 +141,13 @@ const Table = (props) => {
       <div className="p-5">
         <Pagination tableController={tc} />
       </div>
+      { isAnyFilter && (
+        <div className="intro-y flex flex-wrap sm:flex-no-wrap items-center justify-end">
+          <div className="text-base font-medium text-gray-700 cursor-pointer" onClick={resetAllFilters}>
+            {t('resetAllFilters')}
+          </div>
+        </div>
+      )}
       <div className="overflow-x-auto box">
         {tc.isLoading && (
           <div className="w-full h-full bg-gray-700 bg-opacity-25 absolute flex items-center justify-center">
