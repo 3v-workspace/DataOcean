@@ -4,7 +4,7 @@ import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from 'react-fe
 import { useTranslation } from 'react-i18next';
 
 const Pagination = (props) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { tableController: tc } = props;
 
   const prevPage = () => {
@@ -74,7 +74,7 @@ const Pagination = (props) => {
               className={`pagination__link ${page === tc.page ? 'pagination__link--active' : ''}`}
               onClick={() => tc.setPage(page)}
             >
-              {page}
+              {page.toLocaleString(`${i18n.language}`)}
             </button>
           </li>
         ))}
@@ -105,9 +105,9 @@ const Pagination = (props) => {
       {tc.count > 0 && (
         <div className="hidden md:block text-gray-600">
           {t('showingToOfEntries', {
-            first: tc.itemsIndexes.first,
-            last: tc.itemsIndexes.last,
-            count: tc.count,
+            first: tc.itemsIndexes.first.toLocaleString(i18n.language),
+            last: tc.itemsIndexes.last.toLocaleString(i18n.language),
+            count: tc.count.toLocaleString(i18n.language),
           })}
         </div>
       )}
