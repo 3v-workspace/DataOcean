@@ -10,7 +10,7 @@ import { X } from 'react-feather';
 const DateInput = (props) => {
   const {
     name, formik, onChange, value, timePicker, timePicker24Hour,
-    autoApply, singleDatePicker, endDate, autoUpdateInput,
+    autoApply, singleDatePicker, startDate, endDate, autoUpdateInput,
     minDate, maxDate, drops, id, label, containerClass, className,
     required, placeholder, onKeyPress, onApply, onClear,
   } = props;
@@ -20,7 +20,6 @@ const DateInput = (props) => {
   const isoFormat = timePicker ? 'YYYY-MM-DDTHH:mm' : 'YYYY-MM-DD';
   const format = timePicker ? DATETIME_FORMAT : DATE_FORMAT;
   const val = value || (formik && formik.values[name]);
-  const startDate = moment(val).format(format);
 
   useEffect(() => {
     let val2 = '';
@@ -159,6 +158,9 @@ DateInput.propTypes = {
   autoApply: PropTypes.bool,
   autoUpdateInput: PropTypes.bool,
   singleDatePicker: PropTypes.bool,
+  startDate: PropTypes.oneOfType([
+    PropTypes.string, PropTypes.instanceOf(moment),
+  ]),
   endDate: PropTypes.oneOfType([
     PropTypes.string, PropTypes.instanceOf(moment),
   ]),
@@ -191,7 +193,8 @@ DateInput.defaultProps = {
   autoApply: true,
   autoUpdateInput: false,
   singleDatePicker: true,
-  endDate: moment().endOf('day'),
+  startDate: undefined,
+  endDate: undefined,
   minDate: undefined,
   maxDate: undefined,
   drops: 'auto',
