@@ -24,6 +24,7 @@ const initialState = {
 
   // system
   isLoggedIn: false,
+  paid_subscription_permission: false,
 };
 
 const userReducer = (state = initialState, action) => {
