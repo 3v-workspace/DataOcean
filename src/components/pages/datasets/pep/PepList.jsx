@@ -46,6 +46,14 @@ const PepList = ({ match, history }) => {
       prop: 'is_pep',
       width: '15%',
       render: (v) => (v ? t('politicallyExposedPerson') : t('notPoliticallyExposedPerson')),
+      filter: {
+        name: 'is_pep',
+        type: 'select',
+        options: [
+          { value: '0', label: t('notPoliticallyExposedPerson') },
+          { value: '1', label: t('politicallyExposedPerson') },
+        ],
+      },
     },
     {
       header: t('pepType'),
