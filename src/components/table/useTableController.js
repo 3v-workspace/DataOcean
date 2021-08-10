@@ -54,7 +54,7 @@ const useTableController = (options) => {
       }
       return 'asc';
     }
-    return 'nosort';
+    return null;
   };
 
   const calculateIndexes = (dataLen) => {
