@@ -105,7 +105,8 @@
     "downloadPdf": "Download PDF",
     "downloadXlsx": "Downloading data in .xlsx format will start",
     "downloadXlsxConfirmation": "After ending will send email to Your address with web-link for downloading a file. Continue?",
-    "exportTooltipContent": "Use filters or search before downloading. Max records limit for downloading - {{limit}}"
+    "exportTooltipContent": "Use filters or search before downloading. Max records limit for downloading - {{limit}}",
+    "hasNoPermission": "At least one paid subscription required for this action"
   },
   "faq": {
     "PEPRegisterTrustworthyOrLegallyValid": "Why is the PEP register trustworthy or legally valid?",
@@ -325,6 +326,7 @@
   "requestsAndViewsTBD": "Requests and views - TBD",
   "requestsLeft": "Requests left",
   "resetFilter": "Reset filter",
+  "resetAllFilters": "Reset all filters",
   "returnToTheProject": "Return to the project",
   "sanctionEndDate": "Sanction End Date",
   "sanctionStartDate": "Sanction Start Date",

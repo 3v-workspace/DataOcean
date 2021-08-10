@@ -22,7 +22,7 @@ const charts = {
 };
 
 const HomePage = ({ history }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [registersCount, setRegistersCount] = useState('');
   const [usersCount, setUsersCount] = useState('');
   const [fopCount, setFopCount] = useState('');
@@ -75,7 +75,7 @@ const HomePage = ({ history }) => {
               <div className="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
                 <ReportBox
                   label={t('numberOfCompanies')}
-                  value={companyCount.toLocaleString()}
+                  value={companyCount.toLocaleString(`${i18n.language}`)}
                   subText="18%"
                   subTextDirection="up"
                   icon={<File className="report-box__icon text-theme-10" />}
@@ -85,7 +85,7 @@ const HomePage = ({ history }) => {
               <div className="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
                 <ReportBox
                   label={t('numberOfSoleProprietors')}
-                  value={fopCount.toLocaleString()}
+                  value={fopCount.toLocaleString(`${i18n.language}`)}
                   subText="16%"
                   subTextDirection="up"
                   icon={<Briefcase className="report-box__icon text-theme-11" />}
@@ -95,7 +95,7 @@ const HomePage = ({ history }) => {
               <div className="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
                 <ReportBox
                   label={t('numberOfDatasets')}
-                  value={registersCount.toLocaleString()}
+                  value={registersCount.toLocaleString(`${i18n.language}`)}
                   subText="+5"
                   subTextDirection="up"
                   icon={<Database className="report-box__icon text-theme-12" />}
@@ -105,7 +105,7 @@ const HomePage = ({ history }) => {
               <div className="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
                 <ReportBox
                   label={t('numberOfUsers')}
-                  value={usersCount.toLocaleString()}
+                  value={usersCount.toLocaleString(`${i18n.language}`)}
                   subText="+7"
                   subTextDirection="up"
                   icon={<User className="report-box__icon text-theme-9" />}

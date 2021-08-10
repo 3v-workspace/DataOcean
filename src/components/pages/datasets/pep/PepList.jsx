@@ -18,7 +18,7 @@ const PepList = ({ match, history }) => {
         name: 'id',
         type: 'number',
         placeholder: '12345',
-        width: '20',
+        width: '24',
       },
     },
     {
@@ -51,6 +51,7 @@ const PepList = ({ match, history }) => {
       header: t('pepType'),
       prop: 'pep_type_display',
       width: '20%',
+      noSort: true,
     },
     {
       header: t('lastPosition'),
@@ -77,7 +78,7 @@ const PepList = ({ match, history }) => {
       render: (v) => dateFormatISO(v),
       filter: {
         name: 'updated_at_date',
-        type: 'date',
+        type: 'text',
         placeholder: '2020-08-27',
       },
     },

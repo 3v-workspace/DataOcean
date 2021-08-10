@@ -7,12 +7,14 @@ import Api from 'api';
 import { EXPORT_PEP_XLSX_LIMIT } from 'const/const';
 import YesNoModal from 'components/modals/YesNoModal';
 import toast from 'utils/toast';
+import { useSelector } from 'react-redux';
 
 
 const ExportXlsx = (props) => {
   const { t } = useTranslation();
   const { exportUrl, params, count } = props;
   const exportXlsxModalRef = useRef();
+  const hasPermission = useSelector((store) => store.user.paid_subscription_permission);
 
   const openExportXlsxModal = () => exportXlsxModalRef.current.show();
 
@@ -23,6 +25,20 @@ const ExportXlsx = (props) => {
       });
     exportXlsxModalRef.current.hide();
   };
+
+  if (!hasPermission) {
+    return (
+      <Tooltip
+        position="bottom"
+        arrow={false}
+        content={t('export.hasNoPermission')}
+        className="flex mx-2 cursor-default text-gray-500"
+      >
+        <Download className="w-5 h-5 mr-1 color-gray-500" />
+        Excel
+      </Tooltip>
+    );
+  }
 
   if (count <= EXPORT_PEP_XLSX_LIMIT) {
     return (
