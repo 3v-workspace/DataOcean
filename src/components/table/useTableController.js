@@ -21,7 +21,7 @@ const useTableController = (options) => {
   const setOrdering = (field) => {
     if (orderProp === field) {
       if (ordering.startsWith('-')) {
-        _setOrdering(field);
+        _setOrdering('');
       } else {
         _setOrdering(`-${field}`);
       }
