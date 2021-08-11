@@ -6,7 +6,7 @@ import SelectInput2 from './SelectInput2';
 
 const FilterField = (props) => {
   const {
-    filter: { name, type, placeholder, width, options }, onChange, defaultValue,
+    filter: { name, type, multiple, placeholder, width, options }, onChange, defaultValue,
     onSearch, value,
   } = props;
 
@@ -89,6 +89,7 @@ const FilterField = (props) => {
         <div>
           <SelectInput2
             name={name}
+            multiple={multiple}
             options={options}
             value={value}
             onChange={(n, v) => {
@@ -108,17 +109,20 @@ FilterField.propTypes = {
   filter: PropTypes.shape({
     name: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
+    multiple: PropTypes.bool,
     placeholder: PropTypes.string,
     width: PropTypes.string,
     options: PropTypes.arrayOf(PropTypes.shape({
-      value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+      value: PropTypes.string,
       label: PropTypes.string,
     })),
   }).isRequired,
   onChange: PropTypes.func.isRequired,
   onSearch: PropTypes.func.isRequired,
-  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-  defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.array]).isRequired,
+  defaultValue: PropTypes.oneOfType([
+    PropTypes.string, PropTypes.array,
+  ]).isRequired,
 };
 
 export default FilterField;

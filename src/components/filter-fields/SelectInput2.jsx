@@ -4,11 +4,11 @@ import { ChevronDown, ChevronUp } from 'react-feather';
 import { useTranslation } from 'react-i18next';
 
 const SelectInput2 = (props) => {
-  const { name, options, onChange, onClear, value } = props;
+  const { name, options, onChange, value, multiple } = props;
   const { t } = useTranslation();
 
   const [isShowDropdown, setShowDropdown] = useState(false);
-  const [selectValue, setSelectValue] = useState('');
+  const [selectValue, setSelectValue] = useState([]);
 
   const hideDropdown = () => {
     if (isShowDropdown) {
@@ -22,18 +22,43 @@ const SelectInput2 = (props) => {
     }
   };
 
+  const triggerChange = (newValue) => {
+    if (multiple) {
+      onChange(name, newValue);
+    } else {
+      onChange(name, newValue[0] || []);
+    }
+  };
+
+  const onClear = () => {
+    setSelectValue([]);
+  };
+
   useEffect(() => {
-    onChange(name, selectValue);
-  }, [selectValue]);
+    triggerChange(selectValue);
+  }, [JSON.stringify(selectValue.sort())]);
+
+  const handleChange = (option) => {
+    if (!multiple) {
+      setSelectValue([option.value]);
+      return;
+    }
+    if (selectValue.includes(option.value)) {
+      selectValue.splice(selectValue.indexOf(option.value), 1);
+      setSelectValue([...selectValue]);
+    } else {
+      setSelectValue([option.value, ...selectValue]);
+    }
+  };
 
   return (
     <>
-      <div className="search hidden sm:block">
+      <div className="search hidden sm:inline-block">
         <input
           readOnly
           type="text"
           className="input text-gray-600 w-40"
-          value={t('selected', { count: value ? 1 : 0, optionsCount: options.length })}
+          value={t('selected', { count: value ? value.length : 0, optionsCount: options.length })}
           onClick={showDropdown}
         />
         {isShowDropdown ? (
@@ -43,10 +68,10 @@ const SelectInput2 = (props) => {
         )}
       </div>
       <div
-        className={`w-auto mt-1 absolute select-dropdown ${isShowDropdown ? 'show' : ''}`}
+        className={`${multiple ? 'w-64' : 'w-auto'} mt-1 absolute max-w-3xl select-dropdown ${isShowDropdown ? 'show' : ''}`}
         onMouseLeave={hideDropdown}
       >
-        <div className="select-dropdown__content" onBlur={hideDropdown}>
+        <div className="select-dropdown__content">
           <ul>
             <li>
               <h1 className="text-blue-700 mb-1 cursor-pointer" onClick={onClear}>{t('resetFilter')}</h1>
@@ -55,15 +80,13 @@ const SelectInput2 = (props) => {
               <li key={option.value}>
                 <hr className="-mx-4" />
                 <div
-                  className="h-10 flex items-center"
-                  onClick={() => {
-                    setSelectValue(option.value);
-                  }}
+                  className="py-2 flex items-center whitespace-normal cursor-pointer"
+                  onClick={() => handleChange(option)}
                 >
                   <input
-                    type="radio"
-                    className="mr-3 cursor-pointer"
-                    checked={option.value === value}
+                    type={multiple ? 'checkbox' : 'radio'}
+                    className="mr-3"
+                    checked={selectValue.includes(option.value)}
                     onChange={() => {}}
                   />
                   <label className="text-gray-800 font-normal cursor-pointer" htmlFor={option.value}>{option.label}</label>
@@ -79,15 +102,16 @@ const SelectInput2 = (props) => {
 
 SelectInput2.propTypes = {
   name: PropTypes.string.isRequired,
-  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   options: PropTypes.any.isRequired,
   onChange: PropTypes.func,
-  onClear: PropTypes.func,
+  multiple: PropTypes.bool,
 };
 
 SelectInput2.defaultProps = {
   onChange: undefined,
-  onClear: undefined,
+  multiple: false,
+  value: [],
 };
 
 
