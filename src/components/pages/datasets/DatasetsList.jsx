@@ -96,7 +96,7 @@ const DatasetsList = ({ match, history }) => {
                     {item.status}
                   </td>
                   <td className="text-center">
-                    {item.total_records}
+                    {item.total_records.toLocaleString(i18n.language)}
                   </td>
                   <td className="table-report__action w-56">
                     <div className="flex justify-center items-center">
