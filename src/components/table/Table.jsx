@@ -21,28 +21,6 @@ const generateFilterValues = (columns) => {
   return defaultValues;
 };
 
-function showArrow(tc, col) {
-  if (tc.getOrderingDirection() === null || tc.orderProp !== col.prop) {
-    return (
-      <div>
-        <ArrowUp className="w-4 h-4 -mb-4 ml-2 opacity-50" />
-        <ArrowDown className="w-4 h-4 opacity-50" />
-      </div>
-    );
-  }
-  if (tc.getOrderingDirection() === 'asc') {
-    return (
-      <ArrowUp
-        className="w-4 h-4 pl-2 opacity-50"
-      />
-    );
-  }
-  return (
-    <ArrowDown
-      className="w-4 h-4 pl-2 opacity-50"
-    />
-  );
-}
 
 const Table = (props) => {
   const { t } = useTranslation();
@@ -134,6 +112,21 @@ const Table = (props) => {
     return null;
   };
 
+  const renderSortArrow = (col) => {
+    if (tc.orderProp !== col.prop) {
+      return (
+        <>
+          <ArrowUp className="h-4 opacity-50" />
+          <ArrowDown className="h-4 opacity-50" />
+        </>
+      );
+    }
+    if (tc.getOrderingDirection() === 'asc') {
+      return <ArrowUp className="h-4" />;
+    }
+    return <ArrowDown className="h-4" />;
+  };
+
   return (
     <div>
       <div className="intro-y flex flex-wrap sm:flex-no-wrap items-center justify-end mb-3 p-2">
@@ -149,7 +142,7 @@ const Table = (props) => {
         {/*    count: tc.count,*/}
         {/*  })}*/}
         {/*</div>*/}
-        { exportUrl && (
+        {exportUrl && (
           <div className="mr-6">
             <ExportXlsx
               exportUrl={exportUrl}
@@ -165,7 +158,7 @@ const Table = (props) => {
       <div className="p-5">
         <Pagination tableController={tc} />
       </div>
-      { isAnyFilter && (
+      {isAnyFilter && (
         <div className="intro-y flex flex-wrap sm:flex-no-wrap items-center justify-end">
           <div className="text-base font-medium text-gray-700 cursor-pointer" onClick={resetAllFilters}>
             {t('resetAllFilters')}
@@ -193,8 +186,8 @@ const Table = (props) => {
                   >
                     {col.header}
                     {!col.noSort && (
-                      <div className="px-2">
-                        {showArrow(tc, col)}
+                      <div className="px-1 flex justify-center items-center">
+                        {renderSortArrow(col)}
                       </div>
                     )}
                   </div>
