@@ -192,7 +192,7 @@ const Table = (props) => {
                     )}
                   </div>
                   <div>
-                    {col.filter && (
+                    {/*col.filter && (
                       <FilterField
                         filter={col.filter}
                         value={filterValues[col.filter.name]}
@@ -200,7 +200,7 @@ const Table = (props) => {
                         onChange={onFilterChange}
                         onSearch={passFiltersToParams}
                       />
-                    )}
+                    )*/}
                   </div>
                 </th>
               ))}
