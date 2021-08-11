@@ -14,7 +14,7 @@ const generateFilterValues = (columns) => {
   const defaultValues = {};
   columns.forEach((col) => {
     if (!col.filter) return;
-    if (['text', 'number', 'date'].includes(col.filter.type)) {
+    if (['text', 'number', 'date', 'select'].includes(col.filter.type)) {
       defaultValues[col.filter.name] = '';
     }
   });
