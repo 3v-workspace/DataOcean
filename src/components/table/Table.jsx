@@ -10,6 +10,12 @@ import LoadingIcon from 'components/LoadingIcon';
 import { useTranslation } from 'react-i18next';
 import FilterField from 'components/filter-fields/FilterField';
 
+
+// FIXME: temporary variables for hiding functional
+const hideExportButton = true;
+const hideFilters = true;
+
+
 const generateFilterValues = (columns) => {
   const defaultValues = {};
   columns.forEach((col) => {
@@ -50,8 +56,6 @@ const Table = (props) => {
     setParams({ ...params, search: value });
     tc.setPage(1);
   };
-
-  const isAnyFilter = columns.some((col) => !!col.filter);
 
   const resetAllFilters = () => {
     setParams({ ...params, ...defaultFilterValues });
@@ -142,7 +146,7 @@ const Table = (props) => {
         {/*    count: tc.count,*/}
         {/*  })}*/}
         {/*</div>*/}
-        {exportUrl && (
+        {!hideExportButton && exportUrl && (
           <div className="mr-6">
             <ExportXlsx
               exportUrl={exportUrl}
@@ -158,7 +162,7 @@ const Table = (props) => {
       <div className="p-5">
         <Pagination tableController={tc} />
       </div>
-      {isAnyFilter && (
+      {!hideFilters && columns.some((col) => !!col.filter) && (
         <div className="intro-y flex flex-wrap sm:flex-no-wrap items-center justify-end">
           <div className="text-base font-medium text-gray-700 cursor-pointer" onClick={resetAllFilters}>
             {t('resetAllFilters')}
@@ -192,7 +196,7 @@ const Table = (props) => {
                     )}
                   </div>
                   <div>
-                    {/*col.filter && (
+                    {!hideFilters && col.filter && (
                       <FilterField
                         filter={col.filter}
                         value={filterValues[col.filter.name]}
@@ -200,7 +204,7 @@ const Table = (props) => {
                         onChange={onFilterChange}
                         onSearch={passFiltersToParams}
                       />
-                    )*/}
+                    )}
                   </div>
                 </th>
               ))}
