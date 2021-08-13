@@ -164,7 +164,11 @@ const Table = (props) => {
           </div>
         )}
         <div className="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">
-          <SearchBox containerClass="w-56" onSearch={onSearch} />
+          <SearchBox
+            containerClass="w-56"
+            defaultValue={search}
+            onSearch={onSearch}
+          />
         </div>
       </div>
       <div className="p-5">
