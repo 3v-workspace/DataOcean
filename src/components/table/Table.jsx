@@ -15,7 +15,7 @@ import { tableSetFilters, initTable, tableSetSearch } from 'store/tables/actionC
 
 // FIXME: temporary variables for hiding functional
 const hideExportButton = true;
-const hideFilters = false;
+const hideFilters = true;
 
 
 const getDefaultFilterValues = (columns) => {
