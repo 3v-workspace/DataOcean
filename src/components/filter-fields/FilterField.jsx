@@ -6,8 +6,8 @@ import SelectInput2 from './SelectInput2';
 
 const FilterField = (props) => {
   const {
-    filter: { name, type, multiple, placeholder, width, options }, onChange, defaultValue,
-    onSearch, value,
+    filter: { name, type, multiple, placeholder, width, options },
+    onChange, defaultValue, onSearch, value,
   } = props;
 
   const needSearchRef = React.useRef(false);
@@ -113,7 +113,7 @@ FilterField.propTypes = {
     placeholder: PropTypes.string,
     width: PropTypes.string,
     options: PropTypes.arrayOf(PropTypes.shape({
-      value: PropTypes.string,
+      value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
       label: PropTypes.string,
     })),
   }).isRequired,

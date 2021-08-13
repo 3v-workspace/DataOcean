@@ -26,13 +26,21 @@ const SelectInput2 = (props) => {
     if (multiple) {
       onChange(name, newValue);
     } else {
-      onChange(name, newValue[0] || []);
+      onChange(name, newValue[0] || '');
     }
   };
 
   const onClear = () => {
     setSelectValue([]);
   };
+
+  useEffect(() => {
+    if (multiple) {
+      setSelectValue([...value]);
+    } else {
+      setSelectValue([value]);
+    }
+  }, [JSON.stringify(value)]);
 
   useEffect(() => {
     triggerChange(selectValue);
@@ -58,7 +66,7 @@ const SelectInput2 = (props) => {
           readOnly
           type="text"
           className="input text-gray-600 w-40"
-          value={t('selected', { count: value ? value.length : 0, optionsCount: options.length })}
+          value={t('selected', { count: value ? selectValue.length : 0, optionsCount: options.length })}
           onClick={showDropdown}
         />
         {isShowDropdown ? (

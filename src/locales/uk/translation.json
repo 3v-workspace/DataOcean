@@ -1,6 +1,5 @@
 {
   "NACEs": "КВЕДи",
-  "PEPwithPoliticalFunctions": "Публічний діяч з політичними функціями у міжнародній організації",
   "abbreviationMonth": "міс",
   "accept": "Прийняти",
   "acceptPolicyError": "Для реєстрації Ви повинні підтвердити згоду з Політикою конфіденційності і Правилами та умовами",
@@ -26,7 +25,6 @@
   "apply": "Примінити",
   "areYouSure": "Ви впевнені?",
   "assetsInfo": "Інформація про активи",
-  "associatedPersonWithPEP": "Пов'язана особа",
   "authorizedCapital": "Статутний капітал",
   "back": "Повернутись",
   "backToHome": "На головну",
@@ -109,7 +107,6 @@
     "downloadXlsxConfirmation": "Після завершення на Ваш email буде відправлено лист з посиланням на скачування цього файлу. Продовжити?",
     "exportTooltipContent": "Для завантаження скористайтесь фільтрами або пошуком. Максимальна кількість записів для завантаження - {{limit}}"
   },
-  "familyMember": "Член сім'ї",
   "faq": {
     "PEPRegisterTrustworthyOrLegallyValid": "Чому реєстр PEP є таким, що заслуговує довіру або таким, що має правову \"вагомість\"?",
     "accessPEPDatabase": "Як отримати доступ до бази PEP?",
@@ -172,7 +169,6 @@
   "fop": "ФОП",
   "fopCount": "Кількість ФОП",
   "forAnnualPayment": "При оплаті за рік",
-  "foreignPEP": "Іноземний публічний діяч",
   "forgotPassword": "Забули пароль?",
   "fullName": "Повне ім'я",
   "fullscreen": "На весь екран",
@@ -223,7 +219,6 @@
   "myPayments": "Мої оплати",
   "myProfile": "Мій кабінет",
   "name": "Назва",
-  "nationalPEP": "Національний публічний діяч",
   "newPassword": "Новий пароль",
   "next": "Далі",
   "nextPayment": "Наступна оплата",
@@ -281,7 +276,13 @@
   "pepDetailType": "Тип публічного діяча",
   "pepInfo": "Інформація про PEP",
   "pepScheme": "Схема PEP",
-  "pepType": "Тип PEP",
+  "pepType": {
+    "PEPwithPoliticalFunctions": "Публічний діяч з політичними функціями у міжнародній організації",
+    "associatedPersonWithPEP": "Пов'язана особа",
+    "familyMemberOfPEP": "Член сім'ї",
+    "foreignPEP": "Іноземний публічний діяч",
+    "nationalPEP": "Національний публічний діяч"
+  },
   "person-sanction": "Реєстр санкцій персональний",
   "personInfo": "Інформація про персону",
   "personStatus": "Статус користувача",

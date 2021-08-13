@@ -49,7 +49,6 @@ const PepList = ({ match, history }) => {
       filter: {
         name: 'is_pep',
         type: 'select',
-        multiple: false,
         options: [
           { value: '1', label: t('politicallyExposedPerson') },
           { value: '0', label: t('notPoliticallyExposedPerson') },
@@ -57,7 +56,7 @@ const PepList = ({ match, history }) => {
       },
     },
     {
-      header: t('pepType'),
+      header: i18n.language === 'uk' ? `${t('type')} ${t('pep')}` : `${t('pep')} ${('type')}`,
       prop: 'pep_type_display',
       width: '20%',
       noSort: true,
@@ -66,11 +65,11 @@ const PepList = ({ match, history }) => {
         type: 'select',
         multiple: true,
         options: [
-          { value: 'national PEP', label: t('nationalPEP') },
-          { value: 'foreign PEP', label: t('foreignPEP') },
-          { value: 'PEP with political functions in international organization', label: t('PEPwithPoliticalFunctions') },
-          { value: 'associated person with PEP', label: t('associatedPersonWithPEP') },
-          { value: 'member of PEP`s family', label: t('familyMember') },
+          { value: 'national PEP', label: t('pepType.nationalPEP') },
+          { value: 'foreign PEP', label: t('pepType.foreignPEP') },
+          { value: 'PEP with political functions in international organization', label: t('pepType.PEPwithPoliticalFunctions') },
+          { value: 'associated person with PEP', label: t('pepType.associatedPersonWithPEP') },
+          { value: 'member of PEP`s family', label: t('pepType.familyMemberOfPEP') },
         ],
       },
     },
@@ -128,7 +127,7 @@ const PepList = ({ match, history }) => {
           history.push(`${match.url}${row.id}/`);
         }}
         exportUrl="pep/xlsx/"
-        minHeight="400"
+        styleWidth={{ minHeight: 400 }}
       />
     </PageBox>
   );

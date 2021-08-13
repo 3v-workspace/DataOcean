@@ -15,8 +15,12 @@ const generateFilterValues = (columns) => {
     if (!col.filter) return;
     if (['text', 'number', 'date'].includes(col.filter.type)) {
       defaultValues[col.filter.name] = '';
-    } else if (['select'].includes(col.filter.type)) {
-      defaultValues[col.filter.name] = [];
+    } else if (col.filter.type === 'select') {
+      if (col.filter.multiple) {
+        defaultValues[col.filter.name] = [];
+      } else {
+        defaultValues[col.filter.name] = '';
+      }
     }
   });
   return defaultValues;
@@ -24,7 +28,7 @@ const generateFilterValues = (columns) => {
 
 const Table = (props) => {
   const { t } = useTranslation();
-  const { columns, url, fields, axiosConfigs, onRowClick, exportUrl, minHeight } = props;
+  const { columns, url, fields, axiosConfigs, onRowClick, exportUrl, styleWidth } = props;
   const [search, setSearch] = useState('');
 
   const defaultFilterValues = generateFilterValues(columns);
@@ -150,7 +154,7 @@ const Table = (props) => {
           </div>
         </div>
       )}
-      <div className={`overflow-x-auto box min-h-${minHeight}`}>
+      <div className="overflow-x-auto box" style={styleWidth}>
         {tc.isLoading && (
           <div className="w-full h-full bg-gray-700 bg-opacity-25 absolute flex items-center justify-center">
             <LoadingIcon icon="three-dots" className="w-16 h-16" />
@@ -221,14 +225,14 @@ Table.propTypes = {
   axiosConfigs: PropTypes.object,
   onRowClick: PropTypes.func,
   exportUrl: PropTypes.string,
-  minHeight: PropTypes.string,
+  styleWidth: PropTypes.object,
 };
 Table.defaultProps = {
   fields: [],
   axiosConfigs: {},
   onRowClick: undefined,
   exportUrl: undefined,
-  minHeight: undefined,
+  styleWidth: undefined,
 };
 
 export default Table;

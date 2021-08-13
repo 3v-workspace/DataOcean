@@ -1,6 +1,5 @@
 {
   "NACEs": "NACE",
-  "PEPwithPoliticalFunctions": "PEP with political functions in international organization",
   "abbreviationMonth": "month",
   "accept": "Accept",
   "acceptPolicyError": "To register, you must confirm your agreement to the Privacy policy and Terms and conditions",
@@ -26,7 +25,6 @@
   "apply": "Apply",
   "areYouSure": "Are you sure?",
   "assetsInfo": "Assets Info",
-  "associatedPersonWithPEP": "Associated person with PEP",
   "authorizedCapital": "Authorized capital",
   "back": "Back",
   "backToHome": "Back to Home",
@@ -109,7 +107,6 @@
     "downloadXlsxConfirmation": "After ending will send email to Your address with web-link for downloading a file. Continue?",
     "exportTooltipContent": "Use filters or search before downloading. Max records limit for downloading - {{limit}}"
   },
-  "familyMember": "Member of PEP`s family'",
   "faq": {
     "PEPRegisterTrustworthyOrLegallyValid": "Why is the PEP register trustworthy or legally valid?",
     "accessPEPDatabase": "How to access the PEP database?",
@@ -172,7 +169,6 @@
   "fop": "FOP",
   "fopCount": "FOP count",
   "forAnnualPayment": "For annual payment",
-  "foreignPEP": "Foreign politically exposed person",
   "forgotPassword": "Forgot Password?",
   "fullName": "Full name",
   "fullscreen": "Full screen",
@@ -223,7 +219,6 @@
   "myPayments": "My payments",
   "myProfile": "My profile",
   "name": "Name",
-  "nationalPEP": "National politically exposed person",
   "newPassword": "New password",
   "next": "Next",
   "nextPayment": "Next payment",
@@ -281,7 +276,13 @@
   "pepDetailType": "PEP type",
   "pepInfo": "PEP Information",
   "pepScheme": "PEP Scheme",
-  "pepType": "PEP type",
+  "pepType": {
+    "PEPwithPoliticalFunctions": "PEP with political functions in international organization",
+    "associatedPersonWithPEP": "Associated person with PEP",
+    "familyMemberOfPEP": "Member of PEP`s family",
+    "foreignPEP": "Foreign politically exposed person",
+    "nationalPEP": "National politically exposed person"
+  },
   "person-sanction": "Sanctions against persons",
   "personInfo": "Person's Information",
   "personStatus": "User status",

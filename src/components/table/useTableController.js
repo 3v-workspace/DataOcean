@@ -44,7 +44,9 @@ const useTableController = (options) => {
             value.forEach((val) => {
               urlParams.append(key, val);
             });
-          } else urlParams.set(key, value.toString());
+          } else {
+            urlParams.set(key, value.toString());
+          }
         }
       });
     }
