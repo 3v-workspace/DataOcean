@@ -1,0 +1,25 @@
+import { createAction } from '@reduxjs/toolkit';
+
+export const initTable = createAction('tables/init', (tableName, defaultFilters) => ({
+  payload: { tableName, defaultFilters },
+}));
+
+export const tableSetPage = createAction('tables/setPage', (tableName, page) => ({
+  payload: { tableName, page },
+}));
+
+export const tableSetPageSize = createAction('tables/setPageSize', (tableName, pageSize) => ({
+  payload: { tableName, pageSize },
+}));
+
+export const tableSetOrdering = createAction('tables/setOrdering', (tableName, ordering) => ({
+  payload: { tableName, ordering },
+}));
+
+export const tableSetFilters = createAction('tables/setFilters', (tableName, filters) => ({
+  payload: { tableName, filters },
+}));
+
+export const tableSetSearch = createAction('tables/setSearch', (tableName, search) => ({
+  payload: { tableName, search },
+}));

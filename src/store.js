@@ -1,14 +1,9 @@
-import { createStore } from 'redux';
+import { configureStore } from '@reduxjs/toolkit';
 import mainReducer from './store/mainReducer';
 
-// eslint-disable-next-line no-underscore-dangle
-let tools = window.__REDUX_DEVTOOLS_EXTENSION__;
-if (tools && !(process.env.NODE_ENV === 'production')) {
-  tools = tools();
-} else {
-  tools = undefined;
-}
-
-const store = createStore(mainReducer, tools);
+const store = configureStore({
+  reducer: mainReducer,
+  devTools: process.env.NODE_ENV !== 'production',
+});
 
 export default store;

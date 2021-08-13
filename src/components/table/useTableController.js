@@ -1,32 +1,48 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import Api from 'api';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  initTable, tableSetPage,
+  tableSetPageSize, tableSetOrdering,
+} from 'store/tables/actionCreators';
+
 
 const useTableController = (options) => {
   const { url, params, afterFetch, axiosConfigs } = options;
+  const dispatch = useDispatch();
+  let page = useSelector((store) => store.tables[url]?.page);
+  if (!page) {
+    dispatch(initTable(url));
+    page = 1;
+  }
+  const setPage = (newPage) => dispatch(tableSetPage(url, newPage));
+  const ordering = useSelector((store) => store.tables[url].ordering);
+  const setOrderingState = (newOrdering) => dispatch(tableSetOrdering(url, newOrdering));
+  const pageSize = useSelector((store) => store.tables[url].pageSize);
+  const setPageSize = (newPageSize) => dispatch(tableSetPageSize(url, newPageSize));
 
   const [data, setData] = useState([]);
   const [error, setError] = useState('');
-  const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
-  const [ordering, _setOrdering] = useState('');
   const [maxPage, setMaxPage] = useState(1);
   const [count, setCount] = useState(0);
   const [isLoading, setLoading] = useState(false);
+  const [needReload, setReload] = useState(false);
   const [isDataReady, setDataReady] = useState(false);
   const [itemsIndexes, setItemIndexes] = useState({
     first: 1, last: 1,
   });
   const orderProp = ordering.replace(/^-/, '');
+  const prevFullUrlRef = useRef('');
 
   const setOrdering = (field) => {
     if (orderProp === field) {
       if (ordering.startsWith('-')) {
-        _setOrdering('');
+        setOrderingState('');
       } else {
-        _setOrdering(`-${field}`);
+        setOrderingState(`-${field}`);
       }
     } else {
-      _setOrdering(field);
+      setOrderingState(field);
     }
   };
 
@@ -67,8 +83,13 @@ const useTableController = (options) => {
   };
 
   const fetchData = () => {
+    const fullUrl = `${url}?${getUrlParams()}`;
+    if (fullUrl === prevFullUrlRef.current) {
+      return;
+    }
+    prevFullUrlRef.current = fullUrl;
     setLoading(true);
-    Api.get(`${url}?${getUrlParams()}`, { ...axiosConfigs })
+    Api.get(fullUrl, { ...axiosConfigs })
       .then((resp) => {
         setData(resp.data.results);
         setCount(resp.data.count);
@@ -89,10 +110,20 @@ const useTableController = (options) => {
       });
   };
 
+  const reload = () => {
+    setReload(true);
+  };
+
+  useEffect(() => {
+    if (needReload) {
+      fetchData();
+      setReload(false);
+    }
+  }, [needReload]);
+
   useEffect(() => {
     fetchData();
-  }, [page, pageSize, JSON.stringify(params), url, ordering]);
-
+  }, [page, pageSize, url, ordering]);
 
   return {
     page,
@@ -114,6 +145,7 @@ const useTableController = (options) => {
     orderProp,
     isLoading,
     error,
+    reload,
   };
 };
 

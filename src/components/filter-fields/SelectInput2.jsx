@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { ChevronDown, ChevronUp } from 'react-feather';
 import { useTranslation } from 'react-i18next';
@@ -9,6 +9,7 @@ const SelectInput2 = (props) => {
 
   const [isShowDropdown, setShowDropdown] = useState(false);
   const [selectValue, setSelectValue] = useState('');
+  const isMountingRef = useRef(true);
 
   const hideDropdown = () => {
     if (isShowDropdown) {
@@ -23,7 +24,11 @@ const SelectInput2 = (props) => {
   };
 
   useEffect(() => {
-    onChange(name, selectValue);
+    if (isMountingRef.current) {
+      isMountingRef.current = false;
+    } else {
+      onChange(name, selectValue);
+    }
   }, [selectValue]);
 
   return (

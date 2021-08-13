@@ -9,14 +9,16 @@ import { ReactComponent as ArrowDown } from 'images/ParallelArrowDown.svg';
 import LoadingIcon from 'components/LoadingIcon';
 import { useTranslation } from 'react-i18next';
 import FilterField from 'components/filter-fields/FilterField';
+import { useDispatch, useSelector } from 'react-redux';
+import { tableSetFilters, initTable, tableSetSearch } from 'store/tables/actionCreators';
 
 
 // FIXME: temporary variables for hiding functional
 const hideExportButton = true;
-const hideFilters = true;
+const hideFilters = false;
 
 
-const generateFilterValues = (columns) => {
+const getDefaultFilterValues = (columns) => {
   const defaultValues = {};
   columns.forEach((col) => {
     if (!col.filter) return;
@@ -31,11 +33,19 @@ const generateFilterValues = (columns) => {
 const Table = (props) => {
   const { t } = useTranslation();
   const { columns, url, fields, axiosConfigs, onRowClick, exportUrl } = props;
-  const [search, setSearch] = useState('');
+  const dispatch = useDispatch();
 
-  const defaultFilterValues = generateFilterValues(columns);
-  const [filterValues, setFilterValues] = useState(defaultFilterValues);
-  const [params, setParams] = useState({ search });
+  const defaultFilters = getDefaultFilterValues(columns);
+  let filters = useSelector((state) => state.tables[url]?.filters);
+  const setFilters = (newFilter) => dispatch(tableSetFilters(url, newFilter));
+  if (!filters) {
+    dispatch(initTable(url, defaultFilters));
+    filters = defaultFilters;
+  }
+  const search = useSelector((state) => state.tables[url].search);
+  const setSearch = (newSearch) => dispatch(tableSetSearch(url, newSearch));
+
+  const params = { ...filters, search };
   if (fields.length) {
     params.fields = fields.join(',');
   }
@@ -43,24 +53,22 @@ const Table = (props) => {
   const tc = useTableController({ url, params, axiosConfigs });
 
   const onFilterChange = (name, value) => {
-    setFilterValues({ ...filterValues, [name]: value });
+    setFilters({ ...filters, [name]: value });
   };
 
-  const passFiltersToParams = () => {
-    setParams({ ...params, ...filterValues });
+  const reloadTable = () => {
     tc.setPage(1);
+    tc.reload();
   };
 
   const onSearch = (name, value) => {
     setSearch(value);
-    setParams({ ...params, search: value });
-    tc.setPage(1);
+    reloadTable();
   };
 
   const resetAllFilters = () => {
-    setParams({ ...params, ...defaultFilterValues });
-    setFilterValues({ ...filterValues, ...defaultFilterValues });
-    tc.setPage(1);
+    setFilters({ ...defaultFilters });
+    reloadTable();
   };
 
   const handleHeaderClick = (col) => {
@@ -199,10 +207,10 @@ const Table = (props) => {
                     {!hideFilters && col.filter && (
                       <FilterField
                         filter={col.filter}
-                        value={filterValues[col.filter.name]}
-                        defaultValue={defaultFilterValues[col.filter.name]}
+                        value={filters[col.filter.name]}
+                        defaultValue={defaultFilters[col.filter.name]}
                         onChange={onFilterChange}
-                        onSearch={passFiltersToParams}
+                        onSearch={reloadTable}
                       />
                     )}
                   </div>
