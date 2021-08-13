@@ -125,7 +125,7 @@ const Table = (props) => {
         </>
       );
     }
-    if (tc.getOrderingDirection() === 'asc') {
+    if (tc.getOrderingDirection() === 'desc') {
       return <ArrowUp className="h-4" />;
     }
     return <ArrowDown className="h-4" />;
