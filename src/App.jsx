@@ -17,6 +17,7 @@ const App = () => {
         dispatch(userLogin(resp.data));
       })
       .catch(() => {
+        removeCookie('pt');
         removeCookie('token');
         removeCookie('firstname');
         removeCookie('lastname');

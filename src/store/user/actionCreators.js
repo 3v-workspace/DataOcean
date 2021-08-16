@@ -5,6 +5,7 @@ import {
 } from 'store/user/actions';
 
 import { Cookies } from 'react-cookie';
+import { REMOVE_COOKIE_OPTIONS } from 'hooks/useDOCookies';
 
 export const setUserData = (user) => ({
   type: SET_USER_DATA,
@@ -21,12 +22,13 @@ export const userLogin = (user) => ({
 });
 
 export const userLogout = () => {
-  const cookies = new Cookies(['token', 'firstname', 'lastname', 'email', 'lang']);
-  cookies.remove('token', { path: '/', domain: process.env.REACT_APP_COOKIE_DOMAIN });
-  cookies.remove('firstname', { path: '/', domain: process.env.REACT_APP_COOKIE_DOMAIN });
-  cookies.remove('lastname', { path: '/', domain: process.env.REACT_APP_COOKIE_DOMAIN });
-  cookies.remove('email', { path: '/', domain: process.env.REACT_APP_COOKIE_DOMAIN });
-  cookies.remove('lang', { path: '/', domain: process.env.REACT_APP_COOKIE_DOMAIN });
+  const cookies = new Cookies(['token', 'pt', 'firstname', 'lastname', 'email', 'lang']);
+  cookies.remove('pt', REMOVE_COOKIE_OPTIONS);
+  cookies.remove('token', REMOVE_COOKIE_OPTIONS);
+  cookies.remove('firstname', REMOVE_COOKIE_OPTIONS);
+  cookies.remove('lastname', REMOVE_COOKIE_OPTIONS);
+  cookies.remove('email', REMOVE_COOKIE_OPTIONS);
+  cookies.remove('lang', REMOVE_COOKIE_OPTIONS);
   return {
     type: USER_LOGOUT,
   };

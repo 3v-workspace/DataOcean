@@ -19,12 +19,15 @@ import Form from 'components/form-components/Form';
 import { p2sStatus, u2pRole, u2pStatus } from 'const/projects';
 import toast from 'utils/toast';
 import moment from 'moment';
+import { useDOCookies } from 'hooks';
 
 const ProjectDetail = (props) => {
   const { match, history } = props;
   const projectId = match.params.id;
 
   const { t } = useTranslation();
+  const setCookie = useDOCookies()[1];
+
   const addUserModalRef = useRef();
   const refreshTokenModalRef = useRef();
   const disableUserModalRef = useRef();
@@ -130,7 +133,9 @@ const ProjectDetail = (props) => {
   const refreshToken = () => {
     Api.put(`payment/project/${projectId}/refresh-token/`)
       .then((resp) => {
-        window.localStorage.setItem('project_token', resp.data.token);
+        if (project.is_default) {
+          setCookie('pt', resp.data.token);
+        }
         toast('success', t('tokenRefreshed'));
         refreshTokenModalRef.current.hide();
         fetchData();

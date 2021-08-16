@@ -5,6 +5,7 @@ import Yup from 'utils/yup';
 import locale from 'yup/lib/locale';
 import moment from 'moment';
 import { Cookies } from 'react-cookie';
+import { SET_COOKIE_OPTIONS } from 'hooks/useDOCookies';
 
 export const setYupLanguage = (language) => {
   if (language === 'uk') {
@@ -66,7 +67,7 @@ const setLanguage = (languageCode) => {
   }
   moment.locale(lang);
   i18next.changeLanguage(lang);
-  cookies.set('lang', lang, { path: '/', domain: process.env.REACT_APP_COOKIE_DOMAIN, maxAge: 604800 });
+  cookies.set('lang', lang, SET_COOKIE_OPTIONS);
   setYupLanguage(lang);
 };
 
