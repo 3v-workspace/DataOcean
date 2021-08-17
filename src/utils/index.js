@@ -37,3 +37,17 @@ export function datetimeFormat(isoString) {
 
 
 export const dateFormatISO = (iso) => moment(iso).format('YYYY-MM-DD');
+
+export const isEqualArray = (array1, array2) => {
+  if (array1.length !== array2.length) {
+    return false;
+  }
+  if (array1.length === 0) {
+    return true;
+  }
+  const result = array1.find((item) => !array2.includes(item));
+  if (result === undefined) {
+    return true;
+  }
+  return false;
+};

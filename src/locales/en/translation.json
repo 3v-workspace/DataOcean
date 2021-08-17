@@ -105,7 +105,8 @@
     "downloadPdf": "Download PDF",
     "downloadXlsx": "Downloading data in .xlsx format will start",
     "downloadXlsxConfirmation": "After ending will send email to Your address with web-link for downloading a file. Continue?",
-    "exportTooltipContent": "Use filters or search before downloading. Max records limit for downloading - {{limit}}"
+    "exportTooltipContent": "Use filters or search before downloading. Max records limit for downloading - {{limit}}",
+    "hasNoPermission": "At least one paid subscription required for this action"
   },
   "faq": {
     "PEPRegisterTrustworthyOrLegallyValid": "Why is the PEP register trustworthy or legally valid?",
@@ -276,7 +277,8 @@
   "pepDetailType": "PEP type",
   "pepInfo": "PEP Information",
   "pepScheme": "PEP Scheme",
-  "pepType": {
+  "pepType": "PEP type",
+  "pepTypes": {
     "PEPwithPoliticalFunctions": "PEP with political functions in international organization",
     "associatedPersonWithPEP": "Associated person with PEP",
     "familyMemberOfPEP": "Member of PEP`s family",

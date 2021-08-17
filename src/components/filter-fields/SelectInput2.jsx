@@ -2,13 +2,21 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { ChevronDown, ChevronUp } from 'react-feather';
 import { useTranslation } from 'react-i18next';
+import { isEqualArray } from 'utils';
 
 const SelectInput2 = (props) => {
   const { name, options, onChange, value, multiple } = props;
   const { t } = useTranslation();
 
+  let defaultValue;
+  if (value === undefined) {
+    defaultValue = multiple ? [] : '';
+  } else {
+    defaultValue = value;
+  }
+
+  const [selectValue, setSelectValue] = useState(defaultValue);
   const [isShowDropdown, setShowDropdown] = useState(false);
-  const [selectValue, setSelectValue] = useState([]);
 
   const hideDropdown = () => {
     if (isShowDropdown) {
@@ -22,42 +30,52 @@ const SelectInput2 = (props) => {
     }
   };
 
-  const triggerChange = (newValue) => {
-    if (multiple) {
-      onChange(name, newValue);
-    } else {
-      onChange(name, newValue[0] || '');
-    }
-  };
-
   const onClear = () => {
-    setSelectValue([]);
+    if (multiple) {
+      setSelectValue([]);
+    } else setSelectValue('');
   };
 
   useEffect(() => {
     if (multiple) {
-      setSelectValue([...value]);
-    } else {
-      setSelectValue([value]);
+      if (!isEqualArray(selectValue, value)) {
+        setSelectValue([...value]);
+      }
+    } else if (selectValue !== value) {
+      setSelectValue(value);
     }
-  }, [JSON.stringify(value)]);
+  }, [value]);
 
   useEffect(() => {
-    triggerChange(selectValue);
-  }, [JSON.stringify(selectValue.sort())]);
+    if (multiple) {
+      if (!isEqualArray(selectValue, value)) {
+        onChange(name, selectValue);
+      }
+    } else if (selectValue !== value) {
+      onChange(name, selectValue);
+    }
+  }, [selectValue]);
 
   const handleChange = (option) => {
     if (!multiple) {
-      setSelectValue([option.value]);
+      setSelectValue(option.value);
       return;
     }
     if (selectValue.includes(option.value)) {
-      selectValue.splice(selectValue.indexOf(option.value), 1);
-      setSelectValue([...selectValue]);
+      const newSelectValue = [...selectValue];
+      newSelectValue.splice(newSelectValue.indexOf(option.value), 1);
+      setSelectValue(newSelectValue);
     } else {
       setSelectValue([option.value, ...selectValue]);
     }
   };
+
+  let count;
+  if (multiple) {
+    count = selectValue.length;
+  } else {
+    count = selectValue ? 1 : 0;
+  }
 
   return (
     <>
@@ -66,7 +84,7 @@ const SelectInput2 = (props) => {
           readOnly
           type="text"
           className="input text-gray-600 w-40"
-          value={t('selected', { count: value ? selectValue.length : 0, optionsCount: options.length })}
+          value={t('selected', { count, optionsCount: options.length })}
           onClick={showDropdown}
         />
         {isShowDropdown ? (
@@ -112,14 +130,13 @@ SelectInput2.propTypes = {
   name: PropTypes.string.isRequired,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   options: PropTypes.any.isRequired,
-  onChange: PropTypes.func,
+  onChange: PropTypes.func.isRequired,
   multiple: PropTypes.bool,
 };
 
 SelectInput2.defaultProps = {
-  onChange: undefined,
+  value: undefined,
   multiple: false,
-  value: [],
 };
 
 

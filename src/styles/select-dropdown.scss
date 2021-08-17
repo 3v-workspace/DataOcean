@@ -2,22 +2,17 @@
     z-index: 20;
     position: absolute;
     margin-top: 0.25rem;
-    visibility: hidden;
+    display: none;
     opacity: 0;
-    transition: visibility 0s linear 0.2s, opacity 0.2s 0s;
 }
 
 .select-dropdown.show {
-    visibility: visible;
+    display: block;
     opacity: 1;
 }
 
 .select-dropdown.show > .select-dropdown__content {
     margin-top: -1px;
-}
-
-.select-dropdown.show > .sselect-dropdown__content .tab-content .tab-content__pane {
-    visibility: visible;
 }
 
 .select-dropdown .select-dropdown__content {

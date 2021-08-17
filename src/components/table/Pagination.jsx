@@ -19,26 +19,23 @@ const Pagination = (props) => {
     }
   };
 
-  const pageRange = [];
-  if (tc.page > 1) {
-    pageRange.push(tc.page - 1);
+  let pageRange = [tc.page - 2, tc.page - 1, tc.page, tc.page + 1, tc.page + 2];
+  if ([1, 2].includes(tc.page)) {
+    pageRange.push(tc.page + 3);
   }
-  pageRange.push(tc.page);
-  if (tc.page < tc.maxPage) {
-    pageRange.push(tc.page + 1);
+  if (tc.page === 1) {
+    pageRange.push(tc.page + 4);
   }
-  if (pageRange.length === 2 && tc.maxPage >= 3) {
-    if (tc.page === 1) {
-      pageRange.push(3);
-    }
-    if (tc.page === tc.maxPage) {
-      pageRange.splice(0, 0, tc.maxPage - 2);
-    }
+  if ([0, 1].includes(tc.maxPage - tc.page)) {
+    pageRange.splice(0, 0, tc.maxPage - 4);
   }
+  if (tc.maxPage - tc.page === 0) {
+    pageRange.splice(0, 0, tc.maxPage - 5);
+  }
+  pageRange = pageRange.filter((p) => p >= 1 && p <= tc.maxPage);
 
   const handleChangePageSize = (e) => {
     tc.setPageSize(+e.target.value);
-    tc.setPage(1);
   };
 
   return (
@@ -62,11 +59,11 @@ const Pagination = (props) => {
             <ChevronLeft className="w-4 h-4" />
           </button>
         </li>
-        {pageRange[0] > 1 && (
-          <li>
-            <div className="pagination__link">...</div>
-          </li>
-        )}
+        {/*{pageRange[0] > 1 && (*/}
+        {/*  <li>*/}
+        {/*    <div className="pagination__link">...</div>*/}
+        {/*  </li>*/}
+        {/*)}*/}
         {pageRange.map((page) => (
           <li key={page}>
             <button
@@ -78,11 +75,11 @@ const Pagination = (props) => {
             </button>
           </li>
         ))}
-        {pageRange[pageRange.length - 1] < tc.maxPage && (
-          <li>
-            <div className="pagination__link">...</div>
-          </li>
-        )}
+        {/*{pageRange[pageRange.length - 1] < tc.maxPage && (*/}
+        {/*  <li>*/}
+        {/*    <div className="pagination__link">...</div>*/}
+        {/*  </li>*/}
+        {/*)}*/}
         <li>
           <button
             type="button"

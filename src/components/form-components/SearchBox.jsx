@@ -7,7 +7,7 @@ import Tooltip from 'components/Tooltip';
 const SearchBox = (props) => {
   const {
     value, onChange, onClear, name, id, placeholder, containerClass,
-    className, size, onBlur, onSearch, isRounded,
+    className, size, onBlur, onSearch, isRounded, defaultValue,
   } = props;
   const { t } = useTranslation();
   const [mouseOver, setMouseOver] = useState(false);
@@ -38,6 +38,7 @@ const SearchBox = (props) => {
         type="text"
         placeholder={placeholder || `${t('search')}...`}
         value={value}
+        defaultValue={defaultValue}
         onChange={onChange}
         onKeyPress={(e) => {
           if (onSearch && e.key === 'Enter') {
@@ -77,6 +78,7 @@ SearchBox.propTypes = {
   placeholder: PropTypes.string,
   onSearch: PropTypes.func,
   isRounded: PropTypes.bool,
+  defaultValue: PropTypes.string,
 };
 
 SearchBox.defaultProps = {
@@ -92,6 +94,7 @@ SearchBox.defaultProps = {
   onBlur: undefined,
   onSearch: undefined,
   isRounded: false,
+  defaultValue: undefined,
 };
 
 export default SearchBox;

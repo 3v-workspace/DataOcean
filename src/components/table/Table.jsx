@@ -4,12 +4,21 @@ import { useTableController } from 'components/table/index';
 import ExportXlsx from 'components/table/ExportXlsx';
 import Pagination from 'components/table/Pagination';
 import { SearchBox } from 'components/form-components';
-import { ChevronDown, ChevronUp } from 'react-feather';
+import { ReactComponent as ArrowUp } from 'images/ParallelArrowUp.svg';
+import { ReactComponent as ArrowDown } from 'images/ParallelArrowDown.svg';
 import LoadingIcon from 'components/LoadingIcon';
 import { useTranslation } from 'react-i18next';
 import FilterField from 'components/filter-fields/FilterField';
+import { useDispatch, useSelector } from 'react-redux';
+import { tableSetFilters, initTable, tableSetSearch } from 'store/tables/actionCreators';
 
-const generateFilterValues = (columns) => {
+
+// FIXME: temporary variables for hiding functional
+const hideExportButton = true;
+const hideFilters = true;
+
+
+const getDefaultFilterValues = (columns) => {
   const defaultValues = {};
   columns.forEach((col) => {
     if (!col.filter) return;
@@ -26,14 +35,23 @@ const generateFilterValues = (columns) => {
   return defaultValues;
 };
 
+
 const Table = (props) => {
   const { t } = useTranslation();
-  const { columns, url, fields, axiosConfigs, onRowClick, exportUrl, styleWidth } = props;
-  const [search, setSearch] = useState('');
+  const { columns, url, fields, axiosConfigs, onRowClick, exportUrl, minHeight } = props;
+  const dispatch = useDispatch();
 
-  const defaultFilterValues = generateFilterValues(columns);
-  const [filterValues, setFilterValues] = useState(defaultFilterValues);
-  const [params, setParams] = useState({ search });
+  const defaultFilters = getDefaultFilterValues(columns);
+  let filters = useSelector((state) => state.tables[url]?.filters);
+  const setFilters = (newFilter) => dispatch(tableSetFilters(url, newFilter));
+  if (!filters) {
+    dispatch(initTable(url, defaultFilters));
+    filters = defaultFilters;
+  }
+  const search = useSelector((state) => state.tables[url].search);
+  const setSearch = (newSearch) => dispatch(tableSetSearch(url, newSearch));
+
+  const params = { ...filters, search };
   if (fields.length) {
     params.fields = fields.join(',');
   }
@@ -41,26 +59,22 @@ const Table = (props) => {
   const tc = useTableController({ url, params, axiosConfigs });
 
   const onFilterChange = (name, value) => {
-    setFilterValues({ ...filterValues, [name]: value });
+    setFilters({ ...filters, [name]: value });
   };
 
-  const passFiltersToParams = () => {
-    setParams({ ...params, ...filterValues });
+  const reloadTable = () => {
     tc.setPage(1);
+    tc.reload();
   };
 
   const onSearch = (name, value) => {
     setSearch(value);
-    setParams({ ...params, search: value });
-    tc.setPage(1);
+    reloadTable();
   };
 
-  const isAnyFilter = columns.some((col) => !!col.filter);
-
   const resetAllFilters = () => {
-    setParams({ ...params, ...defaultFilterValues });
-    setFilterValues({ ...filterValues, ...defaultFilterValues });
-    tc.setPage(1);
+    setFilters({ ...defaultFilters });
+    reloadTable();
   };
 
   const handleHeaderClick = (col) => {
@@ -116,6 +130,21 @@ const Table = (props) => {
     return null;
   };
 
+  const renderSortArrow = (col) => {
+    if (tc.orderProp !== col.prop) {
+      return (
+        <>
+          <ArrowUp className="h-4 opacity-50" />
+          <ArrowDown className="h-4 opacity-50" />
+        </>
+      );
+    }
+    if (tc.getOrderingDirection() === 'desc') {
+      return <ArrowUp className="h-4" />;
+    }
+    return <ArrowDown className="h-4" />;
+  };
+
   return (
     <div>
       <div className="intro-y flex flex-wrap sm:flex-no-wrap items-center justify-end mb-3 p-2">
@@ -131,7 +160,7 @@ const Table = (props) => {
         {/*    count: tc.count,*/}
         {/*  })}*/}
         {/*</div>*/}
-        { exportUrl && (
+        {!hideExportButton && exportUrl && (
           <div className="mr-6">
             <ExportXlsx
               exportUrl={exportUrl}
@@ -141,20 +170,24 @@ const Table = (props) => {
           </div>
         )}
         <div className="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">
-          <SearchBox containerClass="w-56" onSearch={onSearch} />
+          <SearchBox
+            containerClass="w-56"
+            defaultValue={search}
+            onSearch={onSearch}
+          />
         </div>
       </div>
       <div className="p-5">
         <Pagination tableController={tc} />
       </div>
-      { isAnyFilter && (
+      {!hideFilters && columns.some((col) => !!col.filter) && (
         <div className="intro-y flex flex-wrap sm:flex-no-wrap items-center justify-end">
           <div className="text-base font-medium text-gray-700 cursor-pointer" onClick={resetAllFilters}>
             {t('resetAllFilters')}
           </div>
         </div>
       )}
-      <div className="overflow-x-auto box" style={styleWidth}>
+      <div className="overflow-x-auto box" style={{ minHeight: `${minHeight}` }}>
         {tc.isLoading && (
           <div className="w-full h-full bg-gray-700 bg-opacity-25 absolute flex items-center justify-center">
             <LoadingIcon icon="three-dots" className="w-16 h-16" />
@@ -175,20 +208,19 @@ const Table = (props) => {
                   >
                     {col.header}
                     {!col.noSort && (
-                      <div className="px-4">
-                        <ChevronUp className={`w-4 h-4 -mb-1 ${tc.getOrderingDirection() === 'desc' && tc.orderProp === col.prop ? '' : 'opacity-50'}`} />
-                        <ChevronDown className={`w-4 h-4 -mt-1 ${tc.getOrderingDirection() === 'asc' && tc.orderProp === col.prop ? '' : 'opacity-50'}`} />
+                      <div className="px-1 flex justify-center items-center">
+                        {renderSortArrow(col)}
                       </div>
                     )}
                   </div>
                   <div>
-                    {col.filter && (
+                    {!hideFilters && col.filter && (
                       <FilterField
                         filter={col.filter}
-                        value={filterValues[col.filter.name]}
-                        defaultValue={defaultFilterValues[col.filter.name]}
+                        value={filters[col.filter.name]}
+                        defaultValue={defaultFilters[col.filter.name]}
                         onChange={onFilterChange}
-                        onSearch={passFiltersToParams}
+                        onSearch={reloadTable}
                       />
                     )}
                   </div>
@@ -225,14 +257,14 @@ Table.propTypes = {
   axiosConfigs: PropTypes.object,
   onRowClick: PropTypes.func,
   exportUrl: PropTypes.string,
-  styleWidth: PropTypes.object,
+  minHeight: PropTypes.string,
 };
 Table.defaultProps = {
   fields: [],
   axiosConfigs: {},
   onRowClick: undefined,
   exportUrl: undefined,
-  styleWidth: undefined,
+  minHeight: undefined,
 };
 
 export default Table;

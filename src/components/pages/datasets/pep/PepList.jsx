@@ -56,7 +56,7 @@ const PepList = ({ match, history }) => {
       },
     },
     {
-      header: i18n.language === 'uk' ? `${t('type')} ${t('pep')}` : `${t('pep')} ${('type')}`,
+      header: t('pepType'),
       prop: 'pep_type_display',
       width: '20%',
       noSort: true,
@@ -65,11 +65,11 @@ const PepList = ({ match, history }) => {
         type: 'select',
         multiple: true,
         options: [
-          { value: 'national PEP', label: t('pepType.nationalPEP') },
-          { value: 'foreign PEP', label: t('pepType.foreignPEP') },
-          { value: 'PEP with political functions in international organization', label: t('pepType.PEPwithPoliticalFunctions') },
-          { value: 'associated person with PEP', label: t('pepType.associatedPersonWithPEP') },
-          { value: 'member of PEP`s family', label: t('pepType.familyMemberOfPEP') },
+          { value: 'national PEP', label: t('pepTypes.nationalPEP') },
+          { value: 'foreign PEP', label: t('pepTypes.foreignPEP') },
+          { value: 'PEP with political functions in international organization', label: t('pepTypes.PEPwithPoliticalFunctions') },
+          { value: 'associated person with PEP', label: t('pepTypes.associatedPersonWithPEP') },
+          { value: 'member of PEP`s family', label: t('pepTypes.familyMemberOfPEP') },
         ],
       },
     },
@@ -127,7 +127,7 @@ const PepList = ({ match, history }) => {
           history.push(`${match.url}${row.id}/`);
         }}
         exportUrl="pep/xlsx/"
-        styleWidth={{ minHeight: 400 }}
+        minHeight="400px"
       />
     </PageBox>
   );

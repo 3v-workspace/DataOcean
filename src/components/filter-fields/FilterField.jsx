@@ -119,10 +119,14 @@ FilterField.propTypes = {
   }).isRequired,
   onChange: PropTypes.func.isRequired,
   onSearch: PropTypes.func.isRequired,
-  value: PropTypes.oneOfType([PropTypes.string, PropTypes.array]).isRequired,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   defaultValue: PropTypes.oneOfType([
     PropTypes.string, PropTypes.array,
   ]).isRequired,
+};
+
+FilterField.defaultProps = {
+  value: undefined,
 };
 
 export default FilterField;
