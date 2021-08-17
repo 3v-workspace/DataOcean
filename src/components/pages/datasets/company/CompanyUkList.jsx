@@ -10,26 +10,31 @@ const CompanyUkList = () => {
   const columns = [
     {
       header: t('companyID'),
+      defaultSelected: true,
       prop: 'edrpou',
       width: '5%',
     },
     {
       header: t('name'),
+      defaultSelected: true,
       prop: 'name',
       width: '35%',
     },
     {
       header: t('status'),
+      defaultSelected: true,
       prop: 'status',
       width: '10%',
     },
     {
       header: t('address'),
+      defaultSelected: true,
       prop: 'address',
       width: '40%',
     },
     {
       header: t('authorizedCapital'),
+      defaultSelected: true,
       prop: 'authorized_capital',
       width: '10%',
     },

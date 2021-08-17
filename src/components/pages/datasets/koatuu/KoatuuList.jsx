@@ -11,26 +11,31 @@ const KoatuuList = () => {
   const columns = [
     {
       header: t('code'),
+      defaultSelected: true,
       prop: 'code',
       width: '10%',
     },
     {
       header: t('name'),
+      defaultSelected: true,
       prop: 'name',
       width: '20%',
     },
     {
       header: t('thirdLevelOfSubordination'),
+      defaultSelected: true,
       prop: 'third_level',
       width: '20%',
     },
     {
       header: t('secondLevelOfSubordination'),
+      defaultSelected: true,
       prop: 'second_level',
       width: '20%',
     },
     {
       header: t('firstLevelOfSubordination'),
+      defaultSelected: true,
       prop: 'first_level',
       width: '20%',
     },

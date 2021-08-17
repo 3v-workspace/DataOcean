@@ -12,17 +12,20 @@ const PersonSanctionList = ({ match, history }) => {
   const columns = [
     {
       header: 'ID',
+      defaultSelected: true,
       prop: 'id',
       width: '5%',
       noSort: true,
     },
     {
       header: t('fullName'),
+      defaultSelected: true,
       prop: 'full_name',
       width: '20%',
     },
     {
       header: t('dateOfBirth'),
+      defaultSelected: true,
       prop: 'date_of_birth',
       width: '17%',
       noSort: true,
@@ -30,24 +33,28 @@ const PersonSanctionList = ({ match, history }) => {
     },
     {
       header: t('startDate'),
+      defaultSelected: true,
       prop: 'start_date',
       width: '17%',
       render: (v) => dateFormat(v),
     },
     {
       header: t('endDate'),
+      defaultSelected: true,
       prop: 'end_date',
       width: '17%',
       render: (v) => dateFormat(v),
     },
     {
       header: t('taxpayerNumber'),
+      defaultSelected: true,
       prop: 'taxpayer_number',
       width: '10%',
       noSort: true,
     },
     {
       header: t('countriesOfCitizenship'),
+      defaultSelected: true,
       prop: 'countries_of_citizenship',
       width: '19%',
       noSort: true,

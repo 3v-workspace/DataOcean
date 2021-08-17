@@ -11,41 +11,48 @@ const CompanySanctionList = ({ match, history }) => {
   const columns = [
     {
       header: 'ID',
+      defaultSelected: true,
       prop: 'id',
       width: '5%',
       noSort: true,
     },
     {
       header: t('companyName'),
+      defaultSelected: true,
       prop: 'name',
       width: '20%',
     },
     {
       header: t('startDate'),
+      defaultSelected: true,
       prop: 'start_date',
       width: '20%',
       render: (v) => dateFormat(v),
     },
     {
       header: t('endDate'),
+      defaultSelected: true,
       prop: 'end_date',
       width: '15%',
       render: (v) => dateFormat(v),
     },
     {
       header: t('taxpayerNumber'),
+      defaultSelected: true,
       prop: 'taxpayer_number',
       width: '20%',
       noSort: true,
     },
     {
       header: t('registrationNumber'),
+      defaultSelected: true,
       prop: 'registration_number',
       width: '20%',
       noSort: true,
     },
     {
       header: t('countryOfRegistration'),
+      defaultSelected: true,
       prop: 'country_of_registration',
       width: '20%',
       noSort: true,

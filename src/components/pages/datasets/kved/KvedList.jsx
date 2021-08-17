@@ -10,26 +10,31 @@ const KvedList = () => {
   const columns = [
     {
       header: t('code'),
+      defaultSelected: true,
       prop: 'code',
       width: '4%',
     },
     {
       header: t('class'),
+      defaultSelected: true,
       prop: 'name',
       width: '24%',
     },
     {
       header: t('group'),
+      defaultSelected: true,
       prop: 'group',
       width: '24%',
     },
     {
       header: t('division'),
+      defaultSelected: true,
       prop: 'division',
       width: '24%',
     },
     {
       header: t('section'),
+      defaultSelected: true,
       prop: 'section',
       width: '24%',
     },
