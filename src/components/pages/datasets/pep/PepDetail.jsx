@@ -50,8 +50,8 @@ const PepDetail = ({ match }) => {
     }
     return (
       <ul className="list-disc list-inside">
-        {data.related_companies.map((company) => (
-          <li>
+        {data.related_companies.map((company, index) => (
+          <li key={index}>
             <span>
               {getLocaleField(company.company, 'name')} ({company.company.edrpou})
             </span>
@@ -68,7 +68,7 @@ const PepDetail = ({ match }) => {
     return (
       <ul className="list-disc list-inside">
         {data.from_person_links.map((person) => (
-          <li>
+          <li key={person.to_person.id}>
             <span className="italic mr-1">
               {getLocaleField(person, 'to_person_relationship_type')} —
             </span>
@@ -81,7 +81,7 @@ const PepDetail = ({ match }) => {
           </li>
         ))}
         {data.to_person_links.map((person) => (
-          <li>
+          <li key={person.from_person.id}>
             <span className="italic mr-1">
               {getLocaleField(person, 'from_person_relationship_type')} —
             </span>
