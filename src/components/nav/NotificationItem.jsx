@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { datetimeFormat } from 'utils';
+import { dateTimeFormat } from 'utils';
 import Tooltip from 'components/Tooltip';
 import { X } from 'react-feather';
 import unreadPin from 'images/unreadNitification.svg';
@@ -19,7 +19,7 @@ const NotificationItem = (props) => {
     >
       <div className="relative flex items-center justify-between">
         <small className="text-gray-600">
-          {datetimeFormat(message.created_at)}
+          {dateTimeFormat(message.created_at)}
         </small>
         <div className="flex items-center">
           <Tooltip

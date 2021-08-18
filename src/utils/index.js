@@ -6,13 +6,21 @@ export { default as setLanguage } from './setLanguage';
 export { default as toast } from './toast';
 
 
-export const upFirstLetter = (string) => string.charAt(0).toUpperCase() + string.slice(1);
+export function upFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
 
 
-// export const dateFormat = (iso) => moment(iso).format('MMMM D, YYYY');
+export function stringFormat(string, data) {
+  let newString = string;
+  Object.entries(data).forEach(([key, value]) => {
+    newString = newString.replace(`{${key}}`, value);
+  });
+  return newString;
+}
 
 
-const baseDateFormat = (isoString, format_uk, format_en) => {
+function baseDateFormat(isoString, format_uk, format_en) {
   const lang = i18n.language;
   const moment_date = moment(isoString);
   if (!moment_date.isValid()) {
@@ -25,18 +33,22 @@ const baseDateFormat = (isoString, format_uk, format_en) => {
     return moment_date.format(format_uk);
   }
   return moment_date.format(format_en);
-};
+}
 
 
 export function dateFormat(isoString) {
-  return baseDateFormat(isoString, 'DD MMMM YYYY', 'MMM DD, YYYY');
-}
-export function datetimeFormat(isoString) {
-  return baseDateFormat(isoString, 'DD MMMM YYYY HH:mm', 'MMM DD, YYYY HH:mm');
+  if (/^\d{4}$/.test(isoString)) {
+    return baseDateFormat(isoString, 'YYYY р.', 'YYYY');
+  }
+  if (/^\d{4}-\d{2}$/.test(isoString)) {
+    return baseDateFormat(isoString, 'MMMM YYYY р.', 'MMMM YYYY');
+  }
+  return baseDateFormat(isoString, 'DD MMMM YYYY р.', 'MMM DD, YYYY');
 }
 
-
-export const dateFormatISO = (iso) => moment(iso).format('YYYY-MM-DD');
+export function dateTimeFormat(isoString) {
+  return baseDateFormat(isoString, 'DD MMMM YYYY р. HH:ss', 'MMM DD, YYYY HH:ss');
+}
 
 export const isEqualArray = (array1, array2) => {
   if (array1.length !== array2.length) {
@@ -46,8 +58,5 @@ export const isEqualArray = (array1, array2) => {
     return true;
   }
   const result = array1.find((item) => !array2.includes(item));
-  if (result === undefined) {
-    return true;
-  }
-  return false;
+  return result === undefined;
 };
