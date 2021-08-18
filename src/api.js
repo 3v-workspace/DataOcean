@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { PROJECT_TOKEN_PREFIX } from 'const/const';
+import { PROJECT_TOKEN_PREFIX } from 'const';
 import toast from 'utils/toast';
 import { Cookies } from 'react-cookie';
 import { SET_COOKIE_OPTIONS } from 'hooks/useDOCookies';

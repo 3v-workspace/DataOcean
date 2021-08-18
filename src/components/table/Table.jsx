@@ -14,19 +14,20 @@ import { tableSetFilters, initTable, tableSetSearch, setSelectedColumns } from '
 import SelectColumns from 'components/table/SelectColumns';
 import { ChevronDown, ChevronUp } from 'react-feather';
 import setColumns from 'images/setColumns.svg';
-
-
-// FIXME: temporary variables for hiding functional
-const hideExportButton = true;
-const hideFilters = true;
-
+import { HIDE_EXPORT_BUTTON, HIDE_FILTERS } from 'const';
 
 const getDefaultFilterValues = (columns) => {
   const defaultValues = {};
   columns.forEach((col) => {
     if (!col.filter) return;
-    if (['text', 'number', 'date', 'select'].includes(col.filter.type)) {
+    if (['text', 'number', 'date'].includes(col.filter.type)) {
       defaultValues[col.filter.name] = '';
+    } else if (col.filter.type === 'select') {
+      if (col.filter.multiple) {
+        defaultValues[col.filter.name] = [];
+      } else {
+        defaultValues[col.filter.name] = '';
+      }
     }
   });
   return defaultValues;
@@ -35,7 +36,7 @@ const getDefaultFilterValues = (columns) => {
 
 const Table = (props) => {
   const { t } = useTranslation();
-  const { columns, url, fields, axiosConfigs, onRowClick, exportUrl } = props;
+  const { columns, url, fields, axiosConfigs, onRowClick, exportUrl, minHeight } = props;
   const dispatch = useDispatch();
 
   const defaultFilters = getDefaultFilterValues(columns);
@@ -169,7 +170,7 @@ const Table = (props) => {
         {/*    count: tc.count,*/}
         {/*  })}*/}
         {/*</div>*/}
-        {!hideExportButton && exportUrl && (
+        {!HIDE_EXPORT_BUTTON && exportUrl && (
           <div className="mr-6">
             <ExportXlsx
               exportUrl={exportUrl}
@@ -189,7 +190,7 @@ const Table = (props) => {
       <div className="p-5">
         <Pagination tableController={tc} />
       </div>
-      {!hideFilters && columns.some((col) => !!col.filter) && (
+      {!HIDE_FILTERS && columns.some((col) => !!col.filter) && (
         <div className="intro-y flex flex-wrap sm:flex-no-wrap items-center justify-end">
           <div className="text-base font-medium text-gray-700 cursor-pointer" onClick={resetAllFilters}>
             {t('resetAllFilters')}
@@ -206,7 +207,7 @@ const Table = (props) => {
           defaultSelectedColumnsNames={defaultSelectedColumnsNames}
         />
       </div>
-      <div className="overflow-x-auto box">
+      <div className="overflow-x-auto box" style={{ minHeight: `${minHeight}` }}>
         {tc.isLoading && (
           <div className="w-full h-full bg-gray-700 bg-opacity-25 absolute flex items-center justify-center">
             <LoadingIcon icon="three-dots" className="w-16 h-16" />
@@ -233,7 +234,7 @@ const Table = (props) => {
                     )}
                   </div>
                   <div>
-                    {!hideFilters && col.filter && (
+                    {!HIDE_FILTERS && col.filter && (
                       <FilterField
                         filter={col.filter}
                         value={filters[col.filter.name]}
@@ -269,8 +270,6 @@ Table.propTypes = {
     filter: PropTypes.shape({
       name: PropTypes.string.isRequired,
       type: PropTypes.string.isRequired,
-      placeholder: PropTypes.string,
-      width: PropTypes.string,
     }),
     render: PropTypes.func,
   })).isRequired,
@@ -279,12 +278,14 @@ Table.propTypes = {
   axiosConfigs: PropTypes.object,
   onRowClick: PropTypes.func,
   exportUrl: PropTypes.string,
+  minHeight: PropTypes.string,
 };
 Table.defaultProps = {
   fields: [],
   axiosConfigs: {},
   onRowClick: undefined,
   exportUrl: undefined,
+  minHeight: undefined,
 };
 
 export default Table;

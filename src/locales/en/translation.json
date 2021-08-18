@@ -278,6 +278,13 @@
   "pepInfo": "PEP Information",
   "pepScheme": "PEP Scheme",
   "pepType": "PEP type",
+  "pepTypes": {
+    "PEPwithPoliticalFunctions": "PEP with political functions in international organization",
+    "associatedPersonWithPEP": "Associated person with PEP",
+    "familyMemberOfPEP": "Member of PEP`s family",
+    "foreignPEP": "Foreign politically exposed person",
+    "nationalPEP": "National politically exposed person"
+  },
   "person-sanction": "Sanctions against persons",
   "personInfo": "Person's Information",
   "personStatus": "User status",

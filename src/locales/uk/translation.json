@@ -278,6 +278,13 @@
   "pepInfo": "Інформація про PEP",
   "pepScheme": "Схема PEP",
   "pepType": "Тип PEP",
+  "pepTypes": {
+    "PEPwithPoliticalFunctions": "Публічний діяч з політичними функціями у міжнародній організації",
+    "associatedPersonWithPEP": "Пов'язана особа",
+    "familyMemberOfPEP": "Член сім'ї",
+    "foreignPEP": "Іноземний публічний діяч",
+    "nationalPEP": "Національний публічний діяч"
+  },
   "person-sanction": "Реєстр санкцій персональний",
   "personInfo": "Інформація про персону",
   "personStatus": "Статус користувача",

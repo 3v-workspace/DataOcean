@@ -3,7 +3,7 @@ import React from 'react';
 import Table from 'components/table/Table';
 import PageBox from 'components/pages/PageBox';
 import { useTranslation } from 'react-i18next';
-import { dateFormatISO } from 'utils';
+import { dateFormat } from 'utils';
 import { ReactRouterPropTypes } from 'utils/prop-types';
 import getLocaleFields from 'const/getLocaleField';
 
@@ -39,6 +39,7 @@ const PepList = ({ match, history }) => {
       prop: 'date_of_birth',
       width: '5%',
       noSort: true,
+      render: (v) => dateFormat(v),
       filter: {
         name: 'date_of_birth',
         type: 'text',
@@ -55,8 +56,8 @@ const PepList = ({ match, history }) => {
         name: 'is_pep',
         type: 'select',
         options: [
-          { value: '0', label: t('notPoliticallyExposedPerson') },
           { value: '1', label: t('politicallyExposedPerson') },
+          { value: '0', label: t('notPoliticallyExposedPerson') },
         ],
       },
     },
@@ -65,6 +66,18 @@ const PepList = ({ match, history }) => {
       prop: 'pep_type_display',
       width: '20%',
       noSort: true,
+      filter: {
+        name: 'pep_type',
+        type: 'select',
+        multiple: true,
+        options: [
+          { value: 'national PEP', label: t('pepTypes.nationalPEP') },
+          { value: 'foreign PEP', label: t('pepTypes.foreignPEP') },
+          { value: 'PEP with political functions in international organization', label: t('pepTypes.PEPwithPoliticalFunctions') },
+          { value: 'associated person with PEP', label: t('pepTypes.associatedPersonWithPEP') },
+          { value: 'member of PEP`s family', label: t('pepTypes.familyMemberOfPEP') },
+        ],
+      },
     },
     {
       header: t('lastPosition'),
@@ -92,7 +105,7 @@ const PepList = ({ match, history }) => {
       header: t('lastUpdated'),
       prop: 'updated_at',
       width: '10%',
-      render: (v) => dateFormatISO(v),
+      render: (v) => dateFormat(v),
       filter: {
         name: 'updated_at_date',
         type: 'text',
@@ -124,6 +137,7 @@ const PepList = ({ match, history }) => {
           history.push(`${match.url}${row.id}/`);
         }}
         exportUrl="pep/xlsx/"
+        minHeight="400px"
       />
     </PageBox>
   );

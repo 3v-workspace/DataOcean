@@ -56,7 +56,13 @@ const useTableController = (options) => {
     if (params) {
       Object.entries(params).forEach(([key, value]) => {
         if (value) {
-          urlParams.set(key, value.toString());
+          if (Array.isArray(value)) {
+            value.forEach((val) => {
+              urlParams.append(key, val);
+            });
+          } else {
+            urlParams.set(key, value.toString());
+          }
         }
       });
     }
