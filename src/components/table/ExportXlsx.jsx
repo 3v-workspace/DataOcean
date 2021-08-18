@@ -4,7 +4,7 @@ import { Download } from 'react-feather';
 import Tooltip from 'components/Tooltip';
 import { useTranslation } from 'react-i18next';
 import Api from 'api';
-import { EXPORT_PEP_XLSX_LIMIT } from 'const/const';
+import { EXPORT_PEP_XLSX_LIMIT } from 'const';
 import YesNoModal from 'components/modals/YesNoModal';
 import toast from 'utils/toast';
 import { useSelector } from 'react-redux';

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { useTableController } from 'components/table/index';
 import ExportXlsx from 'components/table/ExportXlsx';
@@ -11,11 +11,7 @@ import { useTranslation } from 'react-i18next';
 import FilterField from 'components/filter-fields/FilterField';
 import { useDispatch, useSelector } from 'react-redux';
 import { tableSetFilters, initTable, tableSetSearch } from 'store/tables/actionCreators';
-
-
-// FIXME: temporary variables for hiding functional
-const hideExportButton = true;
-const hideFilters = true;
+import { HIDE_EXPORT_BUTTON, HIDE_FILTERS } from 'const';
 
 
 const getDefaultFilterValues = (columns) => {
@@ -160,7 +156,7 @@ const Table = (props) => {
         {/*    count: tc.count,*/}
         {/*  })}*/}
         {/*</div>*/}
-        {!hideExportButton && exportUrl && (
+        {!HIDE_EXPORT_BUTTON && exportUrl && (
           <div className="mr-6">
             <ExportXlsx
               exportUrl={exportUrl}
@@ -180,7 +176,7 @@ const Table = (props) => {
       <div className="p-5">
         <Pagination tableController={tc} />
       </div>
-      {!hideFilters && columns.some((col) => !!col.filter) && (
+      {!HIDE_FILTERS && columns.some((col) => !!col.filter) && (
         <div className="intro-y flex flex-wrap sm:flex-no-wrap items-center justify-end">
           <div className="text-base font-medium text-gray-700 cursor-pointer" onClick={resetAllFilters}>
             {t('resetAllFilters')}
@@ -214,7 +210,7 @@ const Table = (props) => {
                     )}
                   </div>
                   <div>
-                    {!hideFilters && col.filter && (
+                    {!HIDE_FILTERS && col.filter && (
                       <FilterField
                         filter={col.filter}
                         value={filters[col.filter.name]}
