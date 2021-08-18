@@ -50,8 +50,8 @@ const PepList = ({ match, history }) => {
         name: 'is_pep',
         type: 'select',
         options: [
-          { value: '0', label: t('notPoliticallyExposedPerson') },
           { value: '1', label: t('politicallyExposedPerson') },
+          { value: '0', label: t('notPoliticallyExposedPerson') },
         ],
       },
     },
@@ -60,6 +60,18 @@ const PepList = ({ match, history }) => {
       prop: 'pep_type_display',
       width: '20%',
       noSort: true,
+      filter: {
+        name: 'pep_type',
+        type: 'select',
+        multiple: true,
+        options: [
+          { value: 'national PEP', label: t('pepTypes.nationalPEP') },
+          { value: 'foreign PEP', label: t('pepTypes.foreignPEP') },
+          { value: 'PEP with political functions in international organization', label: t('pepTypes.PEPwithPoliticalFunctions') },
+          { value: 'associated person with PEP', label: t('pepTypes.associatedPersonWithPEP') },
+          { value: 'member of PEP`s family', label: t('pepTypes.familyMemberOfPEP') },
+        ],
+      },
     },
     {
       header: t('lastPosition'),
@@ -115,6 +127,7 @@ const PepList = ({ match, history }) => {
           history.push(`${match.url}${row.id}/`);
         }}
         exportUrl="pep/xlsx/"
+        minHeight="400px"
       />
     </PageBox>
   );
