@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { dateFormat } from 'utils';
+import { renderDate } from 'utils';
 import { useParams } from 'react-router-dom';
 import Api from 'api';
 import UnfoldingBlock from 'components/UnfoldingBlock';
@@ -82,11 +82,11 @@ const PersonSanctionDetail = () => {
           </div>
           <div className="pl-5 flex flex-row">
             <div className="w-64 font-medium">{t('sanctionStartDate')}:</div>
-            <div className="max-w-xl">{dateFormat(data.start_date)}</div>
+            <div className="max-w-xl">{renderDate(data.start_date)}</div>
           </div>
           <div className="pl-5 flex flex-row">
             <div className="w-64 font-medium">{t('sanctionEndDate')}:</div>
-            <div className="max-w-xl">{dateFormat(data.end_date)}</div>
+            <div className="max-w-xl">{renderDate(data.end_date)}</div>
           </div>
           <div className="pl-5 flex flex-row">
             <div className="w-64 font-medium">{t('publicExpoused')}:</div>
@@ -96,7 +96,7 @@ const PersonSanctionDetail = () => {
             <div className="w-64 font-medium">{t('dateOfBirth')}:</div>
             <div className="max-w-xl">
               {data.date_of_birth ? (
-                dateFormat(data.date_of_birth)
+                renderDate(data.date_of_birth)
               ) : data.year_of_birth || '---'}
             </div>
           </div>

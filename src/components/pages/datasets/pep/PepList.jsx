@@ -3,9 +3,8 @@ import React from 'react';
 import Table from 'components/table/Table';
 import PageBox from 'components/pages/PageBox';
 import { useTranslation } from 'react-i18next';
-import { dateFormat } from 'utils';
+import { renderDate, getLocaleField } from 'utils';
 import { ReactRouterPropTypes } from 'utils/prop-types';
-import getLocaleFields from 'const/getLocaleField';
 
 const PepList = ({ match, history }) => {
   const { t, i18n } = useTranslation();
@@ -15,6 +14,7 @@ const PepList = ({ match, history }) => {
       prop: 'id',
       width: '5%',
       noSort: true,
+      defaultSelected: true,
       filter: {
         name: 'id',
         type: 'number',
@@ -31,7 +31,7 @@ const PepList = ({ match, history }) => {
         name: i18n.language === 'uk' ? 'fullname' : 'fullname_en',
         type: 'text',
       },
-      render: (v, row) => getLocaleFields(row, 'fullname'),
+      render: (v, row) => getLocaleField(row, 'fullname'),
     },
     {
       header: t('dateOfBirth'),
@@ -39,7 +39,7 @@ const PepList = ({ match, history }) => {
       prop: 'date_of_birth',
       width: '5%',
       noSort: true,
-      render: (v) => dateFormat(v),
+      render: (v) => renderDate(v),
       filter: {
         name: 'date_of_birth',
         type: 'text',
@@ -66,6 +66,7 @@ const PepList = ({ match, history }) => {
       prop: 'pep_type_display',
       width: '20%',
       noSort: true,
+      defaultSelected: true,
       filter: {
         name: 'pep_type',
         type: 'select',
@@ -88,7 +89,7 @@ const PepList = ({ match, history }) => {
         name: 'last_job_title',
         type: 'text',
       } : null,
-      render: (v, row) => getLocaleFields(row, 'last_job_title'),
+      render: (v, row) => getLocaleField(row, 'last_job_title'),
     },
     {
       header: t('lastPlaceOfWork'),
@@ -99,13 +100,14 @@ const PepList = ({ match, history }) => {
         name: 'last_employer',
         type: 'text',
       } : null,
-      render: (v, row) => getLocaleFields(row, 'last_employer'),
+      render: (v, row) => getLocaleField(row, 'last_employer'),
     },
     {
       header: t('lastUpdated'),
       prop: 'updated_at',
       width: '10%',
-      render: (v) => dateFormat(v),
+      defaultSelected: true,
+      render: (v) => renderDate(v),
       filter: {
         name: 'updated_at_date',
         type: 'text',

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import BooleanInput from 'components/form-components/BooleanInput';
 import { useTranslation } from 'react-i18next';
@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import { setSelectedColumns } from 'store/tables/actionCreators';
 
 const SelectColumns = (props) => {
-  const { tableUrl, columns, defaultSelectedColumnsNames } = props;
+  const { tableUrl, columns } = props;
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const selectedColumnsNames = useSelector((store) => store.tables[tableUrl].selectedColumns);
@@ -14,34 +14,36 @@ const SelectColumns = (props) => {
     if (e.target.checked) {
       dispatch(setSelectedColumns(tableUrl, columns.map((col) => col.prop)));
     } else {
-      dispatch(setSelectedColumns(tableUrl, defaultSelectedColumnsNames));
+      dispatch(setSelectedColumns(
+        tableUrl,
+        columns.filter((col) => col.defaultSelected).map((col) => col.prop),
+      ));
     }
   };
 
   const handleSelectedChange = (e) => {
     const columnName = e.target.name;
+    const columnIndex = selectedColumnsNames.indexOf(columnName);
+
     if (e.target.checked) {
-      if (selectedColumnsNames.indexOf(columnName) === -1) {
+      if (columnIndex === -1) {
         dispatch(setSelectedColumns(tableUrl, [...selectedColumnsNames, columnName]));
       }
     } else {
       const minimumColumns = 3;
       if (selectedColumnsNames.length > minimumColumns) {
-        if (selectedColumnsNames.indexOf(columnName) !== -1) {
-          dispatch(setSelectedColumns(tableUrl, selectedColumnsNames
-            .filter((name) => name !== columnName)));
+        if (columnIndex !== -1) {
+          dispatch(setSelectedColumns(
+            tableUrl,
+            selectedColumnsNames.filter((name) => name !== columnName),
+          ));
         }
       }
     }
   };
 
   return (
-    <div
-      // ref={dropdownRef}
-      // className="dropdown toggle cursor-pointer"
-      // onClick={handleClickIcon}
-      className="dropdown-box mt-8 absolute top-0 left-0 sm:left-auto sm:right-0 z-20 -ml-10 sm:ml-0"
-    >
+    <div className="dropdown-box mt-8 absolute top-0 left-0 sm:left-auto sm:right-0 z-20 -ml-10 sm:ml-0">
       <div className="dropdown-box__content box p-2 pt-3 pl-3 border">
         <div>
           <BooleanInput
@@ -81,7 +83,6 @@ SelectColumns.propTypes = {
     }),
     render: PropTypes.func,
   })).isRequired,
-  defaultSelectedColumnsNames: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default SelectColumns;

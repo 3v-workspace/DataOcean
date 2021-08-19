@@ -3,7 +3,7 @@ import React from 'react';
 import Table from 'components/table/Table';
 import PageBox from 'components/pages/PageBox';
 import { useTranslation } from 'react-i18next';
-import { dateFormat } from 'utils';
+import { renderDate } from 'utils';
 
 
 const FopList = () => {
@@ -32,14 +32,14 @@ const FopList = () => {
       defaultSelected: true,
       prop: 'registration_date',
       width: '10%',
-      render: (v) => dateFormat(v),
+      render: (v) => renderDate(v),
     },
     {
       header: t('terminationDate'),
       defaultSelected: true,
       prop: 'termination_date',
       width: '10%',
-      render: (v) => dateFormat(v),
+      render: (v) => renderDate(v),
     },
   ];
   return (

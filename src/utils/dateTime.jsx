@@ -21,7 +21,7 @@ function baseDateRender(isoString, format_uk, format_en) {
 }
 
 
-export function dateFormat(isoString) {
+export function renderDate(isoString) {
   if (/^\d{4}$/.test(isoString)) {
     return baseDateRender(isoString, 'YYYY р.', 'YYYY');
   }
@@ -31,6 +31,6 @@ export function dateFormat(isoString) {
   return baseDateRender(isoString, 'DD MMMM YYYY р.', 'MMM DD, YYYY');
 }
 
-export function dateTimeFormat(isoString) {
+export function renderDateTime(isoString) {
   return baseDateRender(isoString, 'DD MMMM YYYY р. HH:ss', 'MMM DD, YYYY HH:ss');
 }

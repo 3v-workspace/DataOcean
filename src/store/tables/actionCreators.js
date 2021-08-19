@@ -1,7 +1,7 @@
 import { createAction } from '@reduxjs/toolkit';
 
-export const initTable = createAction('tables/init', (tableName, defaultFilters) => ({
-  payload: { tableName, defaultFilters },
+export const initTable = createAction('tables/init', (tableName, extraParams = {}) => ({
+  payload: { tableName, extraParams },
 }));
 
 export const tableSetPage = createAction('tables/setPage', (tableName, page) => ({

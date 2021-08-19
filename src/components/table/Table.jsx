@@ -14,7 +14,7 @@ import { tableSetFilters, initTable, tableSetSearch, setSelectedColumns } from '
 import SelectColumns from 'components/table/SelectColumns';
 import { ChevronDown, ChevronUp } from 'react-feather';
 import setColumns from 'images/setColumns.svg';
-import { HIDE_EXPORT_BUTTON, HIDE_FILTERS } from 'const';
+import { HIDE_EXPORT_BUTTON, HIDE_FILTERS, HIDE_SELECT_COLUMNS } from 'const';
 
 const getDefaultFilterValues = (columns) => {
   const defaultValues = {};
@@ -40,10 +40,14 @@ const Table = (props) => {
   const dispatch = useDispatch();
 
   const defaultFilters = getDefaultFilterValues(columns);
+
   let filters = useSelector((store) => store.tables[url]?.filters);
   const setFilters = (newFilter) => dispatch(tableSetFilters(url, newFilter));
   if (!filters) {
-    dispatch(initTable(url, defaultFilters));
+    const defaultSelectedColumnsNames = columns
+      .filter((col) => col.defaultSelected)
+      .map((col) => col.prop);
+    dispatch(initTable(url, { defaultFilters, defaultSelectedColumnsNames }));
     filters = defaultFilters;
   }
   const search = useSelector((store) => store.tables[url].search);
@@ -57,16 +61,7 @@ const Table = (props) => {
 
   const tc = useTableController({ url, params, axiosConfigs });
   const selectedColumnsNames = useSelector((store) => store.tables[url].selectedColumns);
-  const defaultSelectedColumnsNames = columns
-    .filter((col) => col.defaultSelected)
-    .map((col) => col.prop);
-  useEffect(() => {
-    if (selectedColumnsNames.length === 0) {
-      dispatch(setSelectedColumns(url, defaultSelectedColumnsNames));
-    }
-  }, []);
-  const selectedColumns = columns
-    .filter((col) => selectedColumnsNames.includes(col.prop));
+  const selectedColumns = columns.filter((col) => selectedColumnsNames.includes(col.prop));
 
   const onFilterChange = (name, value) => {
     setFilters({ ...filters, [name]: value });
@@ -197,16 +192,17 @@ const Table = (props) => {
           </div>
         </div>
       )}
-      <div className="intro-x dropdown flex justify-end p-2">
-        <div>
-          <img src={setColumns} alt="" className="cursor-pointer" onClick={dropdownRef} />
+      {!HIDE_SELECT_COLUMNS && (
+        <div className="intro-x dropdown flex justify-end p-2">
+          <div>
+            <img src={setColumns} alt="" className="cursor-pointer" onClick={dropdownRef} />
+          </div>
+          <SelectColumns
+            tableUrl={url}
+            columns={columns}
+          />
         </div>
-        <SelectColumns
-          tableUrl={url}
-          columns={columns}
-          defaultSelectedColumnsNames={defaultSelectedColumnsNames}
-        />
-      </div>
+      )}
       <div className="overflow-x-auto box" style={{ minHeight: `${minHeight}` }}>
         {tc.isLoading && (
           <div className="w-full h-full bg-gray-700 bg-opacity-25 absolute flex items-center justify-center">

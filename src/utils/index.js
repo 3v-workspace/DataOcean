@@ -1,7 +1,9 @@
+import i18 from 'i18next';
+
 export { default as toggleFullScreen } from './fullscreen';
 export { default as setLanguage } from './setLanguage';
 export { default as toast } from './toast';
-export { dateFormat, dateTimeFormat } from './dateTime';
+export { renderDate, renderDateTime } from './dateTime';
 
 
 export function upFirstLetter(string) {
@@ -27,4 +29,11 @@ export const isEqualArray = (array1, array2) => {
   }
   const result = array1.find((item) => !array2.includes(item));
   return result === undefined;
+};
+
+export const getLocaleField = (object, fieldName) => {
+  if (i18.language === 'uk') {
+    return object[fieldName] || '---';
+  }
+  return object[`${fieldName}_en`] || '---';
 };
