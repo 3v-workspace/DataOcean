@@ -187,7 +187,7 @@ const Table = (props) => {
       </div>
       <div className="flex flex-wrap sm:flex-no-wrap items-center justify-end">
         {!HIDE_SELECT_COLUMNS && (
-          <div className="intro-x dropdown p-2">
+          <div className="intro-x dropdown p-2 flex flex-1 justify-end">
             <div>
               <img src={setColumns} alt="set-columns" className="cursor-pointer" />
             </div>
