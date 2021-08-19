@@ -186,24 +186,26 @@ const Table = (props) => {
       <div className="p-5">
         <Pagination tableController={tc} />
       </div>
-      {!HIDE_FILTERS && (JSON.stringify(filters) !== JSON.stringify(defaultFilters)) && (
-        <div className="flex flex-wrap sm:flex-no-wrap items-center justify-end">
-          <Tooltip content={t('resetAllFilters')} position="bottom">
-            <FilterOff className="cursor-pointer" onClick={resetAllFilters} />
-          </Tooltip>
-        </div>
-      )}
-      {!HIDE_SELECT_COLUMNS && (
-        <div className="intro-x dropdown flex justify-end p-2">
-          <div>
-            <img src={setColumns} alt="" className="cursor-pointer" onClick={dropdownRef} />
+      <div className="flex flex-wrap sm:flex-no-wrap items-center justify-end">
+        {!HIDE_SELECT_COLUMNS && (
+          <div className="intro-x dropdown p-2">
+            <div>
+              <img src={setColumns} alt="" className="cursor-pointer" onClick={dropdownRef} />
+            </div>
+            <SelectColumns
+              tableUrl={url}
+              columns={columns}
+            />
           </div>
-          <SelectColumns
-            tableUrl={url}
-            columns={columns}
-          />
-        </div>
-      )}
+        )}
+        {!HIDE_FILTERS && (JSON.stringify(filters) !== JSON.stringify(defaultFilters)) && (
+          <div>
+            <Tooltip content={t('resetAllFilters')} position="bottom">
+              <FilterOff className="cursor-pointer" onClick={resetAllFilters} />
+            </Tooltip>
+          </div>
+        )}
+      </div>
       <div className="overflow-x-auto box" style={{ minHeight: `${minHeight}` }}>
         {tc.isLoading && (
           <div className="w-full h-full bg-gray-700 bg-opacity-25 absolute flex items-center justify-center">
