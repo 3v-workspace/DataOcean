@@ -4,14 +4,17 @@ const tablesSlice = createSlice({
   name: 'tables',
   initialState: {},
   reducers: {
-    init(state, { payload: { tableName, defaultFilters } }) {
+    init(state, { payload: { tableName, extraParams } }) {
       state[tableName] = {
         page: 1,
         pageSize: 10,
         ordering: '',
       };
-      if (defaultFilters) {
-        state[tableName].filters = defaultFilters;
+      if (extraParams.defaultFilters) {
+        state[tableName].filters = extraParams.defaultFilters;
+      }
+      if (extraParams.defaultSelectedColumnsNames) {
+        state[tableName].selectedColumns = extraParams.defaultSelectedColumnsNames;
       }
     },
     setPage(state, { payload: { tableName, page } }) {
@@ -29,6 +32,9 @@ const tablesSlice = createSlice({
     },
     setSearch(state, { payload: { tableName, search } }) {
       state[tableName].search = search;
+    },
+    setSelectedColumns(state, { payload: { tableName, selectedColumns } }) {
+      state[tableName].selectedColumns = selectedColumns;
     },
   },
 });

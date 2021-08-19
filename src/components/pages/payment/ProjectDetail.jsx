@@ -14,7 +14,7 @@ import { useTranslation } from 'react-i18next';
 import Api from 'api';
 import { useFormik } from 'formik';
 import Yup from 'utils/yup';
-import { dateFormat } from 'utils';
+import { renderDate } from 'utils';
 import Form from 'components/form-components/Form';
 import { p2sStatus, u2pRole, u2pStatus } from 'const/projects';
 import toast from 'utils/toast';
@@ -242,7 +242,7 @@ const ProjectDetail = (props) => {
       return '---';
     }
     if (subscription.is_default) {
-      return dateFormat(subscription.expiring_date);
+      return renderDate(subscription.expiring_date);
     }
     if (subscription.payment_overdue_days !== null) {
       if (subscription.payment_overdue_days === 0) {
@@ -255,9 +255,9 @@ const ProjectDetail = (props) => {
           </span>
         );
       }
-      return dateFormat(subscription.payment_date);
+      return renderDate(subscription.payment_date);
     }
-    return dateFormat(subscription.payment_date);
+    return renderDate(subscription.payment_date);
   };
 
   if (!Object.keys(project).length) {
@@ -408,7 +408,7 @@ const ProjectDetail = (props) => {
           {project.name}
         </h3>
         <div className="intro-y text-gray-500 text-sm my-4 mt-1">
-          {t('created')}: {dateFormat(project.created_at)}
+          {t('created')}: {renderDate(project.created_at)}
         </div>
         <div className="intro-y text-gray-700 mb-8 w-2/3">
           {project.description}
@@ -550,7 +550,7 @@ const ProjectDetail = (props) => {
                   {project.invitations.map((invite) => (
                     <tr key={invite.email}>
                       <td className="border-b w-1/3">{invite.email}</td>
-                      <td className="border-b w-1/3">{dateFormat(invite.updated_at)}</td>
+                      <td className="border-b w-1/3">{renderDate(invite.updated_at)}</td>
                       <td className="border-b w-1/3">
                         <Button
                           size="sm"

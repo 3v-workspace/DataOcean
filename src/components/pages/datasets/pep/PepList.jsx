@@ -3,7 +3,7 @@ import React from 'react';
 import Table from 'components/table/Table';
 import PageBox from 'components/pages/PageBox';
 import { useTranslation } from 'react-i18next';
-import { dateFormatISO } from 'utils';
+import { renderDate, getLocaleField } from 'utils';
 import { ReactRouterPropTypes } from 'utils/prop-types';
 
 const PepList = ({ match, history }) => {
@@ -14,6 +14,7 @@ const PepList = ({ match, history }) => {
       prop: 'id',
       width: '5%',
       noSort: true,
+      defaultSelected: true,
       filter: {
         name: 'id',
         type: 'number',
@@ -23,18 +24,22 @@ const PepList = ({ match, history }) => {
     },
     {
       header: t('fullName'),
-      prop: i18n.language === 'uk' ? 'fullname' : 'fullname_en',
+      defaultSelected: true,
+      prop: 'fullname',
       width: '20%',
       filter: {
         name: i18n.language === 'uk' ? 'fullname' : 'fullname_en',
         type: 'text',
       },
+      render: (v, row) => getLocaleField(row, 'fullname'),
     },
     {
       header: t('dateOfBirth'),
+      defaultSelected: true,
       prop: 'date_of_birth',
       width: '5%',
       noSort: true,
+      render: (v) => renderDate(v),
       filter: {
         name: 'date_of_birth',
         type: 'text',
@@ -43,6 +48,7 @@ const PepList = ({ match, history }) => {
     },
     {
       header: t('status'),
+      defaultSelected: true,
       prop: 'is_pep',
       width: '15%',
       render: (v) => (v ? t('politicallyExposedPerson') : t('notPoliticallyExposedPerson')),
@@ -60,6 +66,7 @@ const PepList = ({ match, history }) => {
       prop: 'pep_type_display',
       width: '20%',
       noSort: true,
+      defaultSelected: true,
       filter: {
         name: 'pep_type',
         type: 'select',
@@ -75,27 +82,32 @@ const PepList = ({ match, history }) => {
     },
     {
       header: t('lastPosition'),
-      prop: i18n.language === 'uk' ? 'last_job_title' : 'last_job_title_en',
+      defaultSelected: true,
+      prop: 'last_job_title',
       width: '20%',
       filter: i18n.language === 'uk' ? {
         name: 'last_job_title',
         type: 'text',
       } : null,
+      render: (v, row) => getLocaleField(row, 'last_job_title'),
     },
     {
       header: t('lastPlaceOfWork'),
-      prop: i18n.language === 'uk' ? 'last_employer' : 'last_employer_en',
+      defaultSelected: true,
+      prop: 'last_employer',
       width: '20%',
       filter: i18n.language === 'uk' ? {
         name: 'last_employer',
         type: 'text',
       } : null,
+      render: (v, row) => getLocaleField(row, 'last_employer'),
     },
     {
       header: t('lastUpdated'),
       prop: 'updated_at',
       width: '10%',
-      render: (v) => dateFormatISO(v),
+      defaultSelected: true,
+      render: (v) => renderDate(v),
       filter: {
         name: 'updated_at_date',
         type: 'text',

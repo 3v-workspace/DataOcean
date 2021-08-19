@@ -2,7 +2,7 @@ import React from 'react';
 import Table from 'components/table/Table';
 import PageBox from 'components/pages/PageBox';
 import { useTranslation } from 'react-i18next';
-import { dateFormat, upFirstLetter } from 'utils';
+import { renderDate, upFirstLetter } from 'utils';
 import { ReactRouterPropTypes } from 'utils/prop-types';
 
 const CountrySanctionList = ({ match, history }) => {
@@ -10,27 +10,31 @@ const CountrySanctionList = ({ match, history }) => {
   const columns = [
     {
       header: 'ID',
+      defaultSelected: true,
       prop: 'id',
       width: '5%',
       noSort: true,
     },
     {
       header: t('countryName'),
+      defaultSelected: true,
       prop: 'country',
       width: '20%',
       render: (v) => upFirstLetter(v),
     },
     {
       header: t('startDate'),
+      defaultSelected: true,
       prop: 'start_date',
       width: '20%',
-      render: (v) => dateFormat(v),
+      render: (v) => renderDate(v),
     },
     {
       header: t('endDate'),
+      defaultSelected: true,
       prop: 'end_date',
       width: '15%',
-      render: (v) => dateFormat(v),
+      render: (v) => renderDate(v),
     },
   ];
   return (

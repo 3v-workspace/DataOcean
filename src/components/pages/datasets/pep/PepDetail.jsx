@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { dateFormat } from 'utils';
+import { renderDate, getLocaleField } from 'utils';
 import { useParams } from 'react-router-dom';
 import Api from 'api';
 import UnfoldingBlock from 'components/UnfoldingBlock';
@@ -12,7 +12,7 @@ import Tooltip from 'components/Tooltip';
 const PepDetail = ({ match }) => {
   const [data, setData] = useState({});
   const { id } = useParams();
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   const fetchData = () => {
     Api.get(`pep/${id}/`, {
@@ -24,17 +24,11 @@ const PepDetail = ({ match }) => {
       });
   };
 
-  const getLocaleField = (object, fieldName) => {
-    if (i18n.language === 'uk') {
-      return object[fieldName] || '---';
-    }
-    return object[`${fieldName}_en`] || '---';
-  };
-
   const prepareHtmlField = (rawValue) => {
     if (rawValue) {
       return (
         <div
+          // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{
             __html: rawValue.replace(/(\\r\\n)+/g, '</br>').replace(/(\\")+/g, '"'),
           }}
@@ -142,7 +136,7 @@ const PepDetail = ({ match }) => {
           </div>
           <div className="pl-5 flex flex-row">
             <div className="w-64 font-medium">{t('updatedAt')}:</div>
-            <div className="max-w-xl">{dateFormat(data.updated_at)}</div>
+            <div className="max-w-xl">{renderDate(data.updated_at)}</div>
           </div>
           <div className="pl-5 flex flex-row">
             <div className="w-64 font-medium">{t('status')}:</div>
@@ -156,7 +150,7 @@ const PepDetail = ({ match }) => {
           </div>
           <div className="pl-5 flex flex-row">
             <div className="w-64 font-medium">{t('terminationDatePep')}:</div>
-            <div className="max-w-xl">{dateFormat(data.termination_date)}</div>
+            <div className="max-w-xl">{renderDate(data.termination_date)}</div>
           </div>
           <div className="pl-5 flex flex-row">
             <div className="w-64 font-medium">{t('reasonOfTermination')}:</div>
@@ -164,7 +158,7 @@ const PepDetail = ({ match }) => {
           </div>
           <div className="pl-5 flex flex-row">
             <div className="w-64 font-medium">{t('dateOfBirth')}:</div>
-            <div className="max-w-xl">{dateFormat(data.date_of_birth)}</div>
+            <div className="max-w-xl">{renderDate(data.date_of_birth)}</div>
           </div>
           <div className="pl-5 flex flex-row">
             <div className="w-64 font-medium">{t('placeOfBirth')}:</div>

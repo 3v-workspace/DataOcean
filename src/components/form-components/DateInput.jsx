@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { FormikPropType } from 'utils/prop-types';
 import moment from 'moment';
-import { DATE_FORMAT, DATETIME_FORMAT } from 'const/const';
+import { DATE_FORMAT, DATETIME_FORMAT } from 'const';
 import { useTranslation } from 'react-i18next';
 import { X } from 'react-feather';
 

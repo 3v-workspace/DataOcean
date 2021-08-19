@@ -3,7 +3,7 @@ import React from 'react';
 import Table from 'components/table/Table';
 import PageBox from 'components/pages/PageBox';
 import { useTranslation } from 'react-i18next';
-import { dateFormat } from 'utils';
+import { renderDate } from 'utils';
 
 
 const FopList = () => {
@@ -11,30 +11,35 @@ const FopList = () => {
   const columns = [
     {
       header: t('fullName'),
+      defaultSelected: true,
       prop: 'fullname',
       width: '30%',
     },
     {
       header: t('status'),
+      defaultSelected: true,
       prop: 'status',
       width: '15%',
     },
     {
       header: t('address'),
+      defaultSelected: true,
       prop: 'address',
       width: '35%',
     },
     {
       header: t('registrationDate'),
+      defaultSelected: true,
       prop: 'registration_date',
       width: '10%',
-      render: (v) => dateFormat(v),
+      render: (v) => renderDate(v),
     },
     {
       header: t('terminationDate'),
+      defaultSelected: true,
       prop: 'termination_date',
       width: '10%',
-      render: (v) => dateFormat(v),
+      render: (v) => renderDate(v),
     },
   ];
   return (

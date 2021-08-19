@@ -1,7 +1,7 @@
 import { createAction } from '@reduxjs/toolkit';
 
-export const initTable = createAction('tables/init', (tableName, defaultFilters) => ({
-  payload: { tableName, defaultFilters },
+export const initTable = createAction('tables/init', (tableName, extraParams = {}) => ({
+  payload: { tableName, extraParams },
 }));
 
 export const tableSetPage = createAction('tables/setPage', (tableName, page) => ({
@@ -22,4 +22,8 @@ export const tableSetFilters = createAction('tables/setFilters', (tableName, fil
 
 export const tableSetSearch = createAction('tables/setSearch', (tableName, search) => ({
   payload: { tableName, search },
+}));
+
+export const setSelectedColumns = createAction('tables/setSelectedColumns', (tableName, selectedColumns) => ({
+  payload: { tableName, selectedColumns },
 }));

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useTableController } from 'components/table/index';
 import ExportXlsx from 'components/table/ExportXlsx';
@@ -13,12 +13,9 @@ import FilterField from 'components/filter-fields/FilterField';
 import { useDispatch, useSelector } from 'react-redux';
 import { tableSetFilters, initTable, tableSetSearch } from 'store/tables/actionCreators';
 import Tooltip from 'components/Tooltip';
-
-
-// FIXME: temporary variables for hiding functional
-const hideExportButton = true;
-const hideFilters = true;
-
+import SelectColumns from 'components/table/SelectColumns';
+import setColumns from 'images/setColumns.svg';
+import { HIDE_EXPORT_BUTTON, HIDE_FILTERS, HIDE_SELECT_COLUMNS } from 'const';
 
 const getDefaultFilterValues = (columns) => {
   const defaultValues = {};
@@ -44,21 +41,28 @@ const Table = (props) => {
   const dispatch = useDispatch();
 
   const defaultFilters = getDefaultFilterValues(columns);
-  let filters = useSelector((state) => state.tables[url]?.filters);
+
+  let filters = useSelector((store) => store.tables[url]?.filters);
   const setFilters = (newFilter) => dispatch(tableSetFilters(url, newFilter));
   if (!filters) {
-    dispatch(initTable(url, defaultFilters));
+    const defaultSelectedColumnsNames = columns
+      .filter((col) => col.defaultSelected)
+      .map((col) => col.prop);
+    dispatch(initTable(url, { defaultFilters, defaultSelectedColumnsNames }));
     filters = defaultFilters;
   }
-  const search = useSelector((state) => state.tables[url].search);
+  const search = useSelector((store) => store.tables[url].search);
   const setSearch = (newSearch) => dispatch(tableSetSearch(url, newSearch));
 
   const params = { ...filters, search };
+  const dropdownRef = useRef(false);
   if (fields.length) {
     params.fields = fields.join(',');
   }
 
   const tc = useTableController({ url, params, axiosConfigs });
+  const selectedColumnsNames = useSelector((store) => store.tables[url].selectedColumns);
+  const selectedColumns = columns.filter((col) => selectedColumnsNames.includes(col.prop));
 
   const onFilterChange = (name, value) => {
     setFilters({ ...filters, [name]: value });
@@ -106,7 +110,7 @@ const Table = (props) => {
             }
           }}
         >
-          {columns.map((col) => (
+          {selectedColumns.map((col) => (
             <td key={col.prop} className="border-b">
               <span className="cursor-text">
                 {(col.render ? col.render(row[col.prop], row) : row[col.prop]) || '---'}
@@ -162,7 +166,7 @@ const Table = (props) => {
         {/*    count: tc.count,*/}
         {/*  })}*/}
         {/*</div>*/}
-        {!hideExportButton && exportUrl && (
+        {!HIDE_EXPORT_BUTTON && exportUrl && (
           <div className="mr-6">
             <ExportXlsx
               exportUrl={exportUrl}
@@ -182,11 +186,22 @@ const Table = (props) => {
       <div className="p-5">
         <Pagination tableController={tc} />
       </div>
-      {!hideFilters && (JSON.stringify(filters) !== JSON.stringify(defaultFilters)) && (
+      {!HIDE_FILTERS && (JSON.stringify(filters) !== JSON.stringify(defaultFilters)) && (
         <div className="flex flex-wrap sm:flex-no-wrap items-center justify-end">
           <Tooltip content={t('resetAllFilters')} position="bottom">
             <FilterOff className="cursor-pointer" onClick={resetAllFilters} />
           </Tooltip>
+        </div>
+      )}
+      {!HIDE_SELECT_COLUMNS && (
+        <div className="intro-x dropdown flex justify-end p-2">
+          <div>
+            <img src={setColumns} alt="" className="cursor-pointer" onClick={dropdownRef} />
+          </div>
+          <SelectColumns
+            tableUrl={url}
+            columns={columns}
+          />
         </div>
       )}
       <div className="overflow-x-auto box" style={{ minHeight: `${minHeight}` }}>
@@ -198,7 +213,7 @@ const Table = (props) => {
         <table className="table">
           <thead className="text-white" style={{ backgroundColor: '#436986' }}>
             <tr>
-              {columns.map((col) => (
+              {selectedColumns.map((col) => (
                 <th
                   style={{ width: col.width }}
                   key={col.prop}
@@ -216,7 +231,7 @@ const Table = (props) => {
                     )}
                   </div>
                   <div>
-                    {!hideFilters && col.filter && (
+                    {!HIDE_FILTERS && col.filter && (
                       <FilterField
                         filter={col.filter}
                         value={filters[col.filter.name]}
@@ -246,6 +261,7 @@ Table.propTypes = {
   columns: PropTypes.arrayOf(PropTypes.shape({
     header: PropTypes.string.isRequired,
     prop: PropTypes.string.isRequired,
+    defaultSelected: PropTypes.bool,
     width: PropTypes.string.isRequired,
     noSort: PropTypes.bool,
     filter: PropTypes.shape({
