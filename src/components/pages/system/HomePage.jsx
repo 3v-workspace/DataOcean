@@ -4,7 +4,6 @@ import {
 } from 'react-feather';
 import ReportBox from 'components/pages/dashboard/ReportBox';
 import Api from 'api';
-import moment from 'moment';
 import { useTranslation } from 'react-i18next';
 import { ReactRouterPropTypes } from 'utils/prop-types';
 import KvedChart from 'components/pages/dashboard/KvedChart';

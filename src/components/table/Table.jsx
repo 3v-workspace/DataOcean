@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useTableController } from 'components/table/index';
 import ExportXlsx from 'components/table/ExportXlsx';
@@ -10,9 +10,8 @@ import LoadingIcon from 'components/LoadingIcon';
 import { useTranslation } from 'react-i18next';
 import FilterField from 'components/filter-fields/FilterField';
 import { useDispatch, useSelector } from 'react-redux';
-import { tableSetFilters, initTable, tableSetSearch, setSelectedColumns } from 'store/tables/actionCreators';
+import { tableSetFilters, initTable, tableSetSearch } from 'store/tables/actionCreators';
 import SelectColumns from 'components/table/SelectColumns';
-import { ChevronDown, ChevronUp } from 'react-feather';
 import setColumns from 'images/setColumns.svg';
 import { HIDE_EXPORT_BUTTON, HIDE_FILTERS, HIDE_SELECT_COLUMNS } from 'const';
 
