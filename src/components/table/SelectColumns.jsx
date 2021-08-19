@@ -55,6 +55,7 @@ const SelectColumns = (props) => {
           />
           {columns.map((col) => (
             <BooleanInput
+              key={col.prop}
               name={col.prop}
               label={col.header}
               value={selectedColumnsNames.includes(col.prop)}

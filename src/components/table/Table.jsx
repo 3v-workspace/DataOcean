@@ -53,7 +53,6 @@ const Table = (props) => {
   const setSearch = (newSearch) => dispatch(tableSetSearch(url, newSearch));
 
   const params = { ...filters, search };
-  const dropdownRef = useRef(false);
   if (fields.length) {
     params.fields = fields.join(',');
   }
@@ -194,7 +193,7 @@ const Table = (props) => {
       {!HIDE_SELECT_COLUMNS && (
         <div className="intro-x dropdown flex justify-end p-2">
           <div>
-            <img src={setColumns} alt="" className="cursor-pointer" onClick={dropdownRef} />
+            <img src={setColumns} alt="set-columns" className="cursor-pointer" />
           </div>
           <SelectColumns
             tableUrl={url}
