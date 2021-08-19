@@ -6,11 +6,13 @@ import Pagination from 'components/table/Pagination';
 import { SearchBox } from 'components/form-components';
 import { ReactComponent as ArrowUp } from 'images/ParallelArrowUp.svg';
 import { ReactComponent as ArrowDown } from 'images/ParallelArrowDown.svg';
+import { ReactComponent as FilterOff } from 'images/filterOffOutline.svg';
 import LoadingIcon from 'components/LoadingIcon';
 import { useTranslation } from 'react-i18next';
 import FilterField from 'components/filter-fields/FilterField';
 import { useDispatch, useSelector } from 'react-redux';
 import { tableSetFilters, initTable, tableSetSearch } from 'store/tables/actionCreators';
+import Tooltip from 'components/Tooltip';
 import SelectColumns from 'components/table/SelectColumns';
 import setColumns from 'images/setColumns.svg';
 import { HIDE_EXPORT_BUTTON, HIDE_FILTERS, HIDE_SELECT_COLUMNS } from 'const';
@@ -183,24 +185,26 @@ const Table = (props) => {
       <div className="p-5">
         <Pagination tableController={tc} />
       </div>
-      {!HIDE_FILTERS && columns.some((col) => !!col.filter) && (
-        <div className="intro-y flex flex-wrap sm:flex-no-wrap items-center justify-end">
-          <div className="text-base font-medium text-gray-700 cursor-pointer" onClick={resetAllFilters}>
-            {t('resetAllFilters')}
+      <div className="flex flex-wrap sm:flex-no-wrap items-center justify-end">
+        {!HIDE_SELECT_COLUMNS && (
+          <div className="intro-x dropdown p-2">
+            <div>
+              <img src={setColumns} alt="" className="cursor-pointer" onClick={dropdownRef} />
+            </div>
+            <SelectColumns
+              tableUrl={url}
+              columns={columns}
+            />
           </div>
-        </div>
-      )}
-      {!HIDE_SELECT_COLUMNS && (
-        <div className="intro-x dropdown flex justify-end p-2">
+        )}
+        {!HIDE_FILTERS && (JSON.stringify(filters) !== JSON.stringify(defaultFilters)) && (
           <div>
-            <img src={setColumns} alt="set-columns" className="cursor-pointer" />
+            <Tooltip content={t('resetAllFilters')} position="bottom">
+              <FilterOff className="cursor-pointer" onClick={resetAllFilters} />
+            </Tooltip>
           </div>
-          <SelectColumns
-            tableUrl={url}
-            columns={columns}
-          />
-        </div>
-      )}
+        )}
+      </div>
       <div className="overflow-x-auto box" style={{ minHeight: `${minHeight}` }}>
         {tc.isLoading && (
           <div className="w-full h-full bg-gray-700 bg-opacity-25 absolute flex items-center justify-center">
