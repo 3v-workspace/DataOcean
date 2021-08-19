@@ -11,23 +11,27 @@ const StreetList = () => {
   const columns = [
     {
       header: t('name'),
+      defaultSelected: true,
       prop: 'name',
       width: '25%',
     },
     {
       header: t('locality'),
+      defaultSelected: true,
       prop: 'city',
       width: '25%',
       render: (value) => (value === 'empty field' ? '' : value),
     },
     {
       header: t('district'),
+      defaultSelected: true,
       prop: 'district',
       width: '25%',
       render: (value) => (value === 'empty field' ? '' : value),
     },
     {
       header: t('region'),
+      defaultSelected: true,
       prop: 'region',
       width: '25%',
       render: (value) => (value === 'empty field' ? '' : value),

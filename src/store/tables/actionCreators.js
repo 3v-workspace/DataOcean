@@ -23,3 +23,7 @@ export const tableSetFilters = createAction('tables/setFilters', (tableName, fil
 export const tableSetSearch = createAction('tables/setSearch', (tableName, search) => ({
   payload: { tableName, search },
 }));
+
+export const setSelectedColumns = createAction('tables/setSelectedColumns', (tableName, selectedColumns) => ({
+  payload: { tableName, selectedColumns },
+}));

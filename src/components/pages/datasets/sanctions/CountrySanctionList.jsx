@@ -10,24 +10,28 @@ const CountrySanctionList = ({ match, history }) => {
   const columns = [
     {
       header: 'ID',
+      defaultSelected: true,
       prop: 'id',
       width: '5%',
       noSort: true,
     },
     {
       header: t('countryName'),
+      defaultSelected: true,
       prop: 'country',
       width: '20%',
       render: (v) => upFirstLetter(v),
     },
     {
       header: t('startDate'),
+      defaultSelected: true,
       prop: 'start_date',
       width: '20%',
       render: (v) => dateFormat(v),
     },
     {
       header: t('endDate'),
+      defaultSelected: true,
       prop: 'end_date',
       width: '15%',
       render: (v) => dateFormat(v),

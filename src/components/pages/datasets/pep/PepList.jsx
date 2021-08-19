@@ -5,6 +5,7 @@ import PageBox from 'components/pages/PageBox';
 import { useTranslation } from 'react-i18next';
 import { dateFormat } from 'utils';
 import { ReactRouterPropTypes } from 'utils/prop-types';
+import getLocaleFields from 'const/getLocaleField';
 
 const PepList = ({ match, history }) => {
   const { t, i18n } = useTranslation();
@@ -23,15 +24,18 @@ const PepList = ({ match, history }) => {
     },
     {
       header: t('fullName'),
-      prop: i18n.language === 'uk' ? 'fullname' : 'fullname_en',
+      defaultSelected: true,
+      prop: 'fullname',
       width: '20%',
       filter: {
         name: i18n.language === 'uk' ? 'fullname' : 'fullname_en',
         type: 'text',
       },
+      render: (v, row) => getLocaleFields(row, 'fullname'),
     },
     {
       header: t('dateOfBirth'),
+      defaultSelected: true,
       prop: 'date_of_birth',
       width: '5%',
       noSort: true,
@@ -44,6 +48,7 @@ const PepList = ({ match, history }) => {
     },
     {
       header: t('status'),
+      defaultSelected: true,
       prop: 'is_pep',
       width: '15%',
       render: (v) => (v ? t('politicallyExposedPerson') : t('notPoliticallyExposedPerson')),
@@ -76,21 +81,25 @@ const PepList = ({ match, history }) => {
     },
     {
       header: t('lastPosition'),
-      prop: i18n.language === 'uk' ? 'last_job_title' : 'last_job_title_en',
+      defaultSelected: true,
+      prop: 'last_job_title',
       width: '20%',
       filter: i18n.language === 'uk' ? {
         name: 'last_job_title',
         type: 'text',
       } : null,
+      render: (v, row) => getLocaleFields(row, 'last_job_title'),
     },
     {
       header: t('lastPlaceOfWork'),
-      prop: i18n.language === 'uk' ? 'last_employer' : 'last_employer_en',
+      defaultSelected: true,
+      prop: 'last_employer',
       width: '20%',
       filter: i18n.language === 'uk' ? {
         name: 'last_employer',
         type: 'text',
       } : null,
+      render: (v, row) => getLocaleFields(row, 'last_employer'),
     },
     {
       header: t('lastUpdated'),

@@ -13,6 +13,7 @@ const tablesSlice = createSlice({
       if (defaultFilters) {
         state[tableName].filters = defaultFilters;
       }
+      state[tableName].selectedColumns = [];
     },
     setPage(state, { payload: { tableName, page } }) {
       state[tableName].page = page;
@@ -29,6 +30,9 @@ const tablesSlice = createSlice({
     },
     setSearch(state, { payload: { tableName, search } }) {
       state[tableName].search = search;
+    },
+    setSelectedColumns(state, { payload: { tableName, selectedColumns } }) {
+      state[tableName].selectedColumns = selectedColumns;
     },
   },
 });
