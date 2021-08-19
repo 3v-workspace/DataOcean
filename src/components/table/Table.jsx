@@ -55,7 +55,6 @@ const Table = (props) => {
   const setSearch = (newSearch) => dispatch(tableSetSearch(url, newSearch));
 
   const params = { ...filters, search };
-  const dropdownRef = useRef(false);
   if (fields.length) {
     params.fields = fields.join(',');
   }
