@@ -79,7 +79,7 @@ const SelectInput2 = (props) => {
 
   return (
     <>
-      <div className="search hidden sm:inline-block">
+      <div className="search sm:inline-block">
         <input
           readOnly
           type="text"
@@ -94,7 +94,7 @@ const SelectInput2 = (props) => {
         )}
       </div>
       <div
-        className={`${multiple ? 'w-64' : 'w-auto'} mt-1 absolute max-w-3xl select-dropdown ${isShowDropdown ? 'show' : ''}`}
+        className={`${multiple ? 'w-64' : 'w-1/2 sm:w-auto'} mt-1 absolute max-w-3xl select-dropdown ${isShowDropdown ? 'show' : ''}`}
         onMouseLeave={hideDropdown}
       >
         <div className="select-dropdown__content">
