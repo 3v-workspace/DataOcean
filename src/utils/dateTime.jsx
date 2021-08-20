@@ -26,7 +26,7 @@ export function renderDate(isoString) {
     return baseDateRender(isoString, 'YYYY р.', 'YYYY');
   }
   if (/^\d{4}-\d{2}$/.test(isoString)) {
-    return baseDateRender(isoString, 'MMMM YYYY р.', 'MMMM YYYY');
+    return baseDateRender(isoString, 'MMMM YYYY р.', 'MMM YYYY');
   }
   return baseDateRender(isoString, 'DD MMMM YYYY р.', 'MMM DD, YYYY');
 }
