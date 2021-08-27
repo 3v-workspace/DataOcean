@@ -16,6 +16,7 @@ import Notifications from 'components/nav/Notifications';
 const TopBar = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  const isShown = useSelector((store) => store.interface.topBarShow);
   const user = useSelector((store) => store.user);
 
   const { pathname } = useLocation();
@@ -48,6 +49,10 @@ const TopBar = () => {
   const closeDropdown = () => {
     userDropdownRef.current.classList.remove('show');
   };
+
+  if (!isShown) {
+    return null;
+  }
 
   return (
     <div className="top-bar">
