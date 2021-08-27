@@ -391,6 +391,25 @@ const faqs = [
       </Translation>
     ),
   },
+  {
+    id: 15,
+    question: (
+      <Translation>
+        {(t) => `${t('faq.whyDntWeShareTheITNInThePEPRegister')}`}
+      </Translation>
+    ),
+    answer: (
+      <Translation>
+        {(t) => (
+          <>
+            <div>
+              {`${t('faq.answer.q15')} `}
+            </div>
+          </>
+        )}
+      </Translation>
+    ),
+  },
 ];
 
 export default faqs;
