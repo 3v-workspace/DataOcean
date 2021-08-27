@@ -46,12 +46,12 @@ const SystemPage = (props) => {
           {t('pep')}
         </NavItem>
       </NavDropdown>
-      <NavItem link="/system/report-constructor/" icon={Activity}>
+      {/*<NavItem link="/system/report-constructor/" icon={Activity}>
         {t('reportConstructor')}
       </NavItem>
       <NavItem link="/system/data-constructor/" icon={FileText}>
         {t('dataConstructor')}
-      </NavItem>
+      </NavItem>*/}
       {/*<NavItem link="/system/pep-scheme/" icon={GitBranch}>*/}
       {/*  {t('pepScheme')}*/}
       {/*</NavItem>*/}

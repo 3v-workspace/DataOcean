@@ -35,7 +35,7 @@ const SystemRoutes = (props) => {
         path={`${match.path}datasets/`}
         component={DatasetsRoutes}
       />
-      <Route
+      {/*<Route
         exact
         path={`${match.path}report-constructor/`}
         component={ReportConstructorPage}
@@ -44,7 +44,7 @@ const SystemRoutes = (props) => {
         exact
         path={`${match.path}data-constructor/`}
         component={DataConstructorPage}
-      />
+      />*/}
       {/*<Route*/}
       {/*  exact*/}
       {/*  path={`${match.path}pep-scheme/`}*/}
