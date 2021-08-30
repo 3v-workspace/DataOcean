@@ -37,7 +37,7 @@ const getDefaultFilterValues = (columns) => {
 
 const Table = (props) => {
   const { t } = useTranslation();
-  const { columns, url, fields, axiosConfigs, onRowClick, exportUrl, minHeight } = props;
+  const { columns, url, fields, axiosConfigs, onRowClick, exportUrl, minHeight, height } = props;
   const dispatch = useDispatch();
 
   const defaultFilters = getDefaultFilterValues(columns);
@@ -205,7 +205,7 @@ const Table = (props) => {
           </div>
         )}
       </div>
-      <div className="overflow-x-auto box" style={{ minHeight: `${minHeight}` }}>
+      <div className="overflow-x-auto box" style={{ minHeight: `${minHeight}`, height: `${height}` }}>
         {tc.isLoading && (
           <div className="w-full h-full bg-gray-700 bg-opacity-25 absolute flex items-center justify-center">
             <LoadingIcon icon="three-dots" className="w-16 h-16" />
@@ -251,7 +251,7 @@ const Table = (props) => {
           </tbody>
         </table>
       </div>
-      <div className="p-5">
+      <div className="px-5 mt-5">
         <Pagination tableController={tc} />
       </div>
     </div>
@@ -277,6 +277,7 @@ Table.propTypes = {
   onRowClick: PropTypes.func,
   exportUrl: PropTypes.string,
   minHeight: PropTypes.string,
+  height: PropTypes.string,
 };
 Table.defaultProps = {
   fields: [],
@@ -284,6 +285,7 @@ Table.defaultProps = {
   onRowClick: undefined,
   exportUrl: undefined,
   minHeight: undefined,
+  height: 'auto',
 };
 
 export default Table;
