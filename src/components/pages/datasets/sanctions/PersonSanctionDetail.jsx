@@ -90,7 +90,7 @@ const PersonSanctionDetail = () => {
           </div>
           <div className="pl-5 flex flex-row">
             <div className="w-64 font-medium">{t('publicExpoused')}:</div>
-            <div className="max-w-xl">{data.pep ? t('politicallyExposedPerson') : t('notPoliticallyExposedPerson')}</div>
+            <div className="max-w-xl">{data.is_pep === true ? t('politicallyExposedPerson') : (data.is_pep !== null && t('notPoliticallyExposedPerson')) || '---'} </div>
           </div>
           <div className="pl-5 flex flex-row">
             <div className="w-64 font-medium">{t('dateOfBirth')}:</div>

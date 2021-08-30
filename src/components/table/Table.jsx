@@ -152,8 +152,8 @@ const Table = (props) => {
   };
 
   return (
-    <div>
-      <div className="intro-y flex flex-wrap sm:flex-no-wrap items-center justify-end mb-3 p-2">
+    <div className="box p-5">
+      <div className="flex flex-wrap sm:flex-no-wrap items-center justify-end">
         {/*<Button*/}
         {/*  className="shadow-md mr-2"*/}
         {/*>*/}
@@ -182,28 +182,27 @@ const Table = (props) => {
             onSearch={onSearch}
           />
         </div>
-      </div>
-      <div className="p-5">
-        <Pagination tableController={tc} />
-      </div>
-      {!hideFilters && (JSON.stringify(filters) !== JSON.stringify(defaultFilters)) && (
         <div className="flex flex-wrap sm:flex-no-wrap items-center justify-end">
-          <Tooltip content={t('resetAllFilters')} position="bottom">
-            <FilterOff className="cursor-pointer" onClick={resetAllFilters} />
-          </Tooltip>
+          {!HIDE_SELECT_COLUMNS && (
+            <div className="intro-x dropdown p-2 flex flex-1 justify-end">
+              <div>
+                <img src={setColumns} alt="set-columns" className="cursor-pointer" />
+              </div>
+              <SelectColumns
+                tableUrl={url}
+                columns={columns}
+              />
+            </div>
+          )}
+          {!HIDE_FILTERS && (JSON.stringify(filters) !== JSON.stringify(defaultFilters)) && (
+            <div>
+              <Tooltip content={t('resetAllFilters')} position="bottom">
+                <FilterOff className="cursor-pointer" onClick={resetAllFilters} />
+              </Tooltip>
+            </div>
+          )}
         </div>
-      )}
-      {!HIDE_SELECT_COLUMNS && (
-        <div className="intro-x dropdown flex justify-end p-2">
-          <div>
-            <img src={setColumns} alt="" className="cursor-pointer" onClick={dropdownRef} />
-          </div>
-          <SelectColumns
-            tableUrl={url}
-            columns={columns}
-          />
-        </div>
-      )}
+      </div>
       <div className="overflow-x-auto box" style={{ minHeight: `${minHeight}` }}>
         {tc.isLoading && (
           <div className="w-full h-full bg-gray-700 bg-opacity-25 absolute flex items-center justify-center">
