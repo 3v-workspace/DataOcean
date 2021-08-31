@@ -140,7 +140,6 @@ const PepList = ({ match, history }) => {
         }}
         exportUrl="pep/xlsx/"
         minHeight="400px"
-        height="calc(100vh - 350px)"
       />
     </PageBox>
   );

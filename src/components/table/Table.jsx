@@ -37,7 +37,7 @@ const getDefaultFilterValues = (columns) => {
 
 const Table = (props) => {
   const { t } = useTranslation();
-  const { columns, url, fields, axiosConfigs, onRowClick, exportUrl, minHeight, height } = props;
+  const { columns, url, fields, axiosConfigs, onRowClick, exportUrl, minHeight } = props;
   const dispatch = useDispatch();
 
   const defaultFilters = getDefaultFilterValues(columns);
@@ -182,9 +182,6 @@ const Table = (props) => {
           />
         </div>
       </div>
-      <div className="p-5">
-        <Pagination tableController={tc} />
-      </div>
       <div className="flex flex-wrap sm:flex-no-wrap items-center justify-end">
         {!HIDE_SELECT_COLUMNS && (
           <div className="intro-x dropdown p-2 flex flex-1 justify-end">
@@ -205,7 +202,7 @@ const Table = (props) => {
           </div>
         )}
       </div>
-      <div className="overflow-x-auto box" style={{ minHeight: `${minHeight}`, height: `${height}` }}>
+      <div className="overflow-x-auto box" style={{ minHeight: `${minHeight}`, maxHeight: 'calc(100vh - 250px)' }}>
         {tc.isLoading && (
           <div className="w-full h-full bg-gray-700 bg-opacity-25 absolute flex items-center justify-center">
             <LoadingIcon icon="three-dots" className="w-16 h-16" />
@@ -277,7 +274,6 @@ Table.propTypes = {
   onRowClick: PropTypes.func,
   exportUrl: PropTypes.string,
   minHeight: PropTypes.string,
-  height: PropTypes.string,
 };
 Table.defaultProps = {
   fields: [],
@@ -285,7 +281,6 @@ Table.defaultProps = {
   onRowClick: undefined,
   exportUrl: undefined,
   minHeight: undefined,
-  height: 'auto',
 };
 
 export default Table;
