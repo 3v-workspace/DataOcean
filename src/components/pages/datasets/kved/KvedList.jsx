@@ -4,9 +4,8 @@ import Table from 'components/table/Table';
 import PageBox from 'components/pages/PageBox';
 import { useTranslation } from 'react-i18next';
 
-
 const KvedList = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const columns = [
     {
       header: t('code'),
@@ -17,7 +16,7 @@ const KvedList = () => {
     {
       header: t('class'),
       defaultSelected: true,
-      prop: 'name',
+      prop: i18n.language === 'uk' ? 'name' : 'name_en',
       width: '24%',
     },
     {
