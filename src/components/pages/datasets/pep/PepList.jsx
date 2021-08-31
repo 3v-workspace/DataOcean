@@ -3,7 +3,7 @@ import React from 'react';
 import Table from 'components/table/Table';
 import PageBox from 'components/pages/PageBox';
 import { useTranslation } from 'react-i18next';
-import { renderDate, getLocaleField } from 'utils';
+import { toTitleCase, renderDate, getLocaleField } from 'utils';
 import { ReactRouterPropTypes } from 'utils/prop-types';
 
 const PepList = ({ match, history }) => {
@@ -31,7 +31,7 @@ const PepList = ({ match, history }) => {
         name: i18n.language === 'uk' ? 'fullname' : 'fullname_en',
         type: 'text',
       },
-      render: (v, row) => getLocaleField(row, 'fullname'),
+      render: (v, row) => toTitleCase(getLocaleField(row, 'fullname')),
     },
     {
       header: t('dateOfBirth'),
