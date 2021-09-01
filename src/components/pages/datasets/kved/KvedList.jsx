@@ -3,6 +3,7 @@ import React from 'react';
 import Table from 'components/table/Table';
 import PageBox from 'components/pages/PageBox';
 import { useTranslation } from 'react-i18next';
+import { getLocaleField } from 'utils';
 
 
 const KvedList = () => {
@@ -18,24 +19,28 @@ const KvedList = () => {
       header: t('class'),
       defaultSelected: true,
       prop: 'name',
+      render: (v, row) => getLocaleField(row, 'name'),
       width: '24%',
     },
     {
       header: t('group'),
       defaultSelected: true,
       prop: 'group',
+      render: (v, row) => getLocaleField(row, 'group'),
       width: '24%',
     },
     {
       header: t('division'),
       defaultSelected: true,
       prop: 'division',
+      render: (v, row) => getLocaleField(row, 'division'),
       width: '24%',
     },
     {
       header: t('section'),
       defaultSelected: true,
       prop: 'section',
+      render: (v, row) => getLocaleField(row, 'section'),
       width: '24%',
     },
   ];
