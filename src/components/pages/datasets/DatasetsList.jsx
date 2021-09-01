@@ -117,8 +117,10 @@ const DatasetsList = ({ match, history }) => {
         </div>
         {/* END: Data List */}
         {/* BEGIN: Pagination */}
-        <Pagination tableController={tc} />
         {/* END: Pagination */}
+      </div>
+      <div className="pb-5">
+        <Pagination tableController={tc} />
       </div>
     </>
   );
