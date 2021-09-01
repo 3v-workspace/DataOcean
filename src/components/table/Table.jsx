@@ -182,9 +182,6 @@ const Table = (props) => {
           />
         </div>
       </div>
-      <div className="p-5">
-        <Pagination tableController={tc} />
-      </div>
       <div className="flex flex-wrap sm:flex-no-wrap items-center justify-end">
         {!HIDE_SELECT_COLUMNS && (
           <div className="intro-x dropdown p-2 flex flex-1 justify-end">
@@ -205,7 +202,7 @@ const Table = (props) => {
           </div>
         )}
       </div>
-      <div className="overflow-x-auto box" style={{ minHeight: `${minHeight}` }}>
+      <div className="overflow-x-auto box" style={{ minHeight: `${minHeight}`, maxHeight: 'calc(100vh - 250px)' }}>
         {tc.isLoading && (
           <div className="w-full h-full bg-gray-700 bg-opacity-25 absolute flex items-center justify-center">
             <LoadingIcon icon="three-dots" className="w-16 h-16" />
@@ -251,7 +248,7 @@ const Table = (props) => {
           </tbody>
         </table>
       </div>
-      <div className="p-5">
+      <div className="px-5 mt-5">
         <Pagination tableController={tc} />
       </div>
     </div>

@@ -79,7 +79,7 @@ const SystemPage = (props) => {
         <Nav>
           {menu}
         </Nav>
-        <div className="content overflow-x-auto">
+        <div className="content overflow-x-auto pb-0">
           <TopBar />
           <SystemRoutes {...props} />
         </div>
