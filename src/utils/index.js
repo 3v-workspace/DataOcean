@@ -11,6 +11,11 @@ export function upFirstLetter(string) {
 }
 
 
+export function toTitleCase(string) {
+  return string.split(' ').map((word) => (upFirstLetter(word))).join(' ');
+}
+
+
 export function stringFormat(string, data) {
   let newString = string;
   Object.entries(data).forEach(([key, value]) => {
