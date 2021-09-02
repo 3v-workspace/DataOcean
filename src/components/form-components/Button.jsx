@@ -7,6 +7,7 @@ const buttonTypes = {
   blank: '',
   primary: 'bg-theme-1 text-white',
   secondary: 'border bg-white text-gray-700',
+  cancel: 'border border-blue-800 bg-white text-blue-800',
   success: 'bg-theme-9 text-white',
   warning: 'bg-theme-12 text-white',
   danger: 'bg-theme-6 text-white',
