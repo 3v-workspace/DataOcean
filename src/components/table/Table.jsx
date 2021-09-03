@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useTableController } from 'components/table/index';
 import ExportXlsx from 'components/table/ExportXlsx';
@@ -55,7 +55,6 @@ const Table = (props) => {
   const setSearch = (newSearch) => dispatch(tableSetSearch(url, newSearch));
 
   const params = { ...filters, search };
-  const dropdownRef = useRef(false);
   if (fields.length) {
     params.fields = fields.join(',');
   }
@@ -182,28 +181,28 @@ const Table = (props) => {
             onSearch={onSearch}
           />
         </div>
-        <div className="flex flex-wrap sm:flex-no-wrap items-center justify-end">
-          {!HIDE_SELECT_COLUMNS && (
-            <div className="intro-x dropdown p-2 flex flex-1 justify-end">
-              <div>
-                <img src={setColumns} alt="set-columns" className="cursor-pointer" />
-              </div>
-              <SelectColumns
-                tableUrl={url}
-                columns={columns}
-              />
-            </div>
-          )}
-          {!HIDE_FILTERS && (JSON.stringify(filters) !== JSON.stringify(defaultFilters)) && (
-            <div>
-              <Tooltip content={t('resetAllFilters')} position="bottom">
-                <FilterOff className="cursor-pointer" onClick={resetAllFilters} />
-              </Tooltip>
-            </div>
-          )}
-        </div>
       </div>
-      <div className="overflow-x-auto box" style={{ minHeight: `${minHeight}` }}>
+      <div className="flex flex-wrap sm:flex-no-wrap items-center justify-end">
+        {!HIDE_SELECT_COLUMNS && (
+          <div className="intro-x dropdown p-2 flex flex-1 justify-end">
+            <div>
+              <img src={setColumns} alt="set-columns" className="cursor-pointer" />
+            </div>
+            <SelectColumns
+              tableUrl={url}
+              columns={columns}
+            />
+          </div>
+        )}
+        {!HIDE_FILTERS && (JSON.stringify(filters) !== JSON.stringify(defaultFilters)) && (
+          <div>
+            <Tooltip content={t('resetAllFilters')} position="bottom">
+              <FilterOff className="cursor-pointer" onClick={resetAllFilters} />
+            </Tooltip>
+          </div>
+        )}
+      </div>
+      <div className="overflow-x-auto box" style={{ minHeight: `${minHeight}`, maxHeight: 'calc(100vh - 250px)' }}>
         {tc.isLoading && (
           <div className="w-full h-full bg-gray-700 bg-opacity-25 absolute flex items-center justify-center">
             <LoadingIcon icon="three-dots" className="w-16 h-16" />
@@ -249,7 +248,7 @@ const Table = (props) => {
           </tbody>
         </table>
       </div>
-      <div className="p-5">
+      <div className="px-5 mt-5">
         <Pagination tableController={tc} />
       </div>
     </div>

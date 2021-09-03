@@ -26,7 +26,7 @@ const HelpPage = () => {
 
   return (
     <>
-      <div className="col-span-12 lg:col-span-6">
+      <div className="col-span-12 lg:col-span-6 pb-10">
         <div className="intro-y mt-8 box">
           <div className="p-5 pt-0" id="basic-accordion">
             <div className="intro-y mb-4 border-b border-gray-200">

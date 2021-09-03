@@ -12,7 +12,7 @@ import Tooltip from 'components/Tooltip';
 const PepDetail = ({ match }) => {
   const [data, setData] = useState({});
   const { id } = useParams();
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   const fetchData = () => {
     Api.get(`pep/${id}/`, {
@@ -28,6 +28,7 @@ const PepDetail = ({ match }) => {
     if (rawValue) {
       return (
         <div
+          // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{
             __html: rawValue.replace(/(\\r\\n)+/g, '</br>').replace(/(\\")+/g, '"'),
           }}

@@ -129,6 +129,7 @@
       "q12PossibleValues": "Possible values:",
       "q13": "Pay for it by bank transfer for the use under the terms of the tariff. When choosing the Custom tariff, you will receive an invoice for payment by mail, according to the conditions established as a result of negotiations.",
       "q13SelectingPaidTariff": "When selecting a paid tariff, an invoice is automatically generated. You will find it in the user profile in the section",
+      "q15": "To fill the Register we use the information, which is obtained within the implementation of the NGO \"Anti-corruption Action Centre's\" of its right to access public information, as well as information from open sources, which has already been made public. Specified information has not limited access and does not contain personal data within the meaning of the Law of Ukraine \"On Protection of Personal Data\" according to Paragraph 2 of Article 5 of this Law. At the same time, we cannot publish personally identifiable information, in particular personal identification codes.",
       "q1DOWorksWithPublicData": "Data Ocean works with public data from government registries and other public information.",
       "q1GuaranteeCompliance": "When working with data, we guarantee compliance with the requirements of special legislation of Ukraine in the personal data protection field.",
       "q1constantlyUpgrated": "is constantly updated.",
@@ -164,6 +165,7 @@
     "upToDateListOfPEPOnASpecificDate": "Is it possible to obtain an up-to-date list of public figures (register) on a specific date?",
     "whatDataDOProvide": "What data does Data Ocean provide?",
     "whatIsAnAPIRequest": "What is an API request?",
+    "whyDntWeShareTheITNInThePEPRegister": "Why don't we share the ITN in the PEP register?",
     "xmlFormat": "How do I get data in XML file format?"
   },
   "fewMoreSteps": "A few more simple steps\nand you are in the system",

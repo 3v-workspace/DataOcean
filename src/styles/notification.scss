@@ -1,0 +1,25 @@
+.notification {
+  .notification__icon {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+  
+  &.notification--bullet:before {
+    width: 10px;
+    height: 10px;
+  }
+}
+  
+.notification-content {
+  width: 500px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.15);
+  
+  & &__body {
+    max-height: 550px;
+    overflow: auto;
+  }
+  
+  & &__title {
+    margin-bottom: 0;
+  }
+}
