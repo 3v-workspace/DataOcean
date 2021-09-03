@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { renderDate } from 'utils';
+import { isPep, renderDate } from 'utils';
 import { useParams } from 'react-router-dom';
 import Api from 'api';
 import UnfoldingBlock from 'components/UnfoldingBlock';
@@ -90,7 +90,7 @@ const PersonSanctionDetail = () => {
           </div>
           <div className="pl-5 flex flex-row">
             <div className="w-64 font-medium">{t('publicExpoused')}:</div>
-            <div className="max-w-xl">{data.is_pep === true ? t('politicallyExposedPerson') : (data.is_pep !== null && t('notPoliticallyExposedPerson')) || '---'} </div>
+            <div className="max-w-xl">{isPep(data.is_pep)} </div>
           </div>
           <div className="pl-5 flex flex-row">
             <div className="w-64 font-medium">{t('dateOfBirth')}:</div>

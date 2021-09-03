@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 // import PropTypes from 'prop-types';
 import Table from 'components/table/Table';
 import PageBox from 'components/pages/PageBox';
 import { useTranslation } from 'react-i18next';
 import { ReactRouterPropTypes } from 'utils/prop-types';
-import { getLocaleField, renderDate } from 'utils';
+import { getLocaleField, isPep, renderDate } from 'utils';
 
 const PersonSanctionList = ({ match, history }) => {
   const { t } = useTranslation();
@@ -57,7 +57,7 @@ const PersonSanctionList = ({ match, history }) => {
       defaultSelected: true,
       prop: 'is_pep',
       noSort: true,
-      render: (v) => (v ? t('politicallyExposedPerson') : (v !== null && t('notPoliticallyExposedPerson')) || '---'),
+      render: (v) => isPep(v),
     },
     {
       header: t('lastPosition'),
