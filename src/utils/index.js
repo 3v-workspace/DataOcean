@@ -37,8 +37,20 @@ export const isEqualArray = (array1, array2) => {
 };
 
 export const getLocaleField = (object, fieldName) => {
+  console.log(object, fieldName);
   if (i18.language === 'uk') {
-    return object[fieldName] || '---';
+    return object[fieldName] || object[`${fieldName}_uk`] || object[`${fieldName}_en`] || '---';
   }
-  return object[`${fieldName}_en`] || '---';
+  return object[`${fieldName}_en`] || object[fieldName] || object[`${fieldName}_uk`] || '---';
+};
+
+export const isPep = (prop) => {
+  switch (prop) {
+    case true:
+      return i18.t('politicallyExposedPerson');
+    case false:
+      return i18.t('notPoliticallyExposedPerson');
+    default:
+      return '---';
+  }
 };
