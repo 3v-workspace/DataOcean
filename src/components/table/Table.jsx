@@ -151,8 +151,8 @@ const Table = (props) => {
   };
 
   return (
-    <div>
-      <div className="intro-y flex flex-wrap sm:flex-no-wrap items-center justify-end mb-3 p-2">
+    <div className="box p-5">
+      <div className="flex flex-wrap sm:flex-no-wrap items-center justify-end">
         {/*<Button*/}
         {/*  className="shadow-md mr-2"*/}
         {/*>*/}

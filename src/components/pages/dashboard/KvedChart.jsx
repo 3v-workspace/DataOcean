@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import PieChartLegend from 'components/pages/dashboard/PieChartLegend';
-import { upFirstLetter } from 'utils';
+import { upFirstLetter, getLocaleField } from 'utils';
 import Api from 'api';
 
 const KvedChart = () => {
   const [topKvedData, setTopKvedData] = useState([]);
 
   const initTopKvedPie = () => {
-    const labels = topKvedData.map((el) => el.kved.name);
+    const labels = topKvedData.map((el) => upFirstLetter(getLocaleField(el.kved, 'name')));
     const data = topKvedData.map((el) => el.count_companies_with_kved);
 
     if ($('#top-kved-chart').length) {
@@ -58,7 +58,7 @@ const KvedChart = () => {
       <canvas className="mt-3" id="top-kved-chart" height="115" />
       <PieChartLegend
         items={topKvedData.map((el) => ({
-          label: `${el.kved.code}  ${upFirstLetter(el.kved.name)}`,
+          label: `${el.kved.code}  ${upFirstLetter(getLocaleField(el.kved, 'name'))}`,
           value: el.count_companies_with_kved,
         }))}
       />

@@ -37,7 +37,7 @@ const CountrySanctionDetail = () => {
                 <th>{t('startDate')}</th>
                 <th>{t('endDate')}</th>
                 <th>{t('reasoningDate')}</th>
-                <th>{t('cancellationCondition')}</th>
+                <th>{t('cancelingConditions')}</th>
               </tr>
             </thead>
             <tbody>

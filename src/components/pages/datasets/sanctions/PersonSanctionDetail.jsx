@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
-import { renderDate, upFirstLetter } from 'utils';
+import { isPep, renderDate } from 'utils';
 import { useParams, useHistory } from 'react-router-dom';
 import Api from 'api';
 import { Download, Printer, ArrowLeft } from 'react-feather';
@@ -37,7 +37,7 @@ const PersonSanctionDetail = () => {
                 <th>{t('startDate')}</th>
                 <th>{t('endDate')}</th>
                 <th>{t('reasoningDate')}</th>
-                <th>{t('cancellationCondition')}</th>
+                <th>{t('cancelingConditions')}</th>
               </tr>
             </thead>
             <tbody>
@@ -66,20 +66,20 @@ const PersonSanctionDetail = () => {
         value: data.date_of_birth ? data.date_of_birth : data.year_of_birth,
         render: (v) => renderDate(v),
       },
-      { label: t('placeOfBirth'), value: data.place_of_birth, render: (v) => upFirstLetter(v) },
+      { label: t('placeOfBirth'), value: data.place_of_birth, render: (v) => v },
       { label: t('address'), value: data.address, render: (v) => v },
       { label: t('countriesOfCitizenship'),
         value: data.countries_of_citizenship,
-        render: (v) => v.map((country) => upFirstLetter(country[`name_${i18n.language}`])).join(', '),
+        render: (v) => v.map((country) => country[`name_${i18n.language}`]).join(', '),
       },
-      { label: t('fullnameInTheLangOfCountryOfCitizenship'),
+      { label: t('fullNameOriginal'),
         value: data.full_name_original,
         render: (v) => v,
       },
       { label: t('position'), value: data.occupation, render: (v) => v },
       { label: t('status'),
-        value: data.pep,
-        render: (v) => (v === true ? t('politicallyExposedPerson') : t('notPoliticallyExposedPerson')),
+        value: data.is_pep,
+        render: (v) => isPep(v),
       },
       { label: t('documentsInfo'), value: data.id_card, render: (v) => v },
       { label: t('taxpayerNumber'), value: data.taxpayer_number, render: (v) => v },

@@ -5,7 +5,6 @@ import PageBox from 'components/pages/PageBox';
 import { useTranslation } from 'react-i18next';
 import { getLocaleField } from 'utils';
 
-
 const KvedList = () => {
   const { t } = useTranslation();
   const columns = [

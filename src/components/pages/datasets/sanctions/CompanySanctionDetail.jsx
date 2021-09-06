@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
-import { renderDate, upFirstLetter } from 'utils';
+import { renderDate } from 'utils';
 import { useParams, useHistory } from 'react-router-dom';
 import Api from 'api';
 import { Download, Printer, ArrowLeft } from 'react-feather';
@@ -37,7 +37,7 @@ const CompanySanctionDetail = () => {
                 <th>{t('startDate')}</th>
                 <th>{t('endDate')}</th>
                 <th>{t('reasoningDate')}</th>
-                <th>{t('cancellationCondition')}</th>
+                <th>{t('cancelingConditions')}</th>
               </tr>
             </thead>
             <tbody>
@@ -66,7 +66,7 @@ const CompanySanctionDetail = () => {
       { label: t('address'), value: data.address, render: (v) => v },
       { label: t('countryOfRegistration'),
         value: data.country_of_registration,
-        render: (v) => upFirstLetter(v[`name_${i18n.language}`]),
+        render: (v) => v[`name_${i18n.language}`],
       },
       { label: t('nameInTheLangOfCountryOfRegistration'),
         value: data.name_original,

@@ -3,7 +3,7 @@ import Table from 'components/table/Table';
 import PageBox from 'components/pages/PageBox';
 import { useTranslation } from 'react-i18next';
 import { ReactRouterPropTypes } from 'utils/prop-types';
-import { renderDate, upFirstLetter } from 'utils';
+import { renderDate } from 'utils';
 
 
 const CompanySanctionList = ({ match, history }) => {
@@ -56,12 +56,7 @@ const CompanySanctionList = ({ match, history }) => {
       prop: 'country_of_registration',
       width: '20%',
       noSort: true,
-      render: (country) => {
-        if (country) {
-          country = upFirstLetter(country[`name_${i18n.language}`]);
-        }
-        return country;
-      },
+      render: (country) => country[`name_${i18n.language}`],
     },
   ];
   return (
