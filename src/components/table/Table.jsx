@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useTableController } from 'components/table/index';
 import ExportXlsx from 'components/table/ExportXlsx';
@@ -16,6 +16,8 @@ import Tooltip from 'components/Tooltip';
 import SelectColumns from 'components/table/SelectColumns';
 import setColumns from 'images/setColumns.svg';
 import { HIDE_EXPORT_BUTTON, HIDE_FILTERS, HIDE_SELECT_COLUMNS } from 'const';
+import Shadow from 'components/table/Shadow';
+import { debounce, throttle } from 'throttle-debounce';
 
 const getDefaultFilterValues = (columns) => {
   const defaultValues = {};
@@ -39,9 +41,13 @@ const Table = (props) => {
   const { t } = useTranslation();
   const { columns, url, fields, axiosConfigs, onRowClick, exportUrl, minHeight } = props;
   const dispatch = useDispatch();
-
+  const [scrollParams, setScrollParams] = useState({
+    scrollLeft: 0,
+    offsetWidth: 0,
+    scrollWidth: 0,
+  });
+  const tableParentRef = useRef();
   const defaultFilters = getDefaultFilterValues(columns);
-
   let filters = useSelector((store) => store.tables[url]?.filters);
   const setFilters = (newFilter) => dispatch(tableSetFilters(url, newFilter));
   if (!filters) {
@@ -53,16 +59,13 @@ const Table = (props) => {
   }
   const search = useSelector((store) => store.tables[url].search);
   const setSearch = (newSearch) => dispatch(tableSetSearch(url, newSearch));
-
   const params = { ...filters, search };
   if (fields.length) {
     params.fields = fields.join(',');
   }
-
   const tc = useTableController({ url, params, axiosConfigs });
   const selectedColumnsNames = useSelector((store) => store.tables[url].selectedColumns);
   const selectedColumns = columns.filter((col) => selectedColumnsNames.includes(col.prop));
-
   const onFilterChange = (name, value) => {
     setFilters({ ...filters, [name]: value });
   };
@@ -150,6 +153,35 @@ const Table = (props) => {
     return <ArrowDown className="h-4" />;
   };
 
+  const resetScrollParams = () => {
+    setScrollParams({
+      scrollLeft: tableParentRef.current.scrollLeft,
+      offsetWidth: tableParentRef.current.offsetWidth,
+      scrollWidth: tableParentRef.current.scrollWidth,
+    });
+  };
+
+  const checkScrollParams = debounce(250, true, () => {
+    if (scrollParams.scrollLeft !== tableParentRef.current.scrollLeft) {
+      resetScrollParams();
+    }
+  });
+
+  // const debounceHandleWindowResize = debounce(250, true, handleWindowResize);
+
+  useEffect(() => {
+    resetScrollParams();
+    const handleWindowResize = throttle(250, false, () => {
+      resetScrollParams();
+    });
+    window.addEventListener('resize', handleWindowResize);
+    console.log('resize');
+    return () => {
+      window.removeEventListener('resize', handleWindowResize);
+    };
+  }, []);
+
+  console.log('render');
   return (
     <div className="box p-5">
       <div className="flex flex-wrap sm:flex-no-wrap items-center justify-end">
@@ -202,7 +234,13 @@ const Table = (props) => {
           </div>
         )}
       </div>
-      <div className="overflow-x-auto box" style={{ minHeight: `${minHeight}`, maxHeight: 'calc(100vh - 250px)' }}>
+      <Shadow scrollParams={scrollParams} />
+      <div
+        className="overflow-x-auto box"
+        style={{ minHeight: `${minHeight}`, maxHeight: 'calc(100vh - 250px)' }}
+        ref={tableParentRef}
+        onScroll={checkScrollParams}
+      >
         {tc.isLoading && (
           <div className="w-full h-full bg-gray-700 bg-opacity-25 absolute flex items-center justify-center">
             <LoadingIcon icon="three-dots" className="w-16 h-16" />
