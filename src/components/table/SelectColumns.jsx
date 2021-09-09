@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import { setSelectedColumns } from 'store/tables/actionCreators';
 import Button from 'components/form-components/Button';
 import { isEqualArray } from 'utils/index';
+import Tooltip from 'components/Tooltip';
 
 const SelectColumns = (props) => {
   const { tableUrl, columns } = props;
@@ -13,6 +14,8 @@ const SelectColumns = (props) => {
   const dispatch = useDispatch();
   const selectedColumnsNames = useSelector((store) => store.tables[tableUrl].selectedColumns);
   const [values, setValues] = useState([...selectedColumnsNames]);
+  const lessThenMinimumColumns = values.length < 3;
+
 
   const handleTurnAllChange = (e) => {
     if (e.target.checked) {
@@ -31,11 +34,9 @@ const SelectColumns = (props) => {
         newValues.push(e.target.name);
       }
     } else {
-      const minimumColumns = 3;
-      if (newValues.length > minimumColumns) {
-        if (columnIndex !== -1) {
-          newValues.splice(columnIndex, 1);
-        }
+      const present = columnIndex !== -1;
+      if (present) {
+        newValues.splice(columnIndex, 1);
       }
     }
     setValues(newValues);
@@ -106,11 +107,28 @@ const SelectColumns = (props) => {
             disabled={isEqualArray(values, selectedColumnsNames)}
           >{t('cancel')}
           </Button>
-          <Button
-            className="w-32 h-8 mr-2 mb-2 bg-blue-700 cursor-pointer"
-            onClick={() => dispatch(setSelectedColumns(tableUrl, values))}
-          >{t('apply')}
-          </Button>
+          {lessThenMinimumColumns ? (
+            <Tooltip
+              className="text-gray-500"
+              content={t('tableMinimumColumns')}
+              position="top"
+            >
+              <Button
+                className="w-32 h-8 mr-2 mb-2 bg-blue-700 cursor-pointer"
+                disabled={lessThenMinimumColumns}
+              >
+                {t('apply')}
+              </Button>
+            </Tooltip>
+          ) : (
+            <Button
+              className="w-32 h-8 mr-2 mb-2 bg-blue-700 cursor-pointer"
+              onClick={() => dispatch(setSelectedColumns(tableUrl, values))}
+              disabled={false}
+            >
+              {t('apply')}
+            </Button>
+          )}
         </div>
       </div>
     </div>

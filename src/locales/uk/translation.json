@@ -370,6 +370,7 @@
   "successfully": "Успішно",
   "system": "Система",
   "systemLanguage": "Мова системи",
+  "tableMinimumColumns": "Таблиця має містити не менше 3 колонок",
   "tariff": "тариф",
   "taxpayerNumber": "Номер платника податків",
   "techSupport": "Технічна підтримка",

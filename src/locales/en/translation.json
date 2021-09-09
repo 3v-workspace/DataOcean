@@ -370,6 +370,7 @@
   "successfully": "Successfully",
   "system": "System",
   "systemLanguage": "System language",
+  "tableMinimumColumns": "Table should have at least 3 columns",
   "tariff": "tariff",
   "taxpayerNumber": "Taxpayer number",
   "techSupport": "Tech Support",
