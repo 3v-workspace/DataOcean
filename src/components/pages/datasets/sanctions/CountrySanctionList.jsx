@@ -11,30 +11,47 @@ const CountrySanctionList = ({ match, history }) => {
     {
       header: 'ID',
       defaultSelected: true,
-      prop: 'id',
-      width: '5%',
       noSort: true,
+      prop: 'id',
     },
     {
       header: t('countryName'),
       defaultSelected: true,
       prop: 'country',
-      width: '20%',
-      render: (v) => v,
+      filter: {
+        name: 'country',
+        type: 'text',
+        placeholder: t('search'),
+      },
     },
     {
       header: t('startDate'),
       defaultSelected: true,
       prop: 'start_date',
-      width: '20%',
       render: (v) => renderDate(v),
     },
     {
       header: t('endDate'),
       defaultSelected: true,
       prop: 'end_date',
-      width: '15%',
       render: (v) => renderDate(v),
+    },
+    {
+      header: t('reasoningDate'),
+      defaultSelected: true,
+      noSort: true,
+      prop: 'reasoning_date',
+      render: (v) => renderDate(v),
+    },
+    {
+      header: t('cancelingConditions'),
+      noSort: true,
+      prop: 'cancellation_condition',
+      filter: {
+        name: 'cancellation_condition',
+        type: 'text',
+        placeholder: t('search'),
+      },
     },
   ];
   return (
@@ -47,6 +64,8 @@ const CountrySanctionList = ({ match, history }) => {
           'country',
           'start_date',
           'end_date',
+          'reasoning_date',
+          'cancellation_condition',
         ]}
         axiosConfigs={{ useProjectToken: true }}
         onRowClick={(row) => {

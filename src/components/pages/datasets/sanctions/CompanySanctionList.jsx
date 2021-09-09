@@ -3,60 +3,123 @@ import Table from 'components/table/Table';
 import PageBox from 'components/pages/PageBox';
 import { useTranslation } from 'react-i18next';
 import { ReactRouterPropTypes } from 'utils/prop-types';
-import { renderDate } from 'utils';
+import { getLocaleField, renderDate } from 'utils';
 
 
 const CompanySanctionList = ({ match, history }) => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const columns = [
-    {
-      header: 'ID',
-      defaultSelected: true,
-      prop: 'id',
-      width: '5%',
-      noSort: true,
-    },
     {
       header: t('companyName'),
       defaultSelected: true,
       prop: 'name',
-      width: '20%',
+      filter: {
+        name: 'name',
+        type: 'text',
+        placeholder: t('search'),
+      },
+    },
+    {
+      header: t('countryOfRegistration'),
+      defaultSelected: true,
+      prop: 'country_of_registration',
+      noSort: true,
+      render: (v) => getLocaleField(v, 'name'),
+      filter: {
+        name: 'country_of_registration',
+        type: 'text',
+        placeholder: t('search'),
+      },
+    },
+    {
+      header: t('taxpayerNumber'),
+      defaultSelected: true,
+      noSort: true,
+      prop: 'taxpayer_number',
+      filter: {
+        name: 'taxpayer_number',
+        type: 'text',
+        placeholder: t('search'),
+      },
     },
     {
       header: t('startDate'),
       defaultSelected: true,
       prop: 'start_date',
-      width: '20%',
       render: (v) => renderDate(v),
     },
     {
       header: t('endDate'),
       defaultSelected: true,
       prop: 'end_date',
-      width: '15%',
       render: (v) => renderDate(v),
     },
     {
-      header: t('taxpayerNumber'),
-      defaultSelected: true,
-      prop: 'taxpayer_number',
-      width: '20%',
+      header: t('address'),
       noSort: true,
+      prop: 'address',
+      filter: {
+        name: 'address',
+        type: 'text',
+        placeholder: 'Пошук',
+      },
+    },
+    {
+      header: t('reasoningDate'),
+      prop: 'reasoning_date',
+      render: (v) => renderDate(v),
+      noSort: true,
+    },
+    {
+      header: 'ID',
+      prop: 'id',
+      noSort: true,
+      filter: {
+        name: 'id',
+        type: 'number',
+        placeholder: t('search'),
+      },
+    },
+    {
+      header: t('nameOriginal'),
+      prop: 'name_original',
+      noSort: true,
+      filter: {
+        name: 'name_original',
+        type: 'number',
+        placeholder: t('search'),
+      },
+    },
+    {
+      header: t('additionalInfo'),
+      noSort: true,
+      prop: 'additional_info',
+      filter: {
+        name: 'additional_info',
+        type: 'text',
+        placeholder: t('search'),
+      },
+    },
+    {
+      header: t('registrationDate'),
+      prop: 'registration_date',
+      noSort: true,
+      render: (v) => renderDate(v),
     },
     {
       header: t('registrationNumber'),
-      defaultSelected: true,
-      prop: 'registration_number',
-      width: '20%',
       noSort: true,
+      prop: 'registration_number',
+      filter: {
+        name: 'registration_number',
+        type: 'text',
+        placeholder: t('search'),
+      },
     },
     {
-      header: t('countryOfRegistration'),
-      defaultSelected: true,
-      prop: 'country_of_registration',
-      width: '20%',
+      header: t('cancelingConditions'),
       noSort: true,
-      render: (country) => country[`name_${i18n.language}`],
+      prop: 'cancellation_condition',
     },
   ];
   return (
@@ -65,13 +128,19 @@ const CompanySanctionList = ({ match, history }) => {
         columns={columns}
         url="sanction/company/"
         fields={[
-          'id',
           'name',
+          'country_of_registration',
+          'taxpayer_number',
           'start_date',
           'end_date',
-          'taxpayer_number',
+          'address',
+          'reasoning_date',
+          'id',
+          'name_original',
+          'additional_info',
+          'registration_date',
           'registration_number',
-          'country_of_registration',
+          'cancellation_condition',
         ]}
         axiosConfigs={{ useProjectToken: true }}
         onRowClick={(row) => {

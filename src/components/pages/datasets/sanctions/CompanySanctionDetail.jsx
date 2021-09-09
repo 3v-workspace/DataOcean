@@ -68,7 +68,7 @@ const CompanySanctionDetail = () => {
         value: data.country_of_registration,
         render: (v) => v[`name_${i18n.language}`],
       },
-      { label: t('nameInTheLangOfCountryOfRegistration'),
+      { label: t('nameOriginal'),
         value: data.name_original,
         render: (v) => v,
       },

@@ -260,7 +260,7 @@ Table.propTypes = {
     header: PropTypes.string.isRequired,
     prop: PropTypes.string.isRequired,
     defaultSelected: PropTypes.bool,
-    width: PropTypes.string.isRequired,
+    width: PropTypes.string,
     noSort: PropTypes.bool,
     filter: PropTypes.shape({
       name: PropTypes.string.isRequired,
