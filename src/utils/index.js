@@ -37,7 +37,6 @@ export const isEqualArray = (array1, array2) => {
 };
 
 export const getLocaleField = (object, fieldName) => {
-  console.log(object, fieldName);
   if (i18.language === 'uk') {
     return object[fieldName] || object[`${fieldName}_uk`] || object[`${fieldName}_en`] || '---';
   }
