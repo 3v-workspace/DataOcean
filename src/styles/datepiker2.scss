@@ -1,0 +1,139 @@
+.select-dropdown__content {
+  display: flex;
+  background-color: lightgrey;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.input-container, .button-container {
+  width: 100%;
+  height: 50%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 30px;
+  margin-top: 30px;
+}
+
+.dropbtn {
+  padding: 2px 2px 2px 2px;
+  background-color: white;
+  color: black;
+  height: 32px;
+  width: 32px;
+  border-radius: 5px;
+  float: left;
+}
+
+.dropdown:hover .dropdown-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: left;
+  padding: 15px 0px 15px 0px;
+}
+
+.dropdown-content {
+  @if isShowDropdown {
+    display: none;
+  } @else {
+    display: flex;
+  }
+  position: fixed;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-top: 32px;
+  color: black;
+  background-color: white;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  row-gap: 6px;
+  min-width: 200px;
+
+}
+
+.dayButton {
+  flex-direction: row;
+  color: black;
+  width: 14%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.monthButton {
+  width: 30%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.yearButton {
+  flex-direction: row;
+  width: 25%;
+  flex-wrap: wrap;
+  display: flex;
+  justify-content: space-around;
+}
+
+.yearsTable {
+  flex-direction: row;
+  display: flex;
+  flex-wrap: wrap;
+  width: 80%;
+  row-gap: 6px;
+  align-content: flex-start;
+}
+
+.chevron {
+  width: 10%;
+}
+
+.input-day, .input-month, .input-year {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  width: auto;
+  margin: 0 8px;
+
+  .inputDay, .inputYear, .inputMonth {
+    text-align: left;
+    padding: 2px 15px;
+    background: #FFFFFF;
+    border: 1px solid #DEDEDE;
+    box-sizing: border-box;
+    border-radius: 4px;
+    color: black; 
+  }
+  .errorMessage {
+    color: red;
+    position: absolute;
+    margin: 0 -30px -50px;
+  }
+}
+
+.button-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+
+  .okButton, .cancelButton {
+    padding: 8px 30px 8px; /* Some padding */
+    cursor: pointer; /* Pointer/hand icon */
+    float: none; /* Float the buttons side by side */
+    box-sizing: border-box;
+    border-radius: 5px;
+  }
+
+  .cancelButton{
+    background: #FFFFFF;
+    border: 2px solid #1C3FAA;
+    color: #1C3FAA;
+  }
+
+  .okButton {
+    color: white;
+    background: #1C3FAA;
+  }
+}
+
+.placeholder {
+  color: #D4D4D4;
+}

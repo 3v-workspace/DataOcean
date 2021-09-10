@@ -42,8 +42,16 @@ const PepList = ({ match, history }) => {
       render: (v) => renderDate(v),
       filter: {
         name: 'date_of_birth',
-        type: 'text',
+        type: 'datepicker',
         placeholder: '1989-02-11',
+        multiple: true,
+        options: [
+          { value: 'national PEP', label: t('pepTypes.nationalPEP') },
+          { value: 'foreign PEP', label: t('pepTypes.foreignPEP') },
+          { value: 'PEP with political functions in international organization', label: t('pepTypes.PEPwithPoliticalFunctions') },
+          { value: 'associated person with PEP', label: t('pepTypes.associatedPersonWithPEP') },
+          { value: 'member of PEP`s family', label: t('pepTypes.familyMemberOfPEP') },
+        ],
       },
     },
     {
