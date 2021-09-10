@@ -145,19 +145,21 @@ const Table = (props) => {
 
   return (
     <div className="box p-5">
-      <div className="flex flex-wrap sm:flex-no-wrap items-center justify-end">
-        {/*<Button*/}
-        {/*  className="shadow-md mr-2"*/}
-        {/*>*/}
-        {/*  Фільтр*/}
-        {/*</Button>*/}
-        {/*<div className="hidden md:block mx-auto text-gray-600">*/}
-        {/*  {t('showingToOfEntries', {*/}
-        {/*    first: tc.itemsIndexes.first,*/}
-        {/*    last: tc.itemsIndexes.last,*/}
-        {/*    count: tc.count,*/}
-        {/*  })}*/}
-        {/*</div>*/}
+      {/*<div className="flex flex-wrap sm:flex-no-wrap items-center justify-end">*/}
+      {/*<Button*/}
+      {/*  className="shadow-md mr-2"*/}
+      {/*>*/}
+      {/*  Фільтр*/}
+      {/*</Button>*/}
+      {/*<div className="hidden md:block mx-auto text-gray-600">*/}
+      {/*  {t('showingToOfEntries', {*/}
+      {/*    first: tc.itemsIndexes.first,*/}
+      {/*    last: tc.itemsIndexes.last,*/}
+      {/*    count: tc.count,*/}
+      {/*  })}*/}
+      {/*</div>*/}
+      {/*</div>*/}
+      <div className="relative flex flex-wrap sm:flex-no-wrap items-center justify-end">
         {!HIDE_EXPORT_BUTTON && exportUrl && (
           <div className="mr-6">
             <ExportXlsx
@@ -167,10 +169,8 @@ const Table = (props) => {
             />
           </div>
         )}
-      </div>
-      <div className="flex flex-wrap sm:flex-no-wrap items-center justify-end">
         {!HIDE_SELECT_COLUMNS && (
-          <div className="intro-x dropdown p-2 flex flex-1 justify-end">
+          <div className="dropdown p-2">
             <div>
               <img src={setColumns} alt="set-columns" className="cursor-pointer" />
             </div>
@@ -180,12 +180,17 @@ const Table = (props) => {
             />
           </div>
         )}
-        {!HIDE_FILTERS && (JSON.stringify(filters) !== JSON.stringify(defaultFilters)) && (
-          <div>
-            <Tooltip content={t('resetAllFilters')} position="bottom">
-              <FilterOff className="cursor-pointer" onClick={resetAllFilters} />
-            </Tooltip>
-          </div>
+        {!HIDE_FILTERS && (
+          <Tooltip content={t('resetAllFilters')} position="bottom" noContainer>
+            <div>
+              <FilterOff
+                className={`cursor-pointer ${
+                  JSON.stringify(filters) === JSON.stringify(defaultFilters) ? 'opacity-50 pointer-events-none' : ''
+                }`}
+                onClick={resetAllFilters}
+              />
+            </div>
+          </Tooltip>
         )}
       </div>
       <div className="overflow-x-auto box" style={{ minHeight: `${minHeight}`, maxHeight: 'calc(100vh - 250px)' }}>
