@@ -100,7 +100,6 @@ const SelectInput2 = (props) => {
         <div className="select-dropdown__content">
           <ul>
             <li>
-              <hr className="-mx-4" />
               <div
                 className="py-2 flex items-center whitespace-normal cursor-pointer"
               >

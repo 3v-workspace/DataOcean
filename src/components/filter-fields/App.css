@@ -49,7 +49,18 @@
 /* Dropdown content (hidden by default) */
 .dropdown-content {
     display: none;
-    position: absolute;
+    position: sticky;
+    background-color: white;
+    width: 222px;
+    height: 52px;
+    left: 0;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content2 {
+    display: none;
+    position: sticky;
     background-color: white;
     width: 265px;
     left: 0;
@@ -58,14 +69,14 @@
 }
 
 /* Mega Menu header, if needed */
-.dropdown-content .header {
+.dropdown-content .header, .dropdown-content2 header {
     background: red;
     padding: 0px;
     color: white;
 }
 
 /* Show the dropdown menu on hover */
-.dropdown:hover .dropdown-content {
+.dropdown:hover .dropdown-content, .dropdown:hover .dropdown-content2 {
     display: block;
 }
 
