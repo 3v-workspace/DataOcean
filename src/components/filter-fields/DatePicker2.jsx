@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { ChevronDown, ChevronUp } from 'react-feather';
+import { ChevronDown, ChevronLeft, ChevronRight, ChevronUp } from 'react-feather';
 import { useTranslation } from 'react-i18next';
 import { isEqualArray } from 'utils';
 
@@ -114,8 +114,7 @@ const SelectInput2 = (props) => {
                 />
                 <div className="dropdown" color="black">
                   <button type="button" className="dropbtn">
-                    <i className="fa fa-caret-down">.
-                    </i>
+                    <ChevronDown className="w-4 h-6 mt-2" />
                   </button>
                   <div className="dropdown-content">
                     <div className="header" />
@@ -161,6 +160,97 @@ const SelectInput2 = (props) => {
                       </div>
                       <div className="column">
                         <a href="#">7</a>
+                        <a href="#">14</a>
+                        <a href="#">21</a>
+                        <a href="#">28</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <input
+                  type="text"
+                  placeholder="Місяць"
+                  id="month"
+                  name="month"
+                  style={{ color: 'black' }}
+                />
+                <div className="dropdown" color="black">
+                  <button type="button" className="dropbtn">
+                    <ChevronDown className="w-4 h-6 mt-2" />
+                  </button>
+                  <div className="dropdown-content">
+                    <div className="header" />
+                    <div className="row">
+                      <div className="column2">
+                        <a href="#">{t('January')}</a>
+                        <a href="#">{t('April')}</a>
+                        <a href="#">{t('July')}</a>
+                        <a href="#">{t('October')}</a>
+                      </div>
+                      <div className="column2">
+                        <a href="#">{t('February')}</a>
+                        <a href="#">{t('May')}</a>
+                        <a href="#">{t('August')}</a>
+                        <a href="#">{t('November')}</a>
+                      </div>
+                      <div className="column2">
+                        <a href="#">{t('March')}</a>
+                        <a href="#">{t('June')}</a>
+                        <a href="#">{t('September')}</a>
+                        <a href="#">{t('December')}</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <input
+                  required
+                  type="text"
+                  size="4"
+                  placeholder="XXXX"
+                  id="year"
+                  name="year"
+                  style={{ color: 'black' }}
+                />
+                <div className="dropdown" color="black">
+                  <button type="button" className="dropbtn">
+                    <ChevronDown className="w-4 h-6 mt-2" />
+                  </button>
+                  <div className="dropdown-content">
+                    <div className="header" />
+                    <div className="row">
+                      <div className="column4">
+                        <ChevronLeft />
+                      </div>
+                      <div className="column3">
+                        <a href="#">2021</a>
+                        <a href="#">2017</a>
+                        <a href="#">2013</a>
+                        <a href="#">2009</a>
+                        <a href="#">2005</a>
+                      </div>
+                      <div className="column3">
+                        <a href="#">2020</a>
+                        <a href="#">2016</a>
+                        <a href="#">2012</a>
+                        <a href="#">2008</a>
+                        <a href="#">2004</a>
+                      </div>
+                      <div className="column3">
+                        <a href="#">2019</a>
+                        <a href="#">2015</a>
+                        <a href="#">2011</a>
+                        <a href="#">2007</a>
+                        <a href="#">2003</a>
+                      </div>
+                      <div className="column3">
+                        <a href="#">2018</a>
+                        <a href="#">2014</a>
+                        <a href="#">2010</a>
+                        <a href="#">2007</a>
+                        <a href="#">2002</a>
+                      </div>
+                      <div className="column4">
+                        <ChevronRight />
                       </div>
                     </div>
                   </div>

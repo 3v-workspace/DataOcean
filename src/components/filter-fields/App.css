@@ -14,13 +14,6 @@
     text-decoration: none;
 }
 
-/* The dropdown container */
-.dropdown {
-    float: left;
-    overflow: hidden;
-    background-color: green;
-}
-
 .select-dropdown__content{
     background-color: lightgrey;
 }
@@ -85,8 +78,32 @@
     background-color: white;
 }
 
+.column2 {
+    float: left;
+    width: 33.33%;
+    padding: 0px;
+    height: 100%;
+    background-color: white;
+}
+
+.column3 {
+    float: left;
+    width: 20%;
+    padding: 0px;
+    height: 100%;
+    background-color: white;
+}
+
+.column4 {
+    float: left;
+    width: 10%;
+    padding: 0px;
+    height: 100%;
+    background-color: white;
+}
+
 /* Style links inside the columns */
-.column a {
+.column a, .column2 a, .column3 a, .column4 a {
     float: none;
     color: black;
     padding: 15px;
@@ -97,7 +114,7 @@
 }
 
 /* Add a background color on hover */
-.column a:hover {
+.column a:hover, .column2 a:hover, .column3 a:hover, .column4 a:hover {
     background-color: lightgrey;
 }
 

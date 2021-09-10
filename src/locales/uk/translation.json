@@ -411,5 +411,17 @@
   "yearlyPayment": "Щорічний платіж",
   "yes": "Так",
   "yourQuestionIsSent": "Ваше запитання надіслано!",
-  "yourRequestHasBeenSentWeWillContactYou": "Ваш запит надіслано. Ми звяжемось з Вами."
+  "yourRequestHasBeenSentWeWillContactYou": "Ваш запит надіслано. Ми звяжемось з Вами.",
+  "January": "Січень",
+  "April": "Квітень",
+  "July": "Липень",
+  "October": "Жовтень",
+  "February": "Лютий",
+  "May": "Травень",
+  "August": "Серпень",
+  "November": "Листопад",
+  "March": "Березень",
+  "June": "Червень",
+  "September": "Вересень",
+  "December": "Грудень"
 }
