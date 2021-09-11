@@ -1,6 +1,5 @@
 /* Navbar container */
 .navbar {
-    overflow: hidden;
     background-color: white;
 }
 
@@ -49,20 +48,8 @@
 /* Dropdown content (hidden by default) */
 .dropdown-content {
     display: none;
-    position: sticky;
+    position: absolute;
     background-color: white;
-    width: 222px;
-    height: 52px;
-    left: 0;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-}
-
-.dropdown-content2 {
-    display: none;
-    position: sticky;
-    background-color: white;
-    width: 265px;
     left: 0;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;

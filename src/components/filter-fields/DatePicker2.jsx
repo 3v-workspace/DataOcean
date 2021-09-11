@@ -4,7 +4,7 @@ import { ChevronDown, ChevronLeft, ChevronRight, ChevronUp } from 'react-feather
 import { useTranslation } from 'react-i18next';
 import { isEqualArray } from 'utils';
 
-const SelectInput2 = (props) => {
+const DatePicker2 = (props) => {
   const { name, options, onChange, value, multiple } = props;
   const { t } = useTranslation();
 
@@ -102,6 +102,7 @@ const SelectInput2 = (props) => {
             <li>
               <div
                 className="py-2 flex items-center whitespace-normal cursor-pointer"
+                style={{ width: 312, height: 152 }}
               >
                 <input
                   type="text"
@@ -111,7 +112,7 @@ const SelectInput2 = (props) => {
                   name="day"
                   style={{ color: 'black' }}
                 />
-                <div className="dropdown" color="black">
+                <div className="dropdown">
                   <button type="button" className="dropbtn">
                     <ChevronDown className="w-4 h-6 mt-2" />
                   </button>
@@ -173,7 +174,7 @@ const SelectInput2 = (props) => {
                   name="month"
                   style={{ color: 'black' }}
                 />
-                <div className="dropdown" color="black">
+                <div className="dropdown">
                   <button type="button" className="dropbtn">
                     <ChevronDown className="w-4 h-6 mt-2" />
                   </button>
@@ -210,7 +211,7 @@ const SelectInput2 = (props) => {
                   name="year"
                   style={{ color: 'black' }}
                 />
-                <div className="dropdown" color="black">
+                <div className="dropdown">
                   <button type="button" className="dropbtn">
                     <ChevronDown className="w-4 h-6 mt-2" />
                   </button>
@@ -267,7 +268,7 @@ const SelectInput2 = (props) => {
   );
 };
 
-SelectInput2.propTypes = {
+DatePicker2.propTypes = {
   name: PropTypes.string.isRequired,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   options: PropTypes.any.isRequired,
@@ -275,10 +276,10 @@ SelectInput2.propTypes = {
   multiple: PropTypes.bool,
 };
 
-SelectInput2.defaultProps = {
+DatePicker2.defaultProps = {
   value: undefined,
   multiple: false,
 };
 
 
-export default SelectInput2;
+export default DatePicker2;
