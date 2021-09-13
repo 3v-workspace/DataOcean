@@ -102,9 +102,9 @@ const DatePicker2 = (props) => {
             <li>
               <div
                 className="py-2 flex items-center whitespace-normal cursor-pointer"
-                style={{ width: 312, height: 152 }}
               >
                 <input
+                  className="inputDay"
                   type="text"
                   size="2"
                   placeholder="XX"
@@ -118,7 +118,7 @@ const DatePicker2 = (props) => {
                   </button>
                   <div className="dropdown-content">
                     <div className="header" />
-                    <div className="row">
+                    <div className="row2">
                       <div className="column">
                         <a href="#">1</a>
                         <a href="#">8</a>
@@ -168,8 +168,10 @@ const DatePicker2 = (props) => {
                   </div>
                 </div>
                 <input
+                  className="inputMonth"
                   type="text"
-                  placeholder="Місяць"
+                  size="15"
+                  placeholder={t('month')}
                   id="month"
                   name="month"
                   style={{ color: 'black' }}
@@ -203,6 +205,7 @@ const DatePicker2 = (props) => {
                   </div>
                 </div>
                 <input
+                  className="inputYear"
                   required
                   type="text"
                   size="4"
@@ -219,7 +222,7 @@ const DatePicker2 = (props) => {
                     <div className="header" />
                     <div className="row">
                       <div className="column4">
-                        <ChevronLeft />
+                        <ChevronLeft className="w-6 h-6 mt+5 " />
                       </div>
                       <div className="column3">
                         <a href="#">2021</a>
@@ -250,16 +253,17 @@ const DatePicker2 = (props) => {
                         <a href="#">2002</a>
                       </div>
                       <div className="column4">
-                        <ChevronRight />
+                        <ChevronRight className="w-6 h-6 mt+5" />
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
               <br />
-              <button type="button" onClick={onClear} style={{ color: 'blue', background: 'white', border: '2px solid #008CBA' }}>{t('resetFilter')}</button>
-
-              <button type="button" onClick={hideDropdown} style={{ color: 'white', background: 'blue' }}>Click Me!</button>
+              <div className="btn-group">
+                <button type="button" onClick={onClear} style={{ color: 'blue', background: 'white', border: '2px solid #008CBA' }}>{t('cancel')}</button>
+                <button type="button" onClick={hideDropdown} style={{ color: 'white', background: 'blue' }}>OK</button>
+              </div>
             </li>
           </ul>
         </div>

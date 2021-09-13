@@ -31,7 +31,7 @@
 /* Dropdown button */
 .dropdown .dropbtn {
     background-color: white; /* Blue background */
-    border: none; /* Remove borders */
+    border: red; /* Remove borders */
     color: black; /* White text */
     padding: 0px 12px; /* Some padding */
     font-size: 16px; /* Set a font size */
@@ -48,22 +48,21 @@
 /* Dropdown content (hidden by default) */
 .dropdown-content {
     display: none;
-    position: absolute;
+    position: fixed;
     background-color: white;
-    left: 0;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
 }
 
 /* Mega Menu header, if needed */
-.dropdown-content .header, .dropdown-content2 header {
+.dropdown-content .header {
     background: red;
     padding: 0px;
     color: white;
 }
 
 /* Show the dropdown menu on hover */
-.dropdown:hover .dropdown-content, .dropdown:hover .dropdown-content2 {
+.dropdown:hover .dropdown-content {
     display: block;
 }
 
@@ -85,19 +84,28 @@
 }
 
 .column3 {
+    margin-top: 10px;
     float: left;
     width: 20%;
-    padding: 0px;
+    padding: 0;
     height: 100%;
     background-color: white;
 }
 
+.row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .column4 {
+    position: relative;
+    top: 50%;
     float: left;
+    border: solid;
     width: 10%;
-    padding: 0px;
-    height: 100%;
     background-color: white;
+    color: black;
 }
 
 /* Style links inside the columns */
@@ -117,12 +125,35 @@
 }
 
 /* Clear floats after the columns */
-.row:after {
+.row:after, .row2:after {
     content: "";
     display: table;
     clear: both;
 }
 
-.fa fa-caret-down{
-    background-color: black;
+.inputDay, .inputYear, .inputMonth {
+    text-align: center;
+    background: #FFFFFF;
+    border: 1px solid #DEDEDE;
+    box-sizing: border-box;
+    border-radius: 4px;
+}
+
+.btn-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-group button {
+    padding: 8px 30px 8px; /* Some padding */
+    margin-bottom: 30px;
+    margin-left: 20px;
+    cursor: pointer; /* Pointer/hand icon */
+    float: none;  /* Float the buttons side by side */
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #1C3FAA;
+    box-sizing: border-box;
+    border-radius: 5px;
 }
