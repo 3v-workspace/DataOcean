@@ -78,11 +78,13 @@ const PersonSanctionList = ({ match, history }) => {
     {
       header: t('reasoningDate'),
       prop: 'reasoning_date',
+      noSort: true,
       render: (v) => renderDate(v),
     },
     {
       header: 'ID',
       prop: 'id',
+      noSort: true,
       filter: {
         name: 'id',
         type: 'text',
@@ -92,6 +94,7 @@ const PersonSanctionList = ({ match, history }) => {
     {
       header: t('fullNameOriginal'),
       prop: 'full_name_original',
+      noSort: true,
       filter: {
         name: 'full_name_original',
         type: 'text',
@@ -127,12 +130,7 @@ const PersonSanctionList = ({ match, history }) => {
     {
       header: t('placeOfBirth'),
       prop: 'place_of_birth',
-    },
-    {
-      header: t('cancellationCondition'),
-      defaultSelected: false,
       noSort: true,
-      prop: 'cancellation_condition',
     },
   ];
   return (

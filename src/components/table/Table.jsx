@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { useTableController } from 'components/table/index';
 import ExportXlsx from 'components/table/ExportXlsx';
 import Pagination from 'components/table/Pagination';
-import { SearchBox } from 'components/form-components';
 import { ReactComponent as ArrowUp } from 'images/ParallelArrowUp.svg';
 import { ReactComponent as ArrowDown } from 'images/ParallelArrowDown.svg';
 import { ReactComponent as FilterOff } from 'images/filterOffOutline.svg';
@@ -11,7 +10,7 @@ import LoadingIcon from 'components/LoadingIcon';
 import { useTranslation } from 'react-i18next';
 import FilterField from 'components/filter-fields/FilterField';
 import { useDispatch, useSelector } from 'react-redux';
-import { tableSetFilters, initTable, tableSetSearch } from 'store/tables/actionCreators';
+import { tableSetFilters, initTable } from 'store/tables/actionCreators';
 import Tooltip from 'components/Tooltip';
 import SelectColumns from 'components/table/SelectColumns';
 import setColumns from 'images/setColumns.svg';
@@ -58,7 +57,6 @@ const Table = (props) => {
     filters = defaultFilters;
   }
   const search = useSelector((store) => store.tables[url].search);
-  const setSearch = (newSearch) => dispatch(tableSetSearch(url, newSearch));
   const params = { ...filters, search };
   if (fields.length) {
     params.fields = fields.join(',');
@@ -73,11 +71,6 @@ const Table = (props) => {
   const reloadTable = () => {
     tc.setPage(1);
     tc.reload();
-  };
-
-  const onSearch = (name, value) => {
-    setSearch(value);
-    reloadTable();
   };
 
   const resetAllFilters = () => {
@@ -167,8 +160,6 @@ const Table = (props) => {
     }
   });
 
-  // const debounceHandleWindowResize = debounce(250, true, handleWindowResize);
-
   useEffect(() => {
     resetScrollParams();
     const handleWindowResize = throttle(250, false, () => {
@@ -184,19 +175,21 @@ const Table = (props) => {
   console.log('render');
   return (
     <div className="box p-5">
-      <div className="flex flex-wrap sm:flex-no-wrap items-center justify-end">
-        {/*<Button*/}
-        {/*  className="shadow-md mr-2"*/}
-        {/*>*/}
-        {/*  Фільтр*/}
-        {/*</Button>*/}
-        {/*<div className="hidden md:block mx-auto text-gray-600">*/}
-        {/*  {t('showingToOfEntries', {*/}
-        {/*    first: tc.itemsIndexes.first,*/}
-        {/*    last: tc.itemsIndexes.last,*/}
-        {/*    count: tc.count,*/}
-        {/*  })}*/}
-        {/*</div>*/}
+      {/*<div className="flex flex-wrap sm:flex-no-wrap items-center justify-end">*/}
+      {/*<Button*/}
+      {/*  className="shadow-md mr-2"*/}
+      {/*>*/}
+      {/*  Фільтр*/}
+      {/*</Button>*/}
+      {/*<div className="hidden md:block mx-auto text-gray-600">*/}
+      {/*  {t('showingToOfEntries', {*/}
+      {/*    first: tc.itemsIndexes.first,*/}
+      {/*    last: tc.itemsIndexes.last,*/}
+      {/*    count: tc.count,*/}
+      {/*  })}*/}
+      {/*</div>*/}
+      {/*</div>*/}
+      <div className="relative flex flex-wrap sm:flex-no-wrap items-center justify-end">
         {!HIDE_EXPORT_BUTTON && exportUrl && (
           <div className="mr-6">
             <ExportXlsx
@@ -206,17 +199,8 @@ const Table = (props) => {
             />
           </div>
         )}
-        <div className="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">
-          <SearchBox
-            containerClass="w-56"
-            defaultValue={search}
-            onSearch={onSearch}
-          />
-        </div>
-      </div>
-      <div className="flex flex-wrap sm:flex-no-wrap items-center justify-end">
         {!HIDE_SELECT_COLUMNS && (
-          <div className="intro-x dropdown p-2 flex flex-1 justify-end">
+          <div className="dropdown p-2">
             <div>
               <img src={setColumns} alt="set-columns" className="cursor-pointer" />
             </div>
@@ -226,12 +210,17 @@ const Table = (props) => {
             />
           </div>
         )}
-        {!HIDE_FILTERS && (JSON.stringify(filters) !== JSON.stringify(defaultFilters)) && (
-          <div>
-            <Tooltip content={t('resetAllFilters')} position="bottom">
-              <FilterOff className="cursor-pointer" onClick={resetAllFilters} />
-            </Tooltip>
-          </div>
+        {!HIDE_FILTERS && (
+          <Tooltip content={t('resetAllFilters')} position="bottom" noContainer>
+            <div>
+              <FilterOff
+                className={`cursor-pointer ${
+                  JSON.stringify(filters) === JSON.stringify(defaultFilters) ? 'opacity-50 pointer-events-none' : ''
+                }`}
+                onClick={resetAllFilters}
+              />
+            </div>
+          </Tooltip>
         )}
       </div>
       <Shadow scrollParams={scrollParams} />
