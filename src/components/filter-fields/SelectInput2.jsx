@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { ChevronDown, ChevronUp } from 'react-feather';
 import { useTranslation } from 'react-i18next';
 import { isEqualArray } from 'utils';
-import './App.css';
 
 const SelectInput2 = (props) => {
   const { name, options, onChange, value, multiple } = props;
