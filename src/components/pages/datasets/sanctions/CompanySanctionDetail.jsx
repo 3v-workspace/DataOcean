@@ -1,19 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
-import { renderDate } from 'utils';
+import { getLocaleField, renderDate } from 'utils';
 import { useParams, useHistory } from 'react-router-dom';
 import Api from 'api';
 import { Download, Printer, ArrowLeft } from 'react-feather';
 import Tooltip from 'components/Tooltip';
 import { ReactComponent as EmptyLogo } from 'images/logo_company.svg';
-import { setTopBarShow } from 'store/interface/actionCreators';
+import useTopBarHiddingEffect from 'hooks/useTopBarHiddingEffect';
 
 const CompanySanctionDetail = () => {
   const [data, setData] = useState({});
   const { id } = useParams();
-  const { t, i18n } = useTranslation();
-  const dispatch = useDispatch();
+  const { t } = useTranslation();
   const history = useHistory();
 
   const fetchData = () => {
@@ -62,41 +60,33 @@ const CompanySanctionDetail = () => {
 
   const getDetailInfo = () => {
     const infoFields = [
-      { label: t('taxpayerNumber'), value: data.taxpayer_number, render: (v) => v },
-      { label: t('address'), value: data.address, render: (v) => v },
+      { label: t('taxpayerNumber'), value: data.taxpayer_number },
+      { label: t('address'), value: data.address },
       { label: t('countryOfRegistration'),
         value: data.country_of_registration,
-        render: (v) => v[`name_${i18n.language}`],
+        render: (v) => getLocaleField(v, 'name'),
       },
-      { label: t('nameOriginal'),
-        value: data.name_original,
-        render: (v) => v,
-      },
-      { label: t('registrationNumber'),
-        value: data.registration_number,
-        render: (v) => v,
-      },
+      { label: t('nameOriginal'), value: data.name_original },
+      { label: t('registrationNumber'), value: data.registration_number },
       { label: t('registrationDate'),
         value: data.registration_date,
         render: (v) => renderDate(v),
       },
-      { label: t('reasoning'), value: data.reasoning, render: (v) => v },
-      { label: t('referenceData'), value: data.additional_info, render: (v) => v },
+      { label: t('reasoning'), value: data.reasoning },
+      { label: t('referenceData'), value: data.additional_info },
     ];
     return infoFields.map((info, i) => (info.value ? (
       <div className="pl-5 mb-1 flex" key={i}>
         <div className="w-4/12 pr-1 font-medium">{info.label}:</div>
-        <div className="w-4/6 self-end">{info.render(info.value)}</div>
+        <div className="w-4/6 self-end">{info.render ? info.render(info.value) : info.value}</div>
       </div>
     ) : null));
   };
 
+  useTopBarHiddingEffect();
+
   useEffect(() => {
     fetchData();
-    dispatch(setTopBarShow(false));
-    return () => {
-      dispatch(setTopBarShow(true));
-    };
   }, []);
 
   if (!Object.keys(data).length) {
@@ -149,7 +139,7 @@ const CompanySanctionDetail = () => {
         <div>
           {data.decree && (
             <div className="intro-y pl-5 mt-8 font-bold text-lg">
-              {`${t('sanctionsUnderThePresidentialDecree', { numberDecree: data.decree })} `}{renderDate(data.reasoning_date)}
+              {`${t('sanctionsUnderThePresidentialDecree', { numberDecree: data.decree })} `}{renderDate(data.start_date)}
             </div>
           )}
           <div className="px-5 flex flex-row w-full">

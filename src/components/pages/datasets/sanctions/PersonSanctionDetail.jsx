@@ -1,19 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
-import { isPep, renderDate } from 'utils';
+import { getLocaleField, isPep, renderDate } from 'utils';
 import { useParams, useHistory } from 'react-router-dom';
 import Api from 'api';
 import { Download, Printer, ArrowLeft } from 'react-feather';
 import Tooltip from 'components/Tooltip';
 import { ReactComponent as ImgPerson } from 'images/logo_person.svg';
-import { setTopBarShow } from 'store/interface/actionCreators';
+import useTopBarHiddingEffect from 'hooks/useTopBarHiddingEffect';
 
 const PersonSanctionDetail = () => {
   const [data, setData] = useState({});
   const { id } = useParams();
-  const { t, i18n } = useTranslation();
-  const dispatch = useDispatch();
+  const { t } = useTranslation();
   const history = useHistory();
 
   const fetchData = () => {
@@ -66,39 +64,34 @@ const PersonSanctionDetail = () => {
         value: data.date_of_birth ? data.date_of_birth : data.year_of_birth,
         render: (v) => renderDate(v),
       },
-      { label: t('placeOfBirth'), value: data.place_of_birth, render: (v) => v },
-      { label: t('address'), value: data.address, render: (v) => v },
+      { label: t('placeOfBirth'), value: data.place_of_birth },
+      { label: t('address'), value: data.address },
       { label: t('countriesOfCitizenship'),
         value: data.countries_of_citizenship,
-        render: (v) => v.map((country) => country[`name_${i18n.language}`]).join(', '),
+        render: (v) => v.map((country) => getLocaleField(country, 'name')).join(', '),
       },
-      { label: t('fullNameOriginal'),
-        value: data.full_name_original,
-        render: (v) => v,
-      },
-      { label: t('position'), value: data.occupation, render: (v) => v },
+      { label: t('fullNameOriginal'), value: data.full_name_original },
+      { label: t('position'), value: data.occupation },
       { label: t('status'),
         value: data.is_pep,
         render: (v) => isPep(v),
       },
-      { label: t('documentsInfo'), value: data.id_card, render: (v) => v },
-      { label: t('taxpayerNumber'), value: data.taxpayer_number, render: (v) => v },
-      { label: t('referenceData'), value: data.additional_info, render: (v) => v },
+      { label: t('documentsInfo'), value: data.id_card },
+      { label: t('taxpayerNumber'), value: data.taxpayer_number },
+      { label: t('referenceData'), value: data.additional_info },
     ];
     return infoFields.map((info, i) => (info.value ? (
       <div className="pl-5 mb-1 flex" key={i}>
         <div className="w-4/12 pr-1 font-medium">{info.label}:</div>
-        <div className="w-4/6 self-end ">{info.render(info.value)}</div>
+        <div className="w-4/6 self-end ">{info.render ? info.render(info.value) : info.value}</div>
       </div>
     ) : null));
   };
 
+  useTopBarHiddingEffect();
+
   useEffect(() => {
     fetchData();
-    dispatch(setTopBarShow(false));
-    return () => {
-      dispatch(setTopBarShow(true));
-    };
   }, []);
 
   if (!Object.keys(data).length) {
@@ -152,7 +145,7 @@ const PersonSanctionDetail = () => {
       <div>
         {data.decree && (
           <div className="intro-y pl-5 mt-8 font-bold text-lg">
-            {`${t('sanctionsUnderThePresidentialDecree', { numberDecree: data.decree })} `}{renderDate(data.reasoning_date)}
+            {`${t('sanctionsUnderThePresidentialDecree', { numberDecree: data.decree })} `}{renderDate(data.start_date)}
           </div>
         )}
         <div className="px-5 flex flex-row">

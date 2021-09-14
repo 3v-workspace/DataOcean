@@ -1,19 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
 import { renderDate } from 'utils';
 import { useParams, useHistory } from 'react-router-dom';
 import Api from 'api';
 import { Download, Printer, ArrowLeft } from 'react-feather';
 import Tooltip from 'components/Tooltip';
 import { ReactComponent as CountryLogo } from 'images/logo_country.svg';
-import { setTopBarShow } from 'store/interface/actionCreators';
+import useTopBarHiddingEffect from 'hooks/useTopBarHiddingEffect';
 
 const CountrySanctionDetail = () => {
   const [data, setData] = useState({});
   const { id } = useParams();
   const { t } = useTranslation();
-  const dispatch = useDispatch();
   const history = useHistory();
 
   const fetchData = () => {
@@ -60,12 +58,10 @@ const CountrySanctionDetail = () => {
     );
   };
 
+  useTopBarHiddingEffect();
+
   useEffect(() => {
     fetchData();
-    dispatch(setTopBarShow(false));
-    return () => {
-      dispatch(setTopBarShow(true));
-    };
   }, []);
 
   if (!Object.keys(data).length) {
@@ -112,7 +108,7 @@ const CountrySanctionDetail = () => {
         </div>
         {data.decree && (
           <div className="intro-y pl-5 mt-8 font-bold text-xl">
-            {`${t('sanctionsUnderThePresidentialDecree', { numberDecree: data.decree })} `}{renderDate(data.reasoning_date)}
+            {`${t('sanctionsUnderThePresidentialDecree', { numberDecree: data.decree })} `}{renderDate(data.start_date)}
           </div>
         )}
         <div className="px-5 pt-2 flex flex-row">
