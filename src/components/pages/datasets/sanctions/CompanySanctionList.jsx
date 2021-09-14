@@ -7,7 +7,7 @@ import { getLocaleField, renderDate } from 'utils';
 
 
 const CompanySanctionList = ({ match, history }) => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const columns = [
     {
       header: t('companyName'),
@@ -117,7 +117,7 @@ const CompanySanctionList = ({ match, history }) => {
       },
     },
     {
-      header: t('cancellationCondition'),
+      header: t('cancelingConditions'),
       noSort: true,
       prop: 'cancellation_condition',
     },
