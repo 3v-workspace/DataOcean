@@ -17,11 +17,12 @@
 .dropbtn {
   padding: 2px 2px 2px 2px;
   background-color: white;
-  padding-left:20px;
+  padding-left:0px;
   color: black;
   height: 32px;
   width: 32px;
   border-radius: 5px;
+  float: left;
 }
 
 .input-day, .input-month, .input-year {
@@ -33,7 +34,10 @@
 }
 
 .dropdown:hover .dropdown-content {
-  display: block;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: left;
+  alignItems: flex-start;
 }
 
 .dropdown-content {
@@ -46,8 +50,6 @@
   flex-direction: row;
   justify-content: space-around;
   color: black;
-  min-width: 100px;
-  min-height: 100px;
   background-color: white;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
@@ -55,9 +57,8 @@
 
 .dayButton {
   flex-direction: row;
-  color: green;
-  width: 40%;
-  border: solid black;
+  color: black;
+  width: 14%;
   display: flex;
   justify-content: space-around;
 }
