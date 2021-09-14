@@ -1,22 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Component } from 'react';
 import PropTypes from 'prop-types';
 import { ChevronDown, ChevronLeft, ChevronRight, ChevronUp } from 'react-feather';
 import { useTranslation } from 'react-i18next';
 import { isEqualArray } from 'utils';
+import 'styles/datepiker2.scss';
 
 const DatePicker2 = (props) => {
-  const { name, options, onChange, value, multiple } = props;
+  const { name, options, onChange, value } = props;
   const { t } = useTranslation();
 
-  let defaultValue;
-  if (value === undefined) {
-    defaultValue = multiple ? [] : '';
-  } else {
-    defaultValue = value;
-  }
-
-  const [selectValue, setSelectValue] = useState(defaultValue);
+  const [dayValue, setDayValue] = useState();
+  const [monthValue, setMonthValue] = useState();
+  const [yearValue, setYearValue] = useState();
   const [isShowDropdown, setShowDropdown] = useState(false);
+  const currentDate = new Date();
+  const [currentYear, setCurrentYear] = useState(currentDate.getFullYear());
 
   const hideDropdown = () => {
     if (isShowDropdown) {
@@ -30,51 +28,37 @@ const DatePicker2 = (props) => {
     }
   };
 
-  const onClear = () => {
-    if (multiple) {
-      setSelectValue([]);
-    } else setSelectValue('');
-  };
+  function onClear(number) {
+    console.log(number);
+  }
 
-  useEffect(() => {
-    if (multiple) {
-      if (!isEqualArray(selectValue, value)) {
-        setSelectValue([...value]);
-      }
-    } else if (selectValue !== value) {
-      setSelectValue(value);
+  function createDay() {
+    const days = new Array(31);
+    for (let i = 0; i < days.length; i += 1) {
+      days[i] = [i + 1];
     }
-  }, [value]);
+    return days;
+  }
 
-  useEffect(() => {
-    if (multiple) {
-      if (!isEqualArray(selectValue, value)) {
-        onChange(name, selectValue);
-      }
-    } else if (selectValue !== value) {
-      onChange(name, selectValue);
-    }
-  }, [selectValue]);
+  function createMonth() {
+    const month = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    return month;
+  }
 
-  const handleChange = (option) => {
-    if (!multiple) {
-      setSelectValue(option.value);
-      return;
-    }
-    if (selectValue.includes(option.value)) {
-      const newSelectValue = [...selectValue];
-      newSelectValue.splice(newSelectValue.indexOf(option.value), 1);
-      setSelectValue(newSelectValue);
-    } else {
-      setSelectValue([option.value, ...selectValue]);
-    }
-  };
+  function prevPage() {
+    setCurrentYear(currentYear - 20);
+  }
 
-  let count;
-  if (multiple) {
-    count = selectValue.length;
-  } else {
-    count = selectValue ? 1 : 0;
+  function nextPage() {
+    setCurrentYear(currentYear + 20);
+  }
+
+  function createYear() {
+    const year = new Array(20);
+    for (let i = 0; i < year.length; i += 1) {
+      year[i] = [currentYear - i];
+    }
+    return year;
   }
 
   return (
@@ -84,7 +68,7 @@ const DatePicker2 = (props) => {
           readOnly
           type="text"
           className="input text-gray-600 w-40"
-          value={t('selected', { count, optionsCount: options.length })}
+          value={t('selected', { optionsCount: options.length })}
           onClick={showDropdown}
         />
         {isShowDropdown ? (
@@ -94,178 +78,80 @@ const DatePicker2 = (props) => {
         )}
       </div>
       <div
-        className={`${multiple ? 'w-164' : 'w-1/2 sm:w-auto'} mt-1 absolute max-w-3xl select-dropdown ${isShowDropdown ? 'show' : ''}`}
+        className={`w-1/2 sm:w-auto mt-1 absolute max-w-3xl select-dropdown ${isShowDropdown ? 'show' : ''}`}
         onMouseLeave={hideDropdown}
       >
         <div className="select-dropdown__content">
-          <ul>
-            <li>
-              <div
-                className="py-2 flex items-center whitespace-normal cursor-pointer"
-              >
-                <input
-                  className="inputDay"
-                  type="text"
-                  size="2"
-                  placeholder="XX"
-                  id="day"
-                  name="day"
-                  style={{ color: 'black' }}
-                />
-                <div className="dropdown">
-                  <button type="button" className="dropbtn">
-                    <ChevronDown className="w-4 h-6 mt-2" />
-                  </button>
-                  <div className="dropdown-content">
-                    <div className="header" />
-                    <div className="row2">
-                      <div className="column">
-                        <a href="#">1</a>
-                        <a href="#">8</a>
-                        <a href="#">15</a>
-                        <a href="#">22</a>
-                        <a href="#">29</a>
-                      </div>
-                      <div className="column">
-                        <a href="#">2</a>
-                        <a href="#">9</a>
-                        <a href="#">16</a>
-                        <a href="#">23</a>
-                        <a href="#">30</a>
-                      </div>
-                      <div className="column">
-                        <a href="#">3</a>
-                        <a href="#">10</a>
-                        <a href="#">17</a>
-                        <a href="#">24</a>
-                        <a href="#">31</a>
-                      </div>
-                      <div className="column">
-                        <a href="#">4</a>
-                        <a href="#">11</a>
-                        <a href="#">18</a>
-                        <a href="#">25</a>
-                      </div>
-                      <div className="column">
-                        <a href="#">5</a>
-                        <a href="#">12</a>
-                        <a href="#">19</a>
-                        <a href="#">26</a>
-                      </div>
-                      <div className="column">
-                        <a href="#">6</a>
-                        <a href="#">13</a>
-                        <a href="#">20</a>
-                        <a href="#">27</a>
-                      </div>
-                      <div className="column">
-                        <a href="#">7</a>
-                        <a href="#">14</a>
-                        <a href="#">21</a>
-                        <a href="#">28</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <input
-                  className="inputMonth"
-                  type="text"
-                  size="15"
-                  placeholder={t('month')}
-                  id="month"
-                  name="month"
-                  style={{ color: 'black' }}
-                />
-                <div className="dropdown">
-                  <button type="button" className="dropbtn">
-                    <ChevronDown className="w-4 h-6 mt-2" />
-                  </button>
-                  <div className="dropdown-content">
-                    <div className="header" />
-                    <div className="row">
-                      <div className="column2">
-                        <a href="#">{t('January')}</a>
-                        <a href="#">{t('April')}</a>
-                        <a href="#">{t('July')}</a>
-                        <a href="#">{t('October')}</a>
-                      </div>
-                      <div className="column2">
-                        <a href="#">{t('February')}</a>
-                        <a href="#">{t('May')}</a>
-                        <a href="#">{t('August')}</a>
-                        <a href="#">{t('November')}</a>
-                      </div>
-                      <div className="column2">
-                        <a href="#">{t('March')}</a>
-                        <a href="#">{t('June')}</a>
-                        <a href="#">{t('September')}</a>
-                        <a href="#">{t('December')}</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <input
-                  className="inputYear"
-                  required
-                  type="text"
-                  size="4"
-                  placeholder="XXXX"
-                  id="year"
-                  name="year"
-                  style={{ color: 'black' }}
-                />
-                <div className="dropdown">
-                  <button type="button" className="dropbtn">
-                    <ChevronDown className="w-4 h-6 mt-2" />
-                  </button>
-                  <div className="dropdown-content">
-                    <div className="header" />
-                    <div className="row">
-                      <div className="column4">
-                        <ChevronLeft className="w-6 h-6 mt+5 " />
-                      </div>
-                      <div className="column3">
-                        <a href="#">2021</a>
-                        <a href="#">2017</a>
-                        <a href="#">2013</a>
-                        <a href="#">2009</a>
-                        <a href="#">2005</a>
-                      </div>
-                      <div className="column3">
-                        <a href="#">2020</a>
-                        <a href="#">2016</a>
-                        <a href="#">2012</a>
-                        <a href="#">2008</a>
-                        <a href="#">2004</a>
-                      </div>
-                      <div className="column3">
-                        <a href="#">2019</a>
-                        <a href="#">2015</a>
-                        <a href="#">2011</a>
-                        <a href="#">2007</a>
-                        <a href="#">2003</a>
-                      </div>
-                      <div className="column3">
-                        <a href="#">2018</a>
-                        <a href="#">2014</a>
-                        <a href="#">2010</a>
-                        <a href="#">2007</a>
-                        <a href="#">2002</a>
-                      </div>
-                      <div className="column4">
-                        <ChevronRight className="w-6 h-6 mt+5" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
+          <div className="input-container">
+            <div className="input-day">
+              <input
+                className="inputDay"
+                type="text"
+                size="2"
+                placeholder="XX"
+                id="day"
+                name="day"
+                value={dayValue}
+              />
+            </div>
+            <div className="dropdown">
+              <button type="button" className="dropbtn">
+                <ChevronDown className="w-4 h-6" />
+              </button>
+              <div className="dropdown-content">
+                {createDay().map((day) => (<button type="button" className="dayButton" onClick={() => setDayValue(day)}>{day}</button>))}
               </div>
-              <br />
-              <div className="btn-group">
-                <button type="button" onClick={onClear} style={{ color: 'blue', background: 'white', border: '2px solid #008CBA' }}>{t('cancel')}</button>
-                <button type="button" onClick={hideDropdown} style={{ color: 'white', background: 'blue' }}>OK</button>
+            </div>
+            <div className="input-month">
+              <input
+                className="inputMonth"
+                type="text"
+                size="15"
+                placeholder={t('month')}
+                value={monthValue}
+                id="month"
+                name="month"
+              />
+            </div>
+            <div className="dropdown">
+              <button type="button" className="dropbtn">
+                <ChevronDown className="w-4 h-6" />
+              </button>
+              <div className="dropdown-content">
+                {createMonth().map((month) => (<button type="button" className="monthButton" onClick={() => setMonthValue(t(month))}>{t(month)}</button>))}
               </div>
-            </li>
-          </ul>
+            </div>
+            <div className="input-year">
+              <input
+                className="inputYear"
+                required
+                type="text"
+                min="1921"
+                max="2041"
+                size="4"
+                placeholder="XXXX"
+                id="year"
+                name="year"
+                value={yearValue}
+              />
+            </div>
+            <div className="dropdown">
+              <button type="button" className="dropbtn">
+                <ChevronDown className="w-4 h-6" />
+              </button>
+              <div className="dropdown-content">
+                <ChevronLeft onClick={prevPage} className="w-6 h-6 mt+5" style={{ height: '100%' }} />
+                <div className="yearsTable">
+                  {createYear().map((year) => (<button type="button" className="yearButton" onClick={() => setYearValue(year)}>{year}</button>))}
+                </div>
+                <ChevronRight onClick={nextPage} className="w-6 h-6 mt+5" style={{ height: '100%' }} />
+              </div>
+            </div>
+          </div>
+          <div className="button-container">
+            <button type="button" onClick={onClear} className="cancelButton">{t('cancel')}</button>
+            <button type="submit" onClick={hideDropdown} className="okButton">OK</button>
+          </div>
         </div>
       </div>
     </>
@@ -277,12 +163,10 @@ DatePicker2.propTypes = {
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   options: PropTypes.any.isRequired,
   onChange: PropTypes.func.isRequired,
-  multiple: PropTypes.bool,
 };
 
 DatePicker2.defaultProps = {
   value: undefined,
-  multiple: false,
 };
 
 

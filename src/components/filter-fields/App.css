@@ -102,7 +102,6 @@
     position: relative;
     top: 50%;
     float: left;
-    border: solid;
     width: 10%;
     background-color: white;
     color: black;
@@ -133,10 +132,20 @@
 
 .inputDay, .inputYear, .inputMonth {
     text-align: center;
+    padding: 5px;
     background: #FFFFFF;
     border: 1px solid #DEDEDE;
     box-sizing: border-box;
     border-radius: 4px;
+    color: black;
+}
+
+.placeholder {
+    color: #D4D4D4  ;
+}
+
+.inputMonth {
+    text-align: left;
 }
 
 .btn-group {
@@ -153,7 +162,17 @@
     float: none;  /* Float the buttons side by side */
     align-items: center;
     justify-content: center;
-    border: 2px solid #1C3FAA;
     box-sizing: border-box;
     border-radius: 5px;
+}
+
+.cancelButton{
+    background: #FFFFFF;
+    border: 2px solid #1C3FAA;
+    color: #1C3FAA;
+}
+
+.okButton {
+    color: white;
+    background: #1C3FAA;
 }
