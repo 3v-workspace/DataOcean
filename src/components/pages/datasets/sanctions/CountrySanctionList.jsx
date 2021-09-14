@@ -44,7 +44,7 @@ const CountrySanctionList = ({ match, history }) => {
       render: (v) => renderDate(v),
     },
     {
-      header: t('cancellationCondition'),
+      header: t('cancelingConditions'),
       noSort: true,
       prop: 'cancellation_condition',
       filter: {
