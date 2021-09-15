@@ -4,6 +4,9 @@ import { ChevronDown, ChevronLeft, ChevronRight, ChevronUp } from 'react-feather
 import { useTranslation } from 'react-i18next';
 import { isEqualArray } from 'utils';
 import 'styles/datepiker2.scss';
+import { useFormik } from 'formik';
+import Yup from '../../utils/yup';
+import Api, { passErrorsToFormik } from '../../api';
 
 const DatePicker2 = (props) => {
   const { name, options, onChange, value } = props;
@@ -15,6 +18,22 @@ const DatePicker2 = (props) => {
   const [isShowDropdown, setShowDropdown] = useState(false);
   const currentDate = new Date();
   const [currentYear, setCurrentYear] = useState(currentDate.getFullYear());
+
+  const formik = useFormik({
+    initialValues: {
+      inputDay: '',
+      inputMonth: '',
+      inputYear: '',
+    },
+    validationSchema: Yup.object({
+      inputDay: Yup.number(),
+      inputMonth: Yup.number(),
+      inputYear: Yup.number().required().test('value', 'Must be in YYYY format', (val) => val > 1919 && val < 2032),
+    }),
+    onSubmit: (values, actions) => {
+      console.log(5454);
+    },
+  });
 
   const hideDropdown = () => {
     if (isShowDropdown) {
@@ -29,7 +48,9 @@ const DatePicker2 = (props) => {
   };
 
   function onClear(number) {
-    console.log(number);
+    setDayValue('');
+    setMonthValue('');
+    setYearValue('');
   }
 
   function createDay() {
@@ -92,6 +113,7 @@ const DatePicker2 = (props) => {
                 id="day"
                 name="day"
                 value={dayValue}
+                formik={formik}
               />
             </div>
             <div className="dropdown">
@@ -111,6 +133,7 @@ const DatePicker2 = (props) => {
                 value={monthValue}
                 id="month"
                 name="month"
+                formik={formik}
               />
             </div>
             <div className="dropdown">
@@ -133,6 +156,7 @@ const DatePicker2 = (props) => {
                 id="year"
                 name="year"
                 value={yearValue}
+                formik={formik}
               />
             </div>
             <div className="dropdown">
@@ -140,17 +164,17 @@ const DatePicker2 = (props) => {
                 <ChevronDown className="w-4 h-6" />
               </button>
               <div className="dropdown-content">
-                <ChevronLeft onClick={prevPage} className="w-6 h-6 mt+5" style={{ height: '100%' }} />
+                <ChevronLeft onClick={prevPage} className="w-6 h-6 mt+5" style={{ width: '10%', height: '100%', border: 'black solid' }} />
                 <div className="yearsTable">
                   {createYear().map((year) => (<button type="button" className="yearButton" onClick={() => setYearValue(year)}>{year}</button>))}
                 </div>
-                <ChevronRight onClick={nextPage} className="w-6 h-6 mt+5" style={{ height: '100%' }} />
+                <ChevronRight onClick={nextPage} className="w-6 h-6 mt+5" style={{ width: '10%', height: '100%', border: 'black solid' }} />
               </div>
             </div>
           </div>
           <div className="button-container">
             <button type="button" onClick={onClear} className="cancelButton">{t('cancel')}</button>
-            <button type="submit" onClick={hideDropdown} className="okButton">OK</button>
+            <button type="submit" className="okButton">OK</button>
           </div>
         </div>
       </div>

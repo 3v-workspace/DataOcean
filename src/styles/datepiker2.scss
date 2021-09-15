@@ -1,5 +1,6 @@
 .select-dropdown__content {
   display: flex;
+  background-color: lightgrey;
   flex-direction: column;
   justify-content: space-around;
 }
@@ -17,7 +18,6 @@
 .dropbtn {
   padding: 2px 2px 2px 2px;
   background-color: white;
-  padding-left:0px;
   color: black;
   height: 32px;
   width: 32px;
@@ -26,7 +26,6 @@
 }
 
 .input-day, .input-month, .input-year {
-  flex-direction: row;
   display: flex;
   justify-content: space-around;
   width: auto;
@@ -37,7 +36,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: left;
-  alignItems: flex-start;
+  padding: 15px 0px 15px 0px;
 }
 
 .dropdown-content {
@@ -49,10 +48,12 @@
   position: fixed;
   flex-direction: row;
   justify-content: space-around;
+  margin-top: 32px;
   color: black;
   background-color: white;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
+  row-gap: 6px;
 }
 
 .dayButton {
@@ -64,31 +65,34 @@
 }
 
 .monthButton {
+  width: 30%;
+  justify-content: center;
+}
+
+.yearButton {
   flex-direction: row;
   width: 25%;
+  flex-basis: 25%;
+  flex-wrap: wrap;
   display: flex;
   justify-content: space-around;
+  border: black solid;
+}
+
+.yearsTable {
+  width: 80%;
+  height: 100%;
+  border: black solid;
 }
 
 .inputDay, .inputYear, .inputMonth {
-  text-align: center;
-  padding: 5px;
+  text-align: left;
+  padding: 2px 15px;
   background: #FFFFFF;
   border: 1px solid #DEDEDE;
   box-sizing: border-box;
   border-radius: 4px;
   color: black;
-}
-
-.cancelButton{
-  background: #FFFFFF;
-  border: 2px solid #1C3FAA;
-  color: #1C3FAA;
-}
-
-.okButton {
-  color: white;
-  background: #1C3FAA;
 }
 
 .button-container {
@@ -103,46 +107,19 @@
     box-sizing: border-box;
     border-radius: 5px;
   }
+
+  .cancelButton{
+    background: #FFFFFF;
+    border: 2px solid #1C3FAA;
+    color: #1C3FAA;
+  }
+
+  .okButton {
+    color: white;
+    background: #1C3FAA;
+  }
 }
 
 .placeholder {
   color: #D4D4D4;
 }
-
-.yearsTable {
-  flex-direction: row;
-  width: 25%;
-  display: flex;
-  justify-content: space-around;
-  height: 100%;
-}
-
-.navbar {
-  background-color: white;
-}
-
-/* Links inside the navbar */
-.navbar a {
-  float: left;
-  font-size: 16px;
-  color: lightgrey;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-}
-
-.select-dropdown__content{
-  background-color: lightgrey;
-}
-
-.dropdown-toggle-ellipsis::after {
-  display: none;
-}
-
-.dropdown-toggle-ellipsis::before {
-  display: inline-block;
-  padding: 0.5rem;
-  font: normal normal normal 14px/1 FontAwesome;
-  content: "\f142";
-}
-
