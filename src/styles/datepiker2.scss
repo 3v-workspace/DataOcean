@@ -25,13 +25,6 @@
   float: left;
 }
 
-.input-day, .input-month, .input-year {
-  display: flex;
-  justify-content: space-around;
-  width: auto;
-  margin: 0 8px;
-}
-
 .dropdown:hover .dropdown-content {
   display: flex;
   flex-wrap: wrap;
@@ -54,6 +47,8 @@
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
   row-gap: 6px;
+  min-width: 200px;
+
 }
 
 .dayButton {
@@ -66,33 +61,52 @@
 
 .monthButton {
   width: 30%;
-  justify-content: center;
+  display: flex;
+  justify-content: space-around;
 }
 
 .yearButton {
   flex-direction: row;
   width: 25%;
-  flex-basis: 25%;
   flex-wrap: wrap;
   display: flex;
   justify-content: space-around;
-  border: black solid;
 }
 
 .yearsTable {
+  flex-direction: row;
+  display: flex;
+  flex-wrap: wrap;
   width: 80%;
-  height: 100%;
-  border: black solid;
+  row-gap: 6px;
+  align-content: flex-start;
 }
 
-.inputDay, .inputYear, .inputMonth {
-  text-align: left;
-  padding: 2px 15px;
-  background: #FFFFFF;
-  border: 1px solid #DEDEDE;
-  box-sizing: border-box;
-  border-radius: 4px;
-  color: black;
+.chevron {
+  width: 10%;
+}
+
+.input-day, .input-month, .input-year {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  width: auto;
+  margin: 0 8px;
+
+  .inputDay, .inputYear, .inputMonth {
+    text-align: left;
+    padding: 2px 15px;
+    background: #FFFFFF;
+    border: 1px solid #DEDEDE;
+    box-sizing: border-box;
+    border-radius: 4px;
+    color: black; 
+  }
+  .errorMessage {
+    color: red;
+    position: absolute;
+    margin: 0 -30px -50px;
+  }
 }
 
 .button-container {
