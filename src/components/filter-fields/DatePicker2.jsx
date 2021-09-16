@@ -43,6 +43,9 @@ const DatePicker2 = (props) => {
       console.log(data);
       console.log(moment(data, ['uk', 'en']).isValid());
     },
+    onChange: () => {
+      formik.inputDay.props.disabled = false;
+    },
   });
 
   const hideDropdown = () => {
@@ -84,6 +87,10 @@ const DatePicker2 = (props) => {
     setCurrentYear(currentYear + 20);
   }
 
+  function dayDissabled() {
+    return moment(formik.values.month, 'MMMM', ['uk', 'en']).isValid() === true ? !(formik.isValid && formik.dirty) : true;
+  }
+
   function createYear() {
     const year = new Array(20);
     for (let i = 0; i < year.length; i += 1) {
@@ -112,7 +119,7 @@ const DatePicker2 = (props) => {
         className={`w-1/2 sm:w-auto mt-1 absolute max-w-3xl select-dropdown ${isShowDropdown ? 'show' : ''}`}
         onMouseLeave={hideDropdown}
       >
-        <Form formik={formik} onSubmit={formik.handleSubmit}>
+        <Form formik={formik} onSubmit={formik.handleSubmit} enableReinitialize="true">
           <div className="select-dropdown__content">
             <div className="input-container">
               <div className="input-day">
@@ -126,6 +133,7 @@ const DatePicker2 = (props) => {
                   onChange={formik.handleChange}
                   value={formik.values.day}
                   formik={formik}
+                  disabled={dayDissabled()}
                 />
                 {formik.errors.day && formik.touched.day && (
                   <p className="errorMessage">{formik.errors.day}</p>
@@ -149,12 +157,13 @@ const DatePicker2 = (props) => {
                   onChange={formik.handleChange}
                   value={formik.values.month}
                   formik={formik}
+                  disabled={!(formik.isValid && formik.dirty)}
                 />
                 {formik.errors.month && formik.touched.month && (
                   <p className="errorMessage">{formik.errors.month}</p>
                 )}
               </div>
-              <div className="dropdown">
+              <div className="dropdown" isDisabled>
                 <button type="button" className="dropbtn">
                   <ChevronDown className="w-4 h-6" />
                 </button>
