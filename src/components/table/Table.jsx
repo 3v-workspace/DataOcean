@@ -162,17 +162,18 @@ const Table = (props) => {
 
   useEffect(() => {
     resetScrollParams();
+  }, [selectedColumnsNames]);
+
+  useEffect(() => {
     const handleWindowResize = throttle(250, false, () => {
       resetScrollParams();
     });
     window.addEventListener('resize', handleWindowResize);
-    console.log('resize');
     return () => {
       window.removeEventListener('resize', handleWindowResize);
     };
   }, []);
 
-  console.log('render');
   return (
     <div className="box p-5">
       {/*<div className="flex flex-wrap sm:flex-no-wrap items-center justify-end">*/}
