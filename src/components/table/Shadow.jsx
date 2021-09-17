@@ -23,7 +23,7 @@ const Shadow = (props) => {
 };
 
 Shadow.propTypes = {
-  scrollParams: PropTypes.array,
+  scrollParams: PropTypes.object,
 };
 
 Shadow.defaultProps = {
