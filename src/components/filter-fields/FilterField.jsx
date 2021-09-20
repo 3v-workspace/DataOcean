@@ -38,7 +38,7 @@ const FilterField = (props) => {
             className="border-gray-300 w-full"
             size="md"
             type="text"
-            value={value}
+            value={value || defaultValue}
             placeholder={placeholder}
             name={name}
             onChange={(e) => onChange(name, e.target.value)}
