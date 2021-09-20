@@ -84,6 +84,22 @@ const Table = (props) => {
     }
   };
 
+  const refreshFilters = () => {
+    const newFilters = {};
+    Object.entries(defaultFilters).forEach(([key, value]) => {
+      if (filters[key]) {
+        newFilters[key] = filters[key];
+      } else {
+        newFilters[key] = value;
+      }
+    });
+    return newFilters;
+  };
+
+  useEffect(() => {
+    dispatch(tableSetFilters(url, refreshFilters()));
+  }, [JSON.stringify(defaultFilters)]);
+
   const getTableBody = () => {
     if (tc.error) {
       return (
