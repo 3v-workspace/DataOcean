@@ -28,6 +28,7 @@
     "react-scripts": "^4.0.0",
     "redux": "^4.0.5",
     "sass": "^1.26.5",
+    "throttle-debounce": "^3.0.1",
     "yup": "^0.29.0"
   },
   "scripts": {
