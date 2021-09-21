@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { SearchBox, DateInput } from 'components/form-components';
 import moment from 'moment';
 import SelectInput2 from './SelectInput2';
+import DatePicker2 from './DatePicker2';
 
 const FilterField = (props) => {
   const {
@@ -100,6 +101,22 @@ const FilterField = (props) => {
           />
         </div>
       );
+
+    case 'datepicker':
+      return (
+        <div>
+          <DatePicker2
+            name={name}
+            value={value}
+            onChange={(n, v) => {
+              needSearchRef.current = true;
+              onChange(n, v);
+            }}
+            onClear={onClear}
+          />
+        </div>
+      );
+
     default:
       return null;
   }

@@ -425,5 +425,19 @@
   "yearlyPayment": "Yearly payment",
   "yes": "Yes",
   "yourQuestionIsSent": "Your question is sent!",
-  "yourRequestHasBeenSentWeWillContactYou": "Your request has been sent. We will contact you."
+  "yourRequestHasBeenSentWeWillContactYou": "Your request has been sent. We will contact you.",
+  "January": "January",
+  "April": "April",
+  "July": "July",
+  "October": "October",
+  "February": "February",
+  "May": "May",
+  "August": "August",
+  "November": "November",
+  "March": "March",
+  "June": "June",
+  "September": "September",
+  "December": "December",
+  "Wrong data format": "wrong data format",
+  "Non-existent date": "Non-existent date"
 }
