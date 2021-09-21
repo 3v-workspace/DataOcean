@@ -182,7 +182,9 @@ const Table = (props) => {
 
   useEffect(() => {
     const handleWindowResize = throttle(250, false, () => {
-      resetScrollParams();
+      if (window.innerWidth > 780) {
+        resetScrollParams();
+      }
     });
     window.addEventListener('resize', handleWindowResize);
     return () => {
