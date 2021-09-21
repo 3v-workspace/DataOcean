@@ -81,7 +81,7 @@ const PepMonetaryAssets = (props) => {
               return 0;
             }).map(([year, types]) => (
               Object.entries(types).map(([type, owners], i) => (
-                <tr key={i}>
+                <tr key={i} className="border-b border-gray-200">
                   <td>{year}</td>
                   <td>{allAssetsTypes[type]}</td>
                   {tableData[year][type].declarant ? (

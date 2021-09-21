@@ -38,8 +38,8 @@ const PepVehicle = (props) => {
           </tr>
         </thead>
         <tbody>
-          {filteredVehicleData.map((car, i) => (
-            <tr key={car.vehicle.id}>
+          {filteredVehicleData.map((car) => (
+            <tr key={car.vehicle.id} className="border-b border-gray-200">
               <td>{car.vehicle.declared_at}</td>
               <td>{`${car.vehicle.brand} ${car.vehicle.model} ${car.vehicle.year}`}</td>
               <td className="capitalize">{car.owner.map((person) => getLocaleField(person, 'fullname')).join(', ')}</td>

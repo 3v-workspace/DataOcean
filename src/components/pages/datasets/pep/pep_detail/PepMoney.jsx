@@ -39,14 +39,14 @@ const PepMoney = (props) => {
       <thead>
         <tr className="bg-gray-200 text-gray-700 font-medium">
           <td className="text-center">{t('year')}</td>
-          {!(type === 'GIFT') ? (<td className="text-left">{t('position')}</td>) : null}
+          {!(type === 'GIFT') ? (<td className="text-left w-4/6">{t('position')}</td>) : null}
           <td className="text-right">{`${tableLabel[type].declarant}, UAH `}</td>
           <td className="text-right">{`${tableLabel[type].family}, UAH`}</td>
         </tr>
       </thead>
       <tbody>
         {sortedMoney.map((info, i) => (
-          <tr key={i}>
+          <tr key={i} className="border-b border-gray-200">
             <td className="text-center">{info.year}</td>
             {!(type === 'GIFT') ? (<td className="text-left">{info.position}</td>) : null}
             <td className="text-right">{info.owner.declarant ? info.owner.declarant.toFixed(2) : '---'}</td>

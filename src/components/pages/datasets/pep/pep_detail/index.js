@@ -17,6 +17,7 @@ export { ReactComponent as SpendMoney } from 'images/spend_money.svg';
 
 export { default as AsyncInformationBlock } from './AsyncInformationBlock';
 export { default as InformationBlock } from './InformationBlock';
+export { default as PepCriminal } from './PepCriminal';
 export { default as PepLiability } from './PepLiability';
 export { default as PepMonetaryAssets } from './PepMonetaryAssets';
 export { default as PepMoney } from './PepMoney';
@@ -28,3 +29,4 @@ export { default as PepHtml } from './PepHtml';
 export { default as PepRelatedPerson } from './PepRelatedPerson';
 export { default as PepRelatedCompanies } from './PepRelatedCompanies';
 export { default as PepOtherNames } from './PepOtherNames';
+export { default as PepMenu } from './PepMenu';

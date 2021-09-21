@@ -30,3 +30,7 @@ export const prepareRelatedPersonData = (pep) => {
   }
   return [pep.from_person_links, pep.to_person_links];
 };
+
+export const scrollToRef = (ref) => window.scrollTo({ top: ref.current.offsetTop, behavior: 'smooth' });
+
+export const getColor = (data) => (data && data.length ? 'black' : 'gray');

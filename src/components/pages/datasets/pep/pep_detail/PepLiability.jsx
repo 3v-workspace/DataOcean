@@ -45,7 +45,7 @@ const PepLiability = (props) => {
       </thead>
       <tbody>
         {sortedLiabilitydata.map((item, i) => (
-          <tr key={i}>
+          <tr key={i} className="border-b border-gray-200">
             <td>{item.year}</td>
             <td>{item[owner] && item[owner].UAH ? item[owner].UAH.toFixed(2) : '---'}</td>
             <td>{item[owner] && item[owner].EUR ? item[owner].EUR.toFixed(2) : '---'}</td>

@@ -9,39 +9,42 @@ import Tooltip from 'components/Tooltip';
 import {
   Sanction, Criminal, Built, Car, Person, Career, Giftbox,
   Home, Money, Name, Wallet, Info, MainInfo, PepIcon, SpendMoney, MonetaryAssets,
-  InformationBlock, AsyncInformationBlock, PepLiability, PepMonetaryAssets,
+  InformationBlock, AsyncInformationBlock, PepCriminal, PepLiability, PepMonetaryAssets,
   PepMoney, PepProperty, PepSanction, PepVehicle, PepCareer, PepHtml,
-  PepRelatedPerson, PepRelatedCompanies, PepOtherNames,
+  PepRelatedPerson, PepRelatedCompanies, PepOtherNames, PepMenu,
 } from './pep_detail';
-import { prepareRelatedPersonData } from './pep_detail/utils';
+import { prepareRelatedPersonData, scrollToRef, getColor } from './pep_detail/utils';
+import { asyncBlocks, pepBlocks, ASYNCBLOCK, INFOBLOCK } from './pep_detail/const';
 
-const blocks = {
-  SANCTION: 'SANCTION',
-  CAREER: 'CAREER',
-  INCOME: 'INCOME',
-  LIABILITY: 'LIABILITY',
-  EXPENDITURE: 'EXPENDITURE',
-  MONETARY_ASSETS: 'MONETARY_ASSETS',
-  GIFT: 'GIFT',
-  REAL_ESTATE: 'REAL_ESTATE',
-  CAR: 'CAR',
-};
 
 const PepDetail = ({ match, history }) => {
-  const defaultState = Object.keys(blocks).reduce((block, data) => {
+  const defaultState = Object.keys(asyncBlocks).reduce((block, data) => {
     block[data] = [];
     return block;
+  }, {});
+  const defaulIsOpenState = [
+    ...Object.keys(pepBlocks), ...Object.keys(asyncBlocks),
+  ].reduce((allBlock, block) => {
+    allBlock[block] = true;
+    return allBlock;
   }, {});
   const [pep, setPepData] = useState({});
   const [data, setData] = useState(defaultState);
   const setDataForBlock = (blockId, newData) => {
-    if (blockId === blocks.GIFT) {
+    if (blockId === asyncBlocks.GIFT) {
       newData = newData.filter((item) => item.is_gift);
     }
-    if (blockId === blocks.INCOME) {
+    if (blockId === asyncBlocks.INCOME) {
       newData = newData.filter((item) => !item.is_gift);
     }
     setData((prevState) => ({ ...prevState, [blockId]: newData }));
+  };
+  const [open, setOpen] = useState(defaulIsOpenState);
+  const setOpenBlock = (blockId, value = false) => {
+    setOpen((prevState) => {
+      const newState = value || !prevState[blockId];
+      return { ...prevState, [blockId]: newState };
+    });
   };
   const { id } = match.params;
   const { t } = useTranslation();
@@ -60,8 +63,6 @@ const PepDetail = ({ match, history }) => {
   const relatedPersonRef = useRef();
   const giftRef = useRef();
   const expendituresRef = useRef();
-  const ASYNCBLOCK = 'ASYNCBLOCK';
-  const INFOBLOCK = 'INFOBLOCK';
 
   const fetchData = () => {
     Api.get(`pep/${id}/`, {
@@ -73,7 +74,162 @@ const PepDetail = ({ match, history }) => {
       });
   };
 
-  const scrollToRef = (ref) => ref.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  const config = [
+    {
+      id: asyncBlocks.SANCTION,
+      url: `pep/${id}/sanctions/`,
+      title: t('sanctionsDetail'),
+      titleIcon: Sanction,
+      component: PepSanction,
+      blockProps: { data: data.SANCTION && data.SANCTION.length ? data.SANCTION : [{ noSanction: t('noSanction') }] },
+      type: ASYNCBLOCK,
+      ref: sanctionRef,
+    },
+    {
+      id: pepBlocks.CRIMINAL,
+      title: t('criminalProceedings'),
+      titleIcon: Criminal,
+      component: PepCriminal,
+      blockProps: { data: pep.criminal_proceedings ? pep.criminal_proceedings : [{ noCriminal: t('noCriminal') }] },
+      type: INFOBLOCK,
+      ref: criminalRef,
+    },
+    {
+      id: pepBlocks.RELATED_PERSONS,
+      title: t('relatedPersons'),
+      titleIcon: Person,
+      component: PepRelatedPerson,
+      blockProps: { pepId: pep.id, matchProps: match, data: prepareRelatedPersonData(pep) },
+      type: INFOBLOCK,
+      ref: relatedPersonRef,
+    },
+    {
+      id: pepBlocks.RELATED_COMPANIES,
+      title: t('relatedCompanies'),
+      titleIcon: Built,
+      component: PepRelatedCompanies,
+      blockProps: { data: pep.related_companies },
+      type: INFOBLOCK,
+      ref: relatedCompaniesRef,
+    },
+    {
+      id: asyncBlocks.CAREER,
+      url: `pep/${id}/declaration/positions/`,
+      title: t('career'),
+      titleIcon: Career,
+      component: PepCareer,
+      blockProps: { data: data.CAREER },
+      type: ASYNCBLOCK,
+      ref: careerRef,
+    },
+    {
+      id: asyncBlocks.INCOME,
+      url: `pep/${id}/declaration/incomes/`,
+      title: t('income'),
+      titleIcon: Wallet,
+      component: PepMoney,
+      type: ASYNCBLOCK,
+      blockProps: {
+        data: data.INCOME,
+        type: asyncBlocks.INCOME,
+        pepId: pep.id,
+        ownerField: 'recipient',
+      },
+      ref: incomeRef,
+    },
+    {
+      id: asyncBlocks.LIABILITY,
+      url: `pep/${id}/declaration/liabilities/`,
+      title: t('liability'),
+      titleIcon: Money,
+      component: PepLiability,
+      blockData: data.LIABILITY,
+      type: ASYNCBLOCK,
+      blockProps: { data: data.LIABILITY, pepId: pep.id },
+      ref: liabilityRef,
+    },
+    {
+      id: asyncBlocks.EXPENDITURE,
+      url: `pep/${id}/declaration/expenditures/`,
+      title: t('expenditures'),
+      titleIcon: SpendMoney,
+      component: PepMoney,
+      type: ASYNCBLOCK,
+      blockProps: {
+        data: data.EXPENDITURE,
+        type: asyncBlocks.EXPENDITURE,
+        pepId: pep.id,
+        ownerField: 'participant',
+      },
+      ref: expendituresRef,
+    },
+    {
+      id: asyncBlocks.MONETARY_ASSETS,
+      url: `pep/${id}/declaration/money/`,
+      title: t('money'),
+      titleIcon: MonetaryAssets,
+      component: PepMonetaryAssets,
+      type: ASYNCBLOCK,
+      blockProps: {
+        data: data.MONETARY_ASSETS,
+        pepId: pep.id,
+      },
+      ref: monetaryAssetsRef,
+    },
+    {
+      id: asyncBlocks.GIFT,
+      url: `pep/${id}/declaration/incomes/`,
+      title: t('gift'),
+      titleIcon: Giftbox,
+      component: PepMoney,
+      type: ASYNCBLOCK,
+      blockProps: {
+        type: asyncBlocks.GIFT,
+        pepId: pep.id,
+        ownerField: 'recipient',
+        data: data.GIFT,
+      },
+      ref: giftRef,
+    },
+    {
+      id: asyncBlocks.REAL_ESTATE,
+      url: `pep/${id}/declaration/property_rights/`,
+      title: t('realEstate'),
+      titleIcon: Home,
+      component: PepProperty,
+      type: ASYNCBLOCK,
+      ref: realEstateRef,
+      blockProps: { data: data.REAL_ESTATE },
+    },
+    {
+      id: asyncBlocks.CAR,
+      url: `pep/${id}/declaration/vehicle_rights/`,
+      title: t('vehicles'),
+      titleIcon: Car,
+      component: PepVehicle,
+      blockProps: { data: data.CAR },
+      type: ASYNCBLOCK,
+      ref: carRef,
+    },
+    {
+      id: pepBlocks.OTHER_NAMES,
+      title: t('otherNames'),
+      titleIcon: Name,
+      component: PepOtherNames,
+      blockProps: { data: pep.fullname_transcriptions_eng },
+      type: INFOBLOCK,
+      ref: otherNamesRef,
+    },
+    {
+      id: pepBlocks.ADDITIONAL_INFO,
+      title: t('additionalInfo'),
+      titleIcon: Info,
+      component: PepHtml,
+      blockProps: { data: pep.info },
+      type: INFOBLOCK,
+      ref: additionalInfoRef,
+    },
+  ];
 
   const getShortInfo = () => {
     const shortInfoFields = [
@@ -90,7 +246,7 @@ const PepDetail = ({ match, history }) => {
         <div className="inline-flex mb-2">
           <div className="w-40 lg:w-64 font-medium">{t('pepDetailType')}:</div>
           <div className="max-w-xl">{pep.pep_type_display}</div>
-          <HelpCircle className="w-4 h-4 ml-2 text-blue-600" />
+          {/*<HelpCircle className="w-4 h-4 ml-2 text-blue-600" />*/}
         </div>
         {shortInfoFields.map((info, i) => (info.value && !(info.value === '---') ? (
           <div className="inline-flex mb-2" key={i}>
@@ -102,219 +258,9 @@ const PepDetail = ({ match, history }) => {
     );
   };
 
-  const getRelatedPersons = () => (
-    <ul className="list-outside list-disc ml-4">
-      {pep.from_person_links.map((person) => (
-        <li key={person.to_person.id}>
-          <span className="mr-1">
-            {getLocaleField(person, 'to_person_relationship_type')} —
-          </span>
-          <a
-            className="capitalize cursor-pointer text-blue-800"
-            href={match.url.replace(pep.id, person.to_person.id)}
-          >
-            {getLocaleField(person.to_person, 'fullname')}
-          </a>
-        </li>
-      ))}
-      {pep.to_person_links.map((person) => (
-        <li key={person.from_person.id}>
-          <span className="mr-1">
-            {getLocaleField(person, 'from_person_relationship_type')} —
-          </span>
-          <a
-            className="capitalize cursor-pointer text-blue-800"
-            href={match.url.replace(pep.id, person.from_person.id)}
-          >
-            {getLocaleField(person.from_person, 'fullname')}
-          </a>
-        </li>
-      ))}
-    </ul>
-  );
-
-  const getRelatedCompanies = () => (
-    <ul className="list-outside list-disc ml-4">
-      {pep.related_companies.map((company, i) => (
-        <li key={i}>
-          <span>
-            {getLocaleField(company, 'relationship_type')} - {getLocaleField(company.company, 'name')} ({company.company.edrpou})
-          </span>
-        </li>
-      ))}
-    </ul>
-  );
-
-  const getOtherSpelingNames = () => (
-    <ul className="grid grid-flow-row grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2">
-      {pep.fullname_transcriptions_eng.split('\n').map((fullname, i) => (
-        <li key={i}>
-          {fullname}
-        </li>
-      ))}
-    </ul>
-  );
-
-  const config = [
-    {
-      id: blocks.SANCTION,
-      url: `pep/${id}/sanctions/`,
-      title: t('sanctionsDetail'),
-      titleIcon: Sanction,
-      component: PepSanction,
-      blockProps: { data: data.SANCTION },
-      type: ASYNCBLOCK,
-      ref: sanctionRef,
-    },
-    {
-      id: 'CRIMINAL',
-      title: t('criminalProceedings'),
-      titleIcon: Criminal,
-      component: PepHtml,
-      blockProps: { data: pep.criminal_proceedings },
-      type: INFOBLOCK,
-      ref: criminalRef,
-    },
-    {
-      id: 'RELATEDPERSONS',
-      title: t('relatedPersons'),
-      titleIcon: Person,
-      component: PepRelatedPerson,
-      blockProps: { pepId: pep.id, matchProps: match, data: prepareRelatedPersonData(pep) },
-      type: INFOBLOCK,
-      ref: relatedPersonRef,
-    },
-    {
-      id: 'RELATEDCOMPANIES',
-      title: t('relatedCompanies'),
-      titleIcon: Built,
-      component: PepRelatedCompanies,
-      blockProps: { data: pep.related_companies },
-      type: INFOBLOCK,
-      ref: relatedCompaniesRef,
-    },
-    {
-      id: blocks.CAREER,
-      url: `pep/${id}/declaration/positions/`,
-      title: t('career'),
-      titleIcon: Career,
-      component: PepCareer,
-      blockProps: { data: data.CAREER },
-      type: ASYNCBLOCK,
-      ref: careerRef,
-    },
-    {
-      id: blocks.INCOME,
-      url: `pep/${id}/declaration/incomes/`,
-      title: t('income'),
-      titleIcon: Wallet,
-      component: PepMoney,
-      type: ASYNCBLOCK,
-      blockProps: {
-        data: data.INCOME,
-        type: blocks.INCOME,
-        pepId: pep.id,
-        ownerField: 'recipient',
-      },
-      ref: incomeRef,
-    },
-    {
-      id: blocks.LIABILITY,
-      url: `pep/${id}/declaration/liabilities/`,
-      title: t('liability'),
-      titleIcon: Money,
-      component: PepLiability,
-      blockData: data.LIABILITY,
-      type: ASYNCBLOCK,
-      blockProps: { data: data.LIABILITY, pepId: pep.id },
-      ref: liabilityRef,
-    },
-    {
-      id: blocks.EXPENDITURE,
-      url: `pep/${id}/declaration/expenditures/`,
-      title: t('expenditures'),
-      titleIcon: SpendMoney,
-      component: PepMoney,
-      type: ASYNCBLOCK,
-      blockProps: {
-        data: data.EXPENDITURE,
-        type: blocks.EXPENDITURE,
-        pepId: pep.id,
-        ownerField: 'participant',
-      },
-      ref: expendituresRef,
-    },
-    {
-      id: blocks.MONETARY_ASSETS,
-      url: `pep/${id}/declaration/money/`,
-      title: t('money'),
-      titleIcon: MonetaryAssets,
-      component: PepMonetaryAssets,
-      type: ASYNCBLOCK,
-      blockProps: {
-        data: data.MONETARY_ASSETS,
-        pepId: pep.id,
-      },
-      ref: monetaryAssetsRef,
-    },
-    {
-      id: blocks.GIFT,
-      url: `pep/${id}/declaration/incomes/`,
-      title: t('gift'),
-      titleIcon: Giftbox,
-      component: PepMoney,
-      type: ASYNCBLOCK,
-      blockProps: {
-        type: blocks.GIFT,
-        pepId: pep.id,
-        ownerField: 'recipient',
-        data: data.GIFT,
-      },
-      ref: giftRef,
-    },
-    {
-      id: blocks.REAL_ESTATE,
-      url: `pep/${id}/declaration/property_rights/`,
-      title: t('realEstate'),
-      titleIcon: Home,
-      component: PepProperty,
-      type: ASYNCBLOCK,
-      ref: realEstateRef,
-      blockProps: { data: data.REAL_ESTATE },
-    },
-    {
-      id: blocks.CAR,
-      url: `pep/${id}/declaration/vehicle_rights/`,
-      title: t('vehicles'),
-      titleIcon: Car,
-      component: PepVehicle,
-      blockProps: { data: data.CAR },
-      type: ASYNCBLOCK,
-      ref: carRef,
-    },
-    {
-      id: 'OTHERNAMES',
-      title: t('otherNames'),
-      titleIcon: Name,
-      component: PepOtherNames,
-      blockProps: { data: pep.fullname_transcriptions_eng },
-      type: INFOBLOCK,
-      ref: otherNamesRef,
-    },
-    {
-      id: 'ADDITIONALINFO',
-      title: t('additionalInfo'),
-      titleIcon: Info,
-      component: PepHtml,
-      blockProps: { data: pep.info },
-      type: INFOBLOCK,
-      ref: additionalInfoRef,
-    },
-  ];
-
   const getHeader = () => {
-    const sanctionBlock = config.find((item) => item.id === blocks.SANCTION);
-    const criminalBlock = config.find((item) => item.id === 'CRIMINAL');
+    const sanctionBlock = config.find((item) => item.id === asyncBlocks.SANCTION);
+    const criminalBlock = config.find((item) => item.id === pepBlocks.CRIMINAL);
     return (
       <>
         <div
@@ -323,27 +269,27 @@ const PepDetail = ({ match, history }) => {
         >
           {pep.pep_type_display}
         </div>
-        {sanctionBlock.blockProps.data && sanctionBlock.blockProps.data.length ? (
+        {sanctionBlock.blockProps.data && sanctionBlock.blockProps.data.length &&
+        !sanctionBlock.blockProps.data[0].noSanction ? (
           <div
             className="border border-gray-400 rounded-full px-3 py-1 cursor-pointer"
             onClick={() => scrollToRef(sanctionBlock.ref)}
           >
             {t(sanctionBlock.title)}
           </div>
-        ) : null}
-        {criminalBlock.blockProps.data && criminalBlock.blockProps.data.length ? (
+          ) : null}
+        {criminalBlock.blockProps.data && criminalBlock.blockProps.data.length &&
+        !criminalBlock.blockProps.data[0].noCriminal ? (
           <div
             className="border border-gray-400 rounded-full px-3 py-1 ml-2 cursor-pointer"
             onClick={() => scrollToRef(criminalBlock.ref)}
           >
             {t(criminalBlock.title)}
           </div>
-        ) : null}
+          ) : null}
       </>
     );
   };
-
-  const getColor = (d) => (d && d.length ? 'black' : 'gray');
 
   const getAdditionalInfo = () => config.sort((prev, cur) => {
     if (prev.blockProps.data && prev.blockProps.data.length && !(cur.blockProps.data.length)) {
@@ -353,28 +299,48 @@ const PepDetail = ({ match, history }) => {
       return 1;
     }
     return 0;
-  }).map((block) => {
+  }).map((block, i) => {
     const Component = block.component;
     if (block.type === ASYNCBLOCK) {
       return (
-        <AsyncInformationBlock
-          block={block}
-          setDataForBlock={setDataForBlock}
-          color={getColor}
-          key={block.id}
-        />
+        <>
+          <AsyncInformationBlock
+            block={block}
+            setDataForBlock={setDataForBlock}
+            key={block.id}
+            setOpenBlock={setOpenBlock}
+            open={open}
+          />
+          {config[i + 1] && !config[i + 1].blockProps.data.length &&
+          block.blockProps.data.length ? (
+            <div className="text-gray-500 uppercase items-center font-medium text-base">
+              {t('noInformation')}
+            </div>
+            ) : null}
+        </>
       );
     }
     return (
-      <InformationBlock
-        title={block.title}
-        titleIcon={block.titleIcon}
-        color={getColor(block.blockProps.data)}
-        key={block.id}
-        ref={block.ref}
-      >
-        <Component {...block.blockProps} />
-      </InformationBlock>
+      <>
+        <InformationBlock
+          title={block.title}
+          titleIcon={block.titleIcon}
+          color={getColor(block.blockProps.data)}
+          key={block.id}
+          ref={block.ref}
+          setOpenBlock={setOpenBlock}
+          blockId={block.id}
+          open={open}
+        >
+          <Component {...block.blockProps} />
+        </InformationBlock>
+        {config[i + 1] && !config[i + 1].blockProps.data.length &&
+        block.blockProps.data.length ? (
+          <div className="text-gray-500 items-center font-medium text-lg mt-10 mb-2">
+            {t('noInformation')}
+          </div>
+          ) : null}
+      </>
     );
   });
 
@@ -398,9 +364,9 @@ const PepDetail = ({ match, history }) => {
         <ArrowLeft className="h-5 ml-2" />
         {t('back')}
       </button>
-      <div className="flex flex-row mb-2" ref={mainRef}>
+      <div className="flex flex-row mb-2">
         <div className="flex-auto w-5/6">
-          <div className="intro-y box col-span-12 border border-gray-400 p-5">
+          <div className="box col-span-12 border border-gray-400 p-5" ref={mainRef}>
             <div className="flex flex-col lg:flex-row">
               <div className="flex flex-auto flex-col sm:flex-row items-start justify-start">
                 <PepIcon />
@@ -428,28 +394,13 @@ const PepDetail = ({ match, history }) => {
           </div>
           {getAdditionalInfo()}
         </div>
-        <div className="w-1/6">
-          <div className="box ml-2 border border-gray-400 fixed overflow-hidden">
-            <ul className="list-none cursor-pointer">
-              <div className="flex flex-row m-2" onClick={() => scrollToRef(mainRef)}>
-                <MainInfo className="mr-2 w-5 h-5" fill="black" />
-                {t('mainInformation')}
-              </div>
-              {config.map((info) => {
-                const Icon = info.titleIcon;
-                return (
-                  <div key={info.id} className="flex flex-row m-2" onClick={() => scrollToRef(info.ref)}>
-                    <Icon
-                      className="mr-2 w-5 h-5"
-                      fill={getColor(info.blockProps.data)}
-                    />
-                    {t(info.title)}
-                  </div>
-                );
-              })}
-            </ul>
-          </div>
-        </div>
+        <PepMenu
+          config={config}
+          mainBlock={
+            { id: pepBlocks.MAIN_INFO, ref: mainRef, icon: MainInfo }
+          }
+          setOpenBlock={setOpenBlock}
+        />
       </div>
     </>
   );

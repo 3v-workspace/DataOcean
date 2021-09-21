@@ -7,6 +7,13 @@ const PepSanction = (props) => {
   const { data } = props;
   const { t } = useTranslation();
   const today = new Date().toISOString().slice(0, 10);
+  if (data[0].noSanction) {
+    return (
+      <div className="text-center">
+        {data[0].noSanction}
+      </div>
+    );
+  }
   data.sort((prev, cur) => {
     if (prev.end_date > cur.end_date) {
       return -1;
