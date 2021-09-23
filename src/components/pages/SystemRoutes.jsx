@@ -7,6 +7,7 @@ import DataConstructorPage from 'components/pages/system/DataConstructorPage';
 import Route404 from 'components/pages/Route404';
 import HelpPage from 'components/pages/help/HelpPage';
 import HomePage from 'components/pages/system/HomePage';
+import SearchPage from 'components/pages/search/SearchPage';
 import ProfilePage from 'components/pages/profile/ProfilePage';
 import DatasetsRoutes from 'components/pages/datasets/DatasetsRoutes';
 // import PepGraphPage from 'components/pages/system/PepGraphPage';
@@ -27,9 +28,9 @@ const SystemRoutes = (props) => {
   return (
     <Switch>
       <Route
-        exact
         path={`${match.path}home/`}
-        component={HomePage}
+        // component={HomePage}
+        component={SearchPage}
       />
       <Route
         path={`${match.path}datasets/`}
