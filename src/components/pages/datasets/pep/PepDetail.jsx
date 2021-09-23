@@ -225,7 +225,7 @@ const PepDetail = ({ match, history }) => {
       title: t('additionalInfo'),
       titleIcon: Info,
       component: PepHtml,
-      blockProps: { data: pep.info },
+      blockProps: { data: pep.info || [] },
       type: INFOBLOCK,
       ref: additionalInfoRef,
     },
