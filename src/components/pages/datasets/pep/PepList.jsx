@@ -24,21 +24,21 @@ const PepList = ({ match, history }) => {
     },
     {
       header: t('fullName'),
-      defaultSelected: true,
       prop: 'fullname',
       width: '20%',
+      defaultSelected: true,
+      render: (v, row) => toTitleCase(getLocaleField(row, 'fullname')),
       filter: {
         name: i18n.language === 'uk' ? 'fullname' : 'fullname_en',
         type: 'text',
       },
-      render: (v, row) => toTitleCase(getLocaleField(row, 'fullname')),
     },
     {
       header: t('dateOfBirth'),
-      defaultSelected: true,
       prop: 'date_of_birth',
       width: '5%',
       noSort: true,
+      defaultSelected: true,
       render: (v) => renderDate(v),
       filter: {
         name: 'date_of_birth',
@@ -48,9 +48,9 @@ const PepList = ({ match, history }) => {
     },
     {
       header: t('status'),
-      defaultSelected: true,
       prop: 'is_pep',
       width: '15%',
+      defaultSelected: true,
       render: (v) => (v ? t('politicallyExposedPerson') : t('notPoliticallyExposedPerson')),
       filter: {
         name: 'is_pep',
@@ -82,25 +82,25 @@ const PepList = ({ match, history }) => {
     },
     {
       header: t('lastPosition'),
-      defaultSelected: true,
       prop: 'last_job_title',
       width: '20%',
+      defaultSelected: true,
+      render: (v, row) => getLocaleField(row, 'last_job_title'),
       filter: i18n.language === 'uk' ? {
         name: 'last_job_title',
         type: 'text',
       } : null,
-      render: (v, row) => getLocaleField(row, 'last_job_title'),
     },
     {
       header: t('lastPlaceOfWork'),
-      defaultSelected: true,
       prop: 'last_employer',
       width: '20%',
+      defaultSelected: true,
+      render: (v, row) => getLocaleField(row, 'last_employer'),
       filter: i18n.language === 'uk' ? {
         name: 'last_employer',
         type: 'text',
       } : null,
-      render: (v, row) => getLocaleField(row, 'last_employer'),
     },
     {
       header: t('lastUpdated'),

@@ -10,14 +10,14 @@ const CountrySanctionList = ({ match, history }) => {
   const columns = [
     {
       header: 'ID',
-      defaultSelected: true,
-      noSort: true,
       prop: 'id',
+      noSort: true,
+      defaultSelected: true,
     },
     {
       header: t('countryName'),
-      defaultSelected: true,
       prop: 'country',
+      defaultSelected: true,
       filter: {
         name: 'country',
         type: 'text',
@@ -26,27 +26,27 @@ const CountrySanctionList = ({ match, history }) => {
     },
     {
       header: t('startDate'),
-      defaultSelected: true,
       prop: 'start_date',
+      defaultSelected: true,
       render: (v) => renderDate(v),
     },
     {
       header: t('endDate'),
-      defaultSelected: true,
       prop: 'end_date',
+      defaultSelected: true,
       render: (v) => renderDate(v),
     },
     {
       header: t('reasoningDate'),
-      defaultSelected: true,
-      noSort: true,
       prop: 'reasoning_date',
+      noSort: true,
+      defaultSelected: true,
       render: (v) => renderDate(v),
     },
     {
       header: t('cancelingConditions'),
-      noSort: true,
       prop: 'cancellation_condition',
+      noSort: true,
       filter: {
         name: 'cancellation_condition',
         type: 'text',
@@ -71,6 +71,7 @@ const CountrySanctionList = ({ match, history }) => {
         onRowClick={(row) => {
           history.push(`${match.url}${row.id}/`);
         }}
+        minHeight="400px"
       />
     </PageBox>
   );
