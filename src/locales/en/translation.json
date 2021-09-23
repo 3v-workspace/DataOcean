@@ -438,6 +438,6 @@
   "June": "June",
   "September": "September",
   "December": "December",
-  "Wrong data format": "wrong data format",
+  "wrongDateFormat": "invalid search parameters",
   "Non-existent date": "Non-existent date"
 }

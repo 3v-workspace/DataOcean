@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { ChevronDown, ChevronLeft, ChevronRight, ChevronUp } from 'react-feather';
 import { useTranslation } from 'react-i18next';
-import 'styles/datepiker2.scss';
+import 'styles/index.scss';
 import { useFormik } from 'formik';
 import Yup from 'utils/yup';
 import moment from 'moment';
@@ -10,13 +10,12 @@ import { Form } from '../form-components';
 
 
 const DatePicker2 = (props) => {
-  const { name, onChange, value } = props;
+  const { name, onChange, placeholder } = props;
   const { t } = useTranslation();
 
   const [isShowDropdown, setShowDropdown] = useState(false);
   const currentDate = new Date();
   const [currentYear, setCurrentYear] = useState(currentDate.getFullYear());
-  const [selectValue, setSelectValue] = useState('false');
   const monthArr = [
     'January',
     'February',
@@ -41,31 +40,25 @@ const DatePicker2 = (props) => {
     validationSchema: Yup.object({
       month: Yup
         .string()
-        .oneOf(monthArr.concat((monthArr.map((mon) => t(mon)))), t('Wrong data format')),
+        .oneOf(monthArr.concat((monthArr.map((mon) => t(mon)))), t('wrongDateFormat')),
       year: Yup.number()
         .required()
-        .min(1920, t('Wrong data format'))
-        .max(2039, t('Wrong data format')),
+        .min(1920, t('wrongDateFormat'))
+        .max(2039, t('wrongDateFormat')),
       day: Yup.number()
-        .min(1, t('Wrong data format'))
-        .max(31, t('Wrong data format')),
+        .min(1, t('wrongDateFormat'))
+        .max(31, t('wrongDateFormat')),
     }),
     onSubmit: (values) => {
       let data = '';
-      data += formik.values.day;
-      data += ' ';
-      data += formik.values.month;
-      data += ' ';
       data += formik.values.year;
-      setSelectValue(data);
+      data += '-';
+      data += moment().month(formik.values.month).lang(['en', 'uk']).format('MM');
+      data += '-';
+      data += formik.values.day;
+      onChange(name, data);
     },
   });
-
-  function onClear(number) {
-    formik.setFieldValue('day', '');
-    formik.setFieldValue('month', '');
-    formik.setFieldValue('year', '');
-  }
 
   function prevPage() {
     setCurrentYear(currentYear - 20);
@@ -127,6 +120,7 @@ const DatePicker2 = (props) => {
           type="text"
           className="input text-gray-600 w-40"
           value=""
+          placeholder={placeholder}
           onClick={() => setShowDropdown(true)}
         />
         {isShowDropdown ? (
@@ -148,7 +142,6 @@ const DatePicker2 = (props) => {
                   type="text"
                   size="2"
                   placeholder="XX"
-                  id="day"
                   name="day"
                   onChange={formik.handleChange}
                   value={formik.values.day}
@@ -183,8 +176,8 @@ const DatePicker2 = (props) => {
                   className="inputMonth"
                   type="text"
                   size="15"
+                  name="month"
                   placeholder={t('month')}
-                  id="month"
                   onChange={formik.handleChange}
                   value={formik.values.month}
                 />
@@ -219,7 +212,6 @@ const DatePicker2 = (props) => {
                   type="text"
                   size="4"
                   placeholder="XXXX"
-                  id="year"
                   name="year"
                   onChange={formik.handleChange}
                   value={formik.values.year}
@@ -254,7 +246,7 @@ const DatePicker2 = (props) => {
               </div>
             </div>
             <div className="button-container">
-              <button type="button" onClick={onClear} className="cancelButton">{t('cancel')}</button>
+              <button type="button" onClick={() => formik.resetForm()} className="cancelButton">{t('cancel')}</button>
               <button type="submit" className="okButton">OK</button>
             </div>
           </div>
@@ -266,12 +258,12 @@ const DatePicker2 = (props) => {
 
 DatePicker2.propTypes = {
   name: PropTypes.string.isRequired,
-  value: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   onChange: PropTypes.func.isRequired,
+  placeholder: PropTypes.string,
 };
 
 DatePicker2.defaultProps = {
-  value: undefined,
+  placeholder: '',
 };
 
 

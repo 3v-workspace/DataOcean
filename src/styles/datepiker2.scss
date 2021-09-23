@@ -1,30 +1,11 @@
-.sdc {
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  --bg-opacity: 1;
-  background-color: #fff;
-  background-color: rgba(255, 255, 255, var(--bg-opacity));
-  border-radius: 0.375rem;
-  position: relative;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  padding-top: .5rem;
-  margin-top: 1.25rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-}
-
-.input-container, .button-container {
-  width: 100%;
-  height: 50%;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  margin-bottom: 30px;
-  margin-top: 30px;
-}
-
 .datepicker_form {
+  .dropdown-date:hover .dropdown-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: left;
+    padding: 15px 0px 15px 0px;
+  }
+
   .dropbtn {
     padding: 2px 2px 2px 2px;
     background-color: white;
@@ -47,69 +28,83 @@
     z-index: 1;
     row-gap: 6px;
     min-width: 200px;
+
+    .yearsTable {
+      flex-direction: row;
+      display: flex;
+      flex-wrap: wrap;
+      width: 80%;
+      row-gap: 6px;
+      justify-content: center;
+    }
   }
 
-  .dropdown-date:hover .dropdown-content {
+  .sdc {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --bg-opacity: 1;
+    background-color: #fff;
+    background-color: rgba(255, 255, 255, var(--bg-opacity));
+    border-radius: 0.375rem;
+    position: relative;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: .5rem;
+    margin-top: 1.25rem;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: left;
-    padding: 15px 0px 15px 0px;
-  }
-}
+    flex-direction: column;
+    justify-content: space-around;
 
-.yearsTable {
-  flex-direction: row;
-  display: flex;
-  flex-wrap: wrap;
-  width: 80%;
-  row-gap: 6px;
-  justify-content: center;
-}
+    .input-container, .button-container {
+      width: 100%;
+      height: 50%;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      margin-bottom: 30px;
+      margin-top: 30px;
 
-.input-day, .input-month, .input-year {
-  display: flex;
-  justify-content: space-around;
-  flex-direction: column;
-  width: auto;
-  margin: 0 8px;
+      .okButton, .cancelButton {
+        padding: 8px 30px 8px;
+        cursor: pointer;
+        float: none;
+        box-sizing: border-box;
+        border-radius: 5px;
+      }
 
-  .inputDay, .inputYear, .inputMonth {
-    text-align: left;
-    padding: 2px 15px;
-    background: #FFFFFF;
-    border: 1px solid #DEDEDE;
-    box-sizing: border-box;
-    border-radius: 4px;
-    color: black; 
-  }
-  .errorMessage {
-    color: red;
-    position: absolute;
-    margin: 0 -20px -50px;
-  }
-}
+      .cancelButton{
+        background: #FFFFFF;
+        border: 2px solid #1C3FAA;
+        color: #1C3FAA;
+      }
 
-.button-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
+      .okButton {
+        color: white;
+        background: #1C3FAA;
+      }
 
-  .okButton, .cancelButton {
-    padding: 8px 30px 8px; 
-    cursor: pointer; 
-    float: none;
-    box-sizing: border-box;
-    border-radius: 5px;
-  }
+      .input-day, .input-month, .input-year {
+        display: flex;
+        justify-content: space-around;
+        flex-direction: column;
+        width: auto;
+        margin: 0 8px;
 
-  .cancelButton{
-    background: #FFFFFF;
-    border: 2px solid #1C3FAA;
-    color: #1C3FAA;
-  }
+        .inputDay, .inputYear, .inputMonth {
+          text-align: left;
+          padding: 2px 15px;
+          background: #FFFFFF;
+          border: 1px solid #DEDEDE;
+          box-sizing: border-box;
+          border-radius: 4px;
+          color: black;
+        }
 
-  .okButton {
-    color: white;
-    background: #1C3FAA;
+        .errorMessage {
+          color: red;
+          position: absolute;
+          margin: 0 -30px -50px;
+        }
+      }
+    }
   }
 }

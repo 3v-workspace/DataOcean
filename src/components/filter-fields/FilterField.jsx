@@ -8,7 +8,7 @@ import DatePicker2 from './DatePicker2';
 const FilterField = (props) => {
   const {
     filter: { name, type, multiple, placeholder, width, options },
-    onChange, defaultValue, onSearch, value,
+    onChange, defaultValue, onSearch, value, onSubmit,
   } = props;
 
   const needSearchRef = React.useRef(false);
@@ -108,6 +108,7 @@ const FilterField = (props) => {
           <DatePicker2
             name={name}
             value={value}
+            placeholder={placeholder}
             onChange={(n, v) => {
               needSearchRef.current = true;
               onChange(n, v);
@@ -135,6 +136,7 @@ FilterField.propTypes = {
     })),
   }).isRequired,
   onChange: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
   onSearch: PropTypes.func.isRequired,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   defaultValue: PropTypes.oneOfType([
