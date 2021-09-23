@@ -12,7 +12,7 @@ const DisplayWarning = () => {
         {t('websiteAvailableOnDesktopDevices')}
       </div>
       <a href={landingUrl} className="intro-x flex justify-center self-center">
-        <img alt="Data Ocean" src={whiteLogo} className="w-8 -mt-2" />
+        <img alt="Data Ocean" src={whiteLogo} className="w-8 max-h-3 -mt-2" />
         <span className="text-white font-medium text-lg ml-3">Data Ocean</span>
       </a>
     </div>
