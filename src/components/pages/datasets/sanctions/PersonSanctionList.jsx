@@ -12,67 +12,70 @@ const PersonSanctionList = ({ match, history }) => {
   const columns = [
     {
       header: t('fullName'),
-      defaultSelected: true,
       prop: 'full_name',
+      defaultSelected: true,
       filter: {
         name: 'full_name',
         type: 'text',
         placeholder: t('search'),
+        width: '40',
       },
     },
     {
       header: t('dateOfBirth'),
-      defaultSelected: true,
-      noSort: true,
       prop: 'date_of_birth',
+      noSort: true,
+      defaultSelected: true,
       render: (v) => renderDate(v),
     },
     {
       header: t('countriesOfCitizenship'),
-      defaultSelected: true,
-      noSort: true,
       prop: 'countries_of_citizenship',
+      noSort: true,
+      defaultSelected: true,
       render: (countries) => countries.map((country) => getLocaleField(country, 'name')).join(', '),
       filter: {
         name: 'country_of_citizenship',
         prop: null,
         type: 'text',
         placeholder: t('search'),
+        width: '40',
       },
     },
     {
       header: t('startDate'),
-      defaultSelected: true,
       prop: 'start_date',
+      defaultSelected: true,
       render: (v) => renderDate(v),
     },
     {
       header: t('endDate'),
-      defaultSelected: true,
       prop: 'end_date',
+      defaultSelected: true,
       render: (v) => renderDate(v),
     },
     {
       header: t('status'),
-      defaultSelected: true,
       prop: 'is_pep',
       noSort: true,
+      defaultSelected: true,
       render: (v) => isPep(v),
     },
     {
       header: t('lastPosition'),
-      defaultSelected: true,
-      noSort: true,
       prop: 'occupation',
+      noSort: true,
+      defaultSelected: true,
     },
     {
       header: t('taxpayerNumber'),
-      noSort: true,
       prop: 'taxpayer_number',
+      noSort: true,
       filter: {
         name: 'taxpayer_number',
-        type: 'text',
-        placeholder: t('search'),
+        type: 'number',
+        placeholder: '123456789012',
+        width: '40',
       },
     },
     {
@@ -87,8 +90,9 @@ const PersonSanctionList = ({ match, history }) => {
       noSort: true,
       filter: {
         name: 'id',
-        type: 'text',
-        placeholder: t('search'),
+        type: 'number',
+        placeholder: '1234',
+        width: '24',
       },
     },
     {
@@ -103,18 +107,19 @@ const PersonSanctionList = ({ match, history }) => {
     },
     {
       header: t('address'),
-      noSort: true,
       prop: 'address',
+      noSort: true,
       filter: {
         name: 'address',
         type: 'text',
         placeholder: t('search'),
+        width: '40',
       },
     },
     {
       header: t('documentsInfo'),
-      noSort: true,
       prop: 'passports',
+      noSort: true,
       render: (passports) => passports.map((passport) => passport).join(', '),
       filter: {
         name: 'passports',
@@ -124,8 +129,8 @@ const PersonSanctionList = ({ match, history }) => {
     },
     {
       header: t('additionalInfo'),
-      noSort: true,
       prop: 'additional_info',
+      noSort: true,
     },
     {
       header: t('placeOfBirth'),
@@ -161,6 +166,7 @@ const PersonSanctionList = ({ match, history }) => {
         onRowClick={(row) => {
           history.push(`${match.url}${row.id}/`);
         }}
+        minHeight="400px"
       />
     </PageBox>
   );

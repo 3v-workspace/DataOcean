@@ -264,12 +264,12 @@ const Table = (props) => {
                   className="border-b-2 whitespace-no-wrap"
                 >
                   <div
-                    className={`flex items-center h-8 justify-between ${!col.noSort ? 'cursor-pointer' : ''}`}
+                    className={`flex items-center h-8 ${!col.noSort ? 'cursor-pointer' : ''}`}
                     onClick={() => handleHeaderClick(col)}
                   >
                     {col.header}
                     {!col.noSort && (
-                      <div className="px-1 flex justify-center items-center">
+                      <div className="px-4 flex justify-center items-center">
                         {renderSortArrow(col)}
                       </div>
                     )}

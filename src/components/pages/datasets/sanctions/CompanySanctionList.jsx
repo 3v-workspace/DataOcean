@@ -11,8 +11,8 @@ const CompanySanctionList = ({ match, history }) => {
   const columns = [
     {
       header: t('companyName'),
-      defaultSelected: true,
       prop: 'name',
+      defaultSelected: true,
       filter: {
         name: 'name',
         type: 'text',
@@ -21,9 +21,9 @@ const CompanySanctionList = ({ match, history }) => {
     },
     {
       header: t('countryOfRegistration'),
-      defaultSelected: true,
       prop: 'country_of_registration',
       noSort: true,
+      defaultSelected: true,
       render: (v) => getLocaleField(v, 'name'),
       filter: {
         name: 'country_of_registration',
@@ -33,42 +33,44 @@ const CompanySanctionList = ({ match, history }) => {
     },
     {
       header: t('taxpayerNumber'),
-      defaultSelected: true,
-      noSort: true,
       prop: 'taxpayer_number',
+      noSort: true,
+      defaultSelected: true,
       filter: {
         name: 'taxpayer_number',
-        type: 'text',
-        placeholder: t('search'),
+        type: 'number',
+        placeholder: '1234567890',
+        width: '40',
       },
     },
     {
       header: t('startDate'),
-      defaultSelected: true,
       prop: 'start_date',
+      defaultSelected: true,
       render: (v) => renderDate(v),
     },
     {
       header: t('endDate'),
-      defaultSelected: true,
       prop: 'end_date',
+      defaultSelected: true,
       render: (v) => renderDate(v),
     },
     {
       header: t('address'),
-      noSort: true,
       prop: 'address',
+      noSort: true,
       filter: {
         name: 'address',
         type: 'text',
-        placeholder: 'Пошук',
+        placeholder: t('search'),
+        width: '40',
       },
     },
     {
       header: t('reasoningDate'),
       prop: 'reasoning_date',
-      render: (v) => renderDate(v),
       noSort: true,
+      render: (v) => renderDate(v),
     },
     {
       header: 'ID',
@@ -77,7 +79,8 @@ const CompanySanctionList = ({ match, history }) => {
       filter: {
         name: 'id',
         type: 'number',
-        placeholder: t('search'),
+        placeholder: '1234',
+        width: '24',
       },
     },
     {
@@ -86,14 +89,14 @@ const CompanySanctionList = ({ match, history }) => {
       noSort: true,
       filter: {
         name: 'name_original',
-        type: 'number',
+        type: 'text',
         placeholder: t('search'),
       },
     },
     {
       header: t('additionalInfo'),
-      noSort: true,
       prop: 'additional_info',
+      noSort: true,
       filter: {
         name: 'additional_info',
         type: 'text',
@@ -108,18 +111,19 @@ const CompanySanctionList = ({ match, history }) => {
     },
     {
       header: t('registrationNumber'),
-      noSort: true,
       prop: 'registration_number',
+      noSort: true,
       filter: {
         name: 'registration_number',
         type: 'text',
-        placeholder: t('search'),
+        placeholder: '1234567890123',
+        width: '40',
       },
     },
     {
       header: t('cancelingConditions'),
-      noSort: true,
       prop: 'cancellation_condition',
+      noSort: true,
     },
   ];
   return (
@@ -146,6 +150,7 @@ const CompanySanctionList = ({ match, history }) => {
         onRowClick={(row) => {
           history.push(`${match.url}${row.id}/`);
         }}
+        minHeight="400px"
       />
     </PageBox>
   );
