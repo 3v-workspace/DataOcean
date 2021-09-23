@@ -86,7 +86,7 @@ const SelectColumns = (props) => {
             // onChange={handleAllSelectedChange}
           />
         </div>
-        <div className="overflow-auto h-52">
+        <div className="overflow-y-auto max-h-12">
           {columns.map((col) => (
             <BooleanInput
               className="ml-5 m-2"
