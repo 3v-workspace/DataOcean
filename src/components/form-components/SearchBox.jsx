@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Search, X } from 'react-feather';
 import { useTranslation } from 'react-i18next';
 import Tooltip from 'components/Tooltip';
+import { debounce } from 'throttle-debounce';
 
 const SearchBox = (props) => {
   const {
@@ -10,8 +11,7 @@ const SearchBox = (props) => {
     className, size, onBlur, onSearch, isRounded, defaultValue,
   } = props;
   const { t } = useTranslation();
-  const [mouseOver, setMouseOver] = useState(false);
-
+  // const [mouseOver, setMouseOver] = useState(false);
   const classList = [];
   if (className) {
     classList.push(className);
@@ -25,12 +25,17 @@ const SearchBox = (props) => {
   classList.push('input pr-8 placeholder-theme-13');
 
   const endId = id || `id_${name}`;
+  const debouncedChange = debounce(1000, false, (e) => {
+    if (onSearch) {
+      onSearch(name, e.target.value);
+    }
+  });
 
   return (
     <div
       className={`${containerClass} relative text-gray-700`}
-      onMouseEnter={() => setMouseOver(true)}
-      onMouseLeave={() => setMouseOver(false)}
+      // onMouseEnter={() => setMouseOver(true)}
+      // onMouseLeave={() => setMouseOver(false)}
     >
       <input
         className={classList.join(' ')}
@@ -39,18 +44,23 @@ const SearchBox = (props) => {
         placeholder={placeholder || `${t('search')}...`}
         value={value}
         defaultValue={defaultValue}
-        onChange={onChange}
-        onKeyPress={(e) => {
-          if (onSearch && e.key === 'Enter') {
-            onSearch(name, e.target.value);
-          }
+        onChange={(e) => {
+          onChange(e);
+          e.persist();
+          debouncedChange(e);
         }}
+        // onKeyPress={(e) => {
+        //   if (onSearch && e.key === 'Enter') {
+        //     onSearch(name, e.target.value);
+        //   }
+        // }}
         onBlur={(e) => {
           if (onBlur) {
             onBlur(e);
-          } else if (!mouseOver) {
-            onSearch(name, e.target.value);
           }
+          // else if (!mouseOver) {
+          //   onSearch(name, e.target.value);
+          // }
         }}
         name={name}
       />

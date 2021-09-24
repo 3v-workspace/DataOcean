@@ -35,10 +35,10 @@ const FilterField = (props) => {
       return (
         <div>
           <SearchBox
-            className="border-gray-300 w-full"
+            className={`border-gray-300 w-${width || 'full'}`}
             size="md"
             type="text"
-            value={value}
+            value={value || defaultValue}
             placeholder={placeholder}
             name={name}
             onChange={(e) => onChange(name, e.target.value)}
