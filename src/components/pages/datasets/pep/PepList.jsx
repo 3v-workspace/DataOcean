@@ -42,7 +42,9 @@ const PepList = ({ match, history }) => {
       render: (v) => renderDate(v),
       filter: {
         name: 'date_of_birth',
-        type: 'text',
+        type: 'datepicker',
+        maxYear: '2041',
+        minYear: '1921',
         placeholder: '1989-02-11',
       },
     },

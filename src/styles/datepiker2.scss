@@ -1,4 +1,4 @@
-.datepicker_form {
+.datepicker-form {
   .dropdown-date:hover .dropdown-content {
     display: flex;
     flex-wrap: wrap;
@@ -29,7 +29,7 @@
     row-gap: 6px;
     min-width: 200px;
 
-    .yearsTable {
+    .years-table {
       flex-direction: row;
       display: flex;
       flex-wrap: wrap;
@@ -63,7 +63,7 @@
       margin-bottom: 30px;
       margin-top: 30px;
 
-      .okButton, .cancelButton {
+      .ok-button, .cancel-button {
         padding: 8px 30px 8px;
         cursor: pointer;
         float: none;
@@ -71,25 +71,25 @@
         border-radius: 5px;
       }
 
-      .cancelButton{
+      .cancel-button{
         background: #FFFFFF;
         border: 2px solid #1C3FAA;
         color: #1C3FAA;
       }
 
-      .okButton {
+      .ok-button {
         color: white;
         background: #1C3FAA;
       }
 
-      .input-day, .input-month, .input-year {
+      .input-day-container, .input-month-container, .input-year-container {
         display: flex;
         justify-content: space-around;
         flex-direction: column;
         width: auto;
         margin: 0 8px;
 
-        .inputDay, .inputYear, .inputMonth {
+        .input-day, .input-year, .input-month {
           text-align: left;
           padding: 2px 15px;
           background: #FFFFFF;

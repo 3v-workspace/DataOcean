@@ -8,7 +8,7 @@ import DatePicker2 from './DatePicker2';
 const FilterField = (props) => {
   const {
     filter: { name, type, multiple, placeholder, width, options },
-    onChange, defaultValue, onSearch, value, onSubmit,
+    onChange, defaultValue, onSearch, value, maxYear, minYear,
   } = props;
 
   const needSearchRef = React.useRef(false);
@@ -109,6 +109,8 @@ const FilterField = (props) => {
             name={name}
             value={value}
             placeholder={placeholder}
+            minYear={minYear}
+            maxYear={maxYear}
             onChange={(n, v) => {
               needSearchRef.current = true;
               onChange(n, v);
@@ -136,8 +138,9 @@ FilterField.propTypes = {
     })),
   }).isRequired,
   onChange: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func.isRequired,
   onSearch: PropTypes.func.isRequired,
+  minYear: PropTypes.number,
+  maxYear: PropTypes.number,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   defaultValue: PropTypes.oneOfType([
     PropTypes.string, PropTypes.array,
@@ -146,6 +149,8 @@ FilterField.propTypes = {
 
 FilterField.defaultProps = {
   value: undefined,
+  minYear: 1000,
+  maxYear: 4000,
 };
 
 export default FilterField;
