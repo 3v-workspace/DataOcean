@@ -1,14 +1,16 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Api from 'api';
-import { HelpCircle, ArrowLeft, Download, Printer } from 'react-feather';
+import { useDispatch } from 'react-redux';
+import { setOverflow } from 'store/interface/actionCreators';
+import { HelpCircle, ArrowLeft, Download } from 'react-feather';
 import { renderDate, getLocaleField } from 'utils';
 import { ReactRouterPropTypes } from 'utils/prop-types';
 import useTopBarHiddingEffect from 'hooks/useTopBarHiddingEffect';
 import Tooltip from 'components/Tooltip';
 import {
-  Sanction, Criminal, Built, Car, Person, Career, Giftbox,
-  Home, Money, Name, Wallet, Info, MainInfo, PepIcon, SpendMoney, MonetaryAssets,
+  Sanction, Criminal, Built, Car, Person, Career, Giftbox, Print, Info,
+  Home, Money, Name, Wallet, MainInfo, PepIcon, SpendMoney, MonetaryAssets,
   InformationBlock, AsyncInformationBlock, PepCriminal, PepLiability, PepMonetaryAssets,
   PepMoney, PepProperty, PepSanction, PepVehicle, PepCareer, PepHtml,
   PepRelatedPerson, PepRelatedCompanies, PepOtherNames, PepMenu,
@@ -18,6 +20,7 @@ import { asyncBlocks, pepBlocks, ASYNCBLOCK, INFOBLOCK } from './pep_detail/cons
 
 
 const PepDetail = ({ match, history }) => {
+  const dispatch = useDispatch();
   const defaultState = Object.keys(asyncBlocks).reduce((block, data) => {
     block[data] = [];
     return block;
@@ -225,7 +228,7 @@ const PepDetail = ({ match, history }) => {
       title: t('additionalInfo'),
       titleIcon: Info,
       component: PepHtml,
-      blockProps: { data: pep.info },
+      blockProps: { data: pep.info || [] },
       type: INFOBLOCK,
       ref: additionalInfoRef,
     },
@@ -242,15 +245,15 @@ const PepDetail = ({ match, history }) => {
       { label: 'lastPlaceOfWork', value: getLocaleField(pep, 'last_employer') },
     ];
     return (
-      <div className="flex flex-col">
-        <div className="inline-flex mb-2">
-          <div className="w-40 lg:w-64 font-medium">{t('pepDetailType')}:</div>
+      <div className="flex flex-col block-black">
+        <div className="inline-flex mb-3">
+          <div className="w-40 lg:w-64 font-bold">{t('pepDetailType')}:</div>
           <div className="max-w-xl">{pep.pep_type_display}</div>
           {/*<HelpCircle className="w-4 h-4 ml-2 text-blue-600" />*/}
         </div>
         {shortInfoFields.map((info, i) => (info.value && !(info.value === '---') ? (
-          <div className="inline-flex mb-2" key={i}>
-            <div className="w-40 lg:w-64 font-medium">{t(info.label)}:</div>
+          <div className="inline-flex mb-3" key={i}>
+            <div className="w-40 lg:w-64 font-bold">{t(info.label)}:</div>
             <div className="max-w-xl">{info.render ? info.render(info.value) : info.value}</div>
           </div>
         ) : null))}
@@ -264,7 +267,7 @@ const PepDetail = ({ match, history }) => {
     return (
       <>
         <div
-          className="border border-gray-400 rounded-full px-3 py-1 mr-2 cursor-pointer"
+          className="border border-gray-400 rounded-full px-3 py-1 mr-2 cursor-pointer text-xs"
           onClick={() => scrollToRef(mainRef)}
         >
           {pep.pep_type_display}
@@ -272,7 +275,7 @@ const PepDetail = ({ match, history }) => {
         {sanctionBlock.blockProps.data && sanctionBlock.blockProps.data.length &&
         !sanctionBlock.blockProps.data[0].noSanction ? (
           <div
-            className="border border-gray-400 rounded-full px-3 py-1 cursor-pointer"
+            className="border border-gray-400 rounded-full px-3 py-1 cursor-pointer text-xs"
             onClick={() => scrollToRef(sanctionBlock.ref)}
           >
             {t(sanctionBlock.title)}
@@ -281,7 +284,7 @@ const PepDetail = ({ match, history }) => {
         {criminalBlock.blockProps.data && criminalBlock.blockProps.data.length &&
         !criminalBlock.blockProps.data[0].noCriminal ? (
           <div
-            className="border border-gray-400 rounded-full px-3 py-1 ml-2 cursor-pointer"
+            className="border border-gray-400 rounded-full px-3 py-1 ml-2 cursor-pointer text-xs"
             onClick={() => scrollToRef(criminalBlock.ref)}
           >
             {t(criminalBlock.title)}
@@ -313,7 +316,7 @@ const PepDetail = ({ match, history }) => {
           />
           {config[i + 1] && !config[i + 1].blockProps.data.length &&
           block.blockProps.data.length ? (
-            <div className="text-gray-500 uppercase items-center font-medium text-base">
+            <div className="block-gray items-center font-medium text-base">
               {t('noInformation')}
             </div>
             ) : null}
@@ -336,7 +339,7 @@ const PepDetail = ({ match, history }) => {
         </InformationBlock>
         {config[i + 1] && !config[i + 1].blockProps.data.length &&
         block.blockProps.data.length ? (
-          <div className="text-gray-500 items-center font-medium text-lg mt-10 mb-2">
+          <div className="block-gray items-center font-medium text-lg mt-10 mb-2">
             {t('noInformation')}
           </div>
           ) : null}
@@ -345,6 +348,13 @@ const PepDetail = ({ match, history }) => {
   });
 
   useTopBarHiddingEffect();
+
+  useEffect(() => {
+    dispatch(setOverflow(false));
+    return () => {
+      dispatch(setOverflow(true));
+    };
+  }, []);
 
   useEffect(() => {
     fetchData();
@@ -358,35 +368,35 @@ const PepDetail = ({ match, history }) => {
     <>
       <button
         type="button"
-        className="flex cursor-pointer font-bold text-l text-blue-800 my-5"
+        className="flex cursor-pointer font-bold text-l block-black my-5 mx-3"
         onClick={() => history.goBack()}
       >
         <ArrowLeft className="h-5 ml-2" />
         {t('back')}
       </button>
-      <div className="flex flex-row mb-2">
-        <div className="flex-auto w-5/6">
-          <div className="box col-span-12 border border-gray-400 p-5" ref={mainRef}>
+      <div className="flex flex-row text-base">
+        <div className="flex-auto w-8/12 mr-8">
+          <div className="box col-span-12 border border-gray-400 p-6" ref={mainRef}>
             <div className="flex flex-col lg:flex-row">
-              <div className="flex flex-auto flex-col sm:flex-row items-start justify-start">
+              <div className="flex flex-auto flex-col sm:flex-row items-start justify-start mt-1">
                 <PepIcon />
                 <div className="ml-6">
-                  <div className="text-2xl font-medium capitalize">
+                  <div className="text-2xl font-bold block-black capitalize">
                     {getLocaleField(pep, 'fullname')}
                   </div>
-                  <div className="inline-flex mt-2 mb-4">
+                  <div className="inline-flex mt-5 mb-6 text-base">
                     {getHeader()}
                   </div>
                   {getShortInfo()}
                 </div>
               </div>
-              <div className="flex flex-col items-end text-right">
-                <div className="flex flex-row text-blue-800 h-7">
+              <div className="items-end text-right">
+                <div className="flex flex-row block-black h-7">
                   <Tooltip content={t('inDevelopment')}>
-                    <Printer className="mr-5" />
+                    <Download className="mr-8" />
                   </Tooltip>
                   <Tooltip content={t('inDevelopment')}>
-                    <Download className="mr-2" />
+                    <Print />
                   </Tooltip>
                 </div>
               </div>

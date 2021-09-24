@@ -7,7 +7,7 @@ const PepRelatedPerson = (props) => {
   const { data, pepId, matchProps } = props;
 
   return (
-    <ul className="list-outside list-disc ml-4">
+    <ul className="list-outside ml-4">
       {data[0].map((person) => (
         <li key={person.to_person.id}>
           <span className="mr-1">

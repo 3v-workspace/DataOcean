@@ -6,7 +6,7 @@ const PepRelatedCompanies = (props) => {
   const { data } = props;
 
   return (
-    <ul className="list-outside list-disc ml-4">
+    <ul className="list-outside ml-4">
       {data.map((company, i) => (
         <li key={i}>
           <span>
