@@ -46,8 +46,6 @@ const PersonSearchForm = (props) => {
     },
   });
 
-  console.log(formik.values);
-
   return (
     <div className="flex justify-center">
       <Form formik={formik} className="w-72 mt-6">
