@@ -11,17 +11,17 @@ const InformationBlock = React.forwardRef((props, ref) => {
   const { t } = useTranslation();
 
   return (
-    <div className="intro-x box border border-gray-400 mt-5" ref={ref}>
+    <div className="intro-x box border border-gray-400 mt-6" ref={ref}>
       <div
-        className="flex items-center px-5 py-5 sm:py-3 border-b border-gray-400 cursor-pointer"
+        className={`flex items-center px-5 py-4 sm:py-3 border-b border-gray-400 cursor-pointer ${color}`}
         onClick={() => setOpenBlock(blockId)}
       >
-        <Icon fill={color} />
-        <h2 className={`flex uppercase items-center font-medium text-base ml-1 mr-auto text-${color}-500`}>
+        <Icon />
+        <h2 className="flex items-center font-medium text-base ml-3 mr-auto">
           {title}
         </h2>
-        {color === 'black' ? (
-          <div className="flex flex-row text-blue-800">
+        {color === 'block-black' ? (
+          <div className="flex flex-row">
             {open && open[blockId] ? (
               <Tooltip content={t('close')}>
                 <ChevronUp className="w-4 h-6" />
@@ -34,8 +34,8 @@ const InformationBlock = React.forwardRef((props, ref) => {
           </div>
         ) : null}
       </div>
-      {open && open[blockId] && color === 'black' ? (
-        <div className="p-5">
+      {open && open[blockId] && color === 'block-black' ? (
+        <div className="p-6">
           {children}
         </div>
       ) : null}

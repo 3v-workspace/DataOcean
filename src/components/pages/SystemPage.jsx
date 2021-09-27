@@ -1,6 +1,7 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { ReactRouterPropTypes } from 'utils/prop-types';
+import { useSelector } from 'react-redux';
 import { useIsLogin } from 'hooks';
 import Nav from 'components/nav/Nav';
 import NavItem from 'components/nav/NavItem';
@@ -18,6 +19,7 @@ const SystemPage = (props) => {
   const { t } = useTranslation();
   const { location } = props;
   const isLogin = useIsLogin();
+  const isOverflow = useSelector((store) => store.interface.isOverflow);
 
   if (!isLogin) {
     return (
@@ -82,7 +84,7 @@ const SystemPage = (props) => {
         <Nav>
           {menu}
         </Nav>
-        <div className="content pb-0">
+        <div className={`content ${isOverflow ? 'overflow-x-auto' : ''} pb-0`}>
           <TopBar />
           <SystemRoutes {...props} />
         </div>

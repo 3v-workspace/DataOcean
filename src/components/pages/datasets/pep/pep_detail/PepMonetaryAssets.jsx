@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
+import { renderDate } from 'utils/dateTime';
+import PepTableShadow from './PepTableShadow';
 
 const PepMonetaryAssets = (props) => {
   const { data, pepId } = props;
@@ -50,16 +52,16 @@ const PepMonetaryAssets = (props) => {
 
   return (
     <>
-      <div className="w-full overflow-x-auto">
-        <div className="inline-flex w-full text-center font-medium">
+      <PepTableShadow>
+        <div className="inline-flex w-full text-center font-medium mb-3 text-gray-700">
           <div className="w-3/6">{t('declarant')}</div>
           <div className="w-3/6">{t('family')}</div>
         </div>
         <table className="table text-center">
           <thead>
-            <tr className="bg-gray-200 text-gray-700 font-medium">
+            <tr className="bg-gray-200 text-gray-700 font-medium sticky top-0">
               <td>{t('year')}</td>
-              <td>Вид активу</td>
+              <td>{t('assetType')}</td>
               <td>UAH</td>
               <td>EUR</td>
               <td>USD</td>
@@ -82,8 +84,8 @@ const PepMonetaryAssets = (props) => {
             }).map(([year, types]) => (
               Object.entries(types).map(([type, owners], i) => (
                 <tr key={i} className="border-b border-gray-200">
-                  <td>{year}</td>
-                  <td>{allAssetsTypes[type]}</td>
+                  <td>{renderDate(year)}</td>
+                  <td className="text-left">{allAssetsTypes[type]}</td>
                   {tableData[year][type].declarant ? (
                     <>
                       <td>{tableData[year][type].declarant.UAH ? tableData[year][type].declarant.UAH.toFixed(2) : '---'}</td>
@@ -119,7 +121,7 @@ const PepMonetaryAssets = (props) => {
             ))}
           </tbody>
         </table>
-      </div>
+      </PepTableShadow>
     </>
   );
 };

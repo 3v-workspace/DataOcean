@@ -33,4 +33,4 @@ export const prepareRelatedPersonData = (pep) => {
 
 export const scrollToRef = (ref) => window.scrollTo({ top: ref.current.offsetTop, behavior: 'smooth' });
 
-export const getColor = (data) => (data && data.length ? 'black' : 'gray');
+export const getColor = (data) => (data && data.length ? 'block-black' : 'block-gray');

@@ -34,16 +34,19 @@ const PepMenu = (props) => {
   }, []);
 
   return (
-    <div className="box ml-2 border border-gray-400 sticky top-0 w-1/6" style={{ height: 'min-content' }}>
+    <div className="box border border-gray-400 sticky top-1 w-3/12" style={{ height: 'min-content' }}>
       <ul className="list-none space-y-2 py-2">
         <div
-          className={`flex flex-row ml-2 hover:bg-gray-200 cursor-pointer ${activeBlock === mainBlock.id ? 'pep-border' : null}`}
+          className={
+            `flex items-center h-10 block-black background-hover-gray text-lg cursor-pointer 
+            ${activeBlock === mainBlock.id ? 'pep-border' : null}`
+          }
           onClick={() => {
             scrollToRef(mainBlock.ref);
             setActive(mainBlock.ref);
           }}
         >
-          <MainInfoIcon className="mr-2 w-5 h-5" fill="black" />
+          <MainInfoIcon className="mx-2 w-5 h-5" />
           {t('mainInformation')}
         </div>
         {config.map((info) => {
@@ -51,7 +54,10 @@ const PepMenu = (props) => {
           return (
             <div
               key={info.id}
-              className={`flex flex-row cursor-pointer ml-2 hover:bg-gray-200 ${activeBlock === info.id ? 'pep-border' : null}`}
+              className={
+                `flex items-center cursor-pointer h-8 text-lg ${getColor(info.blockProps.data)} background-hover-gray 
+                ${activeBlock === info.id ? 'pep-border' : null}`
+              }
               onClick={() => {
                 setOpenBlock(info.id, true);
                 setActive(info.id);
@@ -59,8 +65,7 @@ const PepMenu = (props) => {
               }}
             >
               <Icon
-                className="mr-2 w-5 h-5"
-                fill={getColor(info.blockProps.data)}
+                className="mx-2 w-5 h-5"
               />
               {t(info.title)}
             </div>

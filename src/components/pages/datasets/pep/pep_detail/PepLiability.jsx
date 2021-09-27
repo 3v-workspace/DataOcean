@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
+import { renderDate } from 'utils/dateTime';
 
 const PepLiability = (props) => {
   const { data, pepId } = props;
@@ -33,7 +34,7 @@ const PepLiability = (props) => {
 
   const liabilityTable = (owner) => (
     <table className="table text-center">
-      <caption className="text-gray-700 font-medium mt-2">{owner === 'sumDeclarant' ? t('declarant') : t('family')}</caption>
+      <caption className="text-gray-700 font-medium mb-3">{owner === 'sumDeclarant' ? t('declarant') : t('family')}</caption>
       <thead>
         <tr className="bg-gray-200 text-gray-700 font-medium">
           <td>{t('year')}</td>
@@ -46,7 +47,7 @@ const PepLiability = (props) => {
       <tbody>
         {sortedLiabilitydata.map((item, i) => (
           <tr key={i} className="border-b border-gray-200">
-            <td>{item.year}</td>
+            <td>{renderDate(item.year.toString())}</td>
             <td>{item[owner] && item[owner].UAH ? item[owner].UAH.toFixed(2) : '---'}</td>
             <td>{item[owner] && item[owner].EUR ? item[owner].EUR.toFixed(2) : '---'}</td>
             <td>{item[owner] && item[owner].USD ? item[owner].USD.toFixed(2) : '---'}</td>

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
+import { renderDate } from 'utils/dateTime';
 import { sortData } from './utils';
 
 const PepProperty = (props) => {
@@ -52,7 +53,7 @@ const PepProperty = (props) => {
       </thead>
       <tbody>
         <tr>
-          <td>{lastRealEstateData[0].property.declared_at}</td>
+          <td>{renderDate(lastRealEstateData[0].property.declared_at.toString())}</td>
           <td>
             {totalArea.land.quantity ? `${totalArea.land.area.toFixed(2)} ${t('sqm')} (${totalArea.land.quantity})` : '---'}
           </td>

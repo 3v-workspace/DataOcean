@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
-import { getLocaleField } from 'utils';
+import { getLocaleField, renderDate } from 'utils';
 import { sortData } from './utils';
 
 const PepVehicle = (props) => {
@@ -40,7 +40,7 @@ const PepVehicle = (props) => {
         <tbody>
           {filteredVehicleData.map((car) => (
             <tr key={car.vehicle.id} className="border-b border-gray-200">
-              <td>{car.vehicle.declared_at}</td>
+              <td>{renderDate(car.vehicle.declared_at.toString())}</td>
               <td>{`${car.vehicle.brand} ${car.vehicle.model} ${car.vehicle.year}`}</td>
               <td className="capitalize">{car.owner.map((person) => getLocaleField(person, 'fullname')).join(', ')}</td>
             </tr>
