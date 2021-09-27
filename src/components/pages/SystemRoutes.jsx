@@ -6,7 +6,7 @@ import ContactsPage from 'components/pages/system/ContactsPage';
 import DataConstructorPage from 'components/pages/system/DataConstructorPage';
 import Route404 from 'components/pages/Route404';
 import HelpPage from 'components/pages/help/HelpPage';
-import HomePage from 'components/pages/system/HomePage';
+import StatisticsPage from 'components/pages/system/StatisticsPage';
 import SearchPage from 'components/pages/search/SearchPage';
 import ProfilePage from 'components/pages/profile/ProfilePage';
 import DatasetsRoutes from 'components/pages/datasets/DatasetsRoutes';
@@ -29,7 +29,6 @@ const SystemRoutes = (props) => {
     <Switch>
       <Route
         path={`${match.path}home/`}
-        // component={HomePage}
         component={SearchPage}
       />
       <Route
@@ -60,6 +59,11 @@ const SystemRoutes = (props) => {
         exact
         path={`${match.path}api/`}
         component={ApiPage}
+      />
+      <Route
+        exact
+        path={`${match.path}statistics/`}
+        component={StatisticsPage}
       />
       <Route
         exact

@@ -61,6 +61,9 @@ const SystemPage = (props) => {
       <NavItem link="/system/api/" icon={Cloud}>
         API
       </NavItem>
+      <NavItem link="/system/statistics/" icon={Activity}>
+        {t('statistics')}
+      </NavItem>
       <NavItem link="/system/contacts/" icon={BookOpen}>
         {t('contacts')}
       </NavItem>
