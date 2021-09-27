@@ -38,8 +38,8 @@ const PersonResultsPage = (props) => {
   }
 
   return (
-    <div>
-      <div className="flex justify-between text-xl mb-3 mt-5">
+    <div className="py-5">
+      <div className="flex justify-between text-xl mb-3">
         <div>
           <Trans
             i18nKey="personPage.matchesWereFoundFor"
