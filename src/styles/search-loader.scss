@@ -1,0 +1,33 @@
+.search-loader {
+  //$border-radius: 6% unquote("/") 76%;
+  $border-radius: 20px;
+  $height: 8px;
+
+  position: relative;
+  background-color: #EEEEEE;
+  width: 400px;
+  height: $height;
+  border-radius: $border-radius;
+
+  @keyframes search-loader-animate {
+    from {
+      left: 0;
+    }
+    to {
+      left: 250px;
+    }
+  }
+
+  .search-loader-inner {
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    width: 150px;
+    height: $height;
+    background-color: blue;
+    border-radius: $border-radius;
+
+    animation: search-loader-animate .7s alternate linear infinite;
+  }
+}

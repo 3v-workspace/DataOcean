@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Redirect, Route } from 'react-router-dom';
 import Button from 'components/form-components/Button';
 import TextInput from 'components/form-components/TextInput';
-import PropTypes from 'prop-types';
 import { useFormik } from 'formik';
 import Form from 'components/form-components/Form';
 import Api from 'api';
@@ -12,17 +10,17 @@ import SelectInput from 'components/form-components/SelectInput';
 import { ReactRouterPropTypes } from 'utils/prop-types';
 import { getLocaleField, toTitleCase } from 'utils';
 
-const SearchPerson = (props) => {
-  const { history, match } = props;
-  const { t, i18n } = useTranslation();
-  const [countries, setCountries] = useState([{ label: '', value: '' }]);
+const PersonSearchForm = (props) => {
+  const { history } = props;
+  const { t } = useTranslation();
+  const [countries, setCountries] = useState([]);
   useEffect(() => {
-    Api.get('/country')
+    Api.get('country/')
       .then((resp) => {
-        setCountries([{ label: '', value: '' }, ...resp.data.map((country) => ({
+        setCountries(resp.data.map((country) => ({
           label: toTitleCase(getLocaleField(country, 'name')),
           value: country.id,
-        }))]);
+        })));
       });
   }, []);
 
@@ -31,28 +29,28 @@ const SearchPerson = (props) => {
       last_name: '',
       first_name: '',
       middle_name: '',
-      country: null,
-    },
-    validate: (values) => {
-      const errors = {};
-      return errors;
+      country_id: '',
     },
     validationSchema: Yup.object({
       last_name: Yup.string().required(),
       first_name: Yup.string(),
       middle_name: Yup.string(),
-      country: Yup.number(),
+      country_id: Yup.number().nullable(),
     }),
-    onSubmit: (values, actions) => {
-      const params = new URLSearchParams('');
-      Object.entries(values).forEach((param) => params.append(param[0], param[1]));
-      history.push(`/home/person-search/?${params.toString()}`);
+    onSubmit: (values) => {
+      const params = new URLSearchParams();
+      Object.entries(values).forEach(([key, value]) => {
+        params.append(key, value);
+      });
+      history.push(`/system/home/person-search/?${params.toString()}`);
     },
   });
 
+  console.log(formik.values);
+
   return (
     <div className="flex justify-center">
-      <Form formik={formik} className="w-64 mt-6">
+      <Form formik={formik} className="w-72 mt-6">
         <TextInput
           required
           name="last_name"
@@ -76,7 +74,7 @@ const SearchPerson = (props) => {
           formik={formik}
         />
         <SelectInput
-          name="country"
+          name="country_id"
           label={t('countriesOfCitizenship')}
           placeholder={t('selectCitizenship')}
           options={countries}
@@ -93,9 +91,8 @@ const SearchPerson = (props) => {
   );
 };
 
-SearchPerson.propTypes = {
+PersonSearchForm.propTypes = {
   history: ReactRouterPropTypes.history.isRequired,
-  match: ReactRouterPropTypes.match.isRequired,
 };
 
-export default SearchPerson;
+export default PersonSearchForm;

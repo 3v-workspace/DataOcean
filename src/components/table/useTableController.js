@@ -8,11 +8,15 @@ import {
 
 
 const useTableController = (options) => {
-  const { url, params, afterFetch, axiosConfigs } = options;
+  const { url, params, afterFetch, axiosConfigs, defaultPageSize } = options;
   const dispatch = useDispatch();
   let page = useSelector((store) => store.tables[url]?.page);
   if (!page) {
-    dispatch(initTable(url));
+    const extraParams = {};
+    if (defaultPageSize) {
+      extraParams.pageSize = defaultPageSize;
+    }
+    dispatch(initTable(url, extraParams));
     page = 1;
   }
   const setPage = (newPage) => dispatch(tableSetPage(url, newPage));

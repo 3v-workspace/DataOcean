@@ -1,18 +1,16 @@
 import React, { useEffect } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { ReactRouterPropTypes } from 'utils/prop-types';
-import ReportConstructorPage from 'components/pages/system/ReportConstructorPage';
 import ContactsPage from 'components/pages/system/ContactsPage';
-import DataConstructorPage from 'components/pages/system/DataConstructorPage';
 import Route404 from 'components/pages/Route404';
 import HelpPage from 'components/pages/help/HelpPage';
 import StatisticsPage from 'components/pages/system/StatisticsPage';
 import SearchPage from 'components/pages/search/SearchPage';
 import ProfilePage from 'components/pages/profile/ProfilePage';
 import DatasetsRoutes from 'components/pages/datasets/DatasetsRoutes';
-// import PepGraphPage from 'components/pages/system/PepGraphPage';
 import SubscriptionsPage from 'components/pages/payment/SubscriptionsPage';
 import ApiPage from 'components/pages/api/ApiPage';
+import PersonResultsPage from 'components/pages/search/PersonResultsPage';
 
 
 const SystemRoutes = (props) => {
@@ -28,10 +26,6 @@ const SystemRoutes = (props) => {
   return (
     <Switch>
       <Route
-        path={`${match.path}home/`}
-        component={SearchPage}
-      />
-      <Route
         path={`${match.path}datasets/`}
         component={DatasetsRoutes}
       />
@@ -44,12 +38,12 @@ const SystemRoutes = (props) => {
         exact
         path={`${match.path}data-constructor/`}
         component={DataConstructorPage}
+      />
+      <Route
+        exact
+        path={`${match.path}pep-scheme/`}
+        component={PepGraphPage}
       />*/}
-      {/*<Route*/}
-      {/*  exact*/}
-      {/*  path={`${match.path}pep-scheme/`}*/}
-      {/*  component={PepGraphPage}*/}
-      {/*/>*/}
       <Route
         exact
         path={`${match.path}subscriptions/`}
@@ -78,6 +72,15 @@ const SystemRoutes = (props) => {
       <Route
         path={`${match.path}profile/`}
         component={ProfilePage}
+      />
+      <Route
+        exact
+        path={`${match.path}home/person-search/`}
+        component={PersonResultsPage}
+      />
+      <Route
+        path={`${match.path}home/`}
+        component={SearchPage}
       />
       <Route
         exact

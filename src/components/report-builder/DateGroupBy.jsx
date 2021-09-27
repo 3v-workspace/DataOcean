@@ -31,7 +31,7 @@ const DateGroupBy = (props) => {
           options={groupByChoices}
           // formik={formik}
           value={groupBy}
-          onChange={(e) => setGroupBy(e.target.value)}
+          onChange={(n, v) => setGroupBy(v)}
           hideSearch
         />
       </div>

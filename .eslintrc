@@ -75,6 +75,7 @@
     "react/no-unescaped-entities": "off",
     "no-new": "off",
     "no-unreachable": "warn",
-    "func-names": "off"
+    "func-names": "off",
+    "no-shadow": "off"
   }
 }

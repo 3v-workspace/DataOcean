@@ -24,13 +24,27 @@ const SelectInput = (props) => {
       minimumResultsForSearch: hideSearch ? -1 : 0,
     });
     if (onChange) {
-      $(selectRef.current).on('change', onChange);
+      $(selectRef.current).on('change', (e) => {
+        let value;
+        if (e.target.value === '-empty-') {
+          value = '';
+        } else {
+          value = e.target.value;
+        }
+        onChange(name, value);
+      });
     } else if (formik) {
       $(selectRef.current).on('change', (e) => {
+        let value;
         if (!formik.touched[name]) {
           formik.setFieldTouched(name, true);
         }
-        formik.handleChange(e);
+        if (e.target.value === '-empty-') {
+          value = '';
+        } else {
+          value = e.target.value;
+        }
+        formik.handleChange({ target: { value, name } });
       });
     }
 
@@ -42,6 +56,13 @@ const SelectInput = (props) => {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [JSON.stringify(formik ? formik.values[name] : value), name]);
+
+  let finalOptions;
+  if (!required) {
+    finalOptions = [{ label: '---', value: '-empty-' }, ...options];
+  } else {
+    finalOptions = options;
+  }
 
   return (
     <div className="mb-3 relative">
@@ -57,7 +78,7 @@ const SelectInput = (props) => {
         className={classList.join(' ')}
         required={required}
       >
-        {options.map((option) => (
+        {finalOptions.map((option) => (
           <option value={option.value} key={option.value}>
             {option.label}
           </option>

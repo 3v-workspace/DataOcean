@@ -5,17 +5,19 @@ const tablesSlice = createSlice({
   initialState: {},
   reducers: {
     init(state, { payload: { tableName, extraParams } }) {
+      if (!extraParams) extraParams = {};
       state[tableName] = {
         page: 1,
         pageSize: 10,
         ordering: '',
+        ...extraParams,
       };
-      if (extraParams.defaultFilters) {
-        state[tableName].filters = extraParams.defaultFilters;
-      }
-      if (extraParams.defaultSelectedColumnsNames) {
-        state[tableName].selectedColumns = extraParams.defaultSelectedColumnsNames;
-      }
+      // if (extraParams.defaultFilters) {
+      //   state[tableName].filters = extraParams.defaultFilters;
+      // }
+      // if (extraParams.defaultSelectedColumnsNames) {
+      //   state[tableName].selectedColumns = extraParams.defaultSelectedColumnsNames;
+      // }
     },
     setPage(state, { payload: { tableName, page } }) {
       state[tableName].page = page;

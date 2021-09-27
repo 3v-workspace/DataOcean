@@ -53,7 +53,10 @@ const Table = (props) => {
     const defaultSelectedColumnsNames = columns
       .filter((col) => col.defaultSelected)
       .map((col) => col.prop);
-    dispatch(initTable(url, { defaultFilters, defaultSelectedColumnsNames }));
+    dispatch(initTable(url, {
+      filters: defaultFilters,
+      selectedColumns: defaultSelectedColumnsNames,
+    }));
     filters = defaultFilters;
   }
   const search = useSelector((store) => store.tables[url].search);
