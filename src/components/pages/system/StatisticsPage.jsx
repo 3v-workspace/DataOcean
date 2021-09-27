@@ -20,7 +20,7 @@ const charts = {
   [chartsTypes.COMPANY]: <CompanyChart />,
 };
 
-const HomePage = ({ history }) => {
+const StatisticsPage = ({ history }) => {
   const { t, i18n } = useTranslation();
   const [registersCount, setRegistersCount] = useState('');
   const [usersCount, setUsersCount] = useState('');
@@ -166,8 +166,8 @@ const HomePage = ({ history }) => {
   );
 };
 
-HomePage.propTypes = {
+StatisticsPage.propTypes = {
   history: ReactRouterPropTypes.history.isRequired,
 };
 
-export default HomePage;
+export default StatisticsPage;
