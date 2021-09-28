@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { ChevronDown, ChevronUp } from 'react-feather';
 import Tooltip from 'components/Tooltip';
@@ -13,12 +13,15 @@ const InformationBlock = React.forwardRef((props, ref) => {
   return (
     <div className="intro-x box border border-gray-400 mt-6" ref={ref}>
       <div
-        className={`flex items-center px-5 py-4 sm:py-3 border-b border-gray-400 cursor-pointer ${color}`}
+        className={
+          `flex items-center px-5 py-4 sm:py-3 border-b border-gray-400 cursor-pointer ${color} 
+          sticky top-0 bg-white rounded-md`
+        }
         onClick={() => setOpenBlock(blockId)}
       >
         <Icon />
         <h2 className="flex items-center font-medium text-base ml-3 mr-auto">
-          {title}
+          {t(title)}
         </h2>
         {color === 'block-black' ? (
           <div className="flex flex-row">
