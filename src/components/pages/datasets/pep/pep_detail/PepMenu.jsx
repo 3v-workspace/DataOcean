@@ -34,19 +34,19 @@ const PepMenu = (props) => {
   }, []);
 
   return (
-    <div className="box border border-gray-400 sticky top-1 w-3/12" style={{ height: 'min-content' }}>
-      <ul className="list-none space-y-2 py-2">
+    <div className="box border border-gray-400 sticky top-1 w-80" style={{ height: 'min-content' }}>
+      <ul className="list-none py-2">
         <div
           className={
-            `flex items-center h-10 block-black background-hover-gray text-lg cursor-pointer 
-            ${activeBlock === mainBlock.id ? 'pep-border' : null}`
+            `flex items-center h-10 block-black background-hover-gray text-base cursor-pointer 
+            ${activeBlock === mainBlock.id ? 'pep-border' : ''}`
           }
           onClick={() => {
             scrollToRef(mainBlock.ref);
-            setActive(mainBlock.ref);
+            setActive(mainBlock.id);
           }}
         >
-          <MainInfoIcon className="mx-2 w-5 h-5" />
+          <MainInfoIcon className="ml-4 mr-3" />
           {t('mainInformation')}
         </div>
         {config.map((info) => {
@@ -55,8 +55,8 @@ const PepMenu = (props) => {
             <div
               key={info.id}
               className={
-                `flex items-center cursor-pointer h-8 text-lg ${getColor(info.blockProps.data)} background-hover-gray 
-                ${activeBlock === info.id ? 'pep-border' : null}`
+                `flex items-center cursor-pointer h-10 text-base ${getColor(info.blockProps.data)} background-hover-gray 
+                ${activeBlock === info.id ? 'pep-border' : ''}`
               }
               onClick={() => {
                 setOpenBlock(info.id, true);
@@ -65,7 +65,7 @@ const PepMenu = (props) => {
               }}
             >
               <Icon
-                className="mx-2 w-5 h-5"
+                className="ml-4 mr-3"
               />
               {t(info.title)}
             </div>

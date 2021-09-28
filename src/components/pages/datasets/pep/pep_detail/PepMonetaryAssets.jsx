@@ -59,7 +59,7 @@ const PepMonetaryAssets = (props) => {
         </div>
         <table className="table text-center">
           <thead>
-            <tr className="bg-gray-200 text-gray-700 font-medium sticky top-0">
+            <tr className="bg-gray-200 text-gray-700 font-medium">
               <td>{t('year')}</td>
               <td>{t('assetType')}</td>
               <td>UAH</td>

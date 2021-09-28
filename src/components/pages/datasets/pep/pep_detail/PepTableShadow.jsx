@@ -41,8 +41,7 @@ const PepTableShadow = (props) => {
     <>
       <Shadow scrollParams={scrollParams} />
       <div
-        className="w-full overflow-auto"
-        style={{ maxHeight: 'calc(100vh - 150px)' }}
+        className="w-max overflow-x-auto p-px"
         ref={tableRef}
         onScroll={checkScrollParams}
       >

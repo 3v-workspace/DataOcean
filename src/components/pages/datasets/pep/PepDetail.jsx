@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState, Fragment } from 'react';
 import { useTranslation } from 'react-i18next';
 import Api from 'api';
 import { useDispatch } from 'react-redux';
@@ -81,7 +81,7 @@ const PepDetail = ({ match, history }) => {
     {
       id: asyncBlocks.SANCTION,
       url: `pep/${id}/sanctions/`,
-      title: t('sanctionsDetail'),
+      title: 'sanctionsDetail',
       titleIcon: Sanction,
       component: PepSanction,
       blockProps: { data: data.SANCTION && data.SANCTION.length ? data.SANCTION : [{ noSanction: t('noSanction') }] },
@@ -90,7 +90,7 @@ const PepDetail = ({ match, history }) => {
     },
     {
       id: pepBlocks.CRIMINAL,
-      title: t('criminalProceedings'),
+      title: 'criminalProceedings',
       titleIcon: Criminal,
       component: PepCriminal,
       blockProps: { data: pep.criminal_proceedings ? pep.criminal_proceedings : [{ noCriminal: t('noCriminal') }] },
@@ -99,7 +99,7 @@ const PepDetail = ({ match, history }) => {
     },
     {
       id: pepBlocks.RELATED_PERSONS,
-      title: t('relatedPersons'),
+      title: 'relatedPersons',
       titleIcon: Person,
       component: PepRelatedPerson,
       blockProps: { pepId: pep.id, matchProps: match, data: prepareRelatedPersonData(pep) },
@@ -108,7 +108,7 @@ const PepDetail = ({ match, history }) => {
     },
     {
       id: pepBlocks.RELATED_COMPANIES,
-      title: t('relatedCompanies'),
+      title: 'relatedCompanies',
       titleIcon: Built,
       component: PepRelatedCompanies,
       blockProps: { data: pep.related_companies },
@@ -118,7 +118,7 @@ const PepDetail = ({ match, history }) => {
     {
       id: asyncBlocks.CAREER,
       url: `pep/${id}/declaration/positions/`,
-      title: t('career'),
+      title: 'career',
       titleIcon: Career,
       component: PepCareer,
       blockProps: { data: data.CAREER },
@@ -128,7 +128,7 @@ const PepDetail = ({ match, history }) => {
     {
       id: asyncBlocks.INCOME,
       url: `pep/${id}/declaration/incomes/`,
-      title: t('income'),
+      title: 'income',
       titleIcon: Wallet,
       component: PepMoney,
       type: ASYNCBLOCK,
@@ -143,7 +143,7 @@ const PepDetail = ({ match, history }) => {
     {
       id: asyncBlocks.LIABILITY,
       url: `pep/${id}/declaration/liabilities/`,
-      title: t('liability'),
+      title: 'liability',
       titleIcon: Money,
       component: PepLiability,
       blockData: data.LIABILITY,
@@ -154,7 +154,7 @@ const PepDetail = ({ match, history }) => {
     {
       id: asyncBlocks.EXPENDITURE,
       url: `pep/${id}/declaration/expenditures/`,
-      title: t('expenditures'),
+      title: 'expenditures',
       titleIcon: SpendMoney,
       component: PepMoney,
       type: ASYNCBLOCK,
@@ -169,7 +169,7 @@ const PepDetail = ({ match, history }) => {
     {
       id: asyncBlocks.MONETARY_ASSETS,
       url: `pep/${id}/declaration/money/`,
-      title: t('money'),
+      title: 'money',
       titleIcon: MonetaryAssets,
       component: PepMonetaryAssets,
       type: ASYNCBLOCK,
@@ -182,7 +182,7 @@ const PepDetail = ({ match, history }) => {
     {
       id: asyncBlocks.GIFT,
       url: `pep/${id}/declaration/incomes/`,
-      title: t('gift'),
+      title: 'gift',
       titleIcon: Giftbox,
       component: PepMoney,
       type: ASYNCBLOCK,
@@ -197,7 +197,7 @@ const PepDetail = ({ match, history }) => {
     {
       id: asyncBlocks.REAL_ESTATE,
       url: `pep/${id}/declaration/property_rights/`,
-      title: t('realEstate'),
+      title: 'realEstate',
       titleIcon: Home,
       component: PepProperty,
       type: ASYNCBLOCK,
@@ -207,7 +207,7 @@ const PepDetail = ({ match, history }) => {
     {
       id: asyncBlocks.CAR,
       url: `pep/${id}/declaration/vehicle_rights/`,
-      title: t('vehicles'),
+      title: 'vehicles',
       titleIcon: Car,
       component: PepVehicle,
       blockProps: { data: data.CAR },
@@ -216,7 +216,7 @@ const PepDetail = ({ match, history }) => {
     },
     {
       id: pepBlocks.OTHER_NAMES,
-      title: t('otherNames'),
+      title: 'otherNames',
       titleIcon: Name,
       component: PepOtherNames,
       blockProps: { data: pep.fullname_transcriptions_eng },
@@ -225,10 +225,10 @@ const PepDetail = ({ match, history }) => {
     },
     {
       id: pepBlocks.ADDITIONAL_INFO,
-      title: t('additionalInfo'),
+      title: 'additionalInfo',
       titleIcon: Info,
       component: PepHtml,
-      blockProps: { data: pep.info || [] },
+      blockProps: { data: pep.info || '' },
       type: INFOBLOCK,
       ref: additionalInfoRef,
     },
@@ -245,19 +245,23 @@ const PepDetail = ({ match, history }) => {
       { label: 'lastPlaceOfWork', value: getLocaleField(pep, 'last_employer') },
     ];
     return (
-      <div className="flex flex-col block-black">
-        <div className="inline-flex mb-3">
-          <div className="w-40 lg:w-64 font-bold">{t('pepDetailType')}:</div>
-          <div className="max-w-xl">{pep.pep_type_display}</div>
-          {/*<HelpCircle className="w-4 h-4 ml-2 text-blue-600" />*/}
-        </div>
-        {shortInfoFields.map((info, i) => (info.value && !(info.value === '---') ? (
-          <div className="inline-flex mb-3" key={i}>
-            <div className="w-40 lg:w-64 font-bold">{t(info.label)}:</div>
-            <div className="max-w-xl">{info.render ? info.render(info.value) : info.value}</div>
-          </div>
-        ) : null))}
-      </div>
+      <table>
+        <tbody className="block-black align-top">
+          <tr>
+            <td className="font-bold pb-3">{t('pepDetailType')}:</td>
+            <td className="inline-flex pl-4 pb-3">
+              {pep.pep_type_display}
+              {/*<HelpCircle className="w-4 h-4 ml-2 text-blue-600" />*/}
+            </td>
+          </tr>
+          {shortInfoFields.map((info) => (info.value && !(info.value === '---') ? (
+            <tr key={info.label}>
+              <td className="font-bold pb-3">{t(info.label)}:</td>
+              <td className="pl-4 max-w-lg pb-3">{info.render ? info.render(info.value) : info.value}</td>
+            </tr>
+          ) : null))}
+        </tbody>
+      </table>
     );
   };
 
@@ -306,11 +310,10 @@ const PepDetail = ({ match, history }) => {
     const Component = block.component;
     if (block.type === ASYNCBLOCK) {
       return (
-        <>
+        <Fragment key={block.id}>
           <AsyncInformationBlock
             block={block}
             setDataForBlock={setDataForBlock}
-            key={block.id}
             setOpenBlock={setOpenBlock}
             open={open}
           />
@@ -320,16 +323,15 @@ const PepDetail = ({ match, history }) => {
               {t('noInformation')}
             </div>
             ) : null}
-        </>
+        </Fragment>
       );
     }
     return (
-      <>
+      <Fragment key={block.id}>
         <InformationBlock
           title={block.title}
           titleIcon={block.titleIcon}
           color={getColor(block.blockProps.data)}
-          key={block.id}
           ref={block.ref}
           setOpenBlock={setOpenBlock}
           blockId={block.id}
@@ -343,7 +345,7 @@ const PepDetail = ({ match, history }) => {
             {t('noInformation')}
           </div>
           ) : null}
-      </>
+      </Fragment>
     );
   });
 
@@ -374,8 +376,8 @@ const PepDetail = ({ match, history }) => {
         <ArrowLeft className="h-5 ml-2" />
         {t('back')}
       </button>
-      <div className="flex flex-row text-base">
-        <div className="flex-auto w-8/12 mr-8">
+      <div className="flex flex-row text-base pb-16">
+        <div className="flex-auto max-w-6xl mr-8">
           <div className="box col-span-12 border border-gray-400 p-6" ref={mainRef}>
             <div className="flex flex-col lg:flex-row">
               <div className="flex flex-auto flex-col sm:flex-row items-start justify-start mt-1">
