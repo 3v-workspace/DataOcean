@@ -25,8 +25,9 @@ const PersonResultsPage = (props) => {
 
   const tc = useTableController({
     url: 'person/search/',
-    defaultPageSize: 5,
+    // defaultPageSize: 5,
     params,
+    topOnPageChange: true,
   });
   const queryString = `${params.last_name} ${params.first_name} ${params.middle_name}`.trim();
 
@@ -39,15 +40,12 @@ const PersonResultsPage = (props) => {
 
   return (
     <div className="py-5">
-      <div className="flex justify-between text-xl mb-3">
-        <div>
-          <Trans
-            i18nKey="personPage.matchesWereFoundFor"
-            values={{ count: tc.count, queryString }}
-            components={{ b: <b /> }}
-          />
-        </div>
-        <PaginationPages tableController={tc} />
+      <div className="text-xl mb-3">
+        <Trans
+          i18nKey="personPage.matchesWereFoundFor"
+          values={{ count: tc.count, queryString }}
+          components={{ b: <b /> }}
+        />
       </div>
       <div className="flex flex-col space-y-3">
         {tc.data.map((person) => (
@@ -126,6 +124,16 @@ const PersonResultsPage = (props) => {
             </div>
           </div>
         ))}
+      </div>
+      <div className="flex flex-col items-center my-4">
+        <Button
+          className="mb-4"
+          variant="outline-primary"
+          onClick={() => tc.nextPage()}
+        >
+          {t('nextPage')}
+        </Button>
+        <PaginationPages tableController={tc} />
       </div>
     </div>
   );

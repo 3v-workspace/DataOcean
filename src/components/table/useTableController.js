@@ -8,7 +8,10 @@ import {
 
 
 const useTableController = (options) => {
-  const { url, params, afterFetch, axiosConfigs, defaultPageSize } = options;
+  const {
+    url, params, afterFetch, axiosConfigs, defaultPageSize,
+    topOnPageChange,
+  } = options;
   const dispatch = useDispatch();
   let page = useSelector((store) => store.tables[url]?.page);
   if (!page) {
@@ -19,7 +22,13 @@ const useTableController = (options) => {
     dispatch(initTable(url, extraParams));
     page = 1;
   }
-  const setPage = (newPage) => dispatch(tableSetPage(url, newPage));
+  const setPage = (newPage) => {
+    if (topOnPageChange) {
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
+    }
+    dispatch(tableSetPage(url, newPage));
+  };
   const ordering = useSelector((store) => store.tables[url].ordering);
   const setOrderingState = (newOrdering) => dispatch(tableSetOrdering(url, newOrdering));
   const pageSize = useSelector((store) => store.tables[url].pageSize);
@@ -135,9 +144,23 @@ const useTableController = (options) => {
     fetchData();
   }, [page, pageSize, url, ordering]);
 
+  const prevPage = () => {
+    if (page > 1) {
+      setPage(page - 1);
+    }
+  };
+
+  const nextPage = () => {
+    if (page < maxPage) {
+      setPage(page + 1);
+    }
+  };
+
   return {
     page,
     setPage,
+    prevPage,
+    nextPage,
     pageSize,
     setPageSize,
     data,

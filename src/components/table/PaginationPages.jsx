@@ -7,19 +7,6 @@ const PaginationPages = (props) => {
   const { tableController: tc } = props;
   const { i18n } = useTranslation();
 
-
-  const prevPage = () => {
-    if (tc.page > 1) {
-      tc.setPage(tc.page - 1);
-    }
-  };
-
-  const nextPage = () => {
-    if (tc.page < tc.maxPage) {
-      tc.setPage(tc.page + 1);
-    }
-  };
-
   let pageRange = [tc.page - 2, tc.page - 1, tc.page, tc.page + 1, tc.page + 2];
   if (tc.page === 2) {
     pageRange.push(5);
@@ -50,7 +37,7 @@ const PaginationPages = (props) => {
         <button
           type="button"
           className="pagination__link"
-          onClick={prevPage}
+          onClick={tc.prevPage}
         >
           <ChevronLeft className="w-4 h-4" />
         </button>
@@ -70,7 +57,7 @@ const PaginationPages = (props) => {
         <button
           type="button"
           className="pagination__link"
-          onClick={nextPage}
+          onClick={tc.nextPage}
         >
           <ChevronRight className="w-4 h-4" />
         </button>
