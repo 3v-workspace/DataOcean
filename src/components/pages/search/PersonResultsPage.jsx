@@ -46,12 +46,21 @@ const PersonResultsPage = (props) => {
 
   return (
     <div className="py-5">
-      <div className="text-xl mb-3">
-        <Trans
-          i18nKey="personPage.matchesWereFoundFor"
-          values={{ count: tc.count, queryString }}
-          components={{ b: <b /> }}
-        />
+      <div className="flex items-center text-xl mb-3">
+        <div>
+          <Trans
+            i18nKey="personPage.matchesWereFoundFor"
+            values={{ count: tc.count, queryString }}
+            components={{ b: <b /> }}
+          />.
+        </div>
+        <Button
+          className="text-sm ml-2"
+          variant="outline-primary"
+          link="/system/home/person/"
+        >
+          {t('newSearch')}
+        </Button>
       </div>
       <div className="flex flex-col space-y-3">
         {tc.data.map((person) => (
