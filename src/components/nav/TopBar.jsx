@@ -29,7 +29,7 @@ const TopBar = () => {
         <Link
           key={path}
           to={path}
-          className={i === array.length - 1 ? 'breadcrumb--active' : undefined}
+          className={i === array.length - 1 ? 'breadcrumb--active pointer-events-none' : undefined}
         >
           {getBreadcrumbName(name) || name}
         </Link>

@@ -20,7 +20,7 @@ const PersonResultsPage = (props) => {
     first_name: urlParams.get('first_name'),
     last_name: urlParams.get('last_name'),
     middle_name: urlParams.get('middle_name'),
-    country: urlParams.get('country'),
+    country_id: urlParams.get('country_id'),
   };
 
   const tc = useTableController({
@@ -29,8 +29,14 @@ const PersonResultsPage = (props) => {
     params,
     topOnPageChange: true,
   });
-  const queryString = `${params.last_name} ${params.first_name} ${params.middle_name}`.trim();
 
+  const queryString = `${params.last_name || ''} ${params.first_name || ''} ${params.middle_name || ''}`
+    .replace(/\s+/g, ' ')
+    .trim();
+
+  if (!params.last_name) {
+    return <SearchNoResults queryString={queryString} />;
+  }
   if (!tc.isDataReady) {
     return <SearchLoading />;
   }
