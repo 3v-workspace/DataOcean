@@ -24,7 +24,19 @@ const TopBar = () => {
   const breadcrumbsNodes = pathname.split('/')
     .filter((path) => !!path)
     .map((name, i, array) => {
-      const path = `/${array.slice(0, i + 1).join('/')}/`;
+      if (!(getBreadcrumbName(name) === 'Мої оплати' || getBreadcrumbName(name) === 'My payments')) {
+        const path = `/${array.slice(0, i + 1).join('/')}/`;
+        return (
+          <Link
+            key={path}
+            to={path}
+            className={i === array.length - 1 ? 'breadcrumb--active' : undefined}
+          >
+            {getBreadcrumbName(name) || name}
+          </Link>
+        );
+      }
+      const path = '/system/profile/my-payments/';
       return (
         <Link
           key={path}
