@@ -99,10 +99,10 @@ const PersonResultsPage = (props) => {
                       <td className="font-bold pl-2">{person.gender_display}</td>
                     </tr>
                   )}
-                  {person.is_dead !== null && (
+                  {person.is_dead && (
                     <tr>
                       <td>{t('isDead')}:</td>
-                      <td className="font-bold pl-2">{person.is_dead ? t('yes') : t('no')}</td>
+                      <td className="font-bold pl-2">{t('yes')}</td>
                     </tr>
                   )}
                 </tbody>
