@@ -13,7 +13,7 @@ import { useTranslation, Trans } from 'react-i18next';
 
 const PersonResultsPage = (props) => {
   const { location } = props;
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const urlParams = new URLSearchParams(location.search);
   const params = {
@@ -71,8 +71,12 @@ const PersonResultsPage = (props) => {
             <div><PepIcon width={170} height={170} /></div>
 
             <div className="flex-grow">
-              <div className="text-xl font-bold">{person.full_name_original}</div>
-              <div className="">{person.full_name}</div>
+              <div className="text-xl font-bold">
+                {i18n.language === 'en' ? person.full_name : person.full_name_original}
+              </div>
+              <div>
+                {i18n.language === 'en' ? person.full_name_original : person.full_name}
+              </div>
               <div className="flex flex-wrap my-2">
                 {person.is_pep && (
                   <div className="px-3 border border-gray-700 rounded-full text-xs">
