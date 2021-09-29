@@ -46,7 +46,7 @@ const Nav = (props) => {
     );
   }
   return (
-    <nav className={`side-nav ${isAnimDisabled ? 'no-animation' : ''}`}>
+    <nav className={`side-nav ${isAnimDisabled ? 'no-animation' : ''}`} style={{ minWidth: 'min-content' }}>
       <a href={landingUrl} className="intro-x flex items-center pl-5 pt-4">
         <img alt="Data Ocean" className="w-8 -mt-2" src={whiteLogo} />
         <span className="hidden xl:block text-white font-medium text-lg ml-3">Data Ocean</span>
