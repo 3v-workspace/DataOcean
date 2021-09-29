@@ -42,7 +42,9 @@ const PepVehicle = (props) => {
             <tr key={car.vehicle.id} className="border-b border-gray-200">
               <td>{renderDate(car.vehicle.declared_at.toString())}</td>
               <td>{`${car.vehicle.brand} ${car.vehicle.model} ${car.vehicle.year}`}</td>
-              <td className="capitalize">{car.owner.map((person) => getLocaleField(person, 'fullname')).join(', ')}</td>
+              <td className="capitalize">
+                {car.owner.map((person) => (person ? getLocaleField(person, 'fullname') : '---')).join(', ')}
+              </td>
             </tr>
           ))}
         </tbody>

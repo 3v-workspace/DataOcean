@@ -10,7 +10,7 @@ const PepSanction = (props) => {
   const today = new Date().toISOString().slice(0, 10);
   if (data[0].noSanction) {
     return (
-      <div className="text-center">
+      <div className="text-center text-xl">
         {data[0].noSanction}
       </div>
     );
@@ -48,9 +48,9 @@ const PepSanction = (props) => {
               <th>{t('cancelingConditions')}</th>
             </tr>
           </thead>
-          <tbody className="border border-red-400">
-            {sanctions.activeSanction.map((sanction, i) => (
-              sanction.types_of_sanctions.map((type) => (
+          <tbody className="border border-l border-red-400">
+            {sanctions.activeSanction.map((sanction) => (
+              sanction.types_of_sanctions.map((type, i) => (
                 <tr key={i} className={i === 0 ? '' : 'border-t border-gray-400'}>
                   <td className="mt-0.5 text-left">{type}</td>
                   <td>{`${t('numberDecreeFrom', { numberDecree: sanction.decree })} `}{renderDate(sanction.start_date)}</td>
@@ -63,8 +63,8 @@ const PepSanction = (props) => {
             ))}
           </tbody>
           <tbody>
-            {sanctions.inactiveSanction.map((sanction, i) => (
-              sanction.types_of_sanctions.map((type) => (
+            {sanctions.inactiveSanction.map((sanction) => (
+              sanction.types_of_sanctions.map((type, i) => (
                 <tr key={i} className="border-l border-r border-l border-b border-gray-400">
                   <td className="mt-0.5 text-left">{type}</td>
                   <td>{`${t('numberDecreeFrom', { numberDecree: sanction.decree })} `}{renderDate(sanction.start_date)}</td>

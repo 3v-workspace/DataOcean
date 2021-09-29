@@ -50,12 +50,8 @@ const TopBar = () => {
     userDropdownRef.current.classList.remove('show');
   };
 
-  if (!isShown) {
-    return null;
-  }
-
   return (
-    <div className="top-bar">
+    <div className={`top-bar ${isShown ? '' : 'hidden'}`}>
       <div className="-intro-x breadcrumb mr-auto hidden sm:flex">
         {breadcrumbsNodes}
       </div>

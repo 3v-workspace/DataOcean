@@ -6,7 +6,7 @@ const PepCriminal = (props) => {
   const { data } = props;
   if (data[0].noCriminal) {
     return (
-      <div className="text-center">
+      <div className="text-center text-xl">
         {data[0].noCriminal}
       </div>
     );
