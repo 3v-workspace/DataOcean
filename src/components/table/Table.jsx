@@ -22,7 +22,7 @@ const getDefaultFilterValues = (columns) => {
   const defaultValues = {};
   columns.forEach((col) => {
     if (!col.filter) return;
-    if (['text', 'number', 'date', 'datepicker'].includes(col.filter.type)) {
+    if (['text', 'number', 'date'].includes(col.filter.type)) {
       defaultValues[col.filter.name] = '';
     } else if (col.filter.type === 'select') {
       if (col.filter.multiple) {
