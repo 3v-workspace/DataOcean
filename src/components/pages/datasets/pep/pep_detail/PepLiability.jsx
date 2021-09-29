@@ -59,7 +59,7 @@ const PepLiability = (props) => {
   );
 
   return (
-    <div className="inline-flex">
+    <div className="inline-flex w-full">
       {liabilityTable('sumDeclarant')}
       {liabilityTable('sumFamily')}
     </div>

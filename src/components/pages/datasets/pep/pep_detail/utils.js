@@ -24,11 +24,31 @@ export const sortData = (dataForSort, field) => {
 };
 
 export const prepareRelatedPersonData = (pep) => {
-  if (pep.from_person_links && !pep.from_person_links.length &&
-    pep.to_person_links && !pep.to_person_links.length) {
+  if (!Object.keys(pep).length || (pep.from_person_links && !pep.from_person_links.length &&
+    pep.to_person_links && !pep.to_person_links.length)) {
     return [];
   }
-  return [pep.from_person_links, pep.to_person_links];
+
+  const uniqPerson = [];
+  const from_person_links = pep.from_person_links.reduce((total, person) => {
+    const duplicate = uniqPerson.find((item) => item === person.to_person.id);
+    if (!duplicate) {
+      uniqPerson.push(person.to_person.id);
+      total.push(person);
+    }
+    return total;
+  }, []);
+
+  const to_person_links = pep.to_person_links.reduce((total, person) => {
+    const duplicate = uniqPerson.find((item) => item === person.from_person.id);
+    if (!duplicate) {
+      uniqPerson.push(person.from_person.id);
+      total.push(person);
+    }
+    return total;
+  }, []);
+
+  return [from_person_links, to_person_links];
 };
 
 export const scrollToRef = (ref) => window.scrollTo({ top: ref.current.offsetTop, behavior: 'smooth' });

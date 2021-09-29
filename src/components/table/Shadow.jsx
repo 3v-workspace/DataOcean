@@ -2,28 +2,29 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const Shadow = (props) => {
-  const { scrollParams } = props;
+  const { scrollParams, className } = props;
 
-  let className = 'table-shadow ';
+  let tableClassName = 'table-shadow ';
   if (scrollParams.scrollWidth > scrollParams.offsetWidth) {
     if (scrollParams.scrollLeft === 0) {
-      className += 'table-shadow-r';
+      tableClassName += 'table-shadow-r';
     } else if (scrollParams.scrollLeft < scrollParams.scrollWidth - scrollParams.offsetWidth) {
-      className += 'table-shadow-x';
+      tableClassName += 'table-shadow-x';
     } else {
-      className += 'table-shadow-l';
+      tableClassName += 'table-shadow-l';
     }
   } else {
-    className += 'hidden';
+    tableClassName += 'hidden';
   }
 
   return (
-    <div className={className} />
+    <div className={`${tableClassName} ${className}`} />
   );
 };
 
 Shadow.propTypes = {
   scrollParams: PropTypes.object,
+  className: PropTypes.string,
 };
 
 Shadow.defaultProps = {
@@ -32,6 +33,7 @@ Shadow.defaultProps = {
     offsetWidth: 0,
     scrollWidth: 0,
   },
+  className: '',
 };
 
 export default Shadow;

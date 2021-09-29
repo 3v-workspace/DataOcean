@@ -26,6 +26,7 @@ const PepTableShadow = (props) => {
   });
 
   useEffect(() => {
+    resetScrollParams();
     const handleWindowResize = throttle(250, false, () => {
       if (window.innerWidth > 780) {
         resetScrollParams();
@@ -39,7 +40,7 @@ const PepTableShadow = (props) => {
 
   return (
     <>
-      <Shadow scrollParams={scrollParams} />
+      <Shadow scrollParams={scrollParams} className="table-shadow-indent" />
       <div
         className="w-max overflow-x-auto p-px"
         ref={tableRef}
