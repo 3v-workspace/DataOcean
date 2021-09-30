@@ -3,11 +3,12 @@ import PropTypes from 'prop-types';
 import { SearchBox, DateInput } from 'components/form-components';
 import moment from 'moment';
 import SelectInput2 from './SelectInput2';
+import DatePicker2 from './DatePicker2';
 
 const FilterField = (props) => {
   const {
     filter: { name, type, multiple, placeholder, width, options },
-    onChange, defaultValue, onSearch, value,
+    onChange, defaultValue, onSearch, value, maxYear, minYear,
   } = props;
 
   const needSearchRef = React.useRef(false);
@@ -84,6 +85,24 @@ const FilterField = (props) => {
         </div>
       );
 
+    case 'datepicker':
+      return (
+        <div>
+          <DatePicker2
+            name={name}
+            value={value}
+            placeholder={placeholder}
+            minYear={minYear}
+            maxYear={maxYear}
+            onChange={(n, v) => {
+              needSearchRef.current = true;
+              onChange(n, v);
+            }}
+            onClear={onClear}
+          />
+        </div>
+      );
+
     case 'select':
       return (
         <div>
@@ -119,6 +138,8 @@ FilterField.propTypes = {
   }).isRequired,
   onChange: PropTypes.func.isRequired,
   onSearch: PropTypes.func.isRequired,
+  minYear: PropTypes.number,
+  maxYear: PropTypes.number,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   defaultValue: PropTypes.oneOfType([
     PropTypes.string, PropTypes.array,
@@ -127,6 +148,8 @@ FilterField.propTypes = {
 
 FilterField.defaultProps = {
   value: undefined,
+  minYear: 1000,
+  maxYear: 4000,
 };
 
 export default FilterField;
