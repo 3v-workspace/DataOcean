@@ -222,7 +222,7 @@ const Table = (props) => {
           </div>
         )}
         {!HIDE_SELECT_COLUMNS && (
-          <Tooltip content={t('showHideColumns')} position="bottom" noContainer>
+          <Tooltip content={t('showНideColumns')} position="bottom" noContainer>
             <div className="dropdown p-2">
               <div>
                 <img src={setColumns} alt="set-columns" className="cursor-pointer" />
