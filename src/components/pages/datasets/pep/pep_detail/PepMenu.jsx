@@ -38,8 +38,8 @@ const PepMenu = (props) => {
       <ul className="list-none py-2">
         <div
           className={
-            `flex items-center h-10 block-black background-hover-gray text-base cursor-pointer 
-            ${activeBlock === mainBlock.id ? 'pep-border' : ''}`
+            `flex items-center block-black background-hover-gray 
+            py-2 px-1 text-base cursor-pointer ${activeBlock === mainBlock.id ? 'pep-border' : ''}`
           }
           onClick={() => {
             scrollToRef(mainBlock.ref);
@@ -55,8 +55,8 @@ const PepMenu = (props) => {
             <div
               key={info.id}
               className={
-                `flex items-center cursor-pointer h-10 text-base ${getColor(info.blockProps.data)} background-hover-gray 
-                ${activeBlock === info.id ? 'pep-border' : ''}`
+                `flex items-center cursor-pointer py-2 px-1 text-base ${getColor(info.blockProps.data)} 
+                background-hover-gray ${activeBlock === info.id ? 'pep-border' : ''}`
               }
               onClick={() => {
                 setOpenBlock(info.id, true);

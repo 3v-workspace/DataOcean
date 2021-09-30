@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { ChevronDown, ChevronUp } from 'react-feather';
 import Tooltip from 'components/Tooltip';
 import { useTranslation } from 'react-i18next';
+import { scrollToRef } from './utils';
 
 const InformationBlock = React.forwardRef((props, ref) => {
   const {
@@ -27,7 +28,10 @@ const InformationBlock = React.forwardRef((props, ref) => {
           <div className="flex flex-row">
             {open && open[blockId] ? (
               <Tooltip content={t('close')}>
-                <ChevronUp className="w-4 h-6" />
+                <ChevronUp
+                  className="w-4 h-6"
+                  onClick={() => scrollToRef(ref)}
+                />
               </Tooltip>
             ) : (
               <Tooltip content={t('open')}>
