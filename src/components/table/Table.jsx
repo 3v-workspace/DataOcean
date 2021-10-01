@@ -222,15 +222,18 @@ const Table = (props) => {
           </div>
         )}
         {!HIDE_SELECT_COLUMNS && (
-          <div className="dropdown p-2">
-            <div>
-              <img src={setColumns} alt="set-columns" className="cursor-pointer" />
+          <Tooltip content={t('showНideColumns')} position="bottom" noContainer>
+            <div className="dropdown p-2">
+              <div>
+                <img src={setColumns} alt="set-columns" className="cursor-pointer" />
+
+              </div>
+              <SelectColumns
+                tableUrl={url}
+                columns={columns}
+              />
             </div>
-            <SelectColumns
-              tableUrl={url}
-              columns={columns}
-            />
-          </div>
+          </Tooltip>
         )}
         {!HIDE_FILTERS && (
           <Tooltip content={t('resetAllFilters')} position="bottom" noContainer>
