@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const Shadow = (props) => {
-  const { scrollParams, top, bottom, left, right } = props;
+  const { scrollParams, top, bottom, left, right, borderRadius } = props;
 
   let className = 'table-shadow ';
   if (scrollParams.scrollWidth > scrollParams.offsetWidth) {
@@ -20,7 +20,7 @@ const Shadow = (props) => {
   return (
     <div
       className={className}
-      style={{ top, bottom, left, right }}
+      style={{ top, bottom, left, right, borderRadius }}
     />
   );
 };
@@ -31,6 +31,7 @@ Shadow.propTypes = {
   left: PropTypes.string,
   bottom: PropTypes.string,
   right: PropTypes.string,
+  borderRadius: PropTypes.string,
 };
 
 Shadow.defaultProps = {
@@ -43,6 +44,7 @@ Shadow.defaultProps = {
   bottom: '0',
   left: '0',
   right: '0',
+  borderRadius: '0',
 };
 
 export default Shadow;

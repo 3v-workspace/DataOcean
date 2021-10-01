@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { renderDate } from 'utils/dateTime';
-import PepTableShadow from './PepTableShadow';
 
 const PepLiability = (props) => {
   const { data, pepId } = props;
@@ -60,12 +59,10 @@ const PepLiability = (props) => {
   );
 
   return (
-    <PepTableShadow top="91px">
-      <div className="flex">
-        {liabilityTable('sumDeclarant')}
-        {liabilityTable('sumFamily')}
-      </div>
-    </PepTableShadow>
+    <div className="flex">
+      {liabilityTable('sumDeclarant')}
+      {liabilityTable('sumFamily')}
+    </div>
   );
 };
 

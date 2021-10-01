@@ -329,13 +329,9 @@ const PepDetail = ({ match, history }) => {
     return (
       <Fragment key={block.id}>
         <InformationBlock
-          title={block.title}
-          titleIcon={block.titleIcon}
-          color={getColor(block.blockProps.data)}
-          ref={block.ref}
-          setOpenBlock={setOpenBlock}
-          blockId={block.id}
+          block={block}
           open={open}
+          setOpenBlock={setOpenBlock}
         >
           <Component {...block.blockProps} />
         </InformationBlock>

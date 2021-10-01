@@ -5,7 +5,7 @@ const PepOtherNames = (props) => {
   const { data } = props;
 
   return (
-    <ul className="grid grid-flow-row grid-cols-5 gap-2">
+    <ul className="grid grid-flow-row grid-cols-3 lg:grid-cols-5 gap-2">
       {data.split('\n').map((fullname, i) => (
         <li key={i}>
           {fullname}

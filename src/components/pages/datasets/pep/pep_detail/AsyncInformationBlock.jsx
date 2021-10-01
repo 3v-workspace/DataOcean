@@ -21,13 +21,9 @@ const AsyncInformationBlock = (props) => {
 
   return (
     <InformationBlock
-      blockId={block.id}
-      title={block.title}
-      titleIcon={block.titleIcon}
-      color={getColor(block.blockProps.data)}
-      ref={block.ref}
       setOpenBlock={setOpenBlock}
       open={open}
+      block={block}
     >
       <Component {...block.blockProps} />
     </InformationBlock>
