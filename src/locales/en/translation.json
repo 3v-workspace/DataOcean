@@ -338,7 +338,10 @@
   "personPage": {
     "check": "Check",
     "loadingText": "We are checking <br /> the Register of national public figures and related persons and companies",
-    "matchesWereFoundFor": "Your search <b>\"{{queryString}}\"</b> returned <b>{{count}}</b> matches",
+    "matchesWereFoundFor_few": "Your search <strong>\"{{queryString}}\"</strong> returned <strong>{{count}}</strong> matches",
+    "matchesWereFoundFor_many": "Your search <strong>\"{{queryString}}\"</strong> returned <strong>{{count}}</strong> matches",
+    "matchesWereFoundFor_one": "Your search <strong>\"{{queryString}}\"</strong> returned <strong>{{count}}</strong> match",
+    "matchesWereFoundFor_other": "Your search <strong>\"{{queryString}}\"</strong> returned <strong>{{count}}</strong> matches",
     "noResults": "Your search - <b>\"{{queryString}}\"</b> did not match any documents"
   },
   "personSanctions": "List of all sanctions",

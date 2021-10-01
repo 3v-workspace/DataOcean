@@ -338,7 +338,10 @@
   "personPage": {
     "check": "Здійснити перевірку",
     "loadingText": "Перевіряємо <br /> Реєстр національних публічних діячів та пов’язаних з ними осіб і компаній",
-    "matchesWereFoundFor": "За запитом <b>\"{{queryString}}\"</b> знайдено <b>{{count}}</b> співпадіння",
+    "matchesWereFoundFor_few": "За запитом <strong>\"{{queryString}}\"</strong> знайдено <strong>{{count}}</strong> співпадіння",
+    "matchesWereFoundFor_many": "За запитом <strong>\"{{queryString}}\"</strong> знайдено <strong>{{count}}</strong> співпадінь",
+    "matchesWereFoundFor_one": "За запитом <strong>\"{{queryString}}\"</strong> знайдено <strong>{{count}}</strong> співпадіння",
+    "matchesWereFoundFor_other": "За запитом <strong>\"{{queryString}}\"</strong> знайдено <strong>{{count}}</strong> співпадінь",
     "noResults": "За вашим запитом <b>\"{{queryString}}\"</b> нічого не знайдено"
   },
   "personSanctions": "Перелік всіх санкцій",

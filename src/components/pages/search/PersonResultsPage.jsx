@@ -51,7 +51,6 @@ const PersonResultsPage = (props) => {
           <Trans
             i18nKey="personPage.matchesWereFoundFor"
             values={{ count: tc.count, queryString }}
-            components={{ b: <b /> }}
           />.
         </div>
         <Button
