@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { throttle } from 'throttle-debounce';
@@ -7,6 +7,10 @@ import { pepBlocks } from './const';
 
 const PepMenu = (props) => {
   const { config, mainBlock, setOpenBlock } = props;
+  const scrollBlockRef = useRef({
+    isBlocked: false,
+    timeout: null,
+  });
   const { t } = useTranslation();
   const [activeBlock, setActive] = useState(pepBlocks.MAIN_INFO);
   const MainInfoIcon = mainBlock.icon;
@@ -24,8 +28,21 @@ const PepMenu = (props) => {
     }
   };
 
+  const setScrollBlock = () => {
+    if (scrollBlockRef.current.isBlocked) {
+      clearTimeout(scrollBlockRef.current.timeout);
+    } else {
+      scrollBlockRef.current.isBlocked = true;
+    }
+    scrollBlockRef.current.timeout = setTimeout(() => {
+      scrollBlockRef.current.isBlocked = false;
+    }, 1000);
+  };
+
   const handleWindowScroll = throttle(250, false, () => {
-    setActiveBlock();
+    if (!scrollBlockRef.current.isBlocked) {
+      setActiveBlock();
+    }
   });
 
   useEffect(() => {
@@ -42,6 +59,7 @@ const PepMenu = (props) => {
             py-2 px-1 text-base cursor-pointer ${activeBlock === mainBlock.id ? 'pep-border' : ''}`
           }
           onClick={() => {
+            setScrollBlock();
             scrollToRef(mainBlock.ref);
             setActive(mainBlock.id);
           }}
@@ -59,6 +77,7 @@ const PepMenu = (props) => {
                 background-hover-gray ${activeBlock === info.id ? 'pep-border' : ''}`
               }
               onClick={() => {
+                setScrollBlock();
                 setOpenBlock(info.id, true);
                 setActive(info.id);
                 scrollToRef(info.ref);
