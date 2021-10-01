@@ -84,7 +84,7 @@ const SystemPage = (props) => {
         <Nav>
           {menu}
         </Nav>
-        <div className={`content min-h-screen-90 ${isOverflow ? 'overflow-x-auto' : ''} pb-0`}>
+        <div className={`content min-h-screen-90 ${isOverflow ? 'overflow-x-auto' : ''} pb-0 w-px`}>
           <TopBar />
           <SystemRoutes {...props} />
         </div>

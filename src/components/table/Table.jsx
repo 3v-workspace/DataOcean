@@ -245,7 +245,7 @@ const Table = (props) => {
           </Tooltip>
         )}
       </div>
-      <Shadow scrollParams={scrollParams} />
+      <Shadow scrollParams={scrollParams} top="37px" bottom="57px" />
       <div
         className="overflow-x-auto box"
         style={{ minHeight: `${minHeight}`, maxHeight: 'calc(100vh - 250px)' }}

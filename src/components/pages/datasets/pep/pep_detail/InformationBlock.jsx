@@ -16,7 +16,7 @@ const InformationBlock = React.forwardRef((props, ref) => {
       <div
         className={
           `flex items-center px-5 py-4 sm:py-3 border-b border-gray-400 cursor-pointer ${color} 
-          sticky top-0 bg-white rounded-md`
+          sticky top-0 bg-white rounded-md z-10`
         }
         onClick={() => setOpenBlock(blockId)}
       >
