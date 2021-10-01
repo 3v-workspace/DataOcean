@@ -36,7 +36,7 @@ const PepSanction = (props) => {
 
   return (
     <>
-      <PepTableShadow>
+      <PepTableShadow top="52px">
         <table className="table text-center">
           <thead>
             <tr className="bg-gray-200 text-gray-700">

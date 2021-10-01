@@ -34,7 +34,7 @@ const PepMenu = (props) => {
   }, []);
 
   return (
-    <div className="box border border-gray-400 sticky top-1 w-80" style={{ height: 'min-content' }}>
+    <div className="box border border-gray-400 sticky top-1 w-3/12" style={{ height: 'min-content' }}>
       <ul className="list-none py-2">
         <div
           className={

@@ -52,7 +52,7 @@ const PepMonetaryAssets = (props) => {
 
   return (
     <>
-      <PepTableShadow>
+      <PepTableShadow top="90px">
         <div className="inline-flex w-full text-center font-medium mb-3 text-gray-700">
           <div className="w-3/6">{t('declarant')}</div>
           <div className="w-3/6">{t('family')}</div>
