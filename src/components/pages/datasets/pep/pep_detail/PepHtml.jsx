@@ -8,7 +8,7 @@ const PepHtml = (props) => {
     <div
       dangerouslySetInnerHTML={{
         __html: data.replace(/(\\r\\n)+/g, '</br>').replace(/(\\")+/g, '"').replace(
-          /<a/g, '<a class="cursor-pointer blue',
+          /<a/g, '<a class="cursor-pointer blue"',
         ),
       }}
     />

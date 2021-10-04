@@ -353,13 +353,11 @@ const PepDetail = ({ match, history }) => {
 
   useEffect(() => {
     dispatch(setOverflow(false));
+    window.scrollTo(0, 0);
+    fetchData();
     return () => {
       dispatch(setOverflow(true));
     };
-  }, []);
-
-  useEffect(() => {
-    fetchData();
   }, []);
 
   if (!Object.keys(pep).length) {
