@@ -128,15 +128,18 @@ const PersonResultsPage = (props) => {
                 {renderDate(person.updated_at)}
               </div>
               <div>
-                <Tooltip
-                  content={t('inDevelopment')}
-                  position="left"
-                >
-                  <div className="flex justify-end py-5">
-                    <Download className="w-5 h-5 mr-5" />
-                    <Printer className="w-5 h-5" />
-                  </div>
-                </Tooltip>
+                <div className="flex justify-end py-5">
+                  <Tooltip
+                    content={t('inDevelopment')}
+                    position="top"
+                    noContainer
+                  >
+                    <div className="flex">
+                      <Download className="w-5 h-5 mr-5" />
+                      <Printer className="w-5 h-5" />
+                    </div>
+                  </Tooltip>
+                </div>
                 <Button
                   className="px-8"
                   variant="outline-primary"

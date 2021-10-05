@@ -66,7 +66,6 @@ const PepDetail = ({ match, history }) => {
   const relatedPersonRef = useRef();
   const giftRef = useRef();
   const expendituresRef = useRef();
-
   const fetchData = () => {
     Api.get(`pep/${id}/`, {
       useProjectToken: true,

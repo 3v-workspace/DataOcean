@@ -4,7 +4,7 @@ import PageBox from 'components/pages/PageBox';
 import { useTranslation } from 'react-i18next';
 import { ReactRouterPropTypes } from 'utils/prop-types';
 import { getLocaleField, renderDate } from 'utils';
-
+import { renderCondition } from 'utils/conditions';
 
 const CompanySanctionList = ({ match, history }) => {
   const { t } = useTranslation();
@@ -53,7 +53,7 @@ const CompanySanctionList = ({ match, history }) => {
       header: t('endDate'),
       prop: 'end_date',
       defaultSelected: true,
-      render: (v) => renderDate(v),
+      render: (v, row) => renderCondition(row),
     },
     {
       header: t('address'),
