@@ -8,29 +8,42 @@ const PepRelatedPerson = (props) => {
 
   return (
     <ul className="list-outside">
-      {data[0].map((person) => (
-        <li key={person.to_person.id}>
+      {data[0].family.map((person) => (
+        <li key={person.person.id}>
           <span className="mr-1">
-            {getLocaleField(person, 'to_person_relationship_type')} —
+            {getLocaleField(person, 'type')} —
           </span>
           <a
             className="capitalize cursor-pointer blue"
-            href={matchProps.url.replace(pepId, person.to_person.id)}
+            href={matchProps.url.replace(pepId, person.person.id)}
           >
-            {getLocaleField(person.to_person, 'fullname')}
+            {getLocaleField(person.person, 'fullname')}
           </a>
         </li>
       ))}
-      {data[1].map((person) => (
-        <li key={person.from_person.id}>
+      {data[0].business.map((person) => (
+        <li key={person.person.id}>
           <span className="mr-1">
-            {getLocaleField(person, 'from_person_relationship_type')} —
+            {getLocaleField(person, 'type')} —
           </span>
           <a
             className="capitalize cursor-pointer blue"
-            href={matchProps.url.replace(pepId, person.from_person.id)}
+            href={matchProps.url.replace(pepId, person.person.id)}
           >
-            {getLocaleField(person.from_person, 'fullname')}
+            {getLocaleField(person.person, 'fullname')}
+          </a>
+        </li>
+      ))}
+      {data[0].personal.map((person) => (
+        <li key={person.person.id}>
+          <span className="mr-1">
+            {getLocaleField(person, 'type')} —
+          </span>
+          <a
+            className="capitalize cursor-pointer blue"
+            href={matchProps.url.replace(pepId, person.person.id)}
+          >
+            {getLocaleField(person.person, 'fullname')}
           </a>
         </li>
       ))}
