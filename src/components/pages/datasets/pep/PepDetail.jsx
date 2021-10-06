@@ -386,10 +386,10 @@ const PepDetail = ({ match, history }) => {
                 </div>
               </div>
               <div className="inline-flex p-1">
-                <Tooltip content={t('inDevelopment')}>
+                <Tooltip content={t('inDevelopment')} className="h-6">
                   <Download className="mr-8" />
                 </Tooltip>
-                <Tooltip content={t('inDevelopment')}>
+                <Tooltip content={t('inDevelopment')} className="h-6">
                   <Print />
                 </Tooltip>
               </div>
