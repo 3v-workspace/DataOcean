@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
+import Tooltip from 'components/Tooltip';
 import { useTranslation } from 'react-i18next';
 import { throttle } from 'throttle-debounce';
 import { getColor, scrollToRef } from './utils';
@@ -51,12 +52,15 @@ const PepMenu = (props) => {
   }, []);
 
   return (
-    <div className="box border border-gray-400 sticky top-1 w-3/12" style={{ height: 'min-content' }}>
-      <ul className="list-none py-2">
+    <div
+      className="box border border-gray-400 sticky top-1 xl:w-3/12"
+      style={{ height: 'min-content' }}
+    >
+      <ul className="list-none py-1 lg:py-2">
         <div
           className={
-            `flex items-center block-black background-hover-gray 
-            py-2 px-1 text-base cursor-pointer ${activeBlock === mainBlock.id ? 'pep-border' : ''}`
+            `flex items-center justify-center xl:justify-start block-black background-hover-gray
+            lg:py-1 xl:py-2 px-4 xl:px-1 text-base cursor-pointer ${activeBlock === mainBlock.id ? 'pep-border' : ''}`
           }
           onClick={() => {
             setScrollBlock();
@@ -64,8 +68,12 @@ const PepMenu = (props) => {
             setActive(mainBlock.id);
           }}
         >
-          <MainInfoIcon className="ml-4 mr-3" />
-          {t('mainInformation')}
+          <Tooltip content={t('mainInformation')} position="left">
+            <MainInfoIcon className="xl:ml-4 xl:mr-3" />
+          </Tooltip>
+          <div className="hidden xl:flex">
+            {t('mainInformation')}
+          </div>
         </div>
         {config.map((info) => {
           const Icon = info.titleIcon;
@@ -73,7 +81,8 @@ const PepMenu = (props) => {
             <div
               key={info.id}
               className={
-                `flex items-center cursor-pointer py-2 px-1 text-base ${getColor(info.blockProps.data)} 
+                `flex items-center justify-center xl:justify-start cursor-pointer lg:py-1 xl:py-2 
+                px-4 xl:px-1 text-base ${getColor(info.blockProps.data)} 
                 background-hover-gray ${activeBlock === info.id ? 'pep-border' : ''}`
               }
               onClick={() => {
@@ -83,10 +92,14 @@ const PepMenu = (props) => {
                 scrollToRef(info.ref);
               }}
             >
-              <Icon
-                className="ml-4 mr-3"
-              />
-              {t(info.title)}
+              <Tooltip content={t(info.title)} position="left">
+                <Icon
+                  className="xl:ml-4 xl:mr-3"
+                />
+              </Tooltip>
+              <div className="hidden xl:flex">
+                {t(info.title)}
+              </div>
             </div>
           );
         })}
