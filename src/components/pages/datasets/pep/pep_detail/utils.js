@@ -29,26 +29,33 @@ export const prepareRelatedPersonData = (pep) => {
     return [];
   }
 
-  const uniqPerson = [];
-  const from_person_links = pep.from_person_links.reduce((total, person) => {
-    const duplicate = uniqPerson.find((item) => item === person.to_person.id);
-    if (!duplicate) {
-      uniqPerson.push(person.to_person.id);
-      total.push(person);
-    }
-    return total;
-  }, []);
+  const sortedRelatedPersonData = {
+    family: [],
+    business: [],
+    personal: [],
+  };
 
-  const to_person_links = pep.to_person_links.reduce((total, person) => {
-    const duplicate = uniqPerson.find((item) => item === person.from_person.id);
-    if (!duplicate) {
-      uniqPerson.push(person.from_person.id);
-      total.push(person);
-    }
-    return total;
-  }, []);
+  const sortRelatedPerson = (data, field) => {
+    data.forEach((person) => {
+      const duplicate = sortedRelatedPersonData[person.category].find((item) => (
+        person[field].id === item.person.id
+      ));
+      if (!duplicate) {
+        sortedRelatedPersonData[person.category].push(
+          {
+            person: person[field],
+            type: person[`${field}_relationship_type`],
+            type_en: person[`${field}_relationship_type_en`],
+          },
+        );
+      }
+    });
+  };
 
-  return [from_person_links, to_person_links];
+  sortRelatedPerson(pep.from_person_links, 'to_person');
+  sortRelatedPerson(pep.to_person_links, 'from_person');
+
+  return [sortedRelatedPersonData];
 };
 
 export const scrollToRef = (ref) => window.scrollTo({ top: ref.current.offsetTop, behavior: 'smooth' });
