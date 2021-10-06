@@ -3,34 +3,37 @@ import PropTypes from 'prop-types';
 import { ChevronDown, ChevronUp } from 'react-feather';
 import Tooltip from 'components/Tooltip';
 import { useTranslation } from 'react-i18next';
-import { scrollToRef } from './utils';
+import PepUnfoldingBlock from './PepUnfoldingBlock';
+import { scrollToRef, getColor } from './utils';
 
-const InformationBlock = React.forwardRef((props, ref) => {
+const InformationBlock = (props) => {
   const {
-    title, children, titleIcon: Icon, color, setOpenBlock, blockId, open,
+    children, setOpenBlock, open, block,
   } = props;
   const { t } = useTranslation();
+  const Icon = block.titleIcon;
+  const color = getColor(block.blockProps.data);
 
   return (
-    <div className="intro-x box border border-gray-400 mt-6" ref={ref}>
+    <div className="intro-x box border border-gray-400 mt-6" ref={block.ref}>
       <div
         className={
           `flex items-center px-5 py-4 sm:py-3 border-b border-gray-400 cursor-pointer ${color} 
           sticky top-0 bg-white rounded-md z-10`
         }
-        onClick={() => setOpenBlock(blockId)}
+        onClick={() => setOpenBlock(block.id)}
       >
         <Icon />
         <h2 className="flex items-center font-medium text-base ml-3 mr-auto">
-          {t(title)}
+          {t(block.title)}
         </h2>
         {color === 'block-black' ? (
           <div className="flex flex-row">
-            {open && open[blockId] ? (
+            {open && open[block.id] ? (
               <Tooltip content={t('close')}>
                 <ChevronUp
                   className="w-4 h-6"
-                  onClick={() => scrollToRef(ref)}
+                  onClick={() => scrollToRef(block.ref)}
                 />
               </Tooltip>
             ) : (
@@ -41,25 +44,20 @@ const InformationBlock = React.forwardRef((props, ref) => {
           </div>
         ) : null}
       </div>
-      {open && open[blockId] && color === 'block-black' ? (
-        <div className="p-6">
+      {open && open[block.id] && color === 'block-black' ? (
+        <PepUnfoldingBlock data={block.blockProps.data}>
           {children}
-        </div>
+        </PepUnfoldingBlock>
       ) : null}
     </div>
   );
-});
+};
 
 InformationBlock.propTypes = {
-  blockId: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-  titleIcon: PropTypes.elementType.isRequired,
-  color: PropTypes.string,
+  block: PropTypes.object.isRequired,
   setOpenBlock: PropTypes.func.isRequired,
   open: PropTypes.object.isRequired,
-};
-InformationBlock.defaultProps = {
-  color: 'gray',
+
 };
 
 export default InformationBlock;

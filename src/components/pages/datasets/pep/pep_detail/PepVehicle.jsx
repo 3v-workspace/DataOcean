@@ -24,6 +24,7 @@ const PepVehicle = (props) => {
         filteredVehicleData[i].owner.push(filteredVehicleData[i + 1].pep);
         filteredVehicleData.splice(i + 1, 1);
       }
+      i -= 1;
     }
   }
 

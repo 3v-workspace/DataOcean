@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { renderDate } from 'utils/dateTime';
-import PepTableShadow from './PepTableShadow';
 
 const PepSanction = (props) => {
   const { data } = props;
@@ -36,48 +35,46 @@ const PepSanction = (props) => {
 
   return (
     <>
-      <PepTableShadow top="52px">
-        <table className="table text-center">
-          <thead>
-            <tr className="bg-gray-200 text-gray-700">
-              <th>{t('typeOfSanction')}</th>
-              <th>{t('presidentialDecree')}</th>
-              <th>{t('startDate')}</th>
-              <th>{t('endDate')}</th>
-              <th>{t('reasoningDate')}</th>
-              <th>{t('cancelingConditions')}</th>
-            </tr>
-          </thead>
-          <tbody className="border border-l border-red-400">
-            {sanctions.activeSanction.map((sanction) => (
-              sanction.types_of_sanctions.map((type, i) => (
-                <tr key={i} className={i === 0 ? '' : 'border-t border-gray-400'}>
-                  <td className="mt-0.5 text-left">{type}</td>
-                  <td>{`${t('numberDecreeFrom', { numberDecree: sanction.decree })} `}{renderDate(sanction.start_date)}</td>
-                  <td>{renderDate(sanction.start_date)}</td>
-                  <td>{renderDate(sanction.end_date)}</td>
-                  <td>{renderDate(sanction.reasoning_date)}</td>
-                  <td>{sanction.cancellation_condition}</td>
-                </tr>
-              ))
-            ))}
-          </tbody>
-          <tbody>
-            {sanctions.inactiveSanction.map((sanction) => (
-              sanction.types_of_sanctions.map((type, i) => (
-                <tr key={i} className="border-l border-r border-l border-b border-gray-400">
-                  <td className="mt-0.5 text-left">{type}</td>
-                  <td>{`${t('numberDecreeFrom', { numberDecree: sanction.decree })} `}{renderDate(sanction.start_date)}</td>
-                  <td>{renderDate(sanction.start_date)}</td>
-                  <td>{renderDate(sanction.end_date)}</td>
-                  <td>{renderDate(sanction.reasoning_date)}</td>
-                  <td>{sanction.cancellation_condition}</td>
-                </tr>
-              ))
-            ))}
-          </tbody>
-        </table>
-      </PepTableShadow>
+      <table className="table text-center">
+        <thead>
+          <tr className="bg-gray-200 text-gray-700">
+            <th>{t('typeOfSanction')}</th>
+            <th>{t('presidentialDecree')}</th>
+            <th>{t('startDate')}</th>
+            <th>{t('endDate')}</th>
+            <th>{t('reasoningDate')}</th>
+            <th>{t('cancelingConditions')}</th>
+          </tr>
+        </thead>
+        <tbody className="border border-l border-red-400">
+          {sanctions.activeSanction.map((sanction) => (
+            sanction.types_of_sanctions.map((type, i) => (
+              <tr key={i} className={i === 0 ? '' : 'border-t border-gray-400'}>
+                <td className="mt-0.5 text-left">{type}</td>
+                <td>{`${t('numberDecreeFrom', { numberDecree: sanction.decree })} `}{renderDate(sanction.start_date)}</td>
+                <td>{renderDate(sanction.start_date)}</td>
+                <td>{renderDate(sanction.end_date)}</td>
+                <td>{renderDate(sanction.reasoning_date)}</td>
+                <td>{sanction.cancellation_condition}</td>
+              </tr>
+            ))
+          ))}
+        </tbody>
+        <tbody>
+          {sanctions.inactiveSanction.map((sanction) => (
+            sanction.types_of_sanctions.map((type, i) => (
+              <tr key={i} className="border-l border-r border-l border-b border-gray-400">
+                <td className="mt-0.5 text-left">{type}</td>
+                <td>{`${t('numberDecreeFrom', { numberDecree: sanction.decree })} `}{renderDate(sanction.start_date)}</td>
+                <td>{renderDate(sanction.start_date)}</td>
+                <td>{renderDate(sanction.end_date)}</td>
+                <td>{renderDate(sanction.reasoning_date)}</td>
+                <td>{sanction.cancellation_condition}</td>
+              </tr>
+            ))
+          ))}
+        </tbody>
+      </table>
     </>
   );
 };
