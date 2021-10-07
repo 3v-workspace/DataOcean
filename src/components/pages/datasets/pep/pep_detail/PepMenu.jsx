@@ -57,10 +57,10 @@ const PepMenu = (props) => {
       style={{ height: 'min-content' }}
     >
       <ul className="list-none py-1 lg:py-2">
-        <div
+        <li
           className={
             `flex items-center justify-center xl:justify-start block-black background-hover-gray
-            lg:py-1 xl:py-2 px-4 xl:px-1 text-base cursor-pointer ${activeBlock === mainBlock.id ? 'pep-border' : ''}`
+            lg:py-1 xl:py-2 xl:px-1 text-base cursor-pointer ${activeBlock === mainBlock.id ? 'pep-border' : ''}`
           }
           onClick={() => {
             setScrollBlock();
@@ -69,20 +69,20 @@ const PepMenu = (props) => {
           }}
         >
           <Tooltip content={t('mainInformation')} position="left">
-            <MainInfoIcon className="xl:ml-4 xl:mr-3" />
+            <MainInfoIcon className="mx-3" />
           </Tooltip>
           <div className="hidden xl:flex">
             {t('mainInformation')}
           </div>
-        </div>
+        </li>
         {config.map((info) => {
           const Icon = info.titleIcon;
           return (
-            <div
+            <li
               key={info.id}
               className={
-                `flex items-center justify-center xl:justify-start cursor-pointer lg:py-1 xl:py-2 
-                px-4 xl:px-1 text-base ${getColor(info.blockProps.data)} 
+                `flex items-center justify-center xl:justify-start cursor-pointer pt-1 lg:py-1 xl:py-2
+                 xl:px-1 text-base ${getColor(info.blockProps.data)} 
                 background-hover-gray ${activeBlock === info.id ? 'pep-border' : ''}`
               }
               onClick={() => {
@@ -94,13 +94,13 @@ const PepMenu = (props) => {
             >
               <Tooltip content={t(info.title)} position="left">
                 <Icon
-                  className="xl:ml-4 xl:mr-3"
+                  className="mx-3"
                 />
               </Tooltip>
               <div className="hidden xl:flex">
                 {t(info.title)}
               </div>
-            </div>
+            </li>
           );
         })}
       </ul>
