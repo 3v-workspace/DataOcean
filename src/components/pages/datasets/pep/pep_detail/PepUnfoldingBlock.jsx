@@ -69,7 +69,7 @@ const PepUnfoldingBlock = (props) => {
       />
       <div className="p-6">
         <div
-          className="overflow-auto p-px"
+          className="overflow-x-auto overflow-y-hidden p-px"
           ref={unfoldingWindowRef}
           style={{ maxHeight: `${isOpen ? '' : 'calc(100vh - 250px)'}` }}
           onScroll={checkScrollParams}
