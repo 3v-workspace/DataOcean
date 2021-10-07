@@ -60,7 +60,7 @@ const SignInForm = ({ history }) => {
   });
 
   return (
-    <Form formik={formik}>
+    <Form formik={formik} className="mx-auto">
       <h2 className="intro-x font-bold text-2xl xl:text-3xl text-center xl:text-left">
         {t('signIn')}
       </h2>
