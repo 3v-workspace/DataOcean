@@ -45,7 +45,7 @@ const InformationBlock = (props) => {
         ) : null}
       </div>
       {open && open[block.id] && color === 'block-black' ? (
-        <PepUnfoldingBlock data={block.blockProps.data}>
+        <PepUnfoldingBlock data={block.blockProps.data} blockRef={block.ref}>
           {children}
         </PepUnfoldingBlock>
       ) : null}
@@ -57,7 +57,6 @@ InformationBlock.propTypes = {
   block: PropTypes.object.isRequired,
   setOpenBlock: PropTypes.func.isRequired,
   open: PropTypes.object.isRequired,
-
 };
 
 export default InformationBlock;
