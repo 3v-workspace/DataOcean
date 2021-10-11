@@ -33,10 +33,14 @@ export const prepareRelatedPersonData = (pep) => {
     family: [],
     business: [],
     personal: [],
+    unknown: [],
   };
 
   const sortRelatedPerson = (data, field) => {
     data.forEach((person) => {
+      if (!person.category) {
+        person.category = 'unknown';
+      }
       const duplicate = sortedRelatedPersonData[person.category].find((item) => (
         person[field].id === item.person.id
       ));

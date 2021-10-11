@@ -47,6 +47,19 @@ const PepRelatedPerson = (props) => {
           </a>
         </li>
       ))}
+      {data[0].unknown.map((person) => (
+        <li key={person.person.id}>
+          <span className="mr-1">
+            {getLocaleField(person, 'type')} —
+          </span>
+          <a
+            className="capitalize cursor-pointer blue"
+            href={matchProps.url.replace(pepId, person.person.id)}
+          >
+            {getLocaleField(person.person, 'fullname')}
+          </a>
+        </li>
+      ))}
     </ul>
   );
 };
