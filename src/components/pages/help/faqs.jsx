@@ -151,7 +151,6 @@ const faqs = [
                 5. {t('faq.answer.q16ClosePersonsOf')}
               </div>
             </div>
-
           </>
         )}
       </Translation>
