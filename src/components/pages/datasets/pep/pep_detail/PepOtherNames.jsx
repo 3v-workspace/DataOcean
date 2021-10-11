@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 
 const PepOtherNames = (props) => {
   const { data } = props;
-  const [quantityColumns, setQuantityColumns] = useState('2');
+  const [className, setClassName] = useState('lg:grid-cols-2');
   const ulRef = useRef();
 
   useEffect(() => {
     [...ulRef.current.children].forEach((item) => {
       if (item.offsetWidth > 280) {
-        setQuantityColumns('1');
+        setClassName('');
       }
     });
   }, []);
@@ -17,7 +17,7 @@ const PepOtherNames = (props) => {
 
   return (
     <ul
-      className={`grid grid-cols-${quantityColumns} gap-2`}
+      className={`grid grid-cols-1 ${className} gap-2`}
       ref={ulRef}
     >
       {data.split('\n').map((fullname, i) => (
