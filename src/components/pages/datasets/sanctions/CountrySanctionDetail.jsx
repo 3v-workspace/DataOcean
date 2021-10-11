@@ -111,7 +111,7 @@ const CountrySanctionDetail = () => {
             {`${t('sanctionsUnderThePresidentialDecree', { numberDecree: data.decree })} `}{renderDate(data.start_date)}
           </div>
         )}
-        <div className="px-5 pt-2 flex flex-row">
+        <div className="px-5 pt-2 flex flex-row overflow-auto">
           {getSanctions(data.types_of_sanctions)}
         </div>
         <div className="pt-5 pb-10 pr-5 text-blue-800 flex flex-row justify-end font-medium">
