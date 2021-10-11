@@ -1,3 +1,5 @@
+import { getLocaleField } from 'utils';
+
 export const sortData = (dataForSort, field) => {
   if (field) {
     dataForSort.sort((prev, cur) => {
@@ -58,6 +60,8 @@ export const prepareRelatedPersonData = (pep) => {
 
   sortRelatedPerson(pep.from_person_links, 'to_person');
   sortRelatedPerson(pep.to_person_links, 'from_person');
+
+  sortedRelatedPersonData.family.sort((prev, cur) => getLocaleField(prev, 'type').localeCompare(getLocaleField(cur, 'type')));
 
   return [sortedRelatedPersonData];
 };
