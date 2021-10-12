@@ -1,4 +1,5 @@
 import { getLocaleField } from 'utils';
+import i18n from 'i18next';
 
 export const sortData = (dataForSort, field) => {
   if (field) {
@@ -69,3 +70,11 @@ export const prepareRelatedPersonData = (pep) => {
 export const scrollToRef = (ref) => window.scrollTo({ top: ref.current.offsetTop, behavior: 'smooth' });
 
 export const getColor = (data) => (data && data.length ? 'block-black' : 'block-gray');
+
+export const otherCurrency = (object) => {
+  let newCurrency = '';
+  Object.entries(object).forEach(([key, value]) => {
+    newCurrency += (!['USD', 'UAH', 'EUR'].includes(key)) ? `${key} ${value.toLocaleString(`${i18n.language}`)} ` : '';
+  });
+  return newCurrency.length ? newCurrency : '---';
+};
