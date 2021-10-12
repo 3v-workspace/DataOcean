@@ -130,11 +130,11 @@ const faqs = [
             <div>
               {t('faq.answer.q16TheLawofUkraine')}
               <a href={`https://zakon.rada.gov.ua/laws/show/1702-18#Text/${i18n.language}/article/6`} className="text-theme-1 font-normal" target="_blank">
-                {` ${t('faq.answer.q16OnPrevention')},`}
+                {` ${t('faq.answer.q16OnPrevention')}, `}
               </a>
+              {t('faq.answer.q16SpecifiesTheFollowing')}
             </div>
             <div>
-              {t('faq.answer.q16SpecifiesTheFollowing')}
               <div className="pl-10">
                 1. {t('faq.answer.q16NationalPoliticallyExposed')}
               </div>
