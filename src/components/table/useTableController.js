@@ -137,6 +137,7 @@ const useTableController = (options) => {
           ...state,
           data: resp.data.results,
           isDataReady: true,
+          isLoading: false,
           count: resp.data.count,
           maxPage: resp.data.last_page,
           itemsIndexes: calculateIndexes(resp.data.results.length),
