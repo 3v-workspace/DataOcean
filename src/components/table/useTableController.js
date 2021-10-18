@@ -67,10 +67,6 @@ const useTableController = (options) => {
     error: '',
   });
 
-  useEffect(() => {
-    console.log('render');
-  });
-
   const [needReload, setReload] = useState(false);
 
   const orderProp = ordering.replace(/^-/, '');

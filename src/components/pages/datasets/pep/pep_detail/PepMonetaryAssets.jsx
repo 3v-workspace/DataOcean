@@ -2,38 +2,39 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { renderDate } from 'utils/dateTime';
+import { otherCurrency } from './utils';
 
 const PepMonetaryAssets = (props) => {
   const { data, pepId } = props;
-  const { t } = useTranslation();
-
+  const { t, i18n } = useTranslation();
   const allAssetsTypes = data.reduce((typesObj, type) => {
     typesObj[type.type] = type.type_display;
     return typesObj;
   }, {});
 
-  const tableData = data.reduce((total, money) => {
-    const owner = money.owner.id === pepId ? 'declarant' : 'family';
-    const currency = ['USD', 'UAH', 'EUR'].includes(money.currency) ? money.currency : 'other';
-    money.amount = money.amount === null ? '---' : money.amount;
-    const amount = !(currency === 'other') ? Number(money.amount) : `${money.amount} ${money.currency}`;
+  const filterData = data.filter((money) => money.amount !== null);
+
+  const tableData = filterData.reduce((total, money) => {
+    const owner = money.owner.id !== pepId ? 'family' : 'declarant';
+    const amount = Number(money.amount);
+
     if (total && total[money.declared_at]) {
       if (total[money.declared_at][money.type]) {
         if (total[money.declared_at][money.type][owner]) {
-          if (total[money.declared_at][money.type][owner][currency]) {
-            total[money.declared_at][money.type][owner][currency] += amount;
+          if (total[money.declared_at][money.type][owner][money.currency]) {
+            total[money.declared_at][money.type][owner][money.currency] += amount;
           } else {
-            total[money.declared_at][money.type][owner][currency] = amount;
+            total[money.declared_at][money.type][owner][money.currency] = amount;
           }
         } else {
           total[money.declared_at][money.type][owner] = {
-            [currency]: amount,
+            [money.currency]: amount,
           };
         }
       } else {
         total[money.declared_at][money.type] = {
           [owner]: {
-            [currency]: amount,
+            [money.currency]: amount,
           },
         };
       }
@@ -41,7 +42,7 @@ const PepMonetaryAssets = (props) => {
       total[money.declared_at] = {
         [money.type]: {
           [owner]: {
-            [currency]: amount,
+            [money.currency]: amount,
           },
         },
       };
@@ -86,10 +87,13 @@ const PepMonetaryAssets = (props) => {
                 <td className="text-left">{allAssetsTypes[type]}</td>
                 {tableData[year][type].declarant ? (
                   <>
-                    <td>{tableData[year][type].declarant.UAH ? tableData[year][type].declarant.UAH.toFixed(2) : '---'}</td>
-                    <td>{tableData[year][type].declarant.EUR ? tableData[year][type].declarant.EUR.toFixed(2) : '---'}</td>
-                    <td>{tableData[year][type].declarant.USD ? tableData[year][type].declarant.USD.toFixed(2) : '---'}</td>
-                    <td>{tableData[year][type].declarant.other ? tableData[year][type].declarant.other : '---'}</td>
+                    <td>{tableData[year][type].declarant.UAH?.toLocaleString(i18n.language) || '---'}</td>
+                    <td>{tableData[year][type].declarant.EUR?.toLocaleString(i18n.language) || '---'}</td>
+                    <td>{tableData[year][type].declarant.USD?.toLocaleString(i18n.language) || '---'}</td>
+                    <td>
+                      {tableData[year][type].declarant &&
+                      otherCurrency(tableData[year][type].declarant)}
+                    </td>
                   </>
                 ) : (
                   <>
@@ -101,10 +105,12 @@ const PepMonetaryAssets = (props) => {
                 )}
                 {tableData[year][type].family ? (
                   <>
-                    <td>{tableData[year][type].family.UAH ? tableData[year][type].family.UAH.toFixed(2) : '---'}</td>
-                    <td>{tableData[year][type].family.EUR ? tableData[year][type].family.EUR.toFixed(2) : '---'}</td>
-                    <td>{tableData[year][type].family.USD ? tableData[year][type].family.USD.toFixed(2) : '---'}</td>
-                    <td>{tableData[year][type].family.other ? tableData[year][type].family.other : '---'}</td>
+                    <td>{tableData[year][type].family.UAH?.toLocaleString(i18n.language) || '---'}</td>
+                    <td>{tableData[year][type].family.EUR?.toLocaleString(i18n.language) || '---'}</td>
+                    <td>{tableData[year][type].family.USD?.toLocaleString(i18n.language) || '---'}</td>
+                    <td>
+                      {tableData[year][type].family && otherCurrency(tableData[year][type].family)}
+                    </td>
                   </>
                 ) : (
                   <>

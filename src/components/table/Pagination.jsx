@@ -15,7 +15,7 @@ const Pagination = (props) => {
     <div className="intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-no-wrap items-center justify-between">
       <PaginationPages tableController={tc} />
       {!infoOff && tc.count > 0 && (
-        <div className="hidden md:block text-gray-600">
+        <div className="hidden lg:block text-gray-600">
           {t('showingToOfEntries', {
             first: tc.itemsIndexes.first.toLocaleString(i18n.language),
             last: tc.itemsIndexes.last.toLocaleString(i18n.language),
@@ -27,7 +27,7 @@ const Pagination = (props) => {
         <select
           onChange={handleChangePageSize}
           value={tc.pageSize}
-          className="w-20 input box sm:mt-0 sm:ml-20 ml-0 mt-3"
+          className="w-20 input box sm:mt-0 xl:ml-20 ml-10 mt-3"
         >
           <option>10</option>
           <option>25</option>

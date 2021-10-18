@@ -196,7 +196,7 @@ const Table = (props) => {
   }, []);
 
   return (
-    <div className="box p-5">
+    <div className="box p-5 mb-5">
       {/*<div className="flex flex-wrap sm:flex-no-wrap items-center justify-end">*/}
       {/*<Button*/}
       {/*  className="shadow-md mr-2"*/}
