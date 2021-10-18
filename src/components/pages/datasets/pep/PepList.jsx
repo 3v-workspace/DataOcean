@@ -139,7 +139,6 @@ const PepList = ({ match, history }) => {
           history.push(`${match.url}${row.id}/`);
         }}
         exportUrl="pep/xlsx/"
-        minHeight="400px"
       />
     </PageBox>
   );
