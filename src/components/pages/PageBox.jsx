@@ -63,7 +63,7 @@ const PageBox = (props) => {
           )}
         </div>
       </div>
-      <div className={`intro-y ${noBox ? '' : 'box'} overflow-hidden mt-5`}>
+      <div className={`intro-y ${noBox ? '' : 'box'} mt-5`}>
         {children}
       </div>
     </>
