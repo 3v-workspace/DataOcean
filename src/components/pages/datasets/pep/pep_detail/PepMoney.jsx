@@ -7,10 +7,10 @@ import { sortData } from './utils';
 const PepMoney = (props) => {
   const { data, type, pepId, ownerField } = props;
   sortData(data, '');
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const tableLabel = {
     INCOME: { declarant: t('declarantIncome'), family: t('familyIncome') },
-    EXPENDITURE: { declarant: t('declarantExpenditure'), family: t('familyExpenditure') },
+    EXPENDITURE: { declarant: t('declarantExpenses'), family: t('familyExpenses') },
     GIFT: { declarant: t('declarantTotal'), family: t('familyTotal') },
   };
 
@@ -50,8 +50,8 @@ const PepMoney = (props) => {
           <tr key={i} className="border-b border-gray-200">
             <td className="text-center">{renderDate(info.year.toString())}</td>
             {!(type === 'GIFT') ? (<td className="text-left">{info.position}</td>) : null}
-            <td className="text-right">{info.owner.declarant ? info.owner.declarant.toFixed(2) : '---'}</td>
-            <td className="text-right">{info.owner.family ? info.owner.family.toFixed(2) : '---'}</td>
+            <td className="text-right">{info.owner.declarant ? info.owner.declarant.toLocaleString(i18n.language) : '---'}</td>
+            <td className="text-right">{info.owner.family ? info.owner.family.toLocaleString(i18n.language) : '---'}</td>
           </tr>
         ))}
       </tbody>

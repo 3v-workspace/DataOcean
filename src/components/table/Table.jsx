@@ -196,7 +196,7 @@ const Table = (props) => {
   }, []);
 
   return (
-    <div className="box p-5">
+    <div className="box p-5 mb-5">
       {/*<div className="flex flex-wrap sm:flex-no-wrap items-center justify-end">*/}
       {/*<Button*/}
       {/*  className="shadow-md mr-2"*/}
@@ -222,15 +222,18 @@ const Table = (props) => {
           </div>
         )}
         {!HIDE_SELECT_COLUMNS && (
-          <div className="dropdown p-2">
-            <div>
-              <img src={setColumns} alt="set-columns" className="cursor-pointer" />
+          <Tooltip content={t('showНideColumns')} position="bottom" noContainer>
+            <div className="dropdown p-2">
+              <div>
+                <img src={setColumns} alt="set-columns" className="cursor-pointer" />
+
+              </div>
+              <SelectColumns
+                tableUrl={url}
+                columns={columns}
+              />
             </div>
-            <SelectColumns
-              tableUrl={url}
-              columns={columns}
-            />
-          </div>
+          </Tooltip>
         )}
         {!HIDE_FILTERS && (
           <Tooltip content={t('resetAllFilters')} position="bottom" noContainer>
@@ -245,7 +248,7 @@ const Table = (props) => {
           </Tooltip>
         )}
       </div>
-      <Shadow scrollParams={scrollParams} />
+      <Shadow scrollParams={scrollParams} top="37px" bottom="57px" borderRadius=".375rem" />
       <div
         className="overflow-x-auto box"
         style={{ minHeight: `${minHeight}`, maxHeight: 'calc(100vh - 250px)' }}

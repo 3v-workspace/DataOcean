@@ -9,6 +9,7 @@ import SearchLoading from 'components/pages/search/SearchLoading';
 import { useTableController } from 'components/table';
 import PaginationPages from 'components/table/PaginationPages';
 import { useTranslation, Trans } from 'react-i18next';
+import Tooltip from 'components/Tooltip';
 
 
 const PersonResultsPage = (props) => {
@@ -51,7 +52,6 @@ const PersonResultsPage = (props) => {
           <Trans
             i18nKey="personPage.matchesWereFoundFor"
             values={{ count: tc.count, queryString }}
-            components={{ b: <b /> }}
           />.
         </div>
         <Button
@@ -129,8 +129,16 @@ const PersonResultsPage = (props) => {
               </div>
               <div>
                 <div className="flex justify-end py-5">
-                  <Download className="w-5 h-5 mr-5" />
-                  <Printer className="w-5 h-5" />
+                  <Tooltip
+                    content={t('inDevelopment')}
+                    position="top"
+                    noContainer
+                  >
+                    <div className="flex">
+                      <Download className="w-5 h-5 mr-5" />
+                      <Printer className="w-5 h-5" />
+                    </div>
+                  </Tooltip>
                 </div>
                 <Button
                   className="px-8"

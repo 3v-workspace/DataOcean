@@ -75,7 +75,7 @@ const SelectColumns = (props) => {
   // };
 
   return (
-    <div className="dropdown-box mt-8 absolute top-0 left-0 sm:left-auto sm:right-0 z-20 -ml-10 sm:ml-0">
+    <div className="dropdown-box mt-8 absolute top-0 left-0 sm:left-auto sm:right-0 z-50 -ml-10 sm:ml-0">
       <div className="dropdown-box__content box border">
         <div className="border-b-1 p-3 pl-5 pb-2">
           <BooleanInput

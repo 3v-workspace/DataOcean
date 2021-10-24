@@ -66,7 +66,6 @@ const PepDetail = ({ match, history }) => {
   const relatedPersonRef = useRef();
   const giftRef = useRef();
   const expendituresRef = useRef();
-
   const fetchData = () => {
     Api.get(`pep/${id}/`, {
       useProjectToken: true,
@@ -329,13 +328,9 @@ const PepDetail = ({ match, history }) => {
     return (
       <Fragment key={block.id}>
         <InformationBlock
-          title={block.title}
-          titleIcon={block.titleIcon}
-          color={getColor(block.blockProps.data)}
-          ref={block.ref}
-          setOpenBlock={setOpenBlock}
-          blockId={block.id}
+          block={block}
           open={open}
+          setOpenBlock={setOpenBlock}
         >
           <Component {...block.blockProps} />
         </InformationBlock>
@@ -353,13 +348,11 @@ const PepDetail = ({ match, history }) => {
 
   useEffect(() => {
     dispatch(setOverflow(false));
+    window.scrollTo(0, 0);
+    fetchData();
     return () => {
       dispatch(setOverflow(true));
     };
-  }, []);
-
-  useEffect(() => {
-    fetchData();
   }, []);
 
   if (!Object.keys(pep).length) {
@@ -376,11 +369,11 @@ const PepDetail = ({ match, history }) => {
         <ArrowLeft className="h-5 ml-2" />
         {t('back')}
       </button>
-      <div className="flex flex-row text-base pb-16">
-        <div className="flex-auto max-w-6xl mr-8">
-          <div className="box col-span-12 border border-gray-400 p-6" ref={mainRef}>
+      <div className="flex text-base pb-16">
+        <div className="flex-grow mr-8 w-px">
+          <div className="box border border-gray-400 p-6" ref={mainRef}>
             <div className="flex flex-col lg:flex-row">
-              <div className="flex flex-auto flex-col sm:flex-row items-start justify-start mt-1">
+              <div className="flex flex-auto items-start justify-start mt-1">
                 <PepIcon />
                 <div className="ml-6">
                   <div className="text-2xl font-bold block-black capitalize">
@@ -392,15 +385,13 @@ const PepDetail = ({ match, history }) => {
                   {getShortInfo()}
                 </div>
               </div>
-              <div className="items-end text-right">
-                <div className="flex flex-row block-black h-7">
-                  <Tooltip content={t('inDevelopment')}>
-                    <Download className="mr-8" />
-                  </Tooltip>
-                  <Tooltip content={t('inDevelopment')}>
-                    <Print />
-                  </Tooltip>
-                </div>
+              <div className="inline-flex p-1">
+                <Tooltip content={t('inDevelopment')} className="h-6">
+                  <Download className="mr-8" />
+                </Tooltip>
+                <Tooltip content={t('inDevelopment')} className="h-6">
+                  <Print />
+                </Tooltip>
               </div>
             </div>
           </div>

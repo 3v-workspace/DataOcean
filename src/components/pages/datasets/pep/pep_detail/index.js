@@ -16,7 +16,6 @@ export { ReactComponent as PepIcon } from 'images/pep_icon.svg';
 export { ReactComponent as SpendMoney } from 'images/spend_money.svg';
 export { ReactComponent as Print } from 'images/print_icon.svg';
 
-export { default as PepTableShadow } from './PepTableShadow';
 export { default as AsyncInformationBlock } from './AsyncInformationBlock';
 export { default as InformationBlock } from './InformationBlock';
 export { default as PepCriminal } from './PepCriminal';

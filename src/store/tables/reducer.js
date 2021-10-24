@@ -29,6 +29,9 @@ const tablesSlice = createSlice({
     setOrdering(state, { payload: { tableName, ordering } }) {
       state[tableName].ordering = ordering;
     },
+    setParams(state, { payload: { tableName, params } }) {
+      state[tableName].params = params;
+    },
     setFilters(state, { payload: { tableName, filters } }) {
       state[tableName].filters = filters;
     },

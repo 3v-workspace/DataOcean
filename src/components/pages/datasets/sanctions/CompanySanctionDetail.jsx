@@ -7,13 +7,13 @@ import { Download, Printer, ArrowLeft } from 'react-feather';
 import Tooltip from 'components/Tooltip';
 import { ReactComponent as EmptyLogo } from 'images/logo_company.svg';
 import useTopBarHiddingEffect from 'hooks/useTopBarHiddingEffect';
+import { renderCondition } from 'utils/conditions';
 
 const CompanySanctionDetail = () => {
   const [data, setData] = useState({});
   const { id } = useParams();
   const { t } = useTranslation();
   const history = useHistory();
-
   const fetchData = () => {
     Api.get(`sanction/company/${id}/`, { useProjectToken: true })
       .then((resp) => {
@@ -46,7 +46,7 @@ const CompanySanctionDetail = () => {
                 >
                   <td>{sanction}</td>
                   <td>{renderDate(data.start_date)}</td>
-                  <td>{renderDate(data.end_date)}</td>
+                  <td>{renderCondition(data)}</td>
                   <td>{renderDate(data.reasoning_date)}</td>
                   <td>{data.cancellation_condition}</td>
                 </tr>
@@ -142,7 +142,7 @@ const CompanySanctionDetail = () => {
               {`${t('sanctionsUnderThePresidentialDecree', { numberDecree: data.decree })} `}{renderDate(data.start_date)}
             </div>
           )}
-          <div className="px-5 flex flex-row w-full">
+          <div className="px-5 flex flex-row w-full overflow-auto">
             {getSanctions(data.types_of_sanctions)}
           </div>
         </div>

@@ -49,7 +49,7 @@ const PaginationPages = (props) => {
             className={`pagination__link ${page === tc.page ? 'pagination__link--active' : ''}`}
             onClick={() => tc.setPage(page)}
           >
-            {page.toLocaleString(`${i18n.language}`)}
+            {page.toLocaleString(i18n.language)}
           </button>
         </li>
       ))}

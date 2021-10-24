@@ -71,7 +71,6 @@ const CountrySanctionList = ({ match, history }) => {
         onRowClick={(row) => {
           history.push(`${match.url}${row.id}/`);
         }}
-        minHeight="400px"
       />
     </PageBox>
   );

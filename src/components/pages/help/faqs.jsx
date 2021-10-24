@@ -117,6 +117,46 @@ const faqs = [
     ),
   },
   {
+    id: 16,
+    question: (
+      <Translation>
+        {(t) => `${t('faq.q16WhatIsTypeOfPEPs')}`}
+      </Translation>
+    ),
+    answer: (
+      <Translation>
+        {(t) => (
+          <>
+            <div>
+              {t('faq.answer.q16TheLawofUkraine')}
+              <a href={`https://zakon.rada.gov.ua/laws/show/1702-18#Text/${i18n.language}/article/6`} className="text-theme-1 font-normal" target="_blank">
+                {` ${t('faq.answer.q16OnPrevention')}, `}
+              </a>
+              {t('faq.answer.q16SpecifiesTheFollowing')}
+            </div>
+            <div>
+              <div className="pl-10">
+                1. {t('faq.answer.q16NationalPoliticallyExposed')}
+              </div>
+              <div className="pl-10">
+                2. {t('faq.answer.q16ForeignPolitically')}
+              </div>
+              <div className="pl-10">
+                3. {t('faq.answer.q16PoliticallyExposedPersons')}
+              </div>
+              <div className="pl-10">
+                4. {t('faq.answer.q16AssociatedPersonsOf')}
+              </div>
+              <div className="pl-10">
+                5. {t('faq.answer.q16ClosePersonsOf')}
+              </div>
+            </div>
+          </>
+        )}
+      </Translation>
+    ),
+  },
+  {
     id: 5,
     question: (
       <Translation>

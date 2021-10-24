@@ -2,30 +2,31 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { renderDate } from 'utils/dateTime';
+import { otherCurrency } from './utils';
 
 const PepLiability = (props) => {
   const { data, pepId } = props;
-  const { t } = useTranslation();
-  const sortedLiabilitydata = data.reduce((total, liability) => {
+  const { t, i18n } = useTranslation();
+  const filterData = data.filter((liability) => liability.amount !== null);
+  const sortedLiabilitydata = filterData.reduce((total, liability) => {
     const curItem = total.find((item) => item.year === liability.declared_at);
     const owner = liability.owner.id === pepId ? 'sumDeclarant' : 'sumFamily';
-    const currency = ['USD', 'UAH', 'EUR'].includes(liability.currency) ? liability.currency : 'other';
-    const amount = currency === 'other' ? `${liability.amount} ${liability.currency} ` : Number(liability.amount);
+    const amount = Number(liability.amount);
     if (curItem) {
       if (!curItem[owner]) {
         curItem[owner] = {
-          [currency]: amount,
+          [liability.currency]: amount,
         };
-      } else if (curItem[owner][currency]) {
-        curItem[owner][currency] += amount;
+      } else if (curItem[owner][liability.currency]) {
+        curItem[owner][liability.currency] += amount;
       } else {
-        curItem[owner][currency] = amount;
+        curItem[owner][liability.currency] = amount;
       }
     } else {
       total.push({
         year: liability.declared_at,
         [owner]: {
-          [currency]: amount,
+          [liability.currency]: amount,
         },
       });
     }
@@ -46,12 +47,12 @@ const PepLiability = (props) => {
       </thead>
       <tbody>
         {sortedLiabilitydata.map((item, i) => (
-          <tr key={i} className="border-b border-gray-200">
+          <tr key={i} className="border-b border-gray-200 whitespace-nowrap">
             <td>{renderDate(item.year.toString())}</td>
-            <td>{item[owner] && item[owner].UAH ? item[owner].UAH.toFixed(2) : '---'}</td>
-            <td>{item[owner] && item[owner].EUR ? item[owner].EUR.toFixed(2) : '---'}</td>
-            <td>{item[owner] && item[owner].USD ? item[owner].USD.toFixed(2) : '---'}</td>
-            <td>{item[owner] && item[owner].other ? item[owner].other : '---'}</td>
+            <td>{item[owner]?.UAH?.toLocaleString(i18n.language) || '---'}</td>
+            <td>{item[owner]?.EUR?.toLocaleString(i18n.language) || '---'}</td>
+            <td>{item[owner]?.USD?.toLocaleString(i18n.language) || '---'}</td>
+            <td>{item[owner] ? otherCurrency(item[owner]) : '---'}</td>
           </tr>
         ))}
       </tbody>
@@ -59,7 +60,7 @@ const PepLiability = (props) => {
   );
 
   return (
-    <div className="inline-flex">
+    <div className="flex">
       {liabilityTable('sumDeclarant')}
       {liabilityTable('sumFamily')}
     </div>

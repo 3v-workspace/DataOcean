@@ -1,6 +1,6 @@
 .select-dropdown {
-    z-index: 20;
-    position: absolute;
+    z-index: 1000;
+    position: fixed;
     margin-top: 0.25rem;
     display: none;
     opacity: 0;

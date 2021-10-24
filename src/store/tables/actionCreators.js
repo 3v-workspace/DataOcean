@@ -16,6 +16,10 @@ export const tableSetOrdering = createAction('tables/setOrdering', (tableName, o
   payload: { tableName, ordering },
 }));
 
+export const tableSetParams = createAction('tables/setParams', (tableName, params) => ({
+  payload: { tableName, params },
+}));
+
 export const tableSetFilters = createAction('tables/setFilters', (tableName, filters) => ({
   payload: { tableName, filters },
 }));

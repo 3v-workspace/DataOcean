@@ -74,7 +74,7 @@ const StatisticsPage = ({ history }) => {
               <div className="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
                 <ReportBox
                   label={t('numberOfCompanies')}
-                  value={companyCount.toLocaleString(`${i18n.language}`)}
+                  value={companyCount.toLocaleString(i18n.language)}
                   subText="18%"
                   subTextDirection="up"
                   icon={<File className="report-box__icon text-theme-10" />}
@@ -84,7 +84,7 @@ const StatisticsPage = ({ history }) => {
               <div className="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
                 <ReportBox
                   label={t('numberOfSoleProprietors')}
-                  value={fopCount.toLocaleString(`${i18n.language}`)}
+                  value={fopCount.toLocaleString(i18n.language)}
                   subText="16%"
                   subTextDirection="up"
                   icon={<Briefcase className="report-box__icon text-theme-11" />}
@@ -94,7 +94,7 @@ const StatisticsPage = ({ history }) => {
               <div className="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
                 <ReportBox
                   label={t('numberOfDatasets')}
-                  value={registersCount.toLocaleString(`${i18n.language}`)}
+                  value={registersCount.toLocaleString(i18n.language)}
                   subText="+5"
                   subTextDirection="up"
                   icon={<Database className="report-box__icon text-theme-12" />}
@@ -104,7 +104,7 @@ const StatisticsPage = ({ history }) => {
               <div className="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
                 <ReportBox
                   label={t('numberOfUsers')}
-                  value={usersCount.toLocaleString(`${i18n.language}`)}
+                  value={usersCount.toLocaleString(i18n.language)}
                   subText="+7"
                   subTextDirection="up"
                   icon={<User className="report-box__icon text-theme-9" />}
