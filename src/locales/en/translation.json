@@ -515,6 +515,7 @@
   "needMonthOrYear": "Month or year is needed",
   "needDayOrYear": "Day or year is needed",
   "nonExistentDay": "Non-existent day",
+  "wrongMonthName": "Wrong month name",
   "minYear": "Year must be more than {{year}}",
   "maxYear": "Year must be less than {{year}}",
   "shouldDigit": "Should be a number"

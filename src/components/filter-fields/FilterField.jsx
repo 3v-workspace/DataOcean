@@ -91,7 +91,7 @@ const FilterField = (props) => {
           <DatePicker2
             name={name}
             value={value}
-            placeholder={placeholder}
+            placeholder={moment(placeholder).format('d MMM YYYY')}
             minYear={minYear}
             maxYear={maxYear}
             onChange={(n, v) => {

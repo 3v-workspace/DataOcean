@@ -53,7 +53,9 @@ const DatePicker2 = (props) => {
   const { name, onChange, placeholder, maxYear, minYear } = props;
   const { t } = useTranslation();
 
+  const [placeholderValue, setPlaceholderValue] = useState(placeholder);
   const [isShowDropdown, setShowDropdown] = useState(false);
+  const [isShowDropdownContent, setShowDropdownContent] = useState('none');
   const currentDate = new Date();
   const [currentYear, setCurrentYear] = useState(currentDate.getFullYear());
 
@@ -66,8 +68,8 @@ const DatePicker2 = (props) => {
     validationSchema: Yup.object({
       month: Yup
         .string()
-        .oneOf(months.concat((monthArr.map((mon) => t(mon)))), t('wrongDateFormat'))
-        .test('value', t('needDayOrYear'), (value) => (formik.values.year || formik.values.day)),
+        .test('value', t('needDayOrYear'), (value) => (formik.values.year || formik.values.day))
+        .test('value', t('wrongMonthName'), (value) => (moment(value, ['M', 'MM', 'MMM', 'MMMM']).lang(['en', 'uk']).isValid()) || !value),
       year: Yup
         .number()
         .typeError(t('shouldDigit'))
@@ -97,16 +99,36 @@ const DatePicker2 = (props) => {
         data += '-';
       }
       if (formik.values.month) {
-        data += moment().month(formik.values.month).lang(['en', 'uk']).format('MM');
+        if (formik.values.month.length < 3) {
+          data += (moment().month(Number(formik.values.month) - 1).lang(['en', 'uk']).format('MM'));
+        } else {
+          data += moment().month(formik.values.month).lang(['en', 'uk']).format('MM');
+        }
         if (formik.values.day) {
           data += '-';
         }
       } else if (formik.values.day) {
         data += 'XX-';
       }
+      let format = '';
       if (formik.values.day) {
+        format = format.concat('D ');
+        if (formik.values.day.toString().length < 2) {
+          data += '0';
+        }
         data += formik.values.day;
       }
+
+      if (formik.values.month) {
+        format = format.concat('MMM ');
+      }
+
+      if (formik.values.year) {
+        format = format.concat('YYYY');
+      }
+
+      setPlaceholderValue(moment(data, ['MM-D', 'YYYY-MM-D', 'YYYY-MM', 'YYYY-??-D']).format(format));
+
       onChange(name, data);
     },
   });
@@ -134,7 +156,7 @@ const DatePicker2 = (props) => {
           type="text"
           className="input text-gray-600 w-40"
           value=""
-          placeholder={placeholder}
+          placeholder={placeholderValue}
           onClick={() => setShowDropdown(true)}
         />
         {isShowDropdown ? (
@@ -152,12 +174,16 @@ const DatePicker2 = (props) => {
             <div className="input-container">
               <div className="input-day-container">
                 <input
+                  autoComplete="off"
                   className="input-day"
                   type="text"
                   size="2"
                   placeholder="XX"
                   name="day"
                   onChange={formik.handleChange}
+                  onFocus={() => {
+                    setShowDropdownContent('day');
+                  }}
                   value={formik.values.day}
                 />
                 {!(formik.errors.year || formik.errors.month) ?
@@ -165,17 +191,21 @@ const DatePicker2 = (props) => {
                   <p className="errorMessageDay">{formik.errors.day}</p>
                   ) : ''}
               </div>
-              <div className="dropdown-date">
-                <button type="button" className="dropbtn">
-                  <ChevronDown className="w-4 h-6 ml-2" />
-                </button>
-                <div className="dropdown-content">
+              <div className="dropdown-date" onBlur={() => setShowDropdownContent('none')}>
+                <div className="dropdown-content" style={{ display: (isShowDropdownContent === 'day') ? 'flex' : 'none' }}>
                   <table>
                     <tbody>
                       {days.map((row) => (
                         <tr key={row[0]}>
                           {row.map((dayNumber) => (
-                            <td key={dayNumber} className="cell" onClick={() => formik.setFieldValue('day', dayNumber)}>
+                            <td
+                              key={dayNumber}
+                              className="day-cell"
+                              onClick={() => {
+                                formik.setFieldValue('day', dayNumber);
+                                setShowDropdownContent('none');
+                              }}
+                            >
                               {dayNumber}
                             </td>
                           ))}
@@ -187,23 +217,24 @@ const DatePicker2 = (props) => {
               </div>
               <div className="input-month-container">
                 <input
+                  autoComplete="off"
                   className="input-month"
                   type="text"
                   size="8"
                   name="month"
                   placeholder={t('month')}
                   onChange={formik.handleChange}
+                  onFocus={() => {
+                    setShowDropdownContent('month');
+                  }}
                   value={formik.values.month}
                 />
                 {!formik.errors.year ? formik.errors.month && formik.touched.month && (
                   <p className="errorMessageMonth">{formik.errors.month}</p>
                 ) : ''}
               </div>
-              <div className="dropdown-date">
-                <button type="button" className="dropbtn">
-                  <ChevronDown className="w-4 h-6 ml-2" />
-                </button>
-                <div className="dropdown-content">
+              <div className="dropdown-date" onBlur={() => setShowDropdownContent('none')}>
+                <div className="dropdown-content" style={{ display: (isShowDropdownContent === 'month') ? 'flex' : 'none' }}>
                   <table>
                     <tbody>
                       {months.map((row) => (
@@ -212,7 +243,10 @@ const DatePicker2 = (props) => {
                             <td
                               key={monthName}
                               className="cell"
-                              onClick={() => formik.setFieldValue('month', t(monthName))}
+                              onClick={() => {
+                                formik.setFieldValue('month', t(monthName));
+                                setShowDropdownContent('none');
+                              }}
                             >
                               {t(monthName)}
                             </td>
@@ -225,25 +259,26 @@ const DatePicker2 = (props) => {
               </div>
               <div className="input-year-container">
                 <input
+                  autoComplete="off"
                   className="input-year"
                   type="text"
                   size="4"
                   placeholder="XXXX"
                   name="year"
                   onChange={formik.handleChange}
+                  onFocus={() => {
+                    setShowDropdownContent('year');
+                  }}
                   value={formik.values.year}
                 />
                 {formik.errors.year && formik.touched.year && (
                   <p className="errorMessageYear">{formik.errors.year}</p>
                 )}
               </div>
-              <div className="dropdown-date">
-                <button type="button" className="dropbtn">
-                  <ChevronDown className="w-4 h-6 ml-2" />
-                </button>
-                <div className="dropdown-content" style={{ alignItems: 'center' }}>
+              <div className="dropdown-date" onBlur={() => setShowDropdownContent('none')}>
+                <div className="dropdown-content" style={{ alignItems: 'center', display: (isShowDropdownContent === 'year') ? 'flex' : 'none' }}>
                   <div className="chevron">
-                    <ChevronLeft onClick={() => setCurrentYear(currentYear - 20)} className="w-6 h-6 mt+5 ml-1" />
+                    <ChevronLeft onClick={() => setCurrentYear(currentYear - 20)} className="w-4 h-6 mt+6 ml-1" />
                   </div>
                   <div className="years-table">
                     <table>
@@ -254,7 +289,10 @@ const DatePicker2 = (props) => {
                               <td
                                 key={yearNumber}
                                 className="cell"
-                                onClick={() => formik.setFieldValue('year', yearNumber)}
+                                onClick={() => {
+                                  formik.setFieldValue('year', yearNumber);
+                                  setShowDropdownContent('none');
+                                }}
                               >
                                 {yearNumber}
                               </td>
@@ -265,7 +303,7 @@ const DatePicker2 = (props) => {
                     </table>
                   </div>
                   <div className="chevron">
-                    <ChevronRight onClick={() => setCurrentYear(currentYear + 20)} className="w-6 h-6 mt+5 ml-1" />
+                    <ChevronRight onClick={() => setCurrentYear(currentYear + 20)} className="w-4 h-6 mt+6 ml-1" />
                   </div>
                 </div>
               </div>

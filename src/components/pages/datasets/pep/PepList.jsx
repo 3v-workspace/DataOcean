@@ -45,7 +45,7 @@ const PepList = ({ match, history }) => {
         type: 'datepicker',
         maxYear: '2041',
         minYear: '1921',
-        placeholder: '1989-02-11',
+        placeholder: '1954-08-07',
       },
     },
     {

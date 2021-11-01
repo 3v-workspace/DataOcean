@@ -515,6 +515,7 @@
   "needMonthOrYear": "Потрібен місяць або рік",
   "needDayOrYear": "Потрібен день або рік",
   "nonExistentDay": "Неіснуючий день",
+  "wrongMonthName": "Невірно вказано місяць",
   "minYear": "Рік має бути більше {{year}}",
   "maxYear": "Рік має бути менше {{year}}",
   "shouldDigit": "Має бути числом"
