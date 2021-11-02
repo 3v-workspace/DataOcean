@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import Api from 'api';
 import { useDispatch } from 'react-redux';
 import { setOverflow } from 'store/interface/actionCreators';
-import { HelpCircle, ArrowLeft, Download } from 'react-feather';
+import { AlertCircle, ArrowLeft, Download } from 'react-feather';
 import { renderDate, getLocaleField } from 'utils';
 import { ReactRouterPropTypes } from 'utils/prop-types';
 import useTopBarHiddingEffect from 'hooks/useTopBarHiddingEffect';
@@ -233,6 +233,12 @@ const PepDetail = ({ match, history }) => {
     },
   ];
 
+  const tooltipList = {
+    'national PEP': t('pepTypes.nationalPoliticallyExposedPersons'),
+    'member of PEP`s family': t('pepTypes.theNationalLaw'),
+    'associated person with PEP': t('pepTypes.associatesIndividualsHavingBusiness'),
+  };
+  const checkPepType = tooltipList[pep.pep_type];
   const getShortInfo = () => {
     const shortInfoFields = [
       { label: 'dateOfBirth', value: pep.date_of_birth, render: (value) => renderDate(value) },
@@ -244,23 +250,25 @@ const PepDetail = ({ match, history }) => {
       { label: 'lastPlaceOfWork', value: getLocaleField(pep, 'last_employer') },
     ];
     return (
-      <table>
-        <tbody className="block-black align-top">
-          <tr>
-            <td className="font-bold pb-3">{t('pepDetailType')}:</td>
-            <td className="inline-flex pl-4 pb-3">
-              {pep.pep_type_display}
-              {/*<HelpCircle className="w-4 h-4 ml-2 text-blue-600" />*/}
-            </td>
-          </tr>
-          {shortInfoFields.map((info) => (info.value && !(info.value === '---') ? (
-            <tr key={info.label}>
-              <td className="font-bold pb-3">{t(info.label)}:</td>
-              <td className="pl-4 max-w-lg pb-3">{info.render ? info.render(info.value) : info.value}</td>
-            </tr>
-          ) : null))}
-        </tbody>
-      </table>
+      <div className="flex flex-col block-black">
+        <div className="inline-flex mb-3">
+          <div className="w-40 lg:w-64 font-bold">{t('pepDetailType')}:</div>
+          <div className="max-w-xl">{pep.pep_type_display}</div>
+          <Tooltip
+            className="w-70 md:w-auto"
+            position="right"
+            content={checkPepType}
+          >
+            <AlertCircle className="w-4 h-4 ml-2 text-blue-600" />
+          </Tooltip>
+        </div>
+        {shortInfoFields.map((info, i) => (info.value && !(info.value === '---') ? (
+          <div className="inline-flex mb-3" key={i}>
+            <div className="w-40 lg:w-64 font-bold">{t(info.label)}:</div>
+            <div className="max-w-xl">{info.render ? info.render(info.value) : info.value}</div>
+          </div>
+        ) : null))}
+      </div>
     );
   };
 
@@ -276,22 +284,22 @@ const PepDetail = ({ match, history }) => {
           {pep.pep_type_display}
         </div>
         {sanctionBlock.blockProps.data && sanctionBlock.blockProps.data.length &&
-        !sanctionBlock.blockProps.data[0].noSanction ? (
-          <div
-            className="border border-gray-400 rounded-full px-3 py-1 cursor-pointer text-xs"
-            onClick={() => scrollToRef(sanctionBlock.ref)}
-          >
-            {t(sanctionBlock.title)}
-          </div>
+          !sanctionBlock.blockProps.data[0].noSanction ? (
+            <div
+              className="border border-gray-400 rounded-full px-3 py-1 cursor-pointer text-xs"
+              onClick={() => scrollToRef(sanctionBlock.ref)}
+            >
+              {t(sanctionBlock.title)}
+            </div>
           ) : null}
         {criminalBlock.blockProps.data && criminalBlock.blockProps.data.length &&
-        !criminalBlock.blockProps.data[0].noCriminal ? (
-          <div
-            className="border border-gray-400 rounded-full px-3 py-1 ml-2 cursor-pointer text-xs"
-            onClick={() => scrollToRef(criminalBlock.ref)}
-          >
-            {t(criminalBlock.title)}
-          </div>
+          !criminalBlock.blockProps.data[0].noCriminal ? (
+            <div
+              className="border border-gray-400 rounded-full px-3 py-1 ml-2 cursor-pointer text-xs"
+              onClick={() => scrollToRef(criminalBlock.ref)}
+            >
+              {t(criminalBlock.title)}
+            </div>
           ) : null}
       </>
     );
@@ -317,10 +325,10 @@ const PepDetail = ({ match, history }) => {
             open={open}
           />
           {config[i + 1] && !config[i + 1].blockProps.data.length &&
-          block.blockProps.data.length ? (
-            <div className="block-gray items-center font-medium text-base">
-              {t('noInformation')}
-            </div>
+            block.blockProps.data.length ? (
+              <div className="block-gray items-center font-medium text-base">
+                {t('noInformation')}
+              </div>
             ) : null}
         </Fragment>
       );
@@ -335,10 +343,10 @@ const PepDetail = ({ match, history }) => {
           <Component {...block.blockProps} />
         </InformationBlock>
         {config[i + 1] && !config[i + 1].blockProps.data.length &&
-        block.blockProps.data.length ? (
-          <div className="block-gray items-center font-medium text-lg mt-10 mb-2">
-            {t('noInformation')}
-          </div>
+          block.blockProps.data.length ? (
+            <div className="block-gray items-center font-medium text-lg mt-10 mb-2">
+              {t('noInformation')}
+            </div>
           ) : null}
       </Fragment>
     );
