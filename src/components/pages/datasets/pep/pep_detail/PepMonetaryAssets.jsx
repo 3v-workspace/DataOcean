@@ -52,23 +52,23 @@ const PepMonetaryAssets = (props) => {
 
   return (
     <>
-      <div className="inline-flex w-full text-center font-medium mb-3 text-gray-700">
-        <div className="w-3/6">{t('declarant')}</div>
-        <div className="w-3/6">{t('family')}</div>
-      </div>
-      <table className="table text-center">
-        <thead>
-          <tr className="bg-gray-200 text-gray-700 font-medium">
-            <td>{t('year')}</td>
-            <td>{t('assetType')}</td>
-            <td>UAH</td>
-            <td>EUR</td>
-            <td>USD</td>
-            <td>{t('other')}</td>
-            <td>UAH</td>
-            <td>EUR</td>
-            <td>USD</td>
-            <td>{t('other')}</td>
+      <table className="table text-center rounded-md border-none" style={{ boxShadow: '0 0 0 1px #dedede' }}>
+        <thead className="bg-gray-200 text-gray-700 font-medium">
+          <tr className="border-b border-gray-400 rounded-md">
+            <td rowSpan="2">{t('year')}</td>
+            <td rowSpan="2" className="border-r border-gray-400">{t('assetType')}</td>
+            <th colSpan="4" className="border-r border-gray-400">{t('declarant')}</th>
+            <th colSpan="4">{t('family')}</th>
+          </tr>
+          <tr className="border-b border-r border-gray-400">
+            <th>UAH</th>
+            <th>EUR</th>
+            <th>USD</th>
+            <th className="border-r border-gray-400">{t('other')}</th>
+            <th>UAH</th>
+            <th>EUR</th>
+            <th>USD</th>
+            <th>{t('other')}</th>
           </tr>
         </thead>
         <tbody>
@@ -82,15 +82,15 @@ const PepMonetaryAssets = (props) => {
             return 0;
           }).map(([year, types]) => (
             Object.entries(types).map(([type, owners], i) => (
-              <tr key={i} className="border-b border-gray-200">
+              <tr key={i} className="border-b border-r border-gray-400">
                 <td>{renderDate(year)}</td>
-                <td className="text-left">{allAssetsTypes[type]}</td>
+                <td className="text-left border-r border-gray-400">{allAssetsTypes[type]}</td>
                 {tableData[year][type].declarant ? (
                   <>
                     <td>{tableData[year][type].declarant.UAH?.toLocaleString(i18n.language) || '---'}</td>
                     <td>{tableData[year][type].declarant.EUR?.toLocaleString(i18n.language) || '---'}</td>
                     <td>{tableData[year][type].declarant.USD?.toLocaleString(i18n.language) || '---'}</td>
-                    <td>
+                    <td className="border-r border-gray-400">
                       {tableData[year][type].declarant &&
                       otherCurrency(tableData[year][type].declarant)}
                     </td>
@@ -100,7 +100,7 @@ const PepMonetaryAssets = (props) => {
                     <td>---</td>
                     <td>---</td>
                     <td>---</td>
-                    <td>---</td>
+                    <td className="border-r border-gray-400">---</td>
                   </>
                 )}
                 {tableData[year][type].family ? (
