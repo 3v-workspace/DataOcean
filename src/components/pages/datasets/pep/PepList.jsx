@@ -37,6 +37,7 @@ const PepList = ({ match, history }) => {
       header: t('dateOfBirth'),
       prop: 'date_of_birth',
       width: '5%',
+      value: '',
       noSort: true,
       defaultSelected: true,
       render: (v) => renderDate(v),

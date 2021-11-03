@@ -6,6 +6,7 @@
   }
 
   .dropbtn {
+    outline: none;
     background-color: white;
     color: black;
     height: 32px;
@@ -26,11 +27,16 @@
     background-color: white;
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
     min-width: 200px;
-    left: 3%;
-    right: 3%;
+    left: 9%;
+    right: 9%;
     z-index: 10;
 
-    .chevron {
+    .chevron-container {
+      width: 100%;
+      flex-direction: column;
+      min-height: 100%;
+      display: flex;
+      justify-content: center;
       cursor: pointer;
     }
 
@@ -39,7 +45,7 @@
       cursor: pointer;
     }
 
-    .cell:hover, .chevron:hover {
+    .cell:hover, .chevron:hover, .chevron-container:hover {
       background-color: #F4F4F4;
     }
 
