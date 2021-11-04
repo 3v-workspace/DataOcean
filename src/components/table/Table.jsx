@@ -248,57 +248,59 @@ const Table = (props) => {
           </Tooltip>
         )}
       </div>
-      <Shadow scrollParams={scrollParams} top="37px" bottom="57px" borderRadius=".375rem" />
-      <div
-        className="overflow-x-auto box"
-        style={{ minHeight: `${minHeight}`, maxHeight: 'calc(100vh - 250px)' }}
-        ref={tableParentRef}
-        onScroll={checkScrollParams}
-      >
-        {tc.isLoading && (
-          <div className="w-full h-full bg-gray-700 bg-opacity-25 absolute flex items-center justify-center">
-            <LoadingIcon icon="three-dots" className="w-16 h-16" />
-          </div>
-        )}
-        <table className="table">
-          <thead className="text-white" style={{ backgroundColor: '#436986' }}>
-            <tr>
-              {selectedColumns.map((col) => (
-                <th
-                  style={{ width: col.width }}
-                  key={col.prop}
-                  className="border-b-2 whitespace-no-wrap"
-                >
-                  <div
-                    className={`flex items-center h-8 ${!col.noSort ? 'cursor-pointer' : ''}`}
-                    onClick={() => handleHeaderClick(col)}
+      <div className="relative">
+        <Shadow scrollParams={scrollParams} borderRadius=".375rem" />
+        <div
+          className="overflow-x-auto box"
+          style={{ minHeight: `${minHeight}`, maxHeight: 'calc(100vh - 250px)' }}
+          ref={tableParentRef}
+          onScroll={checkScrollParams}
+        >
+          {tc.isLoading && (
+            <div className="w-full h-full bg-gray-700 bg-opacity-25 absolute flex items-center justify-center">
+              <LoadingIcon icon="three-dots" className="w-16 h-16" />
+            </div>
+          )}
+          <table className="table">
+            <thead className="text-white" style={{ backgroundColor: '#436986' }}>
+              <tr>
+                {selectedColumns.map((col) => (
+                  <th
+                    style={{ width: col.width }}
+                    key={col.prop}
+                    className="border-b-2 whitespace-no-wrap"
                   >
-                    {col.header}
-                    {!col.noSort && (
-                      <div className="px-4 flex justify-center items-center">
-                        {renderSortArrow(col)}
-                      </div>
-                    )}
-                  </div>
-                  <div>
-                    {!HIDE_FILTERS && col.filter && (
-                      <FilterField
-                        filter={col.filter}
-                        value={filters[col.filter.name]}
-                        defaultValue={defaultFilters[col.filter.name]}
-                        onChange={onFilterChange}
-                        onSearch={reloadTable}
-                      />
-                    )}
-                  </div>
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {getTableBody()}
-          </tbody>
-        </table>
+                    <div
+                      className={`flex items-center h-8 ${!col.noSort ? 'cursor-pointer' : ''}`}
+                      onClick={() => handleHeaderClick(col)}
+                    >
+                      {col.header}
+                      {!col.noSort && (
+                        <div className="px-4 flex justify-center items-center">
+                          {renderSortArrow(col)}
+                        </div>
+                      )}
+                    </div>
+                    <div>
+                      {!HIDE_FILTERS && col.filter && (
+                        <FilterField
+                          filter={col.filter}
+                          value={filters[col.filter.name]}
+                          defaultValue={defaultFilters[col.filter.name]}
+                          onChange={onFilterChange}
+                          onSearch={reloadTable}
+                        />
+                      )}
+                    </div>
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {getTableBody()}
+            </tbody>
+          </table>
+        </div>
       </div>
       <div className="px-5 mt-5">
         <Pagination tableController={tc} />

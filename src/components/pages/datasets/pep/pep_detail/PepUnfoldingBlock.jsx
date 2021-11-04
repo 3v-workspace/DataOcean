@@ -63,19 +63,17 @@ const PepUnfoldingBlock = (props) => {
 
   return (
     <>
-      <Shadow
-        scrollParams={scrollParams}
-        top="53px"
-        bottom={isOverflow ? '52px' : '0'}
-      />
       <div className="p-6">
-        <div
-          className="overflow-x-auto overflow-y-hidden p-px"
-          ref={unfoldingWindowRef}
-          style={{ maxHeight: `${isOpen ? '' : 'calc(100vh - 250px)'}` }}
-          onScroll={checkScrollParams}
-        >
-          {children}
+        <div className="relative">
+          <Shadow scrollParams={scrollParams} />
+          <div
+            className="overflow-x-auto overflow-y-hidden p-px"
+            ref={unfoldingWindowRef}
+            style={{ maxHeight: `${isOpen ? '' : 'calc(100vh - 250px)'}` }}
+            onScroll={checkScrollParams}
+          >
+            {children}
+          </div>
         </div>
       </div>
       { isOverflow && (

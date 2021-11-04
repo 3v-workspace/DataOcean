@@ -33,37 +33,43 @@ const PepLiability = (props) => {
     return total;
   }, []);
 
-  const liabilityTable = (owner) => (
-    <table className="table text-center">
-      <caption className="text-gray-700 font-medium mb-3">{owner === 'sumDeclarant' ? t('declarant') : t('family')}</caption>
-      <thead>
-        <tr className="bg-gray-200 text-gray-700 font-medium">
-          <td>{t('year')}</td>
-          <td>UAH</td>
-          <td>EUR</td>
-          <td>USD</td>
-          <td>{t('other')}</td>
-        </tr>
-      </thead>
-      <tbody>
-        {sortedLiabilitydata.map((item, i) => (
-          <tr key={i} className="border-b border-gray-200 whitespace-nowrap">
-            <td>{renderDate(item.year.toString())}</td>
-            <td>{item[owner]?.UAH?.toLocaleString(i18n.language) || '---'}</td>
-            <td>{item[owner]?.EUR?.toLocaleString(i18n.language) || '---'}</td>
-            <td>{item[owner]?.USD?.toLocaleString(i18n.language) || '---'}</td>
-            <td>{item[owner] ? otherCurrency(item[owner]) : '---'}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  );
-
   return (
-    <div className="flex">
-      {liabilityTable('sumDeclarant')}
-      {liabilityTable('sumFamily')}
-    </div>
+    <>
+      <table className="table text-center rounded-md border-none" style={{ boxShadow: '0 0 0 1px #dedede' }}>
+        <thead className="bg-gray-200 text-gray-700 font-medium">
+          <tr className="border-b border-gray-400 rounded-md">
+            <td rowSpan="2" className="border-r border-gray-400">{t('year')}</td>
+            <th colSpan="4" className="border-r border-gray-400">{t('declarant')}</th>
+            <th colSpan="4">{t('family')}</th>
+          </tr>
+          <tr className="border-b border-gray-400">
+            <th>UAH</th>
+            <th>EUR</th>
+            <th>USD</th>
+            <th className="border-r border-gray-400">{t('other')}</th>
+            <th>UAH</th>
+            <th>EUR</th>
+            <th>USD</th>
+            <th className="border-r border-gray-400">{t('other')}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {sortedLiabilitydata.map((item, i) => (
+            <tr key={i} className="border-b border-gray-400 whitespace-nowrap rounded-md">
+              <td className="border-r border-gray-400">{renderDate(item.year.toString())}</td>
+              <td>{item.sumDeclarant?.UAH?.toLocaleString(i18n.language) || '---'}</td>
+              <td>{item.sumDeclarant?.EUR?.toLocaleString(i18n.language) || '---'}</td>
+              <td>{item.sumDeclarant?.USD?.toLocaleString(i18n.language) || '---'}</td>
+              <td className="border-r border-gray-400">{item.sumDeclarant ? otherCurrency(item.sumDeclarant) : '---'}</td>
+              <td>{item.sumFamily?.UAH?.toLocaleString(i18n.language) || '---'}</td>
+              <td>{item.sumFamily?.EUR?.toLocaleString(i18n.language) || '---'}</td>
+              <td>{item.sumFamily?.USD?.toLocaleString(i18n.language) || '---'}</td>
+              <td>{item.sumFamily ? otherCurrency(item.sumFamily) : '---'}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </>
   );
 };
 

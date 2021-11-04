@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 const Shadow = (props) => {
   const { scrollParams, top, bottom, left, right, borderRadius } = props;
 
-  let className = 'table-shadow ';
+  let className = 'inset-0 table-shadow ';
   if (scrollParams.scrollWidth > scrollParams.offsetWidth) {
     if (scrollParams.scrollLeft === 0) {
       className += 'table-shadow-r';
