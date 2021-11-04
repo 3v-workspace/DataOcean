@@ -375,7 +375,7 @@ const PepDetail = ({ match, history }) => {
         onClick={() => history.goBack()}
       >
         <ArrowLeft className="h-5 ml-2" />
-        {t('back')}
+        {t('backToSearchResults')}
       </button>
       <div className="flex text-base pb-16">
         <div className="flex-grow mr-8 w-px">

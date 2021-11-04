@@ -33,6 +33,7 @@
   "authorizedCapital": "Authorized capital",
   "back": "Back",
   "backToHome": "Back to Home",
+  "backToSearchResults": "Back to search results",
   "bars": "Bars",
   "baseProjectCantBeDeactivated": "The base project can't be deactivated",
   "byLink": "by link",
@@ -339,12 +340,12 @@
   "pepTypes": {
     "PEPwithPoliticalFunctions": "PEP with political functions in international organization",
     "associatedPersonWithPEP": "Associated person with PEP",
+    "associatesIndividualsHavingBusiness": "Associates – individuals having business or personal connections with family members of national or foreign politically exposed persons and those having political functions in international organizations, as well as legal entities, that have politically exposed persons, their family members or individuals having business or personal connections as final beneficiary owners (controllers).",
     "familyMemberOfPEP": "Member of PEP`s family",
     "foreignPEP": "Foreign politically exposed person",
     "nationalPEP": "National politically exposed person",
     "nationalPoliticallyExposedPersons": "National politically exposed persons, according to the Law, are defined as individuals exercising or havingexercised in the last three years specific public functions in Ukraine.",
-    "theNationalLaw": "The national law uses the term “close persons” in reference to the closest relatives of politically exposed persons, under the Law of Ukraine “On Corruption Prevention”. However, Recommendation 12 of FATF and Fourth Anti-Money Laundering Directive use the term “Family members”. The Law has no mention of the term “family members” of a national politically exposed person and its differentiation from the term “close person” of a national politically exposed person.",
-    "associatesIndividualsHavingBusiness": "Associates – individuals having business or personal connections with family members of national or foreign politically exposed persons and those having political functions in international organizations, as well as legal entities, that have politically exposed persons, their family members or individuals having business or personal connections as final beneficiary owners (controllers)."
+    "theNationalLaw": "The national law uses the term “close persons” in reference to the closest relatives of politically exposed persons, under the Law of Ukraine “On Corruption Prevention”. However, Recommendation 12 of FATF and Fourth Anti-Money Laundering Directive use the term “Family members”. The Law has no mention of the term “family members” of a national politically exposed person and its differentiation from the term “close person” of a national politically exposed person."
   },
   "person": "Person",
   "person-sanction": "Sanctions against persons",
