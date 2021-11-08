@@ -35,6 +35,12 @@ const PersonResultsPage = (props) => {
     .replace(/\s+/g, ' ')
     .trim();
 
+  const extactCitizenship = (data) => {
+    const countries = data.flatMap((record) => record.countries_of_citizenship)
+      .map((country) => getLocaleField(country, 'name'));
+    return [...new Set(countries)].join(', ');
+  };
+
   if (!params.last_name) {
     return <SearchNoResults queryString={queryString} />;
   }
@@ -92,20 +98,20 @@ const PersonResultsPage = (props) => {
                       <td className="font-bold pl-2">{renderDate(person.date_of_birth)}</td>
                     </tr>
                   )}
-                  {!!person.citizenships.length && (
+                  {!!Object.keys(person.citizenship_data).length && (
                     <tr>
-                      <td>{t('famousCitizenships')}:</td>
+                      <td>{t('knownCitizenship')}:</td>
                       <td className="font-bold pl-2">
-                        {person.citizenships.map((country) => getLocaleField(country, 'name')).join(', ')}
+                        {extactCitizenship(person.citizenship_data)}
                       </td>
                     </tr>
                   )}
-                  {person.residence && (
-                    <tr>
-                      <td>{t('countryOfResidence')}:</td>
-                      <td className="font-bold pl-2">{getLocaleField(person.residence, 'name')}</td>
-                    </tr>
-                  )}
+                  {/*{!!Object.keys(person.residence_data).length && (*/}
+                  {/*  <tr>*/}
+                  {/*    <td>{t('countryOfResidence')}:</td>*/}
+                  {/*    <td className="font-bold pl-2">{extractResidence}</td>*/}
+                  {/*  </tr>*/}
+                  {/*)}*/}
                   {person.gender && (
                     <tr>
                       <td>{t('gender')}:</td>
