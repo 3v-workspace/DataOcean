@@ -250,25 +250,29 @@ const PepDetail = ({ match, history }) => {
       { label: 'lastPlaceOfWork', value: getLocaleField(pep, 'last_employer') },
     ];
     return (
-      <div className="flex flex-col block-black">
-        <div className="inline-flex mb-3">
-          <div className="w-40 lg:w-64 font-bold">{t('pepDetailType')}:</div>
-          <div className="max-w-xl">{pep.pep_type_display}</div>
-          <Tooltip
-            className="w-70 md:w-auto"
-            position="right"
-            content={checkPepType}
-          >
-            <AlertCircle className="w-4 h-4 ml-2 text-blue-600" />
-          </Tooltip>
-        </div>
-        {shortInfoFields.map((info, i) => (info.value && !(info.value === '---') ? (
-          <div className="inline-flex mb-3" key={i}>
-            <div className="w-40 lg:w-64 font-bold">{t(info.label)}:</div>
-            <div className="max-w-xl">{info.render ? info.render(info.value) : info.value}</div>
-          </div>
-        ) : null))}
-      </div>
+      <table>
+        <tbody className="block-black align-top">
+          <tr>
+            <td className="w-40 lg:w-64 font-bold pb-3">{t('pepDetailType')}:</td>
+            <td className="inline-flex max-w-xl">
+              {pep.pep_type_display}
+              <Tooltip
+                className="w-70 md:w-auto"
+                position="right"
+                content={checkPepType}
+              >
+                <AlertCircle className="w-4 h-4 ml-2 text-blue-600" />
+              </Tooltip>
+            </td>
+          </tr>
+          {shortInfoFields.map((info) => (info.value && !(info.value === '---') ? (
+            <tr key={info.label}>
+              <td className="w-40 lg:w-64 font-bold pb-3">{t(info.label)}:</td>
+              <td className="max-w-xl">{info.render ? info.render(info.value) : info.value}</td>
+            </tr>
+          ) : null))}
+        </tbody>
+      </table>
     );
   };
 
