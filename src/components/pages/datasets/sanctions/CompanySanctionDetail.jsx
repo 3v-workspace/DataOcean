@@ -8,6 +8,7 @@ import Tooltip from 'components/Tooltip';
 import { ReactComponent as EmptyLogo } from 'images/logo_company.svg';
 import useTopBarHiddingEffect from 'hooks/useTopBarHiddingEffect';
 import { renderCondition } from 'utils/conditions';
+import SanctionTableShadow from './SanctionTableShadow';
 
 const CompanySanctionDetail = () => {
   const [data, setData] = useState({});
@@ -27,7 +28,7 @@ const CompanySanctionDetail = () => {
     }
     return (
       <div className="intro-y mt-6 col-span-12">
-        <div className="overflow-auto md:overflow-hidden">
+        <SanctionTableShadow>
           <table className="table">
             <thead>
               <tr className="bg-gray-200 text-gray-700 font-medium">
@@ -53,7 +54,7 @@ const CompanySanctionDetail = () => {
               ))}
             </tbody>
           </table>
-        </div>
+        </SanctionTableShadow>
       </div>
     );
   };
