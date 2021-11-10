@@ -119,7 +119,7 @@ const CompanySanctionDetail = () => {
             </div>
           </Tooltip>
         </div>
-        <div className="intro-y space-y-1 block lg:flex flex-row justify-around">
+        <div className="intro-y space-y-1 flex flex-row justify-around">
           <div className="py-4 px-5 self-auto content-around justify-start">
             <EmptyLogo />
           </div>
