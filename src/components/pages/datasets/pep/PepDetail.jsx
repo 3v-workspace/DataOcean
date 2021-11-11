@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState, Fragment } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useLocation } from 'react-router-dom';
 import Api from 'api';
 import { useDispatch } from 'react-redux';
 import { setOverflow } from 'store/interface/actionCreators';
@@ -20,6 +21,7 @@ import { asyncBlocks, pepBlocks, ASYNCBLOCK, INFOBLOCK } from './pep_detail/cons
 
 
 const PepDetail = ({ match, history }) => {
+  const location = useLocation();
   const dispatch = useDispatch();
   const defaultState = Object.keys(asyncBlocks).reduce((block, data) => {
     block[data] = [];
@@ -359,8 +361,18 @@ const PepDetail = ({ match, history }) => {
   useTopBarHiddingEffect();
 
   useEffect(() => {
+    if (location.hash) {
+      const element = document.getElementById(location.hash.substr(1));
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else {
+      window.scrollTo(0, 0);
+    }
+  }, [data]);
+
+  useEffect(() => {
     dispatch(setOverflow(false));
-    window.scrollTo(0, 0);
     fetchData();
     return () => {
       dispatch(setOverflow(true));
@@ -383,7 +395,7 @@ const PepDetail = ({ match, history }) => {
       </button>
       <div className="flex text-base pb-16">
         <div className="flex-grow mr-8 w-px">
-          <div className="box border border-gray-400 p-6" ref={mainRef}>
+          <div className="box border border-gray-400 p-6" ref={mainRef} id={pepBlocks.MAIN_INFO}>
             <div className="flex flex-col lg:flex-row">
               <div className="flex flex-auto items-start justify-start mt-1">
                 <PepIcon />
