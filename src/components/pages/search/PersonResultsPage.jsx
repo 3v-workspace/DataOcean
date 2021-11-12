@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { ReactRouterPropTypes } from 'utils/prop-types';
 import { Button } from 'components/form-components';
 import { ReactComponent as PepIcon } from 'images/logo_person.svg';
@@ -10,6 +11,7 @@ import { useTableController } from 'components/table';
 import PaginationPages from 'components/table/PaginationPages';
 import { useTranslation, Trans } from 'react-i18next';
 import Tooltip from 'components/Tooltip';
+import { asyncBlocks, pepBlocks } from 'components/pages/datasets/pep/pep_detail/const';
 
 
 const PersonResultsPage = (props) => {
@@ -50,6 +52,27 @@ const PersonResultsPage = (props) => {
     return <SearchNoResults queryString={queryString} />;
   }
 
+  const getTags = (person) => {
+    const list_tags = [
+      { field: person.is_pep, translation: 'mentionedInTheRegistersOfPEP', id: pepBlocks.MAIN_INFO },
+      { field: person.pep_data[0].pep_type_display, translation: '', id: pepBlocks.MAIN_INFO },
+      { field: person.pep_data[0].criminal_proceedings, translation: 'criminalProceedings', id: pepBlocks.CRIMINAL },
+      { field: person.sanction_data[0], translation: 'sanctionsDetail', id: asyncBlocks.SANCTION },
+    ];
+
+    return list_tags.map((data, i) => (
+      data.field && (
+        <Link
+          className="px-3 border border-gray-700 rounded-full text-xs mr-2 mb-2"
+          to={`/system/datasets/pep/${person.pep_data[0].id}/#${data.id}`}
+          key={i}
+        >
+          {data.translation ? t(data.translation) : data.field}
+        </Link>
+      )
+    ));
+  };
+
   return (
     <div className="py-5">
       <div className="flex items-center text-xl mb-3">
@@ -83,11 +106,7 @@ const PersonResultsPage = (props) => {
                 {i18n.language === 'en' ? person.full_name_original : person.full_name}
               </div>
               <div className="flex flex-wrap my-2">
-                {person.is_pep && (
-                  <div className="px-3 border border-gray-700 rounded-full text-xs">
-                    {t('mentionedInTheRegistersOfPEP')}
-                  </div>
-                )}
+                {getTags(person)}
               </div>
               <table>
                 <tbody>

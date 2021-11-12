@@ -15,7 +15,7 @@ const InformationBlock = (props) => {
   const color = getColor(block.blockProps.data);
 
   return (
-    <div className="intro-x box border border-gray-400 mt-6" ref={block.ref}>
+    <div className="intro-x box border border-gray-400 mt-6" ref={block.ref} id={block.id}>
       <div
         className={
           `flex items-center px-5 py-4 sm:py-3 border-b border-gray-400 cursor-pointer ${color} 
