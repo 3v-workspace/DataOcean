@@ -80,12 +80,18 @@ const PersonSanctionDetail = () => {
       { label: t('taxpayerNumber'), value: data.taxpayer_number },
       { label: t('referenceData'), value: data.additional_info },
     ];
-    return infoFields.map((info, i) => (info.value ? (
-      <div className="pl-5 mb-1 flex" key={i}>
-        <div className="w-4/12 pr-1 font-medium">{info.label}:</div>
-        <div className="w-4/6 self-end ">{info.render ? info.render(info.value) : info.value}</div>
-      </div>
-    ) : null));
+    return (
+      <table className="pl-5 mb-1 flex">
+        <tbody>
+          {infoFields.map((info, i) => (info.value ? (
+            <tr key={i}>
+              <td className="w-4/12 pr-1 font-medium align-top pb-1">{info.label}:</td>
+              <td className="w-4/6 align-bottom">{info.render ? info.render(info.value) : info.value}</td>
+            </tr>
+          ) : null))}
+        </tbody>
+      </table>
+    );
   };
 
   useTopBarHiddingEffect();
