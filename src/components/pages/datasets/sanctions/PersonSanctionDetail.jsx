@@ -7,6 +7,7 @@ import { Download, Printer, ArrowLeft } from 'react-feather';
 import Tooltip from 'components/Tooltip';
 import { ReactComponent as ImgPerson } from 'images/logo_person.svg';
 import useTopBarHiddingEffect from 'hooks/useTopBarHiddingEffect';
+import SanctionTableShadow from './SanctionTableShadow';
 
 const PersonSanctionDetail = () => {
   const [data, setData] = useState({});
@@ -27,7 +28,7 @@ const PersonSanctionDetail = () => {
     }
     return (
       <div className="intro-y mt-6 col-span-12">
-        <div className="overflow-auto md:overflow-hidden">
+        <SanctionTableShadow>
           <table className="table">
             <thead className="rounded-md">
               <tr className="bg-gray-200 text-gray-800 font-medium rounded-md">
@@ -53,7 +54,7 @@ const PersonSanctionDetail = () => {
               ))}
             </tbody>
           </table>
-        </div>
+        </SanctionTableShadow>
       </div>
     );
   };

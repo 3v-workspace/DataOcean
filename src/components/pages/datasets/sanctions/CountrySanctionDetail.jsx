@@ -7,6 +7,7 @@ import { Download, Printer, ArrowLeft } from 'react-feather';
 import Tooltip from 'components/Tooltip';
 import { ReactComponent as CountryLogo } from 'images/logo_country.svg';
 import useTopBarHiddingEffect from 'hooks/useTopBarHiddingEffect';
+import SanctionTableShadow from './SanctionTableShadow';
 
 const CountrySanctionDetail = () => {
   const [data, setData] = useState({});
@@ -27,7 +28,7 @@ const CountrySanctionDetail = () => {
     }
     return (
       <div className="intro-y col-span-12">
-        <div className="overflow-auto md:overflow-hidden">
+        <SanctionTableShadow>
           <table className="table">
             <thead>
               <tr className="bg-gray-200 text-gray-700 font-medium">
@@ -53,7 +54,7 @@ const CountrySanctionDetail = () => {
               ))}
             </tbody>
           </table>
-        </div>
+        </SanctionTableShadow>
       </div>
     );
   };

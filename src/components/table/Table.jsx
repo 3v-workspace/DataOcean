@@ -15,8 +15,7 @@ import Tooltip from 'components/Tooltip';
 import SelectColumns from 'components/table/SelectColumns';
 import setColumns from 'images/setColumns.svg';
 import { HIDE_EXPORT_BUTTON, HIDE_FILTERS, HIDE_SELECT_COLUMNS } from 'const';
-import Shadow from 'components/table/Shadow';
-import { debounce, throttle } from 'throttle-debounce';
+import Shadow, { resetScrollParams, handleWindowResize, checkScrollParams } from 'components/table/Shadow';
 
 const getDefaultFilterValues = (columns) => {
   const defaultValues = {};
@@ -165,33 +164,14 @@ const Table = (props) => {
     return <ArrowDown className="h-4" />;
   };
 
-  const resetScrollParams = () => {
-    setScrollParams({
-      scrollLeft: tableParentRef.current.scrollLeft,
-      offsetWidth: tableParentRef.current.offsetWidth,
-      scrollWidth: tableParentRef.current.scrollWidth,
-    });
-  };
-
-  const checkScrollParams = debounce(250, true, () => {
-    if (scrollParams.scrollLeft !== tableParentRef.current.scrollLeft) {
-      resetScrollParams();
-    }
-  });
-
   useEffect(() => {
-    resetScrollParams();
+    resetScrollParams(tableParentRef, setScrollParams);
   }, [selectedColumnsNames]);
 
   useEffect(() => {
-    const handleWindowResize = throttle(250, false, () => {
-      if (window.innerWidth > 780) {
-        resetScrollParams();
-      }
-    });
-    window.addEventListener('resize', handleWindowResize);
+    window.addEventListener('resize', () => { handleWindowResize(tableParentRef, setScrollParams); });
     return () => {
-      window.removeEventListener('resize', handleWindowResize);
+      window.removeEventListener('resize', () => { handleWindowResize(tableParentRef, setScrollParams); });
     };
   }, []);
 
@@ -254,7 +234,7 @@ const Table = (props) => {
           className="overflow-x-auto box"
           style={{ minHeight: `${minHeight}`, maxHeight: 'calc(100vh - 250px)' }}
           ref={tableParentRef}
-          onScroll={checkScrollParams}
+          onScroll={() => checkScrollParams(tableParentRef, scrollParams, setScrollParams)}
         >
           {tc.isLoading && (
             <div className="w-full h-full bg-gray-700 bg-opacity-25 absolute flex items-center justify-center">

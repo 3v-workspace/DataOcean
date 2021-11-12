@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
-import Shadow from 'components/table/Shadow';
+import Shadow, { resetScrollParams, checkScrollParams } from 'components/table/Shadow';
 import { ChevronDown, ChevronUp } from 'react-feather';
-import { debounce, throttle } from 'throttle-debounce';
+import { throttle } from 'throttle-debounce';
 import { scrollToRef } from './utils';
 
 const PepUnfoldingBlock = (props) => {
@@ -19,21 +19,6 @@ const PepUnfoldingBlock = (props) => {
   });
   const unfoldingWindowRef = useRef();
 
-
-  const resetScrollParams = () => {
-    setScrollParams({
-      scrollLeft: unfoldingWindowRef.current.scrollLeft,
-      offsetWidth: unfoldingWindowRef.current.offsetWidth,
-      scrollWidth: unfoldingWindowRef.current.scrollWidth,
-    });
-  };
-
-  const checkScrollParams = debounce(250, true, () => {
-    if (scrollParams.scrollLeft !== unfoldingWindowRef.current.scrollLeft) {
-      resetScrollParams();
-    }
-  });
-
   const setOverflowBlock = () => {
     if (unfoldingWindowRef.current.scrollHeight > unfoldingWindowRef.current.offsetHeight) {
       setOverflow(true);
@@ -45,7 +30,7 @@ const PepUnfoldingBlock = (props) => {
   useEffect(() => {
     const handleWindowResize = throttle(250, false, () => {
       if (window.innerWidth > 780) {
-        resetScrollParams();
+        resetScrollParams(unfoldingWindowRef, setScrollParams);
       }
       setOverflowBlock();
     });
@@ -56,7 +41,7 @@ const PepUnfoldingBlock = (props) => {
   }, []);
 
   useEffect(() => {
-    resetScrollParams();
+    resetScrollParams(unfoldingWindowRef, setScrollParams);
     setOverflowBlock();
   }, [data]);
 
@@ -70,7 +55,7 @@ const PepUnfoldingBlock = (props) => {
             className="overflow-x-auto overflow-y-hidden p-px"
             ref={unfoldingWindowRef}
             style={{ maxHeight: `${isOpen ? '' : 'calc(100vh - 250px)'}` }}
-            onScroll={checkScrollParams}
+            onScroll={() => checkScrollParams(unfoldingWindowRef, scrollParams, setScrollParams)}
           >
             {children}
           </div>
