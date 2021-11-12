@@ -46,10 +46,10 @@ const PepSanction = (props) => {
             <th>{t('cancelingConditions')}</th>
           </tr>
         </thead>
-        <tbody className="rounded-sm border-none" style={{ border: '2px solid #B10000', background: '#FFF4F4', boxShadow: '0 0 0 2px #B10000' }}>
+        <tbody className="rounded-sm border-none" style={{ background: '#FFF4F4', boxShadow: 'inset 0 0 0 1px #B10000', outline: '2px solid rgb(177 0 0)', outlineOffset: '-3px' }}>
           <tr className="h-6">
             <td className="p-0">
-              <span className="px-5 float-left font-bold text-white" style={{ background: '#B10000' }}>{t('activeSanctions')}</span>
+              <span className="px-5 float-left font-bold text-white" style={{ background: '#B10000', borderRadius: '2px 0px' }}>{t('activeSanctions')}</span>
             </td>
             <td className="p-0" colSpan="5" />
           </tr>
