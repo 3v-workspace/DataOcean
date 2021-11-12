@@ -36,8 +36,7 @@ const PersonResultsPage = (props) => {
     .trim();
 
   const extactCitizenship = (data) => {
-    const countries = data.flatMap((record) => record.countries_of_citizenship)
-      .map((country) => getLocaleField(country, 'name'));
+    const countries = data.map((country) => getLocaleField(country, 'name'));
     return [...new Set(countries)].join(', ');
   };
 
