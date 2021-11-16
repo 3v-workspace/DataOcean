@@ -12,9 +12,7 @@ const PepMonetaryAssets = (props) => {
     return typesObj;
   }, {});
 
-  const filterData = data.filter((money) => money.amount !== null);
-
-  const tableData = filterData.reduce((total, money) => {
+  const tableData = data.reduce((total, money) => {
     const owner = money.owner.id !== pepId ? 'family' : 'declarant';
     const amount = Number(money.amount);
 

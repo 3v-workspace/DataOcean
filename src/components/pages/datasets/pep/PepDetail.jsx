@@ -177,7 +177,7 @@ const PepDetail = ({ match, history }) => {
       component: PepMonetaryAssets,
       type: ASYNCBLOCK,
       blockProps: {
-        data: data.MONETARY_ASSETS,
+        data: data.MONETARY_ASSETS.filter((money) => money.amount !== null),
         pepId: pep.id,
       },
       ref: monetaryAssetsRef,
