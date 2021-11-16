@@ -76,12 +76,12 @@ const CompanySanctionDetail = () => {
       { label: t('referenceData'), value: data.additional_info },
     ];
     return (
-      <table className="pl-5 mb-1 flex">
+      <table className="lg:pl-5 mb-1 flex">
         <tbody>
           {infoFields.map((info, i) => (info.value ? (
             <tr key={i}>
               <td className="w-4/12 pr-1 font-medium align-top pb-1">{info.label}:</td>
-              <td className="w-4/6 align-bottom">{info.render ? info.render(info.value) : info.value}</td>
+              <td className="w-4/6 align-bottom pb-1">{info.render ? info.render(info.value) : info.value}</td>
             </tr>
           ) : null))}
         </tbody>
@@ -130,7 +130,7 @@ const CompanySanctionDetail = () => {
             <EmptyLogo />
           </div>
           <div className="block flex flex-col md:w-3/5">
-            <div className="py-4 pl-5 max-w-screen-sm">
+            <div className="py-4 lg:pl-5 max-w-screen-sm">
               <h2 className="text-2xl font-medium mr-auto capitalize">
                 {data.name}
               </h2>
