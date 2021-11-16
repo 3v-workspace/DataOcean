@@ -14,7 +14,8 @@ import {
   Home, Money, Name, Wallet, MainInfo, PepIcon, SpendMoney, MonetaryAssets,
   InformationBlock, AsyncInformationBlock, PepCriminal, PepLiability, PepMonetaryAssets,
   PepMoney, PepProperty, PepSanction, PepVehicle, PepCareer, PepHtml,
-  PepRelatedPerson, PepRelatedCompanies, PepOtherNames, PepMenu,
+  PepRelatedPerson, PepRelatedCompanies, PepOtherNames, PepMenu, IntangibleAssets,
+  IntangibleAssetsIcon,
 } from './pep_detail';
 import { prepareRelatedPersonData, scrollToRef, getColor } from './pep_detail/utils';
 import { asyncBlocks, pepBlocks, ASYNCBLOCK, INFOBLOCK } from './pep_detail/const';
@@ -68,6 +69,7 @@ const PepDetail = ({ match, history }) => {
   const relatedPersonRef = useRef();
   const giftRef = useRef();
   const expendituresRef = useRef();
+  const intangibleAssetsRef = useRef();
   const fetchData = () => {
     Api.get(`pep/${id}/`, {
       useProjectToken: true,
@@ -194,6 +196,15 @@ const PepDetail = ({ match, history }) => {
         data: data.GIFT,
       },
       ref: giftRef,
+    },
+    {
+      id: pepBlocks.INTANGIBLE_ASSETS,
+      title: 'intangibleAssets',
+      titleIcon: IntangibleAssetsIcon,
+      component: IntangibleAssets,
+      blockProps: { data: pep.cryptocurrencies_from_last_declaration },
+      type: INFOBLOCK,
+      ref: intangibleAssetsRef,
     },
     {
       id: asyncBlocks.REAL_ESTATE,
