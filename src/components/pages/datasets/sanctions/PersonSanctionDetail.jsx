@@ -3,11 +3,11 @@ import { useTranslation } from 'react-i18next';
 import { getLocaleField, isPep, renderDate } from 'utils';
 import { useParams, useHistory } from 'react-router-dom';
 import Api from 'api';
-import { Download, Printer, ArrowLeft } from 'react-feather';
-import Tooltip from 'components/Tooltip';
+import { ArrowLeft } from 'react-feather';
 import { ReactComponent as ImgPerson } from 'images/logo_person.svg';
 import useTopBarHiddingEffect from 'hooks/useTopBarHiddingEffect';
 import SanctionTableShadow from './SanctionTableShadow';
+import PrintDownloadSanction from './PrintDownloadSanction';
 
 const PersonSanctionDetail = () => {
   const [data, setData] = useState({});
@@ -114,21 +114,7 @@ const PersonSanctionDetail = () => {
             {t('back')}
           </a>
         </div>
-        <Tooltip
-          position="bottom"
-          arrow={false}
-          content={t('inDevelopment')}
-          className="cursor-default"
-        >
-          <div className="inline-flex mr-8 pt-2">
-            <Printer className="w-5 h-5 mr-1" />
-            {t('print')}
-          </div>
-          <div className="inline-flex">
-            <Download className="w-5 h-5 mr-1" />
-            {t('export.downloadPdf')}
-          </div>
-        </Tooltip>
+        <PrintDownloadSanction id={data.id} name={data.full_name_original} dataset="sanction/person/" />
       </div>
       <div className="intro-y space-y-1 flex flex-row justify-around">
         <div className="py-4 px-5 self-auto content-around">
@@ -159,23 +145,7 @@ const PersonSanctionDetail = () => {
           {getSanctions(data.types_of_sanctions)}
         </div>
       </div>
-      <div className="pt-5 pb-10 pr-5 text-blue-800 flex flex-row justify-end font-medium">
-        <Tooltip
-          position="bottom"
-          arrow={false}
-          content={t('inDevelopment')}
-          className="cursor-default"
-        >
-          <div className="inline-flex mr-8">
-            <Printer className="w-5 h-5 mr-1" />
-            {t('print')}
-          </div>
-          <div className="inline-flex">
-            <Download className="w-5 h-5 mr-1" />
-            {t('export.downloadPdf')}
-          </div>
-        </Tooltip>
-      </div>
+      <PrintDownloadSanction className="pt-5 pb-10 mb-5" id={data.id} name={data.full_name_original} dataset="sanction/person/" />
     </div>
   );
 };
