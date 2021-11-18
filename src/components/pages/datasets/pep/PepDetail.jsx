@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import Api from 'api';
 import { useDispatch } from 'react-redux';
 import { setOverflow } from 'store/interface/actionCreators';
-import { AlertCircle, ArrowLeft, Download } from 'react-feather';
+import { HelpCircle, ArrowLeft, Download } from 'react-feather';
 import { renderDate, getLocaleField } from 'utils';
 import { ReactRouterPropTypes } from 'utils/prop-types';
 import useTopBarHiddingEffect from 'hooks/useTopBarHiddingEffect';
@@ -17,7 +17,6 @@ import {
 } from './pep_detail';
 import { prepareRelatedPersonData, scrollToRef, getColor } from './pep_detail/utils';
 import { asyncBlocks, pepBlocks, ASYNCBLOCK, INFOBLOCK } from './pep_detail/const';
-
 
 const PepDetail = ({ match, history }) => {
   const dispatch = useDispatch();
@@ -232,7 +231,6 @@ const PepDetail = ({ match, history }) => {
       ref: additionalInfoRef,
     },
   ];
-
   const tooltipList = {
     'national PEP': t('pepTypes.nationalPoliticallyExposedPersons'),
     'member of PEP`s family': t('pepTypes.theNationalLaw'),
@@ -254,13 +252,15 @@ const PepDetail = ({ match, history }) => {
         <div className="inline-flex mb-3">
           <div className="w-40 lg:w-64 font-bold">{t('pepDetailType')}:</div>
           <div className="max-w-xl">{pep.pep_type_display}</div>
+          {checkPepType && (
           <Tooltip
             className="w-70 md:w-auto"
             position="right"
             content={checkPepType}
           >
-            <AlertCircle className="w-4 h-4 ml-2 text-blue-600" />
+            <HelpCircle className="w-4 h-4 ml-2 text-blue-600" />
           </Tooltip>
+          )}
         </div>
         {shortInfoFields.map((info, i) => (info.value && !(info.value === '---') ? (
           <div className="inline-flex mb-3" key={i}>
