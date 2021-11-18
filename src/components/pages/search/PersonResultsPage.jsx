@@ -55,20 +55,40 @@ const PersonResultsPage = (props) => {
 
   const getTags = (person) => {
     const list_tags = [
-      { field: person.is_pep, translation: 'mentionedInTheRegistersOfPEP', id: pepBlocks.MAIN_INFO },
-      { field: person.pep_data[0].pep_type_display, translation: '', id: pepBlocks.MAIN_INFO },
-      { field: person.pep_data[0].criminal_proceedings, translation: 'criminalProceedings', id: pepBlocks.CRIMINAL },
-      { field: person.sanction_data[0], translation: 'sanctionsDetail', id: asyncBlocks.SANCTION },
+      {
+        field: person.is_pep,
+        translation: 'mentionedInTheRegistersOfPEP',
+        id: pepBlocks.MAIN_INFO,
+        generateUrl: (tagId) => `/system/datasets/pep/${person.pep_data[0]?.id}/#${tagId}`,
+      },
+      {
+        field: person.pep_data[0]?.pep_type_display,
+        translation: '',
+        id: pepBlocks.MAIN_INFO,
+        generateUrl: (tagId) => `/system/datasets/pep/${person.pep_data[0]?.id}/#${tagId}`,
+      },
+      {
+        field: person.pep_data[0]?.criminal_proceedings,
+        translation: 'criminalProceedings',
+        id: pepBlocks.CRIMINAL,
+        generateUrl: (tagId) => `/system/datasets/pep/${person.pep_data[0]?.id}/#${tagId}`,
+      },
+      {
+        field: person.sanction_data[0],
+        translation: 'sanctionsDetail',
+        id: asyncBlocks.SANCTION,
+        generateUrl: (tagId) => `/system/datasets/person-sanction/${person.sanction_data[0].id}/`,
+      },
     ];
 
-    return list_tags.map((data, i) => (
-      data.field && (
+    return list_tags.map((tag, i) => (
+      tag.field && (
         <Link
           className="px-3 border border-gray-700 rounded-full text-xs mr-2 mb-2"
-          to={`/system/datasets/pep/${person.pep_data[0].id}/#${data.id}`}
+          to={tag.generateUrl(tag.id)}
           key={i}
         >
-          {data.translation ? t(data.translation) : data.field}
+          {tag.translation ? t(tag.translation) : tag.field}
         </Link>
       )
     ));
