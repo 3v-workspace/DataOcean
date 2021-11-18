@@ -12,6 +12,7 @@ import PaginationPages from 'components/table/PaginationPages';
 import { useTranslation, Trans } from 'react-i18next';
 import Tooltip from 'components/Tooltip';
 import { asyncBlocks, pepBlocks } from 'components/pages/datasets/pep/pep_detail/const';
+import { PERSON_DEBUG } from 'const/testing';
 
 
 const PersonResultsPage = (props) => {
@@ -164,13 +165,38 @@ const PersonResultsPage = (props) => {
                     </div>
                   </Tooltip>
                 </div>
-                <Button
-                  className="px-8"
-                  variant="outline-primary"
-                  link={`/system/datasets/pep/${person.pep_data[0].id}`}
-                >
-                  {t('view')}
-                </Button>
+                {PERSON_DEBUG ? (
+                  <>
+                    {person.pep_data.map((pep) => (
+                      <Button
+                        className="px-8"
+                        key={pep.id}
+                        variant="outline-primary"
+                        link={`/system/datasets/pep/${pep.id}/`}
+                      >
+                        Related PEP {pep.id}
+                      </Button>
+                    ))}
+                    {person.sanction_data.map((sanction) => (
+                      <Button
+                        className="px-8"
+                        key={sanction.id}
+                        variant="outline-primary"
+                        link={`/system/datasets/person-sanction/${sanction.id}/`}
+                      >
+                        Related sanction {sanction.id}
+                      </Button>
+                    ))}
+                  </>
+                ) : (
+                  <Button
+                    className="px-8"
+                    variant="outline-primary"
+                    link={`/system/datasets/pep/${person.pep_data[0].id}`}
+                  >
+                    {t('view')}
+                  </Button>
+                )}
               </div>
             </div>
           </div>
