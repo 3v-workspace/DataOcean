@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState, Fragment } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useLocation } from 'react-router-dom';
 import Api from 'api';
 import { useDispatch } from 'react-redux';
 import { setOverflow } from 'store/interface/actionCreators';
@@ -13,12 +14,14 @@ import {
   Home, Money, Name, Wallet, MainInfo, PepIcon, SpendMoney, MonetaryAssets,
   InformationBlock, AsyncInformationBlock, PepCriminal, PepLiability, PepMonetaryAssets,
   PepMoney, PepProperty, PepSanction, PepVehicle, PepCareer, PepHtml,
-  PepRelatedPerson, PepRelatedCompanies, PepOtherNames, PepMenu,
+  PepRelatedPerson, PepRelatedCompanies, PepOtherNames, PepMenu, IntangibleAssets,
+  IntangibleAssetsIcon,
 } from './pep_detail';
 import { prepareRelatedPersonData, scrollToRef, getColor } from './pep_detail/utils';
 import { asyncBlocks, pepBlocks, ASYNCBLOCK, INFOBLOCK } from './pep_detail/const';
 
 const PepDetail = ({ match, history }) => {
+  const location = useLocation();
   const dispatch = useDispatch();
   const defaultState = Object.keys(asyncBlocks).reduce((block, data) => {
     block[data] = [];
@@ -65,6 +68,7 @@ const PepDetail = ({ match, history }) => {
   const relatedPersonRef = useRef();
   const giftRef = useRef();
   const expendituresRef = useRef();
+  const intangibleAssetsRef = useRef();
   const fetchData = () => {
     Api.get(`pep/${id}/`, {
       useProjectToken: true,
@@ -172,7 +176,7 @@ const PepDetail = ({ match, history }) => {
       component: PepMonetaryAssets,
       type: ASYNCBLOCK,
       blockProps: {
-        data: data.MONETARY_ASSETS,
+        data: data.MONETARY_ASSETS.filter((money) => money.amount !== null),
         pepId: pep.id,
       },
       ref: monetaryAssetsRef,
@@ -191,6 +195,15 @@ const PepDetail = ({ match, history }) => {
         data: data.GIFT,
       },
       ref: giftRef,
+    },
+    {
+      id: pepBlocks.INTANGIBLE_ASSETS,
+      title: 'intangibleAssets',
+      titleIcon: IntangibleAssetsIcon,
+      component: IntangibleAssets,
+      blockProps: { data: pep.cryptocurrencies_from_last_declaration },
+      type: INFOBLOCK,
+      ref: intangibleAssetsRef,
     },
     {
       id: asyncBlocks.REAL_ESTATE,
@@ -355,8 +368,18 @@ const PepDetail = ({ match, history }) => {
   useTopBarHiddingEffect();
 
   useEffect(() => {
+    if (location.hash) {
+      const element = document.getElementById(location.hash.substr(1));
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else {
+      window.scrollTo(0, 0);
+    }
+  }, [data]);
+
+  useEffect(() => {
     dispatch(setOverflow(false));
-    window.scrollTo(0, 0);
     fetchData();
     return () => {
       dispatch(setOverflow(true));
@@ -379,7 +402,7 @@ const PepDetail = ({ match, history }) => {
       </button>
       <div className="flex text-base pb-16">
         <div className="flex-grow mr-8 w-px">
-          <div className="box border border-gray-400 p-6" ref={mainRef}>
+          <div className="box border border-gray-400 p-6" ref={mainRef} id={pepBlocks.MAIN_INFO}>
             <div className="flex flex-col lg:flex-row">
               <div className="flex flex-auto items-start justify-start mt-1">
                 <PepIcon />

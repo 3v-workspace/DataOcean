@@ -46,7 +46,13 @@ const PepSanction = (props) => {
             <th>{t('cancelingConditions')}</th>
           </tr>
         </thead>
-        <tbody className="border border-l border-red-400">
+        <tbody className="rounded-sm border-none" style={{ background: '#FFF4F4', boxShadow: 'inset 0 0 0 1px #B10000', outline: '2px solid rgb(177 0 0)', outlineOffset: '-3px' }}>
+          <tr className="h-6">
+            <td className="p-0">
+              <span className="px-5 float-left font-bold text-white" style={{ background: '#B10000', borderRadius: '2px 0px' }}>{t('activeSanctions')}</span>
+            </td>
+            <td className="p-0" colSpan="5" />
+          </tr>
           {sanctions.activeSanction.map((sanction) => (
             sanction.types_of_sanctions.map((type, i) => (
               <tr key={i} className={i === 0 ? '' : 'border-t border-gray-400'}>

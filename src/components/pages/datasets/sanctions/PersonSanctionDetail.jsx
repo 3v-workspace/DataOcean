@@ -7,6 +7,7 @@ import { Download, Printer, ArrowLeft } from 'react-feather';
 import Tooltip from 'components/Tooltip';
 import { ReactComponent as ImgPerson } from 'images/logo_person.svg';
 import useTopBarHiddingEffect from 'hooks/useTopBarHiddingEffect';
+import SanctionTableShadow from './SanctionTableShadow';
 
 const PersonSanctionDetail = () => {
   const [data, setData] = useState({});
@@ -27,7 +28,7 @@ const PersonSanctionDetail = () => {
     }
     return (
       <div className="intro-y mt-6 col-span-12">
-        <div className="overflow-auto md:overflow-hidden">
+        <SanctionTableShadow>
           <table className="table">
             <thead className="rounded-md">
               <tr className="bg-gray-200 text-gray-800 font-medium rounded-md">
@@ -53,7 +54,7 @@ const PersonSanctionDetail = () => {
               ))}
             </tbody>
           </table>
-        </div>
+        </SanctionTableShadow>
       </div>
     );
   };
@@ -80,12 +81,18 @@ const PersonSanctionDetail = () => {
       { label: t('taxpayerNumber'), value: data.taxpayer_number },
       { label: t('referenceData'), value: data.additional_info },
     ];
-    return infoFields.map((info, i) => (info.value ? (
-      <div className="pl-5 mb-1 flex" key={i}>
-        <div className="w-4/12 pr-1 font-medium">{info.label}:</div>
-        <div className="w-4/6 self-end ">{info.render ? info.render(info.value) : info.value}</div>
-      </div>
-    ) : null));
+    return (
+      <table className="lg:pl-5 mb-1 flex">
+        <tbody>
+          {infoFields.map((info, i) => (info.value ? (
+            <tr key={i}>
+              <td className="w-4/12 pr-1 font-medium align-top pb-1">{info.label}:</td>
+              <td className="w-4/6 pb-1 align-bottom">{info.render ? info.render(info.value) : info.value}</td>
+            </tr>
+          ) : null))}
+        </tbody>
+      </table>
+    );
   };
 
   useTopBarHiddingEffect();
@@ -123,12 +130,12 @@ const PersonSanctionDetail = () => {
           </div>
         </Tooltip>
       </div>
-      <div className="intro-y space-y-1 block lg:flex flex-row justify-around">
+      <div className="intro-y space-y-1 flex flex-row justify-around">
         <div className="py-4 px-5 self-auto content-around">
           <ImgPerson />
         </div>
         <div className="block flex flex-col md:w-3/5">
-          <div className="py-4 pl-5 max-w-screen-sm">
+          <div className="py-4 lg:pl-5 max-w-screen-sm">
             <h2 className="text-3xl font-bold mr-auto capitalize">
               {data.full_name}
             </h2>

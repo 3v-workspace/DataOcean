@@ -15,8 +15,7 @@ import Tooltip from 'components/Tooltip';
 import SelectColumns from 'components/table/SelectColumns';
 import setColumns from 'images/setColumns.svg';
 import { HIDE_EXPORT_BUTTON, HIDE_FILTERS, HIDE_SELECT_COLUMNS } from 'const';
-import Shadow from 'components/table/Shadow';
-import { debounce, throttle } from 'throttle-debounce';
+import Shadow, { resetScrollParams, handleWindowResize, checkScrollParams } from 'components/table/Shadow';
 
 const getDefaultFilterValues = (columns) => {
   const defaultValues = {};
@@ -165,33 +164,14 @@ const Table = (props) => {
     return <ArrowDown className="h-4" />;
   };
 
-  const resetScrollParams = () => {
-    setScrollParams({
-      scrollLeft: tableParentRef.current.scrollLeft,
-      offsetWidth: tableParentRef.current.offsetWidth,
-      scrollWidth: tableParentRef.current.scrollWidth,
-    });
-  };
-
-  const checkScrollParams = debounce(250, true, () => {
-    if (scrollParams.scrollLeft !== tableParentRef.current.scrollLeft) {
-      resetScrollParams();
-    }
-  });
-
   useEffect(() => {
-    resetScrollParams();
+    resetScrollParams(tableParentRef, setScrollParams);
   }, [selectedColumnsNames]);
 
   useEffect(() => {
-    const handleWindowResize = throttle(250, false, () => {
-      if (window.innerWidth > 780) {
-        resetScrollParams();
-      }
-    });
-    window.addEventListener('resize', handleWindowResize);
+    window.addEventListener('resize', () => { handleWindowResize(tableParentRef, setScrollParams); });
     return () => {
-      window.removeEventListener('resize', handleWindowResize);
+      window.removeEventListener('resize', () => { handleWindowResize(tableParentRef, setScrollParams); });
     };
   }, []);
 
@@ -248,57 +228,59 @@ const Table = (props) => {
           </Tooltip>
         )}
       </div>
-      <Shadow scrollParams={scrollParams} top="37px" bottom="57px" borderRadius=".375rem" />
-      <div
-        className="overflow-x-auto box"
-        style={{ minHeight: `${minHeight}`, maxHeight: 'calc(100vh - 250px)' }}
-        ref={tableParentRef}
-        onScroll={checkScrollParams}
-      >
-        {tc.isLoading && (
-          <div className="w-full h-full bg-gray-700 bg-opacity-25 absolute flex items-center justify-center">
-            <LoadingIcon icon="three-dots" className="w-16 h-16" />
-          </div>
-        )}
-        <table className="table">
-          <thead className="text-white" style={{ backgroundColor: '#436986' }}>
-            <tr>
-              {selectedColumns.map((col) => (
-                <th
-                  style={{ width: col.width }}
-                  key={col.prop}
-                  className="border-b-2 whitespace-no-wrap"
-                >
-                  <div
-                    className={`flex items-center h-8 ${!col.noSort ? 'cursor-pointer' : ''}`}
-                    onClick={() => handleHeaderClick(col)}
+      <div className="relative">
+        <Shadow scrollParams={scrollParams} borderRadius=".375rem" />
+        <div
+          className="overflow-x-auto box"
+          style={{ minHeight: `${minHeight}`, maxHeight: 'calc(100vh - 250px)' }}
+          ref={tableParentRef}
+          onScroll={() => checkScrollParams(tableParentRef, scrollParams, setScrollParams)}
+        >
+          {tc.isLoading && (
+            <div className="w-full h-full bg-gray-700 bg-opacity-25 absolute flex items-center justify-center">
+              <LoadingIcon icon="three-dots" className="w-16 h-16" />
+            </div>
+          )}
+          <table className="table">
+            <thead className="text-white" style={{ backgroundColor: '#436986' }}>
+              <tr>
+                {selectedColumns.map((col) => (
+                  <th
+                    style={{ width: col.width }}
+                    key={col.prop}
+                    className="border-b-2 whitespace-no-wrap"
                   >
-                    {col.header}
-                    {!col.noSort && (
-                      <div className="px-4 flex justify-center items-center">
-                        {renderSortArrow(col)}
-                      </div>
-                    )}
-                  </div>
-                  <div>
-                    {!HIDE_FILTERS && col.filter && (
-                      <FilterField
-                        filter={col.filter}
-                        value={filters[col.filter.name]}
-                        defaultValue={defaultFilters[col.filter.name]}
-                        onChange={onFilterChange}
-                        onSearch={reloadTable}
-                      />
-                    )}
-                  </div>
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {getTableBody()}
-          </tbody>
-        </table>
+                    <div
+                      className={`flex items-center h-8 ${!col.noSort ? 'cursor-pointer' : ''}`}
+                      onClick={() => handleHeaderClick(col)}
+                    >
+                      {col.header}
+                      {!col.noSort && (
+                        <div className="px-4 flex justify-center items-center">
+                          {renderSortArrow(col)}
+                        </div>
+                      )}
+                    </div>
+                    <div>
+                      {!HIDE_FILTERS && col.filter && (
+                        <FilterField
+                          filter={col.filter}
+                          value={filters[col.filter.name]}
+                          defaultValue={defaultFilters[col.filter.name]}
+                          onChange={onFilterChange}
+                          onSearch={reloadTable}
+                        />
+                      )}
+                    </div>
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {getTableBody()}
+            </tbody>
+          </table>
+        </div>
       </div>
       <div className="px-5 mt-5">
         <Pagination tableController={tc} />

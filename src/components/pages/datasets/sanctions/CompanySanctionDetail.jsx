@@ -8,6 +8,7 @@ import Tooltip from 'components/Tooltip';
 import { ReactComponent as EmptyLogo } from 'images/logo_company.svg';
 import useTopBarHiddingEffect from 'hooks/useTopBarHiddingEffect';
 import { renderCondition } from 'utils/conditions';
+import SanctionTableShadow from './SanctionTableShadow';
 
 const CompanySanctionDetail = () => {
   const [data, setData] = useState({});
@@ -27,7 +28,7 @@ const CompanySanctionDetail = () => {
     }
     return (
       <div className="intro-y mt-6 col-span-12">
-        <div className="overflow-auto md:overflow-hidden">
+        <SanctionTableShadow>
           <table className="table">
             <thead>
               <tr className="bg-gray-200 text-gray-700 font-medium">
@@ -53,7 +54,7 @@ const CompanySanctionDetail = () => {
               ))}
             </tbody>
           </table>
-        </div>
+        </SanctionTableShadow>
       </div>
     );
   };
@@ -75,12 +76,18 @@ const CompanySanctionDetail = () => {
       { label: t('reasoning'), value: data.reasoning },
       { label: t('referenceData'), value: data.additional_info },
     ];
-    return infoFields.map((info, i) => (info.value ? (
-      <div className="pl-5 mb-1 flex" key={i}>
-        <div className="w-4/12 pr-1 font-medium">{info.label}:</div>
-        <div className="w-4/6 self-end">{info.render ? info.render(info.value) : info.value}</div>
-      </div>
-    ) : null));
+    return (
+      <table className="lg:pl-5 mb-1 flex">
+        <tbody>
+          {infoFields.map((info, i) => (info.value ? (
+            <tr key={i}>
+              <td className="w-4/12 pr-1 font-medium align-top pb-1">{info.label}:</td>
+              <td className="w-4/6 align-bottom pb-1">{info.render ? info.render(info.value) : info.value}</td>
+            </tr>
+          ) : null))}
+        </tbody>
+      </table>
+    );
   };
 
   useTopBarHiddingEffect();
@@ -119,12 +126,12 @@ const CompanySanctionDetail = () => {
             </div>
           </Tooltip>
         </div>
-        <div className="intro-y space-y-1 block lg:flex flex-row justify-around">
+        <div className="intro-y space-y-1 flex flex-row justify-around">
           <div className="py-4 px-5 self-auto content-around justify-start">
             <EmptyLogo />
           </div>
           <div className="block flex flex-col md:w-3/5">
-            <div className="py-4 pl-5 max-w-screen-sm">
+            <div className="py-4 lg:pl-5 max-w-screen-sm">
               <h2 className="text-2xl font-medium mr-auto capitalize">
                 {data.name}
               </h2>

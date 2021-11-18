@@ -15,6 +15,7 @@ export { ReactComponent as MainInfo } from 'images/account_box.svg';
 export { ReactComponent as PepIcon } from 'images/pep_icon.svg';
 export { ReactComponent as SpendMoney } from 'images/spend_money.svg';
 export { ReactComponent as Print } from 'images/print_icon.svg';
+export { ReactComponent as IntangibleAssetsIcon } from 'images/bitcoin.svg';
 
 export { default as AsyncInformationBlock } from './AsyncInformationBlock';
 export { default as InformationBlock } from './InformationBlock';
@@ -31,3 +32,4 @@ export { default as PepRelatedPerson } from './PepRelatedPerson';
 export { default as PepRelatedCompanies } from './PepRelatedCompanies';
 export { default as PepOtherNames } from './PepOtherNames';
 export { default as PepMenu } from './PepMenu';
+export { default as IntangibleAssets } from './IntangibleAssets';

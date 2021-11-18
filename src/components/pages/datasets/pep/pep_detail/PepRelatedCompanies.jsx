@@ -10,7 +10,8 @@ const PepRelatedCompanies = (props) => {
       {data.map((company, i) => (
         <li key={i}>
           <span>
-            {getLocaleField(company, 'relationship_type')} - {getLocaleField(company.company, 'name')} ({company.company.edrpou})
+            {getLocaleField(company, 'relationship_type')} - {getLocaleField(company.company, 'name')}
+            {company.company.edrpou && ` (${company.company.edrpou})`}
           </span>
         </li>
       ))}

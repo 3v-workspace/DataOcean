@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { ReactRouterPropTypes } from 'utils/prop-types';
 import { Button } from 'components/form-components';
 import { ReactComponent as PepIcon } from 'images/logo_person.svg';
@@ -10,6 +11,8 @@ import { useTableController } from 'components/table';
 import PaginationPages from 'components/table/PaginationPages';
 import { useTranslation, Trans } from 'react-i18next';
 import Tooltip from 'components/Tooltip';
+import { asyncBlocks, pepBlocks } from 'components/pages/datasets/pep/pep_detail/const';
+import { PERSON_DEBUG } from 'const/testing';
 
 
 const PersonResultsPage = (props) => {
@@ -35,6 +38,11 @@ const PersonResultsPage = (props) => {
     .replace(/\s+/g, ' ')
     .trim();
 
+  const extactCitizenship = (data) => {
+    const countries = data.map((country) => getLocaleField(country, 'name'));
+    return [...new Set(countries)].join(', ');
+  };
+
   if (!params.last_name) {
     return <SearchNoResults queryString={queryString} />;
   }
@@ -44,6 +52,47 @@ const PersonResultsPage = (props) => {
   if (tc.data.length === 0) {
     return <SearchNoResults queryString={queryString} />;
   }
+
+  const getTags = (person) => {
+    const list_tags = [
+      {
+        field: person.is_pep,
+        translation: 'mentionedInTheRegistersOfPEP',
+        id: pepBlocks.MAIN_INFO,
+        generateUrl: (tagId) => `/system/datasets/pep/${person.pep_data[0]?.id}/#${tagId}`,
+      },
+      {
+        field: person.pep_data[0]?.pep_type_display,
+        translation: '',
+        id: pepBlocks.MAIN_INFO,
+        generateUrl: (tagId) => `/system/datasets/pep/${person.pep_data[0]?.id}/#${tagId}`,
+      },
+      {
+        field: person.pep_data[0]?.criminal_proceedings,
+        translation: 'criminalProceedings',
+        id: pepBlocks.CRIMINAL,
+        generateUrl: (tagId) => `/system/datasets/pep/${person.pep_data[0]?.id}/#${tagId}`,
+      },
+      {
+        field: person.sanction_data[0],
+        translation: 'sanctionsDetail',
+        id: asyncBlocks.SANCTION,
+        generateUrl: (tagId) => `/system/datasets/person-sanction/${person.sanction_data[0].id}/`,
+      },
+    ];
+
+    return list_tags.map((tag, i) => (
+      tag.field && (
+        <Link
+          className="px-3 border border-gray-700 rounded-full text-xs mr-2 mb-2"
+          to={tag.generateUrl(tag.id)}
+          key={i}
+        >
+          {tag.translation ? t(tag.translation) : tag.field}
+        </Link>
+      )
+    ));
+  };
 
   return (
     <div className="py-5">
@@ -78,11 +127,7 @@ const PersonResultsPage = (props) => {
                 {i18n.language === 'en' ? person.full_name_original : person.full_name}
               </div>
               <div className="flex flex-wrap my-2">
-                {person.is_pep && (
-                  <div className="px-3 border border-gray-700 rounded-full text-xs">
-                    {t('mentionedInTheRegistersOfPEP')}
-                  </div>
-                )}
+                {getTags(person)}
               </div>
               <table>
                 <tbody>
@@ -92,20 +137,20 @@ const PersonResultsPage = (props) => {
                       <td className="font-bold pl-2">{renderDate(person.date_of_birth)}</td>
                     </tr>
                   )}
-                  {!!person.citizenships.length && (
+                  {!!Object.keys(person.citizenship_data).length && (
                     <tr>
-                      <td>{t('famousCitizenships')}:</td>
+                      <td>{t('knownCitizenship')}:</td>
                       <td className="font-bold pl-2">
-                        {person.citizenships.map((country) => getLocaleField(country, 'name')).join(', ')}
+                        {extactCitizenship(person.citizenship_data)}
                       </td>
                     </tr>
                   )}
-                  {person.residence && (
-                    <tr>
-                      <td>{t('countryOfResidence')}:</td>
-                      <td className="font-bold pl-2">{getLocaleField(person.residence, 'name')}</td>
-                    </tr>
-                  )}
+                  {/*{!!Object.keys(person.residence_data).length && (*/}
+                  {/*  <tr>*/}
+                  {/*    <td>{t('countryOfResidence')}:</td>*/}
+                  {/*    <td className="font-bold pl-2">{extractResidence}</td>*/}
+                  {/*  </tr>*/}
+                  {/*)}*/}
                   {person.gender && (
                     <tr>
                       <td>{t('gender')}:</td>
@@ -140,13 +185,38 @@ const PersonResultsPage = (props) => {
                     </div>
                   </Tooltip>
                 </div>
-                <Button
-                  className="px-8"
-                  variant="outline-primary"
-                  link={`/system/datasets/pep/${person.pep_data[0].id}`}
-                >
-                  {t('view')}
-                </Button>
+                {PERSON_DEBUG ? (
+                  <>
+                    {person.pep_data.map((pep) => (
+                      <Button
+                        className="px-8"
+                        key={pep.id}
+                        variant="outline-primary"
+                        link={`/system/datasets/pep/${pep.id}/`}
+                      >
+                        Related PEP {pep.id}
+                      </Button>
+                    ))}
+                    {person.sanction_data.map((sanction) => (
+                      <Button
+                        className="px-8"
+                        key={sanction.id}
+                        variant="outline-primary"
+                        link={`/system/datasets/person-sanction/${sanction.id}/`}
+                      >
+                        Related sanction {sanction.id}
+                      </Button>
+                    ))}
+                  </>
+                ) : (
+                  <Button
+                    className="px-8"
+                    variant="outline-primary"
+                    link={`/system/datasets/pep/${person.pep_data[0].id}`}
+                  >
+                    {t('view')}
+                  </Button>
+                )}
               </div>
             </div>
           </div>
