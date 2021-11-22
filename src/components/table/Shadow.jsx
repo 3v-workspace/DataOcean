@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { debounce, throttle } from 'throttle-debounce';
 
 const Shadow = (props) => {
   const { scrollParams, top, bottom, left, right, borderRadius } = props;
 
-  let className = 'table-shadow ';
+  let className = 'inset-0 table-shadow ';
   if (scrollParams.scrollWidth > scrollParams.offsetWidth) {
     if (scrollParams.scrollLeft === 0) {
       className += 'table-shadow-r';
@@ -48,3 +49,23 @@ Shadow.defaultProps = {
 };
 
 export default Shadow;
+
+export const resetScrollParams = (tableRef, setScrollParams) => {
+  setScrollParams({
+    scrollLeft: tableRef.current.scrollLeft,
+    offsetWidth: tableRef.current.offsetWidth,
+    scrollWidth: tableRef.current.scrollWidth,
+  });
+};
+
+export const checkScrollParams = debounce(0, true, (tableRef, scrollParams, setScrollParams) => {
+  if (scrollParams.scrollLeft !== tableRef.current.scrollLeft) {
+    resetScrollParams(tableRef, setScrollParams);
+  }
+});
+
+export const handleWindowResize = throttle(250, false, (tableRef, setScrollParams) => {
+  if (window.innerWidth > 780 && tableRef.current) {
+    resetScrollParams(tableRef, setScrollParams);
+  }
+});

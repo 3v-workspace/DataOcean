@@ -1,9 +1,10 @@
 import React, { useRef, useEffect, useState, Fragment } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useLocation } from 'react-router-dom';
 import Api from 'api';
 import { useDispatch } from 'react-redux';
 import { setOverflow } from 'store/interface/actionCreators';
-import { HelpCircle, ArrowLeft, Download } from 'react-feather';
+import { AlertCircle, ArrowLeft, Download } from 'react-feather';
 import { renderDate, getLocaleField } from 'utils';
 import { ReactRouterPropTypes } from 'utils/prop-types';
 import useTopBarHiddingEffect from 'hooks/useTopBarHiddingEffect';
@@ -13,13 +14,15 @@ import {
   Home, Money, Name, Wallet, MainInfo, PepIcon, SpendMoney, MonetaryAssets,
   InformationBlock, AsyncInformationBlock, PepCriminal, PepLiability, PepMonetaryAssets,
   PepMoney, PepProperty, PepSanction, PepVehicle, PepCareer, PepHtml,
-  PepRelatedPerson, PepRelatedCompanies, PepOtherNames, PepMenu,
+  PepRelatedPerson, PepRelatedCompanies, PepOtherNames, PepMenu, IntangibleAssets,
+  IntangibleAssetsIcon,
 } from './pep_detail';
 import { prepareRelatedPersonData, scrollToRef, getColor } from './pep_detail/utils';
 import { asyncBlocks, pepBlocks, ASYNCBLOCK, INFOBLOCK } from './pep_detail/const';
 
 
 const PepDetail = ({ match, history }) => {
+  const location = useLocation();
   const dispatch = useDispatch();
   const defaultState = Object.keys(asyncBlocks).reduce((block, data) => {
     block[data] = [];
@@ -66,6 +69,7 @@ const PepDetail = ({ match, history }) => {
   const relatedPersonRef = useRef();
   const giftRef = useRef();
   const expendituresRef = useRef();
+  const intangibleAssetsRef = useRef();
   const fetchData = () => {
     Api.get(`pep/${id}/`, {
       useProjectToken: true,
@@ -173,7 +177,7 @@ const PepDetail = ({ match, history }) => {
       component: PepMonetaryAssets,
       type: ASYNCBLOCK,
       blockProps: {
-        data: data.MONETARY_ASSETS,
+        data: data.MONETARY_ASSETS.filter((money) => money.amount !== null),
         pepId: pep.id,
       },
       ref: monetaryAssetsRef,
@@ -192,6 +196,15 @@ const PepDetail = ({ match, history }) => {
         data: data.GIFT,
       },
       ref: giftRef,
+    },
+    {
+      id: pepBlocks.INTANGIBLE_ASSETS,
+      title: 'intangibleAssets',
+      titleIcon: IntangibleAssetsIcon,
+      component: IntangibleAssets,
+      blockProps: { data: pep.cryptocurrencies_from_last_declaration },
+      type: INFOBLOCK,
+      ref: intangibleAssetsRef,
     },
     {
       id: asyncBlocks.REAL_ESTATE,
@@ -233,6 +246,12 @@ const PepDetail = ({ match, history }) => {
     },
   ];
 
+  const tooltipList = {
+    'national PEP': t('pepTypes.nationalPoliticallyExposedPersons'),
+    'member of PEP`s family': t('pepTypes.theNationalLaw'),
+    'associated person with PEP': t('pepTypes.associatesIndividualsHavingBusiness'),
+  };
+  const checkPepType = tooltipList[pep.pep_type];
   const getShortInfo = () => {
     const shortInfoFields = [
       { label: 'dateOfBirth', value: pep.date_of_birth, render: (value) => renderDate(value) },
@@ -247,16 +266,22 @@ const PepDetail = ({ match, history }) => {
       <table>
         <tbody className="block-black align-top">
           <tr>
-            <td className="font-bold pb-3">{t('pepDetailType')}:</td>
-            <td className="inline-flex pl-4 pb-3">
+            <td className="w-40 lg:w-64 font-bold pb-3">{t('pepDetailType')}:</td>
+            <td className="inline-flex max-w-xl">
               {pep.pep_type_display}
-              {/*<HelpCircle className="w-4 h-4 ml-2 text-blue-600" />*/}
+              <Tooltip
+                className="w-70 md:w-auto"
+                position="right"
+                content={checkPepType}
+              >
+                <AlertCircle className="w-4 h-4 ml-2 text-blue-600" />
+              </Tooltip>
             </td>
           </tr>
           {shortInfoFields.map((info) => (info.value && !(info.value === '---') ? (
             <tr key={info.label}>
-              <td className="font-bold pb-3">{t(info.label)}:</td>
-              <td className="pl-4 max-w-lg pb-3">{info.render ? info.render(info.value) : info.value}</td>
+              <td className="w-40 lg:w-64 font-bold pb-3">{t(info.label)}:</td>
+              <td className="max-w-xl">{info.render ? info.render(info.value) : info.value}</td>
             </tr>
           ) : null))}
         </tbody>
@@ -276,22 +301,22 @@ const PepDetail = ({ match, history }) => {
           {pep.pep_type_display}
         </div>
         {sanctionBlock.blockProps.data && sanctionBlock.blockProps.data.length &&
-        !sanctionBlock.blockProps.data[0].noSanction ? (
-          <div
-            className="border border-gray-400 rounded-full px-3 py-1 cursor-pointer text-xs"
-            onClick={() => scrollToRef(sanctionBlock.ref)}
-          >
-            {t(sanctionBlock.title)}
-          </div>
+          !sanctionBlock.blockProps.data[0].noSanction ? (
+            <div
+              className="border border-gray-400 rounded-full px-3 py-1 cursor-pointer text-xs"
+              onClick={() => scrollToRef(sanctionBlock.ref)}
+            >
+              {t(sanctionBlock.title)}
+            </div>
           ) : null}
         {criminalBlock.blockProps.data && criminalBlock.blockProps.data.length &&
-        !criminalBlock.blockProps.data[0].noCriminal ? (
-          <div
-            className="border border-gray-400 rounded-full px-3 py-1 ml-2 cursor-pointer text-xs"
-            onClick={() => scrollToRef(criminalBlock.ref)}
-          >
-            {t(criminalBlock.title)}
-          </div>
+          !criminalBlock.blockProps.data[0].noCriminal ? (
+            <div
+              className="border border-gray-400 rounded-full px-3 py-1 ml-2 cursor-pointer text-xs"
+              onClick={() => scrollToRef(criminalBlock.ref)}
+            >
+              {t(criminalBlock.title)}
+            </div>
           ) : null}
       </>
     );
@@ -317,10 +342,10 @@ const PepDetail = ({ match, history }) => {
             open={open}
           />
           {config[i + 1] && !config[i + 1].blockProps.data.length &&
-          block.blockProps.data.length ? (
-            <div className="block-gray items-center font-medium text-base">
-              {t('noInformation')}
-            </div>
+            block.blockProps.data.length ? (
+              <div className="block-gray items-center font-medium text-base">
+                {t('noInformation')}
+              </div>
             ) : null}
         </Fragment>
       );
@@ -335,10 +360,10 @@ const PepDetail = ({ match, history }) => {
           <Component {...block.blockProps} />
         </InformationBlock>
         {config[i + 1] && !config[i + 1].blockProps.data.length &&
-        block.blockProps.data.length ? (
-          <div className="block-gray items-center font-medium text-lg mt-10 mb-2">
-            {t('noInformation')}
-          </div>
+          block.blockProps.data.length ? (
+            <div className="block-gray items-center font-medium text-lg mt-10 mb-2">
+              {t('noInformation')}
+            </div>
           ) : null}
       </Fragment>
     );
@@ -347,8 +372,18 @@ const PepDetail = ({ match, history }) => {
   useTopBarHiddingEffect();
 
   useEffect(() => {
+    if (location.hash) {
+      const element = document.getElementById(location.hash.substr(1));
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else {
+      window.scrollTo(0, 0);
+    }
+  }, [data]);
+
+  useEffect(() => {
     dispatch(setOverflow(false));
-    window.scrollTo(0, 0);
     fetchData();
     return () => {
       dispatch(setOverflow(true));
@@ -371,7 +406,7 @@ const PepDetail = ({ match, history }) => {
       </button>
       <div className="flex text-base pb-16">
         <div className="flex-grow mr-8 w-px">
-          <div className="box border border-gray-400 p-6" ref={mainRef}>
+          <div className="box border border-gray-400 p-6" ref={mainRef} id={pepBlocks.MAIN_INFO}>
             <div className="flex flex-col lg:flex-row">
               <div className="flex flex-auto items-start justify-start mt-1">
                 <PepIcon />

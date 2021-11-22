@@ -1,4 +1,5 @@
 import i18 from 'i18next';
+import Api from 'api';
 
 export { default as toggleFullScreen } from './fullscreen';
 export { default as setLanguage } from './setLanguage';
@@ -52,4 +53,21 @@ export const isPep = (prop) => {
     default:
       return '---';
   }
+};
+
+
+export const getPDF = (id, name, download, dataset) => {
+  Api.get(`${dataset}${id}/pdf`, { useProjectToken: true, responseType: 'blob' })
+    .then((resp) => {
+      const file = new Blob([resp.data], { type: 'application/pdf' });
+      const fileURL = URL.createObjectURL(file);
+      if (download) {
+        const fileLink = document.createElement('a');
+        fileLink.href = fileURL;
+        fileLink.download = `${name}.pdf`;
+        fileLink.click();
+      } else {
+        window.open(fileURL);
+      }
+    });
 };
