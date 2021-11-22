@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { ChevronDown, ChevronUp } from 'react-feather';
 import Tooltip from 'components/Tooltip';
 import { useTranslation } from 'react-i18next';
-import PepUnfoldingBlock from './PepUnfoldingBlock';
-import { scrollToRef, getColor } from './utils';
+import { getColor, scrollToElement } from './utils';
+import UnfoldingBlock from './UnfoldingBlock';
 
 const InformationBlock = (props) => {
   const {
@@ -15,7 +15,7 @@ const InformationBlock = (props) => {
   const color = getColor(block.blockProps.data);
 
   return (
-    <div className="intro-x box border border-gray-400 mt-6" ref={block.ref} id={block.id}>
+    <div className="intro-x box border border-gray-400 mt-6" id={block.id}>
       <div
         className={
           `flex items-center px-5 py-4 sm:py-3 border-b border-gray-400 cursor-pointer ${color} 
@@ -33,7 +33,7 @@ const InformationBlock = (props) => {
               <Tooltip content={t('close')}>
                 <ChevronUp
                   className="w-4 h-6"
-                  onClick={() => scrollToRef(block.ref)}
+                  onClick={() => scrollToElement(block.id)}
                 />
               </Tooltip>
             ) : (
@@ -45,9 +45,9 @@ const InformationBlock = (props) => {
         ) : null}
       </div>
       {open && open[block.id] && color === 'block-black' ? (
-        <PepUnfoldingBlock data={block.blockProps.data} blockRef={block.ref}>
+        <UnfoldingBlock data={block.blockProps.data} blockId={block.id}>
           {children}
-        </PepUnfoldingBlock>
+        </UnfoldingBlock>
       ) : null}
     </div>
   );

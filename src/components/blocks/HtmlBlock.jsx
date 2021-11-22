@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const PepHtml = (props) => {
+const HtmlBlock = (props) => {
   const { data } = props;
 
   return (
@@ -15,8 +15,8 @@ const PepHtml = (props) => {
   );
 };
 
-PepHtml.propTypes = {
+HtmlBlock.propTypes = {
   data: PropTypes.string.isRequired,
 };
 
-export default PepHtml;
+export default HtmlBlock;
