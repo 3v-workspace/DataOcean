@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { ReactRouterPropTypes } from 'utils/prop-types';
 import { Button } from 'components/form-components';
 import { ReactComponent as PepIcon } from 'images/logo_person.svg';

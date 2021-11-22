@@ -14,7 +14,6 @@ import {
   PepIcon, Print, Built, Criminal, MainInfo, Person, Career, Wallet, Money, SpendMoney,
   MonetaryAssets, Giftbox, Home, Car, IntangibleAssetsIcon, Info, Sanction, BlackLine,
 } from 'components/blocks/index';
-import { scrollToElement } from 'components/blocks/utils';
 import { getLocaleField, upFirstLetter } from 'utils';
 import { checkSource } from './utils';
 import { personBlocks, SOURCE, STATUS_BLOCK } from './const';
@@ -59,7 +58,27 @@ const PersonDetail = ({ match, history }) => {
           </p>
         )),
       },
-      //{ label: 'alsoKnownAs', value: ''},
+      {
+        label: 'alsoKnownAs',
+        value: person.other_names,
+        render: (value) => {
+          const groupNames = {
+            1: [],
+            2: [],
+            3: [],
+            4: [],
+          };
+          value.forEach((name) => groupNames[name.type]?.push(name));
+          return Object.values(groupNames).map((typeName, index) => (
+            <p key={index} className="pb-1">
+              {typeName[0] ? `${typeName[0].type_display}:` : ''}
+              {typeName.map((name, i) => (
+                <span key={name.id}> {name.name}{(typeName.length - 1 !== i) && ', '}</span>
+              ))}
+            </p>
+          ));
+        },
+      },
       {
         label: 'citizenship',
         value: person.citizenship_data.filter((citizenship) => getLocaleField(citizenship, 'name')),
