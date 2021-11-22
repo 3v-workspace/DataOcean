@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState, Fragment } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import Api from 'api';
 import { useDispatch } from 'react-redux';
 import { setOverflow } from 'store/interface/actionCreators';
@@ -264,7 +264,15 @@ const PepDetail = ({ match, history }) => {
       <div className="flex flex-col block-black">
         <div className="inline-flex mb-3">
           <div className="w-40 lg:w-64 font-bold">{t('pepDetailType')}:</div>
-          <div className="max-w-xl">{pep.pep_type_display}</div>
+          <div className="max-w-xl">
+            <Link
+              to={{
+                pathname: '/system/help/',
+                state: { pathnumber: 16 },
+              }}
+            >{pep.pep_type_display}
+            </Link>
+          </div>
           {checkPepType && (
           <Tooltip
             className="w-70 md:w-auto"
