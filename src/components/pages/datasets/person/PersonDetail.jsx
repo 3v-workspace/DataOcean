@@ -102,7 +102,7 @@ const PersonDetail = ({ match, history }) => {
       })[0];
 
       switch (lastPosition?.source) {
-        case `position_${SOURCE.pep_source}`:
+        case `position_${Object.keys(SOURCE)[0]}`:
           return (
             <>
               <tr>
@@ -115,7 +115,7 @@ const PersonDetail = ({ match, history }) => {
               </tr>
             </>
           );
-        case `position_${SOURCE.sanction_source}`:
+        case `position_${Object.keys(SOURCE)[1]}`:
           return (
             <>
               <tr>
