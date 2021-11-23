@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ChevronDown, ChevronUp } from 'react-feather';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 // import Alert from 'components/Alert';
 // import { useParams } from 'react-router-dom';
 import faqs from './faqs';
@@ -23,6 +23,15 @@ const HelpPage = () => {
       [id]: !open[id],
     });
   };
+  const location = useLocation();
+  const pathnumber = location?.state?.pathnumber;
+  useEffect(() => {
+    if (pathnumber) {
+      toggleOpen(pathnumber);
+    } else {
+      window.scrollTo(0, 0);
+    }
+  }, []);
 
   return (
     <>
@@ -32,7 +41,7 @@ const HelpPage = () => {
             <div className="intro-y mb-4 border-b border-gray-200">
               <ul className="accordion font-medium block">
                 {faqs.map((faq) => (
-                  <li className="accordion__pane cursor-pointer pl-4 py-4 pr-20 block border-b border-gray-200 hover:text-theme-1" key={faq.id}>
+                  <li className={`accordion__pane cursor-pointer pl-4 py-4 pr-20 block border-b border-gray-200 hover:text-theme-1 ${open[faq.id] ? 'active' : ''}`} key={faq.id}>
                     <div className="accordion__pane__toggle inline-flex flex-row justify-between w-full" onClick={() => toggleOpen(faq.id)}>
                       {faq.question}
                       {open[faq.id] ? <ChevronUp className="w-4 h-6" /> : <ChevronDown className="w-4 h-6" />}

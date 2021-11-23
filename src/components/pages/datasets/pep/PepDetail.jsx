@@ -1,10 +1,10 @@
 import React, { useRef, useEffect, useState, Fragment } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import Api from 'api';
 import { useDispatch } from 'react-redux';
 import { setOverflow } from 'store/interface/actionCreators';
-import { AlertCircle, ArrowLeft, Download } from 'react-feather';
+import { HelpCircle, ArrowLeft, Download } from 'react-feather';
 import { renderDate, getLocaleField } from 'utils';
 import { ReactRouterPropTypes } from 'utils/prop-types';
 import useTopBarHiddingEffect from 'hooks/useTopBarHiddingEffect';
@@ -19,7 +19,6 @@ import {
 } from './pep_detail';
 import { prepareRelatedPersonData, scrollToRef, getColor } from './pep_detail/utils';
 import { asyncBlocks, pepBlocks, ASYNCBLOCK, INFOBLOCK } from './pep_detail/const';
-
 
 const PepDetail = ({ match, history }) => {
   const location = useLocation();
@@ -245,7 +244,6 @@ const PepDetail = ({ match, history }) => {
       ref: additionalInfoRef,
     },
   ];
-
   const tooltipList = {
     'national PEP': t('pepTypes.nationalPoliticallyExposedPersons'),
     'member of PEP`s family': t('pepTypes.theNationalLaw'),
@@ -263,29 +261,35 @@ const PepDetail = ({ match, history }) => {
       { label: 'lastPlaceOfWork', value: getLocaleField(pep, 'last_employer') },
     ];
     return (
-      <table>
-        <tbody className="block-black align-top">
-          <tr>
-            <td className="w-40 lg:w-64 font-bold pb-3">{t('pepDetailType')}:</td>
-            <td className="inline-flex max-w-xl">
-              {pep.pep_type_display}
-              <Tooltip
-                className="w-70 md:w-auto"
-                position="right"
-                content={checkPepType}
-              >
-                <AlertCircle className="w-4 h-4 ml-2 text-blue-600" />
-              </Tooltip>
-            </td>
-          </tr>
-          {shortInfoFields.map((info) => (info.value && !(info.value === '---') ? (
-            <tr key={info.label}>
-              <td className="w-40 lg:w-64 font-bold pb-3">{t(info.label)}:</td>
-              <td className="max-w-xl">{info.render ? info.render(info.value) : info.value}</td>
-            </tr>
-          ) : null))}
-        </tbody>
-      </table>
+      <div className="flex flex-col block-black">
+        <div className="inline-flex mb-3">
+          <div className="w-40 lg:w-64 font-bold">{t('pepDetailType')}:</div>
+          <div className="max-w-xl">
+            <Link
+              to={{
+                pathname: '/system/help/',
+                state: { pathnumber: 16 },
+              }}
+            >{pep.pep_type_display}
+            </Link>
+          </div>
+          {checkPepType && (
+          <Tooltip
+            className="w-70 md:w-auto"
+            position="right"
+            content={checkPepType}
+          >
+            <HelpCircle className="w-4 h-4 ml-2 text-blue-600" />
+          </Tooltip>
+          )}
+        </div>
+        {shortInfoFields.map((info, i) => (info.value && !(info.value === '---') ? (
+          <div className="inline-flex mb-3" key={i}>
+            <div className="w-40 lg:w-64 font-bold">{t(info.label)}:</div>
+            <div className="max-w-xl">{info.render ? info.render(info.value) : info.value}</div>
+          </div>
+        ) : null))}
+      </div>
     );
   };
 
@@ -402,7 +406,7 @@ const PepDetail = ({ match, history }) => {
         onClick={() => history.goBack()}
       >
         <ArrowLeft className="h-5 ml-2" />
-        {t('back')}
+        {t('backToSearchResults')}
       </button>
       <div className="flex text-base pb-16">
         <div className="flex-grow mr-8 w-px">
