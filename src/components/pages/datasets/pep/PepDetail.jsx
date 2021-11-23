@@ -12,7 +12,7 @@ import useScrollToEffect from 'hooks/useScrollToEffect';
 import Tooltip from 'components/Tooltip';
 import { Sanction, Criminal, Built, Car, Person, Career, Giftbox, Print, Info,
   Home, Money, Name, Wallet, MainInfo, PepIcon, SpendMoney, MonetaryAssets, IntangibleAssetsIcon } from 'components/blocks/index';
-import { scrollToElement } from 'components/blocks/utils';
+import { scrollToElement, sortedCareerData } from 'components/blocks/utils';
 import LoadingIcon from 'components/LoadingIcon';
 import {
   InformationBlock, AsyncInformationBlock, PepCriminal, PepLiability, PepMonetaryAssets,
@@ -107,7 +107,7 @@ const PepDetail = ({ match, history }) => {
       title: 'career',
       titleIcon: Career,
       component: PepCareer,
-      blockProps: { data: data.CAREER },
+      blockProps: { data: sortedCareerData(data.CAREER) },
       type: ASYNCBLOCK,
     },
     {

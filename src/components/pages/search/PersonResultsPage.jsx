@@ -3,7 +3,7 @@ import { ReactRouterPropTypes } from 'utils/prop-types';
 import { Button } from 'components/form-components';
 import { ReactComponent as PepIcon } from 'images/logo_person.svg';
 import { Download, Printer } from 'react-feather';
-import { getLocaleField, renderDate, upFirstLetter } from 'utils';
+import { getLocaleField, renderDate } from 'utils';
 import SearchNoResults from 'components/pages/search/SearchNoResults';
 import SearchLoading from 'components/pages/search/SearchLoading';
 import { useTableController } from 'components/table';

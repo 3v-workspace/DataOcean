@@ -17,7 +17,7 @@ import {
 import { getLocaleField, upFirstLetter } from 'utils';
 import { checkSource } from './utils';
 import { personBlocks, SOURCE, STATUS_BLOCK } from './const';
-import { CriminalBlock, RelatedPersonBlock, RelatedCompaniesBlock, InformationBlock, Menu, SanctionBlock, Tags } from './index';
+import { CriminalBlock, RelatedPersonBlock, RelatedCompaniesBlock, InformationBlock, Menu, SanctionBlock, Tags, PersonCareer } from './index';
 import { checkPepType } from '../pep/pep_detail/utils';
 
 const PersonDetail = ({ match, history }) => {
@@ -70,12 +70,16 @@ const PersonDetail = ({ match, history }) => {
           };
           value.forEach((name) => groupNames[name.type]?.push(name));
           return Object.values(groupNames).map((typeName, index) => (
-            <p key={index} className="pb-1">
-              {typeName[0] ? `${typeName[0].type_display}:` : ''}
-              {typeName.map((name, i) => (
-                <span key={name.id}> {name.name}{(typeName.length - 1 !== i) && ', '}</span>
-              ))}
-            </p>
+            <Fragment key={index}>
+              {typeName[0] && (
+                <p className="pb-1">
+                  {typeName.map((name, i) => (
+                    <span key={name.id}> {name.name}{(typeName.length - 1 !== i) && ', '}</span>
+                  ))}
+                  &emsp;&mdash;&emsp;{typeName[0].type_display}
+                </p>
+              )}
+            </Fragment>
           ));
         },
       },
@@ -228,10 +232,11 @@ const PersonDetail = ({ match, history }) => {
       id: personBlocks.CAREER,
       title: 'career',
       titleIcon: Career,
+      component: PersonCareer,
       blockProps: {
-        data: [],
+        data: person.position_data,
       },
-      status: STATUS_BLOCK.inDevelopment,
+      status: null,
     },
     {
       id: personBlocks.INCOME,

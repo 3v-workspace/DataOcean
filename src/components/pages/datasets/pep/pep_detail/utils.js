@@ -2,7 +2,7 @@ import { getLocaleField } from 'utils';
 import i18n from 'i18next';
 import { tooltipList } from './const';
 
-export const sortData = (dataForSort, field) => {
+/*export const sortData = (dataForSort, field) => {
   if (field) {
     dataForSort.sort((prev, cur) => {
       if (prev[field].declared_at < cur[field].declared_at) {
@@ -26,6 +26,7 @@ export const sortData = (dataForSort, field) => {
     })
   );
 };
+*/
 
 export const prepareRelatedPersonData = (pep) => {
   if (!Object.keys(pep).length || (pep.from_person_links && !pep.from_person_links.length &&

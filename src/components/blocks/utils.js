@@ -46,3 +46,49 @@ export const sortSanctionData = (data) => {
 
   return sanctions;
 };
+
+export const sortData = (dataForSort, field) => {
+  if (!dataForSort.length) {
+    return [];
+  }
+  if (field) {
+    dataForSort.sort((prev, cur) => {
+      if (prev[field].declared_at < cur[field].declared_at) {
+        return 1;
+      }
+      if (prev[field].declared_at > cur[field].declared_at) {
+        return -1;
+      }
+      return 0;
+    });
+  }
+  return (
+    dataForSort.sort((prev, cur) => {
+      if (prev.declared_at < cur.declared_at) {
+        return 1;
+      }
+      if (prev.declared_at > cur.declared_at) {
+        return -1;
+      }
+      return 0;
+    })
+  );
+};
+
+export const sortedCareerData = (data) => {
+  sortData(data, '');
+  return data.reduce((sortdata, career) => {
+    const duplicate = sortdata.find((item) => (
+      item.last_employer.trim().toLowerCase() === career.last_employer.trim().toLowerCase() &&
+      item.last_job_title.trim().toLowerCase() === career.last_job_title.trim().toLowerCase()
+    ));
+
+    if (!duplicate || career.declared_at > duplicate.declared_at + 1) {
+      sortdata.push(career);
+    } else if (career.declared_at !== duplicate.declared_at) {
+      duplicate.start_date = career.declared_at;
+    }
+
+    return sortdata;
+  }, []);
+};
