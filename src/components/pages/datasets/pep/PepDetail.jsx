@@ -5,10 +5,11 @@ import Api from 'api';
 import { useDispatch } from 'react-redux';
 import { setOverflow } from 'store/interface/actionCreators';
 import { HelpCircle, ArrowLeft, Download } from 'react-feather';
-import { renderDate, getLocaleField } from 'utils';
+import { renderDate, getLocaleField, getPDF } from 'utils';
 import { ReactRouterPropTypes } from 'utils/prop-types';
 import useTopBarHiddingEffect from 'hooks/useTopBarHiddingEffect';
 import Tooltip from 'components/Tooltip';
+import LoadingIcon from 'components/LoadingIcon';
 import {
   Sanction, Criminal, Built, Car, Person, Career, Giftbox, Print, Info,
   Home, Money, Name, Wallet, MainInfo, PepIcon, SpendMoney, MonetaryAssets,
@@ -51,6 +52,7 @@ const PepDetail = ({ match, history }) => {
       return { ...prevState, [blockId]: newState };
     });
   };
+  const [loading, setLoading] = useState(false);
   const { id } = match.params;
   const { t } = useTranslation();
   const mainRef = useRef();
@@ -410,6 +412,11 @@ const PepDetail = ({ match, history }) => {
       </button>
       <div className="flex text-base pb-16">
         <div className="flex-grow mr-8 w-px">
+          {loading && (
+            <div className="w-full h-full bg-gray-700 bg-opacity-25 absolute flex items-center justify-center z-50">
+              <LoadingIcon icon="three-dots" className="w-16 h-16 z-50" />
+            </div>
+          )}
           <div className="box border border-gray-400 p-6" ref={mainRef} id={pepBlocks.MAIN_INFO}>
             <div className="flex flex-col lg:flex-row">
               <div className="flex flex-auto items-start justify-start mt-1">
@@ -424,13 +431,9 @@ const PepDetail = ({ match, history }) => {
                   {getShortInfo()}
                 </div>
               </div>
-              <div className="inline-flex p-1">
-                <Tooltip content={t('inDevelopment')} className="h-6">
-                  <Download className="mr-8" />
-                </Tooltip>
-                <Tooltip content={t('inDevelopment')} className="h-6">
-                  <Print />
-                </Tooltip>
+              <div className="inline-flex p-1 cursor-pointer">
+                <Download className="mr-8" onClick={() => getPDF(pep.id, getLocaleField(pep, 'fullname'), true, '/pep/', setLoading)} />
+                <Print onClick={() => getPDF(pep.id, getLocaleField(pep, 'fullname'), false, '/pep/', setLoading)} />
               </div>
             </div>
           </div>
