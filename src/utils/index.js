@@ -56,9 +56,15 @@ export const isPep = (prop) => {
 };
 
 
-export const getPDF = (id, name, download, dataset) => {
+export const getPDF = (id, name, download, dataset, setLoading) => {
+  if (setLoading) {
+    setLoading(true);
+  }
   Api.get(`${dataset}${id}/pdf`, { useProjectToken: true, responseType: 'blob' })
     .then((resp) => {
+      if (setLoading) {
+        setLoading(false);
+      }
       const file = new Blob([resp.data], { type: 'application/pdf' });
       const fileURL = URL.createObjectURL(file);
       if (download) {
