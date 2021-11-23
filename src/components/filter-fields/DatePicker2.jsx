@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { ChevronDown, ChevronLeft, ChevronRight, ChevronUp } from 'react-feather';
 import { useTranslation } from 'react-i18next';
@@ -38,7 +38,12 @@ const DatePicker2 = (props) => {
   const { name, onChange, placeholder, maxYear, minYear, value } = props;
   const { t } = useTranslation();
 
+  const monthRef = useRef();
+  const yearRef = useRef();
+  const okRef = useRef();
+
   const [inputValue, setInputValue] = useState(value);
+
   const [isShowDropdown, setShowDropdown] = useState(false);
   const [isShowDropdownContent, setShowDropdownContent] = useState('none');
   const currentDate = new Date();
@@ -54,7 +59,9 @@ const DatePicker2 = (props) => {
       month: Yup
         .string()
         .test('value', t('needDayOrYear'), (value) => (formik.values.year || formik.values.day))
-        .test('value', t('wrongMonthName'), (value) => (moment(value, ['M', 'MM', 'MMM', 'MMMM']).locale(['en', 'uk']).isValid()) || !value),
+        .test('value', t('wrongMonthName'), (value) => (
+          moment(value, ['M', 'MM', 'MMM', 'MMMM'], 'uk').isValid() ||
+          moment(value, ['M', 'MM', 'MMM', 'MMMM'], 'en').isValid()) || !value),
       year: Yup
         .number()
         .typeError(t('shouldDigit'))
@@ -87,7 +94,12 @@ const DatePicker2 = (props) => {
         if (formik.values.month.length < 3) {
           data += (moment().month(Number(formik.values.month) - 1).locale(['en', 'uk']).format('MM'));
         } else {
-          data += moment().month(formik.values.month).locale(['en', 'uk']).format('MM');
+          if (moment(formik.values.month, ['M', 'MM', 'MMM', 'MMMM'], 'uk').month(formik.values.month).isValid()) {
+            data += moment(formik.values.month, ['M', 'MM', 'MMM', 'MMMM'], 'uk').month(formik.values.month).locale(['uk', 'en']).format('MM');
+          }
+          if (moment(formik.values.month, ['M', 'MM', 'MMM', 'MMMM'], 'en').month(formik.values.month).isValid()) {
+            data += moment(formik.values.month, ['M', 'MM', 'MMM', 'MMMM'], 'en').month(formik.values.month).locale(['uk', 'en']).format('MM');
+          }
         }
         if (formik.values.day) {
           data += '-';
@@ -110,10 +122,10 @@ const DatePicker2 = (props) => {
         format = format.concat('--- ');
       }
 
-
       if (formik.values.year) {
         format = format.concat('YYYY');
       }
+
 
       setInputValue(moment(data, ['MM-D', 'YYYY-MM-D', 'YYYY-MM', 'YYYY-??-D']).format(format));
 
@@ -196,6 +208,38 @@ const DatePicker2 = (props) => {
     }
   }, [isShowDropdown]);
 
+  useEffect(() => {
+    if (value === '') {
+      setInputValue(value);
+      formik.resetForm();
+    } else {
+      if (value.length === 10) {
+        const date = moment(value, ['YYYY-MM-D', 'YYYY-??-D']);
+        formik.values.day = date.format('D');
+        if (value.charAt(5) !== 'X') {
+          formik.values.month = date.format('MM');
+        }
+        formik.values.year = date.format('YYYY');
+      }
+      if (value.length === 7) {
+        const date = moment(value, ['YYYY-MM']);
+        formik.values.month = date.format('MM');
+        formik.values.year = date.format('YYYY');
+      }
+      if (value.length === 5) {
+        const date = moment(value, ['MM-D']);
+        formik.values.month = date.format('MM');
+        formik.values.day = date.format('D');
+      }
+      if (value.length === 4) {
+        const date = moment(value, ['YYYY']);
+        formik.values.year = date.format('YYYY');
+      }
+      formik.submitForm();
+    }
+  }, [value]);
+
+
   const handleClick = () => {
     setTimeout(() => {
       setShowDropdown(true);
@@ -254,9 +298,9 @@ const DatePicker2 = (props) => {
                   <p className="errorMessageDay">{formik.errors.day}</p>
                   ) : ''}
                 {isShowDropdownContent !== 'day' ? (
-                  <ChevronDown className="search__icon cursor-pointer" style={{ 'pointer-events': 'none' }} />
+                  <ChevronDown className="search__icon cursor-pointer" style={{ pointerEvents: 'none', right: '-10px' }} />
                 ) : (
-                  <ChevronUp className="search__icon cursor-pointer" style={{ 'pointer-events': 'none' }} />
+                  <ChevronUp className="search__icon cursor-pointer" style={{ pointerEvents: 'none', right: '-10px' }} />
                 )}
               </div>
               <div className="dropdown-date" onBlur={() => setShowDropdownContent('none')}>
@@ -272,6 +316,7 @@ const DatePicker2 = (props) => {
                               onClick={() => {
                                 formik.setFieldValue('day', dayNumber);
                                 setShowDropdownContent('none');
+                                monthRef.current.focus();
                               }}
                             >
                               {dayNumber}
@@ -290,6 +335,7 @@ const DatePicker2 = (props) => {
                   className="input-month"
                   type="text"
                   size="10"
+                  ref={monthRef}
                   name="month"
                   placeholder={t('month')}
                   onChange={(e) => { formik.handleChange(e); setShowDropdownContent('none'); }}
@@ -305,9 +351,9 @@ const DatePicker2 = (props) => {
                   <p className="errorMessageMonth">{formik.errors.month}</p>
                 ) : ''}
                 {isShowDropdownContent !== 'month' ? (
-                  <ChevronDown className="search__icon cursor-pointer" style={{ 'pointer-events': 'none' }} />
+                  <ChevronDown className="search__icon cursor-pointer" style={{ pointerEvents: 'none', right: '-10px' }} />
                 ) : (
-                  <ChevronUp className="search__icon cursor-pointer" style={{ 'pointer-events': 'none' }} />
+                  <ChevronUp className="search__icon cursor-pointer" style={{ pointerEvents: 'none', right: '-10px' }} />
                 )}
               </div>
               <div className="dropdown-date" onBlur={() => setShowDropdownContent('none')}>
@@ -323,6 +369,7 @@ const DatePicker2 = (props) => {
                               onClick={() => {
                                 formik.setFieldValue('month', t(monthName));
                                 setShowDropdownContent('none');
+                                yearRef.current.focus();
                               }}
                             >
                               {t(monthName)}
@@ -341,6 +388,7 @@ const DatePicker2 = (props) => {
                   className="input-year"
                   type="text"
                   size="6"
+                  ref={yearRef}
                   placeholder="XXXX"
                   name="year"
                   onChange={(e) => { formik.handleChange(e); setShowDropdownContent('none'); }}
@@ -356,9 +404,9 @@ const DatePicker2 = (props) => {
                   <p className="errorMessageYear">{formik.errors.year}</p>
                 )}
                 {isShowDropdownContent !== 'year' ? (
-                  <ChevronDown className="search__icon cursor-pointer" style={{ 'pointer-events': 'none' }} />
+                  <ChevronDown className="search__icon cursor-pointer" style={{ pointerEvents: 'none', right: '-10px' }} />
                 ) : (
-                  <ChevronUp className="search__icon cursor-pointer" style={{ 'pointer-events': 'none' }} />
+                  <ChevronUp className="search__icon cursor-pointer" style={{ pointerEvents: 'none', right: '-10px' }} />
                 )}
               </div>
               <div className="dropdown-date" onBlur={() => setShowDropdownContent('none')}>
@@ -380,6 +428,7 @@ const DatePicker2 = (props) => {
                                 onClick={() => {
                                   formik.setFieldValue('year', yearNumber);
                                   setShowDropdownContent('none');
+                                  okRef.current.focus();
                                 }}
                               >
                                 {yearNumber}
@@ -413,7 +462,7 @@ const DatePicker2 = (props) => {
               >
                 {t('cancel')}
               </button>
-              <button type="submit" className="ok-button">OK</button>
+              <button type="submit" ref={okRef} className="ok-button">OK</button>
             </div>
           </div>
         </Form>
