@@ -228,7 +228,7 @@ const Table = (props) => {
           </Tooltip>
         )}
       </div>
-      <div className="relative">
+      <div id="div_for_dropdown" className="relative">
         <Shadow scrollParams={scrollParams} borderRadius=".375rem" />
         <div
           className="overflow-x-auto box"
@@ -269,6 +269,7 @@ const Table = (props) => {
                           defaultValue={defaultFilters[col.filter.name]}
                           onChange={onFilterChange}
                           onSearch={reloadTable}
+                          tableScrollParam={scrollParams.scrollLeft}
                         />
                       )}
                     </div>

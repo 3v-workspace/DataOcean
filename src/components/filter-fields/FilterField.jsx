@@ -7,7 +7,7 @@ import SelectInput2 from './SelectInput2';
 const FilterField = (props) => {
   const {
     filter: { name, type, multiple, placeholder, width, options },
-    onChange, defaultValue, onSearch, value,
+    onChange, defaultValue, onSearch, value, tableScrollParam,
   } = props;
 
   const needSearchRef = React.useRef(false);
@@ -97,6 +97,7 @@ const FilterField = (props) => {
               onChange(n, v);
             }}
             onClear={onClear}
+            tableScrollParam={tableScrollParam}
           />
         </div>
       );
@@ -123,10 +124,12 @@ FilterField.propTypes = {
   defaultValue: PropTypes.oneOfType([
     PropTypes.string, PropTypes.array,
   ]).isRequired,
+  tableScrollParam: PropTypes.number,
 };
 
 FilterField.defaultProps = {
   value: undefined,
+  tableScrollParam: 0,
 };
 
 export default FilterField;
