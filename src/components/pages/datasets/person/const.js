@@ -8,8 +8,8 @@ export const personBlocks = {
 };
 
 export const SOURCE = {
-  pep_source: { title: 'pep_ukr', translation: 'pepSource' },
-  sanction_source: { title: 'sanction_ukr', translation: 'sanctionSource' },
+  pep_ukr: 'pepSource',
+  sanction_ukr: 'sanctionSource',
 };
 
 export const STATUS_BLOCK = {

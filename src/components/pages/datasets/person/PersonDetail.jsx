@@ -1,7 +1,7 @@
 import React, { useEffect, useState, Fragment } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ReactRouterPropTypes } from 'utils/prop-types';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import Api from 'api';
 import { setOverflow } from 'store/interface/actionCreators';
 import useTopBarHiddingEffect from 'hooks/useTopBarHiddingEffect';
@@ -51,10 +51,10 @@ const PersonDetail = ({ match, history }) => {
         label: 'placeOfResidence',
         value: person.residence_data.filter((residence) => residence.residence),
         render: (value) => value.map((item, i) => (
-          <p className="py-1">
+          <p className="py-1" key={i}>
             {`${i + 1}. ${item.residence} `}
             ({renderDate(item.year.toString())})
-            {` (${t('source')}`}: <span className="blue"> {t(checkSource(item))})</span>
+            {` (${t('source')}`}: <span className="blue"> {t(checkSource(item))}</span>)
           </p>
         )),
       },
@@ -84,7 +84,7 @@ const PersonDetail = ({ match, history }) => {
         value: person.citizenship_data.filter((citizenship) => getLocaleField(citizenship, 'name')),
         render: (value) => value.map((item, i) => (
           <p className="py-1" key={item.id}>
-            {`${i + 1}. ${getLocaleField(item, 'name')} (${t('source')}`}: <span className="blue"> {t(checkSource(item))})</span>
+            {`${i + 1}. ${getLocaleField(item, 'name')} (${t('source')}`}: <span className="blue"> {t(checkSource(item))}</span>)
           </p>
         )),
       },
@@ -93,8 +93,8 @@ const PersonDetail = ({ match, history }) => {
 
     const getLastPosition = (position_data) => {
       const lastPosition = position_data.sort((prev, cur) => {
-        const prevYear = prev.source === `position_${SOURCE.pep_source.title}` ? prev.declarated_at : prev.year;
-        const curYear = prev.source === `position_${SOURCE.pep_source.title}` ? cur.declarated_at : cur.year;
+        const prevYear = prev.source === `position_${Object.keys(SOURCE)[0]}` ? prev.declarated_at : prev.year;
+        const curYear = prev.source === `position_${Object.keys(SOURCE)[1]}` ? cur.declarated_at : cur.year;
         if (prevYear > curYear) {
           return 1;
         }
@@ -148,7 +148,14 @@ const PersonDetail = ({ match, history }) => {
               <tr>
                 <td className="w-40 lg:w-64 font-medium py-1">{t('pepDetailType')}:</td>
                 <td className="max-w-xl flex py-1">
-                  {person.pep_data[0]?.pep_type_display}
+                  <Link
+                    to={{
+                      pathname: '/system/help/',
+                      state: { pathnumber: 16 },
+                    }}
+                  >
+                    {person.pep_data[0]?.pep_type_display}
+                  </Link>
                   <Tooltip
                     className="w-70 md:w-auto"
                     position="right"
@@ -378,7 +385,7 @@ const PersonDetail = ({ match, history }) => {
         {t('backToSearchResults')}
       </button>
       <div className="intro-y flex pb-16" id={personBlocks.MAIN_INFO}>
-        <div className="flex-grow mr-8 w-px space-y-6">
+        <div className="flex-grow mr-8 w-px space-y-6 leading-6">
           <div className="bg-white flex flex-col border border-gray-400 intro-x rounded-lg">
             <div className={`flex px-6 ${person.is_dead ? 'pt-8' : 'py-8'}`}>
               <div><PepIcon width={170} height={170} /></div>
