@@ -34,6 +34,7 @@
   "authorizedCapital": "Статутний капітал",
   "back": "Повернутись",
   "backToHome": "На головну",
+  "backToSearchResults": "Назад до результатів пошуку",
   "bars": "Бари",
   "baseProjectCantBeDeactivated": "Базовий проєкт не може бути деактивовано",
   "byLink": "за посиланням",
@@ -508,5 +509,5 @@
   "yearlyPayment": "Щорічний платіж",
   "yes": "Так",
   "yourQuestionIsSent": "Ваше запитання надіслано!",
-  "yourRequestHasBeenSentWeWillContactYou": "Ваш запит надіслано. Ми звяжемось з Вами."
+  "yourRequestHasBeenSentWeWillContactYou": "Ваш запит надіслано. Ми зв'яжемось з Вами."
 }
