@@ -1,7 +1,8 @@
 import { getLocaleField } from 'utils';
 import i18n from 'i18next';
+import { tooltipList } from './const';
 
-export const sortData = (dataForSort, field) => {
+/*export const sortData = (dataForSort, field) => {
   if (field) {
     dataForSort.sort((prev, cur) => {
       if (prev[field].declared_at < cur[field].declared_at) {
@@ -25,6 +26,7 @@ export const sortData = (dataForSort, field) => {
     })
   );
 };
+*/
 
 export const prepareRelatedPersonData = (pep) => {
   if (!Object.keys(pep).length || (pep.from_person_links && !pep.from_person_links.length &&
@@ -67,10 +69,6 @@ export const prepareRelatedPersonData = (pep) => {
   return [sortedRelatedPersonData];
 };
 
-export const scrollToRef = (ref) => window.scrollTo({ top: ref.current.offsetTop, behavior: 'smooth' });
-
-export const getColor = (data) => (data && data.length ? 'block-black' : 'block-gray');
-
 export const otherCurrency = (object) => {
   let newCurrency = '';
   Object.entries(object).forEach(([key, value]) => {
@@ -78,3 +76,5 @@ export const otherCurrency = (object) => {
   });
   return newCurrency.length ? newCurrency : '---';
 };
+
+export const checkPepType = (pepType) => tooltipList[pepType];

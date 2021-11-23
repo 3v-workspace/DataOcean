@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { renderDate } from 'utils/dateTime';
-import { sortData } from './utils';
+import { sortData } from 'components/blocks/utils';
 
 const PepProperty = (props) => {
   const { data } = props;

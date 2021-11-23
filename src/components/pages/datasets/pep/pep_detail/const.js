@@ -20,5 +20,11 @@ export const pepBlocks = {
   INTANGIBLE_ASSETS: 'INTANGIBLE_ASSETS',
 };
 
+export const tooltipList = {
+  'national PEP': 'pepTypes.nationalPoliticallyExposedPersons',
+  'member of PEP`s family': 'pepTypes.theNationalLaw',
+  'associated person with PEP': 'pepTypes.associatesIndividualsHavingBusiness',
+};
+
 export const ASYNCBLOCK = 'ASYNCBLOCK';
 export const INFOBLOCK = 'INFOBLOCK';
