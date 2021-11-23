@@ -1,10 +1,10 @@
 import React, { useEffect, useState, Fragment } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import Api from 'api';
 import { useDispatch } from 'react-redux';
 import { setOverflow } from 'store/interface/actionCreators';
-import { AlertCircle, ArrowLeft, Download } from 'react-feather';
+import { HelpCircle, ArrowLeft, Download } from 'react-feather';
 import { renderDate, getLocaleField } from 'utils';
 import { ReactRouterPropTypes } from 'utils/prop-types';
 import useTopBarHiddingEffect from 'hooks/useTopBarHiddingEffect';
@@ -21,7 +21,6 @@ import {
 } from './pep_detail';
 import { prepareRelatedPersonData, checkPepType } from './pep_detail/utils';
 import { asyncBlocks, pepBlocks, ASYNCBLOCK, INFOBLOCK } from './pep_detail/const';
-
 
 const PepDetail = ({ match, history }) => {
   const location = useLocation();
@@ -266,13 +265,20 @@ const PepDetail = ({ match, history }) => {
           <tr>
             <td className="w-40 lg:w-64 font-bold pb-3">{t('pepDetailType')}:</td>
             <td className="inline-flex max-w-xl">
-              {pep.pep_type_display}
+              <Link
+                to={{
+                  pathname: '/system/help/',
+                  state: { pathnumber: 16 },
+                }}
+              >
+                {pep.pep_type_display}
+              </Link>
               <Tooltip
                 className="w-70 md:w-auto"
                 position="right"
                 content={t(checkPepType(pep.pep_type))}
               >
-                <AlertCircle className="w-4 h-4 ml-2 text-blue-600" />
+                <HelpCircle className="w-4 h-4 ml-2 text-blue-600" />
               </Tooltip>
             </td>
           </tr>
@@ -358,7 +364,7 @@ const PepDetail = ({ match, history }) => {
         onClick={() => history.goBack()}
       >
         <ArrowLeft className="h-5 ml-2" />
-        {t('back')}
+        {t('backToSearchResults')}
       </button>
       <div className="flex text-base pb-16">
         <div className="flex-grow mr-8 w-px">

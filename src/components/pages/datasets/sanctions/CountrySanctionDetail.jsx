@@ -3,11 +3,11 @@ import { useTranslation } from 'react-i18next';
 import { renderDate } from 'utils';
 import { useParams, useHistory } from 'react-router-dom';
 import Api from 'api';
-import { Download, Printer, ArrowLeft } from 'react-feather';
-import Tooltip from 'components/Tooltip';
+import { ArrowLeft } from 'react-feather';
 import { ReactComponent as CountryLogo } from 'images/logo_country.svg';
 import useTopBarHiddingEffect from 'hooks/useTopBarHiddingEffect';
 import SanctionTableShadow from './SanctionTableShadow';
+import PrintDownloadSanction from './PrintDownloadSanction';
 
 const CountrySanctionDetail = () => {
   const [data, setData] = useState({});
@@ -78,23 +78,9 @@ const CountrySanctionDetail = () => {
             {t('back')}
           </a>
         </div>
-        <Tooltip
-          position="bottom"
-          arrow={false}
-          content={t('inDevelopment')}
-          className="cursor-default"
-        >
-          <div className="inline-flex mr-8 pt-2">
-            <Printer className="w-5 h-5 mr-1" />
-            {t('print')}
-          </div>
-          <div className="inline-flex">
-            <Download className="w-5 h-5 mr-1" />
-            {t('export.downloadPdf')}
-          </div>
-        </Tooltip>
+        <PrintDownloadSanction id={data.id} name={data.country} dataset="sanction/country/" />
       </div>
-      <div className="intro-y space-y-1">
+      <div className="intro-y space-y-1 mb-5">
         <div className="py-4 pl-5 flex justify-between">
           <div className="flex justify-start">
             <CountryLogo />
@@ -115,23 +101,7 @@ const CountrySanctionDetail = () => {
         <div className="px-5 pt-2 flex flex-row overflow-auto">
           {getSanctions(data.types_of_sanctions)}
         </div>
-        <div className="pt-5 pb-10 pr-5 text-blue-800 flex flex-row justify-end font-medium">
-          <Tooltip
-            position="bottom"
-            arrow={false}
-            content={t('inDevelopment')}
-            className="cursor-default"
-          >
-            <div className="inline-flex mr-8">
-              <Printer className="w-5 h-5 mr-1" />
-              {t('print')}
-            </div>
-            <div className="inline-flex">
-              <Download className="w-5 h-5 mr-1" />
-              {t('export.downloadPdf')}
-            </div>
-          </Tooltip>
-        </div>
+        <PrintDownloadSanction className="pt-5 pb-10" id={data.id} name={data.country} dataset="sanction/country/" />
       </div>
     </div>
   );
