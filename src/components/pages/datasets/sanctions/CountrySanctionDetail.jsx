@@ -71,7 +71,7 @@ const CountrySanctionDetail = () => {
 
   return (
     <div className="mt-5 col-span-12 lg:col-span-6 box">
-      <div className="py-2 pr-5 border-b border-gray-200 text-blue-800 flex flex-row font-medium justify-between">
+      <div className="py-2 border-b border-gray-200 text-blue-800 flex flex-row font-medium justify-between">
         <div className="inline-flex">
           <a onClick={() => history.goBack()} className="inline-flex pt-2 bg-opacity-0 text-blue-800 font-bold cursor-pointer">
             <ArrowLeft className="w-10 h-5" />
