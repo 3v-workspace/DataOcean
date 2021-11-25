@@ -519,7 +519,6 @@
   "yearlyPayment": "Yearly payment",
   "yes": "Yes",
   "yourQuestionIsSent": "Your question is sent!",
-  "yourRequestHasBeenSentWeWillContactYou": "Your request has been sent. We will contact you.",
   "january": "January",
   "april": "April",
   "july": "July",
@@ -539,5 +538,6 @@
   "wrongMonthName": "Wrong month name",
   "minYear": "Year must be more than {{year}}",
   "maxYear": "Year must be less than {{year}}",
-  "shouldDigit": "Should be a number"
+  "shouldDigit": "Should be a number",
+  "yourRequestHasBeenSentWeWillContactYou": "Your request has been sent. We will contact you."
 }

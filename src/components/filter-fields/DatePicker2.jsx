@@ -214,21 +214,21 @@ const DatePicker2 = (props) => {
       formik.resetForm();
     } else {
       if (value.length === 10) {
-        const date = moment(value, ['YYYY-MM-D', 'YYYY-??-D']);
+        const date = moment(value, ['YYYY-MM-D', 'YYYY-??-D']).locale('en');
         formik.values.day = date.format('D');
         if (value.charAt(5) !== 'X') {
-          formik.values.month = date.format('MM');
+          formik.values.month = t(date.format('MMMM').toLowerCase());
         }
         formik.values.year = date.format('YYYY');
       }
       if (value.length === 7) {
-        const date = moment(value, ['YYYY-MM']);
-        formik.values.month = date.format('MM');
+        const date = moment(value, ['YYYY-MM']).locale('en');
+        formik.values.month = t(date.format('MMMM').toLowerCase());
         formik.values.year = date.format('YYYY');
       }
       if (value.length === 5) {
-        const date = moment(value, ['MM-D']);
-        formik.values.month = date.format('MM');
+        const date = moment(value, ['MM-D']).locale('en');
+        formik.values.month = t(date.format('MMMM').toLowerCase());
         formik.values.day = date.format('D');
       }
       if (value.length === 4) {
@@ -239,10 +239,21 @@ const DatePicker2 = (props) => {
     }
   }, [value]);
 
-
   const handleClick = () => {
     setTimeout(() => {
-      setShowDropdown(true);
+      if (isShowDropdown === false) {
+        setShowDropdown(true);
+      } else {
+        setShowDropdown(false);
+      }
+    }, 0);
+  };
+
+  const handleFocus = () => {
+    setTimeout(() => {
+      if (isShowDropdown === false) {
+        setShowDropdown(true);
+      }
     }, 0);
   };
 
