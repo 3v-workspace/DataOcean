@@ -10,13 +10,13 @@ const PrintDownloadSanction = (props) => {
 
   return (
     <div className={`${className} py-2 pr-5 text-blue-800 flex flex-row justify-end font-medium`}>
-      <div className="inline-flex mr-8 cursor-pointer" onClick={() => getPDF(id, name, false, dataset)}>
-        <Printer className="w-5 h-5 mr-1" />
-        {t('print')}
-      </div>
-      <div className="inline-flex cursor-pointer" onClick={() => getPDF(id, name.replace(/(^"|"$)/g, ''), true, dataset)}>
+      <div className="inline-flex mr-8 cursor-pointer" onClick={() => getPDF(id, name.replace(/(^"|"$)/g, ''), true, dataset)}>
         <Download className="w-5 h-5 mr-1" />
         {t('export.downloadPdf')}
+      </div>
+      <div className="inline-flex cursor-pointer" onClick={() => getPDF(id, name, false, dataset)}>
+        <Printer className="w-5 h-5 mr-1" />
+        {t('print')}
       </div>
     </div>
   );
