@@ -27,7 +27,7 @@ const SelectInput2 = (props) => {
 
   useEffect(() => {
     setDomReady(true);
-  });
+  }, []);
 
 
   const hideDropdown = () => {
@@ -102,9 +102,7 @@ const SelectInput2 = (props) => {
           type="text"
           className="input text-gray-600 w-40"
           value={t('selected', { count, optionsCount: options.length })}
-          onClick={() => {
-            showDropdown();
-          }}
+          onClick={showDropdown}
         />
         {isShowDropdown ? (
           <ChevronUp onClick={hideDropdown} className="search__icon cursor-pointer" />
@@ -120,11 +118,10 @@ const SelectInput2 = (props) => {
             top: offsetParams.top + offsetParams.height,
           }}
           onMouseLeave={hideDropdown}
-          id="select_dropdown"
         >
           <div className="select-dropdown__content">
             <ul>
-              <li>
+              <li className="pt-2">
                 <h1 className="text-blue-700 mb-1 cursor-pointer" onClick={onClear}>{t('resetFilter')}</h1>
               </li>
               {options.map((option) => (
