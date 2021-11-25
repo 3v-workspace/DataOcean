@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { getLocaleField, renderDate } from 'utils';
-import { sortData } from './utils';
+import { sortData } from 'components/blocks/utils';
 
 const PepVehicle = (props) => {
   const { data } = props;

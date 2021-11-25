@@ -107,14 +107,18 @@ const PersonSanctionDetail = () => {
 
   return (
     <div className="mt-5 col-span-12 lg:col-span-6 box">
-      <div className="py-2 pr-5 border-b border-gray-200 text-blue-800 flex flex-row font-medium justify-between">
+      <div className="py-2 border-b border-gray-200 text-blue-800 flex flex-row font-medium justify-between">
         <div className="inline-flex">
           <a onClick={() => history.goBack()} className="inline-flex pt-2 bg-opacity-0 text-blue-800 font-bold cursor-pointer">
             <ArrowLeft className="w-10 h-5" />
             {t('back')}
           </a>
         </div>
-        <PrintDownloadSanction id={data.id} name={data.full_name_original} dataset="sanction/person/" />
+        <PrintDownloadSanction
+          id={data.id}
+          name={data.full_name_original ? data.full_name_original : data.full_name}
+          dataset="sanction/person/"
+        />
       </div>
       <div className="intro-y space-y-1 flex flex-row justify-around">
         <div className="py-4 px-5 self-auto content-around">
@@ -145,7 +149,12 @@ const PersonSanctionDetail = () => {
           {getSanctions(data.types_of_sanctions)}
         </div>
       </div>
-      <PrintDownloadSanction className="pt-5 pb-10 mb-5" id={data.id} name={data.full_name_original} dataset="sanction/person/" />
+      <PrintDownloadSanction
+        className="pt-5 pb-10 mb-5"
+        id={data.id}
+        name={data.full_name_original ? data.full_name_original : data.full_name}
+        dataset="sanction/person/"
+      />
     </div>
   );
 };

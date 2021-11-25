@@ -1,25 +1,27 @@
-import React, { useRef, useEffect, useState, Fragment } from 'react';
+import React, { useEffect, useState, Fragment } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import Api from 'api';
 import { useDispatch } from 'react-redux';
 import { setOverflow } from 'store/interface/actionCreators';
-import { AlertCircle, ArrowLeft, Download } from 'react-feather';
-import { renderDate, getLocaleField } from 'utils';
+import { HelpCircle, ArrowLeft, Download } from 'react-feather';
+import { renderDate, getLocaleField, getPDF } from 'utils';
 import { ReactRouterPropTypes } from 'utils/prop-types';
 import useTopBarHiddingEffect from 'hooks/useTopBarHiddingEffect';
+import useScrollToEffect from 'hooks/useScrollToEffect';
 import Tooltip from 'components/Tooltip';
+import { Sanction, Criminal, Built, Car, Person, Career, Giftbox, Print, Info,
+  Home, Money, Name, Wallet, MainInfo, PepIcon, SpendMoney, MonetaryAssets, IntangibleAssetsIcon } from 'components/blocks/index';
+import { scrollToElement, sortedCareerData } from 'components/blocks/utils';
+import LoadingIcon from 'components/LoadingIcon';
 import {
-  Sanction, Criminal, Built, Car, Person, Career, Giftbox, Print, Info,
-  Home, Money, Name, Wallet, MainInfo, PepIcon, SpendMoney, MonetaryAssets,
   InformationBlock, AsyncInformationBlock, PepCriminal, PepLiability, PepMonetaryAssets,
-  PepMoney, PepProperty, PepSanction, PepVehicle, PepCareer, PepHtml,
-  PepRelatedPerson, PepRelatedCompanies, PepOtherNames, PepMenu, IntangibleAssets,
-  IntangibleAssetsIcon,
+  PepMoney, PepProperty, PepVehicle, PepCareer, PepHtml,
+  PepRelatedPerson, PepRelatedCompanies, PepOtherNames, PepMenu,
+  IntangibleAssets, SanctionBlock,
 } from './pep_detail';
-import { prepareRelatedPersonData, scrollToRef, getColor } from './pep_detail/utils';
+import { prepareRelatedPersonData, checkPepType } from './pep_detail/utils';
 import { asyncBlocks, pepBlocks, ASYNCBLOCK, INFOBLOCK } from './pep_detail/const';
-
 
 const PepDetail = ({ match, history }) => {
   const location = useLocation();
@@ -52,24 +54,9 @@ const PepDetail = ({ match, history }) => {
       return { ...prevState, [blockId]: newState };
     });
   };
+  const [loading, setLoading] = useState(false);
   const { id } = match.params;
   const { t } = useTranslation();
-  const mainRef = useRef();
-  const criminalRef = useRef();
-  const sanctionRef = useRef();
-  const relatedCompaniesRef = useRef();
-  const careerRef = useRef();
-  const incomeRef = useRef();
-  const monetaryAssetsRef = useRef();
-  const liabilityRef = useRef();
-  const realEstateRef = useRef();
-  const carRef = useRef();
-  const otherNamesRef = useRef();
-  const additionalInfoRef = useRef();
-  const relatedPersonRef = useRef();
-  const giftRef = useRef();
-  const expendituresRef = useRef();
-  const intangibleAssetsRef = useRef();
   const fetchData = () => {
     Api.get(`pep/${id}/`, {
       useProjectToken: true,
@@ -86,10 +73,9 @@ const PepDetail = ({ match, history }) => {
       url: `pep/${id}/sanctions/`,
       title: 'sanctionsDetail',
       titleIcon: Sanction,
-      component: PepSanction,
+      component: SanctionBlock,
       blockProps: { data: data.SANCTION && data.SANCTION.length ? data.SANCTION : [{ noSanction: t('noSanction') }] },
       type: ASYNCBLOCK,
-      ref: sanctionRef,
     },
     {
       id: pepBlocks.CRIMINAL,
@@ -98,7 +84,6 @@ const PepDetail = ({ match, history }) => {
       component: PepCriminal,
       blockProps: { data: pep.criminal_proceedings ? pep.criminal_proceedings : [{ noCriminal: t('noCriminal') }] },
       type: INFOBLOCK,
-      ref: criminalRef,
     },
     {
       id: pepBlocks.RELATED_PERSONS,
@@ -107,7 +92,6 @@ const PepDetail = ({ match, history }) => {
       component: PepRelatedPerson,
       blockProps: { pepId: pep.id, matchProps: match, data: prepareRelatedPersonData(pep) },
       type: INFOBLOCK,
-      ref: relatedPersonRef,
     },
     {
       id: pepBlocks.RELATED_COMPANIES,
@@ -116,7 +100,6 @@ const PepDetail = ({ match, history }) => {
       component: PepRelatedCompanies,
       blockProps: { data: pep.related_companies },
       type: INFOBLOCK,
-      ref: relatedCompaniesRef,
     },
     {
       id: asyncBlocks.CAREER,
@@ -124,9 +107,8 @@ const PepDetail = ({ match, history }) => {
       title: 'career',
       titleIcon: Career,
       component: PepCareer,
-      blockProps: { data: data.CAREER },
+      blockProps: { data: sortedCareerData(data.CAREER) },
       type: ASYNCBLOCK,
-      ref: careerRef,
     },
     {
       id: asyncBlocks.INCOME,
@@ -141,7 +123,6 @@ const PepDetail = ({ match, history }) => {
         pepId: pep.id,
         ownerField: 'recipient',
       },
-      ref: incomeRef,
     },
     {
       id: asyncBlocks.LIABILITY,
@@ -152,7 +133,6 @@ const PepDetail = ({ match, history }) => {
       blockData: data.LIABILITY,
       type: ASYNCBLOCK,
       blockProps: { data: data.LIABILITY, pepId: pep.id },
-      ref: liabilityRef,
     },
     {
       id: asyncBlocks.EXPENDITURE,
@@ -167,7 +147,6 @@ const PepDetail = ({ match, history }) => {
         pepId: pep.id,
         ownerField: 'participant',
       },
-      ref: expendituresRef,
     },
     {
       id: asyncBlocks.MONETARY_ASSETS,
@@ -180,7 +159,6 @@ const PepDetail = ({ match, history }) => {
         data: data.MONETARY_ASSETS.filter((money) => money.amount !== null),
         pepId: pep.id,
       },
-      ref: monetaryAssetsRef,
     },
     {
       id: asyncBlocks.GIFT,
@@ -195,7 +173,6 @@ const PepDetail = ({ match, history }) => {
         ownerField: 'recipient',
         data: data.GIFT,
       },
-      ref: giftRef,
     },
     {
       id: pepBlocks.INTANGIBLE_ASSETS,
@@ -204,7 +181,6 @@ const PepDetail = ({ match, history }) => {
       component: IntangibleAssets,
       blockProps: { data: pep.cryptocurrencies_from_last_declaration },
       type: INFOBLOCK,
-      ref: intangibleAssetsRef,
     },
     {
       id: asyncBlocks.REAL_ESTATE,
@@ -213,7 +189,6 @@ const PepDetail = ({ match, history }) => {
       titleIcon: Home,
       component: PepProperty,
       type: ASYNCBLOCK,
-      ref: realEstateRef,
       blockProps: { data: data.REAL_ESTATE },
     },
     {
@@ -224,7 +199,6 @@ const PepDetail = ({ match, history }) => {
       component: PepVehicle,
       blockProps: { data: data.CAR },
       type: ASYNCBLOCK,
-      ref: carRef,
     },
     {
       id: pepBlocks.OTHER_NAMES,
@@ -233,7 +207,6 @@ const PepDetail = ({ match, history }) => {
       component: PepOtherNames,
       blockProps: { data: pep.fullname_transcriptions_eng },
       type: INFOBLOCK,
-      ref: otherNamesRef,
     },
     {
       id: pepBlocks.ADDITIONAL_INFO,
@@ -242,20 +215,46 @@ const PepDetail = ({ match, history }) => {
       component: PepHtml,
       blockProps: { data: pep.info || '' },
       type: INFOBLOCK,
-      ref: additionalInfoRef,
     },
   ];
 
-  const tooltipList = {
-    'national PEP': t('pepTypes.nationalPoliticallyExposedPersons'),
-    'member of PEP`s family': t('pepTypes.theNationalLaw'),
-    'associated person with PEP': t('pepTypes.associatesIndividualsHavingBusiness'),
+  const getHeader = () => {
+    const sanctionBlock = config.find((item) => item.id === asyncBlocks.SANCTION);
+    const criminalBlock = config.find((item) => item.id === pepBlocks.CRIMINAL);
+    return (
+      <>
+        <div
+          className="border border-gray-400 rounded-full px-3 py-1 mr-2 cursor-pointer text-xs"
+          onClick={() => scrollToElement(pepBlocks.MAIN_INFO)}
+
+        >
+          {pep.pep_type_display}
+        </div>
+        {sanctionBlock.blockProps.data && sanctionBlock.blockProps.data.length &&
+          !sanctionBlock.blockProps.data[0].noSanction ? (
+            <div
+              className="border border-gray-400 rounded-full px-3 py-1 cursor-pointer text-xs"
+              onClick={() => scrollToElement(asyncBlocks.SANCTION)}
+            >
+              {t(sanctionBlock.title)}
+            </div>
+          ) : null}
+        {criminalBlock.blockProps.data && criminalBlock.blockProps.data.length &&
+          !criminalBlock.blockProps.data[0].noCriminal ? (
+            <div
+              className="border border-gray-400 rounded-full px-3 py-1 ml-2 cursor-pointer text-xs"
+              onClick={() => scrollToElement(pepBlocks.CRIMINAL)}
+            >
+              {t(criminalBlock.title)}
+            </div>
+          ) : null}
+      </>
+    );
   };
-  const checkPepType = tooltipList[pep.pep_type];
+
   const getShortInfo = () => {
     const shortInfoFields = [
       { label: 'dateOfBirth', value: pep.date_of_birth, render: (value) => renderDate(value) },
-      { label: 'isDead', value: pep.is_dead, render: (value) => (value ? t('yes') : null) },
       { label: 'terminationDatePep', value: pep.termination_date, render: (value) => renderDate(value) },
       { label: 'reasonOfTermination', value: pep.reason_of_termination },
       { label: 'placeOfBirth', value: pep.place_of_birth },
@@ -268,13 +267,20 @@ const PepDetail = ({ match, history }) => {
           <tr>
             <td className="w-40 lg:w-64 font-bold pb-3">{t('pepDetailType')}:</td>
             <td className="inline-flex max-w-xl">
-              {pep.pep_type_display}
+              <Link
+                to={{
+                  pathname: '/system/help/',
+                  state: { pathnumber: 16 },
+                }}
+              >
+                {pep.pep_type_display}
+              </Link>
               <Tooltip
                 className="w-70 md:w-auto"
                 position="right"
-                content={checkPepType}
+                content={t(checkPepType(pep.pep_type))}
               >
-                <AlertCircle className="w-4 h-4 ml-2 text-blue-600" />
+                <HelpCircle className="w-4 h-4 ml-2 text-blue-600" />
               </Tooltip>
             </td>
           </tr>
@@ -286,39 +292,6 @@ const PepDetail = ({ match, history }) => {
           ) : null))}
         </tbody>
       </table>
-    );
-  };
-
-  const getHeader = () => {
-    const sanctionBlock = config.find((item) => item.id === asyncBlocks.SANCTION);
-    const criminalBlock = config.find((item) => item.id === pepBlocks.CRIMINAL);
-    return (
-      <>
-        <div
-          className="border border-gray-400 rounded-full px-3 py-1 mr-2 cursor-pointer text-xs"
-          onClick={() => scrollToRef(mainRef)}
-        >
-          {pep.pep_type_display}
-        </div>
-        {sanctionBlock.blockProps.data && sanctionBlock.blockProps.data.length &&
-          !sanctionBlock.blockProps.data[0].noSanction ? (
-            <div
-              className="border border-gray-400 rounded-full px-3 py-1 cursor-pointer text-xs"
-              onClick={() => scrollToRef(sanctionBlock.ref)}
-            >
-              {t(sanctionBlock.title)}
-            </div>
-          ) : null}
-        {criminalBlock.blockProps.data && criminalBlock.blockProps.data.length &&
-          !criminalBlock.blockProps.data[0].noCriminal ? (
-            <div
-              className="border border-gray-400 rounded-full px-3 py-1 ml-2 cursor-pointer text-xs"
-              onClick={() => scrollToRef(criminalBlock.ref)}
-            >
-              {t(criminalBlock.title)}
-            </div>
-          ) : null}
-      </>
     );
   };
 
@@ -371,16 +344,7 @@ const PepDetail = ({ match, history }) => {
 
   useTopBarHiddingEffect();
 
-  useEffect(() => {
-    if (location.hash) {
-      const element = document.getElementById(location.hash.substr(1));
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-      }
-    } else {
-      window.scrollTo(0, 0);
-    }
-  }, [data]);
+  useScrollToEffect(location, data);
 
   useEffect(() => {
     dispatch(setOverflow(false));
@@ -402,11 +366,16 @@ const PepDetail = ({ match, history }) => {
         onClick={() => history.goBack()}
       >
         <ArrowLeft className="h-5 ml-2" />
-        {t('back')}
+        {t('backToSearchResults')}
       </button>
       <div className="flex text-base pb-16">
         <div className="flex-grow mr-8 w-px">
-          <div className="box border border-gray-400 p-6" ref={mainRef} id={pepBlocks.MAIN_INFO}>
+          {loading && (
+            <div className="w-full h-full bg-gray-700 bg-opacity-25 absolute flex items-center justify-center z-50">
+              <LoadingIcon icon="three-dots" className="w-16 h-16 z-50" />
+            </div>
+          )}
+          <div className="box border border-gray-400 p-6" id={pepBlocks.MAIN_INFO}>
             <div className="flex flex-col lg:flex-row">
               <div className="flex flex-auto items-start justify-start mt-1">
                 <PepIcon />
@@ -420,13 +389,9 @@ const PepDetail = ({ match, history }) => {
                   {getShortInfo()}
                 </div>
               </div>
-              <div className="inline-flex p-1">
-                <Tooltip content={t('inDevelopment')} className="h-6">
-                  <Download className="mr-8" />
-                </Tooltip>
-                <Tooltip content={t('inDevelopment')} className="h-6">
-                  <Print />
-                </Tooltip>
+              <div className="inline-flex p-1 cursor-pointer">
+                <Download className="mr-8" onClick={() => getPDF(pep.id, getLocaleField(pep, 'fullname'), true, '/pep/', setLoading)} />
+                <Print onClick={() => getPDF(pep.id, getLocaleField(pep, 'fullname'), false, '/pep/', setLoading)} />
               </div>
             </div>
           </div>
@@ -435,9 +400,10 @@ const PepDetail = ({ match, history }) => {
         <PepMenu
           config={config}
           mainBlock={
-            { id: pepBlocks.MAIN_INFO, ref: mainRef, icon: MainInfo }
+            { id: pepBlocks.MAIN_INFO, icon: MainInfo }
           }
           setOpenBlock={setOpenBlock}
+          position="left"
         />
       </div>
     </>

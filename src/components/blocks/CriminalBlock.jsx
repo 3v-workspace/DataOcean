@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import PepHtml from './PepHtml';
+import HtmlBlock from './HtmlBlock';
 
-const PepCriminal = (props) => {
+const CriminalBlock = (props) => {
   const { data } = props;
+
   if (data[0].noCriminal) {
     return (
       <div className="text-center text-xl">
@@ -12,13 +13,13 @@ const PepCriminal = (props) => {
     );
   }
 
-  return <PepHtml data={data} />;
+  return <HtmlBlock data={data} />;
 };
 
-PepCriminal.propTypes = {
+CriminalBlock.propTypes = {
   data: PropTypes.oneOfType([
     PropTypes.string, PropTypes.array,
   ]).isRequired,
 };
 
-export default PepCriminal;
+export default CriminalBlock;
