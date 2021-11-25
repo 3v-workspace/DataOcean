@@ -4,10 +4,10 @@ import { useTranslation } from 'react-i18next';
 import Shadow, { resetScrollParams, checkScrollParams } from 'components/table/Shadow';
 import { ChevronDown, ChevronUp } from 'react-feather';
 import { throttle } from 'throttle-debounce';
-import { scrollToRef } from './utils';
+import { scrollToElement } from 'components/blocks/utils';
 
-const PepUnfoldingBlock = (props) => {
-  const { data, blockRef } = props;
+const UnfoldingBlock = (props) => {
+  const { data, blockId } = props;
   const [isOpen, setOpen] = useState(false);
   const [isOverflow, setOverflow] = useState(false);
   const { children } = props;
@@ -68,7 +68,10 @@ const PepUnfoldingBlock = (props) => {
           onClick={() => setOpen(!isOpen)}
         >
           {isOpen ? (
-            <div onClick={() => scrollToRef(blockRef)} className="inline-flex">
+            <div
+              onClick={() => scrollToElement(blockId)}
+              className="inline-flex"
+            >
               <ChevronUp className="w-4 h-6" />
               {t('less')}
             </div>
@@ -84,9 +87,9 @@ const PepUnfoldingBlock = (props) => {
   );
 };
 
-PepUnfoldingBlock.propTypes = {
+UnfoldingBlock.propTypes = {
   data: PropTypes.oneOfType([PropTypes.string, PropTypes.array]).isRequired,
-  blockRef: PropTypes.shape({ current: PropTypes.any }).isRequired,
+  blockId: PropTypes.string.isRequired,
 };
 
-export default PepUnfoldingBlock;
+export default UnfoldingBlock;

@@ -11,6 +11,7 @@ import DatasetsRoutes from 'components/pages/datasets/DatasetsRoutes';
 import SubscriptionsPage from 'components/pages/payment/SubscriptionsPage';
 import ApiPage from 'components/pages/api/ApiPage';
 import PersonResultsPage from 'components/pages/search/PersonResultsPage';
+import PersonDetail from 'components/pages/datasets/person/PersonDetail';
 
 
 const SystemRoutes = (props) => {
@@ -77,6 +78,11 @@ const SystemRoutes = (props) => {
         exact
         path={`${match.path}home/person-search/`}
         component={PersonResultsPage}
+      />
+      <Route
+        exact
+        path={`${match.path}home/person/:id/`}
+        component={PersonDetail}
       />
       <Route
         path={`${match.path}home/`}

@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
 import Api from 'api';
 import PropTypes from 'prop-types';
-import InformationBlock from './InformationBlock';
-import { getColor } from './utils';
+import InformationBlock from 'components/blocks/InformationBlock';
 
 const AsyncInformationBlock = (props) => {
   const { block, setDataForBlock, setOpenBlock, open } = props;
