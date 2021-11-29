@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { ReactRouterPropTypes } from 'utils/prop-types';
+import CompanyResultsPage from 'components/pages/search/CompanyResultsPage';
 import ContactsPage from 'components/pages/system/ContactsPage';
 import Route404 from 'components/pages/Route404';
 import HelpPage from 'components/pages/help/HelpPage';
@@ -83,6 +84,11 @@ const SystemRoutes = (props) => {
         exact
         path={`${match.path}home/person/:id/`}
         component={PersonDetail}
+      />
+      <Route
+        exact
+        path={`${match.path}home/company-search/`}
+        component={CompanyResultsPage}
       />
       <Route
         path={`${match.path}home/`}

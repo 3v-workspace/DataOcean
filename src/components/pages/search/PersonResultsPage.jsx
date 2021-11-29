@@ -46,10 +46,10 @@ const PersonResultsPage = (props) => {
     return <SearchNoResults queryString={queryString} />;
   }
   if (!tc.isDataReady) {
-    return <SearchLoading />;
+    return <SearchLoading loadingText={t('personPage.loadingText')} />;
   }
   if (tc.data.length === 0) {
-    return <SearchNoResults queryString={queryString} />;
+    return <SearchNoResults queryString={queryString} searchPageLink="/system/home/person/" />;
   }
 
   return (

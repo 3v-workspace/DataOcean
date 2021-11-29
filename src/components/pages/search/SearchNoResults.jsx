@@ -4,7 +4,8 @@ import { Button } from 'components/form-components';
 import PropTypes from 'prop-types';
 import { Trans } from 'react-i18next';
 
-const SearchNoResults = ({ queryString }) => (
+const SearchNoResults = ({ queryString, searchPageLink }) => (
+
   <div className="box mt-5 pt-16 pb-20 px-5">
     <div className="flex flex-col items-center justify-center space-y-5">
       <div className="text-gray-500">
@@ -22,9 +23,9 @@ const SearchNoResults = ({ queryString }) => (
         <Button
           className="px-8"
           variant="primary"
-          link="/system/home/person/"
+          link={searchPageLink}
         >
-          <Trans i18nKey="personPage.check" />
+          <Trans i18nKey="check" />
         </Button>
       </div>
     </div>
@@ -33,6 +34,7 @@ const SearchNoResults = ({ queryString }) => (
 
 SearchNoResults.propTypes = {
   queryString: PropTypes.string.isRequired,
+  searchPageLink: PropTypes.string.isRequired,
 };
 
 export default SearchNoResults;
