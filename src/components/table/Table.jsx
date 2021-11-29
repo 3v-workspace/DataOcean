@@ -21,7 +21,7 @@ const getDefaultFilterValues = (columns) => {
   const defaultValues = {};
   columns.forEach((col) => {
     if (!col.filter) return;
-    if (['text', 'number', 'date'].includes(col.filter.type)) {
+    if (['text', 'text_with_dropdown', 'number', 'date'].includes(col.filter.type)) {
       defaultValues[col.filter.name] = '';
     } else if (col.filter.type === 'select') {
       if (col.filter.multiple) {
@@ -228,7 +228,7 @@ const Table = (props) => {
           </Tooltip>
         )}
       </div>
-      <div className="relative">
+      <div id="div_for_dropdown" className="relative">
         <Shadow scrollParams={scrollParams} borderRadius=".375rem" />
         <div
           className="overflow-x-auto box"
@@ -269,6 +269,7 @@ const Table = (props) => {
                           defaultValue={defaultFilters[col.filter.name]}
                           onChange={onFilterChange}
                           onSearch={reloadTable}
+                          tableScrollParam={scrollParams.scrollLeft}
                         />
                       )}
                     </div>
