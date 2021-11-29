@@ -217,6 +217,57 @@ const PepDetail = ({ match, history }) => {
       type: INFOBLOCK,
     },
   ];
+  const tooltipList = {
+    'national PEP': t('pepTypes.nationalPoliticallyExposedPersons'),
+    'member of PEP`s family': t('pepTypes.theNationalLaw'),
+    'associated person with PEP': t('pepTypes.associatesIndividualsHavingBusiness'),
+  };
+  const checkPepType = Object.keys(tooltipList).includes(pep.pep_type) ?
+    tooltipList[pep.pep_type] : null;
+  const getShortInfo = () => {
+    const shortInfoFields = [
+      { label: 'dateOfBirth', value: pep.date_of_birth, render: (value) => renderDate(value) },
+      { label: 'terminationDatePep', value: pep.termination_date, render: (value) => renderDate(value) },
+      { label: 'reasonOfTermination', value: pep.reason_of_termination },
+      { label: 'placeOfBirth', value: pep.place_of_birth },
+      { label: 'lastPosition', value: getLocaleField(pep, 'last_job_title') },
+      { label: 'lastPlaceOfWork', value: getLocaleField(pep, 'last_employer') },
+    ];
+    return (
+      <table>
+        <tbody className="block-black align-top">
+          <tr>
+            <td className="w-40 lg:w-64 font-bold pb-3">{t('pepDetailType')}:</td>
+            <td className="inline-flex max-w-xl">
+              <Link
+                to={{
+                  pathname: '/system/help/',
+                  state: { pathnumber: 16 },
+                }}
+              >
+                {pep.pep_type_display}
+              </Link>
+              {checkPepType && (
+              <Tooltip
+                className="w-70 md:w-auto"
+                position="right"
+                content={checkPepType}
+              >
+                <HelpCircle className="w-4 h-4 ml-2 text-blue-600" />
+              </Tooltip>
+              )}
+            </td>
+          </tr>
+          {shortInfoFields.map((info) => (info.value && !(info.value === '---') ? (
+            <tr key={info.label}>
+              <td className="w-40 lg:w-64 font-bold pb-3">{t(info.label)}:</td>
+              <td className="max-w-xl">{info.render ? info.render(info.value) : info.value}</td>
+            </tr>
+          ) : null))}
+        </tbody>
+      </table>
+    );
+  };
 
   const getHeader = () => {
     const sanctionBlock = config.find((item) => item.id === asyncBlocks.SANCTION);
@@ -249,49 +300,6 @@ const PepDetail = ({ match, history }) => {
             </div>
           ) : null}
       </>
-    );
-  };
-
-  const getShortInfo = () => {
-    const shortInfoFields = [
-      { label: 'dateOfBirth', value: pep.date_of_birth, render: (value) => renderDate(value) },
-      { label: 'terminationDatePep', value: pep.termination_date, render: (value) => renderDate(value) },
-      { label: 'reasonOfTermination', value: pep.reason_of_termination },
-      { label: 'placeOfBirth', value: pep.place_of_birth },
-      { label: 'lastPosition', value: getLocaleField(pep, 'last_job_title') },
-      { label: 'lastPlaceOfWork', value: getLocaleField(pep, 'last_employer') },
-    ];
-    return (
-      <table>
-        <tbody className="block-black align-top">
-          <tr>
-            <td className="w-40 lg:w-64 font-bold pb-3">{t('pepDetailType')}:</td>
-            <td className="inline-flex max-w-xl">
-              <Link
-                to={{
-                  pathname: '/system/help/',
-                  state: { pathnumber: 16 },
-                }}
-              >
-                {pep.pep_type_display}
-              </Link>
-              <Tooltip
-                className="w-70 md:w-auto"
-                position="right"
-                content={t(checkPepType(pep.pep_type))}
-              >
-                <HelpCircle className="w-4 h-4 ml-2 text-blue-600" />
-              </Tooltip>
-            </td>
-          </tr>
-          {shortInfoFields.map((info) => (info.value && !(info.value === '---') ? (
-            <tr key={info.label}>
-              <td className="w-40 lg:w-64 font-bold pb-3">{t(info.label)}:</td>
-              <td className="max-w-xl">{info.render ? info.render(info.value) : info.value}</td>
-            </tr>
-          ) : null))}
-        </tbody>
-      </table>
     );
   };
 
