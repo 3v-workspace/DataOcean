@@ -136,7 +136,7 @@ const PersonDetail = ({ match, history }) => {
           <tbody>
             {person.pep_data.length ? (
               <tr>
-                <td className="w-40 lg:w-64 font-medium py-1">{t('pepDetailType')}:</td>
+                <td className="w-40 lg:w-64 font-medium py-1 align-top">{t('pepType')}:</td>
                 <td className="max-w-xl flex py-1">
                   <Link
                     to={{
