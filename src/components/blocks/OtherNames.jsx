@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 
-const PepOtherNames = (props) => {
+const OtherNames = (props) => {
   const { data } = props;
   const [className, setClassName] = useState('lg:grid-cols-2');
   const ulRef = useRef();
@@ -29,8 +29,8 @@ const PepOtherNames = (props) => {
   );
 };
 
-PepOtherNames.propTypes = {
+OtherNames.propTypes = {
   data: PropTypes.string.isRequired,
 };
 
-export default PepOtherNames;
+export default OtherNames;
