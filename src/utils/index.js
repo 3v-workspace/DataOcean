@@ -73,7 +73,23 @@ export const getPDF = (id, name, download, dataset, setLoading) => {
         fileLink.download = `${name}.pdf`;
         fileLink.click();
       } else {
-        window.open(fileURL);
+        const openPDF = () => {
+          const pdfWindow = window.open(fileURL);
+          const html = `
+            <html>
+            <head>
+              <title>${name}</title>
+            </head>
+                <embed width="100%" height="100%" src=${fileURL} type="application/pdf">
+              </body>
+            </html>
+          `;
+
+          pdfWindow.document.write(html);
+          pdfWindow.document.close();
+          pdfWindow.history.pushState(null, name, fileURL);
+        };
+        openPDF();
       }
     });
 };
