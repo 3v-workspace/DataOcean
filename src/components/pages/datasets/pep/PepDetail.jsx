@@ -219,13 +219,6 @@ const PepDetail = ({ match, history }) => {
       type: INFOBLOCK,
     },
   ];
-  const tooltipList = {
-    'national PEP': t('pepTypes.nationalPoliticallyExposedPersons'),
-    'member of PEP`s family': t('pepTypes.theNationalLaw'),
-    'associated person with PEP': t('pepTypes.associatesIndividualsHavingBusiness'),
-  };
-  const checkPepType = Object.keys(tooltipList).includes(pep.pep_type) ?
-    tooltipList[pep.pep_type] : null;
   const getShortInfo = () => {
     const shortInfoFields = [
       { label: 'dateOfBirth', value: pep.date_of_birth, render: (value) => renderDate(value) },
@@ -249,15 +242,13 @@ const PepDetail = ({ match, history }) => {
               >
                 {pep.pep_type_display}
               </Link>
-              {checkPepType && (
               <Tooltip
                 className="w-70 md:w-auto"
                 position="right"
-                content={checkPepType}
+                content={t(checkPepType(pep.pep_type))}
               >
                 <HelpCircle className="w-4 h-4 ml-2 text-blue-600" />
               </Tooltip>
-              )}
             </td>
           </tr>
           {shortInfoFields.map((info) => (info.value && !(info.value === '---') ? (
