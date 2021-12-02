@@ -22,7 +22,7 @@ import {
   PepRelatedPerson, PepRelatedCompanies, PepOtherNames, PepMenu,
   IntangibleAssets, SanctionBlock,
 } from './pep_detail';
-import { prepareRelatedPersonData } from './pep_detail/utils';
+import { prepareRelatedPersonData, checkPepType } from './pep_detail/utils';
 import { asyncBlocks, pepBlocks, ASYNCBLOCK, INFOBLOCK } from './pep_detail/const';
 
 const PepDetail = ({ match, history }) => {
@@ -380,13 +380,15 @@ const PepDetail = ({ match, history }) => {
       </button>
       <div className="flex text-base pb-16">
         <div className="flex-grow mr-8 w-px">
-          {loading && (
-            <div className="w-full h-full bg-gray-700 bg-opacity-25 absolute flex items-center justify-center z-50">
-              <LoadingIcon icon="three-dots" className="w-16 h-16 z-50" />
-            </div>
-          )}
           <div className="box border border-gray-400 p-6" id={pepBlocks.MAIN_INFO}>
             <div className="flex flex-col lg:flex-row">
+              {loading && (
+                <div
+                  className="w-full h-screen bg-gray-700 bg-opacity-25 absolute flex items-center justify-center z-50 -m-6"
+                >
+                  <LoadingIcon icon="three-dots" className="w-16 h-16 z-50" />
+                </div>
+              )}
               <div className="flex flex-auto items-start justify-start mt-1">
                 <PepIcon />
                 <div className="ml-6">
