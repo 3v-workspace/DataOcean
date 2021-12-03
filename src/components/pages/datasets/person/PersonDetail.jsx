@@ -13,17 +13,12 @@ import { renderDate } from 'utils/dateTime';
 import {
   PepIcon, Print, Built, Criminal, MainInfo, Person, Career, Wallet, Money, SpendMoney,
   MonetaryAssets, Giftbox, Home, Car, IntangibleAssetsIcon, Info, Sanction, BlackLine,
-  Name, File,
 } from 'components/blocks/index';
 import { getLocaleField, upFirstLetter } from 'utils';
 import { checkSource } from './utils';
 import { personBlocks, SOURCE, STATUS_BLOCK } from './const';
-import {
-  CriminalBlock, RelatedPersonBlock, RelatedCompaniesBlock, InformationBlock, Menu,
-  SanctionBlock, Tags, CareerBlock, OtherNames,
-} from './index';
+import { CriminalBlock, RelatedPersonBlock, RelatedCompaniesBlock, InformationBlock, Menu, SanctionBlock, Tags, PersonCareer } from './index';
 import { checkPepType } from '../pep/pep_detail/utils';
-import { sortData, sortedCareerData } from '../../../blocks/utils';
 
 const PersonDetail = ({ match, history }) => {
   const location = useLocation();
@@ -101,22 +96,41 @@ const PersonDetail = ({ match, history }) => {
     ];
 
     const getLastPosition = (position_data) => {
-      const lastPosition = sortData(
-        position_data.filter((item) => item.source === Object.keys(SOURCE)[0]),
-      )[0];
+      const lastPosition = position_data.sort((prev, cur) => {
+        const prevYear = prev.source === `position_${Object.keys(SOURCE)[0]}` ? prev.declarated_at : prev.year;
+        const curYear = prev.source === `position_${Object.keys(SOURCE)[1]}` ? cur.declarated_at : cur.year;
+        if (prevYear > curYear) {
+          return 1;
+        }
+        return -1;
+      })[0];
 
-      return lastPosition && (
-        <>
-          <tr>
-            <td className="w-40 lg:w-64 align-top font-medium py-1">{t('lastPosition')}:</td>
-            <td className="max-w-xl py-1">{upFirstLetter(getLocaleField(lastPosition, 'last_job_title'))}</td>
-          </tr>
-          <tr>
-            <td className="w-40 lg:w-64 align-top font-medium py-1">{t('lastPlaceOfWork')}:</td>
-            <td className="max-w-xl py-1">{upFirstLetter(getLocaleField(lastPosition, 'last_employer'))}</td>
-          </tr>
-        </>
-      );
+      switch (lastPosition?.source) {
+        case `position_${Object.keys(SOURCE)[0]}`:
+          return (
+            <>
+              <tr>
+                <td className="w-40 lg:w-64 align-top font-medium py-1">{t('lastPosition')}:</td>
+                <td className="max-w-xl py-1">{upFirstLetter(lastPosition.last_job_title)}</td>
+              </tr>
+              <tr>
+                <td className="w-40 lg:w-64 align-top font-medium py-1">{t('lastPlaceOfWork')}:</td>
+                <td className="max-w-xl py-1">{upFirstLetter(lastPosition.last_employer)}</td>
+              </tr>
+            </>
+          );
+        case `position_${Object.keys(SOURCE)[1]}`:
+          return (
+            <>
+              <tr>
+                <td className="w-40 lg:w-64 align-top font-medium py-1">{t('lastPlaceOfWork')}:</td>
+                <td className="max-w-xl py-1">{upFirstLetter(lastPosition.position)}</td>
+              </tr>
+            </>
+          );
+        default:
+          return null;
+      }
     };
 
     return (
@@ -156,7 +170,11 @@ const PersonDetail = ({ match, history }) => {
                 </td>
               </tr>
             ) : null}
-            {person.position_data.length ? getLastPosition(person.position_data) : null}
+            {person.position_data.length ? (
+              <>
+                {getLastPosition(person.position_data)}
+              </>
+            ) : null}
           </tbody>
         </table>
       </>
@@ -214,32 +232,11 @@ const PersonDetail = ({ match, history }) => {
       id: personBlocks.CAREER,
       title: 'career',
       titleIcon: Career,
-      component: CareerBlock,
+      component: PersonCareer,
       blockProps: {
-        data: person.position_data?.length ? sortedCareerData(
-          person.position_data.filter((item) => item.source === Object.keys(SOURCE)[0]),
-        ) : [],
+        data: person.position_data,
       },
       status: null,
-    },
-    {
-      id: personBlocks.OTHER_NAMES,
-      title: 'otherNames',
-      titleIcon: Name,
-      component: OtherNames,
-      blockProps: {
-        data: person.full_name_options,
-      },
-      status: null,
-    },
-    {
-      id: personBlocks.DECLARATION_BLOCK,
-      title: 'declarations',
-      titleIcon: File,
-      blockProps: {
-        data: [],
-      },
-      status: STATUS_BLOCK.inDevelopment,
     },
     {
       id: personBlocks.INCOME,
@@ -347,7 +344,9 @@ const PersonDetail = ({ match, history }) => {
         >
           {Component ? (
             <Component {...block.blockProps} />
-          ) : null }
+          ) : (
+            null
+          ) }
         </InformationBlock>
         {config[i + 1] && !config[i + 1].blockProps.data.length && config[i + 1].component &&
             block.blockProps.data.length ? (

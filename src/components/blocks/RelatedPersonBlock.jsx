@@ -8,14 +8,7 @@ const RelatedPersonBlock = (props) => {
   const { i18n } = useTranslation();
 
   data.sort((cur, prev) => {
-    const category = {
-      family: 1,
-      business: 2,
-      personal: 3,
-    };
-    cur.weight = category[cur.relationship_category] ? category[cur.relationship_category] : 4;
-    prev.weight = category[prev.relationship_category] ? category[prev.relationship_category] : 4;
-    if (cur.weight > prev.weight) {
+    if (cur.relationship_category > prev.relationship_category) {
       return 1;
     }
     return -1;

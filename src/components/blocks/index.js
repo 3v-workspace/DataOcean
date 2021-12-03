@@ -17,4 +17,3 @@ export { ReactComponent as SpendMoney } from 'images/spend_money.svg';
 export { ReactComponent as Print } from 'images/print_icon.svg';
 export { ReactComponent as IntangibleAssetsIcon } from 'images/bitcoin.svg';
 export { ReactComponent as BlackLine } from 'images/black_line.svg';
-export { ReactComponent as File } from 'images/file.svg';

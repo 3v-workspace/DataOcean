@@ -1,8 +1,8 @@
 .select-dropdown {
     z-index: 1000;
-    position: absolute;
-    display: none;
+    position: fixed;
     margin-top: 0.25rem;
+    display: none;
     opacity: 0;
 }
 
@@ -24,5 +24,6 @@
     position: relative;
     padding-left: 1rem;
     padding-right: 1rem;
+    padding-top: .5rem;
     margin-top: 1.25rem;
 }

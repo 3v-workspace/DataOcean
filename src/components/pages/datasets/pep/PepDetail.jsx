@@ -10,10 +10,8 @@ import { ReactRouterPropTypes } from 'utils/prop-types';
 import useTopBarHiddingEffect from 'hooks/useTopBarHiddingEffect';
 import useScrollToEffect from 'hooks/useScrollToEffect';
 import Tooltip from 'components/Tooltip';
-import {
-  Sanction, Criminal, Built, Car, Person, Career, Giftbox, Print, Info,
-  Home, Money, Name, Wallet, MainInfo, PepIcon, SpendMoney, MonetaryAssets, IntangibleAssetsIcon,
-} from 'components/blocks/index';
+import { Sanction, Criminal, Built, Car, Person, Career, Giftbox, Print, Info,
+  Home, Money, Name, Wallet, MainInfo, PepIcon, SpendMoney, MonetaryAssets, IntangibleAssetsIcon } from 'components/blocks/index';
 import { scrollToElement, sortedCareerData } from 'components/blocks/utils';
 import LoadingIcon from 'components/LoadingIcon';
 import {
@@ -22,7 +20,7 @@ import {
   PepRelatedPerson, PepRelatedCompanies, PepOtherNames, PepMenu,
   IntangibleAssets, SanctionBlock,
 } from './pep_detail';
-import { prepareRelatedPersonData } from './pep_detail/utils';
+import { prepareRelatedPersonData, checkPepType } from './pep_detail/utils';
 import { asyncBlocks, pepBlocks, ASYNCBLOCK, INFOBLOCK } from './pep_detail/const';
 
 const PepDetail = ({ match, history }) => {
@@ -219,57 +217,6 @@ const PepDetail = ({ match, history }) => {
       type: INFOBLOCK,
     },
   ];
-  const tooltipList = {
-    'national PEP': t('pepTypes.nationalPoliticallyExposedPersons'),
-    'member of PEP`s family': t('pepTypes.theNationalLaw'),
-    'associated person with PEP': t('pepTypes.associatesIndividualsHavingBusiness'),
-  };
-  const checkPepType = Object.keys(tooltipList).includes(pep.pep_type) ?
-    tooltipList[pep.pep_type] : null;
-  const getShortInfo = () => {
-    const shortInfoFields = [
-      { label: 'dateOfBirth', value: pep.date_of_birth, render: (value) => renderDate(value) },
-      { label: 'terminationDatePep', value: pep.termination_date, render: (value) => renderDate(value) },
-      { label: 'reasonOfTermination', value: pep.reason_of_termination },
-      { label: 'placeOfBirth', value: pep.place_of_birth },
-      { label: 'lastPosition', value: getLocaleField(pep, 'last_job_title') },
-      { label: 'lastPlaceOfWork', value: getLocaleField(pep, 'last_employer') },
-    ];
-    return (
-      <table>
-        <tbody className="block-black align-top">
-          <tr>
-            <td className="w-40 lg:w-64 font-bold pb-3">{t('pepDetailType')}:</td>
-            <td className="inline-flex max-w-xl">
-              <Link
-                to={{
-                  pathname: '/system/help/',
-                  state: { pathnumber: 16 },
-                }}
-              >
-                {pep.pep_type_display}
-              </Link>
-              {checkPepType && (
-              <Tooltip
-                className="w-70 md:w-auto"
-                position="right"
-                content={checkPepType}
-              >
-                <HelpCircle className="w-4 h-4 ml-2 text-blue-600" />
-              </Tooltip>
-              )}
-            </td>
-          </tr>
-          {shortInfoFields.map((info) => (info.value && !(info.value === '---') ? (
-            <tr key={info.label}>
-              <td className="w-40 lg:w-64 font-bold pb-3">{t(info.label)}:</td>
-              <td className="max-w-xl">{info.render ? info.render(info.value) : info.value}</td>
-            </tr>
-          ) : null))}
-        </tbody>
-      </table>
-    );
-  };
 
   const getHeader = () => {
     const sanctionBlock = config.find((item) => item.id === asyncBlocks.SANCTION);
@@ -302,6 +249,49 @@ const PepDetail = ({ match, history }) => {
             </div>
           ) : null}
       </>
+    );
+  };
+
+  const getShortInfo = () => {
+    const shortInfoFields = [
+      { label: 'dateOfBirth', value: pep.date_of_birth, render: (value) => renderDate(value) },
+      { label: 'terminationDatePep', value: pep.termination_date, render: (value) => renderDate(value) },
+      { label: 'reasonOfTermination', value: pep.reason_of_termination },
+      { label: 'placeOfBirth', value: pep.place_of_birth },
+      { label: 'lastPosition', value: getLocaleField(pep, 'last_job_title') },
+      { label: 'lastPlaceOfWork', value: getLocaleField(pep, 'last_employer') },
+    ];
+    return (
+      <table>
+        <tbody className="block-black align-top">
+          <tr>
+            <td className="w-40 lg:w-64 font-bold pb-3">{t('pepDetailType')}:</td>
+            <td className="inline-flex max-w-xl">
+              <Link
+                to={{
+                  pathname: '/system/help/',
+                  state: { pathnumber: 16 },
+                }}
+              >
+                {pep.pep_type_display}
+              </Link>
+              <Tooltip
+                className="w-70 md:w-auto"
+                position="right"
+                content={t(checkPepType(pep.pep_type))}
+              >
+                <HelpCircle className="w-4 h-4 ml-2 text-blue-600" />
+              </Tooltip>
+            </td>
+          </tr>
+          {shortInfoFields.map((info) => (info.value && !(info.value === '---') ? (
+            <tr key={info.label}>
+              <td className="w-40 lg:w-64 font-bold pb-3">{t(info.label)}:</td>
+              <td className="max-w-xl">{info.render ? info.render(info.value) : info.value}</td>
+            </tr>
+          ) : null))}
+        </tbody>
+      </table>
     );
   };
 
@@ -399,29 +389,9 @@ const PepDetail = ({ match, history }) => {
                   {getShortInfo()}
                 </div>
               </div>
-              <div className="flex cursor-pointer space-x-8 h-11">
-                <Tooltip
-                  content={t('export.downloadPdf')}
-                  className="flex background-hover-gray w-11"
-                >
-                  <Download
-                    onClick={() => getPDF(
-                      pep.id, getLocaleField(pep, 'fullname'), true, '/pep/', setLoading,
-                    )}
-                    className="m-auto"
-                  />
-                </Tooltip>
-                <Tooltip
-                  content={t('print')}
-                  className="flex background-hover-gray w-11"
-                >
-                  <Print
-                    onClick={() => getPDF(
-                      pep.id, getLocaleField(pep, 'fullname'), false, '/pep/', setLoading,
-                    )}
-                    className="m-auto"
-                  />
-                </Tooltip>
+              <div className="inline-flex p-1 cursor-pointer">
+                <Download className="mr-8" onClick={() => getPDF(pep.id, getLocaleField(pep, 'fullname'), true, '/pep/', setLoading)} />
+                <Print onClick={() => getPDF(pep.id, getLocaleField(pep, 'fullname'), false, '/pep/', setLoading)} />
               </div>
             </div>
           </div>

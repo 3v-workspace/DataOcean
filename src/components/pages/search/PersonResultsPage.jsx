@@ -165,19 +165,12 @@ const PersonResultsPage = (props) => {
                         Related sanction {sanction.id}
                       </Button>
                     ))}
-                    <Button
-                      className="px-8"
-                      variant="primary"
-                      link={`/system/home/person/${person.id}/`}
-                    >
-                      Person Detail Page
-                    </Button>
                   </>
                 ) : (
                   <Button
                     className="px-8"
                     variant="outline-primary"
-                    link={`/system/datasets/pep/${person.pep_data[0]?.id}/`}
+                    link={`/system/home/person/${person.id}/`}
                   >
                     {t('view')}
                   </Button>

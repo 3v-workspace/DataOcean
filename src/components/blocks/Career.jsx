@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { renderDate } from 'utils/dateTime';
 import { upFirstLetter } from 'utils';
 
-const CareerBlock = (props) => {
+const Career = (props) => {
   const { data } = props;
 
   return (
@@ -30,8 +30,8 @@ const CareerBlock = (props) => {
   );
 };
 
-CareerBlock.propTypes = {
+Career.propTypes = {
   data: PropTypes.array.isRequired,
 };
 
-export default CareerBlock;
+export default Career;

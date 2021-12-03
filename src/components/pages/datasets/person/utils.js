@@ -1,9 +1,9 @@
 import { SOURCE } from './const';
 
 export const checkSource = (data) => {
-  const sourceName = SOURCE[data.source];
+  const sourceName = Object.keys(SOURCE).find((item) => new RegExp(item).test(data.source));
   if (!sourceName) {
     throw new Error(`New type of source ${data.source}`);
   }
-  return sourceName;
+  return SOURCE[sourceName];
 };
