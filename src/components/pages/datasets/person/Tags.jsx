@@ -12,15 +12,10 @@ const Tags = (props) => {
   const { t } = useTranslation();
   const list_tags = [
     {
-      field: person.pep_data[0],
-      translation: 'mentionedInTheRegistersOfPEP',
-      id: personBlocks.MAIN_INFO,
-      generateUrl: (tagId) => `/system/datasets/pep/${person.pep_data[0]?.id}/#${tagId}`,
-    },
-    {
       field: person.pep_data[0]?.pep_type_display,
       translation: '',
-      id: personBlocks.MAIN_INFO,
+      id: ['member of PEP`s family', 'associated person with PEP'].includes(person.pep_data[0]?.pep_type) ?
+        personBlocks.RELATED_PERSONS : personBlocks.MAIN_INFO,
       generateUrl: (tagId) => `/system/datasets/pep/${person.pep_data[0]?.id}/#${tagId}`,
     },
     {

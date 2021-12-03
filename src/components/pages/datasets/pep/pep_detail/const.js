@@ -24,6 +24,8 @@ export const tooltipList = {
   'national PEP': 'pepTypes.nationalPoliticallyExposedPersons',
   'member of PEP`s family': 'pepTypes.theNationalLaw',
   'associated person with PEP': 'pepTypes.associatesIndividualsHavingBusiness',
+  'foreign PEP': 'pepTypes.foreignPEPDescription',
+  'PEP with political functions in international organization': 'pepTypes.PEPwithPoliticalFunctionsDescription',
 };
 
 export const ASYNCBLOCK = 'ASYNCBLOCK';

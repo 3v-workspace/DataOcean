@@ -121,6 +121,12 @@ const PersonResultsPage = (props) => {
                       <td className="font-bold pl-2">{t('yes')}</td>
                     </tr>
                   )}
+                  {person.pep_data[0] && (
+                    <tr>
+                      <td>{t('pepCategory')}:</td>
+                      <td className="font-bold pl-2">{person.pep_data[0]?.pep_type_display}</td>
+                    </tr>
+                  )}
                 </tbody>
               </table>
             </div>
