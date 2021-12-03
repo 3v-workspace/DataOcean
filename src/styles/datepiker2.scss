@@ -1,0 +1,154 @@
+.datepicker-form {
+  .dropdown-date .dropdown-date:hover .dropdown-content {
+    display: none;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .dropbtn {
+    outline: none;
+    background-color: white;
+    color: black;
+    height: 32px;
+    width: 32px;
+    border-radius: 5px;
+    float: left;
+  }
+
+  .dropdown-content {
+    display: none;
+    border-radius: 6px;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    flex-direction: row;
+    margin-top: 14px;
+    color: black;
+    background-color: white;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    min-width: 200px;
+    left: 9%;
+    right: 9%;
+    z-index: 10;
+
+    .chevron-container {
+      width: 100%;
+      flex-direction: column;
+      min-height: 100%;
+      display: flex;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .cell, .day-cell {
+      padding: 6px 8px;
+      cursor: pointer;
+    }
+
+    .cell:hover, .chevron:hover, .chevron-container:hover {
+      background-color: #F4F4F4;
+    }
+
+    .day-cell:hover {
+      background-color: #F4F4F4;
+      border-radius: 60px;
+    }
+
+    .day-cell {
+      text-align: center;
+    }
+
+    .years-table {
+      flex-direction: row;
+      display: flex;
+      flex-wrap: wrap;
+      width: 80%;
+      row-gap: 6px;
+      justify-content: center;
+    }
+  }
+
+  .summary-datepicker-container {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --bg-opacity: 1;
+    background-color: #fff;
+    background-color: rgba(255, 255, 255, var(--bg-opacity));
+    border-radius: 6px;
+    position: relative;
+    padding-left: 12px;
+    padding-right: 12px;
+    padding-top: 0;
+    margin-top: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+
+    .input-container, .button-container {
+      width: 100%;
+      height: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+    .button-container {
+      padding-bottom: 18px;
+    }
+
+      .ok-button, .cancel-button {
+        padding: 4px 15px 4px;
+        margin: 4px 8px 18px;
+        cursor: pointer;
+        float: none;
+        box-sizing: border-box;
+        border-radius: 5px;
+      }
+
+      .cancel-button{
+        background: #FFFFFF;
+        border: 2px solid #1C3FAA;
+        color: #1C3FAA;
+      }
+
+      .ok-button {
+        color: white;
+        background: #1C3FAA;
+      }
+
+      .input-day-container, .input-month-container, .input-year-container {
+        display: flex;
+        flex-direction: row;
+        width: auto;
+        margin: 18px 0;
+        padding-left: 6px;
+        cursor: pointer;
+
+        .input-day, .input-year, .input-month {
+          text-align: left;
+          padding: 2px 5px;
+          background: #FFFFFF;
+          border: 1px solid #DEDEDE;
+          box-sizing: border-box;
+          border-radius: 4px;
+          color: black;
+        }
+
+        .errorMessageDay, .errorMessageMonth, .errorMessageYear {
+          color: red;
+          position: absolute;
+        }
+
+        .errorMessageDay {
+          margin: 30px 0;
+        }
+
+        .errorMessageMonth {
+          margin: 30px 0;
+        }
+
+        .errorMessageYear {
+          margin: 30px -150px;
+        }
+      }
+    }
+  }
+}
