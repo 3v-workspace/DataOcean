@@ -392,12 +392,12 @@ const PersonDetail = ({ match, history }) => {
       </button>
       <div className="intro-y flex pb-16" id={personBlocks.MAIN_INFO}>
         <div className="flex-grow mr-8 w-px space-y-6 leading-6">
-          <div className="bg-white flex flex-col border border-gray-400 intro-x rounded-lg">
+          <div className="bg-white flex flex-col box-border box-border-radius-0.5 intro-x rounded-lg">
             <div className={`flex lg:px-6 ${person.is_dead ? 'pt-8' : 'py-8'}`}>
               <div><PepIcon width={170} height={170} /></div>
               <div className="flex-grow block-black pl-0 lg:pl-6">
                 <div className="flex flex-row justify-between">
-                  <div style={{ fontSize: '34px', lineHeight: '44px' }}>
+                  <div className="fullname-text">
                     {i18n.language === 'en' ? `${person.last_name} ${person.first_name} ${person.middle_name}` : person.full_name_original}
                   </div>
                   <Tooltip

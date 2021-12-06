@@ -7,3 +7,4 @@ export { default as SanctionBlock } from 'components/blocks/SanctionBlock';
 export { default as Tags } from './Tags';
 export { default as OtherNames } from 'components/blocks/OtherNames';
 export { default as CareerBlock } from 'components/blocks/CareerBlock';
+export { ReactComponent as OnePersonIcon } from 'images/one_person.svg';
