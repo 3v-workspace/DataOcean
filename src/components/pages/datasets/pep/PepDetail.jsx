@@ -393,28 +393,36 @@ const PepDetail = ({ match, history }) => {
                 </div>
               </div>
               <div className="flex cursor-pointer space-x-8 h-11">
-                <Tooltip
-                  content={t('export.downloadPdf')}
+                <div
                   className="flex background-hover-gray w-11"
+                  onClick={() => getPDF(
+                    pep.id, getLocaleField(pep, 'fullname'), true, '/pep/', setLoading,
+                  )}
                 >
-                  <Download
-                    onClick={() => getPDF(
-                      pep.id, getLocaleField(pep, 'fullname'), true, '/pep/', setLoading,
-                    )}
-                    className="m-auto"
-                  />
-                </Tooltip>
-                <Tooltip
-                  content={t('print')}
+                  <Tooltip
+                    content={t('export.downloadPdf')}
+                    noContainer
+                  >
+                    <Download
+                      className="m-auto"
+                    />
+                  </Tooltip>
+                </div>
+                <div
                   className="flex background-hover-gray w-11"
+                  onClick={() => getPDF(
+                    pep.id, getLocaleField(pep, 'fullname'), false, '/pep/', setLoading,
+                  )}
                 >
-                  <Print
-                    onClick={() => getPDF(
-                      pep.id, getLocaleField(pep, 'fullname'), false, '/pep/', setLoading,
-                    )}
-                    className="m-auto"
-                  />
-                </Tooltip>
+                  <Tooltip
+                    content={t('print')}
+                    noContainer
+                  >
+                    <Print
+                      className="m-auto"
+                    />
+                  </Tooltip>
+                </div>
               </div>
             </div>
           </div>
