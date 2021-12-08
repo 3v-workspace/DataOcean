@@ -1,5 +1,5 @@
-export { ReactComponent as Sanction } from 'images/sanction_icon.svg';
-export { ReactComponent as Criminal } from 'images/criminal_icon.svg';
+export { ReactComponent as Sanction } from 'images/criminal_icon.svg';
+export { ReactComponent as Criminal } from 'images/sanction_icon.svg';
 export { ReactComponent as Built } from 'images/built_icon.svg';
 export { ReactComponent as Car } from 'images/transport.svg';
 export { ReactComponent as Person } from 'images/person_icon.svg';
