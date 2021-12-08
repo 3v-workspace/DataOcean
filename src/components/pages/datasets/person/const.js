@@ -13,6 +13,11 @@ export const SOURCE = {
   sanction_ukr: 'sanctionSource',
 };
 
+export const SOURCE_URL = {
+  pep_ukr: '/system/datasets/pep/',
+  sanction_ukr: '/system/datasets/person-sanction/',
+};
+
 export const STATUS_BLOCK = {
   inDevelopment: 'informationInDevelopment',
   noInformation: 'noInformation',

@@ -7,10 +7,9 @@ import { sortData } from 'components/blocks/utils';
 const PepVehicle = (props) => {
   const { data } = props;
   const { t } = useTranslation();
+  const sortedData = sortData([...data], 'vehicle');
 
-  sortData(data, 'vehicle');
-
-  const filteredVehicleData = data.filter(
+  const filteredVehicleData = sortedData.filter(
     (car) => car.vehicle.declared_at === data[0].vehicle.declared_at,
   );
   filteredVehicleData.forEach((car) => {

@@ -5,16 +5,19 @@ import { getLocaleField } from 'utils';
 const RelatedCompaniesBlock = (props) => {
   const { data, relationField, withTranslation } = props;
 
-  data.sort((cur, prev) => {
+  const sortedData = [...data].sort((cur, prev) => {
     if (cur[relationField] > prev[relationField]) {
       return -1;
     }
-    return 1;
+    if (cur[relationField] < prev[relationField]) {
+      return 1;
+    }
+    return 0;
   });
 
   return (
     <ul className="list-outside">
-      {data.map((company, i) => (
+      {sortedData.map((company, i) => (
         <li key={i}>
           <span>
             {withTranslation ? getLocaleField(company, relationField) : company[relationField]}
