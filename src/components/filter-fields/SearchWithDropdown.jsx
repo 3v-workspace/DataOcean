@@ -37,7 +37,7 @@ const SearchWithDropdown = (props) => {
   };
 
   const fetchData = (newValue) => {
-    Api.get(`${url}?${name}=${newValue}/`, { useProjectToken: true })
+    Api.get(`${url}?${name}=${newValue}`, { useProjectToken: true })
       .then((resp) => {
         setData(resp.data.results?.map((result) => ({
           label: toTitleCase(getLocaleField(result, name)),
