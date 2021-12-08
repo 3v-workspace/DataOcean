@@ -84,7 +84,7 @@ const SearchWithDropdown = (props) => {
           type="text"
           name={name}
           ref={searchInputRef}
-          className="search__input input text-gray-700"
+          className="search__input input text-gray-700 pr-8"
           placeholder={placeholder || `${t('search')}...`}
           autoComplete="off"
           value={value}

@@ -10,8 +10,10 @@ import { ReactRouterPropTypes } from 'utils/prop-types';
 import useTopBarHiddingEffect from 'hooks/useTopBarHiddingEffect';
 import useScrollToEffect from 'hooks/useScrollToEffect';
 import Tooltip from 'components/Tooltip';
-import { Sanction, Criminal, Built, Car, Person, Career, Giftbox, Print, Info,
-  Home, Money, Name, Wallet, MainInfo, PepIcon, SpendMoney, MonetaryAssets, IntangibleAssetsIcon } from 'components/blocks/index';
+import {
+  Sanction, Criminal, Built, Car, Person, Career, Giftbox, Print, Info,
+  Home, Money, Name, Wallet, MainInfo, PepIcon, SpendMoney, MonetaryAssets, IntangibleAssetsIcon,
+} from 'components/blocks/index';
 import { scrollToElement, sortedCareerData } from 'components/blocks/utils';
 import LoadingIcon from 'components/LoadingIcon';
 import {
@@ -217,13 +219,6 @@ const PepDetail = ({ match, history }) => {
       type: INFOBLOCK,
     },
   ];
-  const tooltipList = {
-    'national PEP': t('pepTypes.nationalPoliticallyExposedPersons'),
-    'member of PEP`s family': t('pepTypes.theNationalLaw'),
-    'associated person with PEP': t('pepTypes.associatesIndividualsHavingBusiness'),
-  };
-  const checkPepType = Object.keys(tooltipList).includes(pep.pep_type) ?
-    tooltipList[pep.pep_type] : null;
   const getShortInfo = () => {
     const shortInfoFields = [
       { label: 'dateOfBirth', value: pep.date_of_birth, render: (value) => renderDate(value) },
@@ -247,15 +242,13 @@ const PepDetail = ({ match, history }) => {
               >
                 {pep.pep_type_display}
               </Link>
-              {checkPepType && (
               <Tooltip
                 className="w-70 md:w-auto"
                 position="right"
-                content={checkPepType}
+                content={t(checkPepType(pep.pep_type))}
               >
                 <HelpCircle className="w-4 h-4 ml-2 text-blue-600" />
               </Tooltip>
-              )}
             </td>
           </tr>
           {shortInfoFields.map((info) => (info.value && !(info.value === '---') ? (
@@ -378,13 +371,15 @@ const PepDetail = ({ match, history }) => {
       </button>
       <div className="flex text-base pb-16">
         <div className="flex-grow mr-8 w-px">
-          {loading && (
-            <div className="w-full h-full bg-gray-700 bg-opacity-25 absolute flex items-center justify-center z-50">
-              <LoadingIcon icon="three-dots" className="w-16 h-16 z-50" />
-            </div>
-          )}
           <div className="box border border-gray-400 p-6" id={pepBlocks.MAIN_INFO}>
             <div className="flex flex-col lg:flex-row">
+              {loading && (
+                <div
+                  className="w-full h-screen bg-gray-700 bg-opacity-25 absolute flex items-center justify-center z-50 -m-6"
+                >
+                  <LoadingIcon icon="three-dots" className="w-16 h-16 z-50" />
+                </div>
+              )}
               <div className="flex flex-auto items-start justify-start mt-1">
                 <PepIcon />
                 <div className="ml-6">
@@ -397,9 +392,37 @@ const PepDetail = ({ match, history }) => {
                   {getShortInfo()}
                 </div>
               </div>
-              <div className="inline-flex p-1 cursor-pointer">
-                <Download className="mr-8" onClick={() => getPDF(pep.id, getLocaleField(pep, 'fullname'), true, '/pep/', setLoading)} />
-                <Print onClick={() => getPDF(pep.id, getLocaleField(pep, 'fullname'), false, '/pep/', setLoading)} />
+              <div className="flex cursor-pointer space-x-8 h-11">
+                <div
+                  className="flex background-hover-gray w-11"
+                  onClick={() => getPDF(
+                    pep.id, getLocaleField(pep, 'fullname'), true, '/pep/', setLoading,
+                  )}
+                >
+                  <Tooltip
+                    content={t('export.downloadPdf')}
+                    noContainer
+                  >
+                    <Download
+                      className="m-auto"
+                    />
+                  </Tooltip>
+                </div>
+                <div
+                  className="flex background-hover-gray w-11"
+                  onClick={() => getPDF(
+                    pep.id, getLocaleField(pep, 'fullname'), false, '/pep/', setLoading,
+                  )}
+                >
+                  <Tooltip
+                    content={t('print')}
+                    noContainer
+                  >
+                    <Print
+                      className="m-auto"
+                    />
+                  </Tooltip>
+                </div>
               </div>
             </div>
           </div>
