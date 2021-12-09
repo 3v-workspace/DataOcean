@@ -16,14 +16,14 @@ import {
   Name, File,
 } from 'components/blocks/index';
 import { getLocaleField, upFirstLetter } from 'utils';
-import { checkSource } from './utils';
+import { checkSource, getSourceUrl } from './utils';
 import { personBlocks, SOURCE, STATUS_BLOCK } from './const';
 import {
   CriminalBlock, RelatedPersonBlock, RelatedCompaniesBlock, InformationBlock, Menu,
   SanctionBlock, Tags, CareerBlock, OtherNames,
 } from './index';
 import { checkPepType } from '../pep/pep_detail/utils';
-import { sortData, sortedCareerData } from '../../../blocks/utils';
+import { sortedCareerData } from '../../../blocks/utils';
 
 const PersonDetail = ({ match, history }) => {
   const location = useLocation();
@@ -49,6 +49,27 @@ const PersonDetail = ({ match, history }) => {
       });
   };
 
+  const dataSource = (data) => (
+    <>
+        &emsp;({t('source')}: <Link to={getSourceUrl(data, person)}><span className="blue">{t(checkSource(data))}</span></Link>)
+    </>
+  );
+
+  const extractIdCartData = (id_card_data) => (
+    <tr>
+      <td className="w-40 lg:w-64 font-medium py-1 align-top">
+        {t('passports')}:
+      </td>
+      <td className="max-w-xl flex">
+        {id_card_data.map((number) => (
+          <p className="pb-1" key={number.id}>
+            {number.id_card ? number.id_card : number.passports.join(', ')}{dataSource(number)}
+          </p>
+        ))}
+      </td>
+    </tr>
+  );
+
   const getShortInformation = () => {
     const shortInfoPerson = [
       { label: 'dateOfBirth', value: person.date_of_birth, render: (value) => renderDate(value) },
@@ -56,10 +77,10 @@ const PersonDetail = ({ match, history }) => {
         label: 'placeOfResidence',
         value: person.residence_data.filter((residence) => residence.residence),
         render: (value) => value.map((item, i) => (
-          <p className="py-1" key={i}>
+          <p className="pb-1" key={i}>
             {`${i + 1}. ${item.residence} `}
             ({renderDate(item.year.toString())})
-            {` (${t('source')}`}: <span className="blue"> {t(checkSource(item))}</span>)
+            {dataSource(item)}
           </p>
         )),
       },
@@ -92,8 +113,8 @@ const PersonDetail = ({ match, history }) => {
         label: 'citizenship',
         value: person.citizenship_data.filter((citizenship) => getLocaleField(citizenship, 'name')),
         render: (value) => value.map((item, i) => (
-          <p className="py-1" key={item.id}>
-            {`${i + 1}. ${getLocaleField(item, 'name')} (${t('source')}`}: <span className="blue"> {t(checkSource(item))}</span>)
+          <p className="pb-1" key={item.id}>
+            {`${i + 1}. ${getLocaleField(item, 'name')}`}{dataSource(item)}
           </p>
         )),
       },
@@ -101,19 +122,27 @@ const PersonDetail = ({ match, history }) => {
     ];
 
     const getLastPosition = (position_data) => {
-      const lastPosition = sortData(
-        position_data.filter((item) => item.source === Object.keys(SOURCE)[0]),
-      )[0];
+      const lastPositionData = position_data.sort((prev, cur) => {
+        const prev_year = prev.year ? prev.year : prev.declared_at;
+        const cur_year = cur.year ? cur.year : cur.declared_at;
+        if (prev_year < cur_year) {
+          return 1;
+        }
+        if (prev_year > cur_year) {
+          return -1;
+        }
+        return 0;
+      })[0];
+      const lastPosition = lastPositionData.declared_at ?
+        `${upFirstLetter(getLocaleField(lastPositionData, 'last_job_title'))}, 
+        ${upFirstLetter(getLocaleField(lastPositionData, 'last_employer'))}` :
+        `${upFirstLetter(getLocaleField(lastPositionData, 'position'))}`;
 
-      return lastPosition && (
+      return (
         <>
           <tr>
             <td className="w-40 lg:w-64 align-top font-medium py-1">{t('lastPosition')}:</td>
-            <td className="max-w-xl py-1">{upFirstLetter(getLocaleField(lastPosition, 'last_job_title'))}</td>
-          </tr>
-          <tr>
-            <td className="w-40 lg:w-64 align-top font-medium py-1">{t('lastPlaceOfWork')}:</td>
-            <td className="max-w-xl py-1">{upFirstLetter(getLocaleField(lastPosition, 'last_employer'))}</td>
+            <td className="max-w-xl py-1">{lastPosition}{dataSource(lastPositionData)}</td>
           </tr>
         </>
       );
@@ -126,7 +155,7 @@ const PersonDetail = ({ match, history }) => {
             {shortInfoPerson.map((info) => (info.value && info.value.length ? (
               <tr key={info.label}>
                 <td className="w-40 lg:w-64 font-medium py-1 align-top">{t(info.label)}:</td>
-                <td className="max-w-xl py-1 whitespace-pre-line">{info.render ? info.render(info.value) : info.value}</td>
+                <td className="max-w-xl whitespace-pre-line">{info.render ? info.render(info.value) : info.value}</td>
               </tr>
             ) : null))}
           </tbody>
@@ -156,6 +185,25 @@ const PersonDetail = ({ match, history }) => {
                 </td>
               </tr>
             ) : null}
+            {person.taxpayer_number_data.filter((number) => number.taxpayer_number !== '').length ? (
+              <tr>
+                <td className="w-40 lg:w-64 font-medium py-1 align-top">
+                  {t('taxpayerNumber')}:
+                </td>
+                <td className="max-w-xl flex py-1">
+                  {person.taxpayer_number_data.map((number, i) => (
+                    <p key={i}>
+                      {number.taxpayer_number}{dataSource(number)}
+                    </p>
+                  ))}
+                </td>
+              </tr>
+            ) : null}
+            {person.id_card_data.filter(
+              (number) => number.id_card || number.passports.length,
+            ).length ? (
+                extractIdCartData(person.id_card_data)
+              ) : null}
             {person.position_data.length ? getLastPosition(person.position_data) : null}
           </tbody>
         </table>

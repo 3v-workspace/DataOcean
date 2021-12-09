@@ -6,7 +6,7 @@ import { sortData } from 'components/blocks/utils';
 
 const PepMoney = (props) => {
   const { data, type, pepId, ownerField } = props;
-  sortData(data, '');
+  const sortedData = sortData([...data], '');
   const { t, i18n } = useTranslation();
   const tableLabel = {
     INCOME: { declarant: t('declarantIncome'), family: t('familyIncome') },
@@ -17,7 +17,7 @@ const PepMoney = (props) => {
   const position = `${ownerField}_position`;
   const emloyer = `${ownerField}_employer`;
 
-  const sortedMoney = data.reduce((total, income) => {
+  const sortedMoney = sortedData.reduce((total, income) => {
     const currentYearIncome = total.find((item) => item.year === income.declared_at);
     const recipient = !income[ownerField] || income[ownerField].id === pepId ? 'declarant' : 'family';
     if (currentYearIncome) {

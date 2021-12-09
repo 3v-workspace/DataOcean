@@ -7,7 +7,7 @@ const RelatedPersonBlock = (props) => {
   const { data, personId, matchProps } = props;
   const { i18n } = useTranslation();
 
-  data.sort((cur, prev) => {
+  const sortedData = [...data].sort((cur, prev) => {
     const category = {
       family: 1,
       business: 2,
@@ -18,12 +18,15 @@ const RelatedPersonBlock = (props) => {
     if (cur.weight > prev.weight) {
       return 1;
     }
-    return -1;
+    if (cur.weight < prev.weight) {
+      return -1;
+    }
+    return 0;
   });
 
   return (
     <ul className="list-outside">
-      {data.map((person, i) => (
+      {sortedData.map((person, i) => (
         <li key={i}>
           <span className="mr-1">
             {person.relationship_category_display}&emsp;—&emsp;
