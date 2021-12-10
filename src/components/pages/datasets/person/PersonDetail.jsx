@@ -122,7 +122,8 @@ const PersonDetail = ({ match, history }) => {
     ];
 
     const getLastPosition = (position_data) => {
-      const lastPositionData = position_data.sort((prev, cur) => {
+      const filteredData = position_data.filter((item) => item?.position !== '');
+      const lastPositionData = filteredData.sort((prev, cur) => {
         const prev_year = prev.year ? prev.year : prev.declared_at;
         const cur_year = cur.year ? cur.year : cur.declared_at;
         if (prev_year < cur_year) {
@@ -204,7 +205,8 @@ const PersonDetail = ({ match, history }) => {
             ).length ? (
                 extractIdCartData(person.id_card_data)
               ) : null}
-            {person.position_data.length ? getLastPosition(person.position_data) : null}
+            {person.position_data.length && person.position_data.filter((item) => item?.position !== '') ?
+              getLastPosition(person.position_data) : null}
           </tbody>
         </table>
       </>
@@ -466,9 +468,9 @@ const PersonDetail = ({ match, history }) => {
               </div>
             </div>
             <div
-              className={`flex justify-end ${person.is_dead ? '' : 'hidden'}`}
+              className={`flex justify-end -mb-1 ${person.is_dead ? '' : 'hidden'}`}
             >
-              <BlackLine />
+              <BlackLine width={60} height={60} />
             </div>
           </div>
           {getAdditionalInfo()}

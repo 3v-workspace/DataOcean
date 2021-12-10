@@ -177,7 +177,7 @@ const PersonResultsPage = (props) => {
                   <Button
                     className="w-40 h-10 blue button-border"
                     variant="blank"
-                    link={`/system/datasets/pep/${person.pep_data[0]?.id}/`}
+                    link={`/system/home/person/${person.id}/`}
                   >
                     <p className="uppercase text-xs" style={{ letterSpacing: '0.07rem' }}>{t('view')}</p>
                   </Button>
