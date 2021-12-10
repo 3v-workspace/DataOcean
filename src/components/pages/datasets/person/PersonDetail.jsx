@@ -60,7 +60,7 @@ const PersonDetail = ({ match, history }) => {
       <td className="w-40 lg:w-64 font-medium py-1 align-top">
         {t('passports')}:
       </td>
-      <td className="max-w-xl flex">
+      <td className="max-w-xl">
         {id_card_data.map((number) => (
           <p className="pb-1" key={number.id}>
             {number.id_card ? number.id_card : number.passports.join(', ')}{dataSource(number)}
@@ -191,7 +191,7 @@ const PersonDetail = ({ match, history }) => {
                 <td className="w-40 lg:w-64 font-medium py-1 align-top">
                   {t('taxpayerNumber')}:
                 </td>
-                <td className="max-w-xl flex py-1">
+                <td className="max-w-xl py-1">
                   {person.taxpayer_number_data.map((number, i) => (
                     <p key={i}>
                       {number.taxpayer_number}{dataSource(number)}
@@ -205,7 +205,7 @@ const PersonDetail = ({ match, history }) => {
             ).length ? (
                 extractIdCartData(person.id_card_data)
               ) : null}
-            {person.position_data.length && person.position_data.filter((item) => item?.position !== '') ?
+            {person.position_data.length && person.position_data.filter((item) => item?.position !== '').length ?
               getLastPosition(person.position_data) : null}
           </tbody>
         </table>
