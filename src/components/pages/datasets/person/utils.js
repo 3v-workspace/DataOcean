@@ -14,12 +14,10 @@ export const getSourceUrl = (data, person) => {
     case Object.keys(SOURCE)[0]:
       return `${SOURCE_URL[data.source]}${person.pep_data[0].id}`;
     case Object.keys(SOURCE)[1]:
-      sanctionId = person.sanction_data.find(
-        (item) => item.decree.includes(data.year),
-      );
-      return `${SOURCE_URL[data.source]}${
-        sanctionId ? sanctionId.id : person.sanction_data[0].id
-      }`;
+      sanctionId = data.id || person.sanction_data.find(
+        (item) => item.decree.includes(data.year)?.id,
+      ) || person.sanction_data[0].id;
+      return `${SOURCE_URL[data.source]}${sanctionId}`;
     default:
       return '';
   }

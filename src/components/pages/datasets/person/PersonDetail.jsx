@@ -49,9 +49,14 @@ const PersonDetail = ({ match, history }) => {
       });
   };
 
-  const dataSource = (data) => (
+  const dataSource = (data, isLink = true) => (
     <>
-        &emsp;({t('source')}: <Link to={getSourceUrl(data, person)}><span className="blue">{t(checkSource(data))}</span></Link>)
+        &emsp;({t('source')}:
+      {isLink ? (
+        <Link to={getSourceUrl(data, person)}><span className="blue">{t(checkSource(data))}</span></Link>
+      ) : (
+        <span className="blue">{t(checkSource(data))}</span>
+      )})
     </>
   );
 
@@ -114,7 +119,7 @@ const PersonDetail = ({ match, history }) => {
         value: person.citizenship_data.filter((citizenship) => getLocaleField(citizenship, 'name')),
         render: (value) => value.map((item, i) => (
           <p className="pb-1" key={item.id}>
-            {`${i + 1}. ${getLocaleField(item, 'name')}`}{dataSource(item)}
+            {`${i + 1}. ${getLocaleField(item, 'name')}`}{dataSource(item, false)}
           </p>
         )),
       },
@@ -205,7 +210,7 @@ const PersonDetail = ({ match, history }) => {
             ).length ? (
                 extractIdCartData(person.id_card_data)
               ) : null}
-            {person.position_data.length && person.position_data.filter((item) => item?.position !== '').length ?
+            {person.position_data.filter((item) => item?.position !== '').length ?
               getLastPosition(person.position_data) : null}
           </tbody>
         </table>
