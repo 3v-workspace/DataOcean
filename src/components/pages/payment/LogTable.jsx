@@ -3,6 +3,8 @@ import Table from 'components/table/Table';
 import PageBox from 'components/pages/PageBox';
 import { useTranslation } from 'react-i18next';
 import { renderDateTime } from 'utils';
+import TabContent from '../profile/TabContent';
+import TabContentBlock from '../profile/TabContentBlock';
 
 const LogTable = () => {
   const { t } = useTranslation();
@@ -43,7 +45,7 @@ const LogTable = () => {
       },
     },
     {
-      header: t('token'),
+      header: t('requestSource'),
       prop: 'request_source',
       width: '10%',
       defaultSelected: true,
@@ -76,19 +78,23 @@ const LogTable = () => {
     },
   ];
   return (
-    <PageBox noBox>
-      <Table
-        columns={columns}
-        url="payment/api-logs/project/"
-        fields={[
-          'timestamp',
-          'pathname',
-          'request_source',
-          'ip',
-          'parameters',
-        ]}
-      />
-    </PageBox>
+    <TabContent>
+      <TabContentBlock large noPadding title={t('myLogs')}>
+        <div className="overflow-auto md:overflow-hidden">
+          <Table
+            columns={columns}
+            url="payment/api-logs/project/"
+            fields={[
+              'timestamp',
+              'pathname',
+              'request_source',
+              'ip',
+              'parameters',
+            ]}
+          />
+        </div>
+      </TabContentBlock>
+    </TabContent>
   );
 };
 
