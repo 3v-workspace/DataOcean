@@ -30,7 +30,9 @@ const PepList = ({ match, history }) => {
       render: (v, row) => toTitleCase(getLocaleField(row, 'fullname')),
       filter: {
         name: i18n.language === 'uk' ? 'fullname' : 'fullname_en',
-        type: 'text',
+        type: 'text_with_dropdown',
+        url: 'pep/',
+        width: '420',
       },
     },
     {

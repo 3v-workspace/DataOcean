@@ -7,18 +7,19 @@ import { sortData } from 'components/blocks/utils';
 const PepVehicle = (props) => {
   const { data } = props;
   const { t } = useTranslation();
+  const sortedData = sortData([...data], 'vehicle');
 
-  sortData(data, 'vehicle');
-
-  const filteredVehicleData = data.filter(
+  const filteredVehicleData = sortedData.filter(
     (car) => car.vehicle.declared_at === data[0].vehicle.declared_at,
   );
   filteredVehicleData.forEach((car) => {
     car.owner = [car.pep];
   });
   for (let i = 0; i < filteredVehicleData.length - 1; i += 1) {
-    if (filteredVehicleData[i].vehicle.id === filteredVehicleData[i + 1].vehicle.id) {
-      if (filteredVehicleData[i].pep.id === filteredVehicleData[i + 1].pep.id) {
+    if (
+      filteredVehicleData[i].vehicle.id === filteredVehicleData[i + 1].vehicle.id
+    ) {
+      if (filteredVehicleData[i].pep?.id === filteredVehicleData[i + 1].pep?.id) {
         filteredVehicleData.splice(i + 1, 1);
       } else {
         filteredVehicleData[i].owner.push(filteredVehicleData[i + 1].pep);

@@ -1,5 +1,5 @@
-export { ReactComponent as Sanction } from 'images/sanction_icon.svg';
-export { ReactComponent as Criminal } from 'images/criminal_icon.svg';
+export { ReactComponent as Sanction } from 'images/criminal_icon.svg';
+export { ReactComponent as Criminal } from 'images/sanction_icon.svg';
 export { ReactComponent as Built } from 'images/built_icon.svg';
 export { ReactComponent as Car } from 'images/transport.svg';
 export { ReactComponent as Person } from 'images/person_icon.svg';
@@ -17,3 +17,4 @@ export { ReactComponent as SpendMoney } from 'images/spend_money.svg';
 export { ReactComponent as Print } from 'images/print_icon.svg';
 export { ReactComponent as IntangibleAssetsIcon } from 'images/bitcoin.svg';
 export { ReactComponent as BlackLine } from 'images/black_line.svg';
+export { ReactComponent as File } from 'images/file.svg';

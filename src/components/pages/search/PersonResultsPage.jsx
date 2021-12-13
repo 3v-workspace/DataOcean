@@ -12,6 +12,7 @@ import { useTranslation, Trans } from 'react-i18next';
 import Tooltip from 'components/Tooltip';
 import { PERSON_DEBUG } from 'const/testing';
 import Tags from '../datasets/person/Tags';
+import { BlackLine, Print } from '../../blocks';
 
 
 const PersonResultsPage = (props) => {
@@ -40,6 +41,11 @@ const PersonResultsPage = (props) => {
   const extactCitizenship = (data) => {
     const countries = data.map((country) => getLocaleField(country, 'name'));
     return [...new Set(countries)].join(', ');
+  };
+
+  const extractResidence = (data) => {
+    const residence = data.map((place) => place.residence);
+    return [...new Set(residence)].join(', ');
   };
 
   if (!params.last_name) {
@@ -73,83 +79,77 @@ const PersonResultsPage = (props) => {
         {tc.data.map((person) => (
           <div
             key={person.id}
-            className="bg-white p-5 flex space-x-3 border border-gray-500 intro-x rounded-lg"
+            className="bg-white p-6 flex-row box-border box-border-radius-1 intro-x"
           >
-            <div><PepIcon width={170} height={170} /></div>
+            <div className="flex space-x-7.5">
+              <div><PepIcon width={170} height={170} /></div>
 
-            <div className="flex-grow">
-              <div className="text-xl font-bold">
-                {i18n.language === 'en' ? person.full_name : person.full_name_original}
+              <div className="flex-grow block-black">
+                <div className="fullname-text">
+                  {i18n.language === 'en' ? person.full_name : person.full_name_original}
+                </div>
+                <div className="flex flex-wrap mt-4 mb-6">
+                  <Tags person={person} type="search" />
+                </div>
+                <table>
+                  <tbody>
+                    {person.date_of_birth && (
+                      <tr className="space-bottom">
+                        <td className="font-medium">{t('dateOfBirth')}:</td>
+                        <td className="pl-1.3">{renderDate(person.date_of_birth)}</td>
+                      </tr>
+                    )}
+                    {!!Object.keys(person.citizenship_data).length && (
+                      <tr className="space-bottom">
+                        <td className="font-medium">{t('knownCitizenship')}:</td>
+                        <td className="pl-1.3">
+                          {extactCitizenship(person.citizenship_data)}
+                        </td>
+                      </tr>
+                    )}
+                    {!!Object.keys(person.residence_data).length && (
+                      <tr className="space-bottom">
+                        <td className="font-medium">{t('countryOfResidence')}:</td>
+                        <td className="pl-1.3">{extractResidence(person.residence_data)}</td>
+                      </tr>
+                    )}
+                    {person.gender && (
+                      <tr className="space-bottom">
+                        <td className="font-medium">{t('gender')}:</td>
+                        <td className="pl-1.3">{person.gender_display}</td>
+                      </tr>
+                    )}
+                    {person.pep_data[0] && (
+                      <tr className="space-bottom">
+                        <td className="font-medium">{t('pepCategory')}:</td>
+                        <td className="pl-1.3">{person.pep_data[0]?.pep_type_display}</td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
               </div>
-              <div>
-                {i18n.language === 'en' ? person.full_name_original : person.full_name}
-              </div>
-              <div className="flex flex-wrap my-2">
-                <Tags person={person} type="search" />
-              </div>
-              <table>
-                <tbody>
-                  {person.date_of_birth && (
-                    <tr>
-                      <td>{t('dateOfBirth')}:</td>
-                      <td className="font-bold pl-2">{renderDate(person.date_of_birth)}</td>
-                    </tr>
-                  )}
-                  {!!Object.keys(person.citizenship_data).length && (
-                    <tr>
-                      <td>{t('knownCitizenship')}:</td>
-                      <td className="font-bold pl-2">
-                        {extactCitizenship(person.citizenship_data)}
-                      </td>
-                    </tr>
-                  )}
-                  {/*{!!Object.keys(person.residence_data).length && (*/}
-                  {/*  <tr>*/}
-                  {/*    <td>{t('countryOfResidence')}:</td>*/}
-                  {/*    <td className="font-bold pl-2">{extractResidence}</td>*/}
-                  {/*  </tr>*/}
-                  {/*)}*/}
-                  {person.gender && (
-                    <tr>
-                      <td>{t('gender')}:</td>
-                      <td className="font-bold pl-2">{person.gender_display}</td>
-                    </tr>
-                  )}
-                  {person.is_dead && (
-                    <tr>
-                      <td>{t('isDead')}:</td>
-                      <td className="font-bold pl-2">{t('yes')}</td>
-                    </tr>
-                  )}
-                </tbody>
-              </table>
             </div>
-
-            <div className="flex flex-col justify-between">
-              <div className="text-right">
+            <div className={`flex justify-between ${person.is_dead ? 'pr-5' : ''}`}>
+              <div className="py-2">
                 {t('updatedAt')}: <br />
                 {renderDate(person.updated_at)}
               </div>
-              <div>
-                <div className="flex justify-end py-5">
-                  <Tooltip
-                    content={t('inDevelopment')}
-                    position="top"
-                    noContainer
-                  >
-                    <div className="flex">
-                      <Download className="w-5 h-5 mr-5" />
-                      <Printer className="w-5 h-5" />
-                    </div>
-                  </Tooltip>
-                </div>
+              <div className="flex py-2">
+                <Tooltip
+                  content={t('inDevelopment')}
+                  position="top"
+                  className="flex items-center"
+                >
+                  <Download className="w-5 h-5" />
+                  <Print className="w-5 h-5 mx-8" />
+                </Tooltip>
                 {PERSON_DEBUG ? (
                   <>
                     {person.pep_data.map((pep) => (
                       <Button
-                        className="px-8"
+                        className="w-40 h-10 blue button-border"
                         key={pep.id}
-                        variant="outline-primary"
+                        variant="blank"
                         link={`/system/datasets/pep/${pep.id}/`}
                       >
                         Related PEP {pep.id}
@@ -157,17 +157,17 @@ const PersonResultsPage = (props) => {
                     ))}
                     {person.sanction_data.map((sanction) => (
                       <Button
-                        className="px-8"
+                        className="w-40 h-10 blue button-border"
                         key={sanction.id}
-                        variant="outline-primary"
+                        variant="blank"
                         link={`/system/datasets/person-sanction/${sanction.id}/`}
                       >
                         Related sanction {sanction.id}
                       </Button>
                     ))}
                     <Button
-                      className="px-8"
-                      variant="primary"
+                      className="w-40 h-10 blue button-border"
+                      variant="blank"
                       link={`/system/home/person/${person.id}/`}
                     >
                       Person Detail Page
@@ -175,12 +175,15 @@ const PersonResultsPage = (props) => {
                   </>
                 ) : (
                   <Button
-                    className="px-8"
-                    variant="outline-primary"
+                    className="w-40 h-10 blue button-border"
+                    variant="blank"
                     link={`/system/datasets/pep/${person.pep_data[0]?.id}/`}
                   >
-                    {t('view')}
+                    <p className="uppercase text-xs" style={{ letterSpacing: '0.07rem' }}>{t('view')}</p>
                   </Button>
+                )}
+                {person.is_dead && (
+                  <div className="flex items-end -mr-11 -mb-9"><BlackLine width={60} height={60} /></div>
                 )}
               </div>
             </div>

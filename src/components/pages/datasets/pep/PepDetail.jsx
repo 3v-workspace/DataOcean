@@ -10,8 +10,10 @@ import { ReactRouterPropTypes } from 'utils/prop-types';
 import useTopBarHiddingEffect from 'hooks/useTopBarHiddingEffect';
 import useScrollToEffect from 'hooks/useScrollToEffect';
 import Tooltip from 'components/Tooltip';
-import { Sanction, Criminal, Built, Car, Person, Career, Giftbox, Print, Info,
-  Home, Money, Name, Wallet, MainInfo, PepIcon, SpendMoney, MonetaryAssets, IntangibleAssetsIcon } from 'components/blocks/index';
+import {
+  Sanction, Criminal, Built, Car, Person, Career, Giftbox, Print, Info,
+  Home, Money, Name, Wallet, MainInfo, PepIcon, SpendMoney, MonetaryAssets, IntangibleAssetsIcon,
+} from 'components/blocks/index';
 import { scrollToElement, sortedCareerData } from 'components/blocks/utils';
 import LoadingIcon from 'components/LoadingIcon';
 import {
@@ -217,41 +219,6 @@ const PepDetail = ({ match, history }) => {
       type: INFOBLOCK,
     },
   ];
-
-  const getHeader = () => {
-    const sanctionBlock = config.find((item) => item.id === asyncBlocks.SANCTION);
-    const criminalBlock = config.find((item) => item.id === pepBlocks.CRIMINAL);
-    return (
-      <>
-        <div
-          className="border border-gray-400 rounded-full px-3 py-1 mr-2 cursor-pointer text-xs"
-          onClick={() => scrollToElement(pepBlocks.MAIN_INFO)}
-
-        >
-          {pep.pep_type_display}
-        </div>
-        {sanctionBlock.blockProps.data && sanctionBlock.blockProps.data.length &&
-          !sanctionBlock.blockProps.data[0].noSanction ? (
-            <div
-              className="border border-gray-400 rounded-full px-3 py-1 cursor-pointer text-xs"
-              onClick={() => scrollToElement(asyncBlocks.SANCTION)}
-            >
-              {t(sanctionBlock.title)}
-            </div>
-          ) : null}
-        {criminalBlock.blockProps.data && criminalBlock.blockProps.data.length &&
-          !criminalBlock.blockProps.data[0].noCriminal ? (
-            <div
-              className="border border-gray-400 rounded-full px-3 py-1 ml-2 cursor-pointer text-xs"
-              onClick={() => scrollToElement(pepBlocks.CRIMINAL)}
-            >
-              {t(criminalBlock.title)}
-            </div>
-          ) : null}
-      </>
-    );
-  };
-
   const getShortInfo = () => {
     const shortInfoFields = [
       { label: 'dateOfBirth', value: pep.date_of_birth, render: (value) => renderDate(value) },
@@ -292,6 +259,40 @@ const PepDetail = ({ match, history }) => {
           ) : null))}
         </tbody>
       </table>
+    );
+  };
+
+  const getHeader = () => {
+    const sanctionBlock = config.find((item) => item.id === asyncBlocks.SANCTION);
+    const criminalBlock = config.find((item) => item.id === pepBlocks.CRIMINAL);
+    return (
+      <>
+        <div
+          className="border border-gray-400 rounded-full px-3 py-1 mr-2 cursor-pointer text-xs"
+          onClick={() => scrollToElement(pepBlocks.MAIN_INFO)}
+
+        >
+          {pep.pep_type_display}
+        </div>
+        {sanctionBlock.blockProps.data && sanctionBlock.blockProps.data.length &&
+          !sanctionBlock.blockProps.data[0].noSanction ? (
+            <div
+              className="border border-gray-400 rounded-full px-3 py-1 cursor-pointer text-xs"
+              onClick={() => scrollToElement(asyncBlocks.SANCTION)}
+            >
+              {t(sanctionBlock.title)}
+            </div>
+          ) : null}
+        {criminalBlock.blockProps.data && criminalBlock.blockProps.data.length &&
+          !criminalBlock.blockProps.data[0].noCriminal ? (
+            <div
+              className="border border-gray-400 rounded-full px-3 py-1 ml-2 cursor-pointer text-xs"
+              onClick={() => scrollToElement(pepBlocks.CRIMINAL)}
+            >
+              {t(criminalBlock.title)}
+            </div>
+          ) : null}
+      </>
     );
   };
 
@@ -370,13 +371,15 @@ const PepDetail = ({ match, history }) => {
       </button>
       <div className="flex text-base pb-16">
         <div className="flex-grow mr-8 w-px">
-          {loading && (
-            <div className="w-full h-full bg-gray-700 bg-opacity-25 absolute flex items-center justify-center z-50">
-              <LoadingIcon icon="three-dots" className="w-16 h-16 z-50" />
-            </div>
-          )}
           <div className="box border border-gray-400 p-6" id={pepBlocks.MAIN_INFO}>
             <div className="flex flex-col lg:flex-row">
+              {loading && (
+                <div
+                  className="w-full h-screen bg-gray-700 bg-opacity-25 absolute flex items-center justify-center z-50 -m-6"
+                >
+                  <LoadingIcon icon="three-dots" className="w-16 h-16 z-50" />
+                </div>
+              )}
               <div className="flex flex-auto items-start justify-start mt-1">
                 <PepIcon />
                 <div className="ml-6">
@@ -389,9 +392,37 @@ const PepDetail = ({ match, history }) => {
                   {getShortInfo()}
                 </div>
               </div>
-              <div className="inline-flex p-1 cursor-pointer">
-                <Download className="mr-8" onClick={() => getPDF(pep.id, getLocaleField(pep, 'fullname'), true, '/pep/', setLoading)} />
-                <Print onClick={() => getPDF(pep.id, getLocaleField(pep, 'fullname'), false, '/pep/', setLoading)} />
+              <div className="flex cursor-pointer space-x-8 h-11">
+                <div
+                  className="flex background-hover-gray w-11"
+                  onClick={() => getPDF(
+                    pep.id, getLocaleField(pep, 'fullname'), true, '/pep/', setLoading,
+                  )}
+                >
+                  <Tooltip
+                    content={t('export.downloadPdf')}
+                    noContainer
+                  >
+                    <Download
+                      className="m-auto"
+                    />
+                  </Tooltip>
+                </div>
+                <div
+                  className="flex background-hover-gray w-11"
+                  onClick={() => getPDF(
+                    pep.id, getLocaleField(pep, 'fullname'), false, '/pep/', setLoading,
+                  )}
+                >
+                  <Tooltip
+                    content={t('print')}
+                    noContainer
+                  >
+                    <Print
+                      className="m-auto"
+                    />
+                  </Tooltip>
+                </div>
               </div>
             </div>
           </div>

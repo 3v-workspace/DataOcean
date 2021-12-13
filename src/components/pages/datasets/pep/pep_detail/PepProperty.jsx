@@ -7,9 +7,9 @@ import { sortData } from 'components/blocks/utils';
 const PepProperty = (props) => {
   const { data } = props;
   const { t } = useTranslation();
-  sortData(data, 'property');
+  const sortedData = sortData([...data], 'property');
 
-  const lastRealEstateData = data.filter(
+  const lastRealEstateData = sortedData.filter(
     (property) => property.property.declared_at === data[0].property.declared_at,
   );
 
