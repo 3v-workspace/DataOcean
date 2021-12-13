@@ -82,10 +82,12 @@ const ProjectDetail = (props) => {
     initialValues: {
       name: project.name || '',
       description: project.description || '',
+      detail_logging: project.detail_logging,
     },
     validationSchema: Yup.object({
       name: Yup.string().required(),
       description: Yup.string(),
+      detail_logging: Yup.boolean(),
     }),
     onSubmit: (values, actions) => {
       Api.put(`payment/project/${projectId}/update/`, values)
@@ -390,6 +392,11 @@ const ProjectDetail = (props) => {
               textarea
               label={t('description')}
               name="description"
+              formik={projectFormik}
+            />
+            <BooleanInput
+              label={t('logging')}
+              name="detail_logging"
               formik={projectFormik}
             />
             <div className="flex justify-end">

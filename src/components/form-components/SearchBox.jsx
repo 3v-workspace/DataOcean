@@ -40,6 +40,7 @@ const SearchBox = (props) => {
       <input
         className={classList.join(' ')}
         id={endId}
+        contentEditable
         type="text"
         placeholder={placeholder || `${t('search')}...`}
         value={value}

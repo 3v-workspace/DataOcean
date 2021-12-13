@@ -10,6 +10,7 @@ import { useTranslation } from 'react-i18next';
 import ProjectsPage from '../payment/ProjectsPage';
 import InvoicesTable from '../payment/InvoicesTable';
 import ProfileSettings from './ProfileSettings';
+import LogTable from '../payment/LogTable';
 
 
 const ProfilePage = ({ match }) => {
@@ -122,9 +123,23 @@ const ProfilePage = ({ match }) => {
           >
             <File className="w-4 h-4 mr-2" /> {t('myPayments')}
           </NavLink>
+          <NavLink
+            exact
+            to="/system/profile/my-logs/"
+            data-toggle="tab"
+            className="py-4 sm:mr-8 flex items-center"
+            activeClassName="active"
+          >
+            <File className="w-4 h-4 mr-2" /> {t('myLogs')}
+          </NavLink>
         </div>
       </div>
       <Switch>
+        <Route
+          exact
+          path={`${match.path}my-logs/`}
+          component={LogTable}
+        />
         <Route
           exact
           path={`${match.path}projects/:projectId/my-payments/:subscriptionId/`}
