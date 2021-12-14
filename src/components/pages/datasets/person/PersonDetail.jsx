@@ -49,9 +49,14 @@ const PersonDetail = ({ match, history }) => {
       });
   };
 
-  const dataSource = (data) => (
+  const dataSource = (data, isLink = true) => (
     <>
-        &emsp;({t('source')}: <Link to={getSourceUrl(data, person)}><span className="blue">{t(checkSource(data))}</span></Link>)
+        &emsp;({t('source')}:
+      {isLink ? (
+        <Link to={getSourceUrl(data, person)}><span className="blue">{t(checkSource(data))}</span></Link>
+      ) : (
+        <span className="blue">{t(checkSource(data))}</span>
+      )})
     </>
   );
 
@@ -60,7 +65,7 @@ const PersonDetail = ({ match, history }) => {
       <td className="w-40 lg:w-64 font-medium py-1 align-top">
         {t('passports')}:
       </td>
-      <td className="max-w-xl flex">
+      <td className="max-w-xl">
         {id_card_data.map((number) => (
           <p className="pb-1" key={number.id}>
             {number.id_card ? number.id_card : number.passports.join(', ')}{dataSource(number)}
@@ -114,7 +119,7 @@ const PersonDetail = ({ match, history }) => {
         value: person.citizenship_data.filter((citizenship) => getLocaleField(citizenship, 'name')),
         render: (value) => value.map((item, i) => (
           <p className="pb-1" key={item.id}>
-            {`${i + 1}. ${getLocaleField(item, 'name')}`}{dataSource(item)}
+            {`${i + 1}. ${getLocaleField(item, 'name')}`}{dataSource(item, false)}
           </p>
         )),
       },
@@ -122,7 +127,8 @@ const PersonDetail = ({ match, history }) => {
     ];
 
     const getLastPosition = (position_data) => {
-      const lastPositionData = position_data.sort((prev, cur) => {
+      const filteredData = position_data.filter((item) => item?.position !== '');
+      const lastPositionData = filteredData.sort((prev, cur) => {
         const prev_year = prev.year ? prev.year : prev.declared_at;
         const cur_year = cur.year ? cur.year : cur.declared_at;
         if (prev_year < cur_year) {
@@ -190,7 +196,7 @@ const PersonDetail = ({ match, history }) => {
                 <td className="w-40 lg:w-64 font-medium py-1 align-top">
                   {t('taxpayerNumber')}:
                 </td>
-                <td className="max-w-xl flex py-1">
+                <td className="max-w-xl py-1">
                   {person.taxpayer_number_data.map((number, i) => (
                     <p key={i}>
                       {number.taxpayer_number}{dataSource(number)}
@@ -204,7 +210,8 @@ const PersonDetail = ({ match, history }) => {
             ).length ? (
                 extractIdCartData(person.id_card_data)
               ) : null}
-            {person.position_data.length ? getLastPosition(person.position_data) : null}
+            {person.position_data.filter((item) => item?.position !== '').length ?
+              getLastPosition(person.position_data) : null}
           </tbody>
         </table>
       </>
@@ -466,9 +473,9 @@ const PersonDetail = ({ match, history }) => {
               </div>
             </div>
             <div
-              className={`flex justify-end ${person.is_dead ? '' : 'hidden'}`}
+              className={`flex justify-end -mb-1 ${person.is_dead ? '' : 'hidden'}`}
             >
-              <BlackLine />
+              <BlackLine width={60} height={60} />
             </div>
           </div>
           {getAdditionalInfo()}

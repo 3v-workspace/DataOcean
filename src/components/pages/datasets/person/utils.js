@@ -9,15 +9,15 @@ export const checkSource = (data) => {
 };
 
 export const getSourceUrl = (data, person) => {
+  let sanctionId;
   switch (data.source) {
     case Object.keys(SOURCE)[0]:
       return `${SOURCE_URL[data.source]}${person.pep_data[0].id}`;
     case Object.keys(SOURCE)[1]:
-      return `${SOURCE_URL[data.source]}${
-        data.year ? person.sanction_data.find(
-          (item) => item.decree.includes(data.year),
-        ).id : person.sanction_data[0].id
-      }`;
+      sanctionId = data.id || person.sanction_data.find(
+        (item) => item.decree.includes(data.year)?.id,
+      ) || person.sanction_data[0].id;
+      return `${SOURCE_URL[data.source]}${sanctionId}`;
     default:
       return '';
   }
