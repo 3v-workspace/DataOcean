@@ -23,7 +23,7 @@ const LogTable = () => {
       },
     },
     {
-      header: t('path'),
+      header: t('url'),
       prop: 'pathname',
       width: '15%',
       noSort: true,
@@ -34,7 +34,7 @@ const LogTable = () => {
       },
     },
     {
-      header: t('ip'),
+      header: t('ipAddress'),
       prop: 'ip',
       width: '10%',
       noSort: true,
@@ -60,7 +60,7 @@ const LogTable = () => {
       },
     },
     {
-      header: t('parameters'),
+      header: t('requestParameters'),
       prop: 'parameters',
       render: (v) => (
         <div>

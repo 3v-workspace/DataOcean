@@ -10,7 +10,7 @@ import SearchWithDropdown from './SearchWithDropdown';
 const FilterField = (props) => {
   const {
     filter: { name, type, url, multiple, placeholder, width, options },
-    onChange, defaultValue, onSearch, value, tableScrollParam, from, to,
+    onChange, defaultValue, onSearch, value, tableScrollParam,
   } = props;
 
   const { t } = useTranslation();
@@ -114,8 +114,6 @@ const FilterField = (props) => {
           <DateInput
             className="-mb-3 w-40 text-gray-700"
             name={name}
-            from={from}
-            to={to}
             placeholder="2020-12-10 - 2021-12-10"
             singleDatePicker={false}
             value={timeRange}
@@ -169,8 +167,6 @@ FilterField.propTypes = {
   }).isRequired,
   onChange: PropTypes.func.isRequired,
   onSearch: PropTypes.func.isRequired,
-  from: PropTypes.string,
-  to: PropTypes.string,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   defaultValue: PropTypes.oneOfType([
     PropTypes.string, PropTypes.array,
@@ -180,8 +176,6 @@ FilterField.propTypes = {
 
 FilterField.defaultProps = {
   value: undefined,
-  from: undefined,
-  to: undefined,
   tableScrollParam: 0,
 };
 
