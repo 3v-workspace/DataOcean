@@ -437,7 +437,7 @@
   "reportConstructor": "Report constructor",
   "reports": "Reports",
   "requests": "Requests",
-  "requestSource": "Request type",
+  "requestType": "Request type",
   "requestsAndViewsTBD": "Requests and views - TBD",
   "requestsLeft": "Requests left",
   "resetAllFilters": "Reset all filters",

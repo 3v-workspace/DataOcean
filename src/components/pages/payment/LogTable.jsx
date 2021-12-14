@@ -45,7 +45,7 @@ const LogTable = () => {
       },
     },
     {
-      header: t('requestSource'),
+      header: t('requestType'),
       prop: 'request_source',
       width: '10%',
       defaultSelected: true,

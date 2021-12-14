@@ -438,7 +438,7 @@
   "reportConstructor": "Конструктор звітів",
   "reports": "Звіти",
   "requests": "Запити",
-  "requestSource": "Тип запиту",
+  "requestType": "Тип запиту",
   "requestsAndViewsTBD": "Кількість переглядів та кількість запитів - за домовленістю",
   "requestsLeft": "Запитів залишилось",
   "resetAllFilters": "Очистити всі фільтри",
