@@ -5,8 +5,10 @@ import logoPerson from 'images/logoPerson.svg';
 import logoBag from 'images/logoBag.svg';
 import { ReactRouterPropTypes } from 'utils/prop-types';
 import PersonSearchForm from 'components/pages/search/PersonSearchForm';
+import CompanySearchForm from 'components/pages/search/CompanySearchForm';
 import Tooltip from 'components/Tooltip';
 import search_girl_url from 'images/search_girl.png';
+import { COMPANY_SEARCH_TESTING } from 'const/testing';
 
 const SearchPage = ({ match }) => {
   const { t } = useTranslation();
@@ -27,21 +29,37 @@ const SearchPage = ({ match }) => {
           <img src={logoPerson} alt="person_logo" className="w-4 h-4 mr-2" />
           {t('searchPerson')}
         </NavLink>
-        <Tooltip
-          content={t('inDevelopment')}
-          position="top"
-          className="text-gray-500"
-        >
-          <div className="py-2 flex items-center">
+        { COMPANY_SEARCH_TESTING ? (
+          <NavLink
+            to={`${match.path}company/`}
+            data-toggle="tab"
+            className="py-2 flex items-center"
+            activeClassName="active"
+          >
             <img src={logoBag} alt="logoBag" className="w-4 h-4 mr-2 flex items-center" />
             {t('searchCompany')}
-          </div>
-        </Tooltip>
+          </NavLink>
+        ) : (
+          <Tooltip
+            content={t('inDevelopment')}
+            position="top"
+            className="text-gray-500"
+          >
+            <div className="py-2 flex items-center">
+              <img src={logoBag} alt="logoBag" className="w-4 h-4 mr-2 flex items-center" />
+              {t('searchCompany')}
+            </div>
+          </Tooltip>
+        )}
       </div>
       <Switch>
         <Route
           path={`${match.path}person/`}
           component={PersonSearchForm}
+        />
+        <Route
+          path={`${match.path}company/`}
+          component={CompanySearchForm}
         />
         <Route
           exact
