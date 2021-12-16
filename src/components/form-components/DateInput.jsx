@@ -124,7 +124,7 @@ const DateInput = (props) => {
         id={endId}
         ref={datepickerRef}
         autoComplete="off"
-        className={`${className} input border`}
+        className={`${className} input text-gray-900 border w-48`}
         name={name}
         required={required}
         placeholder={placeholder}

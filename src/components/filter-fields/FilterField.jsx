@@ -1,15 +1,20 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { SearchBox, DateInput } from 'components/form-components';
 import moment from 'moment';
+import { useTranslation } from 'react-i18next';
 import SelectInput2 from './SelectInput2';
 import SearchWithDropdown from './SearchWithDropdown';
+
 
 const FilterField = (props) => {
   const {
     filter: { name, type, url, multiple, placeholder, width, options },
     onChange, defaultValue, onSearch, value, tableScrollParam,
   } = props;
+
+  const { t } = useTranslation();
+  const [timeRange, setTimeRange] = useState('');
 
   const needSearchRef = React.useRef(false);
 
@@ -101,6 +106,29 @@ const FilterField = (props) => {
           />
         </div>
       );
+
+
+    case 'daterange':
+      return (
+        <div>
+          <DateInput
+            className="-mb-3 w-40 text-gray-700"
+            name={name}
+            placeholder="2020-12-10 - 2021-12-10"
+            singleDatePicker={false}
+            value={timeRange}
+            onChange={(n, v) => {
+              setTimeRange(v);
+              needSearchRef.current = true;
+              onChange(n.concat('_range'), v);
+            }}
+            minDate={moment('2020-01-30')}
+            onKeyPress={handleKeyPress}
+            onClear={() => { setTimeRange(''); onClear(); }}
+          />
+        </div>
+      );
+
 
     case 'select':
       return (

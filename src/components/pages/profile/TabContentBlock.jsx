@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const TabContentBlock = (props) => {
   const {
-    title, headerContent, children, large,
+    title, headerContent, children, large, noPadding,
   } = props;
 
   return (
@@ -14,7 +14,7 @@ const TabContentBlock = (props) => {
         </h2>
         {headerContent}
       </div>
-      <div className="p-5">
+      <div className={`${noPadding ? '' : 'p-5'}`}>
         {children}
       </div>
     </div>
@@ -25,10 +25,12 @@ TabContentBlock.propTypes = {
   title: PropTypes.string.isRequired,
   headerContent: PropTypes.node,
   large: PropTypes.bool,
+  noPadding: PropTypes.bool,
 };
 TabContentBlock.defaultProps = {
   headerContent: null,
   large: false,
+  noPadding: false,
 };
 
 export default TabContentBlock;

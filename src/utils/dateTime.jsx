@@ -32,5 +32,5 @@ export function renderDate(isoString) {
 }
 
 export function renderDateTime(isoString) {
-  return baseDateRender(isoString, 'DD MMMM YYYY р. HH:ss', 'MMM DD, YYYY HH:ss');
+  return baseDateRender(isoString, 'DD MMMM YYYY р. HH:mm', 'MMM DD, YYYY HH:mm');
 }
