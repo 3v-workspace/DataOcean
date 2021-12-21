@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
-import { getPDF } from 'utils';
+import { getPDF, printPDF } from 'utils';
 import { Download, Printer } from 'react-feather';
 
 const PrintDownloadSanction = (props) => {
@@ -14,7 +14,7 @@ const PrintDownloadSanction = (props) => {
         <Download className="w-5 h-5 mr-1" />
         {t('export.downloadPdf')}
       </div>
-      <div className="inline-flex cursor-pointer" onClick={() => getPDF(id, name, false, dataset)}>
+      <div className="inline-flex cursor-pointer" onClick={() => printPDF(id, dataset)}>
         <Printer className="w-5 h-5 mr-1" />
         {t('print')}
       </div>

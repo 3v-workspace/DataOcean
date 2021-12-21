@@ -1,5 +1,5 @@
 import i18 from 'i18next';
-import Api from 'api';
+import Api, { baseApiUrl } from 'api';
 
 export { default as toggleFullScreen } from './fullscreen';
 export { default as setLanguage } from './setLanguage';
@@ -75,5 +75,14 @@ export const getPDF = (id, name, download, dataset, setLoading) => {
       } else {
         window.open(fileURL);
       }
+    });
+};
+
+
+export const printPDF = (id, dataset) => {
+  Api.get(`${dataset}${id}/pdf/print`, { useProjectToken: true, responseType: 'text' })
+    .then((resp) => {
+      const token = resp.data;
+      window.open(`${baseApiUrl}/api/${dataset}${id}/pdf/print/${token}/`, '');
     });
 };
