@@ -14,7 +14,6 @@ const FilterField = (props) => {
   } = props;
 
   const { t } = useTranslation();
-  const [timeRange, setTimeRange] = useState('');
 
   const needSearchRef = React.useRef(false);
 
@@ -116,15 +115,14 @@ const FilterField = (props) => {
             name={name}
             placeholder="2020-12-10 - 2021-12-10"
             singleDatePicker={false}
-            value={timeRange}
+            value={value}
+            defaultValue=""
             onChange={(n, v) => {
-              setTimeRange(v);
               needSearchRef.current = true;
-              onChange(n.concat('_range'), v);
+              onChange(n, v);
             }}
-            minDate={moment('2020-01-30')}
             onKeyPress={handleKeyPress}
-            onClear={() => { setTimeRange(''); onClear(); }}
+            onClear={() => { onClear(); onChange(name, defaultValue); }}
           />
         </div>
       );

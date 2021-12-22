@@ -416,10 +416,10 @@ const PepDetail = ({ match, history }) => {
                 >
                   <Tooltip
                     content={t('print')}
-                    noContainer
                   >
                     <Print
-                      className="m-auto"
+                      className="mt-2 ml-2"
+                      style={{ height: 28, width: 28 }}
                     />
                   </Tooltip>
                 </div>
