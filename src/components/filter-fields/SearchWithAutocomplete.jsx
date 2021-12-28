@@ -1,21 +1,21 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import Tooltip from 'components/Tooltip';
 import { Search, X } from 'react-feather';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
 import { debounce } from 'throttle-debounce';
 import Api from 'api';
 import { getLocaleField, toTitleCase } from 'utils';
 
 
-const SearchWithDropdown = (props) => {
+const SearchWithAutocomplete = (props) => {
   const {
     width, value, onChange, onClear, name, url, placeholder, onSearch, tableScrollParam,
   } = props;
   const { t } = useTranslation();
   const [domReady, setDomReady] = useState(false);
+  const [input, setInput] = useState(value);
   const [isShowDropdown, setShowDropdown] = useState(false);
   const [data, setData] = useState([{
     label: '',
@@ -24,6 +24,7 @@ const SearchWithDropdown = (props) => {
 
   const portalContainer = document.getElementById('div_for_dropdown');
   const searchInputRef = useRef();
+  const resultDropdownRef = useRef();
   const [offsetParams, setOffsetParams] = useState({
     left: 0, top: 0, height: 0,
   });
@@ -32,9 +33,11 @@ const SearchWithDropdown = (props) => {
     setDomReady(true);
   }, []);
 
-  const closeDropdown = () => {
-    setShowDropdown(false);
-  };
+  useEffect(() => {
+    if (input !== value) {
+      setInput(value);
+    }
+  }, [value]);
 
   const fetchData = (newValue) => {
     Api.get(`${url}?${name}=${newValue}`, { useProjectToken: true })
@@ -46,35 +49,67 @@ const SearchWithDropdown = (props) => {
       });
   };
 
-  useEffect(() => {
-    if (!isShowDropdown && value.length > 2) {
-      setShowDropdown(true);
-      setOffsetParams({
-        left: searchInputRef.current.offsetLeft +
-        document.getElementById('search_input').offsetParent.offsetLeft - tableScrollParam,
-        top: searchInputRef.current.offsetTop,
-        height: searchInputRef.current.offsetHeight,
-      });
-    } else if (isShowDropdown && value.length < 2) {
-      setShowDropdown(false);
-    }
-  }, [value]);
-
-  useEffect(() => {
-    if (!isShowDropdown) {
-      setData([]);
-    }
-  }, [isShowDropdown]);
-
-  useEffect(() => {
-    setShowDropdown(false);
-  }, [tableScrollParam]);
-
   const debouncedChange = debounce(1000, false, (e) => {
     if (onSearch) {
-      fetchData(e.target.value);
+      if (e.target.value != null) {
+        fetchData(e.target.value);
+      }
     }
   });
+
+  const closeDropdown = () => {
+    setShowDropdown(false);
+    setData([]);
+  };
+
+  const onInputChange = (e) => {
+    setShowDropdown(true);
+    setInput(e.currentTarget.value);
+  };
+
+  const onInputClear = () => {
+    onClear();
+    setInput('');
+  };
+
+  const onClick = (e) => {
+    setInput(e.currentTarget.innerText);
+    closeDropdown();
+    onChange(name, e.currentTarget.innerText);
+  };
+
+  useEffect(() => {
+    setOffsetParams({
+      left: searchInputRef.current.offsetLeft +
+      document.getElementById('search_input').offsetParent.offsetLeft - tableScrollParam,
+      top: searchInputRef.current.offsetTop,
+      height: searchInputRef.current.offsetHeight,
+    });
+    if (!isShowDropdown && input.length > 2 && !onClick) {
+      setShowDropdown(true);
+    } else if (isShowDropdown && input.length < 2) {
+      closeDropdown();
+    }
+  }, [input]);
+
+  const checkIfClickedOutside = useCallback((e) => {
+    if (resultDropdownRef.current && !resultDropdownRef.current.contains(e.target)) {
+      closeDropdown();
+      onInputClear();
+    }
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener('mousedown', checkIfClickedOutside);
+    return () => {
+      window.removeEventListener('mousedown', checkIfClickedOutside);
+    };
+  }, [checkIfClickedOutside]);
+
+
+  useEffect(() => {
+    closeDropdown();
+  }, [tableScrollParam]);
 
   return (
     <>
@@ -87,22 +122,22 @@ const SearchWithDropdown = (props) => {
           className="search__input input text-gray-700 pr-8"
           placeholder={placeholder || `${t('search')}...`}
           autoComplete="off"
-          value={value}
+          value={input}
           onChange={(e) => {
-            onChange(e);
+            onInputChange(e);
             e.persist();
             debouncedChange(e);
           }}
           onKeyPress={(e) => {
             if (onSearch && e.key === 'Enter') {
-              onSearch(name, e.target.value);
+              onChange(name, e.target.value);
               closeDropdown();
             }
           }}
         />
-        {value !== undefined && value.length > 0 ? (
+        {input.length > 0 ? (
           <Tooltip content={t('resetFilter')} position="bottom">
-            <X className="w-4 h-4 inline inset-y-0 -ml-6 cursor-pointer text-gray-700" onClick={onClear} />
+            <X className="w-4 h-4 inline inset-y-0 -ml-6 cursor-pointer text-gray-700" onClick={onInputClear} />
           </Tooltip>
         ) : (
           <Search className="w-4 h-4 inline inset-y-0 -ml-6 text-gray-700" />
@@ -110,6 +145,7 @@ const SearchWithDropdown = (props) => {
       </div>
       {domReady && isShowDropdown ? ReactDOM.createPortal(
         <div
+          ref={resultDropdownRef}
           className={`select-dropdown text-black ${isShowDropdown ? 'show' : ''}`}
           style={{
             width: `${width}px`,
@@ -123,15 +159,15 @@ const SearchWithDropdown = (props) => {
                 {t('noResultsFound')}
               </div>
             ) : data.map((result) => (
-              <Link
-                to={`/system/datasets/${url}${result.value}`}
+              <li
+                onClick={onClick}
                 key={result.value}
                 className="flex border-b-1 last:border-b-0 -mx-4 cursor-pointer hover:bg-gray-200"
               >
                 <div className="p-3 font-normal">
                   {result.label}
                 </div>
-              </Link>
+              </li>
             ))}
           </div>
         </div>, portalContainer,
@@ -140,7 +176,7 @@ const SearchWithDropdown = (props) => {
   );
 };
 
-SearchWithDropdown.propTypes = {
+SearchWithAutocomplete.propTypes = {
   width: PropTypes.string,
   name: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired,
@@ -152,7 +188,7 @@ SearchWithDropdown.propTypes = {
   tableScrollParam: PropTypes.number,
 };
 
-SearchWithDropdown.defaultProps = {
+SearchWithAutocomplete.defaultProps = {
   width: undefined,
   placeholder: undefined,
   value: undefined,
@@ -161,4 +197,4 @@ SearchWithDropdown.defaultProps = {
   tableScrollParam: 0,
 };
 
-export default SearchWithDropdown;
+export default SearchWithAutocomplete;
