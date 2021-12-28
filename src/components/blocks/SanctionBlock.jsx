@@ -50,7 +50,7 @@ const SanctionBlock = (props) => {
             ))
           ))}
         </tbody>
-        <tr className="py-3 float-left">
+        <tr className="px-5 py-3 float-left font-bold">
           {t('expiredSanctions')}
         </tr>
         <tbody>
