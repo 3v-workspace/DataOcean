@@ -143,6 +143,7 @@
     "exportTooltipContent": "Для завантаження скористайтесь фільтрами або пошуком. Максимальна кількість записів для завантаження - {{limit}}",
     "hasNoPermission": "Для цієї дії потрібна щонайменш одна платна підписка"
   },
+  "expiredSanctions": "Недійсні санкції",
   "family": "Родина",
   "familyExpenses": "Витрати родини",
   "familyIncome": "Доходи родини",
@@ -461,6 +462,7 @@
   "sanctionSource": "Реєстр санкцій",
   "sanctionStartDate": "Дата початку санкцій",
   "sanctions": "Відомі санкції",
+  "sanctionsCounter": "Відомі санкції:",
   "sanctionsDetail": "Санкції",
   "sanctionsUnderThePresidentialDecree": "Санкції згідно Указу Президента №{{numberDecree}} від",
   "save": "Зберегти",

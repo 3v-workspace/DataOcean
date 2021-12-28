@@ -143,6 +143,7 @@
     "exportTooltipContent": "Use filters or search before downloading. Max records limit for downloading - {{limit}}",
     "hasNoPermission": "At least one paid subscription required for this action"
   },
+  "expiredSanctions": "Expired sanctions",
   "family": "Family",
   "familyExpenses": "Family expenses",
   "familyIncome": "Family income",
@@ -460,6 +461,7 @@
   "sanctionSource": "Sanctions register",
   "sanctionStartDate": "Sanction Start Date",
   "sanctions": "Sanctions",
+  "sanctionsCounter": "Sanctions:",
   "sanctionsDetail": "Sanctions",
   "sanctionsUnderThePresidentialDecree": "Sanctions under the Presidential Decree №{{numberDecree}} from",
   "save": "Save",
