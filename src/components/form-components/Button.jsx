@@ -12,6 +12,7 @@ const buttonTypes = {
   warning: 'bg-theme-12 text-white',
   danger: 'bg-theme-6 text-white',
   dark: 'bg-gray-200 text-gray-600',
+  selected: 'bg-blue-200 m-1',
 
   'outline-white': 'border border-white',
   'outline-primary': 'border-2 border-theme-1 text-theme-1',
