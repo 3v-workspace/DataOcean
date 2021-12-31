@@ -27,7 +27,7 @@ const SanctionBlock = (props) => {
     <>
       <div className="h-8">
         <Button
-          className="border border-gray-400 mr-3"
+          className="border border-gray-400 mr-3 text-xs"
           size="sm"
           variant={`${isEqualArray(values, [ALL]) ? 'selected' : 'secondary'}`}
           isRounded
@@ -36,7 +36,7 @@ const SanctionBlock = (props) => {
           {t('allSanctions')}
         </Button>
         <Button
-          className="border border-gray-400 mr-3"
+          className="border border-gray-400 mr-3 text-xs"
           size="sm"
           variant={`${isEqualArray(values, [CURRENT]) ? 'selected' : 'secondary'}`}
           isRounded
@@ -45,7 +45,7 @@ const SanctionBlock = (props) => {
           {t('current')}
         </Button>
         <Button
-          className="border border-gray-400"
+          className="border border-gray-400 text-xs"
           size="sm"
           isRounded
           variant={`${isEqualArray(values, [EXPIRED]) ? 'selected' : 'secondary'}`}
