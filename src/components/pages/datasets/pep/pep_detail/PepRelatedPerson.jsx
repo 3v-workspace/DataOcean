@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { ReactRouterPropTypes } from 'utils/prop-types';
 import { getLocaleField } from 'utils';
+import { Link } from 'react-router-dom';
 
 const PepRelatedPerson = (props) => {
   const { data, pepId, matchProps } = props;
@@ -13,12 +14,16 @@ const PepRelatedPerson = (props) => {
           <span className="mr-1">
             {getLocaleField(person, 'type')} —
           </span>
-          <a
+          <Link
             className="capitalize cursor-pointer blue"
-            href={matchProps.url.replace(pepId, person.person.id)}
+            key={person.person.id}
+            to={{
+              pathname: matchProps.url.replace(pepId, person.person.id),
+              state: { related: true },
+            }}
           >
             {getLocaleField(person.person, 'fullname')}
-          </a>
+          </Link>
         </li>
       ))}
       {data[0].business.map((person) => (
@@ -26,12 +31,16 @@ const PepRelatedPerson = (props) => {
           <span className="mr-1">
             {getLocaleField(person, 'type')} —
           </span>
-          <a
+          <Link
             className="capitalize cursor-pointer blue"
-            href={matchProps.url.replace(pepId, person.person.id)}
+            key={person.person.id}
+            to={{
+              pathname: matchProps.url.replace(pepId, person.person.id),
+              state: { related: true },
+            }}
           >
             {getLocaleField(person.person, 'fullname')}
-          </a>
+          </Link>
         </li>
       ))}
       {data[0].personal.map((person) => (
@@ -39,12 +48,16 @@ const PepRelatedPerson = (props) => {
           <span className="mr-1">
             {getLocaleField(person, 'type')} —
           </span>
-          <a
+          <Link
             className="capitalize cursor-pointer blue"
-            href={matchProps.url.replace(pepId, person.person.id)}
+            key={person.person.id}
+            to={{
+              pathname: matchProps.url.replace(pepId, person.person.id),
+              state: { related: true },
+            }}
           >
             {getLocaleField(person.person, 'fullname')}
-          </a>
+          </Link>
         </li>
       ))}
       {data[0].unknown.map((person) => (
@@ -52,12 +65,16 @@ const PepRelatedPerson = (props) => {
           <span className="mr-1">
             {getLocaleField(person, 'type')} —
           </span>
-          <a
+          <Link
             className="capitalize cursor-pointer blue"
-            href={matchProps.url.replace(pepId, person.person.id)}
+            key={person.person.id}
+            to={{
+              pathname: matchProps.url.replace(pepId, person.person.id),
+              state: { related: true },
+            }}
           >
             {getLocaleField(person.person, 'fullname')}
-          </a>
+          </Link>
         </li>
       ))}
     </ul>

@@ -83,7 +83,8 @@ const SystemRoutes = (props) => {
       <Route
         exact
         path={`${match.path}home/person/:id/`}
-        component={PersonDetail}
+        render={(props) => (<PersonDetail key={props.match.params.id} {...props} />)}
+        //component={PersonDetail}
       />
       <Route
         exact
