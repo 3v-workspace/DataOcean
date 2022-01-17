@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { getPDF } from 'utils';
 import { Download, Printer } from 'react-feather';
+import { Print } from '../../../blocks';
+
 
 const PrintDownloadSanction = (props) => {
   const { id, name, dataset, className } = props;
@@ -15,7 +17,7 @@ const PrintDownloadSanction = (props) => {
         {t('export.downloadPdf')}
       </div>
       <div className="inline-flex cursor-pointer" onClick={() => getPDF(id, name, false, dataset)}>
-        <Printer className="w-5 h-5 mr-1" />
+        <Print className="w-5 h-5 mr-1" />
         {t('print')}
       </div>
     </div>
