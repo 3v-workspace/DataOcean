@@ -375,9 +375,12 @@ const PepDetail = ({ match, history }) => {
             <div className="flex flex-col lg:flex-row">
               {loading && (
                 <div
-                  className="w-full h-screen bg-gray-700 bg-opacity-25 absolute flex items-center justify-center z-50 -m-6"
+                  className="w-full h-screen bg-gray-900 bg-opacity-50 absolute flex flex-col items-center justify-center z-50 -m-6"
                 >
-                  <LoadingIcon icon="three-dots" className="w-16 h-16 z-50" />
+                  <LoadingIcon icon="wave" />
+                  <div className="text-2xl text-white font-medium text-center pt-2">
+                    {t('PDFDownload')}
+                  </div>
                 </div>
               )}
               <div className="flex flex-auto items-start justify-start mt-1">
@@ -416,10 +419,10 @@ const PepDetail = ({ match, history }) => {
                 >
                   <Tooltip
                     content={t('print')}
-                    noContainer
                   >
                     <Print
-                      className="m-auto"
+                      className="mt-2 ml-2"
+                      style={{ height: 28, width: 28 }}
                     />
                   </Tooltip>
                 </div>

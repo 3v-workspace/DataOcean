@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { getPDF, printPDF } from 'utils';
 import { Download, Printer } from 'react-feather';
+import { Print } from '../../../blocks';
+
 
 const PrintDownloadSanction = (props) => {
   const { id, name, dataset, className } = props;

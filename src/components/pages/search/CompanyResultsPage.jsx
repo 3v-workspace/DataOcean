@@ -45,7 +45,7 @@ const CompanyResultsPage = (props) => {
       <div className="flex items-center text-xl mb-3">
         <div>
           <Trans
-            i18n_Key="personPage.matchesWereFoundFor"
+            i18nKey="personPage.matchesWereFoundFor"
             values={{ count: tc.count, queryString }}
           />.
         </div>

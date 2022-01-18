@@ -4,7 +4,7 @@ import { SearchBox, DateInput } from 'components/form-components';
 import moment from 'moment';
 import { useTranslation } from 'react-i18next';
 import SelectInput2 from './SelectInput2';
-import SearchWithDropdown from './SearchWithDropdown';
+import SearchWithAutocomplete from './SearchWithAutocomplete';
 
 
 const FilterField = (props) => {
@@ -14,7 +14,6 @@ const FilterField = (props) => {
   } = props;
 
   const { t } = useTranslation();
-  const [timeRange, setTimeRange] = useState('');
 
   const needSearchRef = React.useRef(false);
 
@@ -57,13 +56,16 @@ const FilterField = (props) => {
     case 'text_with_dropdown':
       return (
         <div>
-          <SearchWithDropdown
+          <SearchWithAutocomplete
             width={width}
             value={value || defaultValue}
             placeholder={placeholder}
             name={name}
             url={url}
-            onChange={(e) => onChange(name, e.target.value)}
+            onChange={(n, v) => {
+              needSearchRef.current = true;
+              onChange(n, v);
+            }}
             onClear={onClear}
             onSearch={onSearch}
             tableScrollParam={tableScrollParam}
@@ -116,15 +118,14 @@ const FilterField = (props) => {
             name={name}
             placeholder="2020-12-10 - 2021-12-10"
             singleDatePicker={false}
-            value={timeRange}
+            value={value}
+            defaultValue=""
             onChange={(n, v) => {
-              setTimeRange(v);
               needSearchRef.current = true;
-              onChange(n.concat('_range'), v);
+              onChange(n, v);
             }}
-            minDate={moment('2020-01-30')}
             onKeyPress={handleKeyPress}
-            onClear={() => { setTimeRange(''); onClear(); }}
+            onClear={() => { onClear(); onChange(name, defaultValue); }}
           />
         </div>
       );
