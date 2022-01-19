@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { ReactRouterPropTypes } from 'utils/prop-types';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
 const RelatedPersonBlock = (props) => {
   const { data, personId, matchProps } = props;
@@ -31,12 +32,15 @@ const RelatedPersonBlock = (props) => {
           <span className="mr-1">
             {person.relationship_category_display}&emsp;—&emsp;
           </span>
-          <a
+          <Link
             className="capitalize cursor-pointer blue"
-            href={matchProps.url.replace(personId, person.person_id)}
+            to={{
+              pathname: matchProps.url.replace(personId, person.person_id),
+              state: { related: true },
+            }}
           >
             {i18n.language === 'en' ? person.full_name : `${person.last_name} ${person.first_name} ${person.middle_name}`}
-          </a>
+          </Link>
         </li>
       ))}
     </ul>

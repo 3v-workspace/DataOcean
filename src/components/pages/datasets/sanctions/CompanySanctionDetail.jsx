@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { getLocaleField, renderDate } from 'utils';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useHistory, Link } from 'react-router-dom';
 import Api from 'api';
 import { ArrowLeft } from 'react-feather';
 import { ReactComponent as EmptyLogo } from 'images/logo_company.svg';
@@ -105,10 +105,14 @@ const CompanySanctionDetail = () => {
       <div className="mt-5 col-span-12 lg:col-span-6 box">
         <div className="py-2 border-b border-gray-200 text-blue-800 flex flex-row font-medium justify-between">
           <div className="inline-flex">
-            <a onClick={() => history.goBack()} className="inline-flex pt-2 bg-opacity-0 text-blue-800 font-bold cursor-pointer">
+            <button
+              type="button"
+              onClick={() => history.goBack()}
+              className="inline-flex pt-2 bg-opacity-0 text-blue-800 font-bold cursor-pointer focus:outline-none"
+            >
               <ArrowLeft className="w-10 h-5" />
               {t('back')}
-            </a>
+            </button>
           </div>
           <PrintDownloadSanction id={data.id} name={data.name_original} dataset="sanction/company/" />
         </div>
