@@ -35,7 +35,7 @@
   "assetType": "Вид активу",
   "assetsInfo": "Інформація про активи",
   "authorizedCapital": "Статутний капітал",
-  "back": "Повернутись",
+  "back": "Назад",
   "backToHome": "На головну",
   "backToSearchResults": "Назад до результатів пошуку",
   "bars": "Бари",
@@ -139,6 +139,7 @@
   "enterUserEmail": "Введіть E-mail користувача",
   "error": "Помилка",
   "expenditures": "Витрати",
+  "expiredSanctions": "Недійсні санкції",
   "export": {
     "downloadPdf": "Завантажити PDF",
     "downloadXlsx": "Зараз буде вигрузка даних в форматі .xlsx",
@@ -146,8 +147,8 @@
     "exportTooltipContent": "Для завантаження скористайтесь фільтрами або пошуком. Максимальна кількість записів для завантаження - {{limit}}",
     "hasNoPermission": "Для цієї дії потрібна щонайменш одна платна підписка"
   },
+
   "expired": "Недійсні",
-  "expiredSanctions": "Недійсні санкції",
   "family": "Родина",
   "familyExpenses": "Витрати родини",
   "familyIncome": "Доходи родини",
@@ -459,6 +460,7 @@
   "requestsLeft": "Запитів залишилось",
   "resetAllFilters": "Очистити всі фільтри",
   "resetFilter": "Очистити фільтр",
+  "return": "Повернутись",
   "reset": "Очистити",
   "returnToTheProject": "Повернутись до проєкту",
   "right": "Право власності",

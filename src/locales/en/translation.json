@@ -139,6 +139,7 @@
   "enterUserEmail": "Enter user Email",
   "error": "Error",
   "expenditures": "Expenditures",
+  "expiredSanctions": "Expired sanctions",
   "export": {
     "downloadPdf": "Download PDF",
     "downloadXlsx": "Downloading data in .xlsx format will start",
@@ -147,7 +148,6 @@
     "hasNoPermission": "At least one paid subscription required for this action"
   },
   "expired": "Expired",
-  "expiredSanctions": "Expired sanctions",
   "family": "Family",
   "familyExpenses": "Family expenses",
   "familyIncome": "Family income",
@@ -458,6 +458,7 @@
   "requestsLeft": "Requests left",
   "resetAllFilters": "Reset all filters",
   "resetFilter": "Reset filter",
+  "return": "Return",
   "reset": "Reset",
   "returnToTheProject": "Return to the project",
   "right": "Ownership",
