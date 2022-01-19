@@ -249,7 +249,7 @@ const SignUpForm = () => {
             variant="secondary"
             link="/auth/sign-in/"
           >
-            {t('back')}
+            {t('return')}
           </Button>
         </div>
         {/* <GoogleButton>Продовжити з Google</GoogleButton> */}

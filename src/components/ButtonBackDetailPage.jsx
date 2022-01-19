@@ -13,11 +13,11 @@ const ButtonBackDetailPage = () => {
       {location.key && (
         <button
           type="button"
-          className="flex cursor-pointer font-bold text-l block-black mx-3 focus:outline-none"
+          className="flex cursor-pointer font-bold text-l tracking-widest mx-3 focus:outline-none"
           onClick={() => history.goBack()}
         >
-          <ArrowLeft className="h-5 ml-2" />
-          {location.state ? t('back') : t('backToSearchResults')}
+          <ArrowLeft className="h-5 mr-2" />
+          {location.state ? t('back').toLocaleUpperCase() : t('backToSearchResults').toLocaleUpperCase()}
         </button>
       )}
     </div>
