@@ -157,6 +157,26 @@ const LoadingIcon = (props) => {
           </circle>
         </svg>
       );
+    case 'wave':
+      return (
+        <div className="wave-loader">
+          <div className="wave-line" />
+          <div className="wave-line" />
+          <div className="wave-line" />
+          <div className="wave-line" />
+          <div className="wave-line" />
+          <div className="wave-line" />
+          <div className="wave-line" />
+          <div className="wave-line" />
+          <div className="wave-line" />
+          <div className="wave-line" />
+          <div className="wave-line" />
+          <div className="wave-line" />
+          <div className="wave-line" />
+          <div className="wave-line" />
+          <div className="wave-line" />
+        </div>
+      );
     default:
       return null;
   }
@@ -167,6 +187,7 @@ LoadingIcon.propTypes = {
     'oval',
     'tail-spin',
     'three-dots',
+    'wave',
   ]).isRequired,
   className: PropTypes.string,
   color: PropTypes.string,

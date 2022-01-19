@@ -5,16 +5,16 @@ import moment from 'moment';
 import { useTranslation } from 'react-i18next';
 import SelectInput2 from './SelectInput2';
 import SearchWithAutocomplete from './SearchWithAutocomplete';
+import DatePicker2 from './DatePicker2';
 
 
 const FilterField = (props) => {
   const {
     filter: { name, type, url, multiple, placeholder, width, options },
-    onChange, defaultValue, onSearch, value, tableScrollParam,
+    onChange, defaultValue, onSearch, value, tableScrollParam, maxYear, minYear,
   } = props;
 
   const { t } = useTranslation();
-  const [timeRange, setTimeRange] = useState('');
 
   const needSearchRef = React.useRef(false);
 
@@ -119,15 +119,33 @@ const FilterField = (props) => {
             name={name}
             placeholder="2020-12-10 - 2021-12-10"
             singleDatePicker={false}
-            value={timeRange}
+            value={value}
+            defaultValue=""
             onChange={(n, v) => {
-              setTimeRange(v);
               needSearchRef.current = true;
-              onChange(n.concat('_range'), v);
+              onChange(n, v);
             }}
-            minDate={moment('2020-01-30')}
             onKeyPress={handleKeyPress}
-            onClear={() => { setTimeRange(''); onClear(); }}
+            onClear={() => { onClear(); onChange(name, defaultValue); }}
+          />
+        </div>
+      );
+
+
+    case 'datepicker':
+      return (
+        <div>
+          <DatePicker2
+            name={name}
+            value={value}
+            placeholder={moment(placeholder, ['YYYY-MM-DD']).format('D MMMM YYYY')}
+            minYear={minYear}
+            maxYear={maxYear}
+            onChange={(n, v) => {
+              needSearchRef.current = true;
+              onChange(n, v);
+            }}
+            onClear={onClear}
           />
         </div>
       );
@@ -170,16 +188,21 @@ FilterField.propTypes = {
   }).isRequired,
   onChange: PropTypes.func.isRequired,
   onSearch: PropTypes.func.isRequired,
+  minYear: PropTypes.number,
+  maxYear: PropTypes.number,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   defaultValue: PropTypes.oneOfType([
     PropTypes.string, PropTypes.array,
   ]).isRequired,
   tableScrollParam: PropTypes.number,
+
 };
 
 FilterField.defaultProps = {
   value: undefined,
   tableScrollParam: 0,
+  minYear: 1000,
+  maxYear: 4000,
 };
 
 export default FilterField;
