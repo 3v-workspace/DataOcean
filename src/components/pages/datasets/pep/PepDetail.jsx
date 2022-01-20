@@ -4,7 +4,7 @@ import { useLocation, Link } from 'react-router-dom';
 import Api from 'api';
 import { useDispatch } from 'react-redux';
 import { setOverflow } from 'store/interface/actionCreators';
-import { HelpCircle, ArrowLeft, Download } from 'react-feather';
+import { HelpCircle, Download } from 'react-feather';
 import { renderDate, getLocaleField, getPDF } from 'utils';
 import { ReactRouterPropTypes } from 'utils/prop-types';
 import useTopBarHiddingEffect from 'hooks/useTopBarHiddingEffect';
@@ -16,6 +16,7 @@ import {
 } from 'components/blocks/index';
 import { scrollToElement, sortedCareerData } from 'components/blocks/utils';
 import LoadingIcon from 'components/LoadingIcon';
+import ButtonBackDetailPage from 'components/ButtonBackDetailPage';
 import {
   InformationBlock, AsyncInformationBlock, PepCriminal, PepLiability, PepMonetaryAssets,
   PepMoney, PepProperty, PepVehicle, PepCareer, PepHtml,
@@ -361,23 +362,19 @@ const PepDetail = ({ match, history }) => {
 
   return (
     <>
-      <button
-        type="button"
-        className="flex cursor-pointer font-bold text-l block-black my-5 mx-3"
-        onClick={() => history.goBack()}
-      >
-        <ArrowLeft className="h-5 ml-2" />
-        {t('backToSearchResults')}
-      </button>
+      <ButtonBackDetailPage />
       <div className="flex text-base pb-16">
         <div className="flex-grow mr-8 w-px">
           <div className="box border border-gray-400 p-6" id={pepBlocks.MAIN_INFO}>
             <div className="flex flex-col lg:flex-row">
               {loading && (
                 <div
-                  className="w-full h-screen bg-gray-700 bg-opacity-25 absolute flex items-center justify-center z-50 -m-6"
+                  className="w-full h-screen bg-gray-900 bg-opacity-50 absolute flex flex-col items-center justify-center z-50 -m-6"
                 >
-                  <LoadingIcon icon="three-dots" className="w-16 h-16 z-50" />
+                  <LoadingIcon icon="wave" />
+                  <div className="text-2xl text-white font-medium text-center pt-2">
+                    {t('PDFDownload')}
+                  </div>
                 </div>
               )}
               <div className="flex flex-auto items-start justify-start mt-1">
@@ -416,10 +413,10 @@ const PepDetail = ({ match, history }) => {
                 >
                   <Tooltip
                     content={t('print')}
-                    noContainer
                   >
                     <Print
-                      className="m-auto"
+                      className="mt-2 ml-2"
+                      style={{ height: 28, width: 28 }}
                     />
                   </Tooltip>
                 </div>

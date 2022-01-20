@@ -1,6 +1,5 @@
 import React from 'react';
 import Table from 'components/table/Table';
-import PageBox from 'components/pages/PageBox';
 import { useTranslation } from 'react-i18next';
 import { renderDateTime } from 'utils';
 import TabContent from '../profile/TabContent';
@@ -13,19 +12,19 @@ const LogTable = () => {
     {
       header: t('logDate'),
       prop: 'timestamp',
-      width: '14%',
+      width: '17%',
       defaultSelected: true,
       value: '2021-10-14 - 2021-10-15',
       render: (v) => renderDateTime(v),
       filter: {
-        name: 'timestamp',
+        name: 'timestamp_range',
         type: 'daterange',
       },
     },
     {
       header: t('url'),
       prop: 'pathname',
-      width: '15%',
+      width: '17%',
       noSort: true,
       defaultSelected: true,
       filter: {
@@ -36,7 +35,7 @@ const LogTable = () => {
     {
       header: t('ipAddress'),
       prop: 'ip',
-      width: '10%',
+      width: '17%',
       noSort: true,
       defaultSelected: true,
       filter: {
@@ -47,7 +46,7 @@ const LogTable = () => {
     {
       header: t('requestType'),
       prop: 'request_source',
-      width: '10%',
+      width: '17%',
       defaultSelected: true,
       render: (v) => ((v === 'DataOcean') ? t('overview') : t('integrity')),
       filter: {
@@ -72,7 +71,7 @@ const LogTable = () => {
           ))}
         </div>
       ),
-      width: '50%',
+      width: '30%',
       noSort: true,
       defaultSelected: true,
     },
@@ -85,7 +84,7 @@ const LogTable = () => {
             columns={columns}
             url="payment/api-logs/project/"
             fields={[
-              'timestamp',
+              'timestamp_range',
               'pathname',
               'request_source',
               'ip',

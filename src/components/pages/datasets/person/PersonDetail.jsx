@@ -7,9 +7,10 @@ import { setOverflow } from 'store/interface/actionCreators';
 import useTopBarHiddingEffect from 'hooks/useTopBarHiddingEffect';
 import useScrollToEffect from 'hooks/useScrollToEffect';
 import { useDispatch } from 'react-redux';
-import { ArrowLeft, Download, HelpCircle } from 'react-feather';
+import { Download, HelpCircle } from 'react-feather';
 import Tooltip from 'components/Tooltip';
 import { renderDate } from 'utils/dateTime';
+import ButtonBackDetailPage from 'components/ButtonBackDetailPage';
 import {
   PepIcon, Print, Built, Criminal, MainInfo, Person, Career, Wallet, Money, SpendMoney,
   MonetaryAssets, Giftbox, Home, Car, IntangibleAssetsIcon, Info, Sanction, BlackLine,
@@ -437,14 +438,7 @@ const PersonDetail = ({ match, history }) => {
 
   return (
     <>
-      <button
-        type="button"
-        className="flex cursor-pointer font-medium text-sm tracking-wider uppercase leading-6 block-black my-5"
-        onClick={() => history.goBack()}
-      >
-        <ArrowLeft className="mr-2" />
-        {t('backToSearchResults')}
-      </button>
+      <ButtonBackDetailPage />
       <div className="intro-y flex pb-16" id={personBlocks.MAIN_INFO}>
         <div className="flex-grow mr-8 w-px space-y-6 leading-6">
           <div className="bg-white flex flex-col box-border box-border-radius-0.5 intro-x rounded-lg">
