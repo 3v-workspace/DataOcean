@@ -82,7 +82,8 @@ export const getPDF = (id, name, download, dataset, setLoading) => {
 export const printPDF = (id, dataset) => {
   Api.get(`${dataset}${id}/pdf/print`, { useProjectToken: true, responseType: 'text' })
     .then((resp) => {
-      const token = resp.data;
-      window.open(`${baseApiUrl}/api/${dataset}${id}/pdf/print/${token}/`, '');
+      const params = new URLSearchParams();
+      params.set('token', resp.data.token);
+      window.open(`${baseApiUrl}/api/${dataset}${id}/pdf/print/ready/?${params.toString()}`, '');
     });
 };
