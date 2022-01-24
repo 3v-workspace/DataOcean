@@ -16,6 +16,7 @@ import {
 } from 'components/blocks/index';
 import { scrollToElement, sortedCareerData } from 'components/blocks/utils';
 import LoadingIcon from 'components/LoadingIcon';
+import ButtonBackDetailPage from 'components/ButtonBackDetailPage';
 import {
   InformationBlock, AsyncInformationBlock, PepCriminal, PepLiability, PepMonetaryAssets,
   PepMoney, PepProperty, PepVehicle, PepCareer, PepHtml,
@@ -361,14 +362,7 @@ const PepDetail = ({ match, history }) => {
 
   return (
     <>
-      <button
-        type="button"
-        className="flex cursor-pointer font-bold text-l block-black my-5 mx-3"
-        onClick={() => history.goBack()}
-      >
-        <ArrowLeft className="h-5 ml-2" />
-        {t('backToSearchResults')}
-      </button>
+      <ButtonBackDetailPage />
       <div className="flex text-base pb-16">
         <div className="flex-grow mr-8 w-px">
           <div className="box border border-gray-400 p-6" id={pepBlocks.MAIN_INFO}>
