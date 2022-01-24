@@ -398,10 +398,11 @@ const PepDetail = ({ match, history }) => {
                 >
                   <Tooltip
                     content={t('export.downloadPdf')}
-                    noContainer
+                    className="mt-3 ml-2"
                   >
                     <Download
                       className="m-auto"
+                      style={{ height: '28px', width: '28px' }}
                     />
                   </Tooltip>
                 </div>
@@ -412,11 +413,12 @@ const PepDetail = ({ match, history }) => {
                   )}
                 >
                   <Tooltip
+                    placement="top"
+                    className="mt-3 ml-2"
                     content={t('print')}
                   >
                     <Print
-                      className="mt-2 ml-2"
-                      style={{ height: 28, width: 28 }}
+                      style={{ height: '28px', width: '28px' }}
                     />
                   </Tooltip>
                 </div>
