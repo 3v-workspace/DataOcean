@@ -350,9 +350,9 @@ const DatePicker2 = (props) => {
                     <p className="errorMessageDay">{formik.errors.day}</p>
                     ) : ''}
                   {isShowDropdownContent !== 'day' ? (
-                    <ChevronDown className="search__icon cursor-pointer" style={{ pointerEvents: 'none', right: '-10px' }} />
+                    <ChevronDown className="search__icon cursor-pointer" style={{ pointerEvents: 'none', 'margin-right': 0 }} />
                   ) : (
-                    <ChevronUp className="search__icon cursor-pointer" style={{ pointerEvents: 'none', right: '-10px' }} />
+                    <ChevronUp className="search__icon cursor-pointer" style={{ pointerEvents: 'none', 'margin-right': 0 }} />
                   )}
                 </div>
                 <div className="dropdown-date" onBlur={() => setShowDropdownContent('none')}>
@@ -403,9 +403,9 @@ const DatePicker2 = (props) => {
                     <p className="errorMessageMonth">{formik.errors.month}</p>
                   ) : ''}
                   {isShowDropdownContent !== 'month' ? (
-                    <ChevronDown className="search__icon cursor-pointer" style={{ pointerEvents: 'none', right: '-10px' }} />
+                    <ChevronDown className="search__icon cursor-pointer" style={{ pointerEvents: 'none', 'margin-right': 0 }} />
                   ) : (
-                    <ChevronUp className="search__icon cursor-pointer" style={{ pointerEvents: 'none', right: '-10px' }} />
+                    <ChevronUp className="search__icon cursor-pointer" style={{ pointerEvents: 'none', 'margin-right': 0 }} />
                   )}
                 </div>
                 <div className="dropdown-date" onBlur={() => setShowDropdownContent('none')}>
@@ -456,9 +456,9 @@ const DatePicker2 = (props) => {
                     <p className="errorMessageYear">{formik.errors.year}</p>
                   )}
                   {isShowDropdownContent !== 'year' ? (
-                    <ChevronDown className="search__icon cursor-pointer" style={{ pointerEvents: 'none', right: '-10px' }} />
+                    <ChevronDown className="search__icon cursor-pointer" style={{ pointerEvents: 'none', 'margin-right': 0 }} />
                   ) : (
-                    <ChevronUp className="search__icon cursor-pointer" style={{ pointerEvents: 'none', right: '-10px' }} />
+                    <ChevronUp className="search__icon cursor-pointer" style={{ pointerEvents: 'none', 'margin-right': 0 }} />
                   )}
                 </div>
                 <div className="dropdown-date" onBlur={() => setShowDropdownContent('none')}>
