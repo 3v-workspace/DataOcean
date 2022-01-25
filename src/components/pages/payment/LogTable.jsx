@@ -14,7 +14,6 @@ const LogTable = () => {
       prop: 'timestamp',
       width: '17%',
       defaultSelected: true,
-      value: '2021-10-14 - 2021-10-15',
       render: (v) => renderDateTime(v),
       filter: {
         name: 'timestamp_range',
