@@ -1,3 +1,4 @@
+import React from 'react';
 import { SOURCE, SOURCE_URL } from './const';
 
 export const checkSource = (data) => {

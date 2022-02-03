@@ -1,28 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { renderDate } from 'utils/dateTime';
-import { upFirstLetter } from 'utils';
+import { DataSourceLabel } from 'components/pages/datasets/person/DataSourceLabel';
 
 const CareerBlock = (props) => {
-  const { data } = props;
-
+  const { data, person } = props;
+  console.log(data);
   return (
     <ul className="list-none">
-      {data.map((job, i) => (
-        <li key={i} className="grid grid-cols-6">
-          <span className="col-span-1">
-            {job.start_date ? (
-              <>
-                {renderDate(job.start_date.toString())}
-                {' - '}
-                {renderDate(job.declared_at.toString())}
-              </>
-            ) : (
-              renderDate(job.declared_at.toString())
-            )}
+      {data.map((pos, i) => (
+        <li key={i} className="grid grid-cols-10">
+          <span className="col-span-2">
+            {pos.year ? pos.year : 'Остання відома'}
           </span>
-          <span className="col-start-2 col-span-4">
-            {`${upFirstLetter(job.last_job_title)}, ${upFirstLetter(job.last_employer)}`}
+          <span className="col-span-4">
+            {pos.position}
+          </span>
+          <span className="col-span-4">
+            <DataSourceLabel person={person} data={pos} />
           </span>
         </li>
       ))}
@@ -31,6 +25,7 @@ const CareerBlock = (props) => {
 };
 
 CareerBlock.propTypes = {
+  person: PropTypes.object.isRequired,
   data: PropTypes.array.isRequired,
 };
 
