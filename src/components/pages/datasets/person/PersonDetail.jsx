@@ -47,42 +47,8 @@ const PersonDetail = ({ match, history }) => {
   const fetchData = () => {
     Api.get(`/person/${id}/`, { useProjectToken: true })
       .then((resp) => {
-        const data = {
-          ...resp.data,
-          position_data: [
-            {
-              position: 'Position 1',
-              year: 2020,
-              source: 'sanction_ukr',
-            },
-            {
-              position: 'Position 1',
-              year: 2019,
-              source: 'sanction_ukr',
-            },
-            {
-              position: 'Position last',
-              year: null,
-              source: 'pep_ukr',
-            },
-            {
-              position: 'Position 2',
-              year: 2021,
-              source: 'sanction_ukr',
-            },
-          ],
-          sanction_data: [
-            {
-              id: 123,
-              decree: '123/2020',
-              start_date: '2020-01-01',
-              types_of_sanctions: [
-                'asdasdasdasdadas',
-              ],
-            },
-          ],
-        };
-        data.position_data.sort((prev, cur) => {
+        const person = resp.data;
+        person.position_data.sort((prev, cur) => {
           if (prev.year === null) {
             return -1;
           }
@@ -104,7 +70,7 @@ const PersonDetail = ({ match, history }) => {
           }
           return 0;
         });
-        setPersonData(data);
+        setPersonData(person);
       });
   };
 

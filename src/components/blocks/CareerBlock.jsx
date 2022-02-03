@@ -4,7 +4,6 @@ import { DataSourceLabel } from 'components/pages/datasets/person/DataSourceLabe
 
 const CareerBlock = (props) => {
   const { data, person } = props;
-  console.log(data);
   return (
     <ul className="list-none">
       {data.map((pos, i) => (
