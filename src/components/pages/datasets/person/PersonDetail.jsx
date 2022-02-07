@@ -83,7 +83,7 @@ const PersonDetail = ({ match, history }) => {
         {id_card_data.map((number) => (
           <p className="pb-1" key={number.id}>
             {number.id_card ? number.id_card : number.passports.join(', ')}
-            (<DataSourceLabel person={person} data={number} />)
+            <DataSourceLabel person={person} data={number} />
           </p>
         ))}
       </td>
@@ -100,7 +100,7 @@ const PersonDetail = ({ match, history }) => {
           <p className="pb-1" key={i}>
             {`${i + 1}. ${item.residence} `}
             ({renderDate(item.year.toString())})
-            (<DataSourceLabel person={person} data={item} />)
+            <DataSourceLabel person={person} data={item} />
           </p>
         )),
       },
@@ -135,7 +135,7 @@ const PersonDetail = ({ match, history }) => {
         render: (value) => value.map((item, i) => (
           <p className="pb-1" key={item.id}>
             {`${i + 1}. ${getLocaleField(item, 'name')}`}
-            (<DataSourceLabel person={person} data={item} isLink={false} />)
+            <DataSourceLabel person={person} data={item} isLink={false} />
           </p>
         )),
       },
@@ -159,8 +159,8 @@ const PersonDetail = ({ match, history }) => {
               <ul>
                 {Object.values(lastPositions).map((pos) => (
                   <li key={`${pos.position}-${pos.source}`}>
-                    {pos.position}
-                    (<DataSourceLabel person={person} data={pos} />)
+                    {getLocaleField(pos.position)}
+                    <DataSourceLabel person={person} data={pos} />
                   </li>
                 ))}
               </ul>
@@ -216,7 +216,7 @@ const PersonDetail = ({ match, history }) => {
                   {person.taxpayer_number_data.map((number, i) => (
                     <p key={i}>
                       {number.taxpayer_number}
-                      (<DataSourceLabel person={person} data={number} />)
+                      <DataSourceLabel person={person} data={number} />
                     </p>
                   ))}
                 </td>

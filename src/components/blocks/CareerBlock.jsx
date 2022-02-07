@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { DataSourceLabel } from 'components/pages/datasets/person/DataSourceLabel';
+import { getLocaleField } from 'utils';
 
 const CareerBlock = (props) => {
   const { data, person } = props;
@@ -12,10 +13,10 @@ const CareerBlock = (props) => {
             {pos.year ? pos.year : 'Остання відома'}
           </span>
           <span className="col-span-4">
-            {pos.position}
+            {getLocaleField(pos.position)}
           </span>
           <span className="col-span-4">
-            <DataSourceLabel person={person} data={pos} />
+            <DataSourceLabel person={person} data={pos} noBrackets />
           </span>
         </li>
       ))}
