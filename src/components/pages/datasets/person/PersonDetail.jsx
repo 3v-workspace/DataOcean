@@ -159,7 +159,7 @@ const PersonDetail = ({ match, history }) => {
               <ul>
                 {Object.values(lastPositions).map((pos) => (
                   <li key={`${pos.position}-${pos.source}`}>
-                    {getLocaleField(pos.position)}
+                    {getLocaleField(pos, 'position')}
                     <DataSourceLabel person={person} data={pos} />
                   </li>
                 ))}
