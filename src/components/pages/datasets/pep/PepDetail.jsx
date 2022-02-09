@@ -225,7 +225,7 @@ const PepDetail = ({ match, history }) => {
       { label: 'dateOfBirth', value: pep.date_of_birth, render: (value) => renderDate(value) },
       { label: 'terminationDatePep', value: pep.termination_date, render: (value) => renderDate(value) },
       { label: 'reasonOfTermination', value: pep.reason_of_termination },
-      { label: 'placeOfBirth', value: pep.place_of_birth },
+      { label: 'placeOfBirth', value: getLocaleField(pep, 'place_of_birth') },
       { label: 'lastPosition', value: getLocaleField(pep, 'last_job_title') },
       { label: 'lastPlaceOfWork', value: getLocaleField(pep, 'last_employer') },
     ];
