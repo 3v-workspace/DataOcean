@@ -25,6 +25,7 @@ import {
 } from './index';
 import { checkPepType } from '../pep/pep_detail/utils';
 import { sortedCareerData } from '../../../blocks/utils';
+import { DataSourceLabel } from './DataSourceLabel';
 
 const PersonDetail = ({ match, history }) => {
   const location = useLocation();
@@ -46,20 +47,32 @@ const PersonDetail = ({ match, history }) => {
   const fetchData = () => {
     Api.get(`/person/${id}/`, { useProjectToken: true })
       .then((resp) => {
-        setPersonData(resp.data);
+        const person = resp.data;
+        person.position_data.sort((prev, cur) => {
+          if (prev.year === null) {
+            return -1;
+          }
+          if (prev.year) {
+            if (prev.year < cur.year) {
+              return 1;
+            }
+            if (prev.year > cur.year) {
+              return -1;
+            }
+          }
+          return 0;
+        }).sort((a, b) => {
+          if (a.source < b.source) {
+            return -1;
+          }
+          if (a.source > b.source) {
+            return 1;
+          }
+          return 0;
+        });
+        setPersonData(person);
       });
   };
-
-  const dataSource = (data, isLink = true) => (
-    <>
-        &emsp;({t('source')}:
-      {isLink ? (
-        <Link to={getSourceUrl(data, person)}><span className="blue">{t(checkSource(data))}</span></Link>
-      ) : (
-        <span className="blue">{t(checkSource(data))}</span>
-      )})
-    </>
-  );
 
   const extractIdCartData = (id_card_data) => (
     <tr>
@@ -69,7 +82,8 @@ const PersonDetail = ({ match, history }) => {
       <td className="max-w-xl">
         {id_card_data.map((number) => (
           <p className="pb-1" key={number.id}>
-            {number.id_card ? number.id_card : number.passports.join(', ')}{dataSource(number)}
+            {number.id_card ? number.id_card : number.passports.join(', ')}
+            <DataSourceLabel person={person} data={number} />
           </p>
         ))}
       </td>
@@ -86,7 +100,7 @@ const PersonDetail = ({ match, history }) => {
           <p className="pb-1" key={i}>
             {`${i + 1}. ${item.residence} `}
             ({renderDate(item.year.toString())})
-            {dataSource(item)}
+            <DataSourceLabel person={person} data={item} />
           </p>
         )),
       },
@@ -120,7 +134,8 @@ const PersonDetail = ({ match, history }) => {
         value: person.citizenship_data.filter((citizenship) => getLocaleField(citizenship, 'name')),
         render: (value) => value.map((item, i) => (
           <p className="pb-1" key={item.id}>
-            {`${i + 1}. ${getLocaleField(item, 'name')}`}{dataSource(item, false)}
+            {`${i + 1}. ${getLocaleField(item, 'name')}`}
+            <DataSourceLabel person={person} data={item} isLink={false} />
           </p>
         )),
       },
@@ -129,27 +144,27 @@ const PersonDetail = ({ match, history }) => {
 
     const getLastPosition = (position_data) => {
       const filteredData = position_data.filter((item) => item?.position !== '');
-      const lastPositionData = filteredData.sort((prev, cur) => {
-        const prev_year = prev.year ? prev.year : prev.declared_at;
-        const cur_year = cur.year ? cur.year : cur.declared_at;
-        if (prev_year < cur_year) {
-          return 1;
+      const lastPositions = [];
+      filteredData.forEach((pos) => {
+        if (!(pos.source in lastPositions)) {
+          lastPositions[pos.source] = pos;
         }
-        if (prev_year > cur_year) {
-          return -1;
-        }
-        return 0;
-      })[0];
-      const lastPosition = lastPositionData.declared_at ?
-        `${upFirstLetter(getLocaleField(lastPositionData, 'last_job_title'))}, 
-        ${upFirstLetter(getLocaleField(lastPositionData, 'last_employer'))}` :
-        `${upFirstLetter(getLocaleField(lastPositionData, 'position'))}`;
+      });
 
       return (
         <>
           <tr>
             <td className="w-40 lg:w-64 align-top font-medium py-1">{t('lastPosition')}:</td>
-            <td className="max-w-xl py-1">{lastPosition}{dataSource(lastPositionData)}</td>
+            <td className="max-w-xl py-1">
+              <ul>
+                {Object.values(lastPositions).map((pos) => (
+                  <li key={`${pos.position}-${pos.source}`}>
+                    {getLocaleField(pos, 'position')}
+                    <DataSourceLabel person={person} data={pos} />
+                  </li>
+                ))}
+              </ul>
+            </td>
           </tr>
         </>
       );
@@ -200,7 +215,8 @@ const PersonDetail = ({ match, history }) => {
                 <td className="max-w-xl py-1">
                   {person.taxpayer_number_data.map((number, i) => (
                     <p key={i}>
-                      {number.taxpayer_number}{dataSource(number)}
+                      {number.taxpayer_number}
+                      <DataSourceLabel person={person} data={number} />
                     </p>
                   ))}
                 </td>
@@ -208,9 +224,7 @@ const PersonDetail = ({ match, history }) => {
             ) : null}
             {person.id_card_data.filter(
               (number) => number.id_card || number.passports.length,
-            ).length ? (
-                extractIdCartData(person.id_card_data)
-              ) : null}
+            ).length ? (extractIdCartData(person.id_card_data)) : null}
             {person.position_data.filter((item) => item?.position !== '').length ?
               getLastPosition(person.position_data) : null}
           </tbody>
@@ -272,9 +286,8 @@ const PersonDetail = ({ match, history }) => {
       titleIcon: Career,
       component: CareerBlock,
       blockProps: {
-        data: person.position_data?.length ? sortedCareerData(
-          person.position_data.filter((item) => item.source === Object.keys(SOURCE)[0]),
-        ) : [],
+        data: person.position_data,
+        person,
       },
       status: null,
     },
@@ -403,14 +416,18 @@ const PersonDetail = ({ match, history }) => {
         >
           {Component ? (
             <Component {...block.blockProps} />
-          ) : null }
-        </InformationBlock>
-        {config[i + 1] && !config[i + 1].blockProps.data.length && config[i + 1].component &&
-            block.blockProps.data.length ? (
-              <div className="block-gray items-center font-medium text-lg mt-10 mb-2">
-                {t('noInformation')}
-              </div>
           ) : null}
+        </InformationBlock>
+        {!!(
+          config[i + 1] &&
+          !config[i + 1].blockProps.data.length &&
+          config[i + 1].component &&
+          block.blockProps.data.length
+        ) && (
+          <div className="block-gray items-center font-medium text-lg mt-10 mb-2">
+            {t('noInformation')}
+          </div>
+        )}
         {config[i + 1] && !config[i + 1].component && config[i].component ? (
           <div className="block-gray items-center font-medium text-lg mt-10 mb-2">
             {t('informationInDevelopment')}

@@ -6,7 +6,7 @@ export { default as PepMonetaryAssets } from './PepMonetaryAssets';
 export { default as PepMoney } from './PepMoney';
 export { default as PepProperty } from './PepProperty';
 export { default as PepVehicle } from './PepVehicle';
-export { default as PepCareer } from 'components/blocks/CareerBlock';
+export { default as PepCareer } from './PepCareer';
 export { default as PepHtml } from 'components/blocks/HtmlBlock';
 export { default as PepRelatedPerson } from './PepRelatedPerson';
 export { default as PepRelatedCompanies } from 'components/blocks/RelatedCompaniesBlock';

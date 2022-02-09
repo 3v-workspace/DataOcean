@@ -117,7 +117,7 @@ const FilterField = (props) => {
           <DateInput
             className="-mb-3 w-40 text-gray-700"
             name={name}
-            placeholder="2020-12-10 - 2021-12-10"
+            placeholder="15.12.2021 - 15.12.2022"
             singleDatePicker={false}
             value={value}
             defaultValue=""
@@ -126,7 +126,7 @@ const FilterField = (props) => {
               onChange(n, v);
             }}
             onKeyPress={handleKeyPress}
-            onClear={() => { onClear(); onChange(name, defaultValue); }}
+            onClear={onClear}
           />
         </div>
       );

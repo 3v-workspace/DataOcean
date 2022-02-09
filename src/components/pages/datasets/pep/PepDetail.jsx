@@ -4,8 +4,8 @@ import { useLocation, Link } from 'react-router-dom';
 import Api from 'api';
 import { useDispatch } from 'react-redux';
 import { setOverflow } from 'store/interface/actionCreators';
-import { HelpCircle, Download } from 'react-feather';
-import { renderDate, getLocaleField, getPDF } from 'utils';
+import { HelpCircle, ArrowLeft, Download } from 'react-feather';
+import { renderDate, getLocaleField, getPDF, printPDF } from 'utils';
 import { ReactRouterPropTypes } from 'utils/prop-types';
 import useTopBarHiddingEffect from 'hooks/useTopBarHiddingEffect';
 import useScrollToEffect from 'hooks/useScrollToEffect';
@@ -398,25 +398,27 @@ const PepDetail = ({ match, history }) => {
                 >
                   <Tooltip
                     content={t('export.downloadPdf')}
-                    noContainer
+                    className="mt-3 ml-2"
                   >
                     <Download
                       className="m-auto"
+                      style={{ height: '28px', width: '28px' }}
                     />
                   </Tooltip>
                 </div>
                 <div
                   className="flex background-hover-gray w-11"
-                  onClick={() => getPDF(
-                    pep.id, getLocaleField(pep, 'fullname'), false, '/pep/', setLoading,
+                  onClick={() => printPDF(
+                    pep.id, 'pep/',
                   )}
                 >
                   <Tooltip
+                    placement="top"
+                    className="mt-3 ml-2"
                     content={t('print')}
                   >
                     <Print
-                      className="mt-2 ml-2"
-                      style={{ height: 28, width: 28 }}
+                      style={{ height: '28px', width: '28px' }}
                     />
                   </Tooltip>
                 </div>

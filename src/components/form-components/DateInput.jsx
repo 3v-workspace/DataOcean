@@ -21,6 +21,9 @@ const DateInput = (props) => {
   const format = timePicker ? DATETIME_FORMAT : DATE_FORMAT;
   const val = value || (formik && formik.values[name]);
 
+  const onChangeRef = useRef(null);
+  onChangeRef.current = onChange;
+
   useEffect(() => {
     let val2 = '';
     if (val) {
@@ -67,32 +70,28 @@ const DateInput = (props) => {
         ],
       };
     }
-    $(datepickerRef.current).daterangepicker(opt, (start, end) => {
-      const valueStr = singleDatePicker ? (
-        start.format(isoFormat)
-      ) : (
-        `${start.format(isoFormat)} - ${end.format(isoFormat)}`
-      );
-      if (onChange) {
-        onChange(name, valueStr);
-      } else if (formik) {
-        formik.setFieldValue(name, valueStr);
-      }
-    });
+    $(datepickerRef.current).daterangepicker(opt);
     $(datepickerRef.current).on('apply.daterangepicker', (e, picker) => {
+      const start = picker.startDate;
+      const end = picker.endDate;
       let newValue;
-      // if (!e.target.value) {
-      //   $(e.target).val('');
-      // }
+      let newIsoValue;
       if (singleDatePicker) {
-        newValue = picker.startDate.format(format);
+        newValue = start.format(format);
+        newIsoValue = start.format(isoFormat);
       } else {
-        newValue = `${picker.startDate.format(format)} - ${picker.endDate.format(format)}`;
-      }
-      if (onApply) {
-        onApply(name, newValue);
+        newValue = `${start.format(format)} - ${end.format(format)}`;
+        newIsoValue = `${start.format(isoFormat)} - ${end.format(isoFormat)}`;
       }
       $(e.target).val(newValue);
+      if (onApply) {
+        onApply(name, newIsoValue);
+      }
+      if (onChange) {
+        onChangeRef.current(name, newIsoValue);
+      } else if (formik) {
+        formik.setFieldValue(name, newIsoValue);
+      }
     });
     $(datepickerRef.current).on('change', (e) => {
       const input = $(e.target);
@@ -107,9 +106,8 @@ const DateInput = (props) => {
         formik.setFieldValue(name, null);
       }
     });
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [name]);
+  }, []);
 
   const endId = id || `id_${name}`;
 

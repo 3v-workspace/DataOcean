@@ -8,7 +8,7 @@ import { sortSanctionData } from './utils';
 
 const SanctionBlock = (props) => {
   const ALL = 'all';
-  const CURRENT = 'current';
+  const ACTIVE = 'active';
   const EXPIRED = 'expired';
   const { data } = props;
   const { t } = useTranslation();
@@ -38,9 +38,10 @@ const SanctionBlock = (props) => {
         <Button
           className="border border-gray-400 mr-3 text-xs"
           size="sm"
-          variant={`${isEqualArray(values, [CURRENT]) ? 'selected' : 'secondary'}`}
+          variant={`${isEqualArray(values, [ACTIVE]) ? 'selected' : 'secondary'}`}
           isRounded
-          onClick={() => setValues([CURRENT])}
+          disabled={!sanctions.activeSanction.length}
+          onClick={() => setValues([ACTIVE])}
         >
           {t('current')}
         </Button>
@@ -49,6 +50,7 @@ const SanctionBlock = (props) => {
           size="sm"
           isRounded
           variant={`${isEqualArray(values, [EXPIRED]) ? 'selected' : 'secondary'}`}
+          disabled={!sanctions.inactiveSanction.length}
           onClick={() => setValues([EXPIRED])}
         >
           {t(EXPIRED)}
@@ -57,10 +59,13 @@ const SanctionBlock = (props) => {
       <tr className="py-6 float-left font-bold">
         <Trans
           i18nKey="sanctionsCounter"
-          values={{ count: sanctions.activeSanction.length + sanctions.inactiveSanction.length }}
+          values={{ count: sanctions.activeSanction.length + sanctions.inactiveSanction.length,
+            active: sanctions.activeSanction.length,
+            expired: sanctions.inactiveSanction.length,
+          }}
         />
       </tr>
-      <table className="table text-center">
+      <table className="table text-left">
         <thead>
           <tr className="bg-gray-200 text-gray-700">
             <th>{t('typeOfSanction')}</th>
@@ -71,9 +76,10 @@ const SanctionBlock = (props) => {
             <th>{t('cancelingConditions')}</th>
           </tr>
         </thead>
-        {(isEqualArray(values, [ALL]) || isEqualArray(values, [CURRENT])) && (
+        {(isEqualArray(values, [ALL]) || isEqualArray(values, [ACTIVE])) &&
+        !!sanctions.activeSanction.length && (
           <>
-            <tr className="px-5 py-3 float-left font-bold">
+            <tr className="pl-5 py-1.5 float-left font-bold">
               {t('activeSanctions')}
             </tr>
             <tbody className="rounded-sm border-none" style={{ background: '#FFF4F4' }}>
@@ -92,9 +98,10 @@ const SanctionBlock = (props) => {
             </tbody>
           </>
         )}
-        {(isEqualArray(values, [ALL]) || isEqualArray(values, [EXPIRED])) && (
+        {(isEqualArray(values, [ALL]) || isEqualArray(values, [EXPIRED])) &&
+        !!sanctions.inactiveSanction.length && (
           <>
-            <tr className="px-5 py-3 float-left font-bold">
+            <tr className="pl-5 py-1.5 float-left font-bold">
               {t('expiredSanctions')}
             </tr>
             <tbody>
