@@ -84,6 +84,7 @@ export const printPDF = (id, dataset) => {
     .then((resp) => {
       const params = new URLSearchParams();
       params.set('token', resp.data.token);
+      params.set('lang', resp.headers['content-language']);
       window.open(`${baseApiUrl}/api/${dataset}${id}/pdf/?${params.toString()}`, '_blank');
     });
 };
