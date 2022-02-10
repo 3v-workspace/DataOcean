@@ -2,7 +2,7 @@ import React, { useEffect, useState, Fragment } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, Link } from 'react-router-dom';
 import Api from 'api';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setOverflow } from 'store/interface/actionCreators';
 import { HelpCircle, ArrowLeft, Download } from 'react-feather';
 import { renderDate, getLocaleField, getPDF, printPDF } from 'utils';
@@ -27,6 +27,7 @@ import { prepareRelatedPersonData, checkPepType } from './pep_detail/utils';
 import { asyncBlocks, pepBlocks, ASYNCBLOCK, INFOBLOCK } from './pep_detail/const';
 
 const PepDetail = ({ match, history }) => {
+  const lang = useSelector((store) => store.user.language);
   const location = useLocation();
   const dispatch = useDispatch();
   const defaultState = Object.keys(asyncBlocks).reduce((block, data) => {
@@ -409,7 +410,7 @@ const PepDetail = ({ match, history }) => {
                 <div
                   className="flex background-hover-gray w-11"
                   onClick={() => printPDF(
-                    pep.id, 'pep/',
+                    pep.id, 'pep/', lang,
                   )}
                 >
                   <Tooltip

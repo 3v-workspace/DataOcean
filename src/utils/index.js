@@ -79,11 +79,12 @@ export const getPDF = (id, name, download, dataset, setLoading) => {
 };
 
 
-export const printPDF = (id, dataset) => {
+export const printPDF = (id, dataset, lang = 'uk') => {
   Api.get('temporary-token/create/', { useProjectToken: true })
     .then((resp) => {
       const params = new URLSearchParams();
       params.set('token', resp.data.token);
+      params.set('lang', lang);
       window.open(`${baseApiUrl}/api/${dataset}${id}/pdf/?${params.toString()}`, '_blank');
     });
 };
