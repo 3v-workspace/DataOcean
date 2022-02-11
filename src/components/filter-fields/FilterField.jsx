@@ -63,6 +63,7 @@ const FilterField = (props) => {
             placeholder={placeholder}
             name={name}
             url={url}
+            query_param="search"
             onChange={(n, v) => {
               needSearchRef.current = true;
               onChange(n, v);

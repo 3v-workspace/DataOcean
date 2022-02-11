@@ -11,7 +11,8 @@ import { getLocaleField, toTitleCase } from 'utils';
 
 const SearchWithAutocomplete = (props) => {
   const {
-    width, value, onChange, onClear, name, url, placeholder, onSearch, tableScrollParam,
+    width, value, onChange, onClear, name, query_param, url,
+    placeholder, onSearch, tableScrollParam,
   } = props;
   const { t } = useTranslation();
   const [domReady, setDomReady] = useState(false);
@@ -40,7 +41,7 @@ const SearchWithAutocomplete = (props) => {
   }, [value]);
 
   const fetchData = (newValue) => {
-    Api.get(`${url}?${name}=${newValue}`, { useProjectToken: true })
+    Api.get(`${url}?${query_param}=${newValue}`, { useProjectToken: false })
       .then((resp) => {
         setData(resp.data.results?.map((result) => ({
           label: toTitleCase(getLocaleField(result, name)),
@@ -158,10 +159,10 @@ const SearchWithAutocomplete = (props) => {
               <div className="flex font-normal py-4">
                 {t('noResultsFound')}
               </div>
-            ) : data.map((result) => (
+            ) : data.map((result, index) => (
               <li
                 onClick={onClick}
-                key={result.value}
+                key={index}
                 className="flex border-b-1 last:border-b-0 -mx-4 cursor-pointer hover:bg-gray-200"
               >
                 <div className="p-3 font-normal">
@@ -180,6 +181,7 @@ SearchWithAutocomplete.propTypes = {
   width: PropTypes.string,
   name: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired,
+  query_param: PropTypes.string.isRequired,
   value: PropTypes.string,
   onChange: PropTypes.func.isRequired,
   onClear: PropTypes.func,
