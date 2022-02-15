@@ -32,7 +32,7 @@ const UnfoldingBlock = (props) => {
       if (window.innerWidth > 780) {
         resetScrollParams(unfoldingWindowRef, setScrollParams);
       }
-      setOverflowBlock();
+      // setOverflowBlock();
     });
     window.addEventListener('resize', handleWindowResize);
     return () => {
