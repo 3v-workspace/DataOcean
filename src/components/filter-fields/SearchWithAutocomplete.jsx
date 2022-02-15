@@ -11,7 +11,7 @@ import { getLocaleField, toTitleCase } from 'utils';
 
 const SearchWithAutocomplete = (props) => {
   const {
-    width, value, onChange, onClear, name, query_param, url,
+    width, value, onChange, onClear, name, queryParam, url,
     placeholder, onSearch, tableScrollParam,
   } = props;
   const { t } = useTranslation();
@@ -41,7 +41,7 @@ const SearchWithAutocomplete = (props) => {
   }, [value]);
 
   const fetchData = (newValue) => {
-    Api.get(`${url}?${query_param}=${newValue}`, { useProjectToken: false })
+    Api.get(`${url}?${queryParam}=${newValue}`, { useProjectToken: false })
       .then((resp) => {
         setData(resp.data.results?.map((result) => ({
           label: toTitleCase(getLocaleField(result, name)),
@@ -181,7 +181,7 @@ SearchWithAutocomplete.propTypes = {
   width: PropTypes.string,
   name: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired,
-  query_param: PropTypes.string.isRequired,
+  queryParam: PropTypes.string.isRequired,
   value: PropTypes.string,
   onChange: PropTypes.func.isRequired,
   onClear: PropTypes.func,
