@@ -11,6 +11,7 @@ export const personBlocks = {
 export const SOURCE = {
   pep_ukr: 'pepSource',
   sanction_ukr: 'sanctionSource',
+  declaration_ukr: 'declarationUkrSource',
 };
 
 export const SOURCE_URL = {
