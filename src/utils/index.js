@@ -1,5 +1,6 @@
 import i18 from 'i18next';
 import Api, { baseApiUrl } from 'api';
+import { Cookies } from 'react-cookie';
 
 export { default as toggleFullScreen } from './fullscreen';
 export { default as setLanguage } from './setLanguage';
@@ -88,9 +89,11 @@ export const printPDF = (id, dataset, setLoading) => {
       if (setLoading) {
         setLoading(false);
       }
+      const cookies = new Cookies(['lang']);
+      const lang = cookies.get('lang');
       const params = new URLSearchParams();
       params.set('token', resp.data.token);
-      params.set('lang', resp.headers['content-language']);
+      params.set('lang', lang);
       window.open(`${baseApiUrl}/api/${dataset}${id}/pdf/?${params.toString()}`, '_blank');
     });
 };

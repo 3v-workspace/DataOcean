@@ -20,6 +20,7 @@ const translations = {
   'data-constructor': 'dataConstructor',
   'pep-scheme': 'pepScheme',
   'my-payments': 'myPayments',
+  'my-logs': 'myLogs',
 };
 
 const getBreadcrumbName = (key) => {
