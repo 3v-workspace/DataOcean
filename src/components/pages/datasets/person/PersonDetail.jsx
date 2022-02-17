@@ -497,8 +497,6 @@ const PersonDetail = ({ match, history }) => {
             { id: personBlocks.MAIN_INFO, icon: MainInfo }
           }
           setOpenBlock={setOpenBlock}
-          position="top"
-          placement="button"
         />
       </div>
     </>

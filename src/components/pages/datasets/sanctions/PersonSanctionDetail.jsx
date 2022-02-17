@@ -6,11 +6,13 @@ import Api from 'api';
 import { ArrowLeft } from 'react-feather';
 import { ReactComponent as ImgPerson } from 'images/logo_person.svg';
 import useTopBarHiddingEffect from 'hooks/useTopBarHiddingEffect';
+import LoadingIcon from 'components/LoadingIcon';
 import SanctionTableShadow from './SanctionTableShadow';
 import PrintDownloadSanction from './PrintDownloadSanction';
 
 const PersonSanctionDetail = () => {
   const [data, setData] = useState({});
+  const [loading, setLoading] = useState(false);
   const { id } = useParams();
   const { t } = useTranslation();
   const history = useHistory();
@@ -107,6 +109,16 @@ const PersonSanctionDetail = () => {
 
   return (
     <div className="mt-5 col-span-12 lg:col-span-6 box">
+      {loading && (
+        <div
+          className="w-full h-full bg-gray-900 bg-opacity-50 absolute flex flex-col items-center justify-center z-50 -mb-10"
+        >
+          <LoadingIcon icon="wave" />
+          <div className="text-2xl text-white font-medium text-center pt-2">
+            {t('PDFDownload')}
+          </div>
+        </div>
+      )}
       <div className="py-2 border-b border-gray-200 text-blue-800 flex flex-row font-medium justify-between">
         <div className="inline-flex">
           <button
@@ -122,6 +134,7 @@ const PersonSanctionDetail = () => {
           id={data.id}
           name={data.full_name_original ? data.full_name_original : data.full_name}
           dataset="sanction/person/"
+          setLoading={setLoading}
         />
       </div>
       <div className="intro-y space-y-1 flex flex-row justify-around">
@@ -158,6 +171,7 @@ const PersonSanctionDetail = () => {
         id={data.id}
         name={data.full_name_original ? data.full_name_original : data.full_name}
         dataset="sanction/person/"
+        setLoading={setLoading}
       />
     </div>
   );
