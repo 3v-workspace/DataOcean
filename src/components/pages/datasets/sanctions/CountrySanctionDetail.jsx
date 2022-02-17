@@ -6,11 +6,13 @@ import Api from 'api';
 import { ArrowLeft } from 'react-feather';
 import { ReactComponent as CountryLogo } from 'images/logo_country.svg';
 import useTopBarHiddingEffect from 'hooks/useTopBarHiddingEffect';
+import LoadingIcon from 'components/LoadingIcon';
 import SanctionTableShadow from './SanctionTableShadow';
 import PrintDownloadSanction from './PrintDownloadSanction';
 
 const CountrySanctionDetail = () => {
   const [data, setData] = useState({});
+  const [loading, setLoading] = useState(false);
   const { id } = useParams();
   const { t } = useTranslation();
   const history = useHistory();
@@ -71,6 +73,16 @@ const CountrySanctionDetail = () => {
 
   return (
     <div className="mt-5 col-span-12 lg:col-span-6 box">
+      {loading && (
+        <div
+          className="w-full h-full bg-gray-900 bg-opacity-50 absolute flex flex-col items-center justify-center z-50 -mb-10"
+        >
+          <LoadingIcon icon="wave" />
+          <div className="text-2xl text-white font-medium text-center pt-2">
+            {t('PDFDownload')}
+          </div>
+        </div>
+      )}
       <div className="py-2 border-b border-gray-200 text-blue-800 flex flex-row font-medium justify-between">
         <div className="inline-flex">
           <button
@@ -82,7 +94,7 @@ const CountrySanctionDetail = () => {
             {t('back')}
           </button>
         </div>
-        <PrintDownloadSanction id={data.id} name={data.country} dataset="sanction/country/" />
+        <PrintDownloadSanction id={data.id} name={data.country} dataset="sanction/country/" setLoading={setLoading} />
       </div>
       <div className="intro-y space-y-1 mb-5">
         <div className="py-4 pl-5 flex justify-between">
@@ -105,7 +117,7 @@ const CountrySanctionDetail = () => {
         <div className="px-5 pt-2 flex flex-row overflow-auto">
           {getSanctions(data.types_of_sanctions)}
         </div>
-        <PrintDownloadSanction className="pt-5 pb-10" id={data.id} name={data.country} dataset="sanction/country/" />
+        <PrintDownloadSanction className="pt-5 pb-10" id={data.id} name={data.country} dataset="sanction/country/" setLoading={setLoading} />
       </div>
     </div>
   );

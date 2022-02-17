@@ -38,15 +38,14 @@ const PersonResultsPage = (props) => {
     .replace(/\s+/g, ' ')
     .trim();
 
-  const extactCitizenship = (data) => {
+  const extractCitizenship = (data) => {
     const countries = data.map((country) => getLocaleField(country, 'name'));
     return [...new Set(countries)].join(', ');
   };
 
-  const extractResidence = (data) => {
-    const residence = data.map((place) => place.residence);
-    return [...new Set(residence)].join(', ');
-  };
+  const extractLatestResidence = (data) => data.reduce((previousData, newData) => {
+    return previousData > newData.year ? previousData : newData.residence;
+  }, 0);
 
   if (!params.last_name) {
     return <SearchNoResults queryString={queryString} />;
@@ -103,14 +102,14 @@ const PersonResultsPage = (props) => {
                       <tr className="space-bottom">
                         <td className="font-medium">{t('knownCitizenship')}:</td>
                         <td className="pl-1.3">
-                          {extactCitizenship(person.citizenship_data)}
+                          {extractCitizenship(person.citizenship_data)}
                         </td>
                       </tr>
                     )}
                     {!!Object.keys(person.residence_data).length && (
                       <tr className="space-bottom">
                         <td className="font-medium">{t('countryOfResidence')}:</td>
-                        <td className="pl-1.3">{extractResidence(person.residence_data)}</td>
+                        <td className="pl-1.3">{extractLatestResidence(person.residence_data)}</td>
                       </tr>
                     )}
                     {person.gender && (

@@ -89,20 +89,22 @@ const PersonDetail = ({ match, history }) => {
       </td>
     </tr>
   );
-
   const getShortInformation = () => {
     const shortInfoPerson = [
       { label: 'dateOfBirth', value: person.date_of_birth, render: (value) => renderDate(value) },
       {
         label: 'placeOfResidence',
-        value: person.residence_data.filter((residence) => residence.residence),
-        render: (value) => value.map((item, i) => (
-          <p className="pb-1" key={i}>
-            {`${i + 1}. ${item.residence} `}
-            ({renderDate(item.year.toString())})
-            <DataSourceLabel person={person} data={item} />
+        value: person.residence_data.reduce((previousData, newData) => {
+          const latestData = previousData > newData.year ? previousData : newData;
+          return [latestData];
+        }, 0),
+        render: (value) => (
+          <p className="pb-1">
+            { value[0].residence}
+            ({renderDate(value[0].year.toString())})
+            <DataSourceLabel person={person} data={value[0]} />
           </p>
-        )),
+        ),
       },
       {
         label: 'alsoKnownAs',
@@ -159,7 +161,7 @@ const PersonDetail = ({ match, history }) => {
               <ul>
                 {Object.values(lastPositions).map((pos) => (
                   <li key={`${pos.position}-${pos.source}`}>
-                    {getLocaleField(pos.position)}
+                    {getLocaleField(pos, 'position')}
                     <DataSourceLabel person={person} data={pos} />
                   </li>
                 ))}
@@ -497,8 +499,6 @@ const PersonDetail = ({ match, history }) => {
             { id: personBlocks.MAIN_INFO, icon: MainInfo }
           }
           setOpenBlock={setOpenBlock}
-          position="top"
-          placement="button"
         />
       </div>
     </>
