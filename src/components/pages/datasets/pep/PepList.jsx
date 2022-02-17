@@ -31,7 +31,7 @@ const PepList = ({ match, history }) => {
       filter: {
         name: i18n.language === 'uk' ? 'fullname' : 'fullname_en',
         type: 'text_with_dropdown',
-        url: 'pep/',
+        url: 'pep/autocomplete/',
         width: '420',
       },
     },

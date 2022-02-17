@@ -12,7 +12,14 @@ export const DataSourceLabel = (props) => {
       {/*&emsp;*/}
       {' '}{!noBrackets && '('}{i18next.t('source')}:{' '}
       {isLink ? (
-        <Link to={getSourceUrl(data, person)}><span className="blue">{i18next.t(checkSource(data))}</span></Link>
+        <Link
+          to={{
+            pathname: getSourceUrl(data, person),
+            state: { related: true },
+          }}
+        >
+          <span className="blue">{i18next.t(checkSource(data))}</span>
+        </Link>
       ) : (
         <span className="blue">{i18next.t(checkSource(data))}</span>
       )}{!noBrackets && ')'}
@@ -22,7 +29,7 @@ export const DataSourceLabel = (props) => {
 
 DataSourceLabel.propTypes = {
   person: PropTypes.object.isRequired,
-  data: PropTypes.array.isRequired,
+  data: PropTypes.object.isRequired,
   isLink: PropTypes.bool,
   noBrackets: PropTypes.bool,
 };
