@@ -107,6 +107,13 @@ const TopBar = () => {
               </Link>
               <Link
                 onClick={closeDropdown}
+                to="/system/profile/my-logs/"
+                className="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 rounded-md"
+              >
+                <File className="w-4 h-4 mr-2" /> {t('myLogs')}
+              </Link>
+              <Link
+                onClick={closeDropdown}
                 to="/system/help/"
                 className="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 rounded-md"
               >
