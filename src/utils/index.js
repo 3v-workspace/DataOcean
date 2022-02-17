@@ -79,9 +79,15 @@ export const getPDF = (id, name, download, dataset, setLoading) => {
 };
 
 
-export const printPDF = (id, dataset) => {
+export const printPDF = (id, dataset, setLoading) => {
+  if (setLoading) {
+    setLoading(true);
+  }
   Api.get('temporary-token/create/', { useProjectToken: true })
     .then((resp) => {
+      if (setLoading) {
+        setLoading(false);
+      }
       const params = new URLSearchParams();
       params.set('token', resp.data.token);
       window.open(`${baseApiUrl}/api/${dataset}${id}/pdf/?${params.toString()}`, '_blank');
