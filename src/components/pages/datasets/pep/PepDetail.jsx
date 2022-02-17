@@ -17,6 +17,7 @@ import {
 import { scrollToElement, sortedCareerData } from 'components/blocks/utils';
 import LoadingIcon from 'components/LoadingIcon';
 import ButtonBackDetailPage from 'components/ButtonBackDetailPage';
+import { STATUS_BLOCK } from 'components/pages/datasets/person/const';
 import {
   InformationBlock, AsyncInformationBlock, PepCriminal, PepLiability, PepMonetaryAssets,
   PepMoney, PepProperty, PepVehicle, PepCareer, PepHtml,
@@ -300,9 +301,13 @@ const PepDetail = ({ match, history }) => {
 
   const getAdditionalInfo = () => config.sort((prev, cur) => {
     if (prev.blockProps.data && prev.blockProps.data.length && !(cur.blockProps.data.length)) {
+      prev.status = STATUS_BLOCK.isInformation;
+      cur.status = STATUS_BLOCK.noInformation;
       return -1;
     }
     if (cur.blockProps.data.length && !(prev.blockProps.data.length)) {
+      prev.status = STATUS_BLOCK.noInformation;
+      cur.status = STATUS_BLOCK.isInformation;
       return 1;
     }
     return 0;
@@ -410,7 +415,7 @@ const PepDetail = ({ match, history }) => {
                 <div
                   className="flex background-hover-gray w-11"
                   onClick={() => printPDF(
-                    pep.id, 'pep/', lang,
+                    pep.id, 'pep/', setLoading, lang,
                   )}
                 >
                   <Tooltip
@@ -434,7 +439,6 @@ const PepDetail = ({ match, history }) => {
             { id: pepBlocks.MAIN_INFO, icon: MainInfo }
           }
           setOpenBlock={setOpenBlock}
-          position="left"
         />
       </div>
     </>

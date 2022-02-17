@@ -8,7 +8,7 @@ import { STATUS_BLOCK } from 'components/pages/datasets/person/const';
 import { getColor, scrollToElement } from 'components/blocks/utils';
 
 const Menu = (props) => {
-  const { config, mainBlock, setOpenBlock, position, placement } = props;
+  const { config, mainBlock, setOpenBlock, position } = props;
   const scrollBlockRef = useRef({
     isBlocked: false,
     timeout: null,
@@ -80,33 +80,33 @@ const Menu = (props) => {
               setActive(mainBlock.id);
             }}
           >
-            {placement === 'icon' ? (
+            {!isOpen ? (
+              <Tooltip
+                content={t('mainInformation')}
+                position={position}
+              >
+                <MainInfoIcon
+                  className="mx-3"
+                />
+              </Tooltip>
+            ) : (
               <>
                 <Tooltip
                   content={t('mainInformation')}
                   position={position}
+                  className="flex xl:hidden"
                 >
                   <MainInfoIcon
                     className="mx-3"
                   />
                 </Tooltip>
-                <div className={`${!isOpen ? 'hidden' : 'hidden xl:flex'}`}>
+                <MainInfoIcon
+                  className="mx-3 hidden xl:flex"
+                />
+                <div className="hidden xl:flex">
                   {t('mainInformation')}
                 </div>
               </>
-            ) : (
-              <Tooltip
-                content={t('mainInformation')}
-                position={position}
-                className="flex"
-              >
-                <MainInfoIcon
-                  className="mx-3"
-                />
-                <div className={`${!isOpen ? 'hidden' : 'hidden xl:flex'}`}>
-                  {t('mainInformation')}
-                </div>
-              </Tooltip>
             )}
           </li>
           {config.map((info) => {
@@ -115,7 +115,7 @@ const Menu = (props) => {
               <li
                 key={info.id}
                 className={
-                  `flex items-center justify-center xl:justify-start cursor-pointer h-11
+                  `flex items-center justify-center ${isOpen ? 'xl:justify-start' : 'justify-center'} cursor-pointer h-11
                   pt-1 lg:py-1 xl:py-2 xl:px-1 text-base ${getColor(info.blockProps.data)}
                   background-hover-gray ${activeBlock === info.id ? 'pep-border' : ''}`
                 }
@@ -126,24 +126,7 @@ const Menu = (props) => {
                   scrollToElement(info.id);
                 }}
               >
-                {placement === 'icon' ? (
-                  <>
-                    <Tooltip
-                      content={
-                        t(info.status && info.status !== STATUS_BLOCK.isInformation ?
-                          info.status : info.title)
-                      }
-                      position={position}
-                    >
-                      <Icon
-                        className="xl:mx-3"
-                      />
-                    </Tooltip>
-                    <div className={`${!isOpen ? 'hidden' : 'hidden xl:flex'}`}>
-                      {t(info.title)}
-                    </div>
-                  </>
-                ) : (
+                {!isOpen ? (
                   <Tooltip
                     content={
                       t(info.status && info.status !== STATUS_BLOCK.isInformation ?
@@ -153,12 +136,42 @@ const Menu = (props) => {
                     className="flex"
                   >
                     <Icon
-                      className="xl:mx-3"
+                      className="mx-3"
                     />
-                    <div className={`${!isOpen ? 'hidden' : 'hidden xl:flex'}`}>
-                      {t(info.title)}
-                    </div>
                   </Tooltip>
+                ) : (
+                  <>
+                    {info.status && info.status !== STATUS_BLOCK.isInformation ? (
+                      <Tooltip
+                        content={t(info.status)}
+                        position={position}
+                        className="flex"
+                      >
+                        <Icon
+                          className="mx-3"
+                        />
+                        <div className="hidden xl:flex">
+                          {t(info.title)}
+                        </div>
+                      </Tooltip>
+                    ) : (
+                      <>
+                        <Tooltip
+                          content={t(info.title)}
+                          position={position}
+                          className="flex xl:hidden"
+                        >
+                          <Icon
+                            className="mx-3"
+                          />
+                        </Tooltip>
+                        <Icon className="hidden xl:flex mx-3" />
+                        <div className="hidden xl:flex">
+                          {t(info.title)}
+                        </div>
+                      </>
+                    )}
+                  </>
                 )}
               </li>
             );
@@ -174,15 +187,11 @@ Menu.propTypes = {
   mainBlock: PropTypes.object.isRequired,
   setOpenBlock: PropTypes.func.isRequired,
   position: PropTypes.string,
-  placement: PropTypes.oneOf(['icon', 'button']),
-  // is_open: PropTypes.bool,
 };
 
 Menu.defaultProps = {
   config: [],
-  position: '',
-  placement: 'icon',
-  // is_open: true,
+  position: 'left',
 };
 
 export default Menu;

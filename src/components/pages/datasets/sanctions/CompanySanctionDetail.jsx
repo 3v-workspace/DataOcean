@@ -7,11 +7,13 @@ import { ArrowLeft } from 'react-feather';
 import { ReactComponent as EmptyLogo } from 'images/logo_company.svg';
 import useTopBarHiddingEffect from 'hooks/useTopBarHiddingEffect';
 import { renderCondition } from 'utils/conditions';
+import LoadingIcon from 'components/LoadingIcon';
 import SanctionTableShadow from './SanctionTableShadow';
 import PrintDownloadSanction from './PrintDownloadSanction';
 
 const CompanySanctionDetail = () => {
   const [data, setData] = useState({});
+  const [loading, setLoading] = useState(false);
   const { id } = useParams();
   const { t } = useTranslation();
   const history = useHistory();
@@ -103,6 +105,16 @@ const CompanySanctionDetail = () => {
   return (
     <>
       <div className="mt-5 col-span-12 lg:col-span-6 box">
+        {loading && (
+          <div
+            className="w-full h-full bg-gray-900 bg-opacity-50 absolute flex flex-col items-center justify-center z-50 -mb-10"
+          >
+            <LoadingIcon icon="wave" />
+            <div className="text-2xl text-white font-medium text-center pt-2">
+              {t('PDFDownload')}
+            </div>
+          </div>
+        )}
         <div className="py-2 border-b border-gray-200 text-blue-800 flex flex-row font-medium justify-between">
           <div className="inline-flex">
             <button
@@ -114,7 +126,7 @@ const CompanySanctionDetail = () => {
               {t('back')}
             </button>
           </div>
-          <PrintDownloadSanction id={data.id} name={data.name_original} dataset="sanction/company/" />
+          <PrintDownloadSanction id={data.id} name={data.name_original} setLoading={setLoading} dataset="sanction/company/" />
         </div>
         <div className="intro-y space-y-1 flex flex-row justify-around">
           <div className="py-4 px-5 self-auto content-around justify-start">
@@ -143,7 +155,7 @@ const CompanySanctionDetail = () => {
             {getSanctions(data.types_of_sanctions)}
           </div>
         </div>
-        <PrintDownloadSanction className="pt-5 pb-10 mb-5" id={data.id} name={data.name_original} dataset="sanction/company/" />
+        <PrintDownloadSanction className="pt-5 pb-10 mb-5" id={data.id} name={data.name_original} setLoading={setLoading} dataset="sanction/company/" />
       </div>
     </>
   );
