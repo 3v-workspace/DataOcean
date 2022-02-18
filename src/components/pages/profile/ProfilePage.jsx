@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Api from 'api';
 import { ReactRouterPropTypes } from 'utils/prop-types';
 import {
-  Mail, Settings, User, Clipboard, File,
+  Mail, Settings, User, Clipboard, File, HelpCircle, ChevronDown, Check,
 } from 'react-feather';
 import { NavLink, Redirect, Route, Switch } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -11,11 +11,38 @@ import ProjectsPage from '../payment/ProjectsPage';
 import InvoicesTable from '../payment/InvoicesTable';
 import ProfileSettings from './ProfileSettings';
 import LogTable from '../payment/LogTable';
+import Tooltip from '../../Tooltip';
 
 
 const ProfilePage = ({ match }) => {
   const { t } = useTranslation();
   const [stats, setStats] = useState({ api_requests: '---', endpoints: '---' });
+  const [projects, setProjects] = useState([]);
+  const [verified, setVerified] = useState(false);
+
+  const fetchData = () => {
+    Api.get('payment/project/')
+      .then((resp) => {
+        setProjects(resp.data);
+      });
+  };
+
+  const projectLink = (projects) => {
+    let link = '/system/profile/projects/';
+    projects.forEach((project) => {
+      if (project.is_default) {
+        link = link.concat(project.id);
+        if (project.verified) {
+          setVerified(true);
+        }
+      }
+    });
+    return link;
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const user = useSelector((store) => store.user);
   useEffect(() => {
@@ -47,7 +74,18 @@ const ProfilePage = ({ match }) => {
               <div className="truncate sm:whitespace-normal flex items-center">
                 <Mail className="w-4 h-4 mr-2" /> {user.email}
               </div>
-              {user.organization && <div className="text-gray-600">{user.organization}</div>}
+              {user.organization && (
+                <div className="truncate whitespace-normal flex items-center">
+                  {verified && (
+                    <Tooltip content={t('Organization is verified')} noContainer>
+                      <Check className="w-4 h-4 mr-2" />
+                    </Tooltip>
+                  )}
+                  <div className="text-gray-600">
+                    {user.organization}
+                  </div>
+                </div>
+              )}
               {user.position && <div className="text-gray-600">{user.position}</div>}
             </div>
           </div>
@@ -97,8 +135,9 @@ const ProfilePage = ({ match }) => {
           {/*>*/}
           {/*  <User className="w-4 h-4 mr-2" /> {t('profile')}*/}
           {/*</NavLink>*/}
+          {/* eslint-disable-next-line array-callback-return */}
           <NavLink
-            to="/system/profile/projects/"
+            to={() => projectLink(projects)}
             data-toggle="tab"
             className="py-4 sm:mr-8 flex items-center"
             activeClassName="active"

@@ -1,7 +1,7 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 // import PropTypes from 'prop-types';
 import {
-  ChevronRight, User, Settings, HelpCircle, ToggleRight, Clipboard, File,
+  ChevronRight, User, Settings, HelpCircle, ToggleRight, Clipboard, File, Check,
 } from 'react-feather';
 import { Link, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,6 +10,8 @@ import TopBarSearch from 'components/nav/TopBarSearch';
 import getBreadcrumbName from 'const/breadcrumbsNames';
 import { useTranslation } from 'react-i18next';
 import Notifications from 'components/nav/Notifications';
+import Api from '../../api';
+import Tooltip from '../Tooltip';
 
 
 // TODO: finish this
@@ -18,8 +20,37 @@ const TopBar = () => {
   const dispatch = useDispatch();
   const isShown = useSelector((store) => store.interface.topBarShow);
   const user = useSelector((store) => store.user);
+  const [projects, setProjects] = useState([]);
+  const [verified, setVerified] = useState(false);
+  const [link, setLink] = useState('');
 
   const { pathname } = useLocation();
+
+  const fetchData = () => {
+    Api.get('payment/project/')
+      .then((resp) => {
+        setProjects(resp.data);
+      });
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const projectLink = (projects) => {
+    let link = '/system/profile/projects/';
+    projects.forEach((project) => {
+      if (project.is_default) {
+        link = link.concat(project.id);
+        if (project.verified) { setVerified(true); }
+      }
+    });
+    setLink(link);
+  };
+
+  useEffect(() => {
+    projectLink(projects);
+  }, [projects]);
 
   const breadcrumbsNodes = pathname.split('/')
     .filter((path) => !!path)
@@ -77,7 +108,14 @@ const TopBar = () => {
                 {user.first_name} {user.last_name}
               </div>
               {user.organization && (
-                <div className="text-xs text-theme-41">{user.organization}</div>
+                <div className="truncate whitespace-normal flex items-center">
+                  <div className="text-xs text-theme-41">{user.organization}</div>
+                  {verified && (
+                    <Tooltip content={t('Organization is verified')} noContainer>
+                      <Check className="w-2 h-2 ml-2" />
+                    </Tooltip>
+                  )}
+                </div>
               )}
               {user.position && (
                 <div className="text-xs text-theme-41">{user.position}</div>
@@ -86,7 +124,7 @@ const TopBar = () => {
             <div className="p-2">
               <Link
                 onClick={closeDropdown}
-                to="/system/profile/projects/"
+                to={link}
                 className="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 rounded-md"
               >
                 <Clipboard className="w-4 h-4 mr-2" /> {t('projects')}

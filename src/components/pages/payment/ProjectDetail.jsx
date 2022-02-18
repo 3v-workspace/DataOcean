@@ -6,7 +6,7 @@ import TabContentBlock from 'components/pages/profile/TabContentBlock';
 import { BooleanInput, Button, TextInput } from 'components/form-components';
 import {
   Copy, RefreshCcw, HelpCircle,
-  Briefcase, X,
+  Briefcase, X, Check, Trash, Trash2,
 } from 'react-feather';
 import Tooltip from 'components/Tooltip';
 import { BlankModal, YesNoModal, DeleteModal } from 'components/modals';
@@ -20,26 +20,32 @@ import { p2sStatus, u2pRole, u2pStatus } from 'const/projects';
 import toast from 'utils/toast';
 import moment from 'moment';
 import { useDOCookies } from 'hooks';
+import { useSelector } from 'react-redux';
 
 const ProjectDetail = (props) => {
   const { match, history } = props;
-  const projectId = match.params.id;
+
 
   const { t } = useTranslation();
   const setCookie = useDOCookies()[1];
 
   const addUserModalRef = useRef();
   const refreshTokenModalRef = useRef();
+  const leaveOrganizationModalRef = useRef();
   const disableUserModalRef = useRef();
   const deleteUserModalRef = useRef();
   const disableProjectModalRef = useRef();
   const updateProjectModalRef = useRef();
   const removeFutureModalRef = useRef();
 
+  const user = useSelector((store) => store.user);
   const [project, setProject] = useState({});
   const [selectedUser, setSelectedUser] = useState({});
   const [selectedSubscription, setSelectedSubscription] = useState({});
   const [showInvitations, setShowInvitations] = useState(false);
+  const [verified, setVerified] = useState(false);
+  const [invitations, setInvitations] = useState([]);
+  const [projectId, setProjectId] = useState(match.params.id);
 
   const hasFutureSubscription = !!project.subscriptions?.find((s) => s.status === p2sStatus.FUTURE);
 
@@ -53,6 +59,30 @@ const ProjectDetail = (props) => {
     Api.get(`payment/project/${projectId}/`)
       .then((resp) => {
         setProject(resp.data);
+        if (resp.data.verified) {
+          setVerified(true);
+        }
+      });
+    Api.get('payment/invitations/')
+      .then((resp) => {
+        setInvitations(resp.data);
+      });
+  };
+
+  const confirmInvitation = (invite) => {
+    Api.post(`payment/project/${invite.project_id}/confirm-invite/`)
+      .then(() => {
+        toast('success', t('invitationConfirmed'));
+        setProjectId(invite.project_id);
+        fetchData();
+      });
+  };
+
+  const rejectInvitation = (invite) => {
+    Api.delete(`payment/project/${invite.project_id}/reject-invite/`)
+      .then(() => {
+        toast('warning', t('invitationRejected'));
+        fetchData();
       });
   };
 
@@ -90,6 +120,7 @@ const ProjectDetail = (props) => {
       detail_logging: Yup.boolean(),
     }),
     onSubmit: (values, actions) => {
+      console.log(values);
       Api.put(`payment/project/${projectId}/update/`, values)
         .then(() => {
           toast('success', t('projectUpdated'));
@@ -107,13 +138,10 @@ const ProjectDetail = (props) => {
   }, []);
 
   const getProjectStatus = () => {
-    if (project.is_default) {
+    if (project.is_owner) {
       return t('defaultProject');
     }
-    if (project.is_active) {
-      return t('active');
-    }
-    return t('deactivated');
+    return t('active');
   };
 
   const getUserStatus = (userProject) => {
@@ -144,6 +172,20 @@ const ProjectDetail = (props) => {
       });
   };
 
+  const leaveOrganization = () => {
+    console.log('Leave');
+    Api.delete(`payment/project/${projectId}/self-delete/${user.id}/`)
+      .then(() => {
+        toast('warning', t('userWasDeleted'));
+        leaveOrganizationModalRef.current.hide();
+        fetchData();
+      });
+  };
+
+  const openLeaveOrganizationModal = () => {
+    leaveOrganizationModalRef.current.show();
+  };
+
   const deactivateUser = () => {
     Api.delete(`payment/project/${projectId}/deactivate-user/${selectedUser.id}/`)
       .then(() => {
@@ -172,7 +214,7 @@ const ProjectDetail = (props) => {
   const toggleUserActive = (user) => {
     if (user.status === u2pStatus.ACTIVE) {
       setSelectedUser(user);
-      disableUserModalRef.current.show();
+      //disableUserModalRef.current.show();
     } else {
       activateUser(user.id);
     }
@@ -280,23 +322,25 @@ const ProjectDetail = (props) => {
           <>
             <span className="mr-3 flex flex-row mr-10 pt-1">
               {t('status')}: <b className="ml-1">{getProjectStatus()}</b>
-              {project.is_default && (
+              {project.is_owner && (
                 <Tooltip content={t('baseProjectCantBeDeactivated')}>
                   <HelpCircle className="cursor-pointer ml-2 h-5 w-5 text-theme-1" />
+                </Tooltip>
+              )}
+              {!project.is_owner && (
+                <Tooltip content={t('leaveOrganization')} noContainer>
+                  <Button
+                    variant="blank"
+                    isRounded
+                    onClick={openLeaveOrganizationModal}
+                  >
+                    <Trash2 className="w-5 h-5 -mt-3" />
+                  </Button>
                 </Tooltip>
               )}
             </span>
             {project.is_owner && (
               <>
-                {!project.is_default && (
-                  <BooleanInput
-                    readOnly
-                    name="disable_project"
-                    switchStyle
-                    value={project.is_active}
-                    onClick={toggleProjectActivity}
-                  />
-                )}
                 <Button
                   className="px-10"
                   size="sm"
@@ -316,6 +360,12 @@ const ProjectDetail = (props) => {
           message={t('afterRefreshTokenYouLoseAccess')}
           icon={RefreshCcw}
           onYes={refreshToken}
+        />
+        <DeleteModal
+          ref={leaveOrganizationModalRef}
+          header={`${t('leaveOrganization')}?`}
+          message={t('userWillLeaveOrganization')}
+          onDelete={leaveOrganization}
         />
         <DeleteModal
           ref={deleteUserModalRef}
@@ -388,6 +438,11 @@ const ProjectDetail = (props) => {
               name="name"
               formik={projectFormik}
             />
+            {project.verified && (
+              <p className="errorMessage" style={{ color: 'red' }}>{t('' +
+                'Your Organisation will lose verification if the name will be changed.')}
+              </p>
+            )}
             <TextInput
               textarea
               label={t('description')}
@@ -411,9 +466,16 @@ const ProjectDetail = (props) => {
             </div>
           </Form>
         </BlankModal>
-        <h3 className="intro-y text-2xl font-medium leading-none">
-          {project.name}
-        </h3>
+        <div className="truncate whitespace-normal flex items-center">
+          <h3 className="intro-y text-2xl font-medium leading-none">
+            {project.name}
+          </h3>
+          {project.verified && (
+            <Tooltip content={t('Organization is verified')} noContainer>
+              <Check className="w-8 h-8" />
+            </Tooltip>
+          )}
+        </div>
         <div className="intro-y text-gray-500 text-sm my-4 mt-1">
           {t('created')}: {renderDate(project.created_at)}
         </div>
@@ -469,7 +531,7 @@ const ProjectDetail = (props) => {
               <tr className="bg-gray-200 text-gray-700">
                 <th className="w-1/3">{t('firstName')}</th>
                 <th className="w-1/3">Email</th>
-                <th className="w-1/3">{t('status')}</th>
+                <th className="w-1/3">{t('deleteUserFromOrganization')}</th>
               </tr>
             </thead>
             <tbody>
@@ -478,9 +540,14 @@ const ProjectDetail = (props) => {
                   <td className="border-b">
                     <div className="flex items-center">
                       {user.name}
+                    </div>
+                  </td>
+                  <td className="border-b">{user.email}</td>
+                  <td className="border-b">
+                    <div className="flex items-center">
                       {user.role === u2pRole.OWNER && (
                         <Tooltip content={t('projectOwner')} noContainer>
-                          <Briefcase className="ml-1 mb-1 w-4 h-4 text-theme-1 ml-2" />
+                          <Briefcase className="w-4 h-4 text-theme-1 ml-1" />
                         </Tooltip>
                       )}
                       {user.role !== u2pRole.OWNER && project.is_owner && (
@@ -491,21 +558,6 @@ const ProjectDetail = (props) => {
                           />
                         </Tooltip>
                       )}
-                    </div>
-                  </td>
-                  <td className="border-b">{user.email}</td>
-                  <td className="border-b">
-                    <div className="flex items-center">
-                      {user.role !== u2pRole.OWNER && project.is_owner && (
-                        <BooleanInput
-                          readOnly
-                          name={`${user.name}-is_active`}
-                          switchStyle
-                          value={user.status === 'active'}
-                          onClick={() => toggleUserActive(user)}
-                        />
-                      )}
-                      {getUserStatus(user)}
                     </div>
                   </td>
                 </tr>
@@ -661,6 +713,49 @@ const ProjectDetail = (props) => {
             >
               {t('changeSubscription')}
             </Button>
+          </div>
+        )}
+        {!!invitations.length && project.is_owner && (
+          <div className="intro-y overflow-auto">
+            <h3 className="intro-y text-lg font-medium leading-none mt-10 mb-4">
+              {t('invitation')}
+            </h3>
+            <table className="table mb-2">
+              <thead>
+                <tr className="bg-gray-200 text-gray-700">
+                  <th className="whitespace-no-wrap">{t('projectName')}</th>
+                  <th className="whitespace-no-wrap">{t('dateOfInvitation')}</th>
+                  <th className="whitespace-no-wrap">{t('projectOwner')}</th>
+                  <th className="whitespace-no-wrap" />
+                </tr>
+              </thead>
+              <tbody>
+                {invitations.map((invite) => (
+                  <tr key={invite.project_id}>
+                    <td className="border-b">{invite.project_name}</td>
+                    <td className="border-b">{renderDate(invite.updated_at)}</td>
+                    <td className="border-b">{invite.project_owner}</td>
+                    <td className="border-b">
+                      <Button
+                        isRounded
+                        className="mr-2 px-4"
+                        onClick={() => confirmInvitation(invite)}
+                      >
+                        {t('accept')}
+                      </Button>
+                      <Button
+                        isRounded
+                        className="px-4"
+                        variant="secondary"
+                        onClick={() => rejectInvitation(invite)}
+                      >
+                        {t('reject')}
+                      </Button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         )}
       </TabContentBlock>
