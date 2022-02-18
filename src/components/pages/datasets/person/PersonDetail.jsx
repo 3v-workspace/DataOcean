@@ -16,15 +16,13 @@ import {
   MonetaryAssets, Giftbox, Home, Car, IntangibleAssetsIcon, Info, Sanction, BlackLine,
   Name, File,
 } from 'components/blocks/index';
-import { getLocaleField, upFirstLetter } from 'utils';
-import { checkSource, getSourceUrl } from './utils';
-import { personBlocks, SOURCE, STATUS_BLOCK } from './const';
+import { getLocaleField } from 'utils';
+import { personBlocks, STATUS_BLOCK } from './const';
 import {
   CriminalBlock, RelatedPersonBlock, RelatedCompaniesBlock, InformationBlock, Menu,
   SanctionBlock, Tags, CareerBlock, OtherNames,
 } from './index';
 import { checkPepType } from '../pep/pep_detail/utils';
-import { sortedCareerData } from '../../../blocks/utils';
 import { DataSourceLabel } from './DataSourceLabel';
 
 const PersonDetail = ({ match, history }) => {
@@ -96,15 +94,8 @@ const PersonDetail = ({ match, history }) => {
         label: 'placeOfResidence',
         value: person.residence_data.reduce((previousData, newData) => {
           const latestData = previousData > newData.year ? previousData : newData;
-          return [latestData];
+          return getLocaleField(latestData, 'residence');
         }, 0),
-        render: (value) => (
-          <p className="pb-1">
-            { value[0].residence}
-            ({renderDate(value[0].year.toString())})
-            <DataSourceLabel person={person} data={value[0]} />
-          </p>
-        ),
       },
       {
         label: 'alsoKnownAs',
@@ -142,35 +133,42 @@ const PersonDetail = ({ match, history }) => {
         )),
       },
       { label: 'gender', value: person.gender_display },
+      {
+        label: 'lastPosition',
+        value: person.position_data.reduce((previousData, newData) => {
+          const latestData = previousData > newData.year ? previousData : newData;
+          return getLocaleField(latestData, 'position');
+        }, 0),
+      },
     ];
 
-    const getLastPosition = (position_data) => {
-      const filteredData = position_data.filter((item) => item?.position !== '');
-      const lastPositions = [];
-      filteredData.forEach((pos) => {
-        if (!(pos.source in lastPositions)) {
-          lastPositions[pos.source] = pos;
-        }
-      });
-
-      return (
-        <>
-          <tr>
-            <td className="w-40 lg:w-64 align-top font-medium py-1">{t('lastPosition')}:</td>
-            <td className="max-w-xl py-1">
-              <ul>
-                {Object.values(lastPositions).map((pos) => (
-                  <li key={`${pos.position}-${pos.source}`}>
-                    {getLocaleField(pos, 'position')}
-                    <DataSourceLabel person={person} data={pos} />
-                  </li>
-                ))}
-              </ul>
-            </td>
-          </tr>
-        </>
-      );
-    };
+    // const getLastPosition = (position_data) => {
+    //   const filteredData = position_data.filter((item) => item?.position !== '');
+    //   const lastPositions = [];
+    //   filteredData.forEach((pos) => {
+    //     if (!(pos.source in lastPositions)) {
+    //       lastPositions[pos.source] = pos;
+    //     }
+    //   });
+    //
+    //   return (
+    //     <>
+    //       <tr>
+    //         <td className="w-40 lg:w-64 align-top font-medium py-1">{t('lastPosition')}:</td>
+    //         <td className="max-w-xl py-1">
+    //           <ul>
+    //             {Object.values(lastPositions).map((pos) => (
+    //               <li key={`${pos.position}-${pos.source}`}>
+    //                 {getLocaleField(pos, 'position')}
+    //                 <DataSourceLabel person={person} data={pos} />
+    //               </li>
+    //             ))}
+    //           </ul>
+    //         </td>
+    //       </tr>
+    //     </>
+    //   );
+    // };
 
     return (
       <>
@@ -184,7 +182,6 @@ const PersonDetail = ({ match, history }) => {
             ) : null))}
           </tbody>
         </table>
-        <hr className="mt-5 mb-4" style={{ color: '#BBBBBB' }} />
         <table className="flex">
           <tbody>
             {person.pep_data.length ? (
@@ -227,8 +224,8 @@ const PersonDetail = ({ match, history }) => {
             {person.id_card_data.filter(
               (number) => number.id_card || number.passports.length,
             ).length ? (extractIdCartData(person.id_card_data)) : null}
-            {person.position_data.filter((item) => item?.position !== '').length ?
-              getLastPosition(person.position_data) : null}
+            {/*{person.position_data.filter((item) => item?.position !== '').length ?*/}
+            {/*  getLastPosition(person.position_data) : null}*/}
           </tbody>
         </table>
       </>
