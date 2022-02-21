@@ -86,17 +86,14 @@ export const printPDF = (id, dataset, setLoading) => {
   }
   Api.get('temporary-token/create/', { useProjectToken: true })
     .then((resp) => {
+      if (setLoading) {
+        setLoading(false);
+      }
       const cookies = new Cookies(['lang']);
       const lang = cookies.get('lang');
       const params = new URLSearchParams();
       params.set('token', resp.data.token);
       params.set('lang', lang);
-      fetch(`${baseApiUrl}/api/${dataset}${id}/pdf/?${params.toString()}`)
-        .then((resp) => {
-          if (setLoading) {
-            setLoading(false);
-          }
-          window.open(resp.url, '_blank');
-        });
+      window.open(`${baseApiUrl}/api/${dataset}${id}/pdf/?${params.toString()}`, '_blank');
     });
 };
