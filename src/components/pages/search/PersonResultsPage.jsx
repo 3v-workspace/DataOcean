@@ -44,7 +44,8 @@ const PersonResultsPage = (props) => {
   };
 
   const extractLatestResidence = (data) => data.reduce((previousData, newData) => {
-    return previousData > newData.year ? previousData : newData.residence;
+    const latestResidence = previousData > newData.year ? previousData : newData;
+    return getLocaleField(latestResidence, 'residence');
   }, 0);
 
   if (!params.last_name) {
@@ -108,7 +109,7 @@ const PersonResultsPage = (props) => {
                     )}
                     {!!Object.keys(person.residence_data).length && (
                       <tr className="space-bottom">
-                        <td className="font-medium">{t('countryOfResidence')}:</td>
+                        <td className="font-medium">{t('placeOfResidence')}:</td>
                         <td className="pl-1.3">{extractLatestResidence(person.residence_data)}</td>
                       </tr>
                     )}
