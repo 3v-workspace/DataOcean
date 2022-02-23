@@ -78,7 +78,7 @@ const LogTable = () => {
   return (
     <TabContent>
       <TabContentBlock large noPadding title={t('myLogs')}>
-        <div className="overflow-auto md:overflow-hidden">
+        <div className="overflow-auto md:overflow-visible">
           <Table
             columns={columns}
             url="payment/api-logs/project/"

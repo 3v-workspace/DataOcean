@@ -80,6 +80,7 @@ const PepDetail = ({ match, history }) => {
       component: SanctionBlock,
       blockProps: { data: data.SANCTION && data.SANCTION.length ? data.SANCTION : [{ noSanction: t('noSanction') }] },
       type: ASYNCBLOCK,
+      status: STATUS_BLOCK.isInformation,
     },
     {
       id: pepBlocks.CRIMINAL,
@@ -88,6 +89,7 @@ const PepDetail = ({ match, history }) => {
       component: PepCriminal,
       blockProps: { data: pep.criminal_proceedings ? pep.criminal_proceedings : [{ noCriminal: t('noCriminal') }] },
       type: INFOBLOCK,
+      status: STATUS_BLOCK.isInformation,
     },
     {
       id: pepBlocks.RELATED_PERSONS,
@@ -96,6 +98,7 @@ const PepDetail = ({ match, history }) => {
       component: PepRelatedPerson,
       blockProps: { pepId: pep.id, matchProps: match, data: prepareRelatedPersonData(pep) },
       type: INFOBLOCK,
+      status: null,
     },
     {
       id: pepBlocks.RELATED_COMPANIES,
@@ -104,6 +107,7 @@ const PepDetail = ({ match, history }) => {
       component: PepRelatedCompanies,
       blockProps: { data: pep.related_companies },
       type: INFOBLOCK,
+      status: null,
     },
     {
       id: asyncBlocks.CAREER,
@@ -113,6 +117,7 @@ const PepDetail = ({ match, history }) => {
       component: PepCareer,
       blockProps: { data: sortedCareerData(data.CAREER) },
       type: ASYNCBLOCK,
+      status: STATUS_BLOCK.noInformation,
     },
     {
       id: asyncBlocks.INCOME,
@@ -127,6 +132,7 @@ const PepDetail = ({ match, history }) => {
         pepId: pep.id,
         ownerField: 'recipient',
       },
+      status: STATUS_BLOCK.noInformation,
     },
     {
       id: asyncBlocks.LIABILITY,
@@ -137,6 +143,7 @@ const PepDetail = ({ match, history }) => {
       blockData: data.LIABILITY,
       type: ASYNCBLOCK,
       blockProps: { data: data.LIABILITY, pepId: pep.id },
+      status: STATUS_BLOCK.noInformation,
     },
     {
       id: asyncBlocks.EXPENDITURE,
@@ -151,6 +158,7 @@ const PepDetail = ({ match, history }) => {
         pepId: pep.id,
         ownerField: 'participant',
       },
+      status: STATUS_BLOCK.noInformation,
     },
     {
       id: asyncBlocks.MONETARY_ASSETS,
@@ -163,6 +171,7 @@ const PepDetail = ({ match, history }) => {
         data: data.MONETARY_ASSETS.filter((money) => money.amount !== null),
         pepId: pep.id,
       },
+      status: STATUS_BLOCK.noInformation,
     },
     {
       id: asyncBlocks.GIFT,
@@ -177,6 +186,7 @@ const PepDetail = ({ match, history }) => {
         ownerField: 'recipient',
         data: data.GIFT,
       },
+      status: STATUS_BLOCK.noInformation,
     },
     {
       id: pepBlocks.INTANGIBLE_ASSETS,
@@ -185,6 +195,7 @@ const PepDetail = ({ match, history }) => {
       component: IntangibleAssets,
       blockProps: { data: pep.cryptocurrencies_from_last_declaration },
       type: INFOBLOCK,
+      status: STATUS_BLOCK.noInformation,
     },
     {
       id: asyncBlocks.REAL_ESTATE,
@@ -194,6 +205,7 @@ const PepDetail = ({ match, history }) => {
       component: PepProperty,
       type: ASYNCBLOCK,
       blockProps: { data: data.REAL_ESTATE },
+      status: STATUS_BLOCK.noInformation,
     },
     {
       id: asyncBlocks.CAR,
@@ -203,6 +215,7 @@ const PepDetail = ({ match, history }) => {
       component: PepVehicle,
       blockProps: { data: data.CAR },
       type: ASYNCBLOCK,
+      status: STATUS_BLOCK.noInformation,
     },
     {
       id: pepBlocks.OTHER_NAMES,
@@ -211,6 +224,7 @@ const PepDetail = ({ match, history }) => {
       component: PepOtherNames,
       blockProps: { data: pep.fullname_transcriptions_eng },
       type: INFOBLOCK,
+      status: STATUS_BLOCK.noInformation,
     },
     {
       id: pepBlocks.ADDITIONAL_INFO,
@@ -219,6 +233,7 @@ const PepDetail = ({ match, history }) => {
       component: PepHtml,
       blockProps: { data: pep.info || '' },
       type: INFOBLOCK,
+      status: STATUS_BLOCK.noInformation,
     },
   ];
   const getShortInfo = () => {
@@ -308,6 +323,11 @@ const PepDetail = ({ match, history }) => {
       prev.status = STATUS_BLOCK.noInformation;
       cur.status = STATUS_BLOCK.isInformation;
       return 1;
+    }
+    if (!(cur.blockProps.data.length)) {
+      cur.status = STATUS_BLOCK.noInformation;
+    } else {
+      cur.status = STATUS_BLOCK.isInformation;
     }
     return 0;
   }).map((block, i) => {

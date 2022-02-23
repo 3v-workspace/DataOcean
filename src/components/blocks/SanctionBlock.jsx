@@ -56,7 +56,7 @@ const SanctionBlock = (props) => {
           {t(EXPIRED)}
         </Button>
       </div>
-      <tr className="py-6 float-left font-bold">
+      <div className="py-6 float-left font-bold">
         <Trans
           i18nKey="sanctionsCounter"
           values={{ count: sanctions.activeSanction.length + sanctions.inactiveSanction.length,
@@ -64,7 +64,7 @@ const SanctionBlock = (props) => {
             expired: sanctions.inactiveSanction.length,
           }}
         />
-      </tr>
+      </div>
       <table className="table text-left">
         <thead>
           <tr className="bg-gray-200 text-gray-700">
@@ -79,9 +79,11 @@ const SanctionBlock = (props) => {
         {(isEqualArray(values, [ALL]) || isEqualArray(values, [ACTIVE])) &&
         !!sanctions.activeSanction.length && (
           <>
-            <tr className="pl-5 py-1.5 float-left font-bold">
-              {t('activeSanctions')}
-            </tr>
+            <tbody>
+              <tr className="pl-5 py-1.5 float-left font-bold">
+                <td>{t('activeSanctions')}</td>
+              </tr>
+            </tbody>
             <tbody className="rounded-sm border-none" style={{ background: '#FFF4F4' }}>
               {sanctions.activeSanction.map((sanction) => (
                 sanction.name_of_sanction.map((type, i) => (

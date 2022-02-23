@@ -283,21 +283,21 @@ const PersonDetail = ({ match, history }) => {
       id: personBlocks.CAREER,
       title: 'career',
       titleIcon: Career,
-      component: CareerBlock,
       blockProps: {
         data: person.position_data,
         person,
       },
+      component: CareerBlock,
       status: null,
     },
     {
       id: personBlocks.OTHER_NAMES,
       title: 'otherNames',
       titleIcon: Name,
-      component: OtherNames,
       blockProps: {
         data: person.full_name_options,
       },
+      component: OtherNames,
       status: null,
     },
     {
@@ -395,11 +395,11 @@ const PersonDetail = ({ match, history }) => {
   const getAdditionalInfo = () => config.sort((prev, cur) => {
     if (prev.blockProps.data && prev.blockProps.data.length && !(cur.blockProps.data.length)) {
       prev.status = STATUS_BLOCK.isInformation;
-      cur.status = STATUS_BLOCK.noInformation;
+      cur.status = STATUS_BLOCK.inDevelopment;
       return -1;
     }
     if (cur.blockProps.data.length && !(prev.blockProps.data.length)) {
-      prev.status = STATUS_BLOCK.noInformation;
+      prev.status = STATUS_BLOCK.inDevelopment;
       cur.status = STATUS_BLOCK.isInformation;
       return 1;
     }
